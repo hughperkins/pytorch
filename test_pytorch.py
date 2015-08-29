@@ -38,6 +38,8 @@ tensorA.set2d(1, 1, 56.4)
 tensorA.set2d(2, 0, 76.5)
 print('A', A)
 
+tensorA += 5
+print('A', A)
 
 #foo = tensorA * tensorB
 #print('A', A)

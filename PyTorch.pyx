@@ -61,6 +61,7 @@ cdef extern from "THTensor.h":
     long THFloatTensor_stride(const THFloatTensor *self, int dim)
     float THFloatTensor_get2d(const THFloatTensor *tensor, long x0, long x1)
     void THFloatTensor_set2d(const THFloatTensor *tensor, long x0, long x1, float value)
+    void THFloatTensor_add(THFloatTensor *r_, THFloatTensor *t, float value)
 
 def process3(myarray):
     print('process2')
@@ -116,6 +117,9 @@ cdef class Tensor(object):
 
     cpdef float get2d(self, int x0, int x1):
         return THFloatTensor_get2d(self.thFloatTensor, x0, x1)
+
+    def __add__(Tensor self, float value):
+        THFloatTensor_add(self.thFloatTensor, self.thFloatTensor, value)
 
 #    def __mul__(Tensor self, Tensor M2):
 ##        Tensor T = Tensor()
