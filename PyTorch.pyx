@@ -211,12 +211,21 @@ cdef class Tensor(object):
 #            return Tensor(newTensorC, None)
         return tensor        
 
-    def __add__(Tensor self, float value):
+    def __iadd__(Tensor self, float value):
+        print('iadd')
         # assume 2d matrix for now?
 #        THFloatTensor *cResult = THFloatTensor_new()
 #        THFloatTensor_resizeAs(cresult, self.thFloatTensor)
         THFloatTensor_add(self.thFloatTensor, self.thFloatTensor, value)
         return self
+
+    def __add__(Tensor self, float value):
+        print('iadd')
+        # assume 2d matrix for now?
+        cdef Tensor res = Tensor.new()
+#        THFloatTensor_resizeAs(cresult, self.thFloatTensor)
+        THFloatTensor_add(res.thFloatTensor, self.thFloatTensor, value)
+        return res
 
 #    def __mul__(Tensor self, Tensor M2):
 ##        Tensor T = Tensor()
