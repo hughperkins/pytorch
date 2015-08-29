@@ -1,5 +1,5 @@
 # pytorch
-POC for wrapping torch in python :-P
+POC for wrapping torch in python
 
 Example of what is possible currently:
 
