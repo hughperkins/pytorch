@@ -43,30 +43,8 @@ def process2(myarray):
 #cdef struct THFloatStorage:
 #    pass
 
-cdef extern from "THStorage.h":
-    cdef struct THFloatStorage
-    THFloatStorage* THFloatStorage_newWithData(float *data, long size)
-    THFloatStorage* THFloatStorage_new()
-    void THFloatStorage_free(THFloatStorage *self)
-
 #cdef struct THFloatTensor:
 #    pass
-
-cdef extern from "THTensor.h":
-    cdef struct THFloatTensor
-    THFloatTensor* THFloatTensor_newWithStorage2d(THFloatStorage *storage, long storageOffset, long size0, long stride0, long size1, long stride1)
-    void THFloatTensor_add(THFloatTensor *tensorSelf, THFloatTensor *tensorOne, float value)
-    void THFloatTensor_addmm(THFloatTensor *tensorSelf, float beta, THFloatTensor *tensorOne, float alpha, THFloatTensor *mat1, THFloatTensor *mat2)
-    int THFloatTensor_nDimension(THFloatTensor *tensor)
-    THFloatTensor *THFloatTensor_new()
-    void THFloatTensor_free(THFloatTensor *self)
-    void THFloatTensor_resizeAs(THFloatTensor *self, THFloatTensor *model)
-    long THFloatTensor_size(const THFloatTensor *self, int dim)
-    long THFloatTensor_stride(const THFloatTensor *self, int dim)
-    float THFloatTensor_get2d(const THFloatTensor *tensor, long x0, long x1)
-    void THFloatTensor_set2d(const THFloatTensor *tensor, long x0, long x1, float value)
-    void THFloatTensor_add(THFloatTensor *r_, THFloatTensor *t, float value)
-    THFloatStorage *THFloatTensor_storage(THFloatTensor *self)
 
 def process3(myarray):
     print('process2')
@@ -82,6 +60,14 @@ def process3(myarray):
     cdef THFloatTensor *tensor = THFloatTensor_newWithStorage2d(floatStorage, 0, rows, cols, cols, 1)
     THFloatTensor_add(tensor, tensor, 19)
 
+cdef extern from "THStorage.h":
+    cdef struct THFloatStorage
+    THFloatStorage* THFloatStorage_newWithData(float *data, long size)
+    THFloatStorage* THFloatStorage_new()
+    THFloatStorage* THFloatStorage_newWithSize(long size)
+    long THFloatStorage_size(THFloatStorage *self)
+    void THFloatStorage_free(THFloatStorage *self)
+
 cdef class Storage(object):
     cdef THFloatStorage *thFloatStorage
 
@@ -90,22 +76,6 @@ cdef class Storage(object):
             raise Exception('cannot provide arguments to initializer')
         if len(kwargs) > 0:
             raise Exception('cannot provide arguments to initializer')
-
-#    def __cinit__(self, THFloatStorage *thFloatStorage):
-#        self.thFloatStorage = thFloatStorage
-#        cdef float[:] myarraymv
-#        if myarray is not None:
-#            dims = len(myarray.shape)
-#            print('dims', dims)
-#            rows = myarray.shape[0]
-#            cols = myarray.shape[1]
-#            print('rows=' + str(rows) + ' cols=' + str(cols))
-
-    #    A = array.array('f', [3] * 2 * 3)
-#            myarraymv = myarray.reshape(rows * cols)
-#            self.thFloatStorage = THFloatStorage_newWithData(&myarraymv[0], rows * cols)
-#        else:
-#            self.thFloatStorage = THFloatStorage_new()
 
     @staticmethod
     def new():
@@ -117,25 +87,44 @@ cdef class Storage(object):
 
     @staticmethod
     def newWithData(float [:] data):
-#        cdef float[:] myarraymv
-#        dims = len(myarray.shape)
-#        print('dims', dims)
-#        rows = myarray.shape[0]
-#        cols = myarray.shape[1]
-#        print('rows=' + str(rows) + ' cols=' + str(cols))
-
-#        myarraymv = myarray.reshape(rows * cols)
-#        storage = Storage.newWithData(myarraymv)
-
         cdef THFloatStorage *storageC = THFloatStorage_newWithData(&data[0], len(data))
         print('allocate storage')
         storage = Storage()
         storage.thFloatStorage = storageC
         return storage
 
+    @staticmethod
+    def newWithSize(long size):
+        cdef THFloatStorage *storageC = THFloatStorage_newWithSize(size)
+        print('allocate storage')
+        storage = Storage()
+        storage.thFloatStorage = storageC
+        return storage
+
+    cpdef long size(self):
+        return THFloatStorage_size(self.thFloatStorage)
+
     def __dealloc__(self):
         print('free storage')
         THFloatStorage_free(self.thFloatStorage)
+
+cdef extern from "THTensor.h":
+    cdef struct THFloatTensor
+    THFloatTensor* THFloatTensor_newWithStorage2d(THFloatStorage *storage, long storageOffset, long size0, long stride0, long size1, long stride1)
+    void THFloatTensor_add(THFloatTensor *tensorSelf, THFloatTensor *tensorOne, float value)
+    void THFloatTensor_addmm(THFloatTensor *tensorSelf, float beta, THFloatTensor *tensorOne, float alpha, THFloatTensor *mat1, THFloatTensor *mat2)
+    int THFloatTensor_nDimension(THFloatTensor *tensor)
+    THFloatTensor *THFloatTensor_new()
+    THFloatTensor *THFloatTensor_newWithSize2d(long size0, long size1)
+    void THFloatTensor_free(THFloatTensor *self)
+    void THFloatTensor_resizeAs(THFloatTensor *self, THFloatTensor *model)
+    void THFloatTensor_resize2d(THFloatTensor *self, long size0, long size1)
+    long THFloatTensor_size(const THFloatTensor *self, int dim)
+    long THFloatTensor_stride(const THFloatTensor *self, int dim)
+    float THFloatTensor_get2d(const THFloatTensor *tensor, long x0, long x1)
+    void THFloatTensor_set2d(const THFloatTensor *tensor, long x0, long x1, float value)
+    void THFloatTensor_add(THFloatTensor *r_, THFloatTensor *t, float value)
+    THFloatStorage *THFloatTensor_storage(THFloatTensor *self)
 
 cdef class Tensor(object):
     cdef THFloatTensor *thFloatTensor
@@ -178,44 +167,34 @@ cdef class Tensor(object):
         if storageC != NULL:
             tensor.storage = Storage()
             tensor.storage.thFloatStorage = storageC
-#            return Tensor(newTensorC, Storage(storageC))
-#        else:
-#            return Tensor(newTensorC, None)
         return tensor
 
     @staticmethod
     def newWithStorage2d(Storage storage, offset, size0, stride0, size1, stride1):
-#        cdef float[:] myarraymv
-#        dims = len(data.shape)
-#        print('dims', dims)
-#        rows = data.shape[0]
-#        cols = data.shape[1]
-#        print('rows=' + str(rows) + ' cols=' + str(cols))
-
-#        myarraymv = data.reshape(rows * cols)
-#        cdef Storage storage = Storage.newWithData(myarraymv)
-
-##        self.thFloatTensor = THFloatTensor_newWithStorage2d(storage.thFloatStorage, offset, size0, stride0, size1, stride1)
         print('allocate tensor')
         cdef THFloatTensor *newTensorC = THFloatTensor_newWithStorage2d(storage.thFloatStorage, offset, size0, stride0, size1, stride1)
         tensor = Tensor()
         tensor.thFloatTensor = newTensorC
         tensor.storage = storage
-
-#        cdef THFloatStorage *storageC = THFloatTensor_storage(newTensorC)
-#        if storageC != NULL:
-#            tensor.storage = Storage()
-#            tensor.storage.thFloatStorage = storageC
-#            return Tensor(newTensorC, Storage(storageC))
-#        else:
-#            return Tensor(newTensorC, None)
         return tensor        
 
+    def resize2d(Tensor self, long size0, long size1):
+        newNumElements = size0 * size1
+        currentNumElements = 0
+        if self.storage is not None:
+            currentNumElements = self.storage.size()
+        if currentNumElements > newNumElements:
+            self.thFloatTensor = THFloatTensor_newWithSize2d(size0, size1)
+            self.storage = Storage()
+            self.storage.thFloatStorage = THFloatTensor_storage(self.thFloatTensor)
+        else:
+            THFloatTensor_resize2d(self.thFloatTensor, size0, size1)
+
+        return self
+#            this.storage = Storage.newWithSize(newNumElements)
+        
     def __iadd__(Tensor self, float value):
         print('iadd')
-        # assume 2d matrix for now?
-#        THFloatTensor *cResult = THFloatTensor_new()
-#        THFloatTensor_resizeAs(cresult, self.thFloatTensor)
         THFloatTensor_add(self.thFloatTensor, self.thFloatTensor, value)
         return self
 
@@ -227,11 +206,16 @@ cdef class Tensor(object):
         THFloatTensor_add(res.thFloatTensor, self.thFloatTensor, value)
         return res
 
-#    def __mul__(Tensor self, Tensor M2):
-##        Tensor T = Tensor()
+    def __mul__(Tensor self, Tensor M2):
+        cdef Tensor T = Tensor.new()
+        cdef Tensor res = Tensor.new()
+        cdef int resRows = THFloatTensor_size(self.thFloatTensor, 0)
+        cdef int resCols = THFloatTensor_size(M2.thFloatTensor, 1)
+        res.resize2d(resRows, resCols)
+        T.resize2d(resRows, resCols)
 #        cdef array Tarray = array('f', [0] * 
-#        THFloatTensor_addmm(self.thFloatTensor, 0, NULL, 1, self.thFloatTensor, M2.thFloatTensor)
-#        return self
+        THFloatTensor_addmm(res.thFloatTensor, 0, T.thFloatTensor, 1, self.thFloatTensor, M2.thFloatTensor)
+        return res
 
 def asTensor(myarray):
     print('process2')

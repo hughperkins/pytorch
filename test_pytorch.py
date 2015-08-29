@@ -61,8 +61,17 @@ for r in range(3):
 print('')
 #print('tensorA2', tensorA2)
 
-#foo = tensorA * tensorB
-#print('A', A)
+tensorAB = tensorA * tensorB
+print('tensorAB get2d:')
+for r in range(3):
+    thisline = ''
+    for c in range(4):
+        thisline += ' ' + str(tensorAB.get2d(r,c))
+    print(thisline)
+print('')
+#print('tensorAB', tensorAB)
+
+print('A.dot(B)', A.dot(B))
 
 # A = array.array('f', [0] * (N * planes * size * size))
 
