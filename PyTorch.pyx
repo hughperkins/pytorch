@@ -11,6 +11,7 @@ cdef extern from "THStorage.h":
     THFloatStorage* THFloatStorage_newWithSize(long size)
     long THFloatStorage_size(THFloatStorage *self)
     void THFloatStorage_free(THFloatStorage *self)
+    void THFloatStorage_retain(THFloatStorage *self)
 
 cdef class Storage(object):
     cdef THFloatStorage *thFloatStorage
@@ -69,10 +70,13 @@ cdef extern from "THTensor.h":
     void THFloatTensor_set2d(const THFloatTensor *tensor, long x0, long x1, float value)
     void THFloatTensor_add(THFloatTensor *r_, THFloatTensor *t, float value)
     THFloatStorage *THFloatTensor_storage(THFloatTensor *self)
+    void THFloatTensor_retain(THFloatTensor *self)
 
 cdef class Tensor(object):
     cdef THFloatTensor *thFloatTensor
-    cdef Storage storage
+    cdef Storage storage  # Note that storing this here isnt very good, since we dont know when the underlying storage has been torn out 
+                          # from under us...  Simply don't provide access to undelrying Storage objcts? Call retain?
+                          # maybe leave like this for now, and fix it next time we have a segfault...
 
     def __init__(self, *args, **kwargs):
         if len(args) > 0:
@@ -191,4 +195,52 @@ def asTensor(myarray):
 #    tensor = Tensor(storage, 0, rows, cols, cols, 1)
     tensor = Tensor.newWithStorage2d(storage, 0, rows, cols, cols, 1)
     return tensor
+
+cdef extern from "nnWrapper.h":
+    cdef struct lua_State
+    lua_State *luaInit()
+    void luaClose(lua_State *L)
+    cdef cppclass _Linear:
+        _Linear(lua_State *L, int inputSize, int OutputSize)
+        void updateOutput(THFloatTensor *input)
+        THFloatTensor *getOutput()
+
+cdef class Linear(object):
+    cdef _Linear *linear
+
+    def __cinit__(self, Nn nn, inputSize, outputSize):
+        self.linear = new _Linear(nn.L, inputSize, outputSize)
+
+    def __dealloc__(self):
+        del self.linear
+
+    def updateOutput(self, Tensor input):
+        self.linear.updateOutput(input.thFloatTensor)
+
+    def getOutput(self):
+        cdef THFloatTensor *outputC = self.linear.getOutput()
+        output = Tensor()
+        THFloatTensor_retain(output.thFloatTensor)
+        output.thFloatTensor = outputC
+        cdef THFloatStorage *storageC = THFloatTensor_storage(outputC)
+        storage = Storage()
+        THFloatStorage_retain(storage.thFloatStorage)
+        storage.thFloatStorage = storageC
+        output.storage = storage
+        return output
+
+# cdef extern from "lua.h":
+
+cdef class Nn(object):  # basically holds the Lua state, but maybe easier to call it Nn than LuaState?
+    cdef lua_State *L
+
+    def __cinit__(self):
+        self.L = luaInit()
+    
+    def __dealloc__(self):
+        luaClose(self.L)
+
+    def Linear(self, inputSize, outputSize):
+        cdef Linear linear = Linear(self, inputSize, outputSize)
+        return linear
 

@@ -12,6 +12,9 @@ import platform
 from setuptools import setup
 from setuptools import Extension
 
+home_dir = os.getenv('HOME')
+print('home_dir:', home_dir)
+
 cython_present = False
 from Cython.Build import cythonize
 cython_present = True
@@ -35,11 +38,12 @@ else:
 
 runtime_library_dirs = []
 libraries = []
-libraries.append('mylib')
+#libraries.append('mylib')
+libraries.append('nnWrapper')
 libraries.append('TH')
 library_dirs = []
 library_dirs.append('cbuild')
-library_dirs.append('/home/user/torch/install/lib')
+library_dirs.append(home_dir + '/torch/install/lib')
 
 if osfamily == 'Linux':
     runtime_library_dirs = ['.']
@@ -53,12 +57,12 @@ if cython_present:
 ext_modules = [
     Extension("PyTorch",
               sources=sources,
-              include_dirs=['/home/user/torch/install/include/TH'],
+              include_dirs=[home_dir + '/torch/install/include/TH'],
               library_dirs=library_dirs,
               libraries=libraries,
               extra_compile_args=compile_options,
               runtime_library_dirs=runtime_library_dirs,
-              language="c")]
+              language="c++")]
 
 ext_modules = cythonize(ext_modules)
 
