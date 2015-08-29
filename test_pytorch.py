@@ -41,6 +41,24 @@ print('A', A)
 tensorA += 5
 print('A', A)
 
+tensorA2 = tensorA + 7
+print('tensorA2 get2d:')
+for r in range(3):
+    thisline = ''
+    for c in range(2):
+        thisline += ' ' + str(tensorA2.get2d(r,c))
+    print(thisline)
+print('')
+
+print('tensorA get2d:')
+for r in range(3):
+    thisline = ''
+    for c in range(2):
+        thisline += ' ' + str(tensorA.get2d(r,c))
+    print(thisline)
+print('')
+#print('tensorA2', tensorA2)
+
 #foo = tensorA * tensorB
 #print('A', A)
 

@@ -120,6 +120,7 @@ cdef class Tensor(object):
 
     def __add__(Tensor self, float value):
         THFloatTensor_add(self.thFloatTensor, self.thFloatTensor, value)
+        return self
 
 #    def __mul__(Tensor self, Tensor M2):
 ##        Tensor T = Tensor()
