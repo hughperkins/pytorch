@@ -217,6 +217,22 @@ cdef class Tensor(object):
         THFloatTensor_addmm(res.thFloatTensor, 0, T.thFloatTensor, 1, self.thFloatTensor, M2.thFloatTensor)
         return res
 
+    def __repr__(Tensor self):
+        # assume 2d matrix for now
+#        print('tensorAB get2d:')
+        cdef int rows = THFloatTensor_size(self.thFloatTensor, 0)
+        cdef int cols = THFloatTensor_size(self.thFloatTensor, 1)
+        res = ''
+        for r in range(rows):
+            thisline = ''
+            for c in range(cols):
+                if c > 0:
+                    thisline += ' '
+                thisline += str(self.get2d(r,c))
+            res += thisline + '\n'
+        res += '[torch.FloatTensor of size ' + str(rows) + 'x' + str(cols) + ']\n'
+        return res
+
 def asTensor(myarray):
     print('process2')
     dims = len(myarray.shape)

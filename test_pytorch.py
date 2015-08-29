@@ -69,7 +69,7 @@ for r in range(3):
         thisline += ' ' + str(tensorAB.get2d(r,c))
     print(thisline)
 print('')
-#print('tensorAB', tensorAB)
+print('tensorAB', tensorAB)
 
 print('A.dot(B)', A.dot(B))
 
