@@ -9,19 +9,7 @@ B = numpy.random.rand(8).reshape(2,4).astype(numpy.float32)
 C = A.dot(B)
 print('C', C)
 
-anArray = array.array('f', [3] * 2 * 3)
-res = PyTorch.process1(2, 3, anArray)
-print('res', res)
-
-res = PyTorch.process1(2, 3, A.reshape(6))
-print('res', res)
-
-res = PyTorch.process2(A)
-print('res', res)
-print('A', A)
-
-PyTorch.process3(A)
-print('A', A)
+#anArray = array.array('f', [3] * 2 * 3)
 
 print('calling .asTensor...')
 tensorA = PyTorch.asTensor(A)

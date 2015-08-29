@@ -1,64 +1,8 @@
 import cython
 cimport cython
 
-#import numpy
-#cimport numpy
-
-#from cpython import array
 cimport cpython.array
 import array
-
-# class Tensor(object):
-#     def __init__(self, numpy_array):
-#         print('Tensor.__init__')
-
-cdef extern from "mylib.h":
-    cdef float mysum(int rows, int cols, float *myarray)
-
-def process1(int rows, int cols, float[:] myarray):
-    print('process1')
-#    dims = len(array.shape)
-#    print('dims', dims)
-#    rows = array.shape[0]
-#    cols = array.shape[1]
-#    print('rows=' + str(rows) + ' cols=' + str(cols))
-
-#    A = array.array('f', [3] * 2 * 3)
-    res = mysum(rows, cols, &myarray[0])
-    return res
-
-def process2(myarray):
-    print('process2')
-    dims = len(myarray.shape)
-    print('dims', dims)
-    rows = myarray.shape[0]
-    cols = myarray.shape[1]
-    print('rows=' + str(rows) + ' cols=' + str(cols))
-
-#    A = array.array('f', [3] * 2 * 3)
-    cdef float[:] myarraymv = myarray.reshape(rows * cols)
-    res = mysum(rows, cols, &myarraymv[0])
-    return res
-
-#cdef struct THFloatStorage:
-#    pass
-
-#cdef struct THFloatTensor:
-#    pass
-
-def process3(myarray):
-    print('process2')
-    dims = len(myarray.shape)
-    print('dims', dims)
-    rows = myarray.shape[0]
-    cols = myarray.shape[1]
-    print('rows=' + str(rows) + ' cols=' + str(cols))
-
-#    A = array.array('f', [3] * 2 * 3)
-    cdef float[:] myarraymv = myarray.reshape(rows * cols)
-    cdef THFloatStorage *floatStorage = THFloatStorage_newWithData(&myarraymv[0], rows * cols)
-    cdef THFloatTensor *tensor = THFloatTensor_newWithStorage2d(floatStorage, 0, rows, cols, cols, 1)
-    THFloatTensor_add(tensor, tensor, 19)
 
 cdef extern from "THStorage.h":
     cdef struct THFloatStorage
