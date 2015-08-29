@@ -23,8 +23,10 @@ print('A', A)
 PyTorch.process3(A)
 print('A', A)
 
+print('calling .asTensor...')
 tensorA = PyTorch.asTensor(A)
 tensorB = PyTorch.asTensor(B)
+print(' ... asTensor called')
 
 print('torch tensor get2d:')
 for r in range(3):
