@@ -277,13 +277,17 @@ cdef class Linear(Module):
         THFloatTensor_retain(outputC)
         return FloatTensor.fromNative(outputC)
 
-    def getOutput(self):
+    @property
+    def output(self):
         cdef THFloatTensor *outputC = self.native.getOutput()
         THFloatTensor_retain(outputC)
         return FloatTensor.fromNative(outputC)
 
-    def getWeight(self):
-        return FloatTensor.fromNative((<_Linear *>(self.native)).getWeight())
+    @property
+    def weight(self):
+        cdef THFloatTensor *weightC = (<_Linear *>(self.native)).getWeight()
+        THFloatTensor_retain(weightC)
+        return FloatTensor.fromNative(weightC)
 
 cdef class Criterion(object):
     cdef _Criterion *native

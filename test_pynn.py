@@ -13,7 +13,7 @@ nn = PyTorch.Nn()
 linear = nn.Linear(3, 8)
 output = linear.updateOutput(tensorA)
 print('output', output)
-print('weight', linear.getWeight())
+print('weight', linear.weight)
 
 #dataset = nn.Dataset()
 
@@ -42,7 +42,7 @@ for n in range(20):
     thisImage = imagesTensor[n]
     print('thisImage.size()', thisImage.size())
     print('thisImage.storage.size()', thisImage.storage().size())
-    mlpstorage = mlp.getOutput().storage()
+    mlpstorage = mlp.output.storage()
     print('got mlpstorage')
     print('mlp.getOutput().storage is None', mlpstorage is None)
     output = mlp.updateOutput(thisImage)
