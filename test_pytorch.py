@@ -36,7 +36,7 @@ print('A.dot(B)', A.dot(B))
 
 print('tensorA[2]', tensorA[2])
 
-D = PyTorch.Tensor(5,3)
+D = PyTorch.FloatTensor(5,3)
 print('D', D)
 D.fill(1.5)
 print('D', D)

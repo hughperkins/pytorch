@@ -60,6 +60,7 @@ cdef extern from "THTensor.h":
     void THFloatTensor_addmm(THFloatTensor *tensorSelf, float beta, THFloatTensor *tensorOne, float alpha, THFloatTensor *mat1, THFloatTensor *mat2)
     int THFloatTensor_nDimension(THFloatTensor *tensor)
     THFloatTensor *THFloatTensor_new()
+    THFloatTensor *THFloatTensor_newWithSize1d(long size0)
     THFloatTensor *THFloatTensor_newWithSize2d(long size0, long size1)
     THFloatTensor *THFloatTensor_newSelect(THFloatTensor *self, int dimension, int sliceIndex)
     void THFloatTensor_free(THFloatTensor *self)
@@ -69,13 +70,15 @@ cdef extern from "THTensor.h":
     long THFloatTensor_stride(const THFloatTensor *self, int dim)
     float THFloatTensor_get1d(const THFloatTensor *tensor, long x0)
     float THFloatTensor_get2d(const THFloatTensor *tensor, long x0, long x1)
+    void THFloatTensor_set1d(const THFloatTensor *tensor, long x0, float value)
     void THFloatTensor_set2d(const THFloatTensor *tensor, long x0, long x1, float value)
     void THFloatTensor_fill(THFloatTensor *self, float value)
+#    void THFloatTensor_uniform(THFloatTensor *self, float value)
     void THFloatTensor_add(THFloatTensor *r_, THFloatTensor *t, float value)
     THFloatStorage *THFloatTensor_storage(THFloatTensor *self)
     void THFloatTensor_retain(THFloatTensor *self)
 
-cdef class Tensor(object):
+cdef class FloatTensor(object):
     cdef THFloatTensor *thFloatTensor
 
 #    def __cinit__(Tensor self, THFloatTensor *tensorC = NULL):
@@ -88,9 +91,12 @@ cdef class Tensor(object):
             for arg in args:
                 if not isinstance(arg, int):
                     raise Exception('cannot provide arguments to initializer')
-            if len(args) != 2:
+            if len(args) == 1:
+                self.thFloatTensor = THFloatTensor_newWithSize1d(args[0])
+            if len(args) == 2:
+                self.thFloatTensor = THFloatTensor_newWithSize2d(args[0], args[1])
+            else:
                 raise Exception('Not implemented')
-            self.thFloatTensor = THFloatTensor_newWithSize2d(args[0], args[1])
 
 #    def __cinit__(self, THFloatTensor *tensorC, Storage storage):
 #        self.thFloatTensor = tensorC
@@ -107,6 +113,9 @@ cdef class Tensor(object):
     cpdef int dims(self):
         return THFloatTensor_nDimension(self.thFloatTensor)
 
+    cpdef set1d(self, int x0, float value):
+        THFloatTensor_set1d(self.thFloatTensor, x0, value)
+
     cpdef set2d(self, int x0, int x1, float value):
         THFloatTensor_set2d(self.thFloatTensor, x0, x1, value)
 
@@ -118,7 +127,7 @@ cdef class Tensor(object):
 
     @staticmethod
     cdef fromNative(THFloatTensor *tensorC):
-        tensor = Tensor()
+        tensor = FloatTensor()
         tensor.thFloatTensor = tensorC
         return tensor
 
@@ -126,42 +135,49 @@ cdef class Tensor(object):
     def new():
         print('allocate tensor')
         cdef THFloatTensor *newTensorC = THFloatTensor_new()
-        return Tensor.fromNative(newTensorC)
+        return FloatTensor.fromNative(newTensorC)
 
     @staticmethod
     def newWithStorage2d(Storage storage, offset, size0, stride0, size1, stride1):
         print('allocate tensor')
         cdef THFloatTensor *newTensorC = THFloatTensor_newWithStorage2d(storage.thFloatStorage, offset, size0, stride0, size1, stride1)
-        return Tensor.fromNative(newTensorC)
+        return FloatTensor.fromNative(newTensorC)
 
-    def resize2d(Tensor self, long size0, long size1):
+    def resize2d(FloatTensor self, long size0, long size1):
         THFloatTensor_resize2d(self.thFloatTensor, size0, size1)
         return self
         
-    def __iadd__(Tensor self, float value):
+    def __iadd__(FloatTensor self, float value):
         print('iadd')
         THFloatTensor_add(self.thFloatTensor, self.thFloatTensor, value)
         return self
 
-    def __getitem__(Tensor self, int index):
+    def __getitem__(FloatTensor self, int index):
         cdef THFloatTensor *res = THFloatTensor_newSelect(self.thFloatTensor, 0, index)
-        return Tensor.fromNative(res)
+        return FloatTensor.fromNative(res)
 
-    def __add__(Tensor self, float value):
+    def __add__(FloatTensor self, float value):
         print('iadd')
         # assume 2d matrix for now?
-        cdef Tensor res = Tensor.new()
+        cdef FloatTensor res = FloatTensor.new()
 #        THFloatTensor_resizeAs(cresult, self.thFloatTensor)
         THFloatTensor_add(res.thFloatTensor, self.thFloatTensor, value)
         return res
 
-    def fill(Tensor self, float value):
+    def fill(FloatTensor self, float value):
         THFloatTensor_fill(self.thFloatTensor, value)
         return self
 
-    def __mul__(Tensor self, Tensor M2):
-        cdef Tensor T = Tensor.new()
-        cdef Tensor res = Tensor.new()
+    def size(FloatTensor self):
+        cdef int dims = self.dims()
+        cdef FloatTensor size = FloatTensor(dims)
+        for d in range(dims):
+            size.set1d(d, THFloatTensor_size(self.thFloatTensor, d))
+        return size
+
+    def __mul__(FloatTensor self, FloatTensor M2):
+        cdef FloatTensor T = FloatTensor.new()
+        cdef FloatTensor res = FloatTensor.new()
         cdef int resRows = THFloatTensor_size(self.thFloatTensor, 0)
         cdef int resCols = THFloatTensor_size(M2.thFloatTensor, 1)
         res.resize2d(resRows, resCols)
@@ -169,7 +185,7 @@ cdef class Tensor(object):
         THFloatTensor_addmm(res.thFloatTensor, 0, T.thFloatTensor, 1, self.thFloatTensor, M2.thFloatTensor)
         return res
 
-    def __repr__(Tensor self):
+    def __repr__(FloatTensor self):
         # assume 2d matrix for now
         cdef int size0
         cdef int size1
@@ -210,7 +226,7 @@ def asTensor(myarray):
 
     cdef float[:] myarraymv = myarray.reshape(rows * cols)
     storage = Storage.newWithData(myarraymv)
-    tensor = Tensor.newWithStorage2d(storage, 0, rows, cols, cols, 1)
+    tensor = FloatTensor.newWithStorage2d(storage, 0, rows, cols, cols, 1)
     return tensor
 
 cdef extern from "nnWrapper.h":
@@ -251,15 +267,15 @@ cdef class Linear(Module):
     def __dealloc__(self):
         del self.native
 
-    def updateOutput(self, Tensor input):
+    def updateOutput(self, FloatTensor input):
         cdef THFloatTensor *outputC = self.native.updateOutput(input.thFloatTensor)
-        return Tensor.fromNative(outputC)
+        return FloatTensor.fromNative(outputC)
 
     def getOutput(self):
-        return Tensor.fromNative(self.native.getOutput())
+        return FloatTensor.fromNative(self.native.getOutput())
 
     def getWeight(self):
-        return Tensor.fromNative((<_Linear *>(self.native)).getWeight())
+        return FloatTensor.fromNative((<_Linear *>(self.native)).getWeight())
 
 cdef class Criterion(object):
     cdef _Criterion *native
@@ -272,13 +288,13 @@ cdef class MSECriterion(Criterion):
     def __dealloc__(self):
         del self.native
 
-    def updateOutput(self, Tensor input):
+    def updateOutput(self, FloatTensor input):
         cdef THFloatTensor *outputC = self.native.updateOutput(input.thFloatTensor)
-        return Tensor.fromNative(outputC)
+        return FloatTensor.fromNative(outputC)
 
-    def updateGradInput(self, Tensor input, Tensor target):
+    def updateGradInput(self, FloatTensor input, FloatTensor target):
         cdef THFloatTensor *gradInputC = self.native.updateGradInput(input.thFloatTensor, target.thFloatTensor)
-        return Tensor.fromNative(gradInputC)
+        return FloatTensor.fromNative(gradInputC)
 
 cdef class StochasticGradient(object):
     cdef _StochasticGradient *native
