@@ -5,5 +5,5 @@
 #    ... or similar
 # - torch is expected to be at $HOME/torch
 
-LD_LIBRARY_PATH=$HOME/torch/install/lib:cbuild python test_pytorch.py
+LD_LIBRARY_PATH=$HOME/torch/install/lib:$PWD/cbuild python test_pytorch.py
 

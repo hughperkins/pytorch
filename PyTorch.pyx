@@ -198,8 +198,8 @@ def asTensor(myarray):
 
 cdef extern from "nnWrapper.h":
     cdef struct lua_State
-    lua_State *luaInit()
-    void luaClose(lua_State *L)
+    lua_State *xluaInit()
+    void xluaClose(lua_State *L)
     cdef cppclass _Linear:
         _Linear(lua_State *L, int inputSize, int OutputSize)
         void updateOutput(THFloatTensor *input)
@@ -235,10 +235,10 @@ cdef class Nn(object):  # basically holds the Lua state, but maybe easier to cal
     cdef lua_State *L
 
     def __cinit__(self):
-        self.L = luaInit()
+        self.L = xluaInit()
     
     def __dealloc__(self):
-        luaClose(self.L)
+        xluaClose(self.L)
 
     def Linear(self, inputSize, outputSize):
         cdef Linear linear = Linear(self, inputSize, outputSize)

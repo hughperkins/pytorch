@@ -5147,7 +5147,7 @@ static PyObject *__pyx_pf_7PyTorch_6Linear_6getOutput(struct __pyx_obj_7PyTorch_
  *     cdef lua_State *L
  * 
  *     def __cinit__(self):             # <<<<<<<<<<<<<<
- *         self.L = luaInit()
+ *         self.L = xluaInit()
  * 
  */
 
@@ -5175,17 +5175,17 @@ static int __pyx_pf_7PyTorch_2Nn___cinit__(struct __pyx_obj_7PyTorch_Nn *__pyx_v
   /* "PyTorch.pyx":238
  * 
  *     def __cinit__(self):
- *         self.L = luaInit()             # <<<<<<<<<<<<<<
+ *         self.L = xluaInit()             # <<<<<<<<<<<<<<
  * 
  *     def __dealloc__(self):
  */
-  __pyx_v_self->L = luaInit();
+  __pyx_v_self->L = xluaInit();
 
   /* "PyTorch.pyx":237
  *     cdef lua_State *L
  * 
  *     def __cinit__(self):             # <<<<<<<<<<<<<<
- *         self.L = luaInit()
+ *         self.L = xluaInit()
  * 
  */
 
@@ -5196,10 +5196,10 @@ static int __pyx_pf_7PyTorch_2Nn___cinit__(struct __pyx_obj_7PyTorch_Nn *__pyx_v
 }
 
 /* "PyTorch.pyx":240
- *         self.L = luaInit()
+ *         self.L = xluaInit()
  * 
  *     def __dealloc__(self):             # <<<<<<<<<<<<<<
- *         luaClose(self.L)
+ *         xluaClose(self.L)
  * 
  */
 
@@ -5221,17 +5221,17 @@ static void __pyx_pf_7PyTorch_2Nn_2__dealloc__(struct __pyx_obj_7PyTorch_Nn *__p
   /* "PyTorch.pyx":241
  * 
  *     def __dealloc__(self):
- *         luaClose(self.L)             # <<<<<<<<<<<<<<
+ *         xluaClose(self.L)             # <<<<<<<<<<<<<<
  * 
  *     def Linear(self, inputSize, outputSize):
  */
-  luaClose(__pyx_v_self->L);
+  xluaClose(__pyx_v_self->L);
 
   /* "PyTorch.pyx":240
- *         self.L = luaInit()
+ *         self.L = xluaInit()
  * 
  *     def __dealloc__(self):             # <<<<<<<<<<<<<<
- *         luaClose(self.L)
+ *         xluaClose(self.L)
  * 
  */
 
@@ -5240,7 +5240,7 @@ static void __pyx_pf_7PyTorch_2Nn_2__dealloc__(struct __pyx_obj_7PyTorch_Nn *__p
 }
 
 /* "PyTorch.pyx":243
- *         luaClose(self.L)
+ *         xluaClose(self.L)
  * 
  *     def Linear(self, inputSize, outputSize):             # <<<<<<<<<<<<<<
  *         cdef Linear linear = Linear(self, inputSize, outputSize)
@@ -5355,7 +5355,7 @@ static PyObject *__pyx_pf_7PyTorch_2Nn_4Linear(struct __pyx_obj_7PyTorch_Nn *__p
   goto __pyx_L0;
 
   /* "PyTorch.pyx":243
- *         luaClose(self.L)
+ *         xluaClose(self.L)
  * 
  *     def Linear(self, inputSize, outputSize):             # <<<<<<<<<<<<<<
  *         cdef Linear linear = Linear(self, inputSize, outputSize)

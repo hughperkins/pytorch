@@ -9,8 +9,8 @@
 class THFloatTensor;
 struct lua_State;
 
-lua_State *luaInit(void);
-void luaClose(lua_State *L);
+lua_State *xluaInit(void);
+void xluaClose(lua_State *L);
 
 class _Linear {
 public:
