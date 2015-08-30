@@ -1,6 +1,7 @@
 #include "LuaHelper.h"
 
 #include "lua.h"
+#include "luaT.h"
 
 #include <iostream>
 using namespace std;
@@ -24,6 +25,14 @@ void getInstanceField(lua_State *L, void *instanceKey, const char *name) {
     lua_gettable(L, LUA_REGISTRYINDEX);
     lua_getfield(L, -1, name);
     lua_remove(L, -2);
+}
+THFloatTensor *popFloatTensor(lua_State *L) {
+    THFloatTensor *tensor = (THFloatTensor *)(*(void **)lua_touserdata(L, -1));
+    lua_remove(L, -1);
+    return tensor;
+}
+void pushFloatTensor(lua_State *L, THFloatTensor *tensor) {
+    luaT_pushudata(L, tensor, "torch.FloatTensor");
 }
 
 //void getInstanceField(lua_State *L, void *instanceKey, const char *name) {

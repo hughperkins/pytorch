@@ -13,3 +13,6 @@ output = linear.updateOutput(tensorA)
 print('output', output)
 print('weight', linear.getWeight())
 
+criterion = nn.MSECriterion()
+trainer = nn.StochasticGradient(linear, criterion)
+

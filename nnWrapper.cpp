@@ -58,25 +58,65 @@ _Linear::_Linear(lua_State *L, int inputSize, int outputSize) {
 _Linear::~_Linear() {
     deleteSelf(L, this);
 }
-THFloatTensor *_Linear::updateOutput(THFloatTensor *input) {
+THFloatTensor *_Module::updateOutput(THFloatTensor *input) {
     getInstanceField(L, this, "updateOutput");
     getSelf(L, this);
-    luaT_pushudata(L, input, "torch.FloatTensor");
+    pushFloatTensor(L, input);
     lua_call(L, 2, 1);
-    THFloatTensor *tensor = (THFloatTensor *)(*(void **)lua_touserdata(L, -1));
-    lua_remove(L, -1);
-    return tensor;
+    return popFloatTensor(L);
+}
+THFloatTensor *_Module::updateGradInput(THFloatTensor *input, THFloatTensor *gradOutput) {
+    getInstanceField(L, this, "updateGradInput");
+    getSelf(L, this);
+    pushFloatTensor(L, input);
+    pushFloatTensor(L, gradOutput);
+    lua_call(L, 3, 1);
+    return popFloatTensor(L);
+}
+THFloatTensor *_Module::getOutput() {
+    getInstanceField(L, this, "output");
+    return popFloatTensor(L);
 }
 THFloatTensor *_Linear::getWeight() {
     getInstanceField(L, this, "weight");
-    THFloatTensor *tensor = (THFloatTensor *)(*(void **)lua_touserdata(L, -1));
-    lua_remove(L, -1);
-    return tensor;
+    return popFloatTensor(L);
 }
-THFloatTensor *_Linear::getOutput() {
-    getInstanceField(L, this, "output");
-    THFloatTensor *tensor = (THFloatTensor *)(*(void **)lua_touserdata(L, -1));
-    lua_remove(L, -1);
-    return tensor;
+
+_MSECriterion::_MSECriterion(lua_State *L) {
+    this->L = L;
+    getGlobal(L, "nn", "MSECriterion");
+    lua_call(L, 0, 1);
+    pushSelf(L, this);
+}
+_MSECriterion::~_MSECriterion() {
+    deleteSelf(L, this);
+}
+THFloatTensor *_Criterion::updateOutput(THFloatTensor *input) {
+    getInstanceField(L, this, "updateOutput");
+    getSelf(L, this);
+    pushFloatTensor(L, input);
+    lua_call(L, 2, 1);
+    return popFloatTensor(L);
+}
+THFloatTensor *_Criterion::updateGradInput(THFloatTensor *input, THFloatTensor *target) {
+    getInstanceField(L, this, "updateGradInput");
+    getSelf(L, this);
+    pushFloatTensor(L, input);
+    pushFloatTensor(L, target);
+    lua_call(L, 3, 1);
+    return popFloatTensor(L);
+}
+_StochasticGradient::_StochasticGradient(lua_State *L, _Module *module, _Criterion *criterion) {
+    this->L = L;
+    getGlobal(L, "nn", "MSECriterion");
+    getSelf(L, module);
+    getSelf(L, criterion);
+    lua_call(L, 2, 1);
+    pushSelf(L, this);
+}
+_StochasticGradient::~_StochasticGradient() {
+    deleteSelf(L, this);
+}
+void _StochasticGradient::train(_Dataset *dataset) {
 }
 

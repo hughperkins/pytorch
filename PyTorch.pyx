@@ -181,32 +181,79 @@ cdef extern from "nnWrapper.h":
     cdef struct lua_State
     lua_State *luaInit()
     void luaClose(lua_State *L)
-    cdef cppclass _Linear:
-        _Linear(lua_State *L, int inputSize, int OutputSize)
+
+    cdef cppclass _Module:
         THFloatTensor *updateOutput(THFloatTensor *input)
+        THFloatTensor *updateGradInput(THFloatTensor *input, THFloatTensor *gradOutput)
         THFloatTensor *getOutput()
+
+    cdef cppclass _Linear(_Module):
+        _Linear(lua_State *L, int inputSize, int OutputSize)
         THFloatTensor *getWeight()
 
-cdef class Linear(object):
-    cdef _Linear *linear
+    cdef cppclass _Criterion:
+        THFloatTensor *updateOutput(THFloatTensor *input)
+        THFloatTensor *updateGradInput(THFloatTensor *input, THFloatTensor *target)
+
+    cdef cppclass _MSECriterion(_Criterion):
+        _MSECriterion(lua_State *L)
+
+    cdef cppclass _Trainer:
+        pass
+
+    cdef cppclass _StochasticGradient:
+        _StochasticGradient(lua_State *L, _Module *module, _Criterion *criterion)
+
+cdef class Module(object):
+    cdef _Module *native
+
+cdef class Linear(Module):
 
     def __cinit__(self, Nn nn, inputSize, outputSize):
-        self.linear = new _Linear(nn.L, inputSize, outputSize)
+        self.native = new _Linear(nn.L, inputSize, outputSize)
 
     def __dealloc__(self):
-        del self.linear
+        del self.native
 
     def updateOutput(self, Tensor input):
-        cdef THFloatTensor *outputC = self.linear.updateOutput(input.thFloatTensor)
+        cdef THFloatTensor *outputC = self.native.updateOutput(input.thFloatTensor)
         return Tensor.fromNative(outputC)
 
     def getOutput(self):
-        return Tensor.fromNative(self.linear.getOutput())
+        return Tensor.fromNative(self.native.getOutput())
 
     def getWeight(self):
-        return Tensor.fromNative(self.linear.getWeight())
+        return Tensor.fromNative((<_Linear *>(self.native)).getWeight())
 
-cdef class Nn(object):  # basically holds the Lua state, but maybe easier to call it Nn than LuaState?
+cdef class Criterion(object):
+    cdef _Criterion *native
+
+cdef class MSECriterion(Criterion):
+
+    def __cinit__(self, Nn nn):
+        self.native = new _MSECriterion(nn.L)
+
+    def __dealloc__(self):
+        del self.native
+
+    def updateOutput(self, Tensor input):
+        cdef THFloatTensor *outputC = self.native.updateOutput(input.thFloatTensor)
+        return Tensor.fromNative(outputC)
+
+    def updateGradInput(self, Tensor input, Tensor target):
+        cdef THFloatTensor *gradInputC = self.native.updateGradInput(input.thFloatTensor, target.thFloatTensor)
+        return Tensor.fromNative(gradInputC)
+
+cdef class StochasticGradient(object):
+    cdef _StochasticGradient *native
+
+    def __cinit__(self, Nn nn, Module module, Criterion criterion):
+        self.native = new _StochasticGradient(nn.L, module.native, criterion.native)
+
+    def __dealloc__(self):
+        del self.native
+
+cdef class Nn(object):  # basically holds the Lua state
     cdef lua_State *L
 
     def __cinit__(self):
@@ -218,4 +265,10 @@ cdef class Nn(object):  # basically holds the Lua state, but maybe easier to cal
     def Linear(self, inputSize, outputSize):
         cdef Linear linear = Linear(self, inputSize, outputSize)
         return linear
+
+    def MSECriterion(self):
+        return MSECriterion(self)
+
+    def StochasticGradient(self, module, criterion):
+        return StochasticGradient(self, module, criterion)
 
