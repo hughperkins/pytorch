@@ -61,11 +61,13 @@ cdef extern from "THTensor.h":
     int THFloatTensor_nDimension(THFloatTensor *tensor)
     THFloatTensor *THFloatTensor_new()
     THFloatTensor *THFloatTensor_newWithSize2d(long size0, long size1)
+    THFloatTensor *THFloatTensor_newSelect(THFloatTensor *self, int dimension, int sliceIndex)
     void THFloatTensor_free(THFloatTensor *self)
     void THFloatTensor_resizeAs(THFloatTensor *self, THFloatTensor *model)
     void THFloatTensor_resize2d(THFloatTensor *self, long size0, long size1)
     long THFloatTensor_size(const THFloatTensor *self, int dim)
     long THFloatTensor_stride(const THFloatTensor *self, int dim)
+    float THFloatTensor_get1d(const THFloatTensor *tensor, long x0)
     float THFloatTensor_get2d(const THFloatTensor *tensor, long x0, long x1)
     void THFloatTensor_set2d(const THFloatTensor *tensor, long x0, long x1, float value)
     void THFloatTensor_add(THFloatTensor *r_, THFloatTensor *t, float value)
@@ -102,6 +104,9 @@ cdef class Tensor(object):
     cpdef set2d(self, int x0, int x1, float value):
         THFloatTensor_set2d(self.thFloatTensor, x0, x1, value)
 
+    cpdef float get1d(self, int x0):
+        return THFloatTensor_get1d(self.thFloatTensor, x0)
+
     cpdef float get2d(self, int x0, int x1):
         return THFloatTensor_get2d(self.thFloatTensor, x0, x1)
 
@@ -132,6 +137,10 @@ cdef class Tensor(object):
         THFloatTensor_add(self.thFloatTensor, self.thFloatTensor, value)
         return self
 
+    def __getitem__(Tensor self, int index):
+        cdef THFloatTensor *res = THFloatTensor_newSelect(self.thFloatTensor, 0, index)
+        return Tensor.fromNative(res)
+
     def __add__(Tensor self, float value):
         print('iadd')
         # assume 2d matrix for now?
@@ -152,18 +161,35 @@ cdef class Tensor(object):
 
     def __repr__(Tensor self):
         # assume 2d matrix for now
-        cdef int rows = THFloatTensor_size(self.thFloatTensor, 0)
-        cdef int cols = THFloatTensor_size(self.thFloatTensor, 1)
-        res = ''
-        for r in range(rows):
+        cdef int size0
+        cdef int size1
+        dims = self.dims()
+        if dims == 2:
+            size0 = THFloatTensor_size(self.thFloatTensor, 0)
+            size1 = THFloatTensor_size(self.thFloatTensor, 1)
+            res = ''
+            for r in range(size0):
+                thisline = ''
+                for c in range(size1):
+                    if c > 0:
+                        thisline += ' '
+                    thisline += str(self.get2d(r,c))
+                res += thisline + '\n'
+            res += '[torch.FloatTensor of size ' + str(size0) + 'x' + str(size1) + ']\n'
+            return res
+        elif dims == 1:
+            size0 = THFloatTensor_size(self.thFloatTensor, 0)
+            res = ''
             thisline = ''
-            for c in range(cols):
+            for c in range(size0):
                 if c > 0:
                     thisline += ' '
-                thisline += str(self.get2d(r,c))
+                thisline += str(self.get1d(c))
             res += thisline + '\n'
-        res += '[torch.FloatTensor of size ' + str(rows) + 'x' + str(cols) + ']\n'
-        return res
+            res += '[torch.FloatTensor of size ' + str(size0) + ']\n'
+            return res
+        else:
+            raise Exception("Not implemented: dims > 2")
 
 def asTensor(myarray):
     dims = len(myarray.shape)

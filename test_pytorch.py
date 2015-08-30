@@ -34,3 +34,5 @@ print('tensorAB', tensorAB)
 
 print('A.dot(B)', A.dot(B))
 
+print('tensorA[2]', tensorA[2])
+
