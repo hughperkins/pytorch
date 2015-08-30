@@ -75,6 +75,9 @@ cdef extern from "THTensor.h":
 cdef class Tensor(object):
     cdef THFloatTensor *thFloatTensor
 
+#    def __cinit__(Tensor self, THFloatTensor *tensorC = NULL):
+#        self.thFloatTensor = tensorC
+
     def __init__(self, *args, **kwargs):
         if len(args) > 0:
             raise Exception('cannot provide arguments to initializer')
@@ -103,20 +106,22 @@ cdef class Tensor(object):
         return THFloatTensor_get2d(self.thFloatTensor, x0, x1)
 
     @staticmethod
+    cdef fromNative(THFloatTensor *tensorC):
+        tensor = Tensor()
+        tensor.thFloatTensor = tensorC
+        return tensor
+
+    @staticmethod
     def new():
         print('allocate tensor')
         cdef THFloatTensor *newTensorC = THFloatTensor_new()
-        tensor = Tensor()
-        tensor.thFloatTensor = newTensorC
-        return tensor
+        return Tensor.fromNative(newTensorC)
 
     @staticmethod
     def newWithStorage2d(Storage storage, offset, size0, stride0, size1, stride1):
         print('allocate tensor')
         cdef THFloatTensor *newTensorC = THFloatTensor_newWithStorage2d(storage.thFloatStorage, offset, size0, stride0, size1, stride1)
-        tensor = Tensor()
-        tensor.thFloatTensor = newTensorC
-        return tensor        
+        return Tensor.fromNative(newTensorC)
 
     def resize2d(Tensor self, long size0, long size1):
         THFloatTensor_resize2d(self.thFloatTensor, size0, size1)
@@ -147,7 +152,6 @@ cdef class Tensor(object):
 
     def __repr__(Tensor self):
         # assume 2d matrix for now
-#        print('tensorAB get2d:')
         cdef int rows = THFloatTensor_size(self.thFloatTensor, 0)
         cdef int cols = THFloatTensor_size(self.thFloatTensor, 1)
         res = ''
@@ -163,14 +167,13 @@ cdef class Tensor(object):
 
 def asTensor(myarray):
     dims = len(myarray.shape)
-    print('dims', dims)
+#    print('dims', dims)
     rows = myarray.shape[0]
     cols = myarray.shape[1]
-    print('rows=' + str(rows) + ' cols=' + str(cols))
+#    print('rows=' + str(rows) + ' cols=' + str(cols))
 
     cdef float[:] myarraymv = myarray.reshape(rows * cols)
     storage = Storage.newWithData(myarraymv)
-#    tensor = Tensor(storage, 0, rows, cols, cols, 1)
     tensor = Tensor.newWithStorage2d(storage, 0, rows, cols, cols, 1)
     return tensor
 
@@ -195,18 +198,10 @@ cdef class Linear(object):
 
     def updateOutput(self, Tensor input):
         cdef THFloatTensor *outputC = self.linear.updateOutput(input.thFloatTensor)
-        output = Tensor()
-        output.thFloatTensor = outputC
-#        THFloatTensor_retain(output.thFloatTensor)
-        return output
+        return Tensor.fromNative(outputC)
 
     def getOutput(self):
-        cdef THFloatTensor *outputC = self.linear.getOutput()
-        print("PyTorch.pyx Linear.getOutput got output from c/lua layer")
-        output = Tensor()
-        output.thFloatTensor = outputC
-#        THFloatTensor_retain(output.thFloatTensor)
-        return output
+        return Tensor.fromNative(self.linear.getOutput())
 
 cdef class Nn(object):  # basically holds the Lua state, but maybe easier to call it Nn than LuaState?
     cdef lua_State *L
