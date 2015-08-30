@@ -74,9 +74,6 @@ cdef extern from "THTensor.h":
 
 cdef class Tensor(object):
     cdef THFloatTensor *thFloatTensor
-    cdef Storage storage  # Note that storing this here isnt very good, since we dont know when the underlying storage has been torn out 
-                          # from under us...  Simply don't provide access to undelrying Storage objcts? Call retain?
-                          # maybe leave like this for now, and fix it next time we have a segfault...
 
     def __init__(self, *args, **kwargs):
         if len(args) > 0:
@@ -111,10 +108,6 @@ cdef class Tensor(object):
         cdef THFloatTensor *newTensorC = THFloatTensor_new()
         tensor = Tensor()
         tensor.thFloatTensor = newTensorC
-        cdef THFloatStorage *storageC = THFloatTensor_storage(newTensorC)
-        if storageC != NULL:
-            tensor.storage = Storage()
-            tensor.storage.thFloatStorage = storageC
         return tensor
 
     @staticmethod
@@ -123,23 +116,11 @@ cdef class Tensor(object):
         cdef THFloatTensor *newTensorC = THFloatTensor_newWithStorage2d(storage.thFloatStorage, offset, size0, stride0, size1, stride1)
         tensor = Tensor()
         tensor.thFloatTensor = newTensorC
-        tensor.storage = storage
         return tensor        
 
     def resize2d(Tensor self, long size0, long size1):
-        newNumElements = size0 * size1
-        currentNumElements = 0
-        if self.storage is not None:
-            currentNumElements = self.storage.size()
-        if currentNumElements > newNumElements:
-            self.thFloatTensor = THFloatTensor_newWithSize2d(size0, size1)
-            self.storage = Storage()
-            self.storage.thFloatStorage = THFloatTensor_storage(self.thFloatTensor)
-        else:
-            THFloatTensor_resize2d(self.thFloatTensor, size0, size1)
-
+        THFloatTensor_resize2d(self.thFloatTensor, size0, size1)
         return self
-#            this.storage = Storage.newWithSize(newNumElements)
         
     def __iadd__(Tensor self, float value):
         print('iadd')
@@ -161,7 +142,6 @@ cdef class Tensor(object):
         cdef int resCols = THFloatTensor_size(M2.thFloatTensor, 1)
         res.resize2d(resRows, resCols)
         T.resize2d(resRows, resCols)
-#        cdef array Tarray = array('f', [0] * 
         THFloatTensor_addmm(res.thFloatTensor, 0, T.thFloatTensor, 1, self.thFloatTensor, M2.thFloatTensor)
         return res
 
@@ -188,7 +168,6 @@ def asTensor(myarray):
     cols = myarray.shape[1]
     print('rows=' + str(rows) + ' cols=' + str(cols))
 
-#    A = array.array('f', [3] * 2 * 3)
     cdef float[:] myarraymv = myarray.reshape(rows * cols)
     storage = Storage.newWithData(myarraymv)
 #    tensor = Tensor(storage, 0, rows, cols, cols, 1)
@@ -219,11 +198,6 @@ cdef class Linear(object):
         output = Tensor()
         output.thFloatTensor = outputC
         THFloatTensor_retain(output.thFloatTensor)
-        cdef THFloatStorage *storageC = THFloatTensor_storage(outputC)
-        storage = Storage()
-        THFloatStorage_retain(storage.thFloatStorage)
-        storage.thFloatStorage = storageC
-        output.storage = storage
         return output
 
     def getOutput(self):
@@ -232,14 +206,7 @@ cdef class Linear(object):
         output = Tensor()
         output.thFloatTensor = outputC
         THFloatTensor_retain(output.thFloatTensor)
-        cdef THFloatStorage *storageC = THFloatTensor_storage(outputC)
-        storage = Storage()
-        THFloatStorage_retain(storage.thFloatStorage)
-        storage.thFloatStorage = storageC
-        output.storage = storage
         return output
-
-# cdef extern from "lua.h":
 
 cdef class Nn(object):  # basically holds the Lua state, but maybe easier to call it Nn than LuaState?
     cdef lua_State *L
