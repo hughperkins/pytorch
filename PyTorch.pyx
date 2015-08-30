@@ -70,6 +70,7 @@ cdef extern from "THTensor.h":
     float THFloatTensor_get1d(const THFloatTensor *tensor, long x0)
     float THFloatTensor_get2d(const THFloatTensor *tensor, long x0, long x1)
     void THFloatTensor_set2d(const THFloatTensor *tensor, long x0, long x1, float value)
+    void THFloatTensor_fill(THFloatTensor *self, float value)
     void THFloatTensor_add(THFloatTensor *r_, THFloatTensor *t, float value)
     THFloatStorage *THFloatTensor_storage(THFloatTensor *self)
     void THFloatTensor_retain(THFloatTensor *self)
@@ -81,10 +82,15 @@ cdef class Tensor(object):
 #        self.thFloatTensor = tensorC
 
     def __init__(self, *args, **kwargs):
-        if len(args) > 0:
-            raise Exception('cannot provide arguments to initializer')
         if len(kwargs) > 0:
             raise Exception('cannot provide arguments to initializer')
+        if len(args) > 0:
+            for arg in args:
+                if not isinstance(arg, int):
+                    raise Exception('cannot provide arguments to initializer')
+            if len(args) != 2:
+                raise Exception('Not implemented')
+            self.thFloatTensor = THFloatTensor_newWithSize2d(args[0], args[1])
 
 #    def __cinit__(self, THFloatTensor *tensorC, Storage storage):
 #        self.thFloatTensor = tensorC
@@ -148,6 +154,10 @@ cdef class Tensor(object):
 #        THFloatTensor_resizeAs(cresult, self.thFloatTensor)
         THFloatTensor_add(res.thFloatTensor, self.thFloatTensor, value)
         return res
+
+    def fill(Tensor self, float value):
+        THFloatTensor_fill(self.thFloatTensor, value)
+        return self
 
     def __mul__(Tensor self, Tensor M2):
         cdef Tensor T = Tensor.new()
