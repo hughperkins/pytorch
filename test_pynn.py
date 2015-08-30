@@ -11,4 +11,5 @@ nn = PyTorch.Nn()
 linear = nn.Linear(3, 8)
 output = linear.updateOutput(tensorA)
 print('output', output)
+print('weight', linear.getWeight())
 

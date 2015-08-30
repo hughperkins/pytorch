@@ -203,6 +203,9 @@ cdef class Linear(object):
     def getOutput(self):
         return Tensor.fromNative(self.linear.getOutput())
 
+    def getWeight(self):
+        return Tensor.fromNative(self.linear.getWeight())
+
 cdef class Nn(object):  # basically holds the Lua state, but maybe easier to call it Nn than LuaState?
     cdef lua_State *L
 
