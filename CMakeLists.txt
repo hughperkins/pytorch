@@ -15,7 +15,7 @@ include_directories(${HOME}/torch/install/include/TH)
 #endforeach()
 
 #SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wl,-export-dynamic")
-add_library(nnWrapper SHARED nnWrapper.cpp )
+add_library(nnWrapper SHARED nnWrapper.cpp LuaHelper.cpp)
 #add_library(nnWrapper SHARED nnWrapper.cpp ${lua_src})
 target_link_libraries(nnWrapper ${LUA_LIBRARIES})
 
