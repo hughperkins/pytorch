@@ -4809,7 +4809,7 @@ static PyObject *__pyx_pf_7PyTorch_6Linear_4updateOutput(struct __pyx_obj_7PyTor
  *         cdef THFloatTensor *outputC = self.linear.updateOutput(input.thFloatTensor)
  *         output = Tensor()             # <<<<<<<<<<<<<<
  *         output.thFloatTensor = outputC
- *         THFloatTensor_retain(output.thFloatTensor)
+ * #        THFloatTensor_retain(output.thFloatTensor)
  */
   __pyx_t_1 = __Pyx_PyObject_Call(((PyObject *)((PyObject*)__pyx_ptype_7PyTorch_Tensor)), __pyx_empty_tuple, NULL); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 198; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_1);
@@ -4820,23 +4820,14 @@ static PyObject *__pyx_pf_7PyTorch_6Linear_4updateOutput(struct __pyx_obj_7PyTor
  *         cdef THFloatTensor *outputC = self.linear.updateOutput(input.thFloatTensor)
  *         output = Tensor()
  *         output.thFloatTensor = outputC             # <<<<<<<<<<<<<<
- *         THFloatTensor_retain(output.thFloatTensor)
+ * #        THFloatTensor_retain(output.thFloatTensor)
  *         return output
  */
   __pyx_v_output->thFloatTensor = __pyx_v_outputC;
 
-  /* "PyTorch.pyx":200
- *         output = Tensor()
- *         output.thFloatTensor = outputC
- *         THFloatTensor_retain(output.thFloatTensor)             # <<<<<<<<<<<<<<
- *         return output
- * 
- */
-  THFloatTensor_retain(__pyx_v_output->thFloatTensor);
-
   /* "PyTorch.pyx":201
  *         output.thFloatTensor = outputC
- *         THFloatTensor_retain(output.thFloatTensor)
+ * #        THFloatTensor_retain(output.thFloatTensor)
  *         return output             # <<<<<<<<<<<<<<
  * 
  *     def getOutput(self):
@@ -4921,7 +4912,7 @@ static PyObject *__pyx_pf_7PyTorch_6Linear_6getOutput(struct __pyx_obj_7PyTorch_
  *         print("PyTorch.pyx Linear.getOutput got output from c/lua layer")
  *         output = Tensor()             # <<<<<<<<<<<<<<
  *         output.thFloatTensor = outputC
- *         THFloatTensor_retain(output.thFloatTensor)
+ * #        THFloatTensor_retain(output.thFloatTensor)
  */
   __pyx_t_1 = __Pyx_PyObject_Call(((PyObject *)((PyObject*)__pyx_ptype_7PyTorch_Tensor)), __pyx_empty_tuple, NULL); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 206; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_1);
@@ -4932,23 +4923,14 @@ static PyObject *__pyx_pf_7PyTorch_6Linear_6getOutput(struct __pyx_obj_7PyTorch_
  *         print("PyTorch.pyx Linear.getOutput got output from c/lua layer")
  *         output = Tensor()
  *         output.thFloatTensor = outputC             # <<<<<<<<<<<<<<
- *         THFloatTensor_retain(output.thFloatTensor)
+ * #        THFloatTensor_retain(output.thFloatTensor)
  *         return output
  */
   __pyx_v_output->thFloatTensor = __pyx_v_outputC;
 
-  /* "PyTorch.pyx":208
- *         output = Tensor()
- *         output.thFloatTensor = outputC
- *         THFloatTensor_retain(output.thFloatTensor)             # <<<<<<<<<<<<<<
- *         return output
- * 
- */
-  THFloatTensor_retain(__pyx_v_output->thFloatTensor);
-
   /* "PyTorch.pyx":209
  *         output.thFloatTensor = outputC
- *         THFloatTensor_retain(output.thFloatTensor)
+ * #        THFloatTensor_retain(output.thFloatTensor)
  *         return output             # <<<<<<<<<<<<<<
  * 
  * cdef class Nn(object):  # basically holds the Lua state, but maybe easier to call it Nn than LuaState?

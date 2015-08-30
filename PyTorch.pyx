@@ -197,7 +197,7 @@ cdef class Linear(object):
         cdef THFloatTensor *outputC = self.linear.updateOutput(input.thFloatTensor)
         output = Tensor()
         output.thFloatTensor = outputC
-        THFloatTensor_retain(output.thFloatTensor)
+#        THFloatTensor_retain(output.thFloatTensor)
         return output
 
     def getOutput(self):
@@ -205,7 +205,7 @@ cdef class Linear(object):
         print("PyTorch.pyx Linear.getOutput got output from c/lua layer")
         output = Tensor()
         output.thFloatTensor = outputC
-        THFloatTensor_retain(output.thFloatTensor)
+#        THFloatTensor_retain(output.thFloatTensor)
         return output
 
 cdef class Nn(object):  # basically holds the Lua state, but maybe easier to call it Nn than LuaState?
