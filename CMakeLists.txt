@@ -6,6 +6,7 @@ include_directories(${LUA_INCLUDE_DIR})
 set(HOME $ENV{HOME})
 #include_directories(${CMAKE_CURRENT_SOURCE_DIR}/thirdparty/lua-5.1.5/src)
 include_directories(${HOME}/torch/install/include/TH)
+include_directories(${HOME}/torch/install/include)
 
 #ADD_DEFINITIONS(-DLUA_USE_LINUX)
 
@@ -18,4 +19,5 @@ include_directories(${HOME}/torch/install/include/TH)
 add_library(nnWrapper SHARED nnWrapper.cpp LuaHelper.cpp)
 #add_library(nnWrapper SHARED nnWrapper.cpp ${lua_src})
 target_link_libraries(nnWrapper ${LUA_LIBRARIES})
+target_link_libraries(nnWrapper ${HOME}/torch/install/lib/libluaT.so)
 

@@ -11,6 +11,7 @@ extern "C" {
 #include <iostream>
 #include <stdexcept>
 
+#include "luaT.h"
 #include "THTensor.h"
 #include "LuaHelper.h"
 #include "nnWrapper.h"
@@ -53,6 +54,10 @@ _Linear::_Linear(lua_State *L, int inputSize, int outputSize) {
     lua_call(L, 2, 1);
     pushInstanceValue(L, this, "linear");
 
+    getGlobal(L, "nn", "Linear", "float");
+    getInstanceValue(L, this, "linear");
+    lua_call(L, 1, 0);
+
     std::cout << "_Linear() finished" << std::endl;
 }
 _Linear::~_Linear() {
@@ -62,9 +67,11 @@ _Linear::~_Linear() {
 void _Linear::updateOutput(THFloatTensor *input) {
     std::cout << "updateOutput..." << std::endl;
     getInstanceValue(L, this, "linear");
-    lua_getfield(L, "updateOutput");
-    lua_remove(L, -2);
-    
+    lua_getfield(L, -1, "updateOutput");
+    lua_insert(L, -2);
+    luaT_pushudata(L, input, "torch.FloatTensor");
+    lua_call(L, 2, 0);
+    std::cout << " ... updateOutput finished" << std::endl;
 }
 THFloatTensor *_Linear::getWeight() {
     std::cout << "getWeight..." << std::endl;

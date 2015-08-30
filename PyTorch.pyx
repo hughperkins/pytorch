@@ -219,9 +219,10 @@ cdef class Linear(object):
 
     def getOutput(self):
         cdef THFloatTensor *outputC = self.linear.getOutput()
+        print("PyTorch.pyx Linear.getOutput got output from c/lua layer")
         output = Tensor()
-        THFloatTensor_retain(output.thFloatTensor)
         output.thFloatTensor = outputC
+        THFloatTensor_retain(output.thFloatTensor)
         cdef THFloatStorage *storageC = THFloatTensor_storage(outputC)
         storage = Storage()
         THFloatStorage_retain(storage.thFloatStorage)
