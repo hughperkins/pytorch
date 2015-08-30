@@ -13,7 +13,7 @@ cdef extern from "THStorage.h":
     void THFloatStorage_free(THFloatStorage *self)
     void THFloatStorage_retain(THFloatStorage *self)
 
-cdef class Storage(object):
+cdef class FloatStorage(object):
     cdef THFloatStorage *thFloatStorage
 
     def __init__(self, *args, **kwargs):
@@ -23,28 +23,27 @@ cdef class Storage(object):
             raise Exception('cannot provide arguments to initializer')
 
     @staticmethod
-    def new():
-        cdef THFloatStorage *storageC = THFloatStorage_new()
-        print('allocate storage')
-        storage = Storage()
+    cdef fromNative(THFloatStorage *storageC):
+        storage = FloatStorage()
         storage.thFloatStorage = storageC
         return storage
+
+    @staticmethod
+    def new():
+        print('allocate storage')
+        return FloatStorage.fromNative(THFloatStorage_new())
 
     @staticmethod
     def newWithData(float [:] data):
         cdef THFloatStorage *storageC = THFloatStorage_newWithData(&data[0], len(data))
         print('allocate storage')
-        storage = Storage()
-        storage.thFloatStorage = storageC
-        return storage
+        return FloatStorage.fromNative(storageC)
 
     @staticmethod
     def newWithSize(long size):
         cdef THFloatStorage *storageC = THFloatStorage_newWithSize(size)
         print('allocate storage')
-        storage = Storage()
-        storage.thFloatStorage = storageC
-        return storage
+        return FloatStorage.fromNative(storageC)
 
     cpdef long size(self):
         return THFloatStorage_size(self.thFloatStorage)
@@ -93,10 +92,10 @@ cdef class FloatTensor(object):
                     raise Exception('cannot provide arguments to initializer')
             if len(args) == 1:
                 self.thFloatTensor = THFloatTensor_newWithSize1d(args[0])
-            if len(args) == 2:
+            elif len(args) == 2:
                 self.thFloatTensor = THFloatTensor_newWithSize2d(args[0], args[1])
             else:
-                raise Exception('Not implemented')
+                raise Exception('Not implemented, len(args)=' + str(len(args)))
 
 #    def __cinit__(self, THFloatTensor *tensorC, Storage storage):
 #        self.thFloatTensor = tensorC
@@ -138,7 +137,7 @@ cdef class FloatTensor(object):
         return FloatTensor.fromNative(newTensorC)
 
     @staticmethod
-    def newWithStorage2d(Storage storage, offset, size0, stride0, size1, stride1):
+    def newWithStorage2d(FloatStorage storage, offset, size0, stride0, size1, stride1):
         print('allocate tensor')
         cdef THFloatTensor *newTensorC = THFloatTensor_newWithStorage2d(storage.thFloatStorage, offset, size0, stride0, size1, stride1)
         return FloatTensor.fromNative(newTensorC)
@@ -146,18 +145,24 @@ cdef class FloatTensor(object):
     def resize2d(FloatTensor self, long size0, long size1):
         THFloatTensor_resize2d(self.thFloatTensor, size0, size1)
         return self
-        
-    def __iadd__(FloatTensor self, float value):
-        print('iadd')
-        THFloatTensor_add(self.thFloatTensor, self.thFloatTensor, value)
-        return self
+
+    def storage(FloatTensor self):
+        cdef THFloatStorage *storageC = THFloatTensor_storage(self.thFloatTensor)
+        if storageC == NULL:
+            return None
+        return FloatStorage.fromNative(storageC)
 
     def __getitem__(FloatTensor self, int index):
         cdef THFloatTensor *res = THFloatTensor_newSelect(self.thFloatTensor, 0, index)
         return FloatTensor.fromNative(res)
 
-    def __add__(FloatTensor self, float value):
+    def __iadd__(FloatTensor self, float value):
         print('iadd')
+        THFloatTensor_add(self.thFloatTensor, self.thFloatTensor, value)
+        return self
+
+    def __add__(FloatTensor self, float value):
+        print('add')
         # assume 2d matrix for now?
         cdef FloatTensor res = FloatTensor.new()
 #        THFloatTensor_resizeAs(cresult, self.thFloatTensor)
@@ -225,7 +230,7 @@ def asTensor(myarray):
 #    print('rows=' + str(rows) + ' cols=' + str(cols))
 
     cdef float[:] myarraymv = myarray.reshape(rows * cols)
-    storage = Storage.newWithData(myarraymv)
+    storage = FloatStorage.newWithData(myarraymv)
     tensor = FloatTensor.newWithStorage2d(storage, 0, rows, cols, cols, 1)
     return tensor
 
@@ -269,10 +274,13 @@ cdef class Linear(Module):
 
     def updateOutput(self, FloatTensor input):
         cdef THFloatTensor *outputC = self.native.updateOutput(input.thFloatTensor)
+        THFloatTensor_retain(outputC)
         return FloatTensor.fromNative(outputC)
 
     def getOutput(self):
-        return FloatTensor.fromNative(self.native.getOutput())
+        cdef THFloatTensor *outputC = self.native.getOutput()
+        THFloatTensor_retain(outputC)
+        return FloatTensor.fromNative(outputC)
 
     def getWeight(self):
         return FloatTensor.fromNative((<_Linear *>(self.native)).getWeight())

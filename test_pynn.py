@@ -37,7 +37,15 @@ mndata = MNIST('/norep/data/mnist')
 imagesTensor = PyTorch.FloatTensor(20,784)
 #print(imagesTensor.siz)
 
-#for n in range(1280):
-#    print(n)
-#    mlp.updateOutput(imagesTensor[n])
+for n in range(20):
+    print('n', n)
+    thisImage = imagesTensor[n]
+    print('thisImage.size()', thisImage.size())
+    print('thisImage.storage.size()', thisImage.storage().size())
+    mlpstorage = mlp.getOutput().storage()
+    print('got mlpstorage')
+    print('mlp.getOutput().storage is None', mlpstorage is None)
+    output = mlp.updateOutput(thisImage)
+    print('output.size()', output.size())
+    print('thisImage.size()', thisImage.size())
 

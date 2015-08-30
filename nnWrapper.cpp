@@ -49,10 +49,10 @@ _Linear::_Linear(lua_State *L, int inputSize, int outputSize) {
     lua_pushinteger(L, inputSize);
     lua_pushinteger(L, outputSize);
     lua_call(L, 2, 1);
-    pushSelf(L, this);
+    popAsSelf(L, this);
 
     getGlobal(L, "nn", "Linear", "float");
-    getSelf(L, this);
+    pushSelf(L, this);
     lua_call(L, 1, 0);
 }
 _Linear::~_Linear() {
@@ -60,14 +60,14 @@ _Linear::~_Linear() {
 }
 THFloatTensor *_Module::updateOutput(THFloatTensor *input) {
     getInstanceField(L, this, "updateOutput");
-    getSelf(L, this);
+    pushSelf(L, this);
     pushFloatTensor(L, input);
     lua_call(L, 2, 1);
     return popFloatTensor(L);
 }
 THFloatTensor *_Module::updateGradInput(THFloatTensor *input, THFloatTensor *gradOutput) {
     getInstanceField(L, this, "updateGradInput");
-    getSelf(L, this);
+    pushSelf(L, this);
     pushFloatTensor(L, input);
     pushFloatTensor(L, gradOutput);
     lua_call(L, 3, 1);
@@ -93,14 +93,14 @@ _MSECriterion::~_MSECriterion() {
 }
 THFloatTensor *_Criterion::updateOutput(THFloatTensor *input) {
     getInstanceField(L, this, "updateOutput");
-    getSelf(L, this);
+    pushSelf(L, this);
     pushFloatTensor(L, input);
     lua_call(L, 2, 1);
     return popFloatTensor(L);
 }
 THFloatTensor *_Criterion::updateGradInput(THFloatTensor *input, THFloatTensor *target) {
     getInstanceField(L, this, "updateGradInput");
-    getSelf(L, this);
+    pushSelf(L, this);
     pushFloatTensor(L, input);
     pushFloatTensor(L, target);
     lua_call(L, 3, 1);
@@ -109,8 +109,8 @@ THFloatTensor *_Criterion::updateGradInput(THFloatTensor *input, THFloatTensor *
 _StochasticGradient::_StochasticGradient(lua_State *L, _Module *module, _Criterion *criterion) {
     this->L = L;
     getGlobal(L, "nn", "MSECriterion");
-    getSelf(L, module);
-    getSelf(L, criterion);
+    pushSelf(L, module);
+    pushSelf(L, criterion);
     lua_call(L, 2, 1);
     pushSelf(L, this);
 }
