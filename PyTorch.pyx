@@ -201,8 +201,9 @@ cdef extern from "nnWrapper.h":
     void luaClose(lua_State *L)
     cdef cppclass _Linear:
         _Linear(lua_State *L, int inputSize, int OutputSize)
-        void updateOutput(THFloatTensor *input)
+        THFloatTensor *updateOutput(THFloatTensor *input)
         THFloatTensor *getOutput()
+        THFloatTensor *getWeight()
 
 cdef class Linear(object):
     cdef _Linear *linear
@@ -214,7 +215,16 @@ cdef class Linear(object):
         del self.linear
 
     def updateOutput(self, Tensor input):
-        self.linear.updateOutput(input.thFloatTensor)
+        cdef THFloatTensor *outputC = self.linear.updateOutput(input.thFloatTensor)
+        output = Tensor()
+        output.thFloatTensor = outputC
+        THFloatTensor_retain(output.thFloatTensor)
+        cdef THFloatStorage *storageC = THFloatTensor_storage(outputC)
+        storage = Storage()
+        THFloatStorage_retain(storage.thFloatStorage)
+        storage.thFloatStorage = storageC
+        output.storage = storage
+        return output
 
     def getOutput(self):
         cdef THFloatTensor *outputC = self.linear.getOutput()

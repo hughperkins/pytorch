@@ -18,7 +18,7 @@ public:
 
     _Linear(lua_State *L, int inputSize, int outputSize);
     ~_Linear();
-    void updateOutput(THFloatTensor *input);
+    THFloatTensor *updateOutput(THFloatTensor *input);
     THFloatTensor *getWeight();
     THFloatTensor *getOutput();
 };

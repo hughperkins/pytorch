@@ -9,7 +9,6 @@ tensorA = PyTorch.asTensor(A)
 
 nn = PyTorch.Nn()
 linear = nn.Linear(3, 8)
-linear.updateOutput(tensorA)
-output = linear.getOutput()
+output = linear.updateOutput(tensorA)
 print('output', output)
 
