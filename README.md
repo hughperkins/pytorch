@@ -1,8 +1,19 @@
 # pytorch
 POC for wrapping torch in python
 
-Example of what is possible currently:
+Examples of what is possible currently:
+* pytorch
+* pynn
 
+# pytorch
+
+Run by doing:
+```
+./build.sh
+./run.sh
+```
+
+Script:
 ```
 from __future__ import print_function
 import PyTorch
@@ -111,4 +122,66 @@ free tensor
 free tensor
 free storage
 ```
+
+# pynn
+
+Run by doing:
+```
+./build.sh
+./nn_run.sh
+```
+
+Test script:
+```
+from __future__ import print_function
+import PyTorch
+import array
+import numpy
+
+A = numpy.random.rand(6).reshape(2,3).astype(numpy.float32)
+
+tensorA = PyTorch.asTensor(A)
+
+nn = PyTorch.Nn()
+linear = nn.Linear(3, 8)
+linear.updateOutput(tensorA)
+output = linear.getOutput()
+print('output', output)
+```
+
+Output:
+```
+('dims', 2)
+rows=2 cols=3
+allocate storage
+allocate tensor
+loaded lua library
+Linear.__init()	1	2
+_Linear()
+created instnace store
+Linear.__init()	3	8
+_Linear() finished
+updateOutput...
+Linear.updateOutput input 	 0.4428  0.6940  0.3822
+ 0.2606  0.5068  0.9992
+[torch.FloatTensor of size 2x3]
+
+ ... updateOutput finished
+getOutput...
+numdims 2
+2 8
+PyTorch.pyx Linear.getOutput got output from c/lua layer
+output 0.255356907845 0.387876927853 0.45191013813 0.697135090828 0.140923634171 0.364194452763 0.703136861324 -0.51303768158
+0.0798505395651 -0.0215776395053 0.592034220695 0.736885309219 -0.12912106514 0.702621817589 0.975082337856 -0.660646259785
+[torch.FloatTensor of size 2x8]
+
+~_Linear()
+free tensor
+free storage
+free tensor
+free storage
+```
+
+
+
 

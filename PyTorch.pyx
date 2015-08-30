@@ -182,7 +182,6 @@ cdef class Tensor(object):
         return res
 
 def asTensor(myarray):
-    print('process2')
     dims = len(myarray.shape)
     print('dims', dims)
     rows = myarray.shape[0]
