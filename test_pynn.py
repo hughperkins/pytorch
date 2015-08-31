@@ -40,11 +40,6 @@ imagesTensor = PyTorch.FloatTensor(20,784)
 for n in range(20):
     print('n', n)
     thisImage = imagesTensor[n]
-    print('thisImage.size()', thisImage.size())
-    print('thisImage.storage.size()', thisImage.storage().size())
-    mlpstorage = mlp.output.storage()
-    print('got mlpstorage')
-    print('mlp.getOutput().storage is None', mlpstorage is None)
     output = mlp.updateOutput(thisImage)
     print('output.size()', output.size())
     print('thisImage.size()', thisImage.size())
