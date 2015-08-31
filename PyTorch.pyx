@@ -250,11 +250,14 @@ cdef extern from "nnWrapper.h":
         THFloatTensor *getWeight()
 
     cdef cppclass _Criterion:
-        THFloatTensor *updateOutput(THFloatTensor *input)
+        THFloatTensor *updateOutput(THFloatTensor *input, THFloatTensor *target)
         THFloatTensor *updateGradInput(THFloatTensor *input, THFloatTensor *target)
 
     cdef cppclass _MSECriterion(_Criterion):
         _MSECriterion(lua_State *L)
+
+    cdef cppclass _ClassNLLCriterion(_Criterion):
+        _ClassNLLCriterion(lua_State *L)
 
     cdef cppclass _Trainer:
         pass
@@ -299,21 +302,27 @@ cdef class Linear(Module):
 cdef class Criterion(object):
     cdef _Criterion *native
 
-cdef class MSECriterion(Criterion):
+    def updateOutput(self, FloatTensor input, FloatTensor target):
+        cdef THFloatTensor *outputC = self.native.updateOutput(input.thFloatTensor, target.thFloatTensor)
+        return FloatTensor.fromNative(outputC)
 
+    def updateGradInput(self, FloatTensor input, FloatTensor target):
+        cdef THFloatTensor *gradInputC = self.native.updateGradInput(input.thFloatTensor, target.thFloatTensor)
+        return FloatTensor.fromNative(gradInputC)
+
+cdef class MSECriterion(Criterion):
     def __cinit__(self, Nn nn):
         self.native = new _MSECriterion(nn.L)
 
     def __dealloc__(self):
         del self.native
 
-    def updateOutput(self, FloatTensor input):
-        cdef THFloatTensor *outputC = self.native.updateOutput(input.thFloatTensor)
-        return FloatTensor.fromNative(outputC)
+cdef class ClassNLLCriterion(Criterion):
+    def __cinit__(self, Nn nn):
+        self.native = new _ClassNLLCriterion(nn.L)
 
-    def updateGradInput(self, FloatTensor input, FloatTensor target):
-        cdef THFloatTensor *gradInputC = self.native.updateGradInput(input.thFloatTensor, target.thFloatTensor)
-        return FloatTensor.fromNative(gradInputC)
+    def __dealloc__(self):
+        del self.native
 
 cdef class StochasticGradient(object):
     cdef _StochasticGradient *native

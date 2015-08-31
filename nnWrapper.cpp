@@ -95,11 +95,21 @@ _MSECriterion::_MSECriterion(lua_State *L) {
 _MSECriterion::~_MSECriterion() {
     deleteSelf(L, this);
 }
-THFloatTensor *_Criterion::updateOutput(THFloatTensor *input) {
+_ClassNLLCriterion::_ClassNLLCriterion(lua_State *L) {
+    this->L = L;
+    getGlobal(L, "nn", "ClassNLLCriterion");
+    lua_call(L, 0, 1);
+    pushSelf(L, this);
+}
+_ClassNLLCriterion::~_ClassNLLCriterion() {
+    deleteSelf(L, this);
+}
+THFloatTensor *_Criterion::updateOutput(THFloatTensor *input, THFloatTensor *target) {
     getInstanceField(L, this, "updateOutput");
     pushSelf(L, this);
     pushFloatTensor(L, input);
-    lua_call(L, 2, 1);
+    pushFloatTensor(L, target);
+    lua_call(L, 3, 1);
     return popFloatTensor(L);
 }
 THFloatTensor *_Criterion::updateGradInput(THFloatTensor *input, THFloatTensor *target) {
@@ -113,8 +123,10 @@ THFloatTensor *_Criterion::updateGradInput(THFloatTensor *input, THFloatTensor *
 _StochasticGradient::_StochasticGradient(lua_State *L, _Module *module, _Criterion *criterion) {
     this->L = L;
     getGlobal(L, "nn", "MSECriterion");
+    // hmmm, is this missing self?
     pushSelf(L, module);
     pushSelf(L, criterion);
+    // would need to change this from 2 to 3 too:
     lua_call(L, 2, 1);
     pushSelf(L, this);
 }

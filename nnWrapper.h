@@ -28,13 +28,18 @@ class _Criterion {
 protected:
     lua_State *L;
 public:
-    THFloatTensor *updateOutput(THFloatTensor *input);
+    THFloatTensor *updateOutput(THFloatTensor *input, THFloatTensor *target);
     THFloatTensor *updateGradInput(THFloatTensor *input, THFloatTensor *target);
 };
 class _MSECriterion : public _Criterion {
 public:
     _MSECriterion(lua_State *L);
     ~_MSECriterion();
+};
+class _ClassNLLCriterion : public _Criterion {
+public:
+    _ClassNLLCriterion(lua_State *L);
+    ~_ClassNLLCriterion();
 };
 class _Dataset {
     lua_State *L;
