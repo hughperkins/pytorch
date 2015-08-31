@@ -42,21 +42,31 @@ void luaClose(lua_State *L) {
     lua_close(L);
 }
 
-_Linear::_Linear(lua_State *L, int inputSize, int outputSize) {
-    this->L = L;
-
-    getGlobal(L, "nn", "Linear");
-    lua_pushinteger(L, inputSize);
-    lua_pushinteger(L, outputSize);
+THFloatTensor *_Module::forward(THFloatTensor *input) {
+    getInstanceField(L, this, "forward");
+    pushSelf(L, this);
+    pushFloatTensor(L, input);
     lua_call(L, 2, 1);
-    popAsSelf(L, this);
-
-    getGlobal(L, "nn", "Linear", "float");
+    return popFloatTensor(L);
+}
+THFloatTensor *_Module::backward(THFloatTensor *input, THFloatTensor *gradOutput) {
+    getInstanceField(L, this, "backward");
+    pushSelf(L, this);
+    pushFloatTensor(L, input);
+    pushFloatTensor(L, gradOutput);
+    lua_call(L, 3, 1);
+    return popFloatTensor(L);
+}
+void _Module::zeroGradParameters() {
+    getInstanceField(L, this, "zeroGradParameters");
     pushSelf(L, this);
     lua_call(L, 1, 0);
 }
-_Linear::~_Linear() {
-    deleteSelf(L, this);
+void _Module::updateParameters(float learningRate) {
+    getInstanceField(L, this, "updateParameters");
+    pushSelf(L, this);
+    lua_pushnumber(L, learningRate);
+    lua_call(L, 2, 0);
 }
 THFloatTensor *_Module::updateOutput(THFloatTensor *input) {
     getInstanceField(L, this, "updateOutput");
@@ -81,11 +91,71 @@ THFloatTensor *_Module::getGradInput() {
     getInstanceField(L, this, "gradInput");
     return popFloatTensor(L);
 }
+_Linear::_Linear(lua_State *L, int inputSize, int outputSize) {
+    this->L = L;
+
+    getGlobal(L, "nn", "Linear");
+    lua_pushinteger(L, inputSize);
+    lua_pushinteger(L, outputSize);
+    lua_call(L, 2, 1);
+    popAsSelf(L, this);
+
+    getGlobal(L, "nn", "Linear", "float");
+    pushSelf(L, this);
+    lua_call(L, 1, 0);
+}
+_Linear::~_Linear() {
+    deleteSelf(L, this);
+}
 THFloatTensor *_Linear::getWeight() {
     getInstanceField(L, this, "weight");
     return popFloatTensor(L);
 }
+_Sequential::_Sequential(lua_State *L) {
+    this->L = L;
 
+    getGlobal(L, "nn", "Sequential");
+    lua_call(L, 0, 1);
+    popAsSelf(L, this);
+
+    getGlobal(L, "nn", "Sequential", "float");
+    pushSelf(L, this);
+    lua_call(L, 1, 0);
+}
+_Sequential::~_Sequential() {
+    deleteSelf(L, this);
+}
+void _Sequential::add(_Module *module) {
+    getGlobal(L, "nn", "Sequential", "add");
+    pushSelf(L, this);
+    pushSelf(L, module);
+    lua_call(L, 2, 0);
+}
+// ======== Criterions ==========================
+THFloatTensor *_Criterion::backward(THFloatTensor *input, THFloatTensor *target) {
+    getInstanceField(L, this, "backward");
+    pushSelf(L, this);
+    pushFloatTensor(L, input);
+    pushFloatTensor(L, target);
+    lua_call(L, 3, 1);
+    return popFloatTensor(L);
+}
+THFloatTensor *_Criterion::updateOutput(THFloatTensor *input, THFloatTensor *target) {
+    getInstanceField(L, this, "updateOutput");
+    pushSelf(L, this);
+    pushFloatTensor(L, input);
+    pushFloatTensor(L, target);
+    lua_call(L, 3, 1);
+    return popFloatTensor(L);
+}
+THFloatTensor *_Criterion::updateGradInput(THFloatTensor *input, THFloatTensor *target) {
+    getInstanceField(L, this, "updateGradInput");
+    pushSelf(L, this);
+    pushFloatTensor(L, input);
+    pushFloatTensor(L, target);
+    lua_call(L, 3, 1);
+    return popFloatTensor(L);
+}
 _MSECriterion::_MSECriterion(lua_State *L) {
     this->L = L;
     getGlobal(L, "nn", "MSECriterion");
@@ -104,22 +174,7 @@ _ClassNLLCriterion::_ClassNLLCriterion(lua_State *L) {
 _ClassNLLCriterion::~_ClassNLLCriterion() {
     deleteSelf(L, this);
 }
-THFloatTensor *_Criterion::updateOutput(THFloatTensor *input, THFloatTensor *target) {
-    getInstanceField(L, this, "updateOutput");
-    pushSelf(L, this);
-    pushFloatTensor(L, input);
-    pushFloatTensor(L, target);
-    lua_call(L, 3, 1);
-    return popFloatTensor(L);
-}
-THFloatTensor *_Criterion::updateGradInput(THFloatTensor *input, THFloatTensor *target) {
-    getInstanceField(L, this, "updateGradInput");
-    pushSelf(L, this);
-    pushFloatTensor(L, input);
-    pushFloatTensor(L, target);
-    lua_call(L, 3, 1);
-    return popFloatTensor(L);
-}
+//=============trainers=================
 _StochasticGradient::_StochasticGradient(lua_State *L, _Module *module, _Criterion *criterion) {
     this->L = L;
     getGlobal(L, "nn", "MSECriterion");

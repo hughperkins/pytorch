@@ -240,6 +240,10 @@ cdef extern from "nnWrapper.h":
     void luaClose(lua_State *L)
 
     cdef cppclass _Module:
+        THFloatTensor *forward(THFloatTensor *input)
+        THFloatTensor *backward(THFloatTensor *input, THFloatTensor *gradOutput)
+        void zeroGradParameters()
+        void updateParameters(float learningRate)
         THFloatTensor *updateOutput(THFloatTensor *input)
         THFloatTensor *updateGradInput(THFloatTensor *input, THFloatTensor *gradOutput)
         THFloatTensor *getOutput()
@@ -249,7 +253,13 @@ cdef extern from "nnWrapper.h":
         _Linear(lua_State *L, int inputSize, int OutputSize)
         THFloatTensor *getWeight()
 
+    cdef cppclass _Sequential(_Module):
+        _Sequential(lua_State *L)
+        void add(_Module *module)
+
+    # ==== Criterions ================
     cdef cppclass _Criterion:
+        THFloatTensor *backward(THFloatTensor *input, THFloatTensor *target)
         THFloatTensor *updateOutput(THFloatTensor *input, THFloatTensor *target)
         THFloatTensor *updateGradInput(THFloatTensor *input, THFloatTensor *target)
 
@@ -259,6 +269,7 @@ cdef extern from "nnWrapper.h":
     cdef cppclass _ClassNLLCriterion(_Criterion):
         _ClassNLLCriterion(lua_State *L)
 
+    # ==== trainers ====================
     cdef cppclass _Trainer:
         pass
 
@@ -267,6 +278,20 @@ cdef extern from "nnWrapper.h":
 
 cdef class Module(object):
     cdef _Module *native
+
+    def forward(self, FloatTensor input):
+        cdef THFloatTensor *outputC = self.native.forward(input.thFloatTensor)
+        return FloatTensor.fromNative(outputC)
+
+    def backward(self, FloatTensor input, FloatTensor gradOutput):
+        cdef THFloatTensor *gradInputC = self.native.backward(input.thFloatTensor, gradOutput.thFloatTensor)
+        return FloatTensor.fromNative(gradInputC)
+
+    def zeroGradParameters(self):
+        self.native.zeroGradParameters()
+
+    def updateParameters(self, float learningRate):
+        self.native.updateParameters(learningRate)
 
     def updateOutput(self, FloatTensor input):
         cdef THFloatTensor *outputC = self.native.updateOutput(input.thFloatTensor)
@@ -299,8 +324,24 @@ cdef class Linear(Module):
         cdef THFloatTensor *weightC = (<_Linear *>(self.native)).getWeight()
         return FloatTensor.fromNative(weightC)
 
+cdef class Sequential(Module):
+    def __cinit__(self, Nn nn):
+        self.native = new _Sequential(nn.L)
+
+    def __dealloc__(self):
+        del self.native
+
+    def add(self, Module module):
+        (<_Sequential *>(self.native)).add(module.native)
+        return self
+
+#  ==== Criterions ==========================
 cdef class Criterion(object):
     cdef _Criterion *native
+
+    def backward(self, FloatTensor input, FloatTensor target):
+        cdef THFloatTensor *gradInputC = self.native.backward(input.thFloatTensor, target.thFloatTensor)
+        return FloatTensor.fromNative(gradInputC)
 
     def updateOutput(self, FloatTensor input, FloatTensor target):
         cdef THFloatTensor *outputC = self.native.updateOutput(input.thFloatTensor, target.thFloatTensor)
@@ -324,6 +365,7 @@ cdef class ClassNLLCriterion(Criterion):
     def __dealloc__(self):
         del self.native
 
+# === trainers ===================
 cdef class StochasticGradient(object):
     cdef _StochasticGradient *native
 
@@ -333,6 +375,7 @@ cdef class StochasticGradient(object):
     def __dealloc__(self):
         del self.native
 
+# ==== Nn ==================================
 cdef class Nn(object):  # basically holds the Lua state
     cdef lua_State *L
 
@@ -348,6 +391,9 @@ cdef class Nn(object):  # basically holds the Lua state
 
     def MSECriterion(self):
         return MSECriterion(self)
+
+    def ClassNLLriterion(self):
+        return ClassNLLCriterion(self)
 
     def StochasticGradient(self, module, criterion):
         return StochasticGradient(self, module, criterion)
