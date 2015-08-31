@@ -125,7 +125,9 @@ cdef class FloatTensor(object):
         return THFloatTensor_get2d(self.thFloatTensor, x0, x1)
 
     @staticmethod
-    cdef fromNative(THFloatTensor *tensorC):
+    cdef fromNative(THFloatTensor *tensorC, retain=True):
+        if retain:
+            THFloatTensor_retain(tensorC)
         tensor = FloatTensor()
         tensor.thFloatTensor = tensorC
         return tensor
@@ -134,13 +136,13 @@ cdef class FloatTensor(object):
     def new():
 #        print('allocate tensor')
         cdef THFloatTensor *newTensorC = THFloatTensor_new()
-        return FloatTensor.fromNative(newTensorC)
+        return FloatTensor.fromNative(newTensorC, False)
 
     @staticmethod
     def newWithStorage2d(FloatStorage storage, offset, size0, stride0, size1, stride1):
 #        print('allocate tensor')
         cdef THFloatTensor *newTensorC = THFloatTensor_newWithStorage2d(storage.thFloatStorage, offset, size0, stride0, size1, stride1)
-        return FloatTensor.fromNative(newTensorC)
+        return FloatTensor.fromNative(newTensorC, False)
 
     def resize2d(FloatTensor self, long size0, long size1):
         THFloatTensor_resize2d(self.thFloatTensor, size0, size1)
@@ -154,7 +156,7 @@ cdef class FloatTensor(object):
 
     def __getitem__(FloatTensor self, int index):
         cdef THFloatTensor *res = THFloatTensor_newSelect(self.thFloatTensor, 0, index)
-        return FloatTensor.fromNative(res)
+        return FloatTensor.fromNative(res, False)
 
     def __iadd__(FloatTensor self, float value):
         print('iadd')
@@ -224,10 +226,8 @@ cdef class FloatTensor(object):
 
 def asTensor(myarray):
     dims = len(myarray.shape)
-#    print('dims', dims)
     rows = myarray.shape[0]
     cols = myarray.shape[1]
-#    print('rows=' + str(rows) + ' cols=' + str(cols))
 
     cdef float[:] myarraymv = myarray.reshape(rows * cols)
     storage = FloatStorage.newWithData(myarraymv)
@@ -267,24 +267,20 @@ cdef class Module(object):
 
     def updateOutput(self, FloatTensor input):
         cdef THFloatTensor *outputC = self.native.updateOutput(input.thFloatTensor)
-        THFloatTensor_retain(outputC)
         return FloatTensor.fromNative(outputC)
 
     def updateGradInput(self, FloatTensor input, FloatTensor gradOutput):
         cdef THFloatTensor *gradInputC = self.native.updateGradInput(input.thFloatTensor, gradOutput.thFloatTensor)
-        THFloatTensor_retain(gradInputC)
         return FloatTensor.fromNative(gradInputC)
 
     @property
     def output(self):
         cdef THFloatTensor *outputC = self.native.getOutput()
-        THFloatTensor_retain(outputC)
         return FloatTensor.fromNative(outputC)
 
     @property
     def gradInput(self):
         cdef THFloatTensor *gradInputC = self.native.getGradInput()
-        THFloatTensor_retain(gradInputC)
         return FloatTensor.fromNative(gradInputC)
 
 cdef class Linear(Module):
@@ -298,7 +294,6 @@ cdef class Linear(Module):
     @property
     def weight(self):
         cdef THFloatTensor *weightC = (<_Linear *>(self.native)).getWeight()
-        THFloatTensor_retain(weightC)
         return FloatTensor.fromNative(weightC)
 
 cdef class Criterion(object):
