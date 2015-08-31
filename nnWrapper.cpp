@@ -132,13 +132,56 @@ void _Sequential::add(_Module *module) {
     lua_call(L, 2, 0);
 }
 // ======== Criterions ==========================
-THFloatTensor *_Criterion::forward(THFloatTensor *input, THFloatTensor *target) {
+//THFloatTensor *_Criterion::forward(THFloatTensor *input, float target) {
+//    cout << "nnWrapper.cpp _Criterion.forward" << endl;
+//    getGlobal(L, "torch", "type");
+//    pushSelf(L, this);
+//    lua_call(L, 1, 1);
+//    cout << "nnWrapper.cpp _Criterion.forwad this.type " << lua_tostring(L, -1) << endl;
+//    lua_remove(L, -1);
+
+//    getInstanceField(L, this, "forward");
+//    pushSelf(L, this);
+//    pushFloatTensor(L, input);
+//    lua_pushnumber(L, target);
+//    lua_call(L, 3, 1);
+//    return popFloatTensor(L);
+//}
+//THFloatTensor *_Criterion::backward(THFloatTensor *input, float target) {
+//    getInstanceField(L, this, "backward");
+//    pushSelf(L, this);
+//    pushFloatTensor(L, input);
+//    lua_pushnumber(L, target);
+//    lua_call(L, 3, 1);
+//    return popFloatTensor(L);
+//}
+//THFloatTensor *_Criterion::updateOutput(THFloatTensor *input, float target) {
+//    getInstanceField(L, this, "updateOutput");
+//    pushSelf(L, this);
+//    pushFloatTensor(L, input);
+//    lua_pushnumber(L, target);
+//    lua_call(L, 3, 1);
+//    return popFloatTensor(L);
+//}
+//THFloatTensor *_Criterion::updateGradInput(THFloatTensor *input, float target) {
+//    getInstanceField(L, this, "updateGradInput");
+//    pushSelf(L, this);
+//    pushFloatTensor(L, input);
+//    lua_pushnumber(L, target);
+//    lua_call(L, 3, 1);
+//    return popFloatTensor(L);
+//}
+
+float _Criterion::forward(THFloatTensor *input, THFloatTensor *target) {
     getInstanceField(L, this, "forward");
     pushSelf(L, this);
     pushFloatTensor(L, input);
     pushFloatTensor(L, target);
     lua_call(L, 3, 1);
-    return popFloatTensor(L);
+    cout << "nnWrapper.cpp criterion.forward, popping output" << endl;
+    float result = lua_tonumber(L, -1);
+    lua_remove(L, -1);
+    return result;
 }
 THFloatTensor *_Criterion::backward(THFloatTensor *input, THFloatTensor *target) {
     getInstanceField(L, this, "backward");
@@ -148,13 +191,15 @@ THFloatTensor *_Criterion::backward(THFloatTensor *input, THFloatTensor *target)
     lua_call(L, 3, 1);
     return popFloatTensor(L);
 }
-THFloatTensor *_Criterion::updateOutput(THFloatTensor *input, THFloatTensor *target) {
+float _Criterion::updateOutput(THFloatTensor *input, THFloatTensor *target) {
     getInstanceField(L, this, "updateOutput");
     pushSelf(L, this);
     pushFloatTensor(L, input);
     pushFloatTensor(L, target);
     lua_call(L, 3, 1);
-    return popFloatTensor(L);
+    float result = lua_tonumber(L, -1);
+    lua_remove(L, -1);
+    return result;
 }
 THFloatTensor *_Criterion::updateGradInput(THFloatTensor *input, THFloatTensor *target) {
     getInstanceField(L, this, "updateGradInput");
@@ -168,7 +213,11 @@ _MSECriterion::_MSECriterion(lua_State *L) {
     this->L = L;
     getGlobal(L, "nn", "MSECriterion");
     lua_call(L, 0, 1);
+    popAsSelf(L, this);
+
+    getGlobal(L, "nn", "MSECriterion", "float");
     pushSelf(L, this);
+    lua_call(L, 1, 0);
 }
 _MSECriterion::~_MSECriterion() {
     deleteSelf(L, this);
@@ -177,7 +226,17 @@ _ClassNLLCriterion::_ClassNLLCriterion(lua_State *L) {
     this->L = L;
     getGlobal(L, "nn", "ClassNLLCriterion");
     lua_call(L, 0, 1);
+    popAsSelf(L, this);
+
+    getGlobal(L, "nn", "ClassNLLCriterion", "float");
     pushSelf(L, this);
+    lua_call(L, 1, 0);
+
+    getGlobal(L, "torch", "type");
+    pushSelf(L, this);
+    lua_call(L, 1, 1);
+    cout << "nnWrapper.cpp ClassNLLCriterion::_ClassNLLCriterion type " << lua_tostring(L, -1) << endl;
+    lua_remove(L, -1);
 }
 _ClassNLLCriterion::~_ClassNLLCriterion() {
     deleteSelf(L, this);
@@ -185,13 +244,17 @@ _ClassNLLCriterion::~_ClassNLLCriterion() {
 //=============trainers=================
 _StochasticGradient::_StochasticGradient(lua_State *L, _Module *module, _Criterion *criterion) {
     this->L = L;
-    getGlobal(L, "nn", "MSECriterion");
+    getGlobal(L, "nn", "StochasticGradient");
     // hmmm, is this missing self?
     pushSelf(L, module);
     pushSelf(L, criterion);
     // would need to change this from 2 to 3 too:
     lua_call(L, 2, 1);
+    popAsSelf(L, this);
+
+    getGlobal(L, "nn", "StochasticGradient", "float");
     pushSelf(L, this);
+    lua_call(L, 1, 0);
 }
 _StochasticGradient::~_StochasticGradient() {
     deleteSelf(L, this);

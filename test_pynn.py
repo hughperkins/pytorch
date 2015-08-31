@@ -40,13 +40,27 @@ mndata = MNIST('/norep/data/mnist')
 
 #imagesTensor = PyTorch.asTensor(images)
 imagesTensor = PyTorch.FloatTensor(20,784)
+#labels = numpy.array(20,).astype(numpy.int32)
+labels = PyTorch.FloatTensor(20).fill(1)
+print('labels', labels)
 #print(imagesTensor.siz)
 
 for n in range(20):
     print('n', n)
     input = imagesTensor[n]
-    criterion.forward(mlp.forward(input), label)
+    label = labels[n]
+    labelTensor = PyTorch.FloatTensor(1)
+    labelTensor[0] = label
+    output = mlp.forward(input)
+    print('*** got output', output.size())
+    criterion.forward(output, labelTensor)
+    print('*** forwarded to criterion')
     mlp.zeroGradParameters()
-    mlp.backward(input, criterion.backward(mlp.output, label))
+    print('*** zerod grad parameters')
+    gradOutput = criterion.backward(output, labelTensor)
+    print('*** got gradOutput from criterion')
+    mlp.backward(input, gradOutput)
+    print('*** called backward on mlp')
     mlp.updateParameters(learningRate)
+    print('*** called updatePrameters')
 

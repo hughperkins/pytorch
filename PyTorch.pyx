@@ -155,8 +155,19 @@ cdef class FloatTensor(object):
         return FloatStorage.fromNative(storageC)
 
     def __getitem__(FloatTensor self, int index):
+        if self.dims() == 1:
+            return self.get1d(index)
         cdef THFloatTensor *res = THFloatTensor_newSelect(self.thFloatTensor, 0, index)
         return FloatTensor.fromNative(res, False)
+
+    def __setitem__(FloatTensor self, int index, float value):
+        if self.dims() == 1:
+            self.set1d(index, value)
+        else:
+            raise Exception("not implemented")
+#        return self
+#        cdef THFloatTensor *res = THFloatTensor_newSelect(self.thFloatTensor, 0, index)
+#        return FloatTensor.fromNative(res, False)
 
     def __iadd__(FloatTensor self, float value):
         print('iadd')
@@ -259,9 +270,14 @@ cdef extern from "nnWrapper.h":
 
     # ==== Criterions ================
     cdef cppclass _Criterion:
-        THFloatTensor *forward(THFloatTensor *input, THFloatTensor *target)
+#        THFloatTensor *forward(THFloatTensor *input, float target)
+#        THFloatTensor *backward(THFloatTensor *input, float target)
+#        THFloatTensor *updateOutput(THFloatTensor *input, float target)
+#        THFloatTensor *updateGradInput(THFloatTensor *input, float target)
+
+        float forward(THFloatTensor *input, THFloatTensor *target)
+        float updateOutput(THFloatTensor *input, THFloatTensor *target)
         THFloatTensor *backward(THFloatTensor *input, THFloatTensor *target)
-        THFloatTensor *updateOutput(THFloatTensor *input, THFloatTensor *target)
         THFloatTensor *updateGradInput(THFloatTensor *input, THFloatTensor *target)
 
     cdef cppclass _MSECriterion(_Criterion):
@@ -340,17 +356,22 @@ cdef class Sequential(Module):
 cdef class Criterion(object):
     cdef _Criterion *native
 
+#    def forward(self, FloatTensor input, float target):
+#        print('PyTorch.pyx Criterion.forward')
+#        cdef THFloatTensor *outputC = self.native.forward(input.thFloatTensor, target)
+#        return FloatTensor.fromNative(outputC)
+
     def forward(self, FloatTensor input, FloatTensor target):
-        cdef THFloatTensor *outputC = self.native.forward(input.thFloatTensor, target.thFloatTensor)
-        return FloatTensor.fromNative(outputC)
+        cdef float loss = self.native.forward(input.thFloatTensor, target.thFloatTensor)
+        return loss
+
+    def updateOutput(self, FloatTensor input, FloatTensor target):
+        cdef float loss = self.native.updateOutput(input.thFloatTensor, target.thFloatTensor)
+        return loss
 
     def backward(self, FloatTensor input, FloatTensor target):
         cdef THFloatTensor *gradInputC = self.native.backward(input.thFloatTensor, target.thFloatTensor)
         return FloatTensor.fromNative(gradInputC)
-
-    def updateOutput(self, FloatTensor input, FloatTensor target):
-        cdef THFloatTensor *outputC = self.native.updateOutput(input.thFloatTensor, target.thFloatTensor)
-        return FloatTensor.fromNative(outputC)
 
     def updateGradInput(self, FloatTensor input, FloatTensor target):
         cdef THFloatTensor *gradInputC = self.native.updateGradInput(input.thFloatTensor, target.thFloatTensor)
