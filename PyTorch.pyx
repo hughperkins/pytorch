@@ -30,26 +30,26 @@ cdef class FloatStorage(object):
 
     @staticmethod
     def new():
-        print('allocate storage')
+#        print('allocate storage')
         return FloatStorage.fromNative(THFloatStorage_new())
 
     @staticmethod
     def newWithData(float [:] data):
         cdef THFloatStorage *storageC = THFloatStorage_newWithData(&data[0], len(data))
-        print('allocate storage')
+#        print('allocate storage')
         return FloatStorage.fromNative(storageC)
 
     @staticmethod
     def newWithSize(long size):
         cdef THFloatStorage *storageC = THFloatStorage_newWithSize(size)
-        print('allocate storage')
+#        print('allocate storage')
         return FloatStorage.fromNative(storageC)
 
     cpdef long size(self):
         return THFloatStorage_size(self.thFloatStorage)
 
     def __dealloc__(self):
-        print('free storage')
+#        print('free storage')
         THFloatStorage_free(self.thFloatStorage)
 
 cdef extern from "THTensor.h":
@@ -106,7 +106,7 @@ cdef class FloatTensor(object):
 #        self.storage = storage
 
     def __dealloc__(self):
-        print('free tensor')
+#        print('free tensor')
         THFloatTensor_free(self.thFloatTensor)
 
     cpdef int dims(self):
@@ -132,13 +132,13 @@ cdef class FloatTensor(object):
 
     @staticmethod
     def new():
-        print('allocate tensor')
+#        print('allocate tensor')
         cdef THFloatTensor *newTensorC = THFloatTensor_new()
         return FloatTensor.fromNative(newTensorC)
 
     @staticmethod
     def newWithStorage2d(FloatStorage storage, offset, size0, stride0, size1, stride1):
-        print('allocate tensor')
+#        print('allocate tensor')
         cdef THFloatTensor *newTensorC = THFloatTensor_newWithStorage2d(storage.thFloatStorage, offset, size0, stride0, size1, stride1)
         return FloatTensor.fromNative(newTensorC)
 
