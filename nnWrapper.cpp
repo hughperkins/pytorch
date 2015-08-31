@@ -132,6 +132,14 @@ void _Sequential::add(_Module *module) {
     lua_call(L, 2, 0);
 }
 // ======== Criterions ==========================
+THFloatTensor *_Criterion::forward(THFloatTensor *input, THFloatTensor *target) {
+    getInstanceField(L, this, "forward");
+    pushSelf(L, this);
+    pushFloatTensor(L, input);
+    pushFloatTensor(L, target);
+    lua_call(L, 3, 1);
+    return popFloatTensor(L);
+}
 THFloatTensor *_Criterion::backward(THFloatTensor *input, THFloatTensor *target) {
     getInstanceField(L, this, "backward");
     pushSelf(L, this);

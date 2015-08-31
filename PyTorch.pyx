@@ -259,6 +259,7 @@ cdef extern from "nnWrapper.h":
 
     # ==== Criterions ================
     cdef cppclass _Criterion:
+        THFloatTensor *forward(THFloatTensor *input, THFloatTensor *target)
         THFloatTensor *backward(THFloatTensor *input, THFloatTensor *target)
         THFloatTensor *updateOutput(THFloatTensor *input, THFloatTensor *target)
         THFloatTensor *updateGradInput(THFloatTensor *input, THFloatTensor *target)
@@ -339,6 +340,10 @@ cdef class Sequential(Module):
 cdef class Criterion(object):
     cdef _Criterion *native
 
+    def forward(self, FloatTensor input, FloatTensor target):
+        cdef THFloatTensor *outputC = self.native.forward(input.thFloatTensor, target.thFloatTensor)
+        return FloatTensor.fromNative(outputC)
+
     def backward(self, FloatTensor input, FloatTensor target):
         cdef THFloatTensor *gradInputC = self.native.backward(input.thFloatTensor, target.thFloatTensor)
         return FloatTensor.fromNative(gradInputC)
@@ -389,10 +394,14 @@ cdef class Nn(object):  # basically holds the Lua state
         cdef Linear linear = Linear(self, inputSize, outputSize)
         return linear
 
+    def Sequential(self):
+        cdef Sequential sequential = Sequential(self)
+        return sequential
+
     def MSECriterion(self):
         return MSECriterion(self)
 
-    def ClassNLLriterion(self):
+    def ClassNLLCriterion(self):
         return ClassNLLCriterion(self)
 
     def StochasticGradient(self, module, criterion):

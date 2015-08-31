@@ -39,6 +39,7 @@ class _Criterion {
 protected:
     lua_State *L;
 public:
+    THFloatTensor *forward(THFloatTensor *input, THFloatTensor *target);
     THFloatTensor *backward(THFloatTensor *input, THFloatTensor *target);
     THFloatTensor *updateOutput(THFloatTensor *input, THFloatTensor *target);
     THFloatTensor *updateGradInput(THFloatTensor *input, THFloatTensor *target);

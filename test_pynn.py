@@ -23,7 +23,12 @@ print('weight', linear.weight)
 sys.path.append('thirdparty/python-mnist')
 from mnist import MNIST
 
-mlp = nn.Linear(784, 10)
+mlp = nn.Sequential()
+mlp.add(nn.Linear(784, 10))
+
+criterion = nn.ClassNLLCriterion()
+
+learningRate = 0.001
 
 #mnist = fetch_mldata("MNIST original")
 mndata = MNIST('/norep/data/mnist')
@@ -39,8 +44,9 @@ imagesTensor = PyTorch.FloatTensor(20,784)
 
 for n in range(20):
     print('n', n)
-    thisImage = imagesTensor[n]
-    output = mlp.updateOutput(thisImage)
-    print('output.size()', output.size())
-    print('thisImage.size()', thisImage.size())
+    input = imagesTensor[n]
+    criterion.forward(mlp.forward(input), label)
+    mlp.zeroGradParameters()
+    mlp.backward(input, criterion.backward(mlp.output, label))
+    mlp.updateParameters(learningRate)
 
