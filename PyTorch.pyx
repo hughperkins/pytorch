@@ -243,6 +243,7 @@ cdef extern from "nnWrapper.h":
         THFloatTensor *updateOutput(THFloatTensor *input)
         THFloatTensor *updateGradInput(THFloatTensor *input, THFloatTensor *gradOutput)
         THFloatTensor *getOutput()
+        THFloatTensor *getGradInput()
 
     cdef cppclass _Linear(_Module):
         _Linear(lua_State *L, int inputSize, int OutputSize)
@@ -264,6 +265,28 @@ cdef extern from "nnWrapper.h":
 cdef class Module(object):
     cdef _Module *native
 
+    def updateOutput(self, FloatTensor input):
+        cdef THFloatTensor *outputC = self.native.updateOutput(input.thFloatTensor)
+        THFloatTensor_retain(outputC)
+        return FloatTensor.fromNative(outputC)
+
+    def updateGradInput(self, FloatTensor input, FloatTensor gradOutput):
+        cdef THFloatTensor *gradInputC = self.native.updateGradInput(input.thFloatTensor, gradOutput.thFloatTensor)
+        THFloatTensor_retain(gradInputC)
+        return FloatTensor.fromNative(gradInputC)
+
+    @property
+    def output(self):
+        cdef THFloatTensor *outputC = self.native.getOutput()
+        THFloatTensor_retain(outputC)
+        return FloatTensor.fromNative(outputC)
+
+    @property
+    def gradInput(self):
+        cdef THFloatTensor *gradInputC = self.native.getGradInput()
+        THFloatTensor_retain(gradInputC)
+        return FloatTensor.fromNative(gradInputC)
+
 cdef class Linear(Module):
 
     def __cinit__(self, Nn nn, inputSize, outputSize):
@@ -271,17 +294,6 @@ cdef class Linear(Module):
 
     def __dealloc__(self):
         del self.native
-
-    def updateOutput(self, FloatTensor input):
-        cdef THFloatTensor *outputC = self.native.updateOutput(input.thFloatTensor)
-        THFloatTensor_retain(outputC)
-        return FloatTensor.fromNative(outputC)
-
-    @property
-    def output(self):
-        cdef THFloatTensor *outputC = self.native.getOutput()
-        THFloatTensor_retain(outputC)
-        return FloatTensor.fromNative(outputC)
 
     @property
     def weight(self):

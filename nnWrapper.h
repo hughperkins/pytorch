@@ -13,9 +13,10 @@ class _Module {
 protected:
     lua_State *L;
 public:
-    THFloatTensor *getOutput();
     THFloatTensor *updateOutput(THFloatTensor *input);
     THFloatTensor *updateGradInput(THFloatTensor *input, THFloatTensor *gradoutput);
+    THFloatTensor *getOutput();
+    THFloatTensor *getGradInput();
 };
 class _Linear : public _Module {
 public:

@@ -77,6 +77,10 @@ THFloatTensor *_Module::getOutput() {
     getInstanceField(L, this, "output");
     return popFloatTensor(L);
 }
+THFloatTensor *_Module::getGradInput() {
+    getInstanceField(L, this, "gradInput");
+    return popFloatTensor(L);
+}
 THFloatTensor *_Linear::getWeight() {
     getInstanceField(L, this, "weight");
     return popFloatTensor(L);
