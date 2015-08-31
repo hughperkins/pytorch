@@ -28,6 +28,11 @@ public:
     ~_Linear();
     THFloatTensor *getWeight();
 };
+class _LogSoftMax : public _Module {
+public:
+    _LogSoftMax(lua_State *L);
+    ~_LogSoftMax();
+};
 class _Sequential : public _Module {
 public:
     _Sequential(lua_State *L);

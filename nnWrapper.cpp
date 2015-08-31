@@ -111,6 +111,20 @@ THFloatTensor *_Linear::getWeight() {
     getInstanceField(L, this, "weight");
     return popFloatTensor(L);
 }
+_LogSoftMax::_LogSoftMax(lua_State *L) {
+    this->L = L;
+
+    getGlobal(L, "nn", "LogSoftMax");
+    lua_call(L, 0, 1);
+    popAsSelf(L, this);
+
+    getGlobal(L, "nn", "LogSoftMax", "float");
+    pushSelf(L, this);
+    lua_call(L, 1, 0);
+}
+_LogSoftMax::~_LogSoftMax() {
+    deleteSelf(L, this);
+}
 _Sequential::_Sequential(lua_State *L) {
     this->L = L;
 
@@ -178,7 +192,6 @@ float _Criterion::forward(THFloatTensor *input, THFloatTensor *target) {
     pushFloatTensor(L, input);
     pushFloatTensor(L, target);
     lua_call(L, 3, 1);
-    cout << "nnWrapper.cpp criterion.forward, popping output" << endl;
     float result = lua_tonumber(L, -1);
     lua_remove(L, -1);
     return result;

@@ -54,6 +54,7 @@ cdef class FloatStorage(object):
 
 cdef extern from "THTensor.h":
     cdef struct THFloatTensor
+    THFloatTensor* THFloatTensor_newWithStorage1d(THFloatStorage *storage, long storageOffset, long size0, long stride0)
     THFloatTensor* THFloatTensor_newWithStorage2d(THFloatStorage *storage, long storageOffset, long size0, long stride0, long size1, long stride1)
     void THFloatTensor_add(THFloatTensor *tensorSelf, THFloatTensor *tensorOne, float value)
     void THFloatTensor_addmm(THFloatTensor *tensorSelf, float beta, THFloatTensor *tensorOne, float alpha, THFloatTensor *mat1, THFloatTensor *mat2)
@@ -136,6 +137,12 @@ cdef class FloatTensor(object):
     def new():
 #        print('allocate tensor')
         cdef THFloatTensor *newTensorC = THFloatTensor_new()
+        return FloatTensor.fromNative(newTensorC, False)
+
+    @staticmethod
+    def newWithStorage1d(FloatStorage storage, offset, size0, stride0):
+#        print('allocate tensor')
+        cdef THFloatTensor *newTensorC = THFloatTensor_newWithStorage1d(storage.thFloatStorage, offset, size0, stride0)
         return FloatTensor.fromNative(newTensorC, False)
 
     @staticmethod
@@ -236,14 +243,23 @@ cdef class FloatTensor(object):
             raise Exception("Not implemented: dims > 2")
 
 def asTensor(myarray):
-    dims = len(myarray.shape)
-    rows = myarray.shape[0]
-    cols = myarray.shape[1]
+    cdef float[:] myarraymv
+    if str(type(myarray)) == "<type 'numpy.ndarray'>":
+        dims = len(myarray.shape)
+        rows = myarray.shape[0]
+        cols = myarray.shape[1]
 
-    cdef float[:] myarraymv = myarray.reshape(rows * cols)
-    storage = FloatStorage.newWithData(myarraymv)
-    tensor = FloatTensor.newWithStorage2d(storage, 0, rows, cols, cols, 1)
-    return tensor
+        myarraymv = myarray.reshape(rows * cols)
+        storage = FloatStorage.newWithData(myarraymv)
+        tensor = FloatTensor.newWithStorage2d(storage, 0, rows, cols, cols, 1)
+        return tensor
+    elif isinstance(myarray, array.array):
+        myarraymv = myarray
+        storage = FloatStorage.newWithData(myarraymv)
+        tensor = FloatTensor.newWithStorage1d(storage, 0, len(myarray), 1)
+        return tensor        
+    else:
+        raise Exception("not implemented")
 
 cdef extern from "nnWrapper.h":
     cdef struct lua_State
@@ -263,6 +279,9 @@ cdef extern from "nnWrapper.h":
     cdef cppclass _Linear(_Module):
         _Linear(lua_State *L, int inputSize, int OutputSize)
         THFloatTensor *getWeight()
+
+    cdef cppclass _LogSoftMax(_Module):
+        _LogSoftMax(lua_State *L)
 
     cdef cppclass _Sequential(_Module):
         _Sequential(lua_State *L)
@@ -328,6 +347,19 @@ cdef class Module(object):
         cdef THFloatTensor *gradInputC = self.native.getGradInput()
         return FloatTensor.fromNative(gradInputC)
 
+    # there's probably an official Torch way of doing this
+    cpdef int getPrediction(self, FloatTensor output):
+        cdef int prediction = 0
+        cdef float maxSoFar = output[0]
+        cdef float thisValue = 0
+        cdef int i = 0
+        for i in range(THFloatTensor_size(output.thFloatTensor, 0)):
+            thisValue = THFloatTensor_get1d(output.thFloatTensor, i)
+            if thisValue > maxSoFar:
+                maxSoFar = thisValue
+                prediction = i
+        return prediction
+
 cdef class Linear(Module):
 
     def __cinit__(self, Nn nn, inputSize, outputSize):
@@ -340,6 +372,13 @@ cdef class Linear(Module):
     def weight(self):
         cdef THFloatTensor *weightC = (<_Linear *>(self.native)).getWeight()
         return FloatTensor.fromNative(weightC)
+
+cdef class LogSoftMax(Module):
+    def __cinit__(self, Nn nn):
+        self.native = new _LogSoftMax(nn.L)
+
+    def __dealloc__(self):
+        del self.native
 
 cdef class Sequential(Module):
     def __cinit__(self, Nn nn):
@@ -412,12 +451,13 @@ cdef class Nn(object):  # basically holds the Lua state
         luaClose(self.L)
 
     def Linear(self, inputSize, outputSize):
-        cdef Linear linear = Linear(self, inputSize, outputSize)
-        return linear
+        return Linear(self, inputSize, outputSize)
+
+    def LogSoftMax(self):
+        return LogSoftMax(self)
 
     def Sequential(self):
-        cdef Sequential sequential = Sequential(self)
-        return sequential
+        return Sequential(self)
 
     def MSECriterion(self):
         return MSECriterion(self)
