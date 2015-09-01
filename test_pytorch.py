@@ -36,29 +36,15 @@ print('A.dot(B)', A.dot(B))
 
 print('tensorA[2]', tensorA[2])
 
-D = PyTorch.FloatTensor(5,3)
-print('D', D)
-D.fill(1.5)
+D = PyTorch.FloatTensor(5,3).fill(1)
 print('D', D)
 
-print(PyTorch.FloatTensor(1))
-print(PyTorch.FloatTensor(1).fill(2.3))
-print(PyTorch.FloatTensor(3).fill(4.3))
-print(PyTorch.FloatTensor(2,3).fill(4.3))
+D[2][2] = 4
+print('D', D)
 
-A = PyTorch.FloatTensor(1)
-A[0] = 2.8
-print('A', A)
-print('A[0]', A[0])
-A = PyTorch.FloatTensor(3)
-print('A', A)
-A[0] = 4.4
-A[2] = 1.1
-print('A', A)
-print('A[0]', A[0], 'A[2]', A[2])
+D[3].fill(9)
+print('D', D)
 
-A = PyTorch.FloatTensor(1)
-A[0] = 3.5
-print('A', A)
-print('A.size()', A.size())
+D.narrow(1,2,1).fill(0)
+print('D', D)
 
