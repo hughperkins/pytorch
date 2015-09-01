@@ -13,6 +13,11 @@ from math import log10, floor
 def round_sig(x, sig=2):
     return round(x, sig-int(floor(log10(abs(x))))-1)
 
+cdef extern from "nnWrapper.h":
+    long pointerAsInt(void *ptr)
+    int THFloatStorage_getRefCount(THFloatStorage *self)
+    int THFloatTensor_getRefCount(THFloatTensor *self)
+
 cdef extern from "THStorage.h":
     cdef struct THFloatStorage
     THFloatStorage* THFloatStorage_newWithData(float *data, long size)
@@ -30,6 +35,7 @@ cdef class FloatStorage(object):
     cdef THFloatStorage *thFloatStorage
 
     def __init__(self, *args, **kwargs):
+        print('floatStorage.__cinit__')
         if len(args) > 0:
             raise Exception('cannot provide arguments to initializer')
         if len(kwargs) > 0:
@@ -37,6 +43,8 @@ cdef class FloatStorage(object):
 
     @staticmethod
     cdef fromNative(THFloatStorage *storageC, retain=True):
+        if retain:
+            THFloatStorage_retain(storageC)
         storage = FloatStorage()
         storage.thFloatStorage = storageC
         return storage
@@ -51,6 +59,10 @@ cdef class FloatStorage(object):
         cdef THFloatStorage *storageC = THFloatStorage_newWithData(&data[0], len(data))
 #        print('allocate storage')
         return FloatStorage.fromNative(storageC, retain=False)
+
+    @property
+    def refCount(FloatStorage self):
+        return THFloatStorage_getRefCount(self.thFloatStorage)
 
     def dataAddr(FloatStorage self):
         cdef float *data = THFloatStorage_data(self.thFloatStorage)
@@ -67,7 +79,8 @@ cdef class FloatStorage(object):
         return THFloatStorage_size(self.thFloatStorage)
 
     def __dealloc__(self):
-#        print('free storage')
+        print('THFloatStorage.dealloc')
+        print('   dealloc storage: ', hex(<long>(self.thFloatStorage)))
         THFloatStorage_free(self.thFloatStorage)
 
 cdef extern from "THTensor.h":
@@ -102,7 +115,10 @@ cdef class FloatTensor(object):
 #    def __cinit__(Tensor self, THFloatTensor *tensorC = NULL):
 #        self.thFloatTensor = tensorC
 
-    def __init__(self, *args, **kwargs):
+    def __cinit__(self, *args, **kwargs):
+        print('floatTensor.__cinit__')
+        cdef THFloatStorage *storageC
+        cdef long addr
         if len(kwargs) > 0:
             raise Exception('cannot provide arguments to initializer')
         if len(args) > 0:
@@ -110,7 +126,16 @@ cdef class FloatTensor(object):
                 if not isinstance(arg, int):
                     raise Exception('cannot provide arguments to initializer')
             if len(args) == 1:
+                print('new tensor 1d length', args[0])
                 self.thFloatTensor = THFloatTensor_newWithSize1d(args[0])
+                storageC = THFloatTensor_storage(self.thFloatTensor)
+                if storageC == NULL:
+                    print('storageC is NULL')
+                else:
+                    print('storageC not null')
+                    addr = <long>(storageC)
+                    print('storageaddr', hex(addr))
+                    print('storageC refcount', THFloatStorage_getRefCount(storageC))
             elif len(args) == 2:
                 self.thFloatTensor = THFloatTensor_newWithSize2d(args[0], args[1])
             else:
@@ -125,8 +150,24 @@ cdef class FloatTensor(object):
 #        self.storage = storage
 
     def __dealloc__(self):
-#        print('free tensor')
+        print('FloatTensor.dealloc')
+        cdef int dims
+        cdef int size
+        cdef int i
+        cdef THFloatStorage *storage = THFloatTensor_storage(self.thFloatTensor)
+        if storage == NULL:
+            print('   dealloc, storage NULL')
+        else:
+            print('   dealloc, storage ', hex(<long>(storage)))
+        dims = THFloatTensor_nDimension(self.thFloatTensor)
+        print('   dims of dealloc', dims)
+        for i in range(dims):
+            print('   size[', i, ']', THFloatTensor_size(self.thFloatTensor, i))
         THFloatTensor_free(self.thFloatTensor)
+
+    @property
+    def refCount(FloatTensor self):
+        return THFloatTensor_getRefCount(self.thFloatTensor)
 
     cpdef int dims(self):
         return THFloatTensor_nDimension(self.thFloatTensor)
@@ -213,10 +254,14 @@ cdef class FloatTensor(object):
 
     def size(FloatTensor self):
         cdef int dims = self.dims()
-        cdef FloatTensor size = FloatTensor(dims)
-        for d in range(dims):
-            size.set1d(d, THFloatTensor_size(self.thFloatTensor, d))
-        return size
+        cdef FloatTensor size
+        if dims > 0:
+            size = FloatTensor(dims)
+            for d in range(dims):
+                size.set1d(d, THFloatTensor_size(self.thFloatTensor, d))
+            return size
+        else:
+            return None  # not sure how to handle this yet
 
     def __mul__(FloatTensor self, FloatTensor M2):
         cdef FloatTensor T = FloatTensor.new()
@@ -285,7 +330,6 @@ cdef extern from "nnWrapper.h":
     cdef struct lua_State
     lua_State *luaInit()
     void luaClose(lua_State *L)
-    long pointerAsInt(void *ptr)
 
     cdef cppclass _Module:
         THFloatTensor *forward(THFloatTensor *input)

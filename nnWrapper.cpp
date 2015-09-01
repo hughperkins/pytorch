@@ -13,6 +13,7 @@ extern "C" {
 
 #include "luaT.h"
 #include "THTensor.h"
+#include "THStorage.h"
 #include "LuaHelper.h"
 #include "nnWrapper.h"
 
@@ -42,6 +43,12 @@ void luaClose(lua_State *L) {
     lua_close(L);
 }
 
+int THFloatStorage_getRefCount(THFloatStorage *self) {
+    return self->refcount;
+}
+int THFloatTensor_getRefCount(THFloatTensor *self) {
+    return self->refcount;
+}
 long pointerAsInt(void *ptr) {
     return (long)ptr;
 }

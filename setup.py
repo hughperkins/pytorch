@@ -32,6 +32,7 @@ if osfamily == 'Windows':
 elif osfamily == 'Linux':
     compile_options.append('-std=c++0x')
     compile_options.append('-g')
+    compile_options.append('-O0')  # TODO remove this, or make it optional
 else:
     pass
     # put other options etc here if necessary

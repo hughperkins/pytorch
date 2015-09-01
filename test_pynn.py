@@ -58,7 +58,9 @@ def printStorageAddr(name, tensor):
 
 #labelsTensor = PyTorch.asTensor(labelsf)
 labelsTensor += 1
+print('calling size on imagestensor...')
 N = int(imagesTensor.size()[0])
+print('   (called size)')
 for epoch in range(10):
     numRight = 0
     for n in range(N):
@@ -66,10 +68,19 @@ for epoch in range(10):
         input = imagesTensor[n]
         label = labelsTensor[n]
         print('label', label)
+        print('allocating 1 tensor')
         labelTensor = PyTorch.FloatTensor(1)
-        printStorageAddr('labelTensor', labelTensor)
+        print('(allocated)')
+        print('labelTensor.refCount', labelTensor.refCount)
+        printStorageAddr('** labelTensor', labelTensor)
+        print('printingsize')
+        print('labelTensor.size()', labelTensor.size())
+        print('(printed) assigning label...')
         labelTensor[0] = label
+        print('(assigned)')
+        print('printstorageaddr...')
         printStorageAddr('labelTensor', labelTensor)
+        print('(printed storageaddr)')
         print('logSoftMax.output.size().dims()', logSoftMax.output.size().dims())
         print('logSoftMax.output.size()', logSoftMax.output.size())
         printStorageAddr('logSoftMax.output', logSoftMax.output)
