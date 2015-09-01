@@ -35,18 +35,18 @@ learningRate = 0.001
 
 #mnist = fetch_mldata("MNIST original")
 mndata = MNIST('/norep/data/mnist')
-#imagesList, labelsB = mndata.load_training()
-#images = numpy.array(imagesList).astype(numpy.float32)
+imagesList, labelsB = mndata.load_training()
+images = numpy.array(imagesList).astype(numpy.float32)
 #print('imagesArray', images.shape)
 
 #print(images[0].shape)
 
-#labelsf = array.array('f', labelsB.tolist())
-#imagesTensor = PyTorch.asTensor(images)
+labelsf = array.array('f', labelsB.tolist())
+imagesTensor = PyTorch.asTensor(images)
 
-imagesTensor = PyTorch.FloatTensor(100,784)
+#imagesTensor = PyTorch.FloatTensor(100,784)
 #labels = numpy.array(20,).astype(numpy.int32)
-labelsTensor = PyTorch.FloatTensor(100).fill(1)
+#labelsTensor = PyTorch.FloatTensor(100).fill(1)
 #print('labels', labels)
 #print(imagesTensor.siz)
 
@@ -59,11 +59,18 @@ def printStorageAddr(name, tensor):
         print(name, 'storage is ', hex(storage.dataAddr()))
     print('printStorageAddr END')
 
-#labelsTensor = PyTorch.asTensor(labelsf)
+labelsTensor = PyTorch.asTensor(labelsf)
 labelsTensor += 1
-print('calling size on imagestensor...')
+#print('calling size on imagestensor...')
+#print('   (called size)')
+
+desiredN = 128
+imagesTensor = imagesTensor.narrow(0, 0, desiredN)
+labelsTensor = labelsTensor.narrow(0, 0, desiredN)
+print('imagesTensor.size()', imagesTensor.size())
+print('labelsTensor.size()', labelsTensor.size())
 N = int(imagesTensor.size()[0])
-print('   (called size)')
+
 for epoch in range(10):
     numRight = 0
     for n in range(N):
@@ -82,5 +89,7 @@ for epoch in range(10):
         mlp.backward(input, gradOutput)
         mlp.updateParameters(learningRate)
         nn.collectgarbage()
+        if n % 100 == 0:
+            print('n=', n)
     print('epoch ' + str(epoch) + ' accuracy: ' + str(numRight * 100.0 / N) + '%')
 

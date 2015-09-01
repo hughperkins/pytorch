@@ -109,6 +109,7 @@ cdef extern from "THTensor.h":
     void THFloatTensor_add(THFloatTensor *r_, THFloatTensor *t, float value)
     THFloatStorage *THFloatTensor_storage(THFloatTensor *self)
     void THFloatTensor_retain(THFloatTensor *self)
+    THFloatTensor *THFloatTensor_newNarrow(THFloatTensor *self, int dimension, long firstIndex, long size)
 
 cdef class FloatTensor(object):
     cdef THFloatTensor *thFloatTensor
@@ -215,6 +216,10 @@ cdef class FloatTensor(object):
 #        print('allocate tensor')
         cdef THFloatTensor *newTensorC = THFloatTensor_newWithStorage2d(storage.thFloatStorage, offset, size0, stride0, size1, stride1)
         return FloatTensor.fromNative(newTensorC, False)
+
+    def narrow(FloatTensor self, int dimension, long firstIndex, long size):
+        cdef THFloatTensor *narrowedC = THFloatTensor_newNarrow(self.thFloatTensor, dimension, firstIndex, size)
+        return FloatTensor.fromNative(narrowedC, retain=False)
 
     def resize2d(FloatTensor self, long size0, long size1):
         THFloatTensor_resize2d(self.thFloatTensor, size0, size1)
