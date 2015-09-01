@@ -3,8 +3,6 @@ POC for wrapping torch in python
 
 # Examples
 
-These are a bit old now actually.  I should update them...
-
 Examples of what is possible currently:
 * pytorch
 * pynn
