@@ -2,7 +2,6 @@ from __future__ import print_function
 import PyTorch
 import array
 import numpy
-#from sklearn.datasets import fetch_mldata
 import sys
 
 A = numpy.random.rand(6).reshape(2,3).astype(numpy.float32)
@@ -24,16 +23,13 @@ sys.path.append('thirdparty/python-mnist')
 from mnist import MNIST
 
 mlp = nn.Sequential()
-linear = nn.Linear(784, 10)
-mlp.add(linear)
-logSoftMax = nn.LogSoftMax()
-mlp.add(logSoftMax)
+mlp.add(nn.Linear(784, 10))
+mlp.add(nn.LogSoftMax())
 
 criterion = nn.ClassNLLCriterion()
 
 learningRate = 0.0001
 
-#mnist = fetch_mldata("MNIST original")
 mndata = MNIST('/norep/data/mnist')
 imagesList, labelsB = mndata.load_training()
 images = numpy.array(imagesList).astype(numpy.float32)
