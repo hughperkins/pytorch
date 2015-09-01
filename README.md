@@ -1,6 +1,10 @@
 # pytorch
 POC for wrapping torch in python
 
+# Examples
+
+These are a bit old now actually.  I should update them...
+
 Examples of what is possible currently:
 * pytorch
 * pynn
@@ -137,6 +141,7 @@ from __future__ import print_function
 import PyTorch
 import array
 import numpy
+import sys
 
 A = numpy.random.rand(6).reshape(2,3).astype(numpy.float32)
 
@@ -144,44 +149,94 @@ tensorA = PyTorch.asTensor(A)
 
 nn = PyTorch.Nn()
 linear = nn.Linear(3, 8)
-linear.updateOutput(tensorA)
-output = linear.getOutput()
+output = linear.updateOutput(tensorA)
 print('output', output)
+print('weight', linear.weight)
+
+sys.path.append('thirdparty/python-mnist')
+from mnist import MNIST
+
+mlp = nn.Sequential()
+linear = nn.Linear(784, 10)
+mlp.add(linear)
+logSoftMax = nn.LogSoftMax()
+mlp.add(logSoftMax)
+
+criterion = nn.ClassNLLCriterion()
+
+learningRate = 0.0001
+
+mndata = MNIST('/norep/data/mnist')
+imagesList, labelsB = mndata.load_training()
+images = numpy.array(imagesList).astype(numpy.float32)
+
+labelsf = array.array('f', labelsB.tolist())
+imagesTensor = PyTorch.asTensor(images)
+
+labelsTensor = PyTorch.asTensor(labelsf)
+labelsTensor += 1
+
+desiredN = 128
+imagesTensor = imagesTensor.narrow(0, 0, desiredN)
+labelsTensor = labelsTensor.narrow(0, 0, desiredN)
+print('imagesTensor.size()', imagesTensor.size())
+print('labelsTensor.size()', labelsTensor.size())
+N = int(imagesTensor.size()[0])
+
+for epoch in range(10):
+    numRight = 0
+    for n in range(N):
+        input = imagesTensor[n]
+        label = labelsTensor[n]
+        labelTensor = PyTorch.FloatTensor(1)
+        labelTensor[0] = label
+        output = mlp.forward(input)
+        prediction = mlp.getPrediction(output)
+        if prediction == label:
+            numRight += 1
+        criterion.forward(output, labelTensor)
+        mlp.zeroGradParameters()
+        gradOutput = criterion.backward(output, labelTensor)
+        mlp.backward(input, gradOutput)
+        mlp.updateParameters(learningRate)
+        nn.collectgarbage()
+    print('epoch ' + str(epoch) + ' accuracy: ' + str(numRight * 100.0 / N) + '%')
 ```
 
 Output:
 ```
-('dims', 2)
-rows=2 cols=3
-allocate storage
-allocate tensor
 loaded lua library
-Linear.__init()	1	2
-_Linear()
-created instnace store
-Linear.__init()	3	8
-_Linear() finished
-updateOutput...
-Linear.updateOutput input 	 0.4428  0.6940  0.3822
- 0.2606  0.5068  0.9992
-[torch.FloatTensor of size 2x3]
-
- ... updateOutput finished
-getOutput...
-numdims 2
-2 8
-PyTorch.pyx Linear.getOutput got output from c/lua layer
-output 0.255356907845 0.387876927853 0.45191013813 0.697135090828 0.140923634171 0.364194452763 0.703136861324 -0.51303768158
-0.0798505395651 -0.0215776395053 0.592034220695 0.736885309219 -0.12912106514 0.702621817589 0.975082337856 -0.660646259785
+output -0.52377 -0.186086 0.599191 -1.12187 0.380739 -0.101581 -0.268618 -0.0452895
+-0.0496943 0.245387 0.384435 -0.860393 -0.00198464 -0.424576 -0.191637 -0.358058
 [torch.FloatTensor of size 2x8]
 
-~_Linear()
-free tensor
-free storage
-free tensor
-free storage
+weight 0.19025 -0.403272 0.179528
+0.0461387 -0.372686 0.405773
+-0.380512 0.127952 0.258736
+-0.54166 -0.512322 -0.0570851
+-0.403268 0.267247 0.0802541
+-0.137717 0.229792 -0.344295
+-0.239939 -0.118795 0.326363
+0.00371041 0.391577 0.272496
+[torch.FloatTensor of size 8x3]
+
+nnWrapper.cpp ClassNLLCriterion::_ClassNLLCriterion type nn.ClassNLLCriterion
+imagesTensor.size() 128 784
+[torch.FloatTensor of size 2]
+
+labelsTensor.size() 128
+[torch.FloatTensor of size 1]
+
+epoch 0 accuracy: 47.65625%
+epoch 1 accuracy: 77.34375%
+epoch 2 accuracy: 90.625%
+epoch 3 accuracy: 94.53125%
+epoch 4 accuracy: 96.09375%
+epoch 5 accuracy: 100.0%
+epoch 6 accuracy: 100.0%
+epoch 7 accuracy: 100.0%
+epoch 8 accuracy: 100.0%
+epoch 9 accuracy: 100.0%
 ```
-
-
-
+(There's a slight segfault at exit, but training is working now, as you see :-) )
 
