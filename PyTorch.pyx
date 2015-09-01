@@ -24,7 +24,7 @@ cdef extern from "THStorage.h":
     void THFloatStorage_retain(THFloatStorage *self)
 
 cdef floatToString(float floatValue):
-    return '%.5f'% floatValue
+    return '%.6g'% floatValue
 
 cdef class FloatStorage(object):
     cdef THFloatStorage *thFloatStorage
@@ -244,7 +244,7 @@ cdef class FloatTensor(object):
                 for c in range(size1):
                     if c > 0:
                         thisline += ' '
-                    thisline += str(round_sig(self.get2d(r,c), 5))
+                    thisline += floatToString(self.get2d(r,c),)
                 res += thisline + '\n'
             res += '[torch.FloatTensor of size ' + ('%.0f' % size0) + 'x' + str(size1) + ']\n'
             return res
