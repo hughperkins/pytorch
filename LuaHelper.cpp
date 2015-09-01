@@ -50,6 +50,7 @@ float popFloat(lua_State *L) {
     return res;
 }
 void pushFloatTensor(lua_State *L, THFloatTensor *tensor) {
+    THFloatTensor_retain(tensor);
     luaT_pushudata(L, tensor, "torch.FloatTensor");
 }
 

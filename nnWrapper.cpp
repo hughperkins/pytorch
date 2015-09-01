@@ -42,7 +42,10 @@ lua_State *luaInit() {
 void luaClose(lua_State *L) {
     lua_close(L);
 }
-
+void collectGarbage(lua_State *L) {
+    getGlobal(L, "collectgarbage");
+    lua_call(L, 0, 0);
+}
 int THFloatStorage_getRefCount(THFloatStorage *self) {
     return self->refcount;
 }

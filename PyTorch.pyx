@@ -17,6 +17,7 @@ cdef extern from "nnWrapper.h":
     long pointerAsInt(void *ptr)
     int THFloatStorage_getRefCount(THFloatStorage *self)
     int THFloatTensor_getRefCount(THFloatTensor *self)
+    void collectGarbage(lua_State *L)
 
 cdef extern from "THStorage.h":
     cdef struct THFloatStorage
@@ -79,7 +80,7 @@ cdef class FloatStorage(object):
         return THFloatStorage_size(self.thFloatStorage)
 
     def __dealloc__(self):
-        print('THFloatStorage.dealloc')
+        print('THFloatStorage.dealloc, old refcount ', THFloatStorage_getRefCount(self.thFloatStorage))
         print('   dealloc storage: ', hex(<long>(self.thFloatStorage)))
         THFloatStorage_free(self.thFloatStorage)
 
@@ -150,11 +151,14 @@ cdef class FloatTensor(object):
 #        self.storage = storage
 
     def __dealloc__(self):
-        print('FloatTensor.dealloc')
+        cdef int refCount
         cdef int dims
         cdef int size
         cdef int i
-        cdef THFloatStorage *storage = THFloatTensor_storage(self.thFloatTensor)
+        cdef THFloatStorage *storage
+        refCount = THFloatTensor_getRefCount(self.thFloatTensor)
+        print('FloatTensor.dealloc old refcount', refCount)
+        storage = THFloatTensor_storage(self.thFloatTensor)
         if storage == NULL:
             print('   dealloc, storage NULL')
         else:
@@ -163,6 +167,8 @@ cdef class FloatTensor(object):
         print('   dims of dealloc', dims)
         for i in range(dims):
             print('   size[', i, ']', THFloatTensor_size(self.thFloatTensor, i))
+        if refCount < 1:
+            raise Exception('Unallocated an already deallocated tensor... :-O')  # Hmmm, seems this exceptoin wont go anywhere useful... :-P
         THFloatTensor_free(self.thFloatTensor)
 
     @property
@@ -407,7 +413,10 @@ cdef class Module(object):
     @property
     def output(self):
         cdef THFloatTensor *outputC = self.native.getOutput()
-        return FloatTensor.fromNative(outputC)
+        print('pytorch.pyx Module.output() got outputC')
+        output = FloatTensor.fromNative(outputC)
+        print('   pytorch.pyx Module.output() got output')
+        return output
 
     @property
     def gradInput(self):
@@ -526,6 +535,9 @@ cdef class Nn(object):  # basically holds the Lua state
     
     def __dealloc__(self):
         luaClose(self.L)
+
+    def collectgarbage(self):
+        collectGarbage(self.L)
 
     def Linear(self, inputSize, outputSize):
         return Linear(self, inputSize, outputSize)
