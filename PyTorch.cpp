@@ -652,7 +652,7 @@ struct __pyx_obj_7PyTorch_Module {
 
 
 /* "PyTorch.pyx":432
- *         return prediction
+ *         return prediction + 1  # As Karpathy would say: "sigh lua" :-P
  * 
  * cdef class Linear(Module):             # <<<<<<<<<<<<<<
  * 
@@ -876,7 +876,7 @@ static struct __pyx_vtabstruct_7PyTorch_Module *__pyx_vtabptr_7PyTorch_Module;
 
 
 /* "PyTorch.pyx":432
- *         return prediction
+ *         return prediction + 1  # As Karpathy would say: "sigh lua" :-P
  * 
  * cdef class Linear(Module):             # <<<<<<<<<<<<<<
  * 
@@ -7858,7 +7858,7 @@ static int __pyx_f_7PyTorch_6Module_getPrediction(CYTHON_UNUSED struct __pyx_obj
  *             if thisValue > maxSoFar:
  *                 maxSoFar = thisValue             # <<<<<<<<<<<<<<
  *                 prediction = i
- *         return prediction
+ *         return prediction + 1  # As Karpathy would say: "sigh lua" :-P
  */
       __pyx_v_maxSoFar = __pyx_v_thisValue;
 
@@ -7866,7 +7866,7 @@ static int __pyx_f_7PyTorch_6Module_getPrediction(CYTHON_UNUSED struct __pyx_obj
  *             if thisValue > maxSoFar:
  *                 maxSoFar = thisValue
  *                 prediction = i             # <<<<<<<<<<<<<<
- *         return prediction
+ *         return prediction + 1  # As Karpathy would say: "sigh lua" :-P
  * 
  */
       __pyx_v_prediction = __pyx_v_i;
@@ -7878,11 +7878,11 @@ static int __pyx_f_7PyTorch_6Module_getPrediction(CYTHON_UNUSED struct __pyx_obj
   /* "PyTorch.pyx":430
  *                 maxSoFar = thisValue
  *                 prediction = i
- *         return prediction             # <<<<<<<<<<<<<<
+ *         return prediction + 1  # As Karpathy would say: "sigh lua" :-P             # <<<<<<<<<<<<<<
  * 
  * cdef class Linear(Module):
  */
-  __pyx_r = __pyx_v_prediction;
+  __pyx_r = (__pyx_v_prediction + 1);
   goto __pyx_L0;
 
   /* "PyTorch.pyx":420

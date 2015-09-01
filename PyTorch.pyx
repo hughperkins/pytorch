@@ -427,7 +427,7 @@ cdef class Module(object):
             if thisValue > maxSoFar:
                 maxSoFar = thisValue
                 prediction = i
-        return prediction
+        return prediction + 1  # As Karpathy would say: "sigh lua" :-P
 
 cdef class Linear(Module):
 

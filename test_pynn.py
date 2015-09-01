@@ -31,7 +31,7 @@ mlp.add(logSoftMax)
 
 criterion = nn.ClassNLLCriterion()
 
-learningRate = 0.001
+learningRate = 0.0001
 
 #mnist = fetch_mldata("MNIST original")
 mndata = MNIST('/norep/data/mnist')
@@ -79,8 +79,10 @@ for epoch in range(10):
         label = labelsTensor[n]
         labelTensor = PyTorch.FloatTensor(1)
         labelTensor[0] = label
+#        print('label', label)
         output = mlp.forward(input)
         prediction = mlp.getPrediction(output)
+#        print('prediction', prediction)
         if prediction == label:
             numRight += 1
         criterion.forward(output, labelTensor)
@@ -89,7 +91,7 @@ for epoch in range(10):
         mlp.backward(input, gradOutput)
         mlp.updateParameters(learningRate)
         nn.collectgarbage()
-        if n % 100 == 0:
-            print('n=', n)
+#        if n % 100 == 0:
+#            print('n=', n)
     print('epoch ' + str(epoch) + ' accuracy: ' + str(numRight * 100.0 / N) + '%')
 
