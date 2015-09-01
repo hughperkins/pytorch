@@ -4,14 +4,27 @@ cimport cython
 cimport cpython.array
 import array
 
+#cdef extern from "nnWrapper.h":
+#    long pointerAsInt(void *ptr)
+
+from math import log10, floor
+
+# from http://stackoverflow.com/questions/3410976/how-to-round-a-number-to-significant-figures-in-python
+def round_sig(x, sig=2):
+    return round(x, sig-int(floor(log10(abs(x))))-1)
+
 cdef extern from "THStorage.h":
     cdef struct THFloatStorage
     THFloatStorage* THFloatStorage_newWithData(float *data, long size)
     THFloatStorage* THFloatStorage_new()
     THFloatStorage* THFloatStorage_newWithSize(long size)
+    float *THFloatStorage_data(THFloatStorage *self)
     long THFloatStorage_size(THFloatStorage *self)
     void THFloatStorage_free(THFloatStorage *self)
     void THFloatStorage_retain(THFloatStorage *self)
+
+cdef floatToString(float floatValue):
+    return '%.5f'% floatValue
 
 cdef class FloatStorage(object):
     cdef THFloatStorage *thFloatStorage
@@ -23,7 +36,7 @@ cdef class FloatStorage(object):
             raise Exception('cannot provide arguments to initializer')
 
     @staticmethod
-    cdef fromNative(THFloatStorage *storageC):
+    cdef fromNative(THFloatStorage *storageC, retain=True):
         storage = FloatStorage()
         storage.thFloatStorage = storageC
         return storage
@@ -31,19 +44,24 @@ cdef class FloatStorage(object):
     @staticmethod
     def new():
 #        print('allocate storage')
-        return FloatStorage.fromNative(THFloatStorage_new())
+        return FloatStorage.fromNative(THFloatStorage_new(), retain=False)
 
     @staticmethod
     def newWithData(float [:] data):
         cdef THFloatStorage *storageC = THFloatStorage_newWithData(&data[0], len(data))
 #        print('allocate storage')
-        return FloatStorage.fromNative(storageC)
+        return FloatStorage.fromNative(storageC, retain=False)
+
+    def dataAddr(FloatStorage self):
+        cdef float *data = THFloatStorage_data(self.thFloatStorage)
+        cdef long dataAddr = pointerAsInt(data)
+        return dataAddr
 
     @staticmethod
     def newWithSize(long size):
         cdef THFloatStorage *storageC = THFloatStorage_newWithSize(size)
 #        print('allocate storage')
-        return FloatStorage.fromNative(storageC)
+        return FloatStorage.fromNative(storageC, retain=False)
 
     cpdef long size(self):
         return THFloatStorage_size(self.thFloatStorage)
@@ -215,7 +233,9 @@ cdef class FloatTensor(object):
         cdef int size0
         cdef int size1
         dims = self.dims()
-        if dims == 2:
+        if dims == 0:
+            return '[torch.FloatTensor with no dimension]\n'
+        elif dims == 2:
             size0 = THFloatTensor_size(self.thFloatTensor, 0)
             size1 = THFloatTensor_size(self.thFloatTensor, 1)
             res = ''
@@ -224,9 +244,9 @@ cdef class FloatTensor(object):
                 for c in range(size1):
                     if c > 0:
                         thisline += ' '
-                    thisline += str(self.get2d(r,c))
+                    thisline += str(round_sig(self.get2d(r,c), 5))
                 res += thisline + '\n'
-            res += '[torch.FloatTensor of size ' + str(size0) + 'x' + str(size1) + ']\n'
+            res += '[torch.FloatTensor of size ' + ('%.0f' % size0) + 'x' + str(size1) + ']\n'
             return res
         elif dims == 1:
             size0 = THFloatTensor_size(self.thFloatTensor, 0)
@@ -235,7 +255,7 @@ cdef class FloatTensor(object):
             for c in range(size0):
                 if c > 0:
                     thisline += ' '
-                thisline += str(self.get1d(c))
+                thisline += floatToString(self.get1d(c))
             res += thisline + '\n'
             res += '[torch.FloatTensor of size ' + str(size0) + ']\n'
             return res
@@ -265,6 +285,7 @@ cdef extern from "nnWrapper.h":
     cdef struct lua_State
     lua_State *luaInit()
     void luaClose(lua_State *L)
+    long pointerAsInt(void *ptr)
 
     cdef cppclass _Module:
         THFloatTensor *forward(THFloatTensor *input)
@@ -298,6 +319,8 @@ cdef extern from "nnWrapper.h":
         float updateOutput(THFloatTensor *input, THFloatTensor *target)
         THFloatTensor *backward(THFloatTensor *input, THFloatTensor *target)
         THFloatTensor *updateGradInput(THFloatTensor *input, THFloatTensor *target)
+        float getOutput()
+        THFloatTensor *getGradInput()
 
     cdef cppclass _MSECriterion(_Criterion):
         _MSECriterion(lua_State *L)
@@ -399,6 +422,16 @@ cdef class Criterion(object):
 #        print('PyTorch.pyx Criterion.forward')
 #        cdef THFloatTensor *outputC = self.native.forward(input.thFloatTensor, target)
 #        return FloatTensor.fromNative(outputC)
+
+    @property
+    def output(self):
+        cdef float outputC = self.native.getOutput()
+        return outputC
+
+    @property
+    def gradInput(self):
+        cdef THFloatTensor *gradInputC = self.native.getGradInput()
+        return FloatTensor.fromNative(gradInputC)
 
     def forward(self, FloatTensor input, FloatTensor target):
         cdef float loss = self.native.forward(input.thFloatTensor, target.thFloatTensor)

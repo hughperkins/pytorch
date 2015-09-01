@@ -9,6 +9,8 @@ struct lua_State;
 lua_State *luaInit(void);
 void luaClose(lua_State *L);
 
+long pointerAsInt(void *ptr); // mostly for debugging
+
 class _Module {
 protected:
     lua_State *L;
@@ -44,15 +46,12 @@ class _Criterion {
 protected:
     lua_State *L;
 public:
-//    THFloatTensor *forward(THFloatTensor *input, float target);
-//    THFloatTensor *backward(THFloatTensor *input, float target);
-//    THFloatTensor *updateOutput(THFloatTensor *input, float target);
-//    THFloatTensor *updateGradInput(THFloatTensor *input, float target);
-
     float forward(THFloatTensor *input, THFloatTensor *target);
     float updateOutput(THFloatTensor *input, THFloatTensor *target);
     THFloatTensor *backward(THFloatTensor *input, THFloatTensor *target);
     THFloatTensor *updateGradInput(THFloatTensor *input, THFloatTensor *target);
+    float getOutput();
+    THFloatTensor *getGradInput();
 };
 class _MSECriterion : public _Criterion {
 public:

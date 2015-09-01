@@ -14,5 +14,7 @@ void deleteSelf(lua_State *L, void *instanceKey);
 void pushSelf(lua_State *L, void *instanceKey);
 void getInstanceField(lua_State *L, void *instanceKey, const char *name);
 THFloatTensor *popFloatTensor(lua_State *L);
+const char * popString(lua_State *L);
+float popFloat(lua_State *L);
 void pushFloatTensor(lua_State *L, THFloatTensor *tensor);
 

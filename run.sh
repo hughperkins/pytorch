@@ -5,5 +5,9 @@
 #    ... or similar
 # - torch is expected to be at $HOME/torch
 
-LD_LIBRARY_PATH=$HOME/torch/install/lib:$PWD/cbuild python test_pytorch.py
+if [[ x$RUNGDB == x ]]; then {
+    LD_LIBRARY_PATH=$HOME/torch/install/lib:$PWD/cbuild python test_pytorch.py
+} else {
+    LD_LIBRARY_PATH=$HOME/torch/install/lib:$PWD/cbuild rungdb.sh python test_pytorch.py
+} fi
 

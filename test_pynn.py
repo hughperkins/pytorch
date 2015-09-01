@@ -24,8 +24,10 @@ sys.path.append('thirdparty/python-mnist')
 from mnist import MNIST
 
 mlp = nn.Sequential()
-mlp.add(nn.Linear(784, 10))
-mlp.add(nn.LogSoftMax())
+linear = nn.Linear(784, 10)
+mlp.add(linear)
+logSoftMax = nn.LogSoftMax()
+mlp.add(logSoftMax)
 
 criterion = nn.ClassNLLCriterion()
 
@@ -33,21 +35,28 @@ learningRate = 0.001
 
 #mnist = fetch_mldata("MNIST original")
 mndata = MNIST('/norep/data/mnist')
-imagesList, labelsB = mndata.load_training()
-images = numpy.array(imagesList).astype(numpy.float32)
+#imagesList, labelsB = mndata.load_training()
+#images = numpy.array(imagesList).astype(numpy.float32)
 #print('imagesArray', images.shape)
 
 #print(images[0].shape)
 
-labelsf = array.array('f', labelsB.tolist())
-imagesTensor = PyTorch.asTensor(images)
-#imagesTensor = PyTorch.FloatTensor(20,784)
+#labelsf = array.array('f', labelsB.tolist())
+#imagesTensor = PyTorch.asTensor(images)
+
+imagesTensor = PyTorch.FloatTensor(100,784)
 #labels = numpy.array(20,).astype(numpy.int32)
-#labels = PyTorch.FloatTensor(20).fill(1)
+labelsTensor = PyTorch.FloatTensor(100).fill(1)
 #print('labels', labels)
 #print(imagesTensor.siz)
 
-labelsTensor = PyTorch.asTensor(labelsf)
+def printStorageAddr(name, tensor):
+    if tensor.storage() is None:
+        print(name, 'storage is None')
+    else:
+        print(name, 'storage is ', hex(tensor.storage().dataAddr()))
+
+#labelsTensor = PyTorch.asTensor(labelsf)
 labelsTensor += 1
 N = int(imagesTensor.size()[0])
 for epoch in range(10):
@@ -58,14 +67,25 @@ for epoch in range(10):
         label = labelsTensor[n]
         print('label', label)
         labelTensor = PyTorch.FloatTensor(1)
+        printStorageAddr('labelTensor', labelTensor)
         labelTensor[0] = label
+        printStorageAddr('labelTensor', labelTensor)
+        print('logSoftMax.output.size().dims()', logSoftMax.output.size().dims())
+        print('logSoftMax.output.size()', logSoftMax.output.size())
+        printStorageAddr('logSoftMax.output', logSoftMax.output)
         output = mlp.forward(input)
         prediction = mlp.getPrediction(output)
         if prediction == label:
             numRight += 1
+        print('output.size()', output.size())
+        printStorageAddr('output', output)
+        printStorageAddr('labelTensor', labelTensor)
+        print('labelTensor.size()', labelTensor.size())
+        print('labelTensor', labelTensor)
         criterion.forward(output, labelTensor)
         mlp.zeroGradParameters()
         gradOutput = criterion.backward(output, labelTensor)
+        print('gradInput', criterion.gradInput.size())
         mlp.backward(input, gradOutput)
         mlp.updateParameters(learningRate)
     print('epoch ' + str(epoch) + ' accuracy: ' + str(numRight * 100.0 / N) + '%')

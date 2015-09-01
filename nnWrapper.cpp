@@ -42,6 +42,10 @@ void luaClose(lua_State *L) {
     lua_close(L);
 }
 
+long pointerAsInt(void *ptr) {
+    return (long)ptr;
+}
+
 THFloatTensor *_Module::forward(THFloatTensor *input) {
     getInstanceField(L, this, "forward");
     pushSelf(L, this);
@@ -146,55 +150,21 @@ void _Sequential::add(_Module *module) {
     lua_call(L, 2, 0);
 }
 // ======== Criterions ==========================
-//THFloatTensor *_Criterion::forward(THFloatTensor *input, float target) {
-//    cout << "nnWrapper.cpp _Criterion.forward" << endl;
-//    getGlobal(L, "torch", "type");
-//    pushSelf(L, this);
-//    lua_call(L, 1, 1);
-//    cout << "nnWrapper.cpp _Criterion.forwad this.type " << lua_tostring(L, -1) << endl;
-//    lua_remove(L, -1);
-
-//    getInstanceField(L, this, "forward");
-//    pushSelf(L, this);
-//    pushFloatTensor(L, input);
-//    lua_pushnumber(L, target);
-//    lua_call(L, 3, 1);
-//    return popFloatTensor(L);
-//}
-//THFloatTensor *_Criterion::backward(THFloatTensor *input, float target) {
-//    getInstanceField(L, this, "backward");
-//    pushSelf(L, this);
-//    pushFloatTensor(L, input);
-//    lua_pushnumber(L, target);
-//    lua_call(L, 3, 1);
-//    return popFloatTensor(L);
-//}
-//THFloatTensor *_Criterion::updateOutput(THFloatTensor *input, float target) {
-//    getInstanceField(L, this, "updateOutput");
-//    pushSelf(L, this);
-//    pushFloatTensor(L, input);
-//    lua_pushnumber(L, target);
-//    lua_call(L, 3, 1);
-//    return popFloatTensor(L);
-//}
-//THFloatTensor *_Criterion::updateGradInput(THFloatTensor *input, float target) {
-//    getInstanceField(L, this, "updateGradInput");
-//    pushSelf(L, this);
-//    pushFloatTensor(L, input);
-//    lua_pushnumber(L, target);
-//    lua_call(L, 3, 1);
-//    return popFloatTensor(L);
-//}
-
+float _Criterion::getOutput() {
+    getInstanceField(L, this, "output");
+    return popFloat(L);
+}
+THFloatTensor *_Criterion::getGradInput() {
+    getInstanceField(L, this, "gradInput");
+    return popFloatTensor(L);
+}
 float _Criterion::forward(THFloatTensor *input, THFloatTensor *target) {
     getInstanceField(L, this, "forward");
     pushSelf(L, this);
     pushFloatTensor(L, input);
     pushFloatTensor(L, target);
     lua_call(L, 3, 1);
-    float result = lua_tonumber(L, -1);
-    lua_remove(L, -1);
-    return result;
+    return popFloat(L);
 }
 THFloatTensor *_Criterion::backward(THFloatTensor *input, THFloatTensor *target) {
     getInstanceField(L, this, "backward");
@@ -210,9 +180,7 @@ float _Criterion::updateOutput(THFloatTensor *input, THFloatTensor *target) {
     pushFloatTensor(L, input);
     pushFloatTensor(L, target);
     lua_call(L, 3, 1);
-    float result = lua_tonumber(L, -1);
-    lua_remove(L, -1);
-    return result;
+    return popFloat(L);
 }
 THFloatTensor *_Criterion::updateGradInput(THFloatTensor *input, THFloatTensor *target) {
     getInstanceField(L, this, "updateGradInput");
@@ -248,8 +216,7 @@ _ClassNLLCriterion::_ClassNLLCriterion(lua_State *L) {
     getGlobal(L, "torch", "type");
     pushSelf(L, this);
     lua_call(L, 1, 1);
-    cout << "nnWrapper.cpp ClassNLLCriterion::_ClassNLLCriterion type " << lua_tostring(L, -1) << endl;
-    lua_remove(L, -1);
+    cout << "nnWrapper.cpp ClassNLLCriterion::_ClassNLLCriterion type " << popString(L) << endl;
 }
 _ClassNLLCriterion::~_ClassNLLCriterion() {
     deleteSelf(L, this);

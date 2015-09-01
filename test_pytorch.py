@@ -41,3 +41,19 @@ print('D', D)
 D.fill(1.5)
 print('D', D)
 
+print(PyTorch.FloatTensor(1))
+print(PyTorch.FloatTensor(1).fill(2.3))
+print(PyTorch.FloatTensor(3).fill(4.3))
+print(PyTorch.FloatTensor(2,3).fill(4.3))
+
+A = PyTorch.FloatTensor(1)
+A[0] = 2.8
+print('A', A)
+print('A[0]', A[0])
+A = PyTorch.FloatTensor(3)
+print('A', A)
+A[0] = 4.4
+A[2] = 1.1
+print('A', A)
+print('A[0]', A[0], 'A[2]', A[2])
+
