@@ -36,7 +36,7 @@ cdef class FloatStorage(object):
     cdef THFloatStorage *thFloatStorage
 
     def __init__(self, *args, **kwargs):
-        print('floatStorage.__cinit__')
+#        print('floatStorage.__cinit__')
         if len(args) > 0:
             raise Exception('cannot provide arguments to initializer')
         if len(kwargs) > 0:
@@ -80,8 +80,8 @@ cdef class FloatStorage(object):
         return THFloatStorage_size(self.thFloatStorage)
 
     def __dealloc__(self):
-        print('THFloatStorage.dealloc, old refcount ', THFloatStorage_getRefCount(self.thFloatStorage))
-        print('   dealloc storage: ', hex(<long>(self.thFloatStorage)))
+#        print('THFloatStorage.dealloc, old refcount ', THFloatStorage_getRefCount(self.thFloatStorage))
+#        print('   dealloc storage: ', hex(<long>(self.thFloatStorage)))
         THFloatStorage_free(self.thFloatStorage)
 
 cdef extern from "THTensor.h":
@@ -117,7 +117,7 @@ cdef class FloatTensor(object):
 #        self.thFloatTensor = tensorC
 
     def __cinit__(self, *args, **kwargs):
-        print('floatTensor.__cinit__')
+#        print('floatTensor.__cinit__')
         cdef THFloatStorage *storageC
         cdef long addr
         if len(kwargs) > 0:
@@ -127,16 +127,16 @@ cdef class FloatTensor(object):
                 if not isinstance(arg, int):
                     raise Exception('cannot provide arguments to initializer')
             if len(args) == 1:
-                print('new tensor 1d length', args[0])
+#                print('new tensor 1d length', args[0])
                 self.thFloatTensor = THFloatTensor_newWithSize1d(args[0])
                 storageC = THFloatTensor_storage(self.thFloatTensor)
-                if storageC == NULL:
-                    print('storageC is NULL')
-                else:
-                    print('storageC not null')
-                    addr = <long>(storageC)
-                    print('storageaddr', hex(addr))
-                    print('storageC refcount', THFloatStorage_getRefCount(storageC))
+#                if storageC == NULL:
+#                    print('storageC is NULL')
+#                else:
+#                    print('storageC not null')
+#                    addr = <long>(storageC)
+#                    print('storageaddr', hex(addr))
+#                    print('storageC refcount', THFloatStorage_getRefCount(storageC))
             elif len(args) == 2:
                 self.thFloatTensor = THFloatTensor_newWithSize2d(args[0], args[1])
             else:
@@ -152,21 +152,21 @@ cdef class FloatTensor(object):
 
     def __dealloc__(self):
         cdef int refCount
-        cdef int dims
-        cdef int size
-        cdef int i
-        cdef THFloatStorage *storage
+#        cdef int dims
+#        cdef int size
+#        cdef int i
+#        cdef THFloatStorage *storage
         refCount = THFloatTensor_getRefCount(self.thFloatTensor)
-        print('FloatTensor.dealloc old refcount', refCount)
-        storage = THFloatTensor_storage(self.thFloatTensor)
-        if storage == NULL:
-            print('   dealloc, storage NULL')
-        else:
-            print('   dealloc, storage ', hex(<long>(storage)))
-        dims = THFloatTensor_nDimension(self.thFloatTensor)
-        print('   dims of dealloc', dims)
-        for i in range(dims):
-            print('   size[', i, ']', THFloatTensor_size(self.thFloatTensor, i))
+#        print('FloatTensor.dealloc old refcount', refCount)
+#        storage = THFloatTensor_storage(self.thFloatTensor)
+#        if storage == NULL:
+#            print('   dealloc, storage NULL')
+#        else:
+#            print('   dealloc, storage ', hex(<long>(storage)))
+#        dims = THFloatTensor_nDimension(self.thFloatTensor)
+#        print('   dims of dealloc', dims)
+#        for i in range(dims):
+#            print('   size[', i, ']', THFloatTensor_size(self.thFloatTensor, i))
         if refCount < 1:
             raise Exception('Unallocated an already deallocated tensor... :-O')  # Hmmm, seems this exceptoin wont go anywhere useful... :-P
         THFloatTensor_free(self.thFloatTensor)
@@ -237,17 +237,12 @@ cdef class FloatTensor(object):
             self.set1d(index, value)
         else:
             raise Exception("not implemented")
-#        return self
-#        cdef THFloatTensor *res = THFloatTensor_newSelect(self.thFloatTensor, 0, index)
-#        return FloatTensor.fromNative(res, False)
 
     def __iadd__(FloatTensor self, float value):
-        print('iadd')
         THFloatTensor_add(self.thFloatTensor, self.thFloatTensor, value)
         return self
 
     def __add__(FloatTensor self, float value):
-        print('add')
         # assume 2d matrix for now?
         cdef FloatTensor res = FloatTensor.new()
 #        THFloatTensor_resizeAs(cresult, self.thFloatTensor)
@@ -360,11 +355,6 @@ cdef extern from "nnWrapper.h":
 
     # ==== Criterions ================
     cdef cppclass _Criterion:
-#        THFloatTensor *forward(THFloatTensor *input, float target)
-#        THFloatTensor *backward(THFloatTensor *input, float target)
-#        THFloatTensor *updateOutput(THFloatTensor *input, float target)
-#        THFloatTensor *updateGradInput(THFloatTensor *input, float target)
-
         float forward(THFloatTensor *input, THFloatTensor *target)
         float updateOutput(THFloatTensor *input, THFloatTensor *target)
         THFloatTensor *backward(THFloatTensor *input, THFloatTensor *target)
@@ -413,9 +403,7 @@ cdef class Module(object):
     @property
     def output(self):
         cdef THFloatTensor *outputC = self.native.getOutput()
-        print('pytorch.pyx Module.output() got outputC')
         output = FloatTensor.fromNative(outputC)
-        print('   pytorch.pyx Module.output() got output')
         return output
 
     @property
@@ -470,11 +458,6 @@ cdef class Sequential(Module):
 #  ==== Criterions ==========================
 cdef class Criterion(object):
     cdef _Criterion *native
-
-#    def forward(self, FloatTensor input, float target):
-#        print('PyTorch.pyx Criterion.forward')
-#        cdef THFloatTensor *outputC = self.native.forward(input.thFloatTensor, target)
-#        return FloatTensor.fromNative(outputC)
 
     @property
     def output(self):

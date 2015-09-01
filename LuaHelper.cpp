@@ -53,42 +53,6 @@ void pushFloatTensor(lua_State *L, THFloatTensor *tensor) {
     THFloatTensor_retain(tensor);
     luaT_pushudata(L, tensor, "torch.FloatTensor");
 }
-
-//void getInstanceField(lua_State *L, void *instanceKey, const char *name) {
-//    getInstanceValue(L, instanceKey);
-//    lua_getfield(L, -1, name);
-//    lua_remove(L, -2);
-//}
-//void createInstanceStore(lua_State *L, void *key) {
-//    lua_pushlightuserdata(L, key);
-//    lua_newtable(L);
-//    lua_settable(L, LUA_REGISTRYINDEX);
-//}
-//void deleteInstanceStore(lua_State *L, void *key) {
-//    lua_pushlightuserdata(L, key);
-//    lua_pushnil(L);
-//    lua_settable(L, LUA_REGISTRYINDEX);
-//}
-//void pushInstanceValue(lua_State *L, void *instanceKey, const char *name) {
-//    lua_pushlightuserdata(L, instanceKey);
-//    lua_gettable(L, LUA_REGISTRYINDEX);
-//    lua_insert(L, -2);
-
-//    lua_pushstring(L, name);
-//    lua_insert(L, -2);
-
-//    lua_settable(L, -3);
-//    lua_remove(L, -1);
-//}
-//void getInstanceValue(lua_State *L, void *instanceKey, const char *name) {
-//    lua_pushlightuserdata(L, instanceKey);
-//    lua_gettable(L, LUA_REGISTRYINDEX);
-
-//    lua_pushstring(L, name);
-
-//    lua_gettable(L, -2);
-//    lua_remove(L, -2);
-//}
 void getGlobal(lua_State *L, const char *name1) {
     lua_getglobal(L, name1);
 }

@@ -57,13 +57,8 @@ A[2] = 1.1
 print('A', A)
 print('A[0]', A[0], 'A[2]', A[2])
 
-for i in range(5):
-    A = PyTorch.FloatTensor(1)
-    A[0] = 3.5
-    print('A', A)
-    print('A.size()', A.size())
-    print('A.size()', A.size())
-    print('A.size()', A.size())
-    print('A', A)
-    print('A.size()', A.size())
+A = PyTorch.FloatTensor(1)
+A[0] = 3.5
+print('A', A)
+print('A.size()', A.size())
 
