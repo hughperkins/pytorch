@@ -315,6 +315,7 @@ cdef class FloatTensor(object):
 
 def asTensor(myarray):
     cdef float[:] myarraymv
+    cdef FloatStorage storage
     if str(type(myarray)) == "<type 'numpy.ndarray'>":
         dims = len(myarray.shape)
         rows = myarray.shape[0]
@@ -322,11 +323,13 @@ def asTensor(myarray):
 
         myarraymv = myarray.reshape(rows * cols)
         storage = FloatStorage.newWithData(myarraymv)
+        THFloatStorage_retain(storage.thFloatStorage) # since newWithData takes ownership
         tensor = FloatTensor.newWithStorage2d(storage, 0, rows, cols, cols, 1)
         return tensor
     elif isinstance(myarray, array.array):
         myarraymv = myarray
         storage = FloatStorage.newWithData(myarraymv)
+        THFloatStorage_retain(storage.thFloatStorage) # since newWithData takes ownership
         tensor = FloatTensor.newWithStorage1d(storage, 0, len(myarray), 1)
         return tensor        
     else:
