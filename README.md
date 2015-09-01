@@ -260,5 +260,4 @@ epoch 7 accuracy: 100.0%
 epoch 8 accuracy: 100.0%
 epoch 9 accuracy: 100.0%
 ```
-(There's a slight segfault at exit, but training is working now, as you see :-) )
 
