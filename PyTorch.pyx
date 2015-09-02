@@ -117,8 +117,10 @@ cdef extern from "THTensor.h":
     void THFloatTensor_set2d(const THFloatTensor *tensor, long x0, long x1, float value)
     void THFloatTensor_fill(THFloatTensor *self, float value)
 
-    void THFloatTensor_uniform(THFloatTensor *self, THGenerator *_generator, double a, double b)
     void THFloatTensor_bernoulli(THFloatTensor *self, THGenerator *_generator, double p)
+    void THFloatTensor_geometric(THFloatTensor *self, THGenerator *_generator, double p)
+
+    void THFloatTensor_uniform(THFloatTensor *self, THGenerator *_generator, double a, double b)
     void THFloatTensor_normal(THFloatTensor *self, THGenerator *_generator, double mean, double stdv)
     void THFloatTensor_exponential(THFloatTensor *self, THGenerator *_generator, double _lambda);
     void THFloatTensor_cauchy(THFloatTensor *self, THGenerator *_generator, double median, double sigma)
@@ -273,16 +275,20 @@ cdef class FloatTensor(object):
         return res
 
     # ========== random ===============================
+    def bernoulli(FloatTensor self, float p=0.5):
+        THFloatTensor_bernoulli(self.thFloatTensor, globalState.generator, p)
+        return self
+
+    def geometric(FloatTensor self, float p=0.5):
+        THFloatTensor_geometric(self.thFloatTensor, globalState.generator, p)
+        return self
+
     def uniform(FloatTensor self, float a=0, float b=1):
         THFloatTensor_uniform(self.thFloatTensor, globalState.generator, a, b)
         return self
 
     def normal(FloatTensor self, float mean=0, float stdv=1):
         THFloatTensor_normal(self.thFloatTensor, globalState.generator, mean, stdv)
-        return self
-
-    def bernoulli(FloatTensor self, float p=0.5):
-        THFloatTensor_bernoulli(self.thFloatTensor, globalState.generator, p)
         return self
 
     def exponential(FloatTensor self, float _lambda=1):
