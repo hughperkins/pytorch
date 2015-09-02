@@ -299,4 +299,5 @@ To add a new Lua/nn class:
   * `Module` is a good model to follow
   * It's more or less similar to a Python class, except it uses Cython, and we can statically declare variable types
   * The `native` field is being used to store a pointer to the underlying C++ object.  We can simply call methods directly on this pointer, passing in appropriate C++ object pointers, or primitive values
+* Note that `Module` is a bit of an outlier, since it is a parent class.  Eg, we are not defining `__cinit__` or `__dealloc` for it.  You can look at `Linear` for a typical child class, but note that it has few methods, since they are mostly defined on `Module`
 
