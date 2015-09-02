@@ -11,6 +11,6 @@
 
 mkdir cbuild
 (cd cbuild; cmake .. && make -j 4 ) || exit 1
-rm -Rf build PyBuild.so
+rm -Rf build PyBuild.so dist *.egg-info
 python setup.py build_ext -i || exit 1
 

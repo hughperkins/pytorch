@@ -85,4 +85,5 @@ setup(
     install_requires=[],
     scripts=[],
     ext_modules=ext_modules,
+    py_modules=['floattensor'],
 )

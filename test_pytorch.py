@@ -61,4 +61,5 @@ print(PyTorch.FloatTensor(3,4).geometric())
 PyTorch.manualSeed(3)
 print(PyTorch.FloatTensor(3,4).geometric())
 
+print(type(PyTorch.FloatTensor(2,3)))
 
