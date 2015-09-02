@@ -118,6 +118,7 @@ cdef extern from "THTensor.h":
     void THFloatTensor_fill(THFloatTensor *self, float value)
     void THFloatTensor_uniform(THFloatTensor *self, THGenerator *_generator, double a, double b)
     void THFloatTensor_bernoulli(THFloatTensor *self, THGenerator *_generator, double p)
+    void THFloatTensor_normal(THFloatTensor *self, THGenerator *_generator, double mean, double stdv)
     void THFloatTensor_add(THFloatTensor *r_, THFloatTensor *t, float value)
     THFloatStorage *THFloatTensor_storage(THFloatTensor *self)
     void THFloatTensor_retain(THFloatTensor *self)
@@ -268,6 +269,10 @@ cdef class FloatTensor(object):
 
     def uniform(FloatTensor self, float a=0, float b=1):
         THFloatTensor_uniform(self.thFloatTensor, globalState.generator, a, b)
+        return self
+
+    def normal(FloatTensor self, float mean=0, float stdv=1):
+        THFloatTensor_normal(self.thFloatTensor, globalState.generator, mean, stdv)
         return self
 
     def bernoulli(FloatTensor self, float p=0.5):

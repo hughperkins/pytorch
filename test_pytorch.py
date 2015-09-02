@@ -50,5 +50,6 @@ print('D', D)
 
 print(PyTorch.FloatTensor(3,4).uniform())
 print(PyTorch.FloatTensor(3,4).bernoulli())
+print(PyTorch.FloatTensor(3,4).normal())
 
 
