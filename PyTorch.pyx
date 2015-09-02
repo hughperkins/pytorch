@@ -29,6 +29,10 @@ cdef extern from "nnWrapper.h":
 
 cdef extern from "THRandom.h":
     cdef struct THGenerator
+    void THRandom_manualSeed(THGenerator *_generator, unsigned long the_seed_)
+
+def manualSeed(long seed):
+    THRandom_manualSeed(globalState.generator, seed)
 
 cdef extern from "THStorage.h":
     cdef struct THFloatStorage

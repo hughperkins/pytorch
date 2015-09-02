@@ -55,5 +55,10 @@ print(PyTorch.FloatTensor(3,4).cauchy())
 print(PyTorch.FloatTensor(3,4).exponential())
 print(PyTorch.FloatTensor(3,4).logNormal())
 print(PyTorch.FloatTensor(3,4).geometric())
+print(PyTorch.FloatTensor(3,4).geometric())
+PyTorch.manualSeed(3)
+print(PyTorch.FloatTensor(3,4).geometric())
+PyTorch.manualSeed(3)
+print(PyTorch.FloatTensor(3,4).geometric())
 
 
