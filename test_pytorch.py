@@ -49,8 +49,6 @@ D.narrow(1,2,1).fill(0)
 print('D', D)
 
 print(PyTorch.FloatTensor(3,4).uniform())
+print(PyTorch.FloatTensor(3,4).bernoulli())
 
-print(PyTorch.FloatTensor(3,4).uniform())
-
-print(PyTorch.FloatTensor(10,3).uniform())
 
