@@ -5,9 +5,11 @@ struct THFloatTensor;
 
 void dumpStack(lua_State *L);
 
-void getGlobal(lua_State *L, const char *name1);
-void getGlobal(lua_State *L, const char *name1, const char *name2);
-void getGlobal(lua_State *L, const char *name1, const char *name2, const char *name3);
+void *getGlobal(lua_State *L, const char *name1, const char *name2);
+
+void pushGlobal(lua_State *L, const char *name1);
+void pushGlobal(lua_State *L, const char *name1, const char *name2);
+void pushGlobal(lua_State *L, const char *name1, const char *name2, const char *name3);
 
 void popAsSelf(lua_State *L, void *instanceKey);
 void deleteSelf(lua_State *L, void *instanceKey);

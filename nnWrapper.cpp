@@ -32,6 +32,12 @@ lua_State *luaInit() {
 
     lua_State *L = luaL_newstate();
     luaL_openlibs(L);
+
+    lua_getglobal(L, "require");
+    lua_pushstring(L, "torch");
+    lua_call(L, 1, 0);
+//    lua_setglobal(L, "torch");
+
     lua_getglobal(L, "require");
     lua_pushstring(L, "nn");
     lua_call(L, 1, 1);
@@ -43,7 +49,7 @@ void luaClose(lua_State *L) {
     lua_close(L);
 }
 void collectGarbage(lua_State *L) {
-    getGlobal(L, "collectgarbage");
+    pushGlobal(L, "collectgarbage");
     lua_call(L, 0, 0);
 }
 int THFloatStorage_getRefCount(THFloatStorage *self) {
@@ -108,13 +114,13 @@ THFloatTensor *_Module::getGradInput() {
 _Linear::_Linear(lua_State *L, int inputSize, int outputSize) {
     this->L = L;
 
-    getGlobal(L, "nn", "Linear");
+    pushGlobal(L, "nn", "Linear");
     lua_pushinteger(L, inputSize);
     lua_pushinteger(L, outputSize);
     lua_call(L, 2, 1);
     popAsSelf(L, this);
 
-    getGlobal(L, "nn", "Linear", "float");
+    pushGlobal(L, "nn", "Linear", "float");
     pushSelf(L, this);
     lua_call(L, 1, 0);
 }
@@ -128,11 +134,11 @@ THFloatTensor *_Linear::getWeight() {
 _LogSoftMax::_LogSoftMax(lua_State *L) {
     this->L = L;
 
-    getGlobal(L, "nn", "LogSoftMax");
+    pushGlobal(L, "nn", "LogSoftMax");
     lua_call(L, 0, 1);
     popAsSelf(L, this);
 
-    getGlobal(L, "nn", "LogSoftMax", "float");
+    pushGlobal(L, "nn", "LogSoftMax", "float");
     pushSelf(L, this);
     lua_call(L, 1, 0);
 }
@@ -142,11 +148,11 @@ _LogSoftMax::~_LogSoftMax() {
 _Sequential::_Sequential(lua_State *L) {
     this->L = L;
 
-    getGlobal(L, "nn", "Sequential");
+    pushGlobal(L, "nn", "Sequential");
     lua_call(L, 0, 1);
     popAsSelf(L, this);
 
-    getGlobal(L, "nn", "Sequential", "float");
+    pushGlobal(L, "nn", "Sequential", "float");
     pushSelf(L, this);
     lua_call(L, 1, 0);
 }
@@ -154,7 +160,7 @@ _Sequential::~_Sequential() {
     deleteSelf(L, this);
 }
 void _Sequential::add(_Module *module) {
-    getGlobal(L, "nn", "Sequential", "add");
+    pushGlobal(L, "nn", "Sequential", "add");
     pushSelf(L, this);
     pushSelf(L, module);
     lua_call(L, 2, 0);
@@ -202,11 +208,11 @@ THFloatTensor *_Criterion::updateGradInput(THFloatTensor *input, THFloatTensor *
 }
 _MSECriterion::_MSECriterion(lua_State *L) {
     this->L = L;
-    getGlobal(L, "nn", "MSECriterion");
+    pushGlobal(L, "nn", "MSECriterion");
     lua_call(L, 0, 1);
     popAsSelf(L, this);
 
-    getGlobal(L, "nn", "MSECriterion", "float");
+    pushGlobal(L, "nn", "MSECriterion", "float");
     pushSelf(L, this);
     lua_call(L, 1, 0);
 }
@@ -215,15 +221,15 @@ _MSECriterion::~_MSECriterion() {
 }
 _ClassNLLCriterion::_ClassNLLCriterion(lua_State *L) {
     this->L = L;
-    getGlobal(L, "nn", "ClassNLLCriterion");
+    pushGlobal(L, "nn", "ClassNLLCriterion");
     lua_call(L, 0, 1);
     popAsSelf(L, this);
 
-    getGlobal(L, "nn", "ClassNLLCriterion", "float");
+    pushGlobal(L, "nn", "ClassNLLCriterion", "float");
     pushSelf(L, this);
     lua_call(L, 1, 0);
 
-    getGlobal(L, "torch", "type");
+    pushGlobal(L, "torch", "type");
     pushSelf(L, this);
     lua_call(L, 1, 1);
     cout << "nnWrapper.cpp ClassNLLCriterion::_ClassNLLCriterion type " << popString(L) << endl;
@@ -234,7 +240,7 @@ _ClassNLLCriterion::~_ClassNLLCriterion() {
 //=============trainers=================
 _StochasticGradient::_StochasticGradient(lua_State *L, _Module *module, _Criterion *criterion) {
     this->L = L;
-    getGlobal(L, "nn", "StochasticGradient");
+    pushGlobal(L, "nn", "StochasticGradient");
     // hmmm, is this missing self?
     pushSelf(L, module);
     pushSelf(L, criterion);
@@ -242,7 +248,7 @@ _StochasticGradient::_StochasticGradient(lua_State *L, _Module *module, _Criteri
     lua_call(L, 2, 1);
     popAsSelf(L, this);
 
-    getGlobal(L, "nn", "StochasticGradient", "float");
+    pushGlobal(L, "nn", "StochasticGradient", "float");
     pushSelf(L, this);
     lua_call(L, 1, 0);
 }

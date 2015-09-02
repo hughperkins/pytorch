@@ -53,19 +53,28 @@ void pushFloatTensor(lua_State *L, THFloatTensor *tensor) {
     THFloatTensor_retain(tensor);
     luaT_pushudata(L, tensor, "torch.FloatTensor");
 }
-void getGlobal(lua_State *L, const char *name1) {
+void pushGlobal(lua_State *L, const char *name1) {
     lua_getglobal(L, name1);
 }
-void getGlobal(lua_State *L, const char *name1, const char *name2) {
+void pushGlobal(lua_State *L, const char *name1, const char *name2) {
     lua_getglobal(L, name1);
     lua_getfield(L, -1, name2);
     lua_remove(L, -2);
 }
-void getGlobal(lua_State *L, const char *name1, const char *name2, const char *name3) {
+void pushGlobal(lua_State *L, const char *name1, const char *name2, const char *name3) {
     lua_getglobal(L, name1);
     lua_getfield(L, -1, name2);
     lua_remove(L, -2);
     lua_getfield(L, -1, name3);
     lua_remove(L, -2);
+}
+
+void *getGlobal(lua_State *L, const char *name1, const char *name2) {
+    pushGlobal(L, name1, name2);
+    void **pres = (void **)lua_touserdata(L, -1);
+    void *res = *pres;
+//    void *res = lua_touserdata(L, -1);
+    lua_remove(L, -1);
+    return res;
 }
 

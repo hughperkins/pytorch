@@ -1,3 +1,5 @@
+from __future__ import print_function
+
 import cython
 cimport cython
 
@@ -13,11 +15,20 @@ from math import log10, floor
 def round_sig(x, sig=2):
     return round(x, sig-int(floor(log10(abs(x))))-1)
 
+cdef extern from "LuaHelper.h":
+    void *getGlobal(lua_State *L, const char *name1, const char *name2);
+
 cdef extern from "nnWrapper.h":
+#    cdef struct PyTorchState
+#    PyTorchState *initPyTorchState()
+#    lua_State *getL(PyTorchState *state)
     long pointerAsInt(void *ptr)
     int THFloatStorage_getRefCount(THFloatStorage *self)
     int THFloatTensor_getRefCount(THFloatTensor *self)
     void collectGarbage(lua_State *L)
+
+cdef extern from "THRandom.h":
+    cdef struct THGenerator
 
 cdef extern from "THStorage.h":
     cdef struct THFloatStorage
@@ -106,6 +117,7 @@ cdef extern from "THTensor.h":
     void THFloatTensor_set2d(const THFloatTensor *tensor, long x0, long x1, float value)
     void THFloatTensor_fill(THFloatTensor *self, float value)
 #    void THFloatTensor_uniform(THFloatTensor *self, float value)
+    void THFloatTensor_uniform(THFloatTensor *self, THGenerator *_generator, double a, double b)
     void THFloatTensor_add(THFloatTensor *r_, THFloatTensor *t, float value)
     THFloatStorage *THFloatTensor_storage(THFloatTensor *self)
     void THFloatTensor_retain(THFloatTensor *self)
@@ -253,6 +265,10 @@ cdef class FloatTensor(object):
 #        THFloatTensor_resizeAs(cresult, self.thFloatTensor)
         THFloatTensor_add(res.thFloatTensor, self.thFloatTensor, value)
         return res
+
+    def uniform(FloatTensor self, float a=0, float b=1):
+        THFloatTensor_uniform(self.thFloatTensor, globalState.generator, a, b)
+        return self
 
     def fill(FloatTensor self, float value):
         THFloatTensor_fill(self.thFloatTensor, value)
@@ -522,10 +538,13 @@ cdef class Nn(object):  # basically holds the Lua state
     cdef lua_State *L
 
     def __cinit__(self):
-        self.L = luaInit()
+#        self.L = luaInit()
+        self.L = globalState.L
+#        self.L = globalState.getL()
     
     def __dealloc__(self):
-        luaClose(self.L)
+        pass
+#        luaClose(self.L)
 
     def collectgarbage(self):
         collectGarbage(self.L)
@@ -547,4 +566,32 @@ cdef class Nn(object):  # basically holds the Lua state
 
     def StochasticGradient(self, module, criterion):
         return StochasticGradient(self, module, criterion)
+
+cdef class GlobalState(object):
+#    cdef PyTorchState *state
+    cdef lua_State *L
+    cdef THGenerator *generator
+
+    def __cinit__(GlobalState self):
+        print('GlobalState.__cinit__')
+#        self.state = initPyTorchState();
+
+    def __dealloc__(self):
+        print('GlobalState.__dealloc__')
+
+#    cdef lua_State *getL(self):  # this is mostly a migration path, we will push this downwards, and out of htis layer
+#        return getL(self.state)
+
+cdef GlobalState globalState
+
+def init():
+    global globalState
+    print('initializing PyTorch...')
+    globalState = GlobalState()
+    globalState.L = luaInit()
+    globalState.generator = <THGenerator *>(getGlobal(globalState.L, 'torch', '_gen'))
+    print('generator null:', globalState.generator == NULL)
+    print(' ... PyTorch initialized')
+
+init()
 
