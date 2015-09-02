@@ -40,8 +40,10 @@ else:
 
 runtime_library_dirs = []
 libraries = []
+libraries.append('lua5.1')
+libraries.append('luaT')
 #libraries.append('mylib')
-libraries.append('nnWrapper')
+#libraries.append('nnWrapper')
 libraries.append('TH')
 library_dirs = []
 library_dirs.append('cbuild')
@@ -53,13 +55,13 @@ if osfamily == 'Linux':
 if osfamily == 'Windows':
     libraries.append('winmm')
 
-sources = ["PyTorch.cxx"]
+sources = ["PyTorch.cxx", 'nnWrapper.cpp', 'LuaHelper.cpp']
 if cython_present:
-    sources = ["PyTorch.pyx"]
+    sources = ["PyTorch.pyx", 'nnWrapper.cpp', 'LuaHelper.cpp']
 ext_modules = [
     Extension("PyTorch",
               sources=sources,
-              include_dirs=[home_dir + '/torch/install/include/TH'],
+              include_dirs=[home_dir + '/torch/install/include/TH', 'thirdparty/lua-5.1.5/src', home_dir + '/torch/install/include'],
               library_dirs=library_dirs,
               libraries=libraries,
               extra_compile_args=compile_options,

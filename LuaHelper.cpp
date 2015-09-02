@@ -1,6 +1,8 @@
 #include "LuaHelper.h"
 
-#include "lua.h"
+extern "C" {
+    #include "lua.h"
+}
 #include "luaT.h"
 #include "THTensor.h"
 
