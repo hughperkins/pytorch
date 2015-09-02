@@ -259,3 +259,17 @@ epoch 8 accuracy: 100.0%
 epoch 9 accuracy: 100.0%
 ```
 
+# How to add new methods
+
+## pytorch
+
+* the C library methods are defined in the torch library in torch7 repo, in two files:
+  * lib/TH/generic/THTensor.h
+  * lib/TH/generic/THStorage.h
+* simply copy the appropriate declaration into PyTorch.pyx, in the blocks that start `cdef extern from "THStorage.h":` or `cdef extern from "THTensor.h":`, as appropriate
+* and add an appropriate method into FloatStorage class, or FloatTensor class
+* that's it :-)
+
+You can have a look eg at the `narrow` method as an example
+
+
