@@ -51,5 +51,8 @@ print('D', D)
 print(PyTorch.FloatTensor(3,4).uniform())
 print(PyTorch.FloatTensor(3,4).bernoulli())
 print(PyTorch.FloatTensor(3,4).normal())
+print(PyTorch.FloatTensor(3,4).cauchy())
+print(PyTorch.FloatTensor(3,4).exponential())
+print(PyTorch.FloatTensor(3,4).logNormal())
 
 
