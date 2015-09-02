@@ -74,6 +74,11 @@ print(PyTorch.FloatTensor(3,4).cauchy())
 print(PyTorch.FloatTensor(3,4).exponential())
 print(PyTorch.FloatTensor(3,4).logNormal())
 print(PyTorch.FloatTensor(3,4).geometric())
+print(PyTorch.FloatTensor(3,4).geometric())
+PyTorch.manualSeed(3)
+print(PyTorch.FloatTensor(3,4).geometric())
+PyTorch.manualSeed(3)
+print(PyTorch.FloatTensor(3,4).geometric())
 ```
 
 Output:
@@ -187,6 +192,21 @@ D 1 1 0
 2 1 3 1
 1 1 1 1
 3 1 4 1
+[torch.FloatTensor of size 3x4]
+
+2 2 2 1
+2 2 1 1
+2 2 1 1
+[torch.FloatTensor of size 3x4]
+
+2 1 2 3
+1 1 2 2
+4 1 4 1
+[torch.FloatTensor of size 3x4]
+
+2 1 2 3
+1 1 2 2
+4 1 4 1
 [torch.FloatTensor of size 3x4]
 ```
 
