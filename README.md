@@ -66,6 +66,14 @@ print('D', D)
 
 D.narrow(1,2,1).fill(0)
 print('D', D)
+
+print(PyTorch.FloatTensor(3,4).uniform())
+print(PyTorch.FloatTensor(3,4).bernoulli())
+print(PyTorch.FloatTensor(3,4).normal())
+print(PyTorch.FloatTensor(3,4).cauchy())
+print(PyTorch.FloatTensor(3,4).exponential())
+print(PyTorch.FloatTensor(3,4).logNormal())
+print(PyTorch.FloatTensor(3,4).geometric())
 ```
 
 Output:
@@ -145,6 +153,41 @@ D 1 1 0
 9 9 0
 1 1 0
 [torch.FloatTensor of size 5x3]
+
+0.0069189 0.0934481 0.488816 0.989025
+0.125598 0.477475 0.86955 0.0472904
+0.322867 0.330087 0.931925 0.639966
+[torch.FloatTensor of size 3x4]
+
+1 1 1 1
+1 1 1 1
+1 1 0 0
+[torch.FloatTensor of size 3x4]
+
+-1.19303 -0.351101 -1.16909 -1.03799
+-0.197524 -0.812448 0.778675 -2.12981
+0.42737 0.566242 -0.970235 -0.191112
+[torch.FloatTensor of size 3x4]
+
+-1.2123 -1.77004 0.0256488 -0.246493
+-0.55631 2.81549 0.85101 1.73442
+6.53249 -0.252495 -2.52411 -0.0164343
+[torch.FloatTensor of size 3x4]
+
+0.214561 1.79436 0.385731 0.439792
+0.67608 0.434034 1.91894 1.45847
+0.0678396 1.34574 1.01357 1.06901
+[torch.FloatTensor of size 3x4]
+
+0.342984 0.124501 0.019485 1.08767
+0.208956 0.412723 0.702379 0.144819
+0.0494364 0.158265 0.174502 1.17602
+[torch.FloatTensor of size 3x4]
+
+2 1 3 1
+1 1 1 1
+3 1 4 1
+[torch.FloatTensor of size 3x4]
 ```
 
 # pynn
