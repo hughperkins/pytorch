@@ -11,21 +11,27 @@ class Linear(object):
         print('Linear.__attr__')
 
 def pushGlobal(lua, name1, name2=None, name3=None):
+    print('pushglobal START lua_gettop', lua.getTop())
     lua.getGlobal(name1)
     if name2 is None:
+        print('pushglobal END lua_gettop', lua.getTop())
         return
     lua.getField(-1, name2)
     lua.remove(-2)
     if name3 is None:
+        print('pushglobal END lua_gettop', lua.getTop())
         return
     lua.getField(-1, name3)
     lua.remove(-2)
+    print('pushglobal END lua_gettop', lua.getTop())
 
 def pushGlobalFromList(lua, nameList):
+    print('pushglobal START lua_gettop', lua.getTop())
     lua.getGlobal(nameList[0])
     for name in nameList[1:]:
         lua.getField(-1, name)
         lua.remove(-2)
+    print('pushglobal END lua_gettop', lua.getTop())
 
 def popString(lua):
     res = lua.toString(-1)
@@ -60,6 +66,7 @@ class LuaClass(object):
     def __init__(self, nameList, *args):
         print('LuaClass.initNew', nameList)
         lua = PyTorch.getGlobalState().getLua()
+        topStart = lua.getTop()
         pushGlobalFromList(lua, nameList)
         for arg in args:
             print('    arg=', type(arg))
@@ -69,19 +76,26 @@ class LuaClass(object):
                 raise Exception('arg type ' + str(type(arg)) + ' not implemented')
         lua.call(len(args), 1)
         registerObject(lua, self)
+        topEnd = lua.getTop()
+        assert topStart == topEnd
 
     def __del__(self):
         name = self.__class__.__name__
         print(name + '.__del__')
 
     def __repr__(self):
+        topStart = lua.getTop()
         name = self.__class__.__name__
         pushGlobal(lua, 'nn', name, '__tostring')
         pushObject(lua, self)
         lua.call(1, 1)
-        return popString(lua)
+        res = popString(lua)
+        topEnd = lua.getTop()
+        assert topStart == topEnd
+        return res
 
     def __dir__(self):
+        topStart = lua.getTop()
         attributes = []
         pushObject(lua, self)
         lua.pushNil()
@@ -89,11 +103,17 @@ class LuaClass(object):
             keyname = lua.toString(-2)
             attributes.append(keyname)
             lua.remove(-1)
+        lua.remove(-1)
+        topEnd = lua.getTop()
+        assert topStart == topEnd
         return attributes
 
     def __getattr__(self, name):
+        print('getattr top', lua.getTop())
+        topStart = lua.getTop()
         pushObject(lua, self)
         lua.getField(-1, name)
+        lua.remove(-2)
         pushGlobal(lua, 'torch', 'type')
         lua.insert(-2)
         lua.call(1, 1)
@@ -101,15 +121,22 @@ class LuaClass(object):
 #        print('attr typename', typename)
         pushObject(lua, self)
         lua.getField(-1, name)
+        lua.remove(-2)
         if typename == 'torch.FloatTensor':
             res = PyTorch._popFloatTensor()
+            topEnd = lua.getTop()
+            assert topStart == topEnd
             return res
         elif typename == 'function':
+            print('getattr function top', lua.getTop())
             def mymethod(*args):
+                topStart = lua.getTop()
                 print('mymethod called method=', name)
+                print('getattr mymethod ', lua.getTop())
                 pushObject(lua, self)
                 lua.getField(-1, name)
-                pushObject(lua, self)
+                lua.insert(-2)
+#                pushObject(lua, self)
                 for arg in args:
                     print('arg', arg, type(arg))
                     if isinstance(arg, PyTorch._FloatTensor):
@@ -127,15 +154,27 @@ class LuaClass(object):
                 lua.call(1, 1)
                 returntype = popString(lua)
                 print('returntype', returntype)
+                print('getattr mymethod after getting returntype ', lua.getTop())
                 # this is getting a bit recursive :-P
                 if returntype == 'torch.FloatTensor':
                     res = PyTorch._popFloatTensor()
+                    topEnd = lua.getTop()
+                    print('topstart', topStart, 'topend', topEnd)
+                    print('topstart - topend', topStart - topEnd)
+                    assert topStart == topEnd
                     return res
                 elif returntype in luaClasses:
                     returnobject = luaClasses[returntype](_fromLua=True)
                     registerObject(lua, returnobject)
+#                    lua.remove(-1)
+                    topEnd = lua.getTop()
+                    assert topStart == topEnd
+                    return returnobject
                 else:
                     raise Exception('return type ' + str(returntype) + ' not implemented')
+            lua.remove(-1)
+            topEnd = lua.getTop()
+            assert topStart == topEnd
             return mymethod
         else:
             raise Exception('handling type ' + typename + ' not implemented')

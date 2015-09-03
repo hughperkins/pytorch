@@ -3,7 +3,6 @@ import PyTorch
 
 from PyTorchAug import *
 
-
 linear = Linear(3, 5)
 linear.float()
 print('linear', linear)
@@ -22,9 +21,18 @@ print('gradInput', gradInput)
 criterion = ClassNLLCriterion()
 print('criterion', criterion)
 
+print('dir(linear)', dir(linear))
 mlp = Sequential()
+print('dir(linear)', dir(linear))
 print('mlp', mlp)
+print('dir(linear)', dir(linear))
 mlp.add(linear)
+print('dir(linear)', dir(linear))
 
 print('dir(linear)', dir(linear))
+print('dir(mlp)', dir(mlp))
+
+output = mlp.forward(input)
+print('got output')
+print('output', output)
 
