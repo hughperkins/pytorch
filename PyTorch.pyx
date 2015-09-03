@@ -490,10 +490,9 @@ cdef class Module(object):
             if thisValue > maxSoFar:
                 maxSoFar = thisValue
                 prediction = i
-        return prediction + 1  # As Karpathy would say: "sigh lua" :-P
+        return prediction + 1
 
-cdef class Linear(Module):
-
+cdef class CyLinear(Module):
     def __cinit__(self, inputSize, outputSize):
         self.native = new _Linear(globalState.L, inputSize, outputSize)
 
@@ -577,28 +576,6 @@ cdef class StochasticGradient(object):
     def __dealloc__(self):
         del self.native
 
-# ==== Nn ==================================
-cdef class Nn(object):  # just used to provide the `nn.` syntax
-    def collectgarbage(self):
-        collectGarbage(globalState.L)
-
-    def Linear(self, inputSize, outputSize):
-        return Linear(inputSize, outputSize)
-
-    def LogSoftMax(self):
-        return LogSoftMax()
-
-    def Sequential(self):
-        return Sequential()
-
-    def MSECriterion(self):
-        return MSECriterion()
-
-    def ClassNLLCriterion(self):
-        return ClassNLLCriterion()
-
-    def StochasticGradient(self, module, criterion):
-        return StochasticGradient(module, criterion)
 
 cdef class GlobalState(object):
     # properties are in the PyTorch.pxd file
@@ -626,5 +603,28 @@ def init():
 
 init()
 
-from floattensor import FloatTensor
+from floattensor import FloatTensor, Linear
+
+# ==== Nn ==================================
+cdef class Nn(object):  # just used to provide the `nn.` syntax
+    def collectgarbage(self):
+        collectGarbage(globalState.L)
+
+    def Linear(self, inputSize, outputSize):
+        return Linear(inputSize, outputSize)
+
+    def LogSoftMax(self):
+        return LogSoftMax()
+
+    def Sequential(self):
+        return Sequential()
+
+    def MSECriterion(self):
+        return MSECriterion()
+
+    def ClassNLLCriterion(self):
+        return ClassNLLCriterion()
+
+    def StochasticGradient(self, module, criterion):
+        return StochasticGradient(module, criterion)
 
