@@ -124,6 +124,11 @@ class Linear(object):
         lua.call(2, 1)
         registerObject(lua, self)
 
+        pushGlobal(lua, 'nn', 'Linear', 'float')
+        pushObject(lua, self)
+#        lua.getField(-1, 'float')
+        lua.call(1, 0)
+
     def __del__(self):
         print('Linear.__del__')
 
@@ -138,6 +143,11 @@ class Linear(object):
         print('__getattr__', name)
         pushObject(lua, self)
         lua.getField(-1, 'weight')
+        pushGlobal(lua, 'torch', 'type')
+        lua.insert(-2)
+        lua.call(1, 1)
+        typename = popString(lua)
+        print('attr typename', typename)
 
 #linear = Linear()
 #print('linear', linear)
@@ -160,14 +170,14 @@ def registerObject(lua, myobject):
     lua.insert(-2)
     lua.setRegistry()
 
-    pushObject(lua, myobject)
-    lua.pushNumber(id(myobject))
-    lua.setRegistry()
+#    pushObject(lua, myobject)
+#    lua.pushNumber(id(myobject))
+#    lua.setRegistry()
 
 def unregisterObject(lua, myobject):
-    pushObject(lua, myobject)
-    lua.pushNil()
-    lua.setRegistry()
+#    pushObject(lua, myobject)
+#    lua.pushNil()
+#    lua.setRegistry()
 
     lua.pushNumber(id(myobject))
     lua.pushNil()
@@ -205,15 +215,15 @@ print('linear.weight', linear.weight)
 
 print('linear', linear)
 
-import ctypes
-myid = id(linear)
-linear = None
-print('getting probe...')
-beforevalue = ctypes.cast(myid, ctypes.py_object)
-print('type(beforevalue)', type(beforevalue))
-probe = beforevalue.value
-print('...got probe')
-print('probe is None', probe is None)
-print(probe)
+#import ctypes
+#myid = id(linear)
+#linear = None
+#print('getting probe...')
+#beforevalue = ctypes.cast(myid, ctypes.py_object)
+#print('type(beforevalue)', type(beforevalue))
+#probe = beforevalue.value
+#print('...got probe')
+#print('probe is None', probe is None)
+#print(probe)
 
 

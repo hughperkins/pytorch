@@ -17,11 +17,85 @@ def round_sig(x, sig=2):
 cdef extern from "LuaHelper.h":
     void *getGlobal(lua_State *L, const char *name1, const char *name2);
     void require(lua_State *L, const char *name)
+    THFloatTensor *popFloatTensor(lua_State *L)
 
 cdef class LuaHelper(object):
     @staticmethod
     def require(name):
         require(globalState.L, name)
+
+cdef extern from "lua_externc.h":
+    struct lua_State
+    int LUA_REGISTRYINDEX
+    void lua_pushnumber(lua_State *L, float number)
+    float lua_tonumber(lua_State *L, int index)
+    void lua_pushstring(lua_State *L, const char *value)
+    const char *lua_tostring(lua_State *L, int index)
+    void lua_call(lua_State *L, int argsIn, int argsOut)
+    void lua_remove(lua_State *L, int index)
+    void lua_insert(lua_State *L, int index)
+    void lua_getglobal(lua_State *L, const char *name)
+    void lua_setglobal(lua_State *L, const char *name)
+    void lua_settable(lua_State *L, int index)
+    void lua_gettable(lua_State *L, int index)
+    void lua_getfield(lua_State *L, int index, const char *name)
+    void lua_pushnil(lua_State *L)
+
+cdef class LuaState(object):
+    cdef lua_State *L
+
+    def __cinit__(self):
+        print('LuaState.__cinit__')
+        self.L = luaInit()
+
+    def __dealloc__(self):
+        print('LuaState.__dealloc__')
+        pass
+
+    def insert(self, int index):
+        lua_insert(self.L, index)
+
+    def remove(self, int index):
+        lua_remove(self.L, index)
+
+    def pushNumber(self, float number):
+        lua_pushnumber(self.L, number)
+
+    def pushString(self, mystring):
+        lua_pushstring(self.L, mystring)
+
+    def toString(self, int index):
+        cdef bytes py_string = lua_tostring(self.L, index)
+        return py_string
+
+    def toNumber(self, int index):
+        return lua_tonumber(self.L, index)
+
+    def getGlobal(self, name):
+        lua_getglobal(self.L, name)
+
+    def setGlobal(self, name):
+        lua_setglobal(self.L, name)
+
+    def pushNil(self):
+        lua_pushnil(self.L)
+
+    def call(self, int numIn, int numOut):
+        lua_call(self.L, numIn, numOut)
+
+    def getField(self, int index, name):
+        lua_getfield(self.L, index, name)
+
+    def setRegistry(self):
+        lua_settable(self.L, LUA_REGISTRYINDEX)
+
+    def getRegistry(self):
+        lua_gettable(self.L, LUA_REGISTRYINDEX)
+
+cdef LuaState_fromNative(lua_State *L):
+    cdef LuaState luaState = LuaState()
+    luaState.L = L
+    return luaState
 
 cdef extern from "nnWrapper.h":
     long pointerAsInt(void *ptr)
@@ -400,183 +474,6 @@ cdef extern from "nnWrapper.h":
     lua_State *luaInit()
     void luaClose(lua_State *L)
 
-#    cdef cppclass _Module:
-#        THFloatTensor *forward(THFloatTensor *input)
-#        THFloatTensor *backward(THFloatTensor *input, THFloatTensor *gradOutput)
-#        void zeroGradParameters()
-#        void updateParameters(float learningRate)
-#        THFloatTensor *updateOutput(THFloatTensor *input)
-#        THFloatTensor *updateGradInput(THFloatTensor *input, THFloatTensor *gradOutput)
-#        THFloatTensor *getOutput()
-#        THFloatTensor *getGradInput()
-
-#    cdef cppclass _Linear(_Module):
-#        _Linear(lua_State *L, int inputSize, int OutputSize)
-#        THFloatTensor *getWeight()
-
-#    cdef cppclass _LogSoftMax(_Module):
-#        _LogSoftMax(lua_State *L)
-
-#    cdef cppclass _Sequential(_Module):
-#        _Sequential(lua_State *L)
-#        void add(_Module *module)
-
-#    # ==== Criterions ================
-#    cdef cppclass _Criterion:
-#        float forward(THFloatTensor *input, THFloatTensor *target)
-#        float updateOutput(THFloatTensor *input, THFloatTensor *target)
-#        THFloatTensor *backward(THFloatTensor *input, THFloatTensor *target)
-#        THFloatTensor *updateGradInput(THFloatTensor *input, THFloatTensor *target)
-#        float getOutput()
-#        THFloatTensor *getGradInput()
-
-#    cdef cppclass _MSECriterion(_Criterion):
-#        _MSECriterion(lua_State *L)
-
-#    cdef cppclass _ClassNLLCriterion(_Criterion):
-#        _ClassNLLCriterion(lua_State *L)
-
-#    # ==== trainers ====================
-#    cdef cppclass _Trainer:
-#        pass
-
-#    cdef cppclass _StochasticGradient:
-#        _StochasticGradient(lua_State *L, _Module *module, _Criterion *criterion)
-
-#cdef class Module(object):
-#    cdef _Module *native
-
-#    def forward(self, _FloatTensor input):
-#        cdef THFloatTensor *outputC = self.native.forward(input.thFloatTensor)
-#        return _FloatTensor_fromNative(outputC)
-
-#    def backward(self, _FloatTensor input, _FloatTensor gradOutput):
-#        cdef THFloatTensor *gradInputC = self.native.backward(input.thFloatTensor, gradOutput.thFloatTensor)
-#        return _FloatTensor_fromNative(gradInputC)
-
-#    def zeroGradParameters(self):
-#        self.native.zeroGradParameters()
-
-#    def updateParameters(self, float learningRate):
-#        self.native.updateParameters(learningRate)
-
-#    def updateOutput(self, _FloatTensor input):
-#        cdef THFloatTensor *outputC = self.native.updateOutput(input.thFloatTensor)
-#        return _FloatTensor_fromNative(outputC)
-
-#    def updateGradInput(self, _FloatTensor input, _FloatTensor gradOutput):
-#        cdef THFloatTensor *gradInputC = self.native.updateGradInput(input.thFloatTensor, gradOutput.thFloatTensor)
-#        return _FloatTensor_fromNative(gradInputC)
-
-#    @property
-#    def output(self):
-#        cdef THFloatTensor *outputC = self.native.getOutput()
-#        output = _FloatTensor_fromNative(outputC)
-#        return output
-
-#    @property
-#    def gradInput(self):
-#        cdef THFloatTensor *gradInputC = self.native.getGradInput()
-#        return _FloatTensor_fromNative(gradInputC)
-
-#    # there's probably an official Torch way of doing this
-#    cpdef int getPrediction(self, _FloatTensor output):
-#        cdef int prediction = 0
-#        cdef float maxSoFar = output[0]
-#        cdef float thisValue = 0
-#        cdef int i = 0
-#        for i in range(THFloatTensor_size(output.thFloatTensor, 0)):
-#            thisValue = THFloatTensor_get1d(output.thFloatTensor, i)
-#            if thisValue > maxSoFar:
-#                maxSoFar = thisValue
-#                prediction = i
-#        return prediction + 1
-
-#cdef class CyLinear(Module):
-#    def __cinit__(self, inputSize, outputSize):
-#        self.native = new _Linear(globalState.L, inputSize, outputSize)
-
-#    def __dealloc__(self):
-#        del self.native
-
-#    @property
-#    def weight(self):
-#        cdef THFloatTensor *weightC = (<_Linear *>(self.native)).getWeight()
-#        return _FloatTensor_fromNative(weightC)
-
-#cdef class LogSoftMax(Module):
-#    def __cinit__(self):
-#        self.native = new _LogSoftMax(globalState.L)
-
-#    def __dealloc__(self):
-#        del self.native
-
-#cdef class Sequential(Module):
-#    def __cinit__(self):
-#        self.native = new _Sequential(globalState.L)
-
-#    def __dealloc__(self):
-#        del self.native
-
-#    def add(self, Module module):
-#        (<_Sequential *>(self.native)).add(module.native)
-#        return self
-
-##  ==== Criterions ==========================
-#cdef class Criterion(object):
-#    cdef _Criterion *native
-
-#    @property
-#    def output(self):
-#        cdef float outputC = self.native.getOutput()
-#        return outputC
-
-#    @property
-#    def gradInput(self):
-#        cdef THFloatTensor *gradInputC = self.native.getGradInput()
-#        return _FloatTensor_fromNative(gradInputC)
-
-#    def forward(self, _FloatTensor input, _FloatTensor target):
-#        cdef float loss = self.native.forward(input.thFloatTensor, target.thFloatTensor)
-#        return loss
-
-#    def updateOutput(self, _FloatTensor input, _FloatTensor target):
-#        cdef float loss = self.native.updateOutput(input.thFloatTensor, target.thFloatTensor)
-#        return loss
-
-#    def backward(self, _FloatTensor input, _FloatTensor target):
-#        cdef THFloatTensor *gradInputC = self.native.backward(input.thFloatTensor, target.thFloatTensor)
-#        return _FloatTensor_fromNative(gradInputC)
-
-#    def updateGradInput(self, _FloatTensor input, _FloatTensor target):
-#        cdef THFloatTensor *gradInputC = self.native.updateGradInput(input.thFloatTensor, target.thFloatTensor)
-#        return _FloatTensor_fromNative(gradInputC)
-
-#cdef class MSECriterion(Criterion):
-#    def __cinit__(self):
-#        self.native = new _MSECriterion(globalState.L)
-
-#    def __dealloc__(self):
-#        del self.native
-
-#cdef class ClassNLLCriterion(Criterion):
-#    def __cinit__(self):
-#        self.native = new _ClassNLLCriterion(globalState.L)
-
-#    def __dealloc__(self):
-#        del self.native
-
-## === trainers ===================
-#cdef class StochasticGradient(object):
-#    cdef _StochasticGradient *native
-
-#    def __cinit__(self, Module module, Criterion criterion):
-#        self.native = new _StochasticGradient(globalState.L, module.native, criterion.native)
-
-#    def __dealloc__(self):
-#        del self.native
-
-
 cdef class GlobalState(object):
     # properties are in the PyTorch.pxd file
 
@@ -585,6 +482,14 @@ cdef class GlobalState(object):
 
     def __dealloc__(self):
         print('GlobalState.__dealloc__')
+
+    def getLua(self):
+        return LuaState_fromNative(self.L)
+
+def _popFloatTensor():
+    global globalState
+    cdef THFloatTensor *tensorC = popFloatTensor(globalState.L)
+    return _FloatTensor_fromNative(tensorC)
 
 cdef GlobalState globalState
 
@@ -603,28 +508,13 @@ def init():
 
 init()
 
-from floattensor import FloatTensor, Linear
+from floattensor import FloatTensor
 
 # ==== Nn ==================================
 cdef class Nn(object):  # just used to provide the `nn.` syntax
     def collectgarbage(self):
         collectGarbage(globalState.L)
 
-    def Linear(self, inputSize, outputSize):
-        return Linear(inputSize, outputSize)
-
-#    def LogSoftMax(self):
-#        return LogSoftMax()
-
-#    def Sequential(self):
-#        return Sequential()
-
-#    def MSECriterion(self):
-#        return MSECriterion()
-
-#    def ClassNLLCriterion(self):
-#        return ClassNLLCriterion()
-
-#    def StochasticGradient(self, module, criterion):
-#        return StochasticGradient(module, criterion)
+#    def Linear(self, inputSize, outputSize):
+#        return Linear(inputSize, outputSize)
 

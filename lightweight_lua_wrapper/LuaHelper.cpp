@@ -42,6 +42,7 @@ void getInstanceField(lua_State *L, void *instanceKey, const char *name) {
     lua_remove(L, -2);
 }
 THFloatTensor *popFloatTensor(lua_State *L) {
+    cout << "isuserdata " << lua_isuserdata(L, -1) << endl;
     void **pTensor = (void **)lua_touserdata(L, -1);
     THFloatTensor *tensor = (THFloatTensor *)(*pTensor);
     lua_remove(L, -1);

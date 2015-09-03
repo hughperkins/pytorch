@@ -1,93 +1,94 @@
 from __future__ import print_function
 import PyTorch
-import array
-import numpy
-import sys
 
-A = numpy.random.rand(6).reshape(2,3).astype(numpy.float32)
+lua = PyTorch.getGlobalState().getLua()
 
-tensorA = PyTorch.asTensor(A)
+class Linear(object):
+    def __init__(self):
+        print('Linear.__init__')
 
-nn = PyTorch.Nn()
-linear = PyTorch.Linear(3, 8)
-output = linear.updateOutput(tensorA)
-print('output', output)
-print('weight', linear.weight)
+    def __attr__(self):
+        print('Linear.__attr__')
 
-#dataset = nn.Dataset()
+def pushGlobal(lua, name1, name2=None, name3=None):
+    lua.getGlobal(name1)
+    if name2 is None:
+        return
+    lua.getField(-1, name2)
+    lua.remove(-2)
+    if name3 is None:
+        return
+    lua.getField(-1, name3)
+    lua.remove(-2)
 
-#criterion = nn.MSECriterion()
-#trainer = nn.StochasticGradient(linear, criterion)
+def popString(lua):
+    res = lua.toString(-1)
+    lua.remove(-1)
+    return res
 
-sys.path.append('thirdparty/python-mnist')
-from mnist import MNIST
+def registerObject(lua, myobject):
+    lua.pushNumber(id(myobject))
+    lua.insert(-2)
+    lua.setRegistry()
 
-mlp = nn.Sequential()
-mlp.add(PyTorch.Linear(784, 10))
-mlp.add(nn.LogSoftMax())
+#    pushObject(lua, myobject)
+#    lua.pushNumber(id(myobject))
+#    lua.setRegistry()
 
-criterion = nn.ClassNLLCriterion()
+def unregisterObject(lua, myobject):
+#    pushObject(lua, myobject)
+#    lua.pushNil()
+#    lua.setRegistry()
 
-learningRate = 0.0001
+    lua.pushNumber(id(myobject))
+    lua.pushNil()
+    lua.setRegistry()
 
-mndata = MNIST('/norep/data/mnist')
-imagesList, labelsB = mndata.load_training()
-images = numpy.array(imagesList).astype(numpy.float32)
-#print('imagesArray', images.shape)
+def pushObject(lua, myobject):
+    lua.pushNumber(id(myobject))
+    lua.getRegistry()
 
-#print(images[0].shape)
+class Linear(object):
+    def __init__(self, lua, numIn, numOut):
+        print('Linear.__init__')
+        pushGlobal(lua, 'nn', 'Linear')
+        lua.pushNumber(numIn)
+        lua.pushNumber(numOut)
+        lua.call(2, 1)
+        registerObject(lua, self)
 
-labelsf = array.array('f', labelsB.tolist())
-imagesTensor = PyTorch.asTensor(images)
+        pushGlobal(lua, 'nn', 'Linear', 'float')
+        pushObject(lua, self)
+#        lua.getField(-1, 'float')
+        lua.call(1, 0)
 
-#imagesTensor = PyTorch.FloatTensor(100,784)
-#labels = numpy.array(20,).astype(numpy.int32)
-#labelsTensor = PyTorch.FloatTensor(100).fill(1)
-#print('labels', labels)
-#print(imagesTensor.siz)
+    def __del__(self):
+        print('Linear.__del__')
 
-def printStorageAddr(name, tensor):
-    print('printStorageAddr START')
-    storage = tensor.storage()
-    if storage is None:
-        print(name, 'storage is None')
-    else:
-        print(name, 'storage is ', hex(storage.dataAddr()))
-    print('printStorageAddr END')
+    def __repr__(self):
+        name = self.__class__.__name__
+        pushGlobal(lua, 'nn', name, '__tostring')
+        pushObject(lua, self)
+        lua.call(1, 1)
+        return popString(lua)
 
-labelsTensor = PyTorch.asTensor(labelsf)
-labelsTensor += 1
-#print('calling size on imagestensor...')
-#print('   (called size)')
+    def __getattr__(self, name):
+        print('__getattr__', name)
+        pushObject(lua, self)
+        lua.getField(-1, 'weight')
+        pushGlobal(lua, 'torch', 'type')
+        lua.insert(-2)
+        lua.call(1, 1)
+        typename = popString(lua)
+        print('attr typename', typename)
+        pushObject(lua, self)
+        lua.getField(-1, 'weight')
+        if typename == 'torch.FloatTensor':
+            res = PyTorch._popFloatTensor()
+        print('res', res)
+        return res
 
-desiredN = 128
-imagesTensor = imagesTensor.narrow(0, 0, desiredN)
-labelsTensor = labelsTensor.narrow(0, 0, desiredN)
-print('imagesTensor.size()', imagesTensor.size())
-print('labelsTensor.size()', labelsTensor.size())
-N = int(imagesTensor.size()[0])
-
-for epoch in range(10):
-    numRight = 0
-    for n in range(N):
-#        print('n', n)
-        input = imagesTensor[n]
-        label = labelsTensor[n]
-        labelTensor = PyTorch.FloatTensor(1)
-        labelTensor[0] = label
-#        print('label', label)
-        output = mlp.forward(input)
-        prediction = mlp.getPrediction(output)
-#        print('prediction', prediction)
-        if prediction == label:
-            numRight += 1
-        criterion.forward(output, labelTensor)
-        mlp.zeroGradParameters()
-        gradOutput = criterion.backward(output, labelTensor)
-        mlp.backward(input, gradOutput)
-        mlp.updateParameters(learningRate)
-        nn.collectgarbage()
-#        if n % 100 == 0:
-#            print('n=', n)
-    print('epoch ' + str(epoch) + ' accuracy: ' + str(numRight * 100.0 / N) + '%')
+linear = Linear(lua, 3, 5)
+print('linear', linear)
+linear.weight
 
