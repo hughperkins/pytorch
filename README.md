@@ -335,6 +335,11 @@ epoch 9 accuracy: 100.0%
 
 You can have a look eg at the `narrow` method as an example
 
+Slight update:
+* the cython class is now called eg `_FloatTensor` instead of `FloatTensor`.  Then we create a pure Python class called `FloatTensor` around this, by inheriting from `_FloatTensor`, and providing no additional methods or properties.  The pure Python class is monkey-patchable, eg by [PyClTorch](https://github.com/hughperkins/pycltorch)
+* the `cdef` properties and methods are now declared in `PyTorch.pxd`.  This means we can call these methods and properties from [PyClTorch](https://github.com/hughperkins/pycltorch)
+* the `THGenerator *` object is now available, at `globalState.generator`, and used by the various random methods, eg `_FloatTensor.bernoulli()`
+
 ## pynn
 
 pynn actually wraps the lua engine in place, so we need to create for each class we wish to use:
@@ -363,4 +368,7 @@ To add a new Lua/nn class:
   * It's more or less similar to a Python class, except it uses Cython, and we can statically declare variable types
   * The `native` field is being used to store a pointer to the underlying C++ object.  We can simply call methods directly on this pointer, passing in appropriate C++ object pointers, or primitive values
 * Note that `Module` is a bit of an outlier, since it is a parent class.  Eg, we are not defining `__cinit__` or `__dealloc` for it.  You can look at `Linear` for a typical child class, but note that it has few methods, since they are mostly defined on `Module`
+
+Slight update:
+* Nn object no longer contains the Lua state, it's now held in `globalState.L`
 
