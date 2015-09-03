@@ -11,12 +11,20 @@ import array
 
 from math import log10, floor
 
+cimport PyTorch
+
 # from http://stackoverflow.com/questions/3410976/how-to-round-a-number-to-significant-figures-in-python
 def round_sig(x, sig=2):
     return round(x, sig-int(floor(log10(abs(x))))-1)
 
 cdef extern from "LuaHelper.h":
     void *getGlobal(lua_State *L, const char *name1, const char *name2);
+    void require(lua_State *L, const char *name)
+
+cdef class LuaHelper(object):
+    @staticmethod
+    def require(name):
+        require(globalState.L, name)
 
 cdef extern from "nnWrapper.h":
 #    cdef struct PyTorchState
@@ -136,7 +144,7 @@ cdef extern from "THTensor.h":
     THFloatTensor *THFloatTensor_newNarrow(THFloatTensor *self, int dimension, long firstIndex, long size)
 
 cdef class _FloatTensor(object):
-    cdef THFloatTensor *thFloatTensor
+#    cdef THFloatTensor *thFloatTensor
 
 #    def __cinit__(Tensor self, THFloatTensor *tensorC = NULL):
 #        self.thFloatTensor = tensorC
@@ -216,34 +224,26 @@ cdef class _FloatTensor(object):
         return THFloatTensor_get2d(self.thFloatTensor, x0, x1)
 
     @staticmethod
-    cdef fromNative(THFloatTensor *tensorC, retain=True):
-        if retain:
-            THFloatTensor_retain(tensorC)
-        tensor = _FloatTensor()
-        tensor.thFloatTensor = tensorC
-        return tensor
-
-    @staticmethod
     def new():
 #        print('allocate tensor')
         cdef THFloatTensor *newTensorC = THFloatTensor_new()
-        return _FloatTensor.fromNative(newTensorC, False)
+        return _FloatTensor_fromNative(newTensorC, False)
 
     @staticmethod
     def newWithStorage1d(FloatStorage storage, offset, size0, stride0):
 #        print('allocate tensor')
         cdef THFloatTensor *newTensorC = THFloatTensor_newWithStorage1d(storage.thFloatStorage, offset, size0, stride0)
-        return _FloatTensor.fromNative(newTensorC, False)
+        return _FloatTensor_fromNative(newTensorC, False)
 
     @staticmethod
     def newWithStorage2d(FloatStorage storage, offset, size0, stride0, size1, stride1):
 #        print('allocate tensor')
         cdef THFloatTensor *newTensorC = THFloatTensor_newWithStorage2d(storage.thFloatStorage, offset, size0, stride0, size1, stride1)
-        return _FloatTensor.fromNative(newTensorC, False)
+        return _FloatTensor_fromNative(newTensorC, False)
 
     def narrow(_FloatTensor self, int dimension, long firstIndex, long size):
         cdef THFloatTensor *narrowedC = THFloatTensor_newNarrow(self.thFloatTensor, dimension, firstIndex, size)
-        return _FloatTensor.fromNative(narrowedC, retain=False)
+        return _FloatTensor_fromNative(narrowedC, retain=False)
 
     def resize2d(_FloatTensor self, long size0, long size1):
         THFloatTensor_resize2d(self.thFloatTensor, size0, size1)
@@ -259,7 +259,7 @@ cdef class _FloatTensor(object):
         if self.dims() == 1:
             return self.get1d(index)
         cdef THFloatTensor *res = THFloatTensor_newSelect(self.thFloatTensor, 0, index)
-        return _FloatTensor.fromNative(res, False)
+        return _FloatTensor_fromNative(res, False)
 
     def __setitem__(_FloatTensor self, int index, float value):
         if self.dims() == 1:
@@ -371,6 +371,14 @@ cdef class _FloatTensor(object):
 #class FloatTensor(_FloatTensor):
 #    pass
 
+#    @staticmethod
+cdef _FloatTensor_fromNative(THFloatTensor *tensorC, retain=True):
+    if retain:
+        THFloatTensor_retain(tensorC)
+    tensor = _FloatTensor()
+    tensor.thFloatTensor = tensorC
+    return tensor
+
 def asTensor(myarray):
     cdef float[:] myarraymv
     cdef FloatStorage storage
@@ -446,11 +454,11 @@ cdef class Module(object):
 
     def forward(self, _FloatTensor input):
         cdef THFloatTensor *outputC = self.native.forward(input.thFloatTensor)
-        return _FloatTensor.fromNative(outputC)
+        return _FloatTensor_fromNative(outputC)
 
     def backward(self, _FloatTensor input, _FloatTensor gradOutput):
         cdef THFloatTensor *gradInputC = self.native.backward(input.thFloatTensor, gradOutput.thFloatTensor)
-        return _FloatTensor.fromNative(gradInputC)
+        return _FloatTensor_fromNative(gradInputC)
 
     def zeroGradParameters(self):
         self.native.zeroGradParameters()
@@ -460,22 +468,22 @@ cdef class Module(object):
 
     def updateOutput(self, _FloatTensor input):
         cdef THFloatTensor *outputC = self.native.updateOutput(input.thFloatTensor)
-        return _FloatTensor.fromNative(outputC)
+        return _FloatTensor_fromNative(outputC)
 
     def updateGradInput(self, _FloatTensor input, _FloatTensor gradOutput):
         cdef THFloatTensor *gradInputC = self.native.updateGradInput(input.thFloatTensor, gradOutput.thFloatTensor)
-        return _FloatTensor.fromNative(gradInputC)
+        return _FloatTensor_fromNative(gradInputC)
 
     @property
     def output(self):
         cdef THFloatTensor *outputC = self.native.getOutput()
-        output = _FloatTensor.fromNative(outputC)
+        output = _FloatTensor_fromNative(outputC)
         return output
 
     @property
     def gradInput(self):
         cdef THFloatTensor *gradInputC = self.native.getGradInput()
-        return _FloatTensor.fromNative(gradInputC)
+        return _FloatTensor_fromNative(gradInputC)
 
     # there's probably an official Torch way of doing this
     cpdef int getPrediction(self, _FloatTensor output):
@@ -501,7 +509,7 @@ cdef class Linear(Module):
     @property
     def weight(self):
         cdef THFloatTensor *weightC = (<_Linear *>(self.native)).getWeight()
-        return _FloatTensor.fromNative(weightC)
+        return _FloatTensor_fromNative(weightC)
 
 cdef class LogSoftMax(Module):
     def __cinit__(self, Nn nn):
@@ -533,7 +541,7 @@ cdef class Criterion(object):
     @property
     def gradInput(self):
         cdef THFloatTensor *gradInputC = self.native.getGradInput()
-        return _FloatTensor.fromNative(gradInputC)
+        return _FloatTensor_fromNative(gradInputC)
 
     def forward(self, _FloatTensor input, _FloatTensor target):
         cdef float loss = self.native.forward(input.thFloatTensor, target.thFloatTensor)
@@ -545,11 +553,11 @@ cdef class Criterion(object):
 
     def backward(self, _FloatTensor input, _FloatTensor target):
         cdef THFloatTensor *gradInputC = self.native.backward(input.thFloatTensor, target.thFloatTensor)
-        return _FloatTensor.fromNative(gradInputC)
+        return _FloatTensor_fromNative(gradInputC)
 
     def updateGradInput(self, _FloatTensor input, _FloatTensor target):
         cdef THFloatTensor *gradInputC = self.native.updateGradInput(input.thFloatTensor, target.thFloatTensor)
-        return _FloatTensor.fromNative(gradInputC)
+        return _FloatTensor_fromNative(gradInputC)
 
 cdef class MSECriterion(Criterion):
     def __cinit__(self, Nn nn):
@@ -611,8 +619,8 @@ cdef class Nn(object):  # basically holds the Lua state
 
 cdef class GlobalState(object):
 #    cdef PyTorchState *state
-    cdef lua_State *L
-    cdef THGenerator *generator
+#    cdef lua_State *L
+#    cdef THGenerator *generator
 
     def __cinit__(GlobalState self):
         print('GlobalState.__cinit__')
@@ -625,6 +633,10 @@ cdef class GlobalState(object):
 #        return getL(self.state)
 
 cdef GlobalState globalState
+
+def getGlobalState():
+    global globalState
+    return globalState
 
 def init():
     global globalState

@@ -40,11 +40,11 @@ else:
 
 runtime_library_dirs = []
 libraries = []
-libraries.append('lua5.1')
-libraries.append('luaT')
+#libraries.append('lua5.1')
+#libraries.append('luaT')
 #libraries.append('mylib')
-#libraries.append('nnWrapper')
-libraries.append('TH')
+libraries.append('TorchLanguageIndependence')
+#libraries.append('TH')
 library_dirs = []
 library_dirs.append('cbuild')
 library_dirs.append(home_dir + '/torch/install/lib')
@@ -55,9 +55,9 @@ if osfamily == 'Linux':
 if osfamily == 'Windows':
     libraries.append('winmm')
 
-sources = ["PyTorch.cxx", 'nnWrapper.cpp', 'LuaHelper.cpp']
+sources = ["PyTorch.cxx"]
 if cython_present:
-    sources = ["PyTorch.pyx", 'nnWrapper.cpp', 'LuaHelper.cpp']
+    sources = ["PyTorch.pyx"]
 ext_modules = [
     Extension("PyTorch",
               sources=sources,
@@ -71,19 +71,20 @@ ext_modules = [
 ext_modules = cythonize(ext_modules)
 
 setup(
-    name='',
+    name='PyTorch',
     version='',
-    author="",
-    author_email="",
+    author='Hugh Perkins',
+    author_email='hughperkins@gmail.com',
     description=(
-        ''),
-    license='',
-    url='',
-    long_description='',
+        'Python wrappers for torch and nn'),
+    license='BSD2',
+    url='https://github.com/hughperkins/pytorch',
+    long_description='Python wrappers for torch and nn',
     classifiers=[
     ],
-    install_requires=[],
+    install_requires=['cython', 'numpy'],
     scripts=[],
     ext_modules=ext_modules,
     py_modules=['floattensor'],
 )
+

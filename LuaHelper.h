@@ -20,3 +20,5 @@ const char * popString(lua_State *L);
 float popFloat(lua_State *L);
 void pushFloatTensor(lua_State *L, THFloatTensor *tensor);
 
+void require(lua_State *L, const char *name);
+

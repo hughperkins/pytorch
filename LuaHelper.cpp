@@ -80,3 +80,10 @@ void *getGlobal(lua_State *L, const char *name1, const char *name2) {
     return res;
 }
 
+void require(lua_State *L, const char *name) {
+    lua_getglobal(L, "require");
+    lua_pushstring(L, name);
+    lua_call(L, 1, 0);
+//    lua_setglobal(L, "nn");
+}
+

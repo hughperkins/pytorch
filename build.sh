@@ -10,7 +10,7 @@
 # - torch is expected to be at $HOME/torch
 
 mkdir cbuild
-(cd cbuild; cmake .. && make -j 4 ) || exit 1
+(cd cbuild; cmake .. -DCMAKE_INSTALL_PREFIX=$HOME/torch/install && make -j 4 install) || exit 1
 rm -Rf build PyBuild.so dist *.egg-info
 python setup.py build_ext -i || exit 1
 
