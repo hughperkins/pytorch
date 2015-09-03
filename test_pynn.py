@@ -57,8 +57,9 @@ def pushObject(lua, myobject):
 luaClasses = {}
 
 class LuaClass(object):
-    def initNew(self, lua, nameList, *args):
-        print('LuaClass.initNew')
+    def initNew(self, nameList, *args):
+        print('LuaClass.initNew', nameList)
+        lua = PyTorch.getGlobalState().getLua()
         pushGlobalFromList(lua, nameList)
         for arg in args:
             print('    arg=', type(arg))
@@ -66,19 +67,12 @@ class LuaClass(object):
                 lua.pushNumber(arg)
             else:
                 raise Exception('arg type ' + str(type(arg)) + ' not implemented')
-#        lua.pushNumber(numIn)
-#        lua.pushNumber(numOut)
         lua.call(len(args), 1)
         registerObject(lua, self)
 
-#        nameList = list(nameList)
-#        nameList.append('float')
-#        pushGlobalFromList(lua, nameList)
-#        pushObject(lua, self)
-#        lua.call(1, 0)
-
     def __del__(self):
-        print('Linear.__del__')
+        name = self.__class__.__name__
+        print(name + '.__del__')
 
     def __repr__(self):
         name = self.__class__.__name__
@@ -134,15 +128,21 @@ class LuaClass(object):
             raise Exception('handling type ' + typename + ' not implemented')
 
 class Linear(LuaClass):
-    def __init__(self, lua=None, numIn=None, numOut=None, _fromLua=False):
+    def __init__(self, numIn=1, numOut=1, _fromLua=False):
         if not _fromLua:
-            super(Linear, self).initNew(lua, ['nn', 'Linear'], numIn, numOut)
-        else:
-            pass
+            name = self.__class__.__name__
+            super(self.__class__, self).initNew(['nn', name], numIn, numOut)
+
+class ClassNLLCriterion(LuaClass):
+    def __init__(self, _fromLua=False):
+        if not _fromLua:
+            name = self.__class__.__name__
+            super(self.__class__, self).initNew(['nn', name])
 
 luaClasses['nn.Linear'] = Linear
+luaClasses['nn.ClassNLLCriterion'] = ClassNLLCriterion
 
-linear = Linear(lua, 3, 5)
+linear = Linear(3, 5)
 linear.float()
 print('linear', linear)
 print('linear.weight', linear.weight)
@@ -156,4 +156,7 @@ print('output', output)
 
 gradInput = linear.updateGradInput(input, output)
 print('gradInput', gradInput)
+
+criterion = ClassNLLCriterion()
+print('criterion', criterion)
 
