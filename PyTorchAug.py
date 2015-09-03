@@ -88,7 +88,7 @@ class LuaClass(object):
 
     def __del__(self):
         name = self.__class__.__name__
-        print(name + '.__del__')
+#        print(name + '.__del__')
 
     def __repr__(self):
         topStart = lua.getTop()

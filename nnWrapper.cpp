@@ -26,7 +26,7 @@ lua_State *luaInit() {
         cout << dlerror() << endl;
         throw runtime_error(string("Couldnt load liblua5.1.so ") + dlerror());
     } else {
-        cout << "loaded lua library" << endl;
+//        cout << "loaded lua library" << endl;
     }
     #endif
 

@@ -222,30 +222,52 @@ Test script:
 ```
 from __future__ import print_function
 import PyTorch
-import array
-import numpy
-import sys
 
-A = numpy.random.rand(6).reshape(2,3).astype(numpy.float32)
+from PyTorchAug import *
 
-tensorA = PyTorch.asTensor(A)
+linear = Linear(3, 5)
+linear.float()
+print('linear', linear)
+print('linear.weight', linear.weight)
+print('linear.output', linear.output)
+print('linear.gradInput', linear.gradInput)
 
-nn = PyTorch.Nn()
-linear = nn.Linear(3, 8)
-output = linear.updateOutput(tensorA)
+input = PyTorch.FloatTensor(4, 3).uniform()
+print('input', input)
+output = linear.updateOutput(input)
 print('output', output)
-print('weight', linear.weight)
 
+gradInput = linear.updateGradInput(input, output)
+print('gradInput', gradInput)
+
+criterion = ClassNLLCriterion()
+print('criterion', criterion)
+
+print('dir(linear)', dir(linear))
+
+mlp = Sequential()
+mlp.add(linear)
+
+output = mlp.forward(input)
+print('output', output)
+
+
+
+import sys
 sys.path.append('thirdparty/python-mnist')
 from mnist import MNIST
+import numpy
+import array
 
-mlp = nn.Sequential()
-linear = nn.Linear(784, 10)
+mlp = Sequential()
+linear = Linear(784, 10)
 mlp.add(linear)
-logSoftMax = nn.LogSoftMax()
+logSoftMax = LogSoftMax()
 mlp.add(logSoftMax)
+mlp.float()
 
-criterion = nn.ClassNLLCriterion()
+criterion = ClassNLLCriterion().float()
+print('got criterion')
 
 learningRate = 0.0001
 
@@ -260,12 +282,15 @@ labelsTensor = PyTorch.asTensor(labelsf)
 labelsTensor += 1
 
 desiredN = 128
+maxN = int(imagesTensor.size()[0])
+desiredN = min(maxN, desiredN)
 imagesTensor = imagesTensor.narrow(0, 0, desiredN)
 labelsTensor = labelsTensor.narrow(0, 0, desiredN)
 print('imagesTensor.size()', imagesTensor.size())
 print('labelsTensor.size()', labelsTensor.size())
 N = int(imagesTensor.size()[0])
 
+print('start training...')
 for epoch in range(10):
     numRight = 0
     for n in range(N):
@@ -274,7 +299,7 @@ for epoch in range(10):
         labelTensor = PyTorch.FloatTensor(1)
         labelTensor[0] = label
         output = mlp.forward(input)
-        prediction = mlp.getPrediction(output)
+        prediction = PyTorch.getPrediction(output)
         if prediction == label:
             numRight += 1
         criterion.forward(output, labelTensor)
@@ -282,39 +307,65 @@ for epoch in range(10):
         gradOutput = criterion.backward(output, labelTensor)
         mlp.backward(input, gradOutput)
         mlp.updateParameters(learningRate)
-        nn.collectgarbage()
     print('epoch ' + str(epoch) + ' accuracy: ' + str(numRight * 100.0 / N) + '%')
 ```
 
 Output:
 ```
-loaded lua library
-output -0.52377 -0.186086 0.599191 -1.12187 0.380739 -0.101581 -0.268618 -0.0452895
--0.0496943 0.245387 0.384435 -0.860393 -0.00198464 -0.424576 -0.191637 -0.358058
-[torch.FloatTensor of size 2x8]
+initializing PyTorch...
+generator null: False
+ ... PyTorch initialized
+linear nn.Linear(3 -> 5)
+linear.weight 0.52919 -0.150693 -0.543619
+-0.115458 -0.565938 0.50085
+0.244207 0.441115 -0.255428
+0.350489 -0.29339 0.495529
+-0.104448 -0.201832 -0.217759
+[torch.FloatTensor of size 5x3]
 
-weight 0.19025 -0.403272 0.179528
-0.0461387 -0.372686 0.405773
--0.380512 0.127952 0.258736
--0.54166 -0.512322 -0.0570851
--0.403268 0.267247 0.0802541
--0.137717 0.229792 -0.344295
--0.239939 -0.118795 0.326363
-0.00371041 0.391577 0.272496
-[torch.FloatTensor of size 8x3]
+linear.output [torch.FloatTensor with no dimension]
 
-nnWrapper.cpp ClassNLLCriterion::_ClassNLLCriterion type nn.ClassNLLCriterion
+linear.gradInput [torch.FloatTensor with no dimension]
+
+input 0.0225498 0.512978 0.394288
+0.360868 0.996678 0.76309
+0.704499 0.350721 0.487701
+0.210192 0.961437 0.38026
+[torch.FloatTensor of size 4x3]
+
+output -0.832085 0.160432 0.663604 -0.324122 -0.336708
+-0.926428 0.0323411 0.865389 -0.164706 -0.549981
+-0.497534 0.220308 0.734707 0.00878677 -0.395529
+-0.792741 -0.122058 0.910833 -0.39688 -0.443766
+[torch.FloatTensor of size 4x5]
+
+gradInput -0.37523 0.490374 0.275895
+-0.28294 0.662366 0.336923
+-0.0649143 0.351637 0.28363
+-0.275738 0.796327 0.0371319
+[torch.FloatTensor of size 4x3]
+
+criterion nn.ClassNLLCriterion
+dir(linear) ['addBuffer', 'bias', 'gradBias', 'gradInput', 'gradWeight', 'output', 'weight']
+output -0.832085 0.160432 0.663604 -0.324122 -0.336708
+-0.926428 0.0323411 0.865389 -0.164706 -0.549981
+-0.497534 0.220308 0.734707 0.00878677 -0.395529
+-0.792741 -0.122058 0.910833 -0.39688 -0.443766
+[torch.FloatTensor of size 4x5]
+
+got criterion
 imagesTensor.size() 128 784
 [torch.FloatTensor of size 2]
 
 labelsTensor.size() 128
 [torch.FloatTensor of size 1]
 
-epoch 0 accuracy: 47.65625%
-epoch 1 accuracy: 77.34375%
-epoch 2 accuracy: 90.625%
-epoch 3 accuracy: 94.53125%
-epoch 4 accuracy: 96.09375%
+start training...
+epoch 0 accuracy: 50.0%
+epoch 1 accuracy: 78.90625%
+epoch 2 accuracy: 87.5%
+epoch 3 accuracy: 91.40625%
+epoch 4 accuracy: 98.4375%
 epoch 5 accuracy: 100.0%
 epoch 6 accuracy: 100.0%
 epoch 7 accuracy: 100.0%

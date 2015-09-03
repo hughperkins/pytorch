@@ -50,11 +50,11 @@ cdef class LuaState(object):
     cdef lua_State *L
 
     def __cinit__(self):
-        print('LuaState.__cinit__')
+#        print('LuaState.__cinit__')
         self.L = luaInit()
 
     def __dealloc__(self):
-        print('LuaState.__dealloc__')
+#        print('LuaState.__dealloc__')
         pass
 
     def insert(self, int index):
@@ -495,10 +495,12 @@ cdef class GlobalState(object):
     # properties are in the PyTorch.pxd file
 
     def __cinit__(GlobalState self):
-        print('GlobalState.__cinit__')
+        pass
+#        print('GlobalState.__cinit__')
 
     def __dealloc__(self):
-        print('GlobalState.__dealloc__')
+        pass
+#        print('GlobalState.__dealloc__')
 
     def getLua(self):
         return LuaState_fromNative(self.L)
