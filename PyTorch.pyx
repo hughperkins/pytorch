@@ -205,7 +205,10 @@ cdef extern from "THTensor.h":
     THFloatTensor *THFloatTensor_newSelect(THFloatTensor *self, int dimension, int sliceIndex)
     void THFloatTensor_free(THFloatTensor *self)
     void THFloatTensor_resizeAs(THFloatTensor *self, THFloatTensor *model)
+    void THFloatTensor_resize1d(THFloatTensor *self, long size0)
     void THFloatTensor_resize2d(THFloatTensor *self, long size0, long size1)
+    void THFloatTensor_resize3d(THFloatTensor *self, long size0, long size1, long size2)
+    void THFloatTensor_resize4d(THFloatTensor *self, long size0, long size1, long size2, long size3)
     long THFloatTensor_size(const THFloatTensor *self, int dim)
     long THFloatTensor_stride(const THFloatTensor *self, int dim)
     float THFloatTensor_get1d(const THFloatTensor *tensor, long x0)
@@ -289,6 +292,24 @@ cdef class _FloatTensor(object):
             raise Exception('Unallocated an already deallocated tensor... :-O')  # Hmmm, seems this exceptoin wont go anywhere useful... :-P
         THFloatTensor_free(self.thFloatTensor)
 
+    @staticmethod
+    def new():
+#        print('allocate tensor')
+        cdef THFloatTensor *newTensorC = THFloatTensor_new()
+        return _FloatTensor_fromNative(newTensorC, False)
+
+    @staticmethod
+    def newWithStorage1d(FloatStorage storage, offset, size0, stride0):
+#        print('allocate tensor')
+        cdef THFloatTensor *newTensorC = THFloatTensor_newWithStorage1d(storage.thFloatStorage, offset, size0, stride0)
+        return _FloatTensor_fromNative(newTensorC, False)
+
+    @staticmethod
+    def newWithStorage2d(FloatStorage storage, offset, size0, stride0, size1, stride1):
+#        print('allocate tensor')
+        cdef THFloatTensor *newTensorC = THFloatTensor_newWithStorage2d(storage.thFloatStorage, offset, size0, stride0, size1, stride1)
+        return _FloatTensor_fromNative(newTensorC, False)
+
     @property
     def refCount(_FloatTensor self):
         return THFloatTensor_getRefCount(self.thFloatTensor)
@@ -308,27 +329,23 @@ cdef class _FloatTensor(object):
     cpdef float get2d(self, int x0, int x1):
         return THFloatTensor_get2d(self.thFloatTensor, x0, x1)
 
-    @staticmethod
-    def new():
-#        print('allocate tensor')
-        cdef THFloatTensor *newTensorC = THFloatTensor_new()
-        return _FloatTensor_fromNative(newTensorC, False)
-
-    @staticmethod
-    def newWithStorage1d(FloatStorage storage, offset, size0, stride0):
-#        print('allocate tensor')
-        cdef THFloatTensor *newTensorC = THFloatTensor_newWithStorage1d(storage.thFloatStorage, offset, size0, stride0)
-        return _FloatTensor_fromNative(newTensorC, False)
-
-    @staticmethod
-    def newWithStorage2d(FloatStorage storage, offset, size0, stride0, size1, stride1):
-#        print('allocate tensor')
-        cdef THFloatTensor *newTensorC = THFloatTensor_newWithStorage2d(storage.thFloatStorage, offset, size0, stride0, size1, stride1)
-        return _FloatTensor_fromNative(newTensorC, False)
-
     def narrow(_FloatTensor self, int dimension, long firstIndex, long size):
         cdef THFloatTensor *narrowedC = THFloatTensor_newNarrow(self.thFloatTensor, dimension, firstIndex, size)
         return _FloatTensor_fromNative(narrowedC, retain=False)
+
+    def resize(_FloatTensor self, _FloatTensor size):
+        cdef int dims = size.size()[0]
+        if dims == 1:
+            THFloatTensor_resize1d(self.thFloatTensor, size[0])
+        elif dims == 2:
+            THFloatTensor_resize2d(self.thFloatTensor, size[0], size[1])
+        elif dims == 3:
+            THFloatTensor_resize3d(self.thFloatTensor, size[0], size[1], size[2])
+        elif dims == 4:
+            THFloatTensor_resize4d(self.thFloatTensor, size[0], size[1], size[2], size[3])
+        else:
+            raise Exception('Not implemented for dims=' + str(dims))
+        return self
 
     def resize2d(_FloatTensor self, long size0, long size1):
         THFloatTensor_resize2d(self.thFloatTensor, size0, size1)
