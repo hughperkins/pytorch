@@ -142,11 +142,13 @@ class LuaClass(object):
                 lua.insert(-2)
 #                pushObject(lua, self)
                 for arg in args:
-                    print('arg', arg, type(arg))
+#                    print('arg', arg, type(arg))
                     if isinstance(arg, PyTorch._FloatTensor):
                         PyTorch._pushFloatTensor(arg)
                     elif type(arg) in luaClassesReverse:
                         pushObject(lua, arg)
+                    elif isinstance(arg, float):
+                        lua.pushNumber(arg)
                     else:
                         raise Exception('arg type ' + str(type(arg)) + ' not implemented')
                 lua.call(len(args) + 1, 1)   # +1 for self
@@ -161,18 +163,34 @@ class LuaClass(object):
                     topEnd = lua.getTop()
                     assert topStart == topEnd
                     return res
+                elif returntype == 'number':
+                    res = lua.toNumber(-1)
+                    lua.remove(-1)
+                    topEnd = lua.getTop()
+                    assert topStart == topEnd
+                    return res
                 elif returntype in luaClasses:
                     returnobject = luaClasses[returntype](_fromLua=True)
                     registerObject(lua, returnobject)
                     topEnd = lua.getTop()
                     assert topStart == topEnd
                     return returnobject
+                elif returntype == 'nil':
+                    lua.remove(-1)
+                    topEnd = lua.getTop()
+                    assert topStart == topEnd
+                    return None
                 else:
                     raise Exception('return type ' + str(returntype) + ' not implemented')
             lua.remove(-1)
             topEnd = lua.getTop()
             assert topStart == topEnd
             return mymethod
+        elif typename == 'nil':
+            lua.remove(-1)
+            topEnd = lua.getTop()
+            assert topStart == topEnd
+            return None
         else:
             raise Exception('handling type ' + typename + ' not implemented')
 
@@ -200,9 +218,18 @@ class Sequential(LuaClass):
         else:
             self.__dict__['__objectId'] = getNextObjectId()
 
+class LogSoftMax(LuaClass):
+    def __init__(self, _fromLua=False):
+        if not _fromLua:
+            name = self.__class__.__name__
+            super(self.__class__, self).__init__(['nn', name])
+        else:
+            self.__dict__['__objectId'] = getNextObjectId()
+
 luaClasses['nn.Linear'] = Linear
 luaClasses['nn.ClassNLLCriterion'] = ClassNLLCriterion
 luaClasses['nn.Sequential'] = Sequential
+luaClasses['nn.LogSoftMax'] = LogSoftMax
 
 luaClassesReverse = {}
 def populateLuaClassesReverse():

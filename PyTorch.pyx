@@ -512,6 +512,19 @@ def _pushFloatTensor(_FloatTensor tensor):
     global globalState
     pushFloatTensor(globalState.L, tensor.thFloatTensor)
 
+# there's probably an official Torch way of doing this
+cpdef int getPrediction(_FloatTensor output):
+    cdef int prediction = 0
+    cdef float maxSoFar = output[0]
+    cdef float thisValue = 0
+    cdef int i = 0
+    for i in range(THFloatTensor_size(output.thFloatTensor, 0)):
+        thisValue = THFloatTensor_get1d(output.thFloatTensor, i)
+        if thisValue > maxSoFar:
+            maxSoFar = thisValue
+            prediction = i
+    return prediction + 1
+
 cdef GlobalState globalState
 
 def getGlobalState():
