@@ -85,6 +85,6 @@ setup(
     install_requires=['cython', 'numpy'],
     scripts=[],
     ext_modules=ext_modules,
-    py_modules=['floattensor'],
+    py_modules=['floattensor', 'PyTorchAug'],
 )
 

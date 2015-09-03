@@ -61,8 +61,6 @@ def pushObject(lua, myobject):
     lua.pushNumber(myobject.__objectId)
     lua.getRegistry()
 
-luaClasses = {}
-
 def torchType(lua, pos):
     lua.pushValue(-1)
     pushGlobal(lua, "torch", "type")
@@ -129,8 +127,9 @@ class LuaClass(object):
         pushObject(lua, self)
         lua.getField(-1, name)
         lua.remove(-2)
-        if typename == 'torch.FloatTensor':
-            res = PyTorch._popFloatTensor()
+        if typename in cythonClasses:
+            popFunction = cythonClasses[typename]['popFunction']
+            res = popFunction()
             topEnd = lua.getTop()
             assert topStart == topEnd
             return res
@@ -143,13 +142,19 @@ class LuaClass(object):
 #                pushObject(lua, self)
                 for arg in args:
 #                    print('arg', arg, type(arg))
-                    if isinstance(arg, PyTorch._FloatTensor):
-                        PyTorch._pushFloatTensor(arg)
-                    elif type(arg) in luaClassesReverse:
+                    pushedArg = False
+                    for pythonClass in pushFunctionByPythonClass:
+                        if isinstance(arg, pythonClass):
+                            pushFunctionByPythonClass[pythonClass](arg)
+                            pushedArg = True
+                            break
+                    if not pushedArg and type(arg) in luaClassesReverse:
                         pushObject(lua, arg)
-                    elif isinstance(arg, float):
+                        pushedArg = True
+                    if not pushedArg and isinstance(arg, float):
                         lua.pushNumber(arg)
-                    else:
+                        pushedArg = True
+                    if not pushedArg:
                         raise Exception('arg type ' + str(type(arg)) + ' not implemented')
                 lua.call(len(args) + 1, 1)   # +1 for self
                 lua.pushValue(-1)
@@ -158,8 +163,10 @@ class LuaClass(object):
                 lua.call(1, 1)
                 returntype = popString(lua)
                 # this is getting a bit recursive :-P
-                if returntype == 'torch.FloatTensor':
-                    res = PyTorch._popFloatTensor()
+#                print('cythonClasses', cythonClasses)
+                if returntype in cythonClasses:
+                    popFunction = cythonClasses[returntype]['popFunction']
+                    res = popFunction()
                     topEnd = lua.getTop()
                     assert topStart == topEnd
                     return res
@@ -226,6 +233,7 @@ class LogSoftMax(LuaClass):
         else:
             self.__dict__['__objectId'] = getNextObjectId()
 
+luaClasses = {}
 luaClasses['nn.Linear'] = Linear
 luaClasses['nn.ClassNLLCriterion'] = ClassNLLCriterion
 luaClasses['nn.Sequential'] = Sequential
@@ -233,8 +241,16 @@ luaClasses['nn.LogSoftMax'] = LogSoftMax
 
 luaClassesReverse = {}
 def populateLuaClassesReverse():
+    luaClassesReverse.clear()
     for name in luaClasses:
         classtype = luaClasses[name]
         luaClassesReverse[classtype] = name
 populateLuaClassesReverse()
+
+cythonClasses = {}
+cythonClasses['torch.FloatTensor'] = {'popFunction': PyTorch._popFloatTensor}
+
+pushFunctionByPythonClass = {}
+pushFunctionByPythonClass[PyTorch._FloatTensor] = PyTorch._pushFloatTensor
+
 
