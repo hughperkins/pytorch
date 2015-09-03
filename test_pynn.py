@@ -105,6 +105,9 @@ class LuaClass(object):
                     if isinstance(arg, PyTorch._FloatTensor):
                         print('arg is floattensor')
                         PyTorch._pushFloatTensor(arg)
+                    elif type(arg) in luaClassesReverse:
+                        print('found ' + str(type(arg)) + ' in luaClassesReverse')
+                        pushObject(lua, arg)
                     else:
                         raise Exception('arg type ' + str(type(arg)) + ' not implemented')
                 lua.call(len(args) + 1, 1)   # +1 for self
@@ -139,8 +142,22 @@ class ClassNLLCriterion(LuaClass):
             name = self.__class__.__name__
             super(self.__class__, self).initNew(['nn', name])
 
+class Sequential(LuaClass):
+    def __init__(self, _fromLua=False):
+        if not _fromLua:
+            name = self.__class__.__name__
+            super(self.__class__, self).initNew(['nn', name])
+
 luaClasses['nn.Linear'] = Linear
 luaClasses['nn.ClassNLLCriterion'] = ClassNLLCriterion
+luaClasses['nn.Sequential'] = Sequential
+
+luaClassesReverse = {}
+def populateLuaClassesReverse():
+    for name in luaClasses:
+        classtype = luaClasses[name]
+        luaClassesReverse[classtype] = name
+populateLuaClassesReverse()
 
 linear = Linear(3, 5)
 linear.float()
@@ -159,4 +176,8 @@ print('gradInput', gradInput)
 
 criterion = ClassNLLCriterion()
 print('criterion', criterion)
+
+mlp = Sequential()
+print('mlp', mlp)
+mlp.add(linear)
 
