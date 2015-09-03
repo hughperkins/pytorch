@@ -44,6 +44,7 @@ cdef extern from "lua_externc.h":
     void lua_pushvalue(lua_State *L, int index)
     int lua_next(lua_State *L, int index)
     int lua_gettop(lua_State *L)
+    int lua_isuserdata(lua_State *L, int index)
 
 cdef class LuaState(object):
     cdef lua_State *L
@@ -104,6 +105,9 @@ cdef class LuaState(object):
 
     def getTop(self):
         return lua_gettop(self.L)
+
+    def isUserData(self, int index):
+        return lua_isuserdata(self.L, index)
 
 cdef LuaState_fromNative(lua_State *L):
     cdef LuaState luaState = LuaState()

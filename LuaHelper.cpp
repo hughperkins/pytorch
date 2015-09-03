@@ -36,7 +36,6 @@ void getInstanceField(lua_State *L, void *instanceKey, const char *name) {
     lua_remove(L, -2);
 }
 THFloatTensor *popFloatTensor(lua_State *L) {
-    cout << "isuserdata: " << lua_isuserdata(L, -1) << endl;
     void **pTensor = (void **)lua_touserdata(L, -1);
     THFloatTensor *tensor = (THFloatTensor *)(*pTensor);
     lua_remove(L, -1);
@@ -53,10 +52,8 @@ float popFloat(lua_State *L) {
     return res;
 }
 void pushFloatTensor(lua_State *L, THFloatTensor *tensor) {
-    cout << "pushing floattensor..." << endl;
     THFloatTensor_retain(tensor);
     luaT_pushudata(L, tensor, "torch.FloatTensor");
-    cout << "...pushed" << endl;
 }
 void pushGlobal(lua_State *L, const char *name1) {
     lua_getglobal(L, name1);

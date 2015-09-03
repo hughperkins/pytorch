@@ -3,6 +3,13 @@ import PyTorch
 
 lua = PyTorch.getGlobalState().getLua()
 
+nextObjectId = 1
+def getNextObjectId():
+    global nextObjectId
+    res = nextObjectId
+    nextObjectId += 1
+    return res
+
 class Linear(object):
     def __init__(self):
         print('Linear.__init__')
@@ -11,27 +18,21 @@ class Linear(object):
         print('Linear.__attr__')
 
 def pushGlobal(lua, name1, name2=None, name3=None):
-    print('pushglobal START lua_gettop', lua.getTop())
     lua.getGlobal(name1)
     if name2 is None:
-        print('pushglobal END lua_gettop', lua.getTop())
         return
     lua.getField(-1, name2)
     lua.remove(-2)
     if name3 is None:
-        print('pushglobal END lua_gettop', lua.getTop())
         return
     lua.getField(-1, name3)
     lua.remove(-2)
-    print('pushglobal END lua_gettop', lua.getTop())
 
 def pushGlobalFromList(lua, nameList):
-    print('pushglobal START lua_gettop', lua.getTop())
     lua.getGlobal(nameList[0])
     for name in nameList[1:]:
         lua.getField(-1, name)
         lua.remove(-2)
-    print('pushglobal END lua_gettop', lua.getTop())
 
 def popString(lua):
     res = lua.toString(-1)
@@ -39,7 +40,7 @@ def popString(lua):
     return res
 
 def registerObject(lua, myobject):
-    lua.pushNumber(id(myobject))
+    lua.pushNumber(myobject.__objectId)
     lua.insert(-2)
     lua.setRegistry()
 
@@ -52,24 +53,30 @@ def unregisterObject(lua, myobject):
 #    lua.pushNil()
 #    lua.setRegistry()
 
-    lua.pushNumber(id(myobject))
+    lua.pushNumber(myobject.__objectId)
     lua.pushNil()
     lua.setRegistry()
 
 def pushObject(lua, myobject):
-    lua.pushNumber(id(myobject))
+    lua.pushNumber(myobject.__objectId)
     lua.getRegistry()
 
 luaClasses = {}
 
+def torchType(lua, pos):
+    lua.pushValue(-1)
+    pushGlobal(lua, "torch", "type")
+    lua.insert(-2)
+    lua.call(1, 1)
+    return popString(lua)
+
 class LuaClass(object):
     def __init__(self, nameList, *args):
-        print('LuaClass.initNew', nameList)
         lua = PyTorch.getGlobalState().getLua()
+        self.__dict__['__objectId'] = getNextObjectId()
         topStart = lua.getTop()
         pushGlobalFromList(lua, nameList)
         for arg in args:
-            print('    arg=', type(arg))
             if isinstance(arg, int):
                 lua.pushNumber(arg)
             else:
@@ -109,7 +116,8 @@ class LuaClass(object):
         return attributes
 
     def __getattr__(self, name):
-        print('getattr top', lua.getTop())
+        if name == '__objectId':
+            return self.__dict__['__objectId']
         topStart = lua.getTop()
         pushObject(lua, self)
         lua.getField(-1, name)
@@ -118,7 +126,6 @@ class LuaClass(object):
         lua.insert(-2)
         lua.call(1, 1)
         typename = popString(lua)
-#        print('attr typename', typename)
         pushObject(lua, self)
         lua.getField(-1, name)
         lua.remove(-2)
@@ -128,11 +135,8 @@ class LuaClass(object):
             assert topStart == topEnd
             return res
         elif typename == 'function':
-            print('getattr function top', lua.getTop())
             def mymethod(*args):
                 topStart = lua.getTop()
-                print('mymethod called method=', name)
-                print('getattr mymethod ', lua.getTop())
                 pushObject(lua, self)
                 lua.getField(-1, name)
                 lua.insert(-2)
@@ -140,10 +144,8 @@ class LuaClass(object):
                 for arg in args:
                     print('arg', arg, type(arg))
                     if isinstance(arg, PyTorch._FloatTensor):
-                        print('arg is floattensor')
                         PyTorch._pushFloatTensor(arg)
                     elif type(arg) in luaClassesReverse:
-                        print('found ' + str(type(arg)) + ' in luaClassesReverse')
                         pushObject(lua, arg)
                     else:
                         raise Exception('arg type ' + str(type(arg)) + ' not implemented')
@@ -153,20 +155,15 @@ class LuaClass(object):
                 lua.insert(-2)
                 lua.call(1, 1)
                 returntype = popString(lua)
-                print('returntype', returntype)
-                print('getattr mymethod after getting returntype ', lua.getTop())
                 # this is getting a bit recursive :-P
                 if returntype == 'torch.FloatTensor':
                     res = PyTorch._popFloatTensor()
                     topEnd = lua.getTop()
-                    print('topstart', topStart, 'topend', topEnd)
-                    print('topstart - topend', topStart - topEnd)
                     assert topStart == topEnd
                     return res
                 elif returntype in luaClasses:
                     returnobject = luaClasses[returntype](_fromLua=True)
                     registerObject(lua, returnobject)
-#                    lua.remove(-1)
                     topEnd = lua.getTop()
                     assert topStart == topEnd
                     return returnobject
@@ -184,18 +181,24 @@ class Linear(LuaClass):
         if not _fromLua:
             name = self.__class__.__name__
             super(self.__class__, self).__init__(['nn', name], numIn, numOut)
+        else:
+            self.__dict__['__objectId'] = getNextObjectId()
 
 class ClassNLLCriterion(LuaClass):
     def __init__(self, _fromLua=False):
         if not _fromLua:
             name = self.__class__.__name__
             super(self.__class__, self).__init__(['nn', name])
+        else:
+            self.__dict__['__objectId'] = getNextObjectId()
 
 class Sequential(LuaClass):
     def __init__(self, _fromLua=False):
         if not _fromLua:
             name = self.__class__.__name__
             super(self.__class__, self).__init__(['nn', name])
+        else:
+            self.__dict__['__objectId'] = getNextObjectId()
 
 luaClasses['nn.Linear'] = Linear
 luaClasses['nn.ClassNLLCriterion'] = ClassNLLCriterion
