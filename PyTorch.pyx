@@ -6,9 +6,6 @@ cimport cython
 cimport cpython.array
 import array
 
-#cdef extern from "nnWrapper.h":
-#    long pointerAsInt(void *ptr)
-
 from math import log10, floor
 
 cimport PyTorch
@@ -27,9 +24,6 @@ cdef class LuaHelper(object):
         require(globalState.L, name)
 
 cdef extern from "nnWrapper.h":
-#    cdef struct PyTorchState
-#    PyTorchState *initPyTorchState()
-#    lua_State *getL(PyTorchState *state)
     long pointerAsInt(void *ptr)
     int THFloatStorage_getRefCount(THFloatStorage *self)
     int THFloatTensor_getRefCount(THFloatTensor *self)
@@ -144,7 +138,7 @@ cdef extern from "THTensor.h":
     THFloatTensor *THFloatTensor_newNarrow(THFloatTensor *self, int dimension, long firstIndex, long size)
 
 cdef class _FloatTensor(object):
-#    cdef THFloatTensor *thFloatTensor
+    # properties are in the PyTorch.pxd file
 
 #    def __cinit__(Tensor self, THFloatTensor *tensorC = NULL):
 #        self.thFloatTensor = tensorC
@@ -584,18 +578,7 @@ cdef class StochasticGradient(object):
         del self.native
 
 # ==== Nn ==================================
-cdef class Nn(object):  # basically holds the Lua state
-    cdef lua_State *L
-
-    def __cinit__(self):
-#        self.L = luaInit()
-        self.L = globalState.L
-#        self.L = globalState.getL()
-    
-    def __dealloc__(self):
-        pass
-#        luaClose(self.L)
-
+cdef class Nn(object):  # just used to provide the `nn.` syntax
     def collectgarbage(self):
         collectGarbage(globalState.L)
 
@@ -618,19 +601,13 @@ cdef class Nn(object):  # basically holds the Lua state
         return StochasticGradient(module, criterion)
 
 cdef class GlobalState(object):
-#    cdef PyTorchState *state
-#    cdef lua_State *L
-#    cdef THGenerator *generator
+    # properties are in the PyTorch.pxd file
 
     def __cinit__(GlobalState self):
         print('GlobalState.__cinit__')
-#        self.state = initPyTorchState();
 
     def __dealloc__(self):
         print('GlobalState.__dealloc__')
-
-#    cdef lua_State *getL(self):  # this is mostly a migration path, we will push this downwards, and out of htis layer
-#        return getL(self.state)
 
 cdef GlobalState globalState
 
@@ -650,5 +627,4 @@ def init():
 init()
 
 from floattensor import FloatTensor
-
 
