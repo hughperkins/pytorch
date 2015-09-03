@@ -57,7 +57,7 @@ def pushObject(lua, myobject):
 luaClasses = {}
 
 class LuaClass(object):
-    def initNew(self, nameList, *args):
+    def __init__(self, nameList, *args):
         print('LuaClass.initNew', nameList)
         lua = PyTorch.getGlobalState().getLua()
         pushGlobalFromList(lua, nameList)
@@ -80,6 +80,16 @@ class LuaClass(object):
         pushObject(lua, self)
         lua.call(1, 1)
         return popString(lua)
+
+    def __dir__(self):
+        attributes = []
+        pushObject(lua, self)
+        lua.pushNil()
+        while(lua.next(-2)) != 0:
+            keyname = lua.toString(-2)
+            attributes.append(keyname)
+            lua.remove(-1)
+        return attributes
 
     def __getattr__(self, name):
         pushObject(lua, self)
@@ -134,19 +144,19 @@ class Linear(LuaClass):
     def __init__(self, numIn=1, numOut=1, _fromLua=False):
         if not _fromLua:
             name = self.__class__.__name__
-            super(self.__class__, self).initNew(['nn', name], numIn, numOut)
+            super(self.__class__, self).__init__(['nn', name], numIn, numOut)
 
 class ClassNLLCriterion(LuaClass):
     def __init__(self, _fromLua=False):
         if not _fromLua:
             name = self.__class__.__name__
-            super(self.__class__, self).initNew(['nn', name])
+            super(self.__class__, self).__init__(['nn', name])
 
 class Sequential(LuaClass):
     def __init__(self, _fromLua=False):
         if not _fromLua:
             name = self.__class__.__name__
-            super(self.__class__, self).initNew(['nn', name])
+            super(self.__class__, self).__init__(['nn', name])
 
 luaClasses['nn.Linear'] = Linear
 luaClasses['nn.ClassNLLCriterion'] = ClassNLLCriterion
@@ -180,4 +190,6 @@ print('criterion', criterion)
 mlp = Sequential()
 print('mlp', mlp)
 mlp.add(linear)
+
+print('dir(linear)', dir(linear))
 

@@ -42,6 +42,7 @@ cdef extern from "lua_externc.h":
     void lua_getfield(lua_State *L, int index, const char *name)
     void lua_pushnil(lua_State *L)
     void lua_pushvalue(lua_State *L, int index)
+    int lua_next(lua_State *L, int index);
 
 cdef class LuaState(object):
     cdef lua_State *L
@@ -96,6 +97,9 @@ cdef class LuaState(object):
 
     def getRegistry(self):
         lua_gettable(self.L, LUA_REGISTRYINDEX)
+
+    def next(self, int index):
+        return lua_next(self.L, index)
 
 cdef LuaState_fromNative(lua_State *L):
     cdef LuaState luaState = LuaState()
