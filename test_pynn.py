@@ -73,22 +73,59 @@ class Linear(object):
         return popString(lua)
 
     def __getattr__(self, name):
-        print('__getattr__', name)
         pushObject(lua, self)
-        lua.getField(-1, 'weight')
+        lua.getField(-1, name)
         pushGlobal(lua, 'torch', 'type')
         lua.insert(-2)
         lua.call(1, 1)
         typename = popString(lua)
-        print('attr typename', typename)
+#        print('attr typename', typename)
         pushObject(lua, self)
-        lua.getField(-1, 'weight')
+        lua.getField(-1, name)
         if typename == 'torch.FloatTensor':
             res = PyTorch._popFloatTensor()
-        print('res', res)
-        return res
+            return res
+        elif typename == 'function':
+            def mymethod(*args):
+                print('mymethod called method=', name)
+                pushObject(lua, self)
+                lua.getField(-1, name)
+                pushObject(lua, self)
+                for arg in args:
+                    print('arg', arg, type(arg))
+                    if isinstance(arg, PyTorch._FloatTensor):
+                        print('arg is floattensor')
+                        PyTorch._pushFloatTensor(arg)
+                    else:
+                        raise Exception('arg type ' + str(type(arg)) + ' not implemented')
+                lua.call(len(args) + 1, 1)   # +1 for self
+                lua.pushValue(-1)
+                pushGlobal(lua, 'torch', 'type')
+                lua.insert(-2)
+                lua.call(1, 1)
+                returntype = popString(lua)
+                print('returntype', returntype)
+                # this is getting a bit recursive :-P
+                if returntype == 'torch.FloatTensor':
+                    res = PyTorch._popFloatTensor()
+                    return res
+                else:
+                    raise Exception('return type ' + str(returntype) + ' not implemented')
+            return mymethod
+        else:
+            raise Exception('handling type ' + typename + ' not implemented')
 
 linear = Linear(lua, 3, 5)
 print('linear', linear)
-linear.weight
+print('linear.weight', linear.weight)
+print('linear.output', linear.output)
+print('linear.gradInput', linear.gradInput)
+
+input = PyTorch.FloatTensor(4, 3).uniform()
+print('input', input)
+output = linear.updateOutput(input)
+print('output', output)
+
+gradInput = linear.updateGradInput(input, output)
+print('gradInput', gradInput)
 

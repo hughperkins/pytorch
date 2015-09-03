@@ -18,6 +18,7 @@ cdef extern from "LuaHelper.h":
     void *getGlobal(lua_State *L, const char *name1, const char *name2);
     void require(lua_State *L, const char *name)
     THFloatTensor *popFloatTensor(lua_State *L)
+    void pushFloatTensor(lua_State *L, THFloatTensor *tensor)
 
 cdef class LuaHelper(object):
     @staticmethod
@@ -40,6 +41,7 @@ cdef extern from "lua_externc.h":
     void lua_gettable(lua_State *L, int index)
     void lua_getfield(lua_State *L, int index, const char *name)
     void lua_pushnil(lua_State *L)
+    void lua_pushvalue(lua_State *L, int index)
 
 cdef class LuaState(object):
     cdef lua_State *L
@@ -79,6 +81,9 @@ cdef class LuaState(object):
 
     def pushNil(self):
         lua_pushnil(self.L)
+
+    def pushValue(self, int index):
+        lua_pushvalue(self.L, index)
 
     def call(self, int numIn, int numOut):
         lua_call(self.L, numIn, numOut)
@@ -490,6 +495,10 @@ def _popFloatTensor():
     global globalState
     cdef THFloatTensor *tensorC = popFloatTensor(globalState.L)
     return _FloatTensor_fromNative(tensorC)
+
+def _pushFloatTensor(_FloatTensor tensor):
+    global globalState
+    pushFloatTensor(globalState.L, tensor.thFloatTensor)
 
 cdef GlobalState globalState
 

@@ -53,8 +53,10 @@ float popFloat(lua_State *L) {
     return res;
 }
 void pushFloatTensor(lua_State *L, THFloatTensor *tensor) {
+    cout << "pushing floattensor..." << endl;
     THFloatTensor_retain(tensor);
     luaT_pushudata(L, tensor, "torch.FloatTensor");
+    cout << "...pushed" << endl;
 }
 void pushGlobal(lua_State *L, const char *name1) {
     lua_getglobal(L, name1);
