@@ -342,33 +342,5 @@ Slight update:
 
 ## pynn
 
-pynn actually wraps the lua engine in place, so we need to create for each class we wish to use:
-* a C++ class, that wraps the lua class
-* a Cython-side declaration of the C++ class
-* a Cython class, that wraps the C++ class
-
-Inheritance and so on mirror closely the same inheritance structures present in the lua classes.  Methods and properties can just be fed through to the front-end.  For lua properties, eg `.output`, we can use a Python `@property` to make it a property in Python too.  We use `@property` to mark a method, so that when you use it, you do `.output`, rather than `.output()`.  Under the covers, it's still a method in fact, and it will call our appropriate C++ method that we create, eg `.getOutput()`.
-
-To add a new Lua/nn class:
-* In nnWrapper.h/.cpp , create a C++ class, that will wrap the lua class
-  * You can use the methods in LuaHelper.h/.cpp to help you here
-  * You will need a bit of Lua knowledge in order to write these
-  * Although they basically all follow a similar pattern, so it's probably plausible to hack and paste an existing class
-  * A good model to copy is: `_Module` class, and eg the `_Module.updateOutput()` method
-  * Note that I'm adding an underscore `_` to the class names, to avoid naming conflicts/confusion with the Python classes we create later
-* In PyTorch.pyx, in the section headed `cdef extern from "nnWrapper.h":`, somewhere around line 338, the second block with this heading, not the first one, which is around line 16.  There are two :-)  In this second section, add a declaration for the new C++ class
-  * Again, you can use the declaration for `Module` as a guide
-  * You can more or less just paste in the C++ method declarations, but note:
-    * no `;` at end of lines
-    * class itself is declared as `cdef cppclass`
-    * no `public:` declaration
-    * inheritance is marked in the Python way, by putting the parent class name in brackets after the `cdef cppclass [classname]` declaration
-* In PyTorch.pyx, create a Cython class to wrap the C++ class that we just created and declared
-  * `Module` is a good model to follow
-  * It's more or less similar to a Python class, except it uses Cython, and we can statically declare variable types
-  * The `native` field is being used to store a pointer to the underlying C++ object.  We can simply call methods directly on this pointer, passing in appropriate C++ object pointers, or primitive values
-* Note that `Module` is a bit of an outlier, since it is a parent class.  Eg, we are not defining `__cinit__` or `__dealloc` for it.  You can look at `Linear` for a typical child class, but note that it has few methods, since they are mostly defined on `Module`
-
-Slight update:
-* Nn object no longer contains the Lua state, it's now held in `globalState.L`
+This has been simplified a bunch since before.  We no longer try to wrap C++ classes around the lua, but just directly wrap Python classes around the Lua.  The class methods and attributes are mostly generated dynamically, according to the results of querying hte lua ones.  Mostly all we have to do is create classes with appropriate names, that derive from LuaClass.  We might need to handle inheritance somehow in the future.  At the moment, this is all handled really by PyTorchAug.py. ('Aug' = 'Augmentation'). 
 
