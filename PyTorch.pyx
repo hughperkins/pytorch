@@ -500,8 +500,8 @@ cdef class Module(object):
 
 cdef class Linear(Module):
 
-    def __cinit__(self, Nn nn, inputSize, outputSize):
-        self.native = new _Linear(nn.L, inputSize, outputSize)
+    def __cinit__(self, inputSize, outputSize):
+        self.native = new _Linear(globalState.L, inputSize, outputSize)
 
     def __dealloc__(self):
         del self.native
@@ -512,15 +512,15 @@ cdef class Linear(Module):
         return _FloatTensor_fromNative(weightC)
 
 cdef class LogSoftMax(Module):
-    def __cinit__(self, Nn nn):
-        self.native = new _LogSoftMax(nn.L)
+    def __cinit__(self):
+        self.native = new _LogSoftMax(globalState.L)
 
     def __dealloc__(self):
         del self.native
 
 cdef class Sequential(Module):
-    def __cinit__(self, Nn nn):
-        self.native = new _Sequential(nn.L)
+    def __cinit__(self):
+        self.native = new _Sequential(globalState.L)
 
     def __dealloc__(self):
         del self.native
@@ -560,15 +560,15 @@ cdef class Criterion(object):
         return _FloatTensor_fromNative(gradInputC)
 
 cdef class MSECriterion(Criterion):
-    def __cinit__(self, Nn nn):
-        self.native = new _MSECriterion(nn.L)
+    def __cinit__(self):
+        self.native = new _MSECriterion(globalState.L)
 
     def __dealloc__(self):
         del self.native
 
 cdef class ClassNLLCriterion(Criterion):
-    def __cinit__(self, Nn nn):
-        self.native = new _ClassNLLCriterion(nn.L)
+    def __cinit__(self):
+        self.native = new _ClassNLLCriterion(globalState.L)
 
     def __dealloc__(self):
         del self.native
@@ -577,8 +577,8 @@ cdef class ClassNLLCriterion(Criterion):
 cdef class StochasticGradient(object):
     cdef _StochasticGradient *native
 
-    def __cinit__(self, Nn nn, Module module, Criterion criterion):
-        self.native = new _StochasticGradient(nn.L, module.native, criterion.native)
+    def __cinit__(self, Module module, Criterion criterion):
+        self.native = new _StochasticGradient(globalState.L, module.native, criterion.native)
 
     def __dealloc__(self):
         del self.native
@@ -597,25 +597,25 @@ cdef class Nn(object):  # basically holds the Lua state
 #        luaClose(self.L)
 
     def collectgarbage(self):
-        collectGarbage(self.L)
+        collectGarbage(globalState.L)
 
     def Linear(self, inputSize, outputSize):
-        return Linear(self, inputSize, outputSize)
+        return Linear(inputSize, outputSize)
 
     def LogSoftMax(self):
-        return LogSoftMax(self)
+        return LogSoftMax()
 
     def Sequential(self):
-        return Sequential(self)
+        return Sequential()
 
     def MSECriterion(self):
-        return MSECriterion(self)
+        return MSECriterion()
 
     def ClassNLLCriterion(self):
-        return ClassNLLCriterion(self)
+        return ClassNLLCriterion()
 
     def StochasticGradient(self, module, criterion):
-        return StochasticGradient(self, module, criterion)
+        return StochasticGradient(module, criterion)
 
 cdef class GlobalState(object):
 #    cdef PyTorchState *state

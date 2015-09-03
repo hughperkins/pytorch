@@ -9,7 +9,7 @@ A = numpy.random.rand(6).reshape(2,3).astype(numpy.float32)
 tensorA = PyTorch.asTensor(A)
 
 nn = PyTorch.Nn()
-linear = nn.Linear(3, 8)
+linear = PyTorch.Linear(3, 8)
 output = linear.updateOutput(tensorA)
 print('output', output)
 print('weight', linear.weight)
@@ -23,7 +23,7 @@ sys.path.append('thirdparty/python-mnist')
 from mnist import MNIST
 
 mlp = nn.Sequential()
-mlp.add(nn.Linear(784, 10))
+mlp.add(PyTorch.Linear(784, 10))
 mlp.add(nn.LogSoftMax())
 
 criterion = nn.ClassNLLCriterion()
