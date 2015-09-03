@@ -21,6 +21,12 @@ def pushGlobal(lua, name1, name2=None, name3=None):
     lua.getField(-1, name3)
     lua.remove(-2)
 
+def pushGlobalFromList(lua, nameList):
+    lua.getGlobal(nameList[0])
+    for name in nameList[1:]:
+        lua.getField(-1, name)
+        lua.remove(-2)
+
 def popString(lua):
     res = lua.toString(-1)
     lua.remove(-1)
@@ -48,19 +54,28 @@ def pushObject(lua, myobject):
     lua.pushNumber(id(myobject))
     lua.getRegistry()
 
-class Linear(object):
-    def __init__(self, lua, numIn, numOut):
-        print('Linear.__init__')
-        pushGlobal(lua, 'nn', 'Linear')
-        lua.pushNumber(numIn)
-        lua.pushNumber(numOut)
-        lua.call(2, 1)
+luaClasses = {}
+
+class LuaClass(object):
+    def initNew(self, lua, nameList, *args):
+        print('LuaClass.initNew')
+        pushGlobalFromList(lua, nameList)
+        for arg in args:
+            print('    arg=', type(arg))
+            if isinstance(arg, int):
+                lua.pushNumber(arg)
+            else:
+                raise Exception('arg type ' + str(type(arg)) + ' not implemented')
+#        lua.pushNumber(numIn)
+#        lua.pushNumber(numOut)
+        lua.call(len(args), 1)
         registerObject(lua, self)
 
-        pushGlobal(lua, 'nn', 'Linear', 'float')
-        pushObject(lua, self)
-#        lua.getField(-1, 'float')
-        lua.call(1, 0)
+#        nameList = list(nameList)
+#        nameList.append('float')
+#        pushGlobalFromList(lua, nameList)
+#        pushObject(lua, self)
+#        lua.call(1, 0)
 
     def __del__(self):
         print('Linear.__del__')
@@ -109,13 +124,26 @@ class Linear(object):
                 if returntype == 'torch.FloatTensor':
                     res = PyTorch._popFloatTensor()
                     return res
+                elif returntype in luaClasses:
+                    returnobject = luaClasses[returntype](_fromLua=True)
+                    registerObject(lua, returnobject)
                 else:
                     raise Exception('return type ' + str(returntype) + ' not implemented')
             return mymethod
         else:
             raise Exception('handling type ' + typename + ' not implemented')
 
+class Linear(LuaClass):
+    def __init__(self, lua=None, numIn=None, numOut=None, _fromLua=False):
+        if not _fromLua:
+            super(Linear, self).initNew(lua, ['nn', 'Linear'], numIn, numOut)
+        else:
+            pass
+
+luaClasses['nn.Linear'] = Linear
+
 linear = Linear(lua, 3, 5)
+linear.float()
 print('linear', linear)
 print('linear.weight', linear.weight)
 print('linear.output', linear.output)
