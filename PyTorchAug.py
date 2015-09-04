@@ -84,6 +84,7 @@ class LuaClass(object):
 
         nameList = nameList[:]
         nameList.append('float')
+        pushGlobalFromList(lua, nameList)
         pushObject(lua, self)
         lua.call(1, 0)
 
@@ -209,6 +210,7 @@ class LuaClass(object):
 
 class Linear(LuaClass):
     def __init__(self, numIn=1, numOut=1, _fromLua=False):
+        print('Linear.__init__')
         if not _fromLua:
             name = self.__class__.__name__
             super(self.__class__, self).__init__(['nn', name], numIn, numOut)

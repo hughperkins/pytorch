@@ -42,9 +42,9 @@ linear = Linear(784, 10)
 mlp.add(linear)
 logSoftMax = LogSoftMax()
 mlp.add(logSoftMax)
-mlp.float()
+mlp
 
-criterion = ClassNLLCriterion().float()
+criterion = ClassNLLCriterion()
 print('got criterion')
 
 learningRate = 0.0001
