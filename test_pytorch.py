@@ -73,3 +73,10 @@ print('resize1d', PyTorch.FloatTensor().resize1d(3).fill(-1))
 print('resize2d', PyTorch.FloatTensor().resize2d(2, 3).fill(-1))
 print('resize', PyTorch.FloatTensor().resize(size).fill(-1))
 
+def myeval(expr):
+    print(expr, ':', eval(expr))
+
+myeval('PyTorch.FloatTensor(3,2).nElement()')
+myeval('PyTorch.FloatTensor().nElement()')
+myeval('PyTorch.FloatTensor(1).nElement()')
+

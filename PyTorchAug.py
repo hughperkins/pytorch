@@ -81,6 +81,12 @@ class LuaClass(object):
                 raise Exception('arg type ' + str(type(arg)) + ' not implemented')
         lua.call(len(args), 1)
         registerObject(lua, self)
+
+        nameList = nameList[:]
+        nameList.append('float')
+        pushObject(lua, self)
+        lua.call(1, 0)
+
         topEnd = lua.getTop()
         assert topStart == topEnd
 

@@ -216,6 +216,7 @@ cdef extern from "THTensor.h":
     void THFloatTensor_set1d(const THFloatTensor *tensor, long x0, float value)
     void THFloatTensor_set2d(const THFloatTensor *tensor, long x0, long x1, float value)
     void THFloatTensor_fill(THFloatTensor *self, float value)
+    long THFloatTensor_nElement(THFloatTensor *self)
 
     void THFloatTensor_bernoulli(THFloatTensor *self, THGenerator *_generator, double p)
     void THFloatTensor_geometric(THFloatTensor *self, THGenerator *_generator, double p)
@@ -436,6 +437,9 @@ cdef class _FloatTensor(object):
     def fill(_FloatTensor self, float value):
         THFloatTensor_fill(self.thFloatTensor, value)
         return self
+
+    def nElement(_FloatTensor self):
+        return THFloatTensor_nElement(self.thFloatTensor)
 
     def size(_FloatTensor self):
         cdef int dims = self.dims()
