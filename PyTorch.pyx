@@ -293,7 +293,7 @@ cdef class _FloatTensor(object):
 #        self.thFloatTensor = tensorC
 
     def __cinit__(self, *args, _allocate=True):
-        print('FloatTensor.__cinit__')
+#        print('FloatTensor.__cinit__')
 #        cdef THFloatStorage *storageC
 #        cdef long addr
 #        if len(kwargs) > 0:
@@ -305,7 +305,7 @@ cdef class _FloatTensor(object):
                 if not isinstance(arg, int):
                     raise Exception('cannot provide arguments to initializer')
             if len(args) == 0:
-                print('no args, calling THFloatTensor_new()')
+#                print('no args, calling THFloatTensor_new()')
                 self.thFloatTensor = THFloatTensor_new()
             elif len(args) == 1:
 #                print('new tensor 1d length', args[0])
@@ -338,7 +338,7 @@ cdef class _FloatTensor(object):
 #        cdef int i
 #        cdef THFloatStorage *storage
         refCount = THFloatTensor_getRefCount(self.thFloatTensor)
-        print('FloatTensor.dealloc old refcount', refCount)
+#        print('FloatTensor.dealloc old refcount', refCount)
 #        storage = THFloatTensor_storage(self.thFloatTensor)
 #        if storage == NULL:
 #            print('   dealloc, storage NULL')
@@ -581,7 +581,7 @@ cdef class _LongTensor(object):
 #        self.thFloatTensor = tensorC
 
     def __cinit__(self, *args, _allocate=True):
-        print('LongTensor.__cinit__')
+#        print('LongTensor.__cinit__')
 #        cdef THLongStorage *storageC
 #        cdef long addr
 #        if len(kwargs) > 0:
@@ -593,7 +593,7 @@ cdef class _LongTensor(object):
                 if not isinstance(arg, int):
                     raise Exception('cannot provide arguments to initializer')
             if len(args) == 0:
-                print('no args, calling THLongTensor_new()')
+#                print('no args, calling THLongTensor_new()')
                 self.thLongTensor = THLongTensor_new()
             elif len(args) == 1:
 #                print('new tensor 1d length', args[0])
@@ -626,7 +626,7 @@ cdef class _LongTensor(object):
 #        cdef int i
 #        cdef THFloatStorage *storage
         refCount = THLongTensor_getRefCount(self.thLongTensor)
-        print('LongTensor.dealloc old refcount', refCount)
+#        print('LongTensor.dealloc old refcount', refCount)
 #        storage = THFloatTensor_storage(self.thFloatTensor)
 #        if storage == NULL:
 #            print('   dealloc, storage NULL')

@@ -260,7 +260,7 @@ cdef class _{{Real}}Tensor(object):
 #        self.thFloatTensor = tensorC
 
     def __cinit__(self, *args, _allocate=True):
-        print('{{Real}}Tensor.__cinit__')
+#        print('{{Real}}Tensor.__cinit__')
 #        cdef TH{{Real}}Storage *storageC
 #        cdef long addr
 #        if len(kwargs) > 0:
@@ -272,7 +272,7 @@ cdef class _{{Real}}Tensor(object):
                 if not isinstance(arg, int):
                     raise Exception('cannot provide arguments to initializer')
             if len(args) == 0:
-                print('no args, calling TH{{Real}}Tensor_new()')
+#                print('no args, calling TH{{Real}}Tensor_new()')
                 self.th{{Real}}Tensor = TH{{Real}}Tensor_new()
             elif len(args) == 1:
 #                print('new tensor 1d length', args[0])
@@ -305,7 +305,7 @@ cdef class _{{Real}}Tensor(object):
 #        cdef int i
 #        cdef THFloatStorage *storage
         refCount = TH{{Real}}Tensor_getRefCount(self.th{{Real}}Tensor)
-        print('{{Real}}Tensor.dealloc old refcount', refCount)
+#        print('{{Real}}Tensor.dealloc old refcount', refCount)
 #        storage = THFloatTensor_storage(self.thFloatTensor)
 #        if storage == NULL:
 #            print('   dealloc, storage NULL')
