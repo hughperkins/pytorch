@@ -237,17 +237,19 @@ cdef class _FloatTensor(object):
 #    def __cinit__(Tensor self, THFloatTensor *tensorC = NULL):
 #        self.thFloatTensor = tensorC
 
-    def __cinit__(self, *args, **kwargs):
+    def __cinit__(self, *args, _allocate=True):
 #        print('floatTensor.__cinit__')
         cdef THFloatStorage *storageC
         cdef long addr
-        if len(kwargs) > 0:
-            raise Exception('cannot provide arguments to initializer')
-        if len(args) > 0:
+#        if len(kwargs) > 0:
+#            raise Exception('cannot provide arguments to initializer')
+        if _allocate:
             for arg in args:
                 if not isinstance(arg, int):
                     raise Exception('cannot provide arguments to initializer')
-            if len(args) == 1:
+            if len(args) == 0:
+                self.thFloatTensor = THFloatTensor_new()
+            elif len(args) == 1:
 #                print('new tensor 1d length', args[0])
                 self.thFloatTensor = THFloatTensor_newWithSize1d(args[0])
                 storageC = THFloatTensor_storage(self.thFloatTensor)
@@ -295,8 +297,8 @@ cdef class _FloatTensor(object):
     @staticmethod
     def new():
 #        print('allocate tensor')
-        cdef THFloatTensor *newTensorC = THFloatTensor_new()
-        return _FloatTensor_fromNative(newTensorC, False)
+        return _FloatTensor()
+#        return _FloatTensor_fromNative(newTensorC, False)
 
     @staticmethod
     def newWithStorage1d(FloatStorage storage, offset, size0, stride0):
@@ -333,12 +335,28 @@ cdef class _FloatTensor(object):
         cdef THFloatTensor *narrowedC = THFloatTensor_newNarrow(self.thFloatTensor, dimension, firstIndex, size)
         return _FloatTensor_fromNative(narrowedC, retain=False)
 
+    def resize1d(_FloatTensor self, int size0):
+        THFloatTensor_resize1d(self.thFloatTensor, size0)
+        return self
+
+    def resize2d(_FloatTensor self, int size0, int size1):
+        THFloatTensor_resize2d(self.thFloatTensor, size0, size1)
+        return self
+
+    def resize3d(_FloatTensor self, int size0, int size1, int size2):
+        THFloatTensor_resize3d(self.thFloatTensor, size0, size1, size2)
+        return self
+
+    def resize4d(_FloatTensor self, int size0, int size1, int size2, int size3):
+        THFloatTensor_resize4d(self.thFloatTensor, size0, size1, size2, size3)
+        return self
+
     def resize(_FloatTensor self, _FloatTensor size):
-        print('_FloatTensor.resize size:', size)
+#        print('_FloatTensor.resize size:', size)
         if size.dims() == 0:
             return self
         cdef int dims = size.size()[0]
-        print('_FloatTensor.resize dims:', dims)
+#        print('_FloatTensor.resize dims:', dims)
         if dims == 1:
             THFloatTensor_resize1d(self.thFloatTensor, size[0])
         elif dims == 2:
@@ -481,7 +499,7 @@ cdef class _FloatTensor(object):
 cdef _FloatTensor_fromNative(THFloatTensor *tensorC, retain=True):
     if retain:
         THFloatTensor_retain(tensorC)
-    tensor = _FloatTensor()
+    tensor = _FloatTensor(_allocate=False)
     tensor.thFloatTensor = tensorC
     return tensor
 

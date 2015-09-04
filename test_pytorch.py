@@ -69,5 +69,7 @@ size[1] = 3
 D.resize(size)
 print('D after resize:\n', D)
 
-
+print('resize1d', PyTorch.FloatTensor().resize1d(3).fill(-1))
+print('resize2d', PyTorch.FloatTensor().resize2d(2, 3).fill(-1))
+print('resize', PyTorch.FloatTensor().resize(size).fill(-1))
 
