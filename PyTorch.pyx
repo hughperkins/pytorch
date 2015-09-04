@@ -487,7 +487,6 @@ cdef class _DoubleTensor(object):
         else:
             return None  # not sure how to handle this yet
 
-
     @staticmethod
     def new():
 #        print('allocate tensor')
@@ -500,6 +499,8 @@ cdef class _DoubleTensor(object):
 #        THFloatTensor_resizeAs(cresult, self.thFloatTensor)
         THDoubleTensor_add(res.thDoubleTensor, self.thDoubleTensor, value)
         return res
+
+
 
     def uniform(_DoubleTensor self, double a=0, double b=1):
         THDoubleTensor_uniform(self.thDoubleTensor, globalState.generator, a, b)
@@ -679,7 +680,6 @@ cdef class _FloatTensor(object):
         else:
             return None  # not sure how to handle this yet
 
-
     @staticmethod
     def new():
 #        print('allocate tensor')
@@ -692,6 +692,8 @@ cdef class _FloatTensor(object):
 #        THFloatTensor_resizeAs(cresult, self.thFloatTensor)
         THFloatTensor_add(res.thFloatTensor, self.thFloatTensor, value)
         return res
+
+
 
     def uniform(_FloatTensor self, float a=0, float b=1):
         THFloatTensor_uniform(self.thFloatTensor, globalState.generator, a, b)
@@ -968,6 +970,19 @@ cdef class _LongTensor(object):
             return size
         else:
             return None  # not sure how to handle this yet
+
+    @staticmethod
+    def new():
+#        print('allocate tensor')
+        return _LongTensor()
+#        return _FloatTensor_fromNative(newTensorC, False)
+
+    def __add__(_LongTensor self, long value):
+        # assume 2d matrix for now?
+        cdef _LongTensor res = _LongTensor.new()
+#        THFloatTensor_resizeAs(cresult, self.thFloatTensor)
+        THLongTensor_add(res.thLongTensor, self.thLongTensor, value)
+        return res
 
 
 

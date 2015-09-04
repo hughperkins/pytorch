@@ -415,7 +415,6 @@ cdef class _{{Real}}Tensor(object):
         else:
             return None  # not sure how to handle this yet
 
-{% if Real in ['Float', 'Double'] %}
     @staticmethod
     def new():
 #        print('allocate tensor')
@@ -428,6 +427,8 @@ cdef class _{{Real}}Tensor(object):
 #        THFloatTensor_resizeAs(cresult, self.thFloatTensor)
         TH{{Real}}Tensor_add(res.th{{Real}}Tensor, self.th{{Real}}Tensor, value)
         return res
+
+{% if Real in ['Float', 'Double'] %}
 
     def uniform(_{{Real}}Tensor self, {{real}} a=0, {{real}} b=1):
         TH{{Real}}Tensor_uniform(self.th{{Real}}Tensor, globalState.generator, a, b)
