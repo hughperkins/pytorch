@@ -22,3 +22,5 @@ void pushFloatTensor(lua_State *L, THFloatTensor *tensor);
 
 void require(lua_State *L, const char *name);
 
+int getLuaRegistryIndex();
+

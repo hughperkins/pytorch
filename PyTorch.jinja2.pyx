@@ -23,6 +23,7 @@ cdef extern from "LuaHelper.h":
     void require(lua_State *L, const char *name)
     THFloatTensor *popFloatTensor(lua_State *L)
     void pushFloatTensor(lua_State *L, THFloatTensor *tensor)
+    int getLuaRegistryIndex()
 
 cdef class LuaHelper(object):
     @staticmethod
@@ -31,7 +32,6 @@ cdef class LuaHelper(object):
 
 cdef extern from "lua_externc.h":
     struct lua_State
-    # int LUA_REGISTRYINDEX
     void lua_pushnumber(lua_State *L, float number)
     float lua_tonumber(lua_State *L, int index)
     void lua_pushstring(lua_State *L, const char *value)
@@ -49,6 +49,8 @@ cdef extern from "lua_externc.h":
     int lua_next(lua_State *L, int index)
     int lua_gettop(lua_State *L)
     int lua_isuserdata(lua_State *L, int index)
+
+LUA_REGISTRYINDEX = getLuaRegistryIndex()
 
 cdef class LuaState(object):
     cdef lua_State *L

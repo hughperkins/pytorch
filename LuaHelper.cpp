@@ -86,4 +86,7 @@ void require(lua_State *L, const char *name) {
     lua_call(L, 1, 0);
 //    lua_setglobal(L, "nn");
 }
+int getLuaRegistryIndex() {
+    return LUA_REGISTRYINDEX;
+}
 
