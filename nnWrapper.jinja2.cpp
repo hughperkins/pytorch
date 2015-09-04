@@ -1,4 +1,4 @@
-// GENERATED FILE, do not edit by hand
+// {{header}}
 
 extern "C" {
     #include "lua.h"
@@ -21,7 +21,7 @@ extern "C" {
 
 using namespace std;
 
-
+{% set types = {'Long': 'long', 'Float': 'float', 'Double': 'double'} %}
 
 lua_State *luaInit() {
     #ifndef _WIN32
@@ -57,29 +57,16 @@ void collectGarbage(lua_State *L) {
     lua_call(L, 0, 0);
 }
 
-
-int THDoubleStorage_getRefCount(THDoubleStorage *self) {
+{% for Real in types %}
+int TH{{Real}}Storage_getRefCount(TH{{Real}}Storage *self) {
     return self->refcount;
 }
-int THDoubleTensor_getRefCount(THDoubleTensor *self) {
+int TH{{Real}}Tensor_getRefCount(TH{{Real}}Tensor *self) {
     return self->refcount;
 }
-
-int THFloatStorage_getRefCount(THFloatStorage *self) {
-    return self->refcount;
-}
-int THFloatTensor_getRefCount(THFloatTensor *self) {
-    return self->refcount;
-}
-
-int THLongStorage_getRefCount(THLongStorage *self) {
-    return self->refcount;
-}
-int THLongTensor_getRefCount(THLongTensor *self) {
-    return self->refcount;
-}
-
+{% endfor %}
 
 long pointerAsInt(void *ptr) {
     return (long)ptr;
 }
+

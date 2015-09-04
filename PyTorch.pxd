@@ -1,5 +1,4 @@
-# Original file is: PyTorch.jinja2.pxd
-# If you are looking at PyTorch.pxd, it is a generated file, dont edit it directly ;-)
+# GENERATED FILE, do not edit by hand
 
 
 
@@ -12,6 +11,21 @@ cdef extern from "nnWrapper.h":
 #cdef struct lua_State
 #cdef struct THGenerator
 
+
+
+
+cdef extern from "THTensor.h":
+    cdef struct THDoubleTensor
+
+cdef class _DoubleTensor(object):
+    cdef THDoubleTensor *thDoubleTensor
+    cpdef int dims(self)
+    cpdef set1d(self, int x0, double value)
+    cpdef set2d(self, int x0, int x1, double value)
+    cpdef double get1d(self, int x0)
+    cpdef double get2d(self, int x0, int x1)
+#    @cython.staticmethod
+#    cdef fromNative(THDoubleTensor *tensorC, retain=*)
 
 
 

@@ -26,10 +26,10 @@ jinja_present = True
 # first generate cython pyx from jinja template...
 from jinja2 import Environment, PackageLoader, Template
 env = Environment(loader=jinja2.FileSystemLoader('.'))
-templateNames = ['PyTorch.jinja2.pyx', 'PyTorch.jinja2.pxd']
+templateNames = ['PyTorch.jinja2.pyx', 'PyTorch.jinja2.pxd', 'nnWrapper.jinja2.cpp', 'nnWrapper.jinja2.h']
 for templateName in templateNames:
     template = env.get_template(templateName)
-    pyx = template.render()
+    pyx = template.render(header='GENERATED FILE, do not edit by hand')
     outFilename = templateName.replace('.jinja2', '')
     print('outfilename', outFilename)
     f = open(outFilename, 'wb')

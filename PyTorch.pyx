@@ -1,5 +1,4 @@
-# Original file is: PyTorch.jinja2.pyx
-# If you are looking at PyTorch.pyx, it is a generated file, dont edit it directly ;-)
+# GENERATED FILE, do not edit by hand
 
 from __future__ import print_function
 
@@ -125,6 +124,10 @@ cdef extern from "nnWrapper.h":
 
 
 cdef extern from "nnWrapper.h":
+    int THDoubleStorage_getRefCount(THDoubleStorage *self)
+    int THDoubleTensor_getRefCount(THDoubleTensor *self)
+
+cdef extern from "nnWrapper.h":
     int THFloatStorage_getRefCount(THFloatStorage *self)
     int THFloatTensor_getRefCount(THFloatTensor *self)
 
@@ -141,6 +144,9 @@ def manualSeed(long seed):
     THRandom_manualSeed(globalState.generator, seed)
 
 
+
+cdef extern from "THStorage.h":
+    cdef struct THDoubleStorage
 
 cdef extern from "THStorage.h":
     cdef struct THFloatStorage
@@ -216,6 +222,40 @@ cdef class FloatStorage(object):
 
 
 cdef extern from "THTensor.h":
+    cdef struct THDoubleTensor
+    THDoubleTensor *THDoubleTensor_new()
+    THDoubleTensor *THDoubleTensor_newWithSize1d(long size0)
+    THDoubleTensor *THDoubleTensor_newWithSize2d(long size0, long size1)
+    void THDoubleTensor_free(THDoubleTensor *self)
+    int THDoubleTensor_nDimension(THDoubleTensor *tensor)
+    THDoubleTensor *THDoubleTensor_newSelect(THDoubleTensor *self, int dimension, int sliceIndex)
+    void THDoubleTensor_resizeAs(THDoubleTensor *self, THFloatTensor *model)
+    void THDoubleTensor_resize1d(THDoubleTensor *self, long size0)
+    void THDoubleTensor_resize2d(THDoubleTensor *self, long size0, long size1)
+    void THDoubleTensor_resize3d(THDoubleTensor *self, long size0, long size1, long size2)
+    void THDoubleTensor_resize4d(THDoubleTensor *self, long size0, long size1, long size2, long size3)
+    long THDoubleTensor_size(const THDoubleTensor *self, int dim)
+    long THDoubleTensor_nElement(THDoubleTensor *self)
+    void THDoubleTensor_retain(THDoubleTensor *self)
+    void THDoubleTensor_geometric(THDoubleTensor *self, THGenerator *_generator, double p)
+    void THDoubleTensor_set1d(const THDoubleTensor *tensor, long x0, float value)
+    void THDoubleTensor_set2d(const THDoubleTensor *tensor, long x0, long x1, float value)
+    double THDoubleTensor_get1d(const THDoubleTensor *tensor, long x0)
+    double THDoubleTensor_get2d(const THDoubleTensor *tensor, long x0, long x1)
+    long THDoubleTensor_stride(const THDoubleTensor *self, int dim)
+    void THDoubleTensor_fill(THDoubleTensor *self, double value)
+    void THDoubleTensor_add(THDoubleTensor *r_, THDoubleTensor *t, double value)
+
+    
+    void THDoubleTensor_uniform(THDoubleTensor *self, THGenerator *_generator, double a, double b)
+    void THDoubleTensor_normal(THDoubleTensor *self, THGenerator *_generator, double mean, double stdv)
+    void THDoubleTensor_exponential(THDoubleTensor *self, THGenerator *_generator, double _lambda);
+    void THDoubleTensor_cauchy(THDoubleTensor *self, THGenerator *_generator, double median, double sigma)
+    void THDoubleTensor_logNormal(THDoubleTensor *self, THGenerator *_generator, double mean, double stdv)
+    
+
+
+cdef extern from "THTensor.h":
     cdef struct THFloatTensor
     THFloatTensor *THFloatTensor_new()
     THFloatTensor *THFloatTensor_newWithSize1d(long size0)
@@ -239,6 +279,14 @@ cdef extern from "THTensor.h":
     long THFloatTensor_stride(const THFloatTensor *self, int dim)
     void THFloatTensor_fill(THFloatTensor *self, float value)
     void THFloatTensor_add(THFloatTensor *r_, THFloatTensor *t, float value)
+
+    
+    void THFloatTensor_uniform(THFloatTensor *self, THGenerator *_generator, double a, double b)
+    void THFloatTensor_normal(THFloatTensor *self, THGenerator *_generator, double mean, double stdv)
+    void THFloatTensor_exponential(THFloatTensor *self, THGenerator *_generator, double _lambda);
+    void THFloatTensor_cauchy(THFloatTensor *self, THGenerator *_generator, double median, double sigma)
+    void THFloatTensor_logNormal(THFloatTensor *self, THGenerator *_generator, double mean, double stdv)
+    
 
 
 cdef extern from "THTensor.h":
@@ -266,6 +314,8 @@ cdef extern from "THTensor.h":
     void THLongTensor_fill(THLongTensor *self, long value)
     void THLongTensor_add(THLongTensor *r_, THLongTensor *t, long value)
 
+    
+
 
 cdef extern from "THTensor.h":
     THFloatTensor* THFloatTensor_newWithStorage1d(THFloatStorage *storage, long storageOffset, long size0, long stride0)
@@ -275,14 +325,188 @@ cdef extern from "THTensor.h":
 
     void THFloatTensor_bernoulli(THFloatTensor *self, THGenerator *_generator, double p)
 
-    void THFloatTensor_uniform(THFloatTensor *self, THGenerator *_generator, double a, double b)
-    void THFloatTensor_normal(THFloatTensor *self, THGenerator *_generator, double mean, double stdv)
-    void THFloatTensor_exponential(THFloatTensor *self, THGenerator *_generator, double _lambda);
-    void THFloatTensor_cauchy(THFloatTensor *self, THGenerator *_generator, double median, double sigma)
-    void THFloatTensor_logNormal(THFloatTensor *self, THGenerator *_generator, double mean, double stdv)
-
     THFloatStorage *THFloatTensor_storage(THFloatTensor *self)
     THFloatTensor *THFloatTensor_newNarrow(THFloatTensor *self, int dimension, long firstIndex, long size)
+
+
+
+cdef class _DoubleTensor(object):
+    # properties are in the PyTorch.pxd file
+
+#    def __cinit__(Tensor self, THFloatTensor *tensorC = NULL):
+#        self.thFloatTensor = tensorC
+
+    def __cinit__(self, *args, _allocate=True):
+#        print('DoubleTensor.__cinit__')
+#        cdef THDoubleStorage *storageC
+#        cdef long addr
+#        if len(kwargs) > 0:
+#            raise Exception('cannot provide arguments to initializer')
+        if _allocate:
+#            if len(args) == 1 and isinstance(args[0], _LongTensor):  # it's a size tensor
+#                self.thFloatTensor = THFloatTensor_new()
+            for arg in args:
+                if not isinstance(arg, int):
+                    raise Exception('cannot provide arguments to initializer')
+            if len(args) == 0:
+#                print('no args, calling THDoubleTensor_new()')
+                self.thDoubleTensor = THDoubleTensor_new()
+            elif len(args) == 1:
+#                print('new tensor 1d length', args[0])
+                self.thDoubleTensor = THDoubleTensor_newWithSize1d(args[0])
+#                storageC = THFloatTensor_storage(self.thFloatTensor)
+#                if storageC == NULL:
+#                    print('storageC is NULL')
+#                else:
+#                    print('storageC not null')
+#                    addr = <long>(storageC)
+#                    print('storageaddr', hex(addr))
+#                    print('storageC refcount', THFloatStorage_getRefCount(storageC))
+            elif len(args) == 2:
+                self.thDoubleTensor = THDoubleTensor_newWithSize2d(args[0], args[1])
+            else:
+                raise Exception('Not implemented, len(args)=' + str(len(args)))
+
+#    def __cinit__(self, THFloatTensor *tensorC, Storage storage):
+#        self.thFloatTensor = tensorC
+#        self.storage = storage
+
+#    def __cinit__(self, Storage storage, offset, size0, stride0, size1, stride1):
+#        self.thFloatTensor = THFloatTensor_newWithStorage2d(storage.thFloatStorage, offset, size0, stride0, size1, stride1)
+#        self.storage = storage
+
+    def __dealloc__(self):
+        cdef int refCount
+#        cdef int dims
+#        cdef int size
+#        cdef int i
+#        cdef THFloatStorage *storage
+        refCount = THDoubleTensor_getRefCount(self.thDoubleTensor)
+#        print('DoubleTensor.dealloc old refcount', refCount)
+#        storage = THFloatTensor_storage(self.thFloatTensor)
+#        if storage == NULL:
+#            print('   dealloc, storage NULL')
+#        else:
+#            print('   dealloc, storage ', hex(<long>(storage)))
+#        dims = THFloatTensor_nDimension(self.thFloatTensor)
+#        print('   dims of dealloc', dims)
+#        for i in range(dims):
+#            print('   size[', i, ']', THFloatTensor_size(self.thFloatTensor, i))
+        if refCount < 1:
+            raise Exception('Unallocated an already deallocated tensor... :-O')  # Hmmm, seems this exceptoin wont go anywhere useful... :-P
+        THDoubleTensor_free(self.thDoubleTensor)
+
+    def nElement(_DoubleTensor self):
+        return THDoubleTensor_nElement(self.thDoubleTensor)
+
+    @property
+    def refCount(_DoubleTensor self):
+        return THDoubleTensor_getRefCount(self.thDoubleTensor)
+
+    def geometric(_DoubleTensor self, float p=0.5):
+        THDoubleTensor_geometric(self.thDoubleTensor, globalState.generator, p)
+        return self
+
+    cpdef int dims(self):
+        return THDoubleTensor_nDimension(self.thDoubleTensor)
+
+    cpdef set1d(self, int x0, double value):
+        THDoubleTensor_set1d(self.thDoubleTensor, x0, value)
+
+    cpdef set2d(self, int x0, int x1, double value):
+        THDoubleTensor_set2d(self.thDoubleTensor, x0, x1, value)
+
+    cpdef double get1d(self, int x0):
+        return THDoubleTensor_get1d(self.thDoubleTensor, x0)
+
+    cpdef double get2d(self, int x0, int x1):
+        return THDoubleTensor_get2d(self.thDoubleTensor, x0, x1)
+
+    def __repr__(_DoubleTensor self):
+        # assume 2d matrix for now
+        cdef int size0
+        cdef int size1
+        dims = self.dims()
+        if dims == 0:
+            return '[torch.DoubleTensor with no dimension]\n'
+        elif dims == 2:
+            size0 = THDoubleTensor_size(self.thDoubleTensor, 0)
+            size1 = THDoubleTensor_size(self.thDoubleTensor, 1)
+            res = ''
+            for r in range(size0):
+                thisline = ''
+                for c in range(size1):
+                    if c > 0:
+                        thisline += ' '
+                    
+                    thisline += str(self.get2d(r,c),)
+                    
+                res += thisline + '\n'
+            res += '[torch.DoubleTensor of size ' + ('%.0f' % size0) + 'x' + str(size1) + ']\n'
+            return res
+        elif dims == 1:
+            size0 = THDoubleTensor_size(self.thDoubleTensor, 0)
+            res = ''
+            thisline = ''
+            for c in range(size0):
+                if c > 0:
+                    thisline += ' '
+                
+                thisline += str(self.get1d(c))
+                
+            res += thisline + '\n'
+            res += '[torch.DoubleTensor of size ' + str(size0) + ']\n'
+            return res
+        else:
+            raise Exception("Not implemented: dims > 2")
+
+    def __getitem__(_DoubleTensor self, int index):
+        if self.dims() == 1:
+            return self.get1d(index)
+        cdef THDoubleTensor *res = THDoubleTensor_newSelect(self.thDoubleTensor, 0, index)
+        return _DoubleTensor_fromNative(res, False)
+
+    def __setitem__(_DoubleTensor self, int index, double value):
+        if self.dims() == 1:
+            self.set1d(index, value)
+        else:
+            raise Exception("not implemented")
+
+    def fill(_DoubleTensor self, double value):
+        THDoubleTensor_fill(self.thDoubleTensor, value)
+        return self
+
+    def size(_DoubleTensor self):
+        cdef int dims = self.dims()
+        cdef _LongTensor size
+        if dims > 0:
+            size = _LongTensor(dims)
+            for d in range(dims):
+                size.set1d(d, THDoubleTensor_size(self.thDoubleTensor, d))
+            return size
+        else:
+            return None  # not sure how to handle this yet
+
+
+
+    def uniform(_DoubleTensor self, double a=0, double b=1):
+        THDoubleTensor_uniform(self.thDoubleTensor, globalState.generator, a, b)
+        return self
+
+
+
+
+
+#class FloatTensor(_FloatTensor):
+#    pass
+
+#    @staticmethod
+cdef _DoubleTensor_fromNative(THDoubleTensor *tensorC, retain=True):
+    if retain:
+        THDoubleTensor_retain(tensorC)
+    tensor = _DoubleTensor(_allocate=False)
+    tensor.thDoubleTensor = tensorC
+    return tensor
 
 
 
@@ -445,6 +669,13 @@ cdef class _FloatTensor(object):
 
 
 
+    def uniform(_FloatTensor self, float a=0, float b=1):
+        THFloatTensor_uniform(self.thFloatTensor, globalState.generator, a, b)
+        return self
+
+
+
+
     @staticmethod
     def new():
 #        print('allocate tensor')
@@ -525,10 +756,6 @@ cdef class _FloatTensor(object):
     # ========== random ===============================
     def bernoulli(_FloatTensor self, float p=0.5):
         THFloatTensor_bernoulli(self.thFloatTensor, globalState.generator, p)
-        return self
-
-    def uniform(_FloatTensor self, float a=0, float b=1):
-        THFloatTensor_uniform(self.thFloatTensor, globalState.generator, a, b)
         return self
 
     def normal(_FloatTensor self, float mean=0, float stdv=1):
@@ -730,6 +957,8 @@ cdef class _LongTensor(object):
             return size
         else:
             return None  # not sure how to handle this yet
+
+
 
 
 

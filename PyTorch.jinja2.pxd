@@ -1,7 +1,6 @@
-# Original file is: PyTorch.jinja2.pxd
-# If you are looking at PyTorch.pxd, it is a generated file, dont edit it directly ;-)
+# {{header}}
 
-{% set types = {'Long': 'long', 'Float': 'float'} %}
+{% set types = {'Long': 'long', 'Float': 'float', 'Double': 'double'} %}
 
 cdef extern from "THRandom.h":
     cdef struct THGenerator

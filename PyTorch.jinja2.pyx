@@ -1,5 +1,4 @@
-# Original file is: PyTorch.jinja2.pyx
-# If you are looking at PyTorch.pyx, it is a generated file, dont edit it directly ;-)
+# {{header}}
 
 from __future__ import print_function
 
@@ -13,7 +12,7 @@ from math import log10, floor
 
 cimport PyTorch
 
-{% set types = {'Long': 'long', 'Float': 'float'} %}
+{% set types = {'Long': 'long', 'Float': 'float', 'Double': 'double'} %}
 
 # from http://stackoverflow.com/questions/3410976/how-to-round-a-number-to-significant-figures-in-python
 def round_sig(x, sig=2):
@@ -232,6 +231,14 @@ cdef extern from "THTensor.h":
     long TH{{Real}}Tensor_stride(const TH{{Real}}Tensor *self, int dim)
     void TH{{Real}}Tensor_fill(TH{{Real}}Tensor *self, {{real}} value)
     void TH{{Real}}Tensor_add(TH{{Real}}Tensor *r_, TH{{Real}}Tensor *t, {{real}} value)
+
+    {% if Real in ['Float', 'Double'] %}
+    void TH{{Real}}Tensor_uniform(TH{{Real}}Tensor *self, THGenerator *_generator, double a, double b)
+    void TH{{Real}}Tensor_normal(TH{{Real}}Tensor *self, THGenerator *_generator, double mean, double stdv)
+    void TH{{Real}}Tensor_exponential(TH{{Real}}Tensor *self, THGenerator *_generator, double _lambda);
+    void TH{{Real}}Tensor_cauchy(TH{{Real}}Tensor *self, THGenerator *_generator, double median, double sigma)
+    void TH{{Real}}Tensor_logNormal(TH{{Real}}Tensor *self, THGenerator *_generator, double mean, double stdv)
+    {% endif %}
 {% endfor %}
 
 cdef extern from "THTensor.h":
@@ -241,12 +248,6 @@ cdef extern from "THTensor.h":
     void THFloatTensor_addmm(THFloatTensor *tensorSelf, float beta, THFloatTensor *tensorOne, float alpha, THFloatTensor *mat1, THFloatTensor *mat2)
 
     void THFloatTensor_bernoulli(THFloatTensor *self, THGenerator *_generator, double p)
-
-    void THFloatTensor_uniform(THFloatTensor *self, THGenerator *_generator, double a, double b)
-    void THFloatTensor_normal(THFloatTensor *self, THGenerator *_generator, double mean, double stdv)
-    void THFloatTensor_exponential(THFloatTensor *self, THGenerator *_generator, double _lambda);
-    void THFloatTensor_cauchy(THFloatTensor *self, THGenerator *_generator, double median, double sigma)
-    void THFloatTensor_logNormal(THFloatTensor *self, THGenerator *_generator, double mean, double stdv)
 
     THFloatStorage *THFloatTensor_storage(THFloatTensor *self)
     THFloatTensor *THFloatTensor_newNarrow(THFloatTensor *self, int dimension, long firstIndex, long size)
@@ -414,6 +415,13 @@ cdef class _{{Real}}Tensor(object):
         else:
             return None  # not sure how to handle this yet
 
+{% if Real in ['Float', 'Double'] %}
+
+    def uniform(_{{Real}}Tensor self, {{real}} a=0, {{real}} b=1):
+        TH{{Real}}Tensor_uniform(self.th{{Real}}Tensor, globalState.generator, a, b)
+        return self
+{% endif %}
+
 {% if Real == 'Float' %}
 
     @staticmethod
@@ -496,10 +504,6 @@ cdef class _{{Real}}Tensor(object):
     # ========== random ===============================
     def bernoulli(_FloatTensor self, float p=0.5):
         THFloatTensor_bernoulli(self.thFloatTensor, globalState.generator, p)
-        return self
-
-    def uniform(_FloatTensor self, float a=0, float b=1):
-        THFloatTensor_uniform(self.thFloatTensor, globalState.generator, a, b)
         return self
 
     def normal(_FloatTensor self, float mean=0, float stdv=1):
