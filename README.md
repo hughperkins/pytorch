@@ -373,6 +373,26 @@ epoch 8 accuracy: 100.0%
 epoch 9 accuracy: 100.0%
 ```
 
+# Installation
+
+## Pre-requisites
+
+* Have installed torch
+* Have installed 'nn'
+* Have installed python (tested with 2.7, for now)
+* Have installed the following python libraries:
+  * numpy
+  * cython
+  * Jinja2
+
+## Procedure
+
+```
+git clone https://github.com/hughperkins/pytorch.git
+cd pytorch
+./build.sh
+```
+
 # How to add new methods
 
 ## pytorch
@@ -386,10 +406,11 @@ epoch 9 accuracy: 100.0%
 
 You can have a look eg at the `narrow` method as an example
 
-Slight update:
+Updates:
 * the cython class is now called eg `_FloatTensor` instead of `FloatTensor`.  Then we create a pure Python class called `FloatTensor` around this, by inheriting from `_FloatTensor`, and providing no additional methods or properties.  The pure Python class is monkey-patchable, eg by [PyClTorch](https://github.com/hughperkins/pycltorch)
 * the `cdef` properties and methods are now declared in `PyTorch.pxd`.  This means we can call these methods and properties from [PyClTorch](https://github.com/hughperkins/pycltorch)
 * the `THGenerator *` object is now available, at `globalState.generator`, and used by the various random methods, eg `_FloatTensor.bernoulli()`
+* modify now `PyTorch.jinja2.pyx`, instead of `PyTorch.pyx`, and similarly modify `PyTorch.jinja2.pxd` instead of `PyTorch.pxd`
 
 ## pynn
 
