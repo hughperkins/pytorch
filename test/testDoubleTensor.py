@@ -12,6 +12,7 @@ def myexec(expr):
     exec(expr, parent_vars)
 
 def test_double_tensor():
+    LongTensor = PyTorch.LongTensor
     print('dir(G)', dir())
     print('test_double_tensor')
     a = PyTorch.DoubleTensor(3, 2)
@@ -24,5 +25,10 @@ def test_double_tensor():
     myeval('a.size()')
     myeval('a + 2')
     myexec('a.resize2d(3,3)')
+    myeval('a')
+    myexec('size = LongTensor(2)')
+    myexec('size[0] = 4')
+    myexec('size[1] = 2')
+    myexec('a.resize(size)')
     myeval('a')
 

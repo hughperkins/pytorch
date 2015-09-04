@@ -65,7 +65,7 @@ print(PyTorch.FloatTensor(3,4).geometric())
 
 print(type(PyTorch.FloatTensor(2,3)))
 
-size = PyTorch.FloatTensor(2)
+size = PyTorch.LongTensor(2)
 size[0] = 4
 size[1] = 3
 D.resize(size)

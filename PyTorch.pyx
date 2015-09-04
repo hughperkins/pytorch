@@ -510,16 +510,34 @@ cdef class _DoubleTensor(object):
         THDoubleTensor_resize1d(self.thDoubleTensor, size0)
         return self
 
-    def resize2d(_FloatTensor self, int size0, int size1):
+    def resize2d(_DoubleTensor self, int size0, int size1):
         THDoubleTensor_resize2d(self.thDoubleTensor, size0, size1)
         return self
 
-    def resize3d(_FloatTensor self, int size0, int size1, int size2):
+    def resize3d(_DoubleTensor self, int size0, int size1, int size2):
         THDoubleTensor_resize3d(self.thDoubleTensor, size0, size1, size2)
         return self
 
-    def resize4d(_FloatTensor self, int size0, int size1, int size2, int size3):
+    def resize4d(_DoubleTensor self, int size0, int size1, int size2, int size3):
         THDoubleTensor_resize4d(self.thDoubleTensor, size0, size1, size2, size3)
+        return self
+
+    def resize(_DoubleTensor self, _LongTensor size):
+#        print('_FloatTensor.resize size:', size)
+        if size.dims() == 0:
+            return self
+        cdef int dims = size.size()[0]
+#        print('_FloatTensor.resize dims:', dims)
+        if dims == 1:
+            THDoubleTensor_resize1d(self.thDoubleTensor, size[0])
+        elif dims == 2:
+            THDoubleTensor_resize2d(self.thDoubleTensor, size[0], size[1])
+        elif dims == 3:
+            THDoubleTensor_resize3d(self.thDoubleTensor, size[0], size[1], size[2])
+        elif dims == 4:
+            THDoubleTensor_resize4d(self.thDoubleTensor, size[0], size[1], size[2], size[3])
+        else:
+            raise Exception('Not implemented for dims=' + str(dims))
         return self
 
 
@@ -735,6 +753,24 @@ cdef class _FloatTensor(object):
         THFloatTensor_resize4d(self.thFloatTensor, size0, size1, size2, size3)
         return self
 
+    def resize(_FloatTensor self, _LongTensor size):
+#        print('_FloatTensor.resize size:', size)
+        if size.dims() == 0:
+            return self
+        cdef int dims = size.size()[0]
+#        print('_FloatTensor.resize dims:', dims)
+        if dims == 1:
+            THFloatTensor_resize1d(self.thFloatTensor, size[0])
+        elif dims == 2:
+            THFloatTensor_resize2d(self.thFloatTensor, size[0], size[1])
+        elif dims == 3:
+            THFloatTensor_resize3d(self.thFloatTensor, size[0], size[1], size[2])
+        elif dims == 4:
+            THFloatTensor_resize4d(self.thFloatTensor, size[0], size[1], size[2], size[3])
+        else:
+            raise Exception('Not implemented for dims=' + str(dims))
+        return self
+
 
 
     def uniform(_FloatTensor self, float a=0, float b=1):
@@ -755,28 +791,6 @@ cdef class _FloatTensor(object):
 #        print('allocate tensor')
         cdef THFloatTensor *newTensorC = THFloatTensor_newWithStorage2d(storage.thFloatStorage, offset, size0, stride0, size1, stride1)
         return _FloatTensor_fromNative(newTensorC, False)
-
-    def resize(_FloatTensor self, _FloatTensor size):
-#        print('_FloatTensor.resize size:', size)
-        if size.dims() == 0:
-            return self
-        cdef int dims = size.size()[0]
-#        print('_FloatTensor.resize dims:', dims)
-        if dims == 1:
-            THFloatTensor_resize1d(self.thFloatTensor, size[0])
-        elif dims == 2:
-            THFloatTensor_resize2d(self.thFloatTensor, size[0], size[1])
-        elif dims == 3:
-            THFloatTensor_resize3d(self.thFloatTensor, size[0], size[1], size[2])
-        elif dims == 4:
-            THFloatTensor_resize4d(self.thFloatTensor, size[0], size[1], size[2], size[3])
-        else:
-            raise Exception('Not implemented for dims=' + str(dims))
-        return self
-
-    def resize2d(_FloatTensor self, long size0, long size1):
-        THFloatTensor_resize2d(self.thFloatTensor, size0, size1)
-        return self
 
     def storage(_FloatTensor self):
         cdef THFloatStorage *storageC = THFloatTensor_storage(self.thFloatTensor)
@@ -1014,16 +1028,34 @@ cdef class _LongTensor(object):
         THLongTensor_resize1d(self.thLongTensor, size0)
         return self
 
-    def resize2d(_FloatTensor self, int size0, int size1):
+    def resize2d(_LongTensor self, int size0, int size1):
         THLongTensor_resize2d(self.thLongTensor, size0, size1)
         return self
 
-    def resize3d(_FloatTensor self, int size0, int size1, int size2):
+    def resize3d(_LongTensor self, int size0, int size1, int size2):
         THLongTensor_resize3d(self.thLongTensor, size0, size1, size2)
         return self
 
-    def resize4d(_FloatTensor self, int size0, int size1, int size2, int size3):
+    def resize4d(_LongTensor self, int size0, int size1, int size2, int size3):
         THLongTensor_resize4d(self.thLongTensor, size0, size1, size2, size3)
+        return self
+
+    def resize(_LongTensor self, _LongTensor size):
+#        print('_FloatTensor.resize size:', size)
+        if size.dims() == 0:
+            return self
+        cdef int dims = size.size()[0]
+#        print('_FloatTensor.resize dims:', dims)
+        if dims == 1:
+            THLongTensor_resize1d(self.thLongTensor, size[0])
+        elif dims == 2:
+            THLongTensor_resize2d(self.thLongTensor, size[0], size[1])
+        elif dims == 3:
+            THLongTensor_resize3d(self.thLongTensor, size[0], size[1], size[2])
+        elif dims == 4:
+            THLongTensor_resize4d(self.thLongTensor, size[0], size[1], size[2], size[3])
+        else:
+            raise Exception('Not implemented for dims=' + str(dims))
         return self
 
 
