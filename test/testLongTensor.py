@@ -7,8 +7,15 @@ def myeval(expr):
     parent_vars = inspect.stack()[1][0].f_locals
     print(expr, ':', eval(expr, parent_vars))
 
+def myexec(expr):
+    parent_vars = inspect.stack()[1][0].f_locals
+    print(expr)
+    exec(expr, parent_vars)
+
 def test_long_tensor():
     print('test_long_tensor')
     a = PyTorch.LongTensor(3,2).geometric()
+    myeval('a')
+    myexec('a[1][1] = 9')
     myeval('a')
 

@@ -387,6 +387,18 @@ cdef class _{{Real}}Tensor(object):
         else:
             raise Exception("Not implemented: dims > 2")
 
+    def __getitem__(_{{Real}}Tensor self, int index):
+        if self.dims() == 1:
+            return self.get1d(index)
+        cdef TH{{Real}}Tensor *res = TH{{Real}}Tensor_newSelect(self.th{{Real}}Tensor, 0, index)
+        return _{{Real}}Tensor_fromNative(res, False)
+
+    def __setitem__(_{{Real}}Tensor self, int index, {{real}} value):
+        if self.dims() == 1:
+            self.set1d(index, value)
+        else:
+            raise Exception("not implemented")
+
 {% if Real == 'Float' %}
 
     @staticmethod
@@ -455,18 +467,6 @@ cdef class _{{Real}}Tensor(object):
             return None
         return FloatStorage.fromNative(storageC)
 
-    def __getitem__(_FloatTensor self, int index):
-        if self.dims() == 1:
-            return self.get1d(index)
-        cdef THFloatTensor *res = THFloatTensor_newSelect(self.thFloatTensor, 0, index)
-        return _FloatTensor_fromNative(res, False)
-
-    def __setitem__(_FloatTensor self, int index, float value):
-        if self.dims() == 1:
-            self.set1d(index, value)
-        else:
-            raise Exception("not implemented")
-
     def __iadd__(_FloatTensor self, float value):
         THFloatTensor_add(self.thFloatTensor, self.thFloatTensor, value)
         return self
@@ -531,18 +531,19 @@ cdef class _{{Real}}Tensor(object):
         return res
 {% endif %}
 
-{% endfor %}
 
 #class FloatTensor(_FloatTensor):
 #    pass
 
 #    @staticmethod
-cdef _FloatTensor_fromNative(THFloatTensor *tensorC, retain=True):
+cdef _{{Real}}Tensor_fromNative(TH{{Real}}Tensor *tensorC, retain=True):
     if retain:
-        THFloatTensor_retain(tensorC)
-    tensor = _FloatTensor(_allocate=False)
-    tensor.thFloatTensor = tensorC
+        TH{{Real}}Tensor_retain(tensorC)
+    tensor = _{{Real}}Tensor(_allocate=False)
+    tensor.th{{Real}}Tensor = tensorC
     return tensor
+
+{% endfor %}
 
 def asTensor(myarray):
     cdef float[:] myarraymv

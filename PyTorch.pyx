@@ -416,6 +416,18 @@ cdef class _FloatTensor(object):
         else:
             raise Exception("Not implemented: dims > 2")
 
+    def __getitem__(_FloatTensor self, int index):
+        if self.dims() == 1:
+            return self.get1d(index)
+        cdef THFloatTensor *res = THFloatTensor_newSelect(self.thFloatTensor, 0, index)
+        return _FloatTensor_fromNative(res, False)
+
+    def __setitem__(_FloatTensor self, int index, float value):
+        if self.dims() == 1:
+            self.set1d(index, value)
+        else:
+            raise Exception("not implemented")
+
 
 
     @staticmethod
@@ -484,18 +496,6 @@ cdef class _FloatTensor(object):
             return None
         return FloatStorage.fromNative(storageC)
 
-    def __getitem__(_FloatTensor self, int index):
-        if self.dims() == 1:
-            return self.get1d(index)
-        cdef THFloatTensor *res = THFloatTensor_newSelect(self.thFloatTensor, 0, index)
-        return _FloatTensor_fromNative(res, False)
-
-    def __setitem__(_FloatTensor self, int index, float value):
-        if self.dims() == 1:
-            self.set1d(index, value)
-        else:
-            raise Exception("not implemented")
-
     def __iadd__(_FloatTensor self, float value):
         THFloatTensor_add(self.thFloatTensor, self.thFloatTensor, value)
         return self
@@ -559,6 +559,18 @@ cdef class _FloatTensor(object):
         THFloatTensor_addmm(res.thFloatTensor, 0, T.thFloatTensor, 1, self.thFloatTensor, M2.thFloatTensor)
         return res
 
+
+
+#class FloatTensor(_FloatTensor):
+#    pass
+
+#    @staticmethod
+cdef _FloatTensor_fromNative(THFloatTensor *tensorC, retain=True):
+    if retain:
+        THFloatTensor_retain(tensorC)
+    tensor = _FloatTensor(_allocate=False)
+    tensor.thFloatTensor = tensorC
+    return tensor
 
 
 
@@ -692,6 +704,17 @@ cdef class _LongTensor(object):
         else:
             raise Exception("Not implemented: dims > 2")
 
+    def __getitem__(_LongTensor self, int index):
+        if self.dims() == 1:
+            return self.get1d(index)
+        cdef THLongTensor *res = THLongTensor_newSelect(self.thLongTensor, 0, index)
+        return _LongTensor_fromNative(res, False)
+
+    def __setitem__(_LongTensor self, int index, long value):
+        if self.dims() == 1:
+            self.set1d(index, value)
+        else:
+            raise Exception("not implemented")
 
 
 
@@ -700,12 +723,14 @@ cdef class _LongTensor(object):
 #    pass
 
 #    @staticmethod
-cdef _FloatTensor_fromNative(THFloatTensor *tensorC, retain=True):
+cdef _LongTensor_fromNative(THLongTensor *tensorC, retain=True):
     if retain:
-        THFloatTensor_retain(tensorC)
-    tensor = _FloatTensor(_allocate=False)
-    tensor.thFloatTensor = tensorC
+        THLongTensor_retain(tensorC)
+    tensor = _LongTensor(_allocate=False)
+    tensor.thLongTensor = tensorC
     return tensor
+
+
 
 def asTensor(myarray):
     cdef float[:] myarraymv
