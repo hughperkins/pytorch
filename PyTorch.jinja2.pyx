@@ -231,6 +231,7 @@ cdef extern from "THTensor.h":
     long TH{{Real}}Tensor_stride(const TH{{Real}}Tensor *self, int dim)
     void TH{{Real}}Tensor_fill(TH{{Real}}Tensor *self, {{real}} value)
     void TH{{Real}}Tensor_add(TH{{Real}}Tensor *r_, TH{{Real}}Tensor *t, {{real}} value)
+    TH{{Real}}Tensor *TH{{Real}}Tensor_newNarrow(TH{{Real}}Tensor *self, int dimension, long firstIndex, long size)
 
     {% if Real in ['Float', 'Double'] %}
     void TH{{Real}}Tensor_uniform(TH{{Real}}Tensor *self, THGenerator *_generator, double a, double b)
@@ -250,7 +251,6 @@ cdef extern from "THTensor.h":
     void THFloatTensor_bernoulli(THFloatTensor *self, THGenerator *_generator, double p)
 
     THFloatStorage *THFloatTensor_storage(THFloatTensor *self)
-    THFloatTensor *THFloatTensor_newNarrow(THFloatTensor *self, int dimension, long firstIndex, long size)
 
 {% for Real in types %}
 {% set real = types[Real] %}
@@ -428,6 +428,26 @@ cdef class _{{Real}}Tensor(object):
         TH{{Real}}Tensor_add(res.th{{Real}}Tensor, self.th{{Real}}Tensor, value)
         return res
 
+    def narrow(_{{Real}}Tensor self, int dimension, long firstIndex, long size):
+        cdef TH{{Real}}Tensor *narrowedC = TH{{Real}}Tensor_newNarrow(self.th{{Real}}Tensor, dimension, firstIndex, size)
+        return _{{Real}}Tensor_fromNative(narrowedC, retain=False)
+
+    def resize1d(_{{Real}}Tensor self, int size0):
+        TH{{Real}}Tensor_resize1d(self.th{{Real}}Tensor, size0)
+        return self
+
+    def resize2d(_FloatTensor self, int size0, int size1):
+        TH{{Real}}Tensor_resize2d(self.th{{Real}}Tensor, size0, size1)
+        return self
+
+    def resize3d(_FloatTensor self, int size0, int size1, int size2):
+        TH{{Real}}Tensor_resize3d(self.th{{Real}}Tensor, size0, size1, size2)
+        return self
+
+    def resize4d(_FloatTensor self, int size0, int size1, int size2, int size3):
+        TH{{Real}}Tensor_resize4d(self.th{{Real}}Tensor, size0, size1, size2, size3)
+        return self
+
 {% if Real in ['Float', 'Double'] %}
 
     def uniform(_{{Real}}Tensor self, {{real}} a=0, {{real}} b=1):
@@ -448,26 +468,6 @@ cdef class _{{Real}}Tensor(object):
 #        print('allocate tensor')
         cdef THFloatTensor *newTensorC = THFloatTensor_newWithStorage2d(storage.thFloatStorage, offset, size0, stride0, size1, stride1)
         return _FloatTensor_fromNative(newTensorC, False)
-
-    def narrow(_FloatTensor self, int dimension, long firstIndex, long size):
-        cdef THFloatTensor *narrowedC = THFloatTensor_newNarrow(self.thFloatTensor, dimension, firstIndex, size)
-        return _FloatTensor_fromNative(narrowedC, retain=False)
-
-    def resize1d(_FloatTensor self, int size0):
-        THFloatTensor_resize1d(self.thFloatTensor, size0)
-        return self
-
-    def resize2d(_FloatTensor self, int size0, int size1):
-        THFloatTensor_resize2d(self.thFloatTensor, size0, size1)
-        return self
-
-    def resize3d(_FloatTensor self, int size0, int size1, int size2):
-        THFloatTensor_resize3d(self.thFloatTensor, size0, size1, size2)
-        return self
-
-    def resize4d(_FloatTensor self, int size0, int size1, int size2, int size3):
-        THFloatTensor_resize4d(self.thFloatTensor, size0, size1, size2, size3)
-        return self
 
     def resize(_FloatTensor self, _FloatTensor size):
 #        print('_FloatTensor.resize size:', size)

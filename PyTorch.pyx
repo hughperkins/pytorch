@@ -245,6 +245,7 @@ cdef extern from "THTensor.h":
     long THDoubleTensor_stride(const THDoubleTensor *self, int dim)
     void THDoubleTensor_fill(THDoubleTensor *self, double value)
     void THDoubleTensor_add(THDoubleTensor *r_, THDoubleTensor *t, double value)
+    THDoubleTensor *THDoubleTensor_newNarrow(THDoubleTensor *self, int dimension, long firstIndex, long size)
 
     
     void THDoubleTensor_uniform(THDoubleTensor *self, THGenerator *_generator, double a, double b)
@@ -279,6 +280,7 @@ cdef extern from "THTensor.h":
     long THFloatTensor_stride(const THFloatTensor *self, int dim)
     void THFloatTensor_fill(THFloatTensor *self, float value)
     void THFloatTensor_add(THFloatTensor *r_, THFloatTensor *t, float value)
+    THFloatTensor *THFloatTensor_newNarrow(THFloatTensor *self, int dimension, long firstIndex, long size)
 
     
     void THFloatTensor_uniform(THFloatTensor *self, THGenerator *_generator, double a, double b)
@@ -313,6 +315,7 @@ cdef extern from "THTensor.h":
     long THLongTensor_stride(const THLongTensor *self, int dim)
     void THLongTensor_fill(THLongTensor *self, long value)
     void THLongTensor_add(THLongTensor *r_, THLongTensor *t, long value)
+    THLongTensor *THLongTensor_newNarrow(THLongTensor *self, int dimension, long firstIndex, long size)
 
     
 
@@ -326,7 +329,6 @@ cdef extern from "THTensor.h":
     void THFloatTensor_bernoulli(THFloatTensor *self, THGenerator *_generator, double p)
 
     THFloatStorage *THFloatTensor_storage(THFloatTensor *self)
-    THFloatTensor *THFloatTensor_newNarrow(THFloatTensor *self, int dimension, long firstIndex, long size)
 
 
 
@@ -499,6 +501,26 @@ cdef class _DoubleTensor(object):
 #        THFloatTensor_resizeAs(cresult, self.thFloatTensor)
         THDoubleTensor_add(res.thDoubleTensor, self.thDoubleTensor, value)
         return res
+
+    def narrow(_DoubleTensor self, int dimension, long firstIndex, long size):
+        cdef THDoubleTensor *narrowedC = THDoubleTensor_newNarrow(self.thDoubleTensor, dimension, firstIndex, size)
+        return _DoubleTensor_fromNative(narrowedC, retain=False)
+
+    def resize1d(_DoubleTensor self, int size0):
+        THDoubleTensor_resize1d(self.thDoubleTensor, size0)
+        return self
+
+    def resize2d(_FloatTensor self, int size0, int size1):
+        THDoubleTensor_resize2d(self.thDoubleTensor, size0, size1)
+        return self
+
+    def resize3d(_FloatTensor self, int size0, int size1, int size2):
+        THDoubleTensor_resize3d(self.thDoubleTensor, size0, size1, size2)
+        return self
+
+    def resize4d(_FloatTensor self, int size0, int size1, int size2, int size3):
+        THDoubleTensor_resize4d(self.thDoubleTensor, size0, size1, size2, size3)
+        return self
 
 
 
@@ -693,6 +715,26 @@ cdef class _FloatTensor(object):
         THFloatTensor_add(res.thFloatTensor, self.thFloatTensor, value)
         return res
 
+    def narrow(_FloatTensor self, int dimension, long firstIndex, long size):
+        cdef THFloatTensor *narrowedC = THFloatTensor_newNarrow(self.thFloatTensor, dimension, firstIndex, size)
+        return _FloatTensor_fromNative(narrowedC, retain=False)
+
+    def resize1d(_FloatTensor self, int size0):
+        THFloatTensor_resize1d(self.thFloatTensor, size0)
+        return self
+
+    def resize2d(_FloatTensor self, int size0, int size1):
+        THFloatTensor_resize2d(self.thFloatTensor, size0, size1)
+        return self
+
+    def resize3d(_FloatTensor self, int size0, int size1, int size2):
+        THFloatTensor_resize3d(self.thFloatTensor, size0, size1, size2)
+        return self
+
+    def resize4d(_FloatTensor self, int size0, int size1, int size2, int size3):
+        THFloatTensor_resize4d(self.thFloatTensor, size0, size1, size2, size3)
+        return self
+
 
 
     def uniform(_FloatTensor self, float a=0, float b=1):
@@ -713,26 +755,6 @@ cdef class _FloatTensor(object):
 #        print('allocate tensor')
         cdef THFloatTensor *newTensorC = THFloatTensor_newWithStorage2d(storage.thFloatStorage, offset, size0, stride0, size1, stride1)
         return _FloatTensor_fromNative(newTensorC, False)
-
-    def narrow(_FloatTensor self, int dimension, long firstIndex, long size):
-        cdef THFloatTensor *narrowedC = THFloatTensor_newNarrow(self.thFloatTensor, dimension, firstIndex, size)
-        return _FloatTensor_fromNative(narrowedC, retain=False)
-
-    def resize1d(_FloatTensor self, int size0):
-        THFloatTensor_resize1d(self.thFloatTensor, size0)
-        return self
-
-    def resize2d(_FloatTensor self, int size0, int size1):
-        THFloatTensor_resize2d(self.thFloatTensor, size0, size1)
-        return self
-
-    def resize3d(_FloatTensor self, int size0, int size1, int size2):
-        THFloatTensor_resize3d(self.thFloatTensor, size0, size1, size2)
-        return self
-
-    def resize4d(_FloatTensor self, int size0, int size1, int size2, int size3):
-        THFloatTensor_resize4d(self.thFloatTensor, size0, size1, size2, size3)
-        return self
 
     def resize(_FloatTensor self, _FloatTensor size):
 #        print('_FloatTensor.resize size:', size)
@@ -983,6 +1005,26 @@ cdef class _LongTensor(object):
 #        THFloatTensor_resizeAs(cresult, self.thFloatTensor)
         THLongTensor_add(res.thLongTensor, self.thLongTensor, value)
         return res
+
+    def narrow(_LongTensor self, int dimension, long firstIndex, long size):
+        cdef THLongTensor *narrowedC = THLongTensor_newNarrow(self.thLongTensor, dimension, firstIndex, size)
+        return _LongTensor_fromNative(narrowedC, retain=False)
+
+    def resize1d(_LongTensor self, int size0):
+        THLongTensor_resize1d(self.thLongTensor, size0)
+        return self
+
+    def resize2d(_FloatTensor self, int size0, int size1):
+        THLongTensor_resize2d(self.thLongTensor, size0, size1)
+        return self
+
+    def resize3d(_FloatTensor self, int size0, int size1, int size2):
+        THLongTensor_resize3d(self.thLongTensor, size0, size1, size2)
+        return self
+
+    def resize4d(_FloatTensor self, int size0, int size1, int size2, int size3):
+        THLongTensor_resize4d(self.thLongTensor, size0, size1, size2, size3)
+        return self
 
 
 

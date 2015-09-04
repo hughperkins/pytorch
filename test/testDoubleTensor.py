@@ -23,4 +23,6 @@ def test_double_tensor():
     myeval('a')
     myeval('a.size()')
     myeval('a + 2')
+    myexec('a.resize2d(3,3)')
+    myeval('a')
 
