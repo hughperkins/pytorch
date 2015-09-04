@@ -7,6 +7,13 @@ Examples of what is possible currently:
 * pytorch
 * pynn
 
+Types supported currently:
+* FloatTensor
+* DoubleTensor
+* LongTensor
+
+(fairly easy to add others, since templated)
+
 # pytorch
 
 Run by doing:
