@@ -334,7 +334,11 @@ cdef class _FloatTensor(object):
         return _FloatTensor_fromNative(narrowedC, retain=False)
 
     def resize(_FloatTensor self, _FloatTensor size):
+        print('_FloatTensor.resize size:', size)
+        if size.dims() == 0:
+            return self
         cdef int dims = size.size()[0]
+        print('_FloatTensor.resize dims:', dims)
         if dims == 1:
             THFloatTensor_resize1d(self.thFloatTensor, size[0])
         elif dims == 2:
