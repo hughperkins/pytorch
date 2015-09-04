@@ -236,6 +236,9 @@ cdef extern from "THTensor.h":
     void THFloatTensor_set2d(const THFloatTensor *tensor, long x0, long x1, float value)
     float THFloatTensor_get1d(const THFloatTensor *tensor, long x0)
     float THFloatTensor_get2d(const THFloatTensor *tensor, long x0, long x1)
+    long THFloatTensor_stride(const THFloatTensor *self, int dim)
+    void THFloatTensor_fill(THFloatTensor *self, float value)
+    void THFloatTensor_add(THFloatTensor *r_, THFloatTensor *t, float value)
 
 
 cdef extern from "THTensor.h":
@@ -259,6 +262,9 @@ cdef extern from "THTensor.h":
     void THLongTensor_set2d(const THLongTensor *tensor, long x0, long x1, float value)
     long THLongTensor_get1d(const THLongTensor *tensor, long x0)
     long THLongTensor_get2d(const THLongTensor *tensor, long x0, long x1)
+    long THLongTensor_stride(const THLongTensor *self, int dim)
+    void THLongTensor_fill(THLongTensor *self, long value)
+    void THLongTensor_add(THLongTensor *r_, THLongTensor *t, long value)
 
 
 cdef extern from "THTensor.h":
@@ -266,8 +272,6 @@ cdef extern from "THTensor.h":
     THFloatTensor* THFloatTensor_newWithStorage2d(THFloatStorage *storage, long storageOffset, long size0, long stride0, long size1, long stride1)
     void THFloatTensor_add(THFloatTensor *tensorSelf, THFloatTensor *tensorOne, float value)
     void THFloatTensor_addmm(THFloatTensor *tensorSelf, float beta, THFloatTensor *tensorOne, float alpha, THFloatTensor *mat1, THFloatTensor *mat2)
-    long THFloatTensor_stride(const THFloatTensor *self, int dim)
-    void THFloatTensor_fill(THFloatTensor *self, float value)
 
     void THFloatTensor_bernoulli(THFloatTensor *self, THGenerator *_generator, double p)
 
@@ -277,7 +281,6 @@ cdef extern from "THTensor.h":
     void THFloatTensor_cauchy(THFloatTensor *self, THGenerator *_generator, double median, double sigma)
     void THFloatTensor_logNormal(THFloatTensor *self, THGenerator *_generator, double mean, double stdv)
 
-    void THFloatTensor_add(THFloatTensor *r_, THFloatTensor *t, float value)
     THFloatStorage *THFloatTensor_storage(THFloatTensor *self)
     THFloatTensor *THFloatTensor_newNarrow(THFloatTensor *self, int dimension, long firstIndex, long size)
 

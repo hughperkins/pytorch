@@ -229,6 +229,9 @@ cdef extern from "THTensor.h":
     void TH{{Real}}Tensor_set2d(const TH{{Real}}Tensor *tensor, long x0, long x1, float value)
     {{real}} TH{{Real}}Tensor_get1d(const TH{{Real}}Tensor *tensor, long x0)
     {{real}} TH{{Real}}Tensor_get2d(const TH{{Real}}Tensor *tensor, long x0, long x1)
+    long TH{{Real}}Tensor_stride(const TH{{Real}}Tensor *self, int dim)
+    void TH{{Real}}Tensor_fill(TH{{Real}}Tensor *self, {{real}} value)
+    void TH{{Real}}Tensor_add(TH{{Real}}Tensor *r_, TH{{Real}}Tensor *t, {{real}} value)
 {% endfor %}
 
 cdef extern from "THTensor.h":
@@ -236,8 +239,6 @@ cdef extern from "THTensor.h":
     THFloatTensor* THFloatTensor_newWithStorage2d(THFloatStorage *storage, long storageOffset, long size0, long stride0, long size1, long stride1)
     void THFloatTensor_add(THFloatTensor *tensorSelf, THFloatTensor *tensorOne, float value)
     void THFloatTensor_addmm(THFloatTensor *tensorSelf, float beta, THFloatTensor *tensorOne, float alpha, THFloatTensor *mat1, THFloatTensor *mat2)
-    long THFloatTensor_stride(const THFloatTensor *self, int dim)
-    void THFloatTensor_fill(THFloatTensor *self, float value)
 
     void THFloatTensor_bernoulli(THFloatTensor *self, THGenerator *_generator, double p)
 
@@ -247,7 +248,6 @@ cdef extern from "THTensor.h":
     void THFloatTensor_cauchy(THFloatTensor *self, THGenerator *_generator, double median, double sigma)
     void THFloatTensor_logNormal(THFloatTensor *self, THGenerator *_generator, double mean, double stdv)
 
-    void THFloatTensor_add(THFloatTensor *r_, THFloatTensor *t, float value)
     THFloatStorage *THFloatTensor_storage(THFloatTensor *self)
     THFloatTensor *THFloatTensor_newNarrow(THFloatTensor *self, int dimension, long firstIndex, long size)
 
