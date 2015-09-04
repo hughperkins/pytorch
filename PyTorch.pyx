@@ -214,6 +214,7 @@ cdef class FloatStorage(object):
         THFloatStorage_free(self.thFloatStorage)
 
 
+
 cdef extern from "THTensor.h":
     cdef struct THFloatTensor
     THFloatTensor *THFloatTensor_new()
@@ -231,6 +232,11 @@ cdef extern from "THTensor.h":
     long THFloatTensor_nElement(THFloatTensor *self)
     void THFloatTensor_retain(THFloatTensor *self)
     void THFloatTensor_geometric(THFloatTensor *self, THGenerator *_generator, double p)
+    void THFloatTensor_set1d(const THFloatTensor *tensor, long x0, float value)
+    void THFloatTensor_set2d(const THFloatTensor *tensor, long x0, long x1, float value)
+    float THFloatTensor_get1d(const THFloatTensor *tensor, long x0)
+    float THFloatTensor_get2d(const THFloatTensor *tensor, long x0, long x1)
+
 
 cdef extern from "THTensor.h":
     cdef struct THLongTensor
@@ -249,6 +255,10 @@ cdef extern from "THTensor.h":
     long THLongTensor_nElement(THLongTensor *self)
     void THLongTensor_retain(THLongTensor *self)
     void THLongTensor_geometric(THLongTensor *self, THGenerator *_generator, double p)
+    void THLongTensor_set1d(const THLongTensor *tensor, long x0, float value)
+    void THLongTensor_set2d(const THLongTensor *tensor, long x0, long x1, float value)
+    long THLongTensor_get1d(const THLongTensor *tensor, long x0)
+    long THLongTensor_get2d(const THLongTensor *tensor, long x0, long x1)
 
 
 cdef extern from "THTensor.h":
@@ -257,10 +267,6 @@ cdef extern from "THTensor.h":
     void THFloatTensor_add(THFloatTensor *tensorSelf, THFloatTensor *tensorOne, float value)
     void THFloatTensor_addmm(THFloatTensor *tensorSelf, float beta, THFloatTensor *tensorOne, float alpha, THFloatTensor *mat1, THFloatTensor *mat2)
     long THFloatTensor_stride(const THFloatTensor *self, int dim)
-    float THFloatTensor_get1d(const THFloatTensor *tensor, long x0)
-    float THFloatTensor_get2d(const THFloatTensor *tensor, long x0, long x1)
-    void THFloatTensor_set1d(const THFloatTensor *tensor, long x0, float value)
-    void THFloatTensor_set2d(const THFloatTensor *tensor, long x0, long x1, float value)
     void THFloatTensor_fill(THFloatTensor *self, float value)
 
     void THFloatTensor_bernoulli(THFloatTensor *self, THGenerator *_generator, double p)
@@ -354,6 +360,21 @@ cdef class _FloatTensor(object):
         THFloatTensor_geometric(self.thFloatTensor, globalState.generator, p)
         return self
 
+    cpdef int dims(self):
+        return THFloatTensor_nDimension(self.thFloatTensor)
+
+    cpdef set1d(self, int x0, float value):
+        THFloatTensor_set1d(self.thFloatTensor, x0, value)
+
+    cpdef set2d(self, int x0, int x1, float value):
+        THFloatTensor_set2d(self.thFloatTensor, x0, x1, value)
+
+    cpdef float get1d(self, int x0):
+        return THFloatTensor_get1d(self.thFloatTensor, x0)
+
+    cpdef float get2d(self, int x0, int x1):
+        return THFloatTensor_get2d(self.thFloatTensor, x0, x1)
+
 
 
     @staticmethod
@@ -373,21 +394,6 @@ cdef class _FloatTensor(object):
 #        print('allocate tensor')
         cdef THFloatTensor *newTensorC = THFloatTensor_newWithStorage2d(storage.thFloatStorage, offset, size0, stride0, size1, stride1)
         return _FloatTensor_fromNative(newTensorC, False)
-
-    cpdef int dims(self):
-        return THFloatTensor_nDimension(self.thFloatTensor)
-
-    cpdef set1d(self, int x0, float value):
-        THFloatTensor_set1d(self.thFloatTensor, x0, value)
-
-    cpdef set2d(self, int x0, int x1, float value):
-        THFloatTensor_set2d(self.thFloatTensor, x0, x1, value)
-
-    cpdef float get1d(self, int x0):
-        return THFloatTensor_get1d(self.thFloatTensor, x0)
-
-    cpdef float get2d(self, int x0, int x1):
-        return THFloatTensor_get2d(self.thFloatTensor, x0, x1)
 
     def narrow(_FloatTensor self, int dimension, long firstIndex, long size):
         cdef THFloatTensor *narrowedC = THFloatTensor_newNarrow(self.thFloatTensor, dimension, firstIndex, size)
@@ -625,6 +631,21 @@ cdef class _LongTensor(object):
     def geometric(_LongTensor self, float p=0.5):
         THLongTensor_geometric(self.thLongTensor, globalState.generator, p)
         return self
+
+    cpdef int dims(self):
+        return THLongTensor_nDimension(self.thLongTensor)
+
+    cpdef set1d(self, int x0, long value):
+        THLongTensor_set1d(self.thLongTensor, x0, value)
+
+    cpdef set2d(self, int x0, int x1, long value):
+        THLongTensor_set2d(self.thLongTensor, x0, x1, value)
+
+    cpdef long get1d(self, int x0):
+        return THLongTensor_get1d(self.thLongTensor, x0)
+
+    cpdef long get2d(self, int x0, int x1):
+        return THLongTensor_get2d(self.thLongTensor, x0, x1)
 
 
 

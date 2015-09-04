@@ -207,6 +207,7 @@ cdef class FloatStorage(object):
         THFloatStorage_free(self.thFloatStorage)
 
 {% for Real in types %}
+{% set real = types[Real] %}
 cdef extern from "THTensor.h":
     cdef struct TH{{Real}}Tensor
     TH{{Real}}Tensor *TH{{Real}}Tensor_new()
@@ -224,6 +225,10 @@ cdef extern from "THTensor.h":
     long TH{{Real}}Tensor_nElement(TH{{Real}}Tensor *self)
     void TH{{Real}}Tensor_retain(TH{{Real}}Tensor *self)
     void TH{{Real}}Tensor_geometric(TH{{Real}}Tensor *self, THGenerator *_generator, double p)
+    void TH{{Real}}Tensor_set1d(const TH{{Real}}Tensor *tensor, long x0, float value)
+    void TH{{Real}}Tensor_set2d(const TH{{Real}}Tensor *tensor, long x0, long x1, float value)
+    {{real}} TH{{Real}}Tensor_get1d(const TH{{Real}}Tensor *tensor, long x0)
+    {{real}} TH{{Real}}Tensor_get2d(const TH{{Real}}Tensor *tensor, long x0, long x1)
 {% endfor %}
 
 cdef extern from "THTensor.h":
@@ -232,10 +237,6 @@ cdef extern from "THTensor.h":
     void THFloatTensor_add(THFloatTensor *tensorSelf, THFloatTensor *tensorOne, float value)
     void THFloatTensor_addmm(THFloatTensor *tensorSelf, float beta, THFloatTensor *tensorOne, float alpha, THFloatTensor *mat1, THFloatTensor *mat2)
     long THFloatTensor_stride(const THFloatTensor *self, int dim)
-    float THFloatTensor_get1d(const THFloatTensor *tensor, long x0)
-    float THFloatTensor_get2d(const THFloatTensor *tensor, long x0, long x1)
-    void THFloatTensor_set1d(const THFloatTensor *tensor, long x0, float value)
-    void THFloatTensor_set2d(const THFloatTensor *tensor, long x0, long x1, float value)
     void THFloatTensor_fill(THFloatTensor *self, float value)
 
     void THFloatTensor_bernoulli(THFloatTensor *self, THGenerator *_generator, double p)
@@ -329,6 +330,21 @@ cdef class _{{Real}}Tensor(object):
         TH{{Real}}Tensor_geometric(self.th{{Real}}Tensor, globalState.generator, p)
         return self
 
+    cpdef int dims(self):
+        return TH{{Real}}Tensor_nDimension(self.th{{Real}}Tensor)
+
+    cpdef set1d(self, int x0, {{real}} value):
+        TH{{Real}}Tensor_set1d(self.th{{Real}}Tensor, x0, value)
+
+    cpdef set2d(self, int x0, int x1, {{real}} value):
+        TH{{Real}}Tensor_set2d(self.th{{Real}}Tensor, x0, x1, value)
+
+    cpdef {{real}} get1d(self, int x0):
+        return TH{{Real}}Tensor_get1d(self.th{{Real}}Tensor, x0)
+
+    cpdef {{real}} get2d(self, int x0, int x1):
+        return TH{{Real}}Tensor_get2d(self.th{{Real}}Tensor, x0, x1)
+
 {% if Real == 'Float' %}
 
     @staticmethod
@@ -348,21 +364,6 @@ cdef class _{{Real}}Tensor(object):
 #        print('allocate tensor')
         cdef THFloatTensor *newTensorC = THFloatTensor_newWithStorage2d(storage.thFloatStorage, offset, size0, stride0, size1, stride1)
         return _FloatTensor_fromNative(newTensorC, False)
-
-    cpdef int dims(self):
-        return THFloatTensor_nDimension(self.thFloatTensor)
-
-    cpdef set1d(self, int x0, float value):
-        THFloatTensor_set1d(self.thFloatTensor, x0, value)
-
-    cpdef set2d(self, int x0, int x1, float value):
-        THFloatTensor_set2d(self.thFloatTensor, x0, x1, value)
-
-    cpdef float get1d(self, int x0):
-        return THFloatTensor_get1d(self.thFloatTensor, x0)
-
-    cpdef float get2d(self, int x0, int x1):
-        return THFloatTensor_get2d(self.thFloatTensor, x0, x1)
 
     def narrow(_FloatTensor self, int dimension, long firstIndex, long size):
         cdef THFloatTensor *narrowedC = THFloatTensor_newNarrow(self.thFloatTensor, dimension, firstIndex, size)
