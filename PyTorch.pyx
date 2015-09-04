@@ -428,6 +428,21 @@ cdef class _FloatTensor(object):
         else:
             raise Exception("not implemented")
 
+    def fill(_FloatTensor self, float value):
+        THFloatTensor_fill(self.thFloatTensor, value)
+        return self
+
+    def size(_FloatTensor self):
+        cdef int dims = self.dims()
+        cdef _LongTensor size
+        if dims > 0:
+            size = _LongTensor(dims)
+            for d in range(dims):
+                size.set1d(d, THFloatTensor_size(self.thFloatTensor, d))
+            return size
+        else:
+            return None  # not sure how to handle this yet
+
 
 
     @staticmethod
@@ -533,21 +548,6 @@ cdef class _FloatTensor(object):
         return self
 
     # ====================================
-
-    def fill(_FloatTensor self, float value):
-        THFloatTensor_fill(self.thFloatTensor, value)
-        return self
-
-    def size(_FloatTensor self):
-        cdef int dims = self.dims()
-        cdef _FloatTensor size
-        if dims > 0:
-            size = _FloatTensor(dims)
-            for d in range(dims):
-                size.set1d(d, THFloatTensor_size(self.thFloatTensor, d))
-            return size
-        else:
-            return None  # not sure how to handle this yet
 
     def __mul__(_FloatTensor self, _FloatTensor M2):
         cdef _FloatTensor T = _FloatTensor.new()
@@ -715,6 +715,21 @@ cdef class _LongTensor(object):
             self.set1d(index, value)
         else:
             raise Exception("not implemented")
+
+    def fill(_LongTensor self, long value):
+        THLongTensor_fill(self.thLongTensor, value)
+        return self
+
+    def size(_LongTensor self):
+        cdef int dims = self.dims()
+        cdef _LongTensor size
+        if dims > 0:
+            size = _LongTensor(dims)
+            for d in range(dims):
+                size.set1d(d, THLongTensor_size(self.thLongTensor, d))
+            return size
+        else:
+            return None  # not sure how to handle this yet
 
 
 

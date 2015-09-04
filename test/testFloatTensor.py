@@ -21,4 +21,5 @@ def test_float_tensor():
     myeval('a')
     myexec('a[1][1] = 9')
     myeval('a')
+    myeval('a.size()')
 

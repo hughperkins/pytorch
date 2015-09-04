@@ -399,6 +399,21 @@ cdef class _{{Real}}Tensor(object):
         else:
             raise Exception("not implemented")
 
+    def fill(_{{Real}}Tensor self, {{real}} value):
+        TH{{Real}}Tensor_fill(self.th{{Real}}Tensor, value)
+        return self
+
+    def size(_{{Real}}Tensor self):
+        cdef int dims = self.dims()
+        cdef _LongTensor size
+        if dims > 0:
+            size = _LongTensor(dims)
+            for d in range(dims):
+                size.set1d(d, TH{{Real}}Tensor_size(self.th{{Real}}Tensor, d))
+            return size
+        else:
+            return None  # not sure how to handle this yet
+
 {% if Real == 'Float' %}
 
     @staticmethod
@@ -504,21 +519,6 @@ cdef class _{{Real}}Tensor(object):
         return self
 
     # ====================================
-
-    def fill(_FloatTensor self, float value):
-        THFloatTensor_fill(self.thFloatTensor, value)
-        return self
-
-    def size(_FloatTensor self):
-        cdef int dims = self.dims()
-        cdef _FloatTensor size
-        if dims > 0:
-            size = _FloatTensor(dims)
-            for d in range(dims):
-                size.set1d(d, THFloatTensor_size(self.thFloatTensor, d))
-            return size
-        else:
-            return None  # not sure how to handle this yet
 
     def __mul__(_FloatTensor self, _FloatTensor M2):
         cdef _FloatTensor T = _FloatTensor.new()
