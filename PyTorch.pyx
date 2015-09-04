@@ -488,6 +488,18 @@ cdef class _DoubleTensor(object):
             return None  # not sure how to handle this yet
 
 
+    @staticmethod
+    def new():
+#        print('allocate tensor')
+        return _DoubleTensor()
+#        return _FloatTensor_fromNative(newTensorC, False)
+
+    def __add__(_DoubleTensor self, double value):
+        # assume 2d matrix for now?
+        cdef _DoubleTensor res = _DoubleTensor.new()
+#        THFloatTensor_resizeAs(cresult, self.thFloatTensor)
+        THDoubleTensor_add(res.thDoubleTensor, self.thDoubleTensor, value)
+        return res
 
     def uniform(_DoubleTensor self, double a=0, double b=1):
         THDoubleTensor_uniform(self.thDoubleTensor, globalState.generator, a, b)
@@ -668,6 +680,18 @@ cdef class _FloatTensor(object):
             return None  # not sure how to handle this yet
 
 
+    @staticmethod
+    def new():
+#        print('allocate tensor')
+        return _FloatTensor()
+#        return _FloatTensor_fromNative(newTensorC, False)
+
+    def __add__(_FloatTensor self, float value):
+        # assume 2d matrix for now?
+        cdef _FloatTensor res = _FloatTensor.new()
+#        THFloatTensor_resizeAs(cresult, self.thFloatTensor)
+        THFloatTensor_add(res.thFloatTensor, self.thFloatTensor, value)
+        return res
 
     def uniform(_FloatTensor self, float a=0, float b=1):
         THFloatTensor_uniform(self.thFloatTensor, globalState.generator, a, b)
@@ -675,12 +699,6 @@ cdef class _FloatTensor(object):
 
 
 
-
-    @staticmethod
-    def new():
-#        print('allocate tensor')
-        return _FloatTensor()
-#        return _FloatTensor_fromNative(newTensorC, False)
 
     @staticmethod
     def newWithStorage1d(FloatStorage storage, offset, size0, stride0):
@@ -745,13 +763,6 @@ cdef class _FloatTensor(object):
     def __iadd__(_FloatTensor self, float value):
         THFloatTensor_add(self.thFloatTensor, self.thFloatTensor, value)
         return self
-
-    def __add__(_FloatTensor self, float value):
-        # assume 2d matrix for now?
-        cdef _FloatTensor res = _FloatTensor.new()
-#        THFloatTensor_resizeAs(cresult, self.thFloatTensor)
-        THFloatTensor_add(res.thFloatTensor, self.thFloatTensor, value)
-        return res
 
     # ========== random ===============================
     def bernoulli(_FloatTensor self, float p=0.5):

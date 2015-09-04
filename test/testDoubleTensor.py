@@ -22,4 +22,5 @@ def test_double_tensor():
     myexec('a[1][1] = 9')
     myeval('a')
     myeval('a.size()')
+    myeval('a + 2')
 

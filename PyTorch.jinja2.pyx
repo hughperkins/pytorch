@@ -416,6 +416,18 @@ cdef class _{{Real}}Tensor(object):
             return None  # not sure how to handle this yet
 
 {% if Real in ['Float', 'Double'] %}
+    @staticmethod
+    def new():
+#        print('allocate tensor')
+        return _{{Real}}Tensor()
+#        return _FloatTensor_fromNative(newTensorC, False)
+
+    def __add__(_{{Real}}Tensor self, {{real}} value):
+        # assume 2d matrix for now?
+        cdef _{{Real}}Tensor res = _{{Real}}Tensor.new()
+#        THFloatTensor_resizeAs(cresult, self.thFloatTensor)
+        TH{{Real}}Tensor_add(res.th{{Real}}Tensor, self.th{{Real}}Tensor, value)
+        return res
 
     def uniform(_{{Real}}Tensor self, {{real}} a=0, {{real}} b=1):
         TH{{Real}}Tensor_uniform(self.th{{Real}}Tensor, globalState.generator, a, b)
@@ -423,12 +435,6 @@ cdef class _{{Real}}Tensor(object):
 {% endif %}
 
 {% if Real == 'Float' %}
-
-    @staticmethod
-    def new():
-#        print('allocate tensor')
-        return _FloatTensor()
-#        return _FloatTensor_fromNative(newTensorC, False)
 
     @staticmethod
     def newWithStorage1d(FloatStorage storage, offset, size0, stride0):
@@ -493,13 +499,6 @@ cdef class _{{Real}}Tensor(object):
     def __iadd__(_FloatTensor self, float value):
         THFloatTensor_add(self.thFloatTensor, self.thFloatTensor, value)
         return self
-
-    def __add__(_FloatTensor self, float value):
-        # assume 2d matrix for now?
-        cdef _FloatTensor res = _FloatTensor.new()
-#        THFloatTensor_resizeAs(cresult, self.thFloatTensor)
-        THFloatTensor_add(res.thFloatTensor, self.thFloatTensor, value)
-        return res
 
     # ========== random ===============================
     def bernoulli(_FloatTensor self, float p=0.5):
