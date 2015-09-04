@@ -13,7 +13,7 @@ from math import log10, floor
 
 cimport PyTorch
 
-
+{% set types = {'Long': 'long', 'Float': 'float'} %}
 
 # from http://stackoverflow.com/questions/3410976/how-to-round-a-number-to-significant-figures-in-python
 def round_sig(x, sig=2):
@@ -123,15 +123,11 @@ cdef extern from "nnWrapper.h":
     long pointerAsInt(void *ptr)
     void collectGarbage(lua_State *L)
 
-
+{% for Real in types %}
 cdef extern from "nnWrapper.h":
-    int THFloatStorage_getRefCount(THFloatStorage *self)
-    int THFloatTensor_getRefCount(THFloatTensor *self)
-
-cdef extern from "nnWrapper.h":
-    int THLongStorage_getRefCount(THLongStorage *self)
-    int THLongTensor_getRefCount(THLongTensor *self)
-
+    int TH{{Real}}Storage_getRefCount(TH{{Real}}Storage *self)
+    int TH{{Real}}Tensor_getRefCount(TH{{Real}}Tensor *self)
+{% endfor %}
 
 cdef extern from "THRandom.h":
     cdef struct THGenerator
@@ -141,13 +137,10 @@ def manualSeed(long seed):
     THRandom_manualSeed(globalState.generator, seed)
 
 
-
+{% for Real in types %}
 cdef extern from "THStorage.h":
-    cdef struct THFloatStorage
-
-cdef extern from "THStorage.h":
-    cdef struct THLongStorage
-
+    cdef struct TH{{Real}}Storage
+{% endfor %}
 
 cdef extern from "THStorage.h":
     THFloatStorage* THFloatStorage_newWithData(float *data, long size)
@@ -213,43 +206,25 @@ cdef class FloatStorage(object):
 #        print('   dealloc storage: ', hex(<long>(self.thFloatStorage)))
         THFloatStorage_free(self.thFloatStorage)
 
-
+{% for Real in types %}
 cdef extern from "THTensor.h":
-    cdef struct THFloatTensor
-    THFloatTensor *THFloatTensor_new()
-    THFloatTensor *THFloatTensor_newWithSize1d(long size0)
-    THFloatTensor *THFloatTensor_newWithSize2d(long size0, long size1)
-    void THFloatTensor_free(THFloatTensor *self)
-    int THFloatTensor_nDimension(THFloatTensor *tensor)
-    THFloatTensor *THFloatTensor_newSelect(THFloatTensor *self, int dimension, int sliceIndex)
-    void THFloatTensor_resizeAs(THFloatTensor *self, THFloatTensor *model)
-    void THFloatTensor_resize1d(THFloatTensor *self, long size0)
-    void THFloatTensor_resize2d(THFloatTensor *self, long size0, long size1)
-    void THFloatTensor_resize3d(THFloatTensor *self, long size0, long size1, long size2)
-    void THFloatTensor_resize4d(THFloatTensor *self, long size0, long size1, long size2, long size3)
-    long THFloatTensor_size(const THFloatTensor *self, int dim)
-    long THFloatTensor_nElement(THFloatTensor *self)
-    void THFloatTensor_retain(THFloatTensor *self)
-    void THFloatTensor_geometric(THFloatTensor *self, THGenerator *_generator, double p)
-
-cdef extern from "THTensor.h":
-    cdef struct THLongTensor
-    THLongTensor *THLongTensor_new()
-    THLongTensor *THLongTensor_newWithSize1d(long size0)
-    THLongTensor *THLongTensor_newWithSize2d(long size0, long size1)
-    void THLongTensor_free(THLongTensor *self)
-    int THLongTensor_nDimension(THLongTensor *tensor)
-    THLongTensor *THLongTensor_newSelect(THLongTensor *self, int dimension, int sliceIndex)
-    void THLongTensor_resizeAs(THLongTensor *self, THFloatTensor *model)
-    void THLongTensor_resize1d(THLongTensor *self, long size0)
-    void THLongTensor_resize2d(THLongTensor *self, long size0, long size1)
-    void THLongTensor_resize3d(THLongTensor *self, long size0, long size1, long size2)
-    void THLongTensor_resize4d(THLongTensor *self, long size0, long size1, long size2, long size3)
-    long THLongTensor_size(const THLongTensor *self, int dim)
-    long THLongTensor_nElement(THLongTensor *self)
-    void THLongTensor_retain(THLongTensor *self)
-    void THLongTensor_geometric(THLongTensor *self, THGenerator *_generator, double p)
-
+    cdef struct TH{{Real}}Tensor
+    TH{{Real}}Tensor *TH{{Real}}Tensor_new()
+    TH{{Real}}Tensor *TH{{Real}}Tensor_newWithSize1d(long size0)
+    TH{{Real}}Tensor *TH{{Real}}Tensor_newWithSize2d(long size0, long size1)
+    void TH{{Real}}Tensor_free(TH{{Real}}Tensor *self)
+    int TH{{Real}}Tensor_nDimension(TH{{Real}}Tensor *tensor)
+    TH{{Real}}Tensor *TH{{Real}}Tensor_newSelect(TH{{Real}}Tensor *self, int dimension, int sliceIndex)
+    void TH{{Real}}Tensor_resizeAs(TH{{Real}}Tensor *self, THFloatTensor *model)
+    void TH{{Real}}Tensor_resize1d(TH{{Real}}Tensor *self, long size0)
+    void TH{{Real}}Tensor_resize2d(TH{{Real}}Tensor *self, long size0, long size1)
+    void TH{{Real}}Tensor_resize3d(TH{{Real}}Tensor *self, long size0, long size1, long size2)
+    void TH{{Real}}Tensor_resize4d(TH{{Real}}Tensor *self, long size0, long size1, long size2, long size3)
+    long TH{{Real}}Tensor_size(const TH{{Real}}Tensor *self, int dim)
+    long TH{{Real}}Tensor_nElement(TH{{Real}}Tensor *self)
+    void TH{{Real}}Tensor_retain(TH{{Real}}Tensor *self)
+    void TH{{Real}}Tensor_geometric(TH{{Real}}Tensor *self, THGenerator *_generator, double p)
+{% endfor %}
 
 cdef extern from "THTensor.h":
     THFloatTensor* THFloatTensor_newWithStorage1d(THFloatStorage *storage, long storageOffset, long size0, long stride0)
@@ -275,17 +250,17 @@ cdef extern from "THTensor.h":
     THFloatStorage *THFloatTensor_storage(THFloatTensor *self)
     THFloatTensor *THFloatTensor_newNarrow(THFloatTensor *self, int dimension, long firstIndex, long size)
 
-
-
-cdef class _FloatTensor(object):
+{% for Real in types %}
+{% set real = types[Real] %}
+cdef class _{{Real}}Tensor(object):
     # properties are in the PyTorch.pxd file
 
 #    def __cinit__(Tensor self, THFloatTensor *tensorC = NULL):
 #        self.thFloatTensor = tensorC
 
     def __cinit__(self, *args, _allocate=True):
-        print('FloatTensor.__cinit__')
-#        cdef THFloatStorage *storageC
+        print('{{Real}}Tensor.__cinit__')
+#        cdef TH{{Real}}Storage *storageC
 #        cdef long addr
 #        if len(kwargs) > 0:
 #            raise Exception('cannot provide arguments to initializer')
@@ -296,11 +271,11 @@ cdef class _FloatTensor(object):
                 if not isinstance(arg, int):
                     raise Exception('cannot provide arguments to initializer')
             if len(args) == 0:
-                print('no args, calling THFloatTensor_new()')
-                self.thFloatTensor = THFloatTensor_new()
+                print('no args, calling TH{{Real}}Tensor_new()')
+                self.th{{Real}}Tensor = TH{{Real}}Tensor_new()
             elif len(args) == 1:
 #                print('new tensor 1d length', args[0])
-                self.thFloatTensor = THFloatTensor_newWithSize1d(args[0])
+                self.th{{Real}}Tensor = TH{{Real}}Tensor_newWithSize1d(args[0])
 #                storageC = THFloatTensor_storage(self.thFloatTensor)
 #                if storageC == NULL:
 #                    print('storageC is NULL')
@@ -310,7 +285,7 @@ cdef class _FloatTensor(object):
 #                    print('storageaddr', hex(addr))
 #                    print('storageC refcount', THFloatStorage_getRefCount(storageC))
             elif len(args) == 2:
-                self.thFloatTensor = THFloatTensor_newWithSize2d(args[0], args[1])
+                self.th{{Real}}Tensor = TH{{Real}}Tensor_newWithSize2d(args[0], args[1])
             else:
                 raise Exception('Not implemented, len(args)=' + str(len(args)))
 
@@ -328,8 +303,8 @@ cdef class _FloatTensor(object):
 #        cdef int size
 #        cdef int i
 #        cdef THFloatStorage *storage
-        refCount = THFloatTensor_getRefCount(self.thFloatTensor)
-        print('FloatTensor.dealloc old refcount', refCount)
+        refCount = TH{{Real}}Tensor_getRefCount(self.th{{Real}}Tensor)
+        print('{{Real}}Tensor.dealloc old refcount', refCount)
 #        storage = THFloatTensor_storage(self.thFloatTensor)
 #        if storage == NULL:
 #            print('   dealloc, storage NULL')
@@ -341,20 +316,20 @@ cdef class _FloatTensor(object):
 #            print('   size[', i, ']', THFloatTensor_size(self.thFloatTensor, i))
         if refCount < 1:
             raise Exception('Unallocated an already deallocated tensor... :-O')  # Hmmm, seems this exceptoin wont go anywhere useful... :-P
-        THFloatTensor_free(self.thFloatTensor)
+        TH{{Real}}Tensor_free(self.th{{Real}}Tensor)
 
-    def nElement(_FloatTensor self):
-        return THFloatTensor_nElement(self.thFloatTensor)
+    def nElement(_{{Real}}Tensor self):
+        return TH{{Real}}Tensor_nElement(self.th{{Real}}Tensor)
 
     @property
-    def refCount(_FloatTensor self):
-        return THFloatTensor_getRefCount(self.thFloatTensor)
+    def refCount(_{{Real}}Tensor self):
+        return TH{{Real}}Tensor_getRefCount(self.th{{Real}}Tensor)
 
-    def geometric(_FloatTensor self, float p=0.5):
-        THFloatTensor_geometric(self.thFloatTensor, globalState.generator, p)
+    def geometric(_{{Real}}Tensor self, float p=0.5):
+        TH{{Real}}Tensor_geometric(self.th{{Real}}Tensor, globalState.generator, p)
         return self
 
-
+{% if Real == 'Float' %}
 
     @staticmethod
     def new():
@@ -545,90 +520,9 @@ cdef class _FloatTensor(object):
             return res
         else:
             raise Exception("Not implemented: dims > 2")
+{% endif %}
 
-
-
-
-cdef class _LongTensor(object):
-    # properties are in the PyTorch.pxd file
-
-#    def __cinit__(Tensor self, THFloatTensor *tensorC = NULL):
-#        self.thFloatTensor = tensorC
-
-    def __cinit__(self, *args, _allocate=True):
-        print('LongTensor.__cinit__')
-#        cdef THLongStorage *storageC
-#        cdef long addr
-#        if len(kwargs) > 0:
-#            raise Exception('cannot provide arguments to initializer')
-        if _allocate:
-#            if len(args) == 1 and isinstance(args[0], _LongTensor):  # it's a size tensor
-#                self.thFloatTensor = THFloatTensor_new()
-            for arg in args:
-                if not isinstance(arg, int):
-                    raise Exception('cannot provide arguments to initializer')
-            if len(args) == 0:
-                print('no args, calling THLongTensor_new()')
-                self.thLongTensor = THLongTensor_new()
-            elif len(args) == 1:
-#                print('new tensor 1d length', args[0])
-                self.thLongTensor = THLongTensor_newWithSize1d(args[0])
-#                storageC = THFloatTensor_storage(self.thFloatTensor)
-#                if storageC == NULL:
-#                    print('storageC is NULL')
-#                else:
-#                    print('storageC not null')
-#                    addr = <long>(storageC)
-#                    print('storageaddr', hex(addr))
-#                    print('storageC refcount', THFloatStorage_getRefCount(storageC))
-            elif len(args) == 2:
-                self.thLongTensor = THLongTensor_newWithSize2d(args[0], args[1])
-            else:
-                raise Exception('Not implemented, len(args)=' + str(len(args)))
-
-#    def __cinit__(self, THFloatTensor *tensorC, Storage storage):
-#        self.thFloatTensor = tensorC
-#        self.storage = storage
-
-#    def __cinit__(self, Storage storage, offset, size0, stride0, size1, stride1):
-#        self.thFloatTensor = THFloatTensor_newWithStorage2d(storage.thFloatStorage, offset, size0, stride0, size1, stride1)
-#        self.storage = storage
-
-    def __dealloc__(self):
-        cdef int refCount
-#        cdef int dims
-#        cdef int size
-#        cdef int i
-#        cdef THFloatStorage *storage
-        refCount = THLongTensor_getRefCount(self.thLongTensor)
-        print('LongTensor.dealloc old refcount', refCount)
-#        storage = THFloatTensor_storage(self.thFloatTensor)
-#        if storage == NULL:
-#            print('   dealloc, storage NULL')
-#        else:
-#            print('   dealloc, storage ', hex(<long>(storage)))
-#        dims = THFloatTensor_nDimension(self.thFloatTensor)
-#        print('   dims of dealloc', dims)
-#        for i in range(dims):
-#            print('   size[', i, ']', THFloatTensor_size(self.thFloatTensor, i))
-        if refCount < 1:
-            raise Exception('Unallocated an already deallocated tensor... :-O')  # Hmmm, seems this exceptoin wont go anywhere useful... :-P
-        THLongTensor_free(self.thLongTensor)
-
-    def nElement(_LongTensor self):
-        return THLongTensor_nElement(self.thLongTensor)
-
-    @property
-    def refCount(_LongTensor self):
-        return THLongTensor_getRefCount(self.thLongTensor)
-
-    def geometric(_LongTensor self, float p=0.5):
-        THLongTensor_geometric(self.thLongTensor, globalState.generator, p)
-        return self
-
-
-
-
+{% endfor %}
 
 #class FloatTensor(_FloatTensor):
 #    pass
@@ -730,3 +624,4 @@ cdef class Nn(object):  # just used to provide the `nn.` syntax
 
 #    def Linear(self, inputSize, outputSize):
 #        return Linear(inputSize, outputSize)
+

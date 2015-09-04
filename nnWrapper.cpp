@@ -52,7 +52,15 @@ void collectGarbage(lua_State *L) {
     pushGlobal(L, "collectgarbage");
     lua_call(L, 0, 0);
 }
+
 int THFloatStorage_getRefCount(THFloatStorage *self) {
+    return self->refcount;
+}
+int THLongStorage_getRefCount(THLongStorage *self) {
+    return self->refcount;
+}
+
+int THLongTensor_getRefCount(THLongTensor *self) {
     return self->refcount;
 }
 int THFloatTensor_getRefCount(THFloatTensor *self) {

@@ -21,10 +21,12 @@ tensorA.set2d(2, 0, 76.5)
 print('tensorA', tensorA)
 print('A', A)
 
+print('add 5 to tensorA')
 tensorA += 5
 print('tensorA', tensorA)
 print('A', A)
 
+print('add 7 to tensorA')
 tensorA2 = tensorA + 7
 print('tensorA2', tensorA2)
 print('tensorA', tensorA)

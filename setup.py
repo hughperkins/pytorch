@@ -19,6 +19,23 @@ cython_present = False
 from Cython.Build import cythonize
 cython_present = True
 
+jinja_present = False
+import jinja2
+jinja_present = True
+
+# first generate cython pyx from jinja template...
+from jinja2 import Environment, PackageLoader, Template
+env = Environment(loader=jinja2.FileSystemLoader('.'))
+templateNames = ['PyTorch.jinja2.pyx', 'PyTorch.jinja2.pxd']
+for templateName in templateNames:
+    template = env.get_template(templateName)
+    pyx = template.render()
+    outFilename = templateName.replace('.jinja2', '')
+    print('outfilename', outFilename)
+    f = open(outFilename, 'wb')
+    f.write(pyx)
+    f.close()
+
 building_dist = False
 for arg in sys.argv:
     if arg in ('sdist', 'bdist', 'bdist_egg', 'build_ext'):
@@ -55,9 +72,9 @@ if osfamily == 'Linux':
 if osfamily == 'Windows':
     libraries.append('winmm')
 
-sources = ["PyTorch.cxx"]
-if cython_present:
-    sources = ["PyTorch.pyx"]
+#sources = ["PyTorch.cxx"]
+#if cython_present:
+sources = ["PyTorch.pyx"]
 ext_modules = [
     Extension("PyTorch",
               sources=sources,

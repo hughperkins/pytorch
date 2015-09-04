@@ -9,8 +9,8 @@
 #    ... or similar
 # - torch is expected to be at $HOME/torch
 
+rm -Rf build PyBuild.so dist *.egg-info cbuild
 mkdir cbuild
 (cd cbuild; cmake .. -DCMAKE_BUILD_TYPE=Debug -DCMAKE_INSTALL_PREFIX=$HOME/torch/install && make -j 4 install) || exit 1
-rm -Rf build PyBuild.so dist *.egg-info
 python setup.py build_ext -i || exit 1
 
