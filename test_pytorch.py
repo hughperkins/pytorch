@@ -10,8 +10,8 @@ C = A.dot(B)
 print('C', C)
 
 print('calling .asTensor...')
-tensorA = PyTorch.asTensor(A)
-tensorB = PyTorch.asTensor(B)
+tensorA = PyTorch.asFloatTensor(A)
+tensorB = PyTorch.asFloatTensor(B)
 print(' ... asTensor called')
 
 print('tensorA', tensorA)

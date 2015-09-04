@@ -21,9 +21,23 @@ def round_sig(x, sig=2):
 cdef extern from "LuaHelper.h":
     void *getGlobal(lua_State *L, const char *name1, const char *name2);
     void require(lua_State *L, const char *name)
+    int getLuaRegistryIndex()
+
+
+
+cdef extern from "LuaHelper.h":
+    THDoubleTensor *popDoubleTensor(lua_State *L)
+    void pushDoubleTensor(lua_State *L, THDoubleTensor *tensor)
+
+
+
+cdef extern from "LuaHelper.h":
     THFloatTensor *popFloatTensor(lua_State *L)
     void pushFloatTensor(lua_State *L, THFloatTensor *tensor)
-    int getLuaRegistryIndex()
+
+
+
+
 
 cdef class LuaHelper(object):
     @staticmethod
@@ -147,17 +161,20 @@ def manualSeed(long seed):
 
 
 
+
 cdef extern from "THStorage.h":
     cdef struct THDoubleStorage
+    THDoubleStorage* THDoubleStorage_newWithData(double *data, long size)
+    THDoubleStorage* THDoubleStorage_new()
+    THDoubleStorage* THDoubleStorage_newWithSize(long size)
+    double *THDoubleStorage_data(THDoubleStorage *self)
+    long THDoubleStorage_size(THDoubleStorage *self)
+    void THDoubleStorage_free(THDoubleStorage *self)
+    void THDoubleStorage_retain(THDoubleStorage *self)
+
 
 cdef extern from "THStorage.h":
     cdef struct THFloatStorage
-
-cdef extern from "THStorage.h":
-    cdef struct THLongStorage
-
-
-cdef extern from "THStorage.h":
     THFloatStorage* THFloatStorage_newWithData(float *data, long size)
     THFloatStorage* THFloatStorage_new()
     THFloatStorage* THFloatStorage_newWithSize(long size)
@@ -166,8 +183,75 @@ cdef extern from "THStorage.h":
     void THFloatStorage_free(THFloatStorage *self)
     void THFloatStorage_retain(THFloatStorage *self)
 
+
+cdef extern from "THStorage.h":
+    cdef struct THLongStorage
+    THLongStorage* THLongStorage_newWithData(long *data, long size)
+    THLongStorage* THLongStorage_new()
+    THLongStorage* THLongStorage_newWithSize(long size)
+    long *THLongStorage_data(THLongStorage *self)
+    long THLongStorage_size(THLongStorage *self)
+    void THLongStorage_free(THLongStorage *self)
+    void THLongStorage_retain(THLongStorage *self)
+
+
 cdef floatToString(float floatValue):
     return '%.6g'% floatValue
+
+
+
+cdef class DoubleStorage(object):
+    cdef THDoubleStorage *thDoubleStorage
+
+    def __init__(self, *args, **kwargs):
+#        print('floatStorage.__cinit__')
+        if len(args) > 0:
+            raise Exception('cannot provide arguments to initializer')
+        if len(kwargs) > 0:
+            raise Exception('cannot provide arguments to initializer')
+
+    @staticmethod
+    cdef fromNative(THDoubleStorage *storageC, retain=True):
+        if retain:
+            THDoubleStorage_retain(storageC)
+        storage = DoubleStorage()
+        storage.thDoubleStorage = storageC
+        return storage
+
+    @staticmethod
+    def new():
+#        print('allocate storage')
+        return DoubleStorage.fromNative(THDoubleStorage_new(), retain=False)
+
+    @staticmethod
+    def newWithData(double [:] data):
+        cdef THDoubleStorage *storageC = THDoubleStorage_newWithData(&data[0], len(data))
+#        print('allocate storage')
+        return DoubleStorage.fromNative(storageC, retain=False)
+
+    @property
+    def refCount(DoubleStorage self):
+        return THDoubleStorage_getRefCount(self.thDoubleStorage)
+
+    def dataAddr(DoubleStorage self):
+        cdef double *data = THDoubleStorage_data(self.thDoubleStorage)
+        cdef long dataAddr = pointerAsInt(data)
+        return dataAddr
+
+    @staticmethod
+    def newWithSize(long size):
+        cdef THDoubleStorage *storageC = THDoubleStorage_newWithSize(size)
+#        print('allocate storage')
+        return DoubleStorage.fromNative(storageC, retain=False)
+
+    cpdef long size(self):
+        return THDoubleStorage_size(self.thDoubleStorage)
+
+    def __dealloc__(self):
+#        print('THFloatStorage.dealloc, old refcount ', THFloatStorage_getRefCount(self.thFloatStorage))
+#        print('   dealloc storage: ', hex(<long>(self.thFloatStorage)))
+        THDoubleStorage_free(self.thDoubleStorage)
+
 
 cdef class FloatStorage(object):
     cdef THFloatStorage *thFloatStorage
@@ -222,6 +306,60 @@ cdef class FloatStorage(object):
         THFloatStorage_free(self.thFloatStorage)
 
 
+cdef class LongStorage(object):
+    cdef THLongStorage *thLongStorage
+
+    def __init__(self, *args, **kwargs):
+#        print('floatStorage.__cinit__')
+        if len(args) > 0:
+            raise Exception('cannot provide arguments to initializer')
+        if len(kwargs) > 0:
+            raise Exception('cannot provide arguments to initializer')
+
+    @staticmethod
+    cdef fromNative(THLongStorage *storageC, retain=True):
+        if retain:
+            THLongStorage_retain(storageC)
+        storage = LongStorage()
+        storage.thLongStorage = storageC
+        return storage
+
+    @staticmethod
+    def new():
+#        print('allocate storage')
+        return LongStorage.fromNative(THLongStorage_new(), retain=False)
+
+    @staticmethod
+    def newWithData(long [:] data):
+        cdef THLongStorage *storageC = THLongStorage_newWithData(&data[0], len(data))
+#        print('allocate storage')
+        return LongStorage.fromNative(storageC, retain=False)
+
+    @property
+    def refCount(LongStorage self):
+        return THLongStorage_getRefCount(self.thLongStorage)
+
+    def dataAddr(LongStorage self):
+        cdef long *data = THLongStorage_data(self.thLongStorage)
+        cdef long dataAddr = pointerAsInt(data)
+        return dataAddr
+
+    @staticmethod
+    def newWithSize(long size):
+        cdef THLongStorage *storageC = THLongStorage_newWithSize(size)
+#        print('allocate storage')
+        return LongStorage.fromNative(storageC, retain=False)
+
+    cpdef long size(self):
+        return THLongStorage_size(self.thLongStorage)
+
+    def __dealloc__(self):
+#        print('THFloatStorage.dealloc, old refcount ', THFloatStorage_getRefCount(self.thFloatStorage))
+#        print('   dealloc storage: ', hex(<long>(self.thFloatStorage)))
+        THLongStorage_free(self.thLongStorage)
+
+
+
 
 cdef extern from "THTensor.h":
     cdef struct THDoubleTensor
@@ -248,6 +386,9 @@ cdef extern from "THTensor.h":
     void THDoubleTensor_fill(THDoubleTensor *self, double value)
     void THDoubleTensor_add(THDoubleTensor *r_, THDoubleTensor *t, double value)
     THDoubleTensor *THDoubleTensor_newNarrow(THDoubleTensor *self, int dimension, long firstIndex, long size)
+    THDoubleTensor* THDoubleTensor_newWithStorage1d(THDoubleStorage *storage, long storageOffset, long size0, long stride0)
+    THDoubleTensor* THDoubleTensor_newWithStorage2d(THDoubleStorage *storage, long storageOffset, long size0, long stride0, long size1, long stride1)
+    THDoubleStorage *THDoubleTensor_storage(THDoubleTensor *self)
 
     
     void THDoubleTensor_uniform(THDoubleTensor *self, THGenerator *_generator, double a, double b)
@@ -284,6 +425,9 @@ cdef extern from "THTensor.h":
     void THFloatTensor_fill(THFloatTensor *self, float value)
     void THFloatTensor_add(THFloatTensor *r_, THFloatTensor *t, float value)
     THFloatTensor *THFloatTensor_newNarrow(THFloatTensor *self, int dimension, long firstIndex, long size)
+    THFloatTensor* THFloatTensor_newWithStorage1d(THFloatStorage *storage, long storageOffset, long size0, long stride0)
+    THFloatTensor* THFloatTensor_newWithStorage2d(THFloatStorage *storage, long storageOffset, long size0, long stride0, long size1, long stride1)
+    THFloatStorage *THFloatTensor_storage(THFloatTensor *self)
 
     
     void THFloatTensor_uniform(THFloatTensor *self, THGenerator *_generator, double a, double b)
@@ -320,17 +464,16 @@ cdef extern from "THTensor.h":
     void THLongTensor_fill(THLongTensor *self, long value)
     void THLongTensor_add(THLongTensor *r_, THLongTensor *t, long value)
     THLongTensor *THLongTensor_newNarrow(THLongTensor *self, int dimension, long firstIndex, long size)
+    THLongTensor* THLongTensor_newWithStorage1d(THLongStorage *storage, long storageOffset, long size0, long stride0)
+    THLongTensor* THLongTensor_newWithStorage2d(THLongStorage *storage, long storageOffset, long size0, long stride0, long size1, long stride1)
+    THLongStorage *THLongTensor_storage(THLongTensor *self)
 
     
 
 
 cdef extern from "THTensor.h":
-    THFloatTensor* THFloatTensor_newWithStorage1d(THFloatStorage *storage, long storageOffset, long size0, long stride0)
-    THFloatTensor* THFloatTensor_newWithStorage2d(THFloatStorage *storage, long storageOffset, long size0, long stride0, long size1, long stride1)
     void THFloatTensor_add(THFloatTensor *tensorSelf, THFloatTensor *tensorOne, float value)
     void THFloatTensor_addmm(THFloatTensor *tensorSelf, float beta, THFloatTensor *tensorOne, float alpha, THFloatTensor *mat1, THFloatTensor *mat2)
-
-    THFloatStorage *THFloatTensor_storage(THFloatTensor *self)
 
 
 
@@ -541,6 +684,24 @@ cdef class _DoubleTensor(object):
         else:
             raise Exception('Not implemented for dims=' + str(dims))
         return self
+
+    @staticmethod
+    def newWithStorage1d(DoubleStorage storage, offset, size0, stride0):
+#        print('allocate tensor')
+        cdef THDoubleTensor *newTensorC = THDoubleTensor_newWithStorage1d(storage.thDoubleStorage, offset, size0, stride0)
+        return _DoubleTensor_fromNative(newTensorC, False)
+
+    @staticmethod
+    def newWithStorage2d(DoubleStorage storage, offset, size0, stride0, size1, stride1):
+#        print('allocate tensor')
+        cdef THDoubleTensor *newTensorC = THDoubleTensor_newWithStorage2d(storage.thDoubleStorage, offset, size0, stride0, size1, stride1)
+        return _DoubleTensor_fromNative(newTensorC, False)
+
+    def storage(_DoubleTensor self):
+        cdef THDoubleStorage *storageC = THDoubleTensor_storage(self.thDoubleTensor)
+        if storageC == NULL:
+            return None
+        return DoubleStorage.fromNative(storageC)
 
 
     # ========== random ===============================
@@ -793,6 +954,24 @@ cdef class _FloatTensor(object):
             raise Exception('Not implemented for dims=' + str(dims))
         return self
 
+    @staticmethod
+    def newWithStorage1d(FloatStorage storage, offset, size0, stride0):
+#        print('allocate tensor')
+        cdef THFloatTensor *newTensorC = THFloatTensor_newWithStorage1d(storage.thFloatStorage, offset, size0, stride0)
+        return _FloatTensor_fromNative(newTensorC, False)
+
+    @staticmethod
+    def newWithStorage2d(FloatStorage storage, offset, size0, stride0, size1, stride1):
+#        print('allocate tensor')
+        cdef THFloatTensor *newTensorC = THFloatTensor_newWithStorage2d(storage.thFloatStorage, offset, size0, stride0, size1, stride1)
+        return _FloatTensor_fromNative(newTensorC, False)
+
+    def storage(_FloatTensor self):
+        cdef THFloatStorage *storageC = THFloatTensor_storage(self.thFloatTensor)
+        if storageC == NULL:
+            return None
+        return FloatStorage.fromNative(storageC)
+
 
     # ========== random ===============================
     def bernoulli(_FloatTensor self, float p=0.5):
@@ -821,24 +1000,6 @@ cdef class _FloatTensor(object):
 
 
 
-
-    @staticmethod
-    def newWithStorage1d(FloatStorage storage, offset, size0, stride0):
-#        print('allocate tensor')
-        cdef THFloatTensor *newTensorC = THFloatTensor_newWithStorage1d(storage.thFloatStorage, offset, size0, stride0)
-        return _FloatTensor_fromNative(newTensorC, False)
-
-    @staticmethod
-    def newWithStorage2d(FloatStorage storage, offset, size0, stride0, size1, stride1):
-#        print('allocate tensor')
-        cdef THFloatTensor *newTensorC = THFloatTensor_newWithStorage2d(storage.thFloatStorage, offset, size0, stride0, size1, stride1)
-        return _FloatTensor_fromNative(newTensorC, False)
-
-    def storage(_FloatTensor self):
-        cdef THFloatStorage *storageC = THFloatTensor_storage(self.thFloatTensor)
-        if storageC == NULL:
-            return None
-        return FloatStorage.fromNative(storageC)
 
     def __iadd__(_FloatTensor self, float value):
         THFloatTensor_add(self.thFloatTensor, self.thFloatTensor, value)
@@ -1080,6 +1241,24 @@ cdef class _LongTensor(object):
             raise Exception('Not implemented for dims=' + str(dims))
         return self
 
+    @staticmethod
+    def newWithStorage1d(LongStorage storage, offset, size0, stride0):
+#        print('allocate tensor')
+        cdef THLongTensor *newTensorC = THLongTensor_newWithStorage1d(storage.thLongStorage, offset, size0, stride0)
+        return _LongTensor_fromNative(newTensorC, False)
+
+    @staticmethod
+    def newWithStorage2d(LongStorage storage, offset, size0, stride0, size1, stride1):
+#        print('allocate tensor')
+        cdef THLongTensor *newTensorC = THLongTensor_newWithStorage2d(storage.thLongStorage, offset, size0, stride0, size1, stride1)
+        return _LongTensor_fromNative(newTensorC, False)
+
+    def storage(_LongTensor self):
+        cdef THLongStorage *storageC = THLongTensor_storage(self.thLongTensor)
+        if storageC == NULL:
+            return None
+        return LongStorage.fromNative(storageC)
+
 
 
 
@@ -1098,7 +1277,7 @@ cdef _LongTensor_fromNative(THLongTensor *tensorC, retain=True):
 
 
 
-def asTensor(myarray):
+def asFloatTensor(myarray):
     cdef float[:] myarraymv
     cdef FloatStorage storage
     if str(type(myarray)) == "<type 'numpy.ndarray'>":
@@ -1116,6 +1295,28 @@ def asTensor(myarray):
         storage = FloatStorage.newWithData(myarraymv)
         THFloatStorage_retain(storage.thFloatStorage) # since newWithData takes ownership
         tensor = _FloatTensor.newWithStorage1d(storage, 0, len(myarray), 1)
+        return tensor        
+    else:
+        raise Exception("not implemented")
+
+def asDoubleTensor(myarray):
+    cdef double[:] myarraymv
+    cdef DoubleStorage storage
+    if str(type(myarray)) == "<type 'numpy.ndarray'>":
+        dims = len(myarray.shape)
+        rows = myarray.shape[0]
+        cols = myarray.shape[1]
+
+        myarraymv = myarray.reshape(rows * cols)
+        storage = DoubleStorage.newWithData(myarraymv)
+        THDoubleStorage_retain(storage.thDoubleStorage) # since newWithData takes ownership
+        tensor = _DoubleTensor.newWithStorage2d(storage, 0, rows, cols, cols, 1)
+        return tensor
+    elif isinstance(myarray, array.array):
+        myarraymv = myarray
+        storage = DoubleStorage.newWithData(myarraymv)
+        THDoubleStorage_retain(storage.thDoubleStorage) # since newWithData takes ownership
+        tensor = _DoubleTensor.newWithStorage1d(storage, 0, len(myarray), 1)
         return tensor        
     else:
         raise Exception("not implemented")
@@ -1139,6 +1340,19 @@ cdef class GlobalState(object):
     def getLua(self):
         return LuaState_fromNative(self.L)
 
+
+
+def _popDoubleTensor():
+    global globalState
+    cdef THDoubleTensor *tensorC = popDoubleTensor(globalState.L)
+    return _DoubleTensor_fromNative(tensorC)
+
+def _pushDoubleTensor(_DoubleTensor tensor):
+    global globalState
+    pushDoubleTensor(globalState.L, tensor.thDoubleTensor)
+
+
+
 def _popFloatTensor():
     global globalState
     cdef THFloatTensor *tensorC = popFloatTensor(globalState.L)
@@ -1148,8 +1362,30 @@ def _pushFloatTensor(_FloatTensor tensor):
     global globalState
     pushFloatTensor(globalState.L, tensor.thFloatTensor)
 
+
+
+
+
 # there's probably an official Torch way of doing this
-cpdef int getPrediction(_FloatTensor output):
+
+
+
+cpdef int getDoublePrediction(_DoubleTensor output):
+    cdef int prediction = 0
+    cdef double maxSoFar = output[0]
+    cdef double thisValue = 0
+    cdef int i = 0
+    for i in range(THDoubleTensor_size(output.thDoubleTensor, 0)):
+        thisValue = THDoubleTensor_get1d(output.thDoubleTensor, i)
+        if thisValue > maxSoFar:
+            maxSoFar = thisValue
+            prediction = i
+    return prediction + 1
+
+
+
+
+cpdef int getFloatPrediction(_FloatTensor output):
     cdef int prediction = 0
     cdef float maxSoFar = output[0]
     cdef float thisValue = 0
@@ -1160,6 +1396,11 @@ cpdef int getPrediction(_FloatTensor output):
             maxSoFar = thisValue
             prediction = i
     return prediction + 1
+
+
+
+
+
 
 cdef GlobalState globalState
 

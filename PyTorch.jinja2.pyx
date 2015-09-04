@@ -21,9 +21,15 @@ def round_sig(x, sig=2):
 cdef extern from "LuaHelper.h":
     void *getGlobal(lua_State *L, const char *name1, const char *name2);
     void require(lua_State *L, const char *name)
-    THFloatTensor *popFloatTensor(lua_State *L)
-    void pushFloatTensor(lua_State *L, THFloatTensor *tensor)
     int getLuaRegistryIndex()
+
+{% for Real in types %}
+{% if Real in ['Double', 'Float'] %}
+cdef extern from "LuaHelper.h":
+    TH{{Real}}Tensor *pop{{Real}}Tensor(lua_State *L)
+    void push{{Real}}Tensor(lua_State *L, TH{{Real}}Tensor *tensor)
+{% endif %}
+{% endfor %}
 
 cdef class LuaHelper(object):
     @staticmethod
@@ -139,24 +145,25 @@ def manualSeed(long seed):
 
 
 {% for Real in types %}
+{% set real = types[Real] %}
 cdef extern from "THStorage.h":
     cdef struct TH{{Real}}Storage
+    TH{{Real}}Storage* TH{{Real}}Storage_newWithData({{real}} *data, long size)
+    TH{{Real}}Storage* TH{{Real}}Storage_new()
+    TH{{Real}}Storage* TH{{Real}}Storage_newWithSize(long size)
+    {{real}} *TH{{Real}}Storage_data(TH{{Real}}Storage *self)
+    long TH{{Real}}Storage_size(TH{{Real}}Storage *self)
+    void TH{{Real}}Storage_free(TH{{Real}}Storage *self)
+    void TH{{Real}}Storage_retain(TH{{Real}}Storage *self)
 {% endfor %}
-
-cdef extern from "THStorage.h":
-    THFloatStorage* THFloatStorage_newWithData(float *data, long size)
-    THFloatStorage* THFloatStorage_new()
-    THFloatStorage* THFloatStorage_newWithSize(long size)
-    float *THFloatStorage_data(THFloatStorage *self)
-    long THFloatStorage_size(THFloatStorage *self)
-    void THFloatStorage_free(THFloatStorage *self)
-    void THFloatStorage_retain(THFloatStorage *self)
 
 cdef floatToString(float floatValue):
     return '%.6g'% floatValue
 
-cdef class FloatStorage(object):
-    cdef THFloatStorage *thFloatStorage
+{% for Real in types %}
+{% set real = types[Real] %}
+cdef class {{Real}}Storage(object):
+    cdef TH{{Real}}Storage *th{{Real}}Storage
 
     def __init__(self, *args, **kwargs):
 #        print('floatStorage.__cinit__')
@@ -166,46 +173,47 @@ cdef class FloatStorage(object):
             raise Exception('cannot provide arguments to initializer')
 
     @staticmethod
-    cdef fromNative(THFloatStorage *storageC, retain=True):
+    cdef fromNative(TH{{Real}}Storage *storageC, retain=True):
         if retain:
-            THFloatStorage_retain(storageC)
-        storage = FloatStorage()
-        storage.thFloatStorage = storageC
+            TH{{Real}}Storage_retain(storageC)
+        storage = {{Real}}Storage()
+        storage.th{{Real}}Storage = storageC
         return storage
 
     @staticmethod
     def new():
 #        print('allocate storage')
-        return FloatStorage.fromNative(THFloatStorage_new(), retain=False)
+        return {{Real}}Storage.fromNative(TH{{Real}}Storage_new(), retain=False)
 
     @staticmethod
-    def newWithData(float [:] data):
-        cdef THFloatStorage *storageC = THFloatStorage_newWithData(&data[0], len(data))
+    def newWithData({{real}} [:] data):
+        cdef TH{{Real}}Storage *storageC = TH{{Real}}Storage_newWithData(&data[0], len(data))
 #        print('allocate storage')
-        return FloatStorage.fromNative(storageC, retain=False)
+        return {{Real}}Storage.fromNative(storageC, retain=False)
 
     @property
-    def refCount(FloatStorage self):
-        return THFloatStorage_getRefCount(self.thFloatStorage)
+    def refCount({{Real}}Storage self):
+        return TH{{Real}}Storage_getRefCount(self.th{{Real}}Storage)
 
-    def dataAddr(FloatStorage self):
-        cdef float *data = THFloatStorage_data(self.thFloatStorage)
+    def dataAddr({{Real}}Storage self):
+        cdef {{real}} *data = TH{{Real}}Storage_data(self.th{{Real}}Storage)
         cdef long dataAddr = pointerAsInt(data)
         return dataAddr
 
     @staticmethod
     def newWithSize(long size):
-        cdef THFloatStorage *storageC = THFloatStorage_newWithSize(size)
+        cdef TH{{Real}}Storage *storageC = TH{{Real}}Storage_newWithSize(size)
 #        print('allocate storage')
-        return FloatStorage.fromNative(storageC, retain=False)
+        return {{Real}}Storage.fromNative(storageC, retain=False)
 
     cpdef long size(self):
-        return THFloatStorage_size(self.thFloatStorage)
+        return TH{{Real}}Storage_size(self.th{{Real}}Storage)
 
     def __dealloc__(self):
 #        print('THFloatStorage.dealloc, old refcount ', THFloatStorage_getRefCount(self.thFloatStorage))
 #        print('   dealloc storage: ', hex(<long>(self.thFloatStorage)))
-        THFloatStorage_free(self.thFloatStorage)
+        TH{{Real}}Storage_free(self.th{{Real}}Storage)
+{% endfor %}
 
 {% for Real in types %}
 {% set real = types[Real] %}
@@ -234,6 +242,9 @@ cdef extern from "THTensor.h":
     void TH{{Real}}Tensor_fill(TH{{Real}}Tensor *self, {{real}} value)
     void TH{{Real}}Tensor_add(TH{{Real}}Tensor *r_, TH{{Real}}Tensor *t, {{real}} value)
     TH{{Real}}Tensor *TH{{Real}}Tensor_newNarrow(TH{{Real}}Tensor *self, int dimension, long firstIndex, long size)
+    TH{{Real}}Tensor* TH{{Real}}Tensor_newWithStorage1d(TH{{Real}}Storage *storage, long storageOffset, long size0, long stride0)
+    TH{{Real}}Tensor* TH{{Real}}Tensor_newWithStorage2d(TH{{Real}}Storage *storage, long storageOffset, long size0, long stride0, long size1, long stride1)
+    TH{{Real}}Storage *TH{{Real}}Tensor_storage(TH{{Real}}Tensor *self)
 
     {% if Real in ['Float', 'Double'] %}
     void TH{{Real}}Tensor_uniform(TH{{Real}}Tensor *self, THGenerator *_generator, double a, double b)
@@ -246,12 +257,8 @@ cdef extern from "THTensor.h":
 {% endfor %}
 
 cdef extern from "THTensor.h":
-    THFloatTensor* THFloatTensor_newWithStorage1d(THFloatStorage *storage, long storageOffset, long size0, long stride0)
-    THFloatTensor* THFloatTensor_newWithStorage2d(THFloatStorage *storage, long storageOffset, long size0, long stride0, long size1, long stride1)
     void THFloatTensor_add(THFloatTensor *tensorSelf, THFloatTensor *tensorOne, float value)
     void THFloatTensor_addmm(THFloatTensor *tensorSelf, float beta, THFloatTensor *tensorOne, float alpha, THFloatTensor *mat1, THFloatTensor *mat2)
-
-    THFloatStorage *THFloatTensor_storage(THFloatTensor *self)
 
 {% for Real in types %}
 {% set real = types[Real] %}
@@ -467,6 +474,24 @@ cdef class _{{Real}}Tensor(object):
             raise Exception('Not implemented for dims=' + str(dims))
         return self
 
+    @staticmethod
+    def newWithStorage1d({{Real}}Storage storage, offset, size0, stride0):
+#        print('allocate tensor')
+        cdef TH{{Real}}Tensor *newTensorC = TH{{Real}}Tensor_newWithStorage1d(storage.th{{Real}}Storage, offset, size0, stride0)
+        return _{{Real}}Tensor_fromNative(newTensorC, False)
+
+    @staticmethod
+    def newWithStorage2d({{Real}}Storage storage, offset, size0, stride0, size1, stride1):
+#        print('allocate tensor')
+        cdef TH{{Real}}Tensor *newTensorC = TH{{Real}}Tensor_newWithStorage2d(storage.th{{Real}}Storage, offset, size0, stride0, size1, stride1)
+        return _{{Real}}Tensor_fromNative(newTensorC, False)
+
+    def storage(_{{Real}}Tensor self):
+        cdef TH{{Real}}Storage *storageC = TH{{Real}}Tensor_storage(self.th{{Real}}Tensor)
+        if storageC == NULL:
+            return None
+        return {{Real}}Storage.fromNative(storageC)
+
 {% if Real in ['Float', 'Double'] %}
     # ========== random ===============================
     def bernoulli(_{{Real}}Tensor self, {{real}} p=0.5):
@@ -495,24 +520,6 @@ cdef class _{{Real}}Tensor(object):
 {% endif %}
 
 {% if Real == 'Float' %}
-
-    @staticmethod
-    def newWithStorage1d(FloatStorage storage, offset, size0, stride0):
-#        print('allocate tensor')
-        cdef THFloatTensor *newTensorC = THFloatTensor_newWithStorage1d(storage.thFloatStorage, offset, size0, stride0)
-        return _FloatTensor_fromNative(newTensorC, False)
-
-    @staticmethod
-    def newWithStorage2d(FloatStorage storage, offset, size0, stride0, size1, stride1):
-#        print('allocate tensor')
-        cdef THFloatTensor *newTensorC = THFloatTensor_newWithStorage2d(storage.thFloatStorage, offset, size0, stride0, size1, stride1)
-        return _FloatTensor_fromNative(newTensorC, False)
-
-    def storage(_FloatTensor self):
-        cdef THFloatStorage *storageC = THFloatTensor_storage(self.thFloatTensor)
-        if storageC == NULL:
-            return None
-        return FloatStorage.fromNative(storageC)
 
     def __iadd__(_FloatTensor self, float value):
         THFloatTensor_add(self.thFloatTensor, self.thFloatTensor, value)
@@ -546,7 +553,7 @@ cdef _{{Real}}Tensor_fromNative(TH{{Real}}Tensor *tensorC, retain=True):
 
 {% endfor %}
 
-def asTensor(myarray):
+def asFloatTensor(myarray):
     cdef float[:] myarraymv
     cdef FloatStorage storage
     if str(type(myarray)) == "<type 'numpy.ndarray'>":
@@ -564,6 +571,28 @@ def asTensor(myarray):
         storage = FloatStorage.newWithData(myarraymv)
         THFloatStorage_retain(storage.thFloatStorage) # since newWithData takes ownership
         tensor = _FloatTensor.newWithStorage1d(storage, 0, len(myarray), 1)
+        return tensor        
+    else:
+        raise Exception("not implemented")
+
+def asDoubleTensor(myarray):
+    cdef double[:] myarraymv
+    cdef DoubleStorage storage
+    if str(type(myarray)) == "<type 'numpy.ndarray'>":
+        dims = len(myarray.shape)
+        rows = myarray.shape[0]
+        cols = myarray.shape[1]
+
+        myarraymv = myarray.reshape(rows * cols)
+        storage = DoubleStorage.newWithData(myarraymv)
+        THDoubleStorage_retain(storage.thDoubleStorage) # since newWithData takes ownership
+        tensor = _DoubleTensor.newWithStorage2d(storage, 0, rows, cols, cols, 1)
+        return tensor
+    elif isinstance(myarray, array.array):
+        myarraymv = myarray
+        storage = DoubleStorage.newWithData(myarraymv)
+        THDoubleStorage_retain(storage.thDoubleStorage) # since newWithData takes ownership
+        tensor = _DoubleTensor.newWithStorage1d(storage, 0, len(myarray), 1)
         return tensor        
     else:
         raise Exception("not implemented")
@@ -587,27 +616,36 @@ cdef class GlobalState(object):
     def getLua(self):
         return LuaState_fromNative(self.L)
 
-def _popFloatTensor():
+{% for Real in types %}
+{% if Real in ['Double', 'Float'] %}
+def _pop{{Real}}Tensor():
     global globalState
-    cdef THFloatTensor *tensorC = popFloatTensor(globalState.L)
-    return _FloatTensor_fromNative(tensorC)
+    cdef TH{{Real}}Tensor *tensorC = pop{{Real}}Tensor(globalState.L)
+    return _{{Real}}Tensor_fromNative(tensorC)
 
-def _pushFloatTensor(_FloatTensor tensor):
+def _push{{Real}}Tensor(_{{Real}}Tensor tensor):
     global globalState
-    pushFloatTensor(globalState.L, tensor.thFloatTensor)
+    push{{Real}}Tensor(globalState.L, tensor.th{{Real}}Tensor)
+{% endif %}
+{% endfor %}
 
 # there's probably an official Torch way of doing this
-cpdef int getPrediction(_FloatTensor output):
+{% for Real in types %}
+{% set real = types[Real] %}
+{% if Real in ['Double', 'Float'] %}
+cpdef int get{{Real}}Prediction(_{{Real}}Tensor output):
     cdef int prediction = 0
-    cdef float maxSoFar = output[0]
-    cdef float thisValue = 0
+    cdef {{real}} maxSoFar = output[0]
+    cdef {{real}} thisValue = 0
     cdef int i = 0
-    for i in range(THFloatTensor_size(output.thFloatTensor, 0)):
-        thisValue = THFloatTensor_get1d(output.thFloatTensor, i)
+    for i in range(TH{{Real}}Tensor_size(output.th{{Real}}Tensor, 0)):
+        thisValue = TH{{Real}}Tensor_get1d(output.th{{Real}}Tensor, i)
         if thisValue > maxSoFar:
             maxSoFar = thisValue
             prediction = i
     return prediction + 1
+{% endif %}
+{% endfor %}
 
 cdef GlobalState globalState
 

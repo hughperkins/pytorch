@@ -82,11 +82,11 @@ class LuaClass(object):
         lua.call(len(args), 1)
         registerObject(lua, self)
 
-        nameList = nameList[:]
-        nameList.append('float')
-        pushGlobalFromList(lua, nameList)
-        pushObject(lua, self)
-        lua.call(1, 0)
+#        nameList = nameList[:]
+#        nameList.append('float')
+#        pushGlobalFromList(lua, nameList)
+#        pushObject(lua, self)
+#        lua.call(1, 0)
 
         topEnd = lua.getTop()
         assert topStart == topEnd
@@ -257,8 +257,9 @@ populateLuaClassesReverse()
 
 cythonClasses = {}
 cythonClasses['torch.FloatTensor'] = {'popFunction': PyTorch._popFloatTensor}
+cythonClasses['torch.DoubleTensor'] = {'popFunction': PyTorch._popDoubleTensor}
 
 pushFunctionByPythonClass = {}
 pushFunctionByPythonClass[PyTorch._FloatTensor] = PyTorch._pushFloatTensor
-
+pushFunctionByPythonClass[PyTorch._DoubleTensor] = PyTorch._pushDoubleTensor
 

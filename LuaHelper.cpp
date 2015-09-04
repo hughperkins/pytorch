@@ -35,12 +35,6 @@ void getInstanceField(lua_State *L, void *instanceKey, const char *name) {
     lua_getfield(L, -1, name);
     lua_remove(L, -2);
 }
-THFloatTensor *popFloatTensor(lua_State *L) {
-    void **pTensor = (void **)lua_touserdata(L, -1);
-    THFloatTensor *tensor = (THFloatTensor *)(*pTensor);
-    lua_remove(L, -1);
-    return tensor;
-}
 const char * popString(lua_State *L) {
     const char *res = lua_tostring(L, -1);
     lua_remove(L, -1);
@@ -51,9 +45,25 @@ float popFloat(lua_State *L) {
     lua_remove(L, -1);
     return res;
 }
+THFloatTensor *popFloatTensor(lua_State *L) {
+    void **pTensor = (void **)lua_touserdata(L, -1);
+    THFloatTensor *tensor = (THFloatTensor *)(*pTensor);
+    lua_remove(L, -1);
+    return tensor;
+}
 void pushFloatTensor(lua_State *L, THFloatTensor *tensor) {
     THFloatTensor_retain(tensor);
     luaT_pushudata(L, tensor, "torch.FloatTensor");
+}
+THDoubleTensor *popDoubleTensor(lua_State *L) {
+    void **pTensor = (void **)lua_touserdata(L, -1);
+    THDoubleTensor *tensor = (THDoubleTensor *)(*pTensor);
+    lua_remove(L, -1);
+    return tensor;
+}
+void pushDoubleTensor(lua_State *L, THDoubleTensor *tensor) {
+    THDoubleTensor_retain(tensor);
+    luaT_pushudata(L, tensor, "torch.DoubleTensor");
 }
 void pushGlobal(lua_State *L, const char *name1) {
     lua_getglobal(L, name1);
