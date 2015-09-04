@@ -345,6 +345,48 @@ cdef class _{{Real}}Tensor(object):
     cpdef {{real}} get2d(self, int x0, int x1):
         return TH{{Real}}Tensor_get2d(self.th{{Real}}Tensor, x0, x1)
 
+    def __repr__(_{{Real}}Tensor self):
+        # assume 2d matrix for now
+        cdef int size0
+        cdef int size1
+        dims = self.dims()
+        if dims == 0:
+            return '[torch.{{Real}}Tensor with no dimension]\n'
+        elif dims == 2:
+            size0 = TH{{Real}}Tensor_size(self.th{{Real}}Tensor, 0)
+            size1 = TH{{Real}}Tensor_size(self.th{{Real}}Tensor, 1)
+            res = ''
+            for r in range(size0):
+                thisline = ''
+                for c in range(size1):
+                    if c > 0:
+                        thisline += ' '
+                    {% if Real in ['Float'] %}
+                    thisline += floatToString(self.get2d(r,c),)
+                    {% else %}
+                    thisline += str(self.get2d(r,c),)
+                    {% endif %}
+                res += thisline + '\n'
+            res += '[torch.{{Real}}Tensor of size ' + ('%.0f' % size0) + 'x' + str(size1) + ']\n'
+            return res
+        elif dims == 1:
+            size0 = TH{{Real}}Tensor_size(self.th{{Real}}Tensor, 0)
+            res = ''
+            thisline = ''
+            for c in range(size0):
+                if c > 0:
+                    thisline += ' '
+                {% if Real in ['Float'] %}
+                thisline += floatToString(self.get1d(c))
+                {% else %}
+                thisline += str(self.get1d(c))
+                {% endif %}
+            res += thisline + '\n'
+            res += '[torch.{{Real}}Tensor of size ' + str(size0) + ']\n'
+            return res
+        else:
+            raise Exception("Not implemented: dims > 2")
+
 {% if Real == 'Float' %}
 
     @staticmethod
@@ -487,40 +529,6 @@ cdef class _{{Real}}Tensor(object):
         T.resize2d(resRows, resCols)
         THFloatTensor_addmm(res.thFloatTensor, 0, T.thFloatTensor, 1, self.thFloatTensor, M2.thFloatTensor)
         return res
-
-    def __repr__(_FloatTensor self):
-        # assume 2d matrix for now
-        cdef int size0
-        cdef int size1
-        dims = self.dims()
-        if dims == 0:
-            return '[torch.FloatTensor with no dimension]\n'
-        elif dims == 2:
-            size0 = THFloatTensor_size(self.thFloatTensor, 0)
-            size1 = THFloatTensor_size(self.thFloatTensor, 1)
-            res = ''
-            for r in range(size0):
-                thisline = ''
-                for c in range(size1):
-                    if c > 0:
-                        thisline += ' '
-                    thisline += floatToString(self.get2d(r,c),)
-                res += thisline + '\n'
-            res += '[torch.FloatTensor of size ' + ('%.0f' % size0) + 'x' + str(size1) + ']\n'
-            return res
-        elif dims == 1:
-            size0 = THFloatTensor_size(self.thFloatTensor, 0)
-            res = ''
-            thisline = ''
-            for c in range(size0):
-                if c > 0:
-                    thisline += ' '
-                thisline += floatToString(self.get1d(c))
-            res += thisline + '\n'
-            res += '[torch.FloatTensor of size ' + str(size0) + ']\n'
-            return res
-        else:
-            raise Exception("Not implemented: dims > 2")
 {% endif %}
 
 {% endfor %}

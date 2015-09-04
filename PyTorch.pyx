@@ -378,6 +378,44 @@ cdef class _FloatTensor(object):
     cpdef float get2d(self, int x0, int x1):
         return THFloatTensor_get2d(self.thFloatTensor, x0, x1)
 
+    def __repr__(_FloatTensor self):
+        # assume 2d matrix for now
+        cdef int size0
+        cdef int size1
+        dims = self.dims()
+        if dims == 0:
+            return '[torch.FloatTensor with no dimension]\n'
+        elif dims == 2:
+            size0 = THFloatTensor_size(self.thFloatTensor, 0)
+            size1 = THFloatTensor_size(self.thFloatTensor, 1)
+            res = ''
+            for r in range(size0):
+                thisline = ''
+                for c in range(size1):
+                    if c > 0:
+                        thisline += ' '
+                    
+                    thisline += floatToString(self.get2d(r,c),)
+                    
+                res += thisline + '\n'
+            res += '[torch.FloatTensor of size ' + ('%.0f' % size0) + 'x' + str(size1) + ']\n'
+            return res
+        elif dims == 1:
+            size0 = THFloatTensor_size(self.thFloatTensor, 0)
+            res = ''
+            thisline = ''
+            for c in range(size0):
+                if c > 0:
+                    thisline += ' '
+                
+                thisline += floatToString(self.get1d(c))
+                
+            res += thisline + '\n'
+            res += '[torch.FloatTensor of size ' + str(size0) + ']\n'
+            return res
+        else:
+            raise Exception("Not implemented: dims > 2")
+
 
 
     @staticmethod
@@ -521,40 +559,6 @@ cdef class _FloatTensor(object):
         THFloatTensor_addmm(res.thFloatTensor, 0, T.thFloatTensor, 1, self.thFloatTensor, M2.thFloatTensor)
         return res
 
-    def __repr__(_FloatTensor self):
-        # assume 2d matrix for now
-        cdef int size0
-        cdef int size1
-        dims = self.dims()
-        if dims == 0:
-            return '[torch.FloatTensor with no dimension]\n'
-        elif dims == 2:
-            size0 = THFloatTensor_size(self.thFloatTensor, 0)
-            size1 = THFloatTensor_size(self.thFloatTensor, 1)
-            res = ''
-            for r in range(size0):
-                thisline = ''
-                for c in range(size1):
-                    if c > 0:
-                        thisline += ' '
-                    thisline += floatToString(self.get2d(r,c),)
-                res += thisline + '\n'
-            res += '[torch.FloatTensor of size ' + ('%.0f' % size0) + 'x' + str(size1) + ']\n'
-            return res
-        elif dims == 1:
-            size0 = THFloatTensor_size(self.thFloatTensor, 0)
-            res = ''
-            thisline = ''
-            for c in range(size0):
-                if c > 0:
-                    thisline += ' '
-                thisline += floatToString(self.get1d(c))
-            res += thisline + '\n'
-            res += '[torch.FloatTensor of size ' + str(size0) + ']\n'
-            return res
-        else:
-            raise Exception("Not implemented: dims > 2")
-
 
 
 
@@ -649,6 +653,44 @@ cdef class _LongTensor(object):
 
     cpdef long get2d(self, int x0, int x1):
         return THLongTensor_get2d(self.thLongTensor, x0, x1)
+
+    def __repr__(_LongTensor self):
+        # assume 2d matrix for now
+        cdef int size0
+        cdef int size1
+        dims = self.dims()
+        if dims == 0:
+            return '[torch.LongTensor with no dimension]\n'
+        elif dims == 2:
+            size0 = THLongTensor_size(self.thLongTensor, 0)
+            size1 = THLongTensor_size(self.thLongTensor, 1)
+            res = ''
+            for r in range(size0):
+                thisline = ''
+                for c in range(size1):
+                    if c > 0:
+                        thisline += ' '
+                    
+                    thisline += str(self.get2d(r,c),)
+                    
+                res += thisline + '\n'
+            res += '[torch.LongTensor of size ' + ('%.0f' % size0) + 'x' + str(size1) + ']\n'
+            return res
+        elif dims == 1:
+            size0 = THLongTensor_size(self.thLongTensor, 0)
+            res = ''
+            thisline = ''
+            for c in range(size0):
+                if c > 0:
+                    thisline += ' '
+                
+                thisline += str(self.get1d(c))
+                
+            res += thisline + '\n'
+            res += '[torch.LongTensor of size ' + str(size0) + ']\n'
+            return res
+        else:
+            raise Exception("Not implemented: dims > 2")
 
 
 
