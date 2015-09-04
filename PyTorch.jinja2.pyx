@@ -239,6 +239,7 @@ cdef extern from "THTensor.h":
     void TH{{Real}}Tensor_exponential(TH{{Real}}Tensor *self, THGenerator *_generator, double _lambda);
     void TH{{Real}}Tensor_cauchy(TH{{Real}}Tensor *self, THGenerator *_generator, double median, double sigma)
     void TH{{Real}}Tensor_logNormal(TH{{Real}}Tensor *self, THGenerator *_generator, double mean, double stdv)
+    void TH{{Real}}Tensor_bernoulli(TH{{Real}}Tensor *self, THGenerator *_generator, double p)
     {% endif %}
 {% endfor %}
 
@@ -247,8 +248,6 @@ cdef extern from "THTensor.h":
     THFloatTensor* THFloatTensor_newWithStorage2d(THFloatStorage *storage, long storageOffset, long size0, long stride0, long size1, long stride1)
     void THFloatTensor_add(THFloatTensor *tensorSelf, THFloatTensor *tensorOne, float value)
     void THFloatTensor_addmm(THFloatTensor *tensorSelf, float beta, THFloatTensor *tensorOne, float alpha, THFloatTensor *mat1, THFloatTensor *mat2)
-
-    void THFloatTensor_bernoulli(THFloatTensor *self, THGenerator *_generator, double p)
 
     THFloatStorage *THFloatTensor_storage(THFloatTensor *self)
 
@@ -467,6 +466,26 @@ cdef class _{{Real}}Tensor(object):
         return self
 
 {% if Real in ['Float', 'Double'] %}
+    # ========== random ===============================
+    def bernoulli(_{{Real}}Tensor self, {{real}} p=0.5):
+        TH{{Real}}Tensor_bernoulli(self.th{{Real}}Tensor, globalState.generator, p)
+        return self
+
+    def normal(_{{Real}}Tensor self, {{real}} mean=0, {{real}} stdv=1):
+        TH{{Real}}Tensor_normal(self.th{{Real}}Tensor, globalState.generator, mean, stdv)
+        return self
+
+    def exponential(_{{Real}}Tensor self, {{real}} _lambda=1):
+        TH{{Real}}Tensor_exponential(self.th{{Real}}Tensor, globalState.generator, _lambda)
+        return self
+
+    def cauchy(_{{Real}}Tensor self, {{real}} median=0, {{real}} sigma=1):
+        TH{{Real}}Tensor_cauchy(self.th{{Real}}Tensor, globalState.generator, median, sigma)
+        return self
+
+    def logNormal(_{{Real}}Tensor self, {{real}} mean=1, {{real}} stdv=2):
+        TH{{Real}}Tensor_logNormal(self.th{{Real}}Tensor, globalState.generator, mean, stdv)
+        return self
 
     def uniform(_{{Real}}Tensor self, {{real}} a=0, {{real}} b=1):
         TH{{Real}}Tensor_uniform(self.th{{Real}}Tensor, globalState.generator, a, b)
@@ -497,26 +516,6 @@ cdef class _{{Real}}Tensor(object):
         THFloatTensor_add(self.thFloatTensor, self.thFloatTensor, value)
         return self
 
-    # ========== random ===============================
-    def bernoulli(_FloatTensor self, float p=0.5):
-        THFloatTensor_bernoulli(self.thFloatTensor, globalState.generator, p)
-        return self
-
-    def normal(_FloatTensor self, float mean=0, float stdv=1):
-        THFloatTensor_normal(self.thFloatTensor, globalState.generator, mean, stdv)
-        return self
-
-    def exponential(_FloatTensor self, float _lambda=1):
-        THFloatTensor_exponential(self.thFloatTensor, globalState.generator, _lambda)
-        return self
-
-    def cauchy(_FloatTensor self, float median=0, float sigma=1):
-        THFloatTensor_cauchy(self.thFloatTensor, globalState.generator, median, sigma)
-        return self
-
-    def logNormal(_FloatTensor self, float mean=1, float stdv=2):
-        THFloatTensor_logNormal(self.thFloatTensor, globalState.generator, mean, stdv)
-        return self
 
     # ====================================
 

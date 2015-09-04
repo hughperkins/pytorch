@@ -13,6 +13,7 @@ def myexec(expr):
 
 def test_double_tensor():
     LongTensor = PyTorch.LongTensor
+    DoubleTensor = PyTorch.DoubleTensor
     print('dir(G)', dir())
     print('test_double_tensor')
     a = PyTorch.DoubleTensor(3, 2)
@@ -31,4 +32,11 @@ def test_double_tensor():
     myexec('size[1] = 2')
     myexec('a.resize(size)')
     myeval('a')
+    myeval('DoubleTensor(3,4).uniform()')
+    myeval('DoubleTensor(3,4).bernoulli()')
+    myeval('DoubleTensor(3,4).normal()')
+    myeval('DoubleTensor(3,4).cauchy()')
+    myeval('DoubleTensor(3,4).exponential()')
+    myeval('DoubleTensor(3,4).logNormal()')
+    myeval('DoubleTensor(3,4).geometric()')
 
