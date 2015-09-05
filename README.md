@@ -34,7 +34,7 @@ Run example script by doing:
 ./run.sh
 ```
 
-* [test_pytorch.py](test_pytorch.py)
+* [test_pytorch.py](test/test_pytorch.py)
 * [test_pytorch_output.txt](test_outputs/test_pytorch_output.txt)
 
 # pynn
@@ -45,7 +45,7 @@ Run example script by doing:
 ./nn_run.sh
 ```
 
-* [test_pynn.py](test_pynn.py)
+* [test_pynn.py](test/test_pynn.py)
 * [test_pynn_output.txt](test_outputs/test_pynn_output.txt)
 
 # Installation
