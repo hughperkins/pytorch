@@ -26,7 +26,9 @@ jinja_present = True
 # first generate cython pyx from jinja template...
 from jinja2 import Environment, PackageLoader, Template
 env = Environment(loader=jinja2.FileSystemLoader('.'))
-templateNames = ['src/PyTorch.jinja2.pyx', 'src/PyTorch.jinja2.pxd', 'src/nnWrapper.jinja2.cpp', 'src/nnWrapper.jinja2.h']
+templateNames = [
+    'src/PyTorch.jinja2.pyx', 'src/PyTorch.jinja2.pxd', 'src/nnWrapper.jinja2.cpp', 'src/nnWrapper.jinja2.h',
+    'test/jinja2.test_pytorch.py']
 for templateName in templateNames:
     template = env.get_template(templateName)
     pyx = template.render(
@@ -34,7 +36,7 @@ for templateName in templateNames:
         'Source: ' + templateName,
         header1='GENERATED FILE, do not edit by hand',
         header2='Source: ' + templateName)
-    outFilename = templateName.replace('.jinja2', '')
+    outFilename = templateName.replace('.jinja2', '').replace('jinja2.', '')
     print('outfilename', outFilename)
     # read existing file, see if anything changed
     f = open(outFilename, 'rb')  # binary, so get linux line endings, even on Windows

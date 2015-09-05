@@ -63,6 +63,7 @@ luarocks install nn
 pip install numpy
 pip install Cython
 pip install Jinja2
+pip install pytest
 ```
 
 ## Procedure

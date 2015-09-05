@@ -453,7 +453,6 @@ cdef extern from "THTensor.h":
     long THDoubleTensor_size(const THDoubleTensor *self, int dim)
     long THDoubleTensor_nElement(THDoubleTensor *self)
     void THDoubleTensor_retain(THDoubleTensor *self)
-    void THDoubleTensor_geometric(THDoubleTensor *self, THGenerator *_generator, double p)
     void THDoubleTensor_set1d(const THDoubleTensor *tensor, long x0, float value)
     void THDoubleTensor_set2d(const THDoubleTensor *tensor, long x0, long x1, float value)
     double THDoubleTensor_get1d(const THDoubleTensor *tensor, long x0)
@@ -466,13 +465,15 @@ cdef extern from "THTensor.h":
     THDoubleTensor* THDoubleTensor_newWithStorage2d(THDoubleStorage *storage, long storageOffset, long size0, long stride0, long size1, long stride1)
     THDoubleStorage *THDoubleTensor_storage(THDoubleTensor *self)
 
+    void THDoubleTensor_geometric(THDoubleTensor *self, THGenerator *_generator, double p)
+    void THDoubleTensor_bernoulli(THDoubleTensor *self, THGenerator *_generator, double p)
+
     
     void THDoubleTensor_uniform(THDoubleTensor *self, THGenerator *_generator, double a, double b)
     void THDoubleTensor_normal(THDoubleTensor *self, THGenerator *_generator, double mean, double stdv)
     void THDoubleTensor_exponential(THDoubleTensor *self, THGenerator *_generator, double _lambda);
     void THDoubleTensor_cauchy(THDoubleTensor *self, THGenerator *_generator, double median, double sigma)
     void THDoubleTensor_logNormal(THDoubleTensor *self, THGenerator *_generator, double mean, double stdv)
-    void THDoubleTensor_bernoulli(THDoubleTensor *self, THGenerator *_generator, double p)
     
 
 
@@ -492,7 +493,6 @@ cdef extern from "THTensor.h":
     long THByteTensor_size(const THByteTensor *self, int dim)
     long THByteTensor_nElement(THByteTensor *self)
     void THByteTensor_retain(THByteTensor *self)
-    void THByteTensor_geometric(THByteTensor *self, THGenerator *_generator, double p)
     void THByteTensor_set1d(const THByteTensor *tensor, long x0, float value)
     void THByteTensor_set2d(const THByteTensor *tensor, long x0, long x1, float value)
     unsigned char THByteTensor_get1d(const THByteTensor *tensor, long x0)
@@ -504,6 +504,9 @@ cdef extern from "THTensor.h":
     THByteTensor* THByteTensor_newWithStorage1d(THByteStorage *storage, long storageOffset, long size0, long stride0)
     THByteTensor* THByteTensor_newWithStorage2d(THByteStorage *storage, long storageOffset, long size0, long stride0, long size1, long stride1)
     THByteStorage *THByteTensor_storage(THByteTensor *self)
+
+    void THByteTensor_geometric(THByteTensor *self, THGenerator *_generator, double p)
+    void THByteTensor_bernoulli(THByteTensor *self, THGenerator *_generator, double p)
 
     
 
@@ -524,7 +527,6 @@ cdef extern from "THTensor.h":
     long THFloatTensor_size(const THFloatTensor *self, int dim)
     long THFloatTensor_nElement(THFloatTensor *self)
     void THFloatTensor_retain(THFloatTensor *self)
-    void THFloatTensor_geometric(THFloatTensor *self, THGenerator *_generator, double p)
     void THFloatTensor_set1d(const THFloatTensor *tensor, long x0, float value)
     void THFloatTensor_set2d(const THFloatTensor *tensor, long x0, long x1, float value)
     float THFloatTensor_get1d(const THFloatTensor *tensor, long x0)
@@ -537,13 +539,15 @@ cdef extern from "THTensor.h":
     THFloatTensor* THFloatTensor_newWithStorage2d(THFloatStorage *storage, long storageOffset, long size0, long stride0, long size1, long stride1)
     THFloatStorage *THFloatTensor_storage(THFloatTensor *self)
 
+    void THFloatTensor_geometric(THFloatTensor *self, THGenerator *_generator, double p)
+    void THFloatTensor_bernoulli(THFloatTensor *self, THGenerator *_generator, double p)
+
     
     void THFloatTensor_uniform(THFloatTensor *self, THGenerator *_generator, double a, double b)
     void THFloatTensor_normal(THFloatTensor *self, THGenerator *_generator, double mean, double stdv)
     void THFloatTensor_exponential(THFloatTensor *self, THGenerator *_generator, double _lambda);
     void THFloatTensor_cauchy(THFloatTensor *self, THGenerator *_generator, double median, double sigma)
     void THFloatTensor_logNormal(THFloatTensor *self, THGenerator *_generator, double mean, double stdv)
-    void THFloatTensor_bernoulli(THFloatTensor *self, THGenerator *_generator, double p)
     
 
 
@@ -563,7 +567,6 @@ cdef extern from "THTensor.h":
     long THLongTensor_size(const THLongTensor *self, int dim)
     long THLongTensor_nElement(THLongTensor *self)
     void THLongTensor_retain(THLongTensor *self)
-    void THLongTensor_geometric(THLongTensor *self, THGenerator *_generator, double p)
     void THLongTensor_set1d(const THLongTensor *tensor, long x0, float value)
     void THLongTensor_set2d(const THLongTensor *tensor, long x0, long x1, float value)
     long THLongTensor_get1d(const THLongTensor *tensor, long x0)
@@ -575,6 +578,9 @@ cdef extern from "THTensor.h":
     THLongTensor* THLongTensor_newWithStorage1d(THLongStorage *storage, long storageOffset, long size0, long stride0)
     THLongTensor* THLongTensor_newWithStorage2d(THLongStorage *storage, long storageOffset, long size0, long stride0, long size1, long stride1)
     THLongStorage *THLongTensor_storage(THLongTensor *self)
+
+    void THLongTensor_geometric(THLongTensor *self, THGenerator *_generator, double p)
+    void THLongTensor_bernoulli(THLongTensor *self, THGenerator *_generator, double p)
 
     
 
@@ -657,10 +663,6 @@ cdef class _DoubleTensor(object):
     @property
     def refCount(_DoubleTensor self):
         return THDoubleTensor_getRefCount(self.thDoubleTensor)
-
-    def geometric(_DoubleTensor self, float p=0.5):
-        THDoubleTensor_geometric(self.thDoubleTensor, globalState.generator, p)
-        return self
 
     cpdef int dims(self):
         return THDoubleTensor_nDimension(self.thDoubleTensor)
@@ -811,12 +813,16 @@ cdef class _DoubleTensor(object):
             return None
         return DoubleStorage.fromNative(storageC)
 
-
-    # ========== random ===============================
-    def bernoulli(_DoubleTensor self, double p=0.5):
+    def bernoulli(_DoubleTensor self, float p=0.5):
         THDoubleTensor_bernoulli(self.thDoubleTensor, globalState.generator, p)
         return self
 
+    def geometric(_DoubleTensor self, float p=0.5):
+        THDoubleTensor_geometric(self.thDoubleTensor, globalState.generator, p)
+        return self
+
+
+    # ========== random ===============================
     def normal(_DoubleTensor self, double mean=0, double stdv=1):
         THDoubleTensor_normal(self.thDoubleTensor, globalState.generator, mean, stdv)
         return self
@@ -926,10 +932,6 @@ cdef class _ByteTensor(object):
     @property
     def refCount(_ByteTensor self):
         return THByteTensor_getRefCount(self.thByteTensor)
-
-    def geometric(_ByteTensor self, float p=0.5):
-        THByteTensor_geometric(self.thByteTensor, globalState.generator, p)
-        return self
 
     cpdef int dims(self):
         return THByteTensor_nDimension(self.thByteTensor)
@@ -1080,6 +1082,14 @@ cdef class _ByteTensor(object):
             return None
         return ByteStorage.fromNative(storageC)
 
+    def bernoulli(_ByteTensor self, float p=0.5):
+        THByteTensor_bernoulli(self.thByteTensor, globalState.generator, p)
+        return self
+
+    def geometric(_ByteTensor self, float p=0.5):
+        THByteTensor_geometric(self.thByteTensor, globalState.generator, p)
+        return self
+
 
 
 
@@ -1170,10 +1180,6 @@ cdef class _FloatTensor(object):
     @property
     def refCount(_FloatTensor self):
         return THFloatTensor_getRefCount(self.thFloatTensor)
-
-    def geometric(_FloatTensor self, float p=0.5):
-        THFloatTensor_geometric(self.thFloatTensor, globalState.generator, p)
-        return self
 
     cpdef int dims(self):
         return THFloatTensor_nDimension(self.thFloatTensor)
@@ -1324,12 +1330,16 @@ cdef class _FloatTensor(object):
             return None
         return FloatStorage.fromNative(storageC)
 
-
-    # ========== random ===============================
     def bernoulli(_FloatTensor self, float p=0.5):
         THFloatTensor_bernoulli(self.thFloatTensor, globalState.generator, p)
         return self
 
+    def geometric(_FloatTensor self, float p=0.5):
+        THFloatTensor_geometric(self.thFloatTensor, globalState.generator, p)
+        return self
+
+
+    # ========== random ===============================
     def normal(_FloatTensor self, float mean=0, float stdv=1):
         THFloatTensor_normal(self.thFloatTensor, globalState.generator, mean, stdv)
         return self
@@ -1457,10 +1467,6 @@ cdef class _LongTensor(object):
     @property
     def refCount(_LongTensor self):
         return THLongTensor_getRefCount(self.thLongTensor)
-
-    def geometric(_LongTensor self, float p=0.5):
-        THLongTensor_geometric(self.thLongTensor, globalState.generator, p)
-        return self
 
     cpdef int dims(self):
         return THLongTensor_nDimension(self.thLongTensor)
@@ -1610,6 +1616,14 @@ cdef class _LongTensor(object):
         if storageC == NULL:
             return None
         return LongStorage.fromNative(storageC)
+
+    def bernoulli(_LongTensor self, float p=0.5):
+        THLongTensor_bernoulli(self.thLongTensor, globalState.generator, p)
+        return self
+
+    def geometric(_LongTensor self, float p=0.5):
+        THLongTensor_geometric(self.thLongTensor, globalState.generator, p)
+        return self
 
 
 

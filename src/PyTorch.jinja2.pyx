@@ -245,7 +245,6 @@ cdef extern from "THTensor.h":
     long TH{{Real}}Tensor_size(const TH{{Real}}Tensor *self, int dim)
     long TH{{Real}}Tensor_nElement(TH{{Real}}Tensor *self)
     void TH{{Real}}Tensor_retain(TH{{Real}}Tensor *self)
-    void TH{{Real}}Tensor_geometric(TH{{Real}}Tensor *self, THGenerator *_generator, double p)
     void TH{{Real}}Tensor_set1d(const TH{{Real}}Tensor *tensor, long x0, float value)
     void TH{{Real}}Tensor_set2d(const TH{{Real}}Tensor *tensor, long x0, long x1, float value)
     {{real}} TH{{Real}}Tensor_get1d(const TH{{Real}}Tensor *tensor, long x0)
@@ -258,13 +257,15 @@ cdef extern from "THTensor.h":
     TH{{Real}}Tensor* TH{{Real}}Tensor_newWithStorage2d(TH{{Real}}Storage *storage, long storageOffset, long size0, long stride0, long size1, long stride1)
     TH{{Real}}Storage *TH{{Real}}Tensor_storage(TH{{Real}}Tensor *self)
 
+    void TH{{Real}}Tensor_geometric(TH{{Real}}Tensor *self, THGenerator *_generator, double p)
+    void TH{{Real}}Tensor_bernoulli(TH{{Real}}Tensor *self, THGenerator *_generator, double p)
+
     {% if Real in ['Float', 'Double'] %}
     void TH{{Real}}Tensor_uniform(TH{{Real}}Tensor *self, THGenerator *_generator, double a, double b)
     void TH{{Real}}Tensor_normal(TH{{Real}}Tensor *self, THGenerator *_generator, double mean, double stdv)
     void TH{{Real}}Tensor_exponential(TH{{Real}}Tensor *self, THGenerator *_generator, double _lambda);
     void TH{{Real}}Tensor_cauchy(TH{{Real}}Tensor *self, THGenerator *_generator, double median, double sigma)
     void TH{{Real}}Tensor_logNormal(TH{{Real}}Tensor *self, THGenerator *_generator, double mean, double stdv)
-    void TH{{Real}}Tensor_bernoulli(TH{{Real}}Tensor *self, THGenerator *_generator, double p)
     {% endif %}
 {% endfor %}
 
@@ -346,10 +347,6 @@ cdef class _{{Real}}Tensor(object):
     @property
     def refCount(_{{Real}}Tensor self):
         return TH{{Real}}Tensor_getRefCount(self.th{{Real}}Tensor)
-
-    def geometric(_{{Real}}Tensor self, float p=0.5):
-        TH{{Real}}Tensor_geometric(self.th{{Real}}Tensor, globalState.generator, p)
-        return self
 
     cpdef int dims(self):
         return TH{{Real}}Tensor_nDimension(self.th{{Real}}Tensor)
@@ -504,12 +501,16 @@ cdef class _{{Real}}Tensor(object):
             return None
         return {{Real}}Storage.fromNative(storageC)
 
-{% if Real in ['Float', 'Double'] %}
-    # ========== random ===============================
-    def bernoulli(_{{Real}}Tensor self, {{real}} p=0.5):
+    def bernoulli(_{{Real}}Tensor self, float p=0.5):
         TH{{Real}}Tensor_bernoulli(self.th{{Real}}Tensor, globalState.generator, p)
         return self
 
+    def geometric(_{{Real}}Tensor self, float p=0.5):
+        TH{{Real}}Tensor_geometric(self.th{{Real}}Tensor, globalState.generator, p)
+        return self
+
+{% if Real in ['Float', 'Double'] %}
+    # ========== random ===============================
     def normal(_{{Real}}Tensor self, {{real}} mean=0, {{real}} stdv=1):
         TH{{Real}}Tensor_normal(self.th{{Real}}Tensor, globalState.generator, mean, stdv)
         return self
