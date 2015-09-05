@@ -5,14 +5,26 @@ from __future__ import print_function
 import PyTorch
 import array
 import numpy
+import inspect
 
 
+
+def myeval(expr):
+    parent_vars = inspect.stack()[1][0].f_locals
+    print(expr, ':', eval(expr, parent_vars))
+
+def myexec(expr):
+    parent_vars = inspect.stack()[1][0].f_locals
+    print(expr)
+    exec(expr, parent_vars)
 
 
 
 def test_pytorchDouble():
     PyTorch.manualSeed(123)
     numpy.random.seed(123)
+
+    DoubleTensor = PyTorch.DoubleTensor
 
     
 
@@ -55,17 +67,34 @@ def test_pytorchDouble():
     print('resize2d', PyTorch.DoubleTensor().resize2d(2, 3).fill(1))
     print('resize', PyTorch.DoubleTensor().resize(size).fill(1))
 
-    def myeval(expr):
-        print(expr, ':', eval(expr))
+#    def myeval(expr):
+#        print(expr, ':', eval(expr))
 
-    myeval('PyTorch.DoubleTensor(3,2).nElement()')
-    myeval('PyTorch.DoubleTensor().nElement()')
-    myeval('PyTorch.DoubleTensor(1).nElement()')
+#    def myexec(expr):
+#        print(expr)
+#        exec(expr)
+
+    myeval('DoubleTensor(3,2).nElement()')
+    myeval('DoubleTensor().nElement()')
+    myeval('DoubleTensor(1).nElement()')
+
+    A = DoubleTensor(3,4).geometric()
+    myeval('A')
+    myexec('A += 3')
+    myeval('A')
+    myexec('A *= 3')
+    myeval('A')
+    myexec('A -= 3')
+    myeval('A')
+    myexec('A /= 3')
+    myeval('A')
 
 
 def test_pytorchByte():
     PyTorch.manualSeed(123)
     numpy.random.seed(123)
+
+    ByteTensor = PyTorch.ByteTensor
 
     
 
@@ -102,17 +131,34 @@ def test_pytorchByte():
     print('resize2d', PyTorch.ByteTensor().resize2d(2, 3).fill(1))
     print('resize', PyTorch.ByteTensor().resize(size).fill(1))
 
-    def myeval(expr):
-        print(expr, ':', eval(expr))
+#    def myeval(expr):
+#        print(expr, ':', eval(expr))
 
-    myeval('PyTorch.ByteTensor(3,2).nElement()')
-    myeval('PyTorch.ByteTensor().nElement()')
-    myeval('PyTorch.ByteTensor(1).nElement()')
+#    def myexec(expr):
+#        print(expr)
+#        exec(expr)
+
+    myeval('ByteTensor(3,2).nElement()')
+    myeval('ByteTensor().nElement()')
+    myeval('ByteTensor(1).nElement()')
+
+    A = ByteTensor(3,4).geometric()
+    myeval('A')
+    myexec('A += 3')
+    myeval('A')
+    myexec('A *= 3')
+    myeval('A')
+    myexec('A -= 3')
+    myeval('A')
+    myexec('A /= 3')
+    myeval('A')
 
 
 def test_pytorchFloat():
     PyTorch.manualSeed(123)
     numpy.random.seed(123)
+
+    FloatTensor = PyTorch.FloatTensor
 
     
     A = numpy.random.rand(6).reshape(3,2).astype(numpy.float32)
@@ -190,17 +236,34 @@ def test_pytorchFloat():
     print('resize2d', PyTorch.FloatTensor().resize2d(2, 3).fill(1))
     print('resize', PyTorch.FloatTensor().resize(size).fill(1))
 
-    def myeval(expr):
-        print(expr, ':', eval(expr))
+#    def myeval(expr):
+#        print(expr, ':', eval(expr))
 
-    myeval('PyTorch.FloatTensor(3,2).nElement()')
-    myeval('PyTorch.FloatTensor().nElement()')
-    myeval('PyTorch.FloatTensor(1).nElement()')
+#    def myexec(expr):
+#        print(expr)
+#        exec(expr)
+
+    myeval('FloatTensor(3,2).nElement()')
+    myeval('FloatTensor().nElement()')
+    myeval('FloatTensor(1).nElement()')
+
+    A = FloatTensor(3,4).geometric()
+    myeval('A')
+    myexec('A += 3')
+    myeval('A')
+    myexec('A *= 3')
+    myeval('A')
+    myexec('A -= 3')
+    myeval('A')
+    myexec('A /= 3')
+    myeval('A')
 
 
 def test_pytorchLong():
     PyTorch.manualSeed(123)
     numpy.random.seed(123)
+
+    LongTensor = PyTorch.LongTensor
 
     
 
@@ -237,12 +300,27 @@ def test_pytorchLong():
     print('resize2d', PyTorch.LongTensor().resize2d(2, 3).fill(1))
     print('resize', PyTorch.LongTensor().resize(size).fill(1))
 
-    def myeval(expr):
-        print(expr, ':', eval(expr))
+#    def myeval(expr):
+#        print(expr, ':', eval(expr))
 
-    myeval('PyTorch.LongTensor(3,2).nElement()')
-    myeval('PyTorch.LongTensor().nElement()')
-    myeval('PyTorch.LongTensor(1).nElement()')
+#    def myexec(expr):
+#        print(expr)
+#        exec(expr)
+
+    myeval('LongTensor(3,2).nElement()')
+    myeval('LongTensor().nElement()')
+    myeval('LongTensor(1).nElement()')
+
+    A = LongTensor(3,4).geometric()
+    myeval('A')
+    myexec('A += 3')
+    myeval('A')
+    myexec('A *= 3')
+    myeval('A')
+    myexec('A -= 3')
+    myeval('A')
+    myexec('A /= 3')
+    myeval('A')
 
 
 if __name__ == '__main__':

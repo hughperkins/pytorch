@@ -5,6 +5,7 @@ from __future__ import print_function
 import PyTorch
 import array
 import numpy
+import inspect
 
 {% set types = {
     'Long': {'real': 'long'},
@@ -14,11 +15,22 @@ import numpy
 }
 %}
 
+def myeval(expr):
+    parent_vars = inspect.stack()[1][0].f_locals
+    print(expr, ':', eval(expr, parent_vars))
+
+def myexec(expr):
+    parent_vars = inspect.stack()[1][0].f_locals
+    print(expr)
+    exec(expr, parent_vars)
+
 {% for Real in types %}
 {% set real = types[Real]['real'] %}
 def test_pytorch{{Real}}():
     PyTorch.manualSeed(123)
     numpy.random.seed(123)
+
+    {{Real}}Tensor = PyTorch.{{Real}}Tensor
 
     {% if Real == 'Float' %}
     A = numpy.random.rand(6).reshape(3,2).astype(numpy.float32)
@@ -96,12 +108,27 @@ def test_pytorch{{Real}}():
     print('resize2d', PyTorch.{{Real}}Tensor().resize2d(2, 3).fill(1))
     print('resize', PyTorch.{{Real}}Tensor().resize(size).fill(1))
 
-    def myeval(expr):
-        print(expr, ':', eval(expr))
+#    def myeval(expr):
+#        print(expr, ':', eval(expr))
 
-    myeval('PyTorch.{{Real}}Tensor(3,2).nElement()')
-    myeval('PyTorch.{{Real}}Tensor().nElement()')
-    myeval('PyTorch.{{Real}}Tensor(1).nElement()')
+#    def myexec(expr):
+#        print(expr)
+#        exec(expr)
+
+    myeval('{{Real}}Tensor(3,2).nElement()')
+    myeval('{{Real}}Tensor().nElement()')
+    myeval('{{Real}}Tensor(1).nElement()')
+
+    A = {{Real}}Tensor(3,4).geometric()
+    myeval('A')
+    myexec('A += 3')
+    myeval('A')
+    myexec('A *= 3')
+    myeval('A')
+    myexec('A -= 3')
+    myeval('A')
+    myexec('A /= 3')
+    myeval('A')
 {% endfor %}
 
 if __name__ == '__main__':

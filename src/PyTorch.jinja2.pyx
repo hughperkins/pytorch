@@ -2,7 +2,7 @@
 # {{header2}}
 
 from __future__ import print_function
-
+import numbers
 import cython
 cimport cython
 
@@ -54,9 +54,12 @@ cdef extern from "THTensor.h":
     TH{{Real}}Tensor *TH{{Real}}Tensor_new()
     TH{{Real}}Tensor *TH{{Real}}Tensor_newWithSize1d(long size0)
     TH{{Real}}Tensor *TH{{Real}}Tensor_newWithSize2d(long size0, long size1)
+    TH{{Real}}Tensor* TH{{Real}}Tensor_newWithStorage1d(Storage.TH{{Real}}Storage *storage, long storageOffset, long size0, long stride0)
+    TH{{Real}}Tensor* TH{{Real}}Tensor_newWithStorage2d(Storage.TH{{Real}}Storage *storage, long storageOffset, long size0, long stride0, long size1, long stride1)
+    void TH{{Real}}Tensor_retain(TH{{Real}}Tensor *self)
     void TH{{Real}}Tensor_free(TH{{Real}}Tensor *self)
+
     int TH{{Real}}Tensor_nDimension(TH{{Real}}Tensor *tensor)
-    TH{{Real}}Tensor *TH{{Real}}Tensor_newSelect(TH{{Real}}Tensor *self, int dimension, int sliceIndex)
     void TH{{Real}}Tensor_resizeAs(TH{{Real}}Tensor *self, THFloatTensor *model)
     void TH{{Real}}Tensor_resize1d(TH{{Real}}Tensor *self, long size0)
     void TH{{Real}}Tensor_resize2d(TH{{Real}}Tensor *self, long size0, long size1)
@@ -64,18 +67,21 @@ cdef extern from "THTensor.h":
     void TH{{Real}}Tensor_resize4d(TH{{Real}}Tensor *self, long size0, long size1, long size2, long size3)
     long TH{{Real}}Tensor_size(const TH{{Real}}Tensor *self, int dim)
     long TH{{Real}}Tensor_nElement(TH{{Real}}Tensor *self)
-    void TH{{Real}}Tensor_retain(TH{{Real}}Tensor *self)
+    long TH{{Real}}Tensor_stride(const TH{{Real}}Tensor *self, int dim)
+
     void TH{{Real}}Tensor_set1d(const TH{{Real}}Tensor *tensor, long x0, float value)
     void TH{{Real}}Tensor_set2d(const TH{{Real}}Tensor *tensor, long x0, long x1, float value)
     {{real}} TH{{Real}}Tensor_get1d(const TH{{Real}}Tensor *tensor, long x0)
     {{real}} TH{{Real}}Tensor_get2d(const TH{{Real}}Tensor *tensor, long x0, long x1)
-    long TH{{Real}}Tensor_stride(const TH{{Real}}Tensor *self, int dim)
+
     void TH{{Real}}Tensor_fill(TH{{Real}}Tensor *self, {{real}} value)
-    void TH{{Real}}Tensor_add(TH{{Real}}Tensor *r_, TH{{Real}}Tensor *t, {{real}} value)
+    TH{{Real}}Tensor *TH{{Real}}Tensor_newSelect(TH{{Real}}Tensor *self, int dimension, int sliceIndex)
     TH{{Real}}Tensor *TH{{Real}}Tensor_newNarrow(TH{{Real}}Tensor *self, int dimension, long firstIndex, long size)
-    TH{{Real}}Tensor* TH{{Real}}Tensor_newWithStorage1d(Storage.TH{{Real}}Storage *storage, long storageOffset, long size0, long stride0)
-    TH{{Real}}Tensor* TH{{Real}}Tensor_newWithStorage2d(Storage.TH{{Real}}Storage *storage, long storageOffset, long size0, long stride0, long size1, long stride1)
     Storage.TH{{Real}}Storage *TH{{Real}}Tensor_storage(TH{{Real}}Tensor *self)
+
+    void TH{{Real}}Tensor_add(TH{{Real}}Tensor *r_, TH{{Real}}Tensor *t, {{real}} value)
+    void TH{{Real}}Tensor_div(TH{{Real}}Tensor *r_, TH{{Real}}Tensor *t, {{real}} value)
+    void TH{{Real}}Tensor_mul(TH{{Real}}Tensor *r_, TH{{Real}}Tensor *t, {{real}} value)
     void TH{{Real}}Tensor_add(TH{{Real}}Tensor *tensorSelf, TH{{Real}}Tensor *tensorOne, {{real}} value)
 
     void TH{{Real}}Tensor_geometric(TH{{Real}}Tensor *self, THGenerator *_generator, double p)
@@ -257,13 +263,6 @@ cdef class _{{Real}}Tensor(object):
         return _{{Real}}Tensor()
 #        return _FloatTensor_fromNative(newTensorC, False)
 
-    def __add__(_{{Real}}Tensor self, {{real}} value):
-        # assume 2d matrix for now?
-        cdef _{{Real}}Tensor res = _{{Real}}Tensor.new()
-#        THFloatTensor_resizeAs(cresult, self.thFloatTensor)
-        TH{{Real}}Tensor_add(res.th{{Real}}Tensor, self.th{{Real}}Tensor, value)
-        return res
-
     def narrow(_{{Real}}Tensor self, int dimension, long firstIndex, long size):
         cdef TH{{Real}}Tensor *narrowedC = TH{{Real}}Tensor_newNarrow(self.th{{Real}}Tensor, dimension, firstIndex, size)
         return _{{Real}}Tensor_fromNative(narrowedC, retain=False)
@@ -320,9 +319,54 @@ cdef class _{{Real}}Tensor(object):
             return None
         return Storage.{{Real}}Storage_fromNative(storageC)
 
+    def __add__(_{{Real}}Tensor self, {{real}} value):
+        # assume 2d matrix for now?
+        cdef _{{Real}}Tensor res = _{{Real}}Tensor.new()
+#        THFloatTensor_resizeAs(cresult, self.thFloatTensor)
+        TH{{Real}}Tensor_add(res.th{{Real}}Tensor, self.th{{Real}}Tensor, value)
+        return res
+
     def __iadd__(_{{Real}}Tensor self, {{real}} value):
         TH{{Real}}Tensor_add(self.th{{Real}}Tensor, self.th{{Real}}Tensor, value)
         return self
+
+    def __isub__(_{{Real}}Tensor self, {{real}} value):
+        TH{{Real}}Tensor_add(self.th{{Real}}Tensor, self.th{{Real}}Tensor, -value)
+        return self
+
+    def __idiv__(_{{Real}}Tensor self, {{real}} value):
+        TH{{Real}}Tensor_div(self.th{{Real}}Tensor, self.th{{Real}}Tensor, value)
+        return self
+
+    def __imul__(_{{Real}}Tensor self, {{real}} value):
+        TH{{Real}}Tensor_mul(self.th{{Real}}Tensor, self.th{{Real}}Tensor, value)
+        return self
+
+#    def __mul__(_{{Real}}Tensor self, _{{Real}}Tensor M2):
+    def __mul__(_{{Real}}Tensor self, second):
+        cdef _{{Real}}Tensor M2
+        cdef _{{Real}}Tensor T
+        cdef _{{Real}}Tensor res
+        cdef int resRows
+        cdef int resCols
+
+        res = _{{Real}}Tensor.new()
+        if isinstance(second, numbers.Number):
+            TH{{Real}}Tensor_mul(res.th{{Real}}Tensor, self.th{{Real}}Tensor, second)
+            return res
+        else:
+        {% if Real in ['Float', 'Double'] %}
+            M2 = second
+            T = _{{Real}}Tensor.new()
+            resRows = TH{{Real}}Tensor_size(self.th{{Real}}Tensor, 0)
+            resCols = TH{{Real}}Tensor_size(M2.th{{Real}}Tensor, 1)
+            res.resize2d(resRows, resCols)
+            T.resize2d(resRows, resCols)
+            TH{{Real}}Tensor_addmm(res.th{{Real}}Tensor, 0, T.th{{Real}}Tensor, 1, self.th{{Real}}Tensor, M2.th{{Real}}Tensor)
+            return res
+        {% else %}
+            raise Exception('Invalid arg type for second: ' + str(type(second)))
+        {% endif %}
 
     # ========== random ===============================
 
@@ -335,16 +379,6 @@ cdef class _{{Real}}Tensor(object):
         return self
 
 {% if Real in ['Float', 'Double'] %}
-    def __mul__(_{{Real}}Tensor self, _{{Real}}Tensor M2):
-        cdef _{{Real}}Tensor T = _{{Real}}Tensor.new()
-        cdef _{{Real}}Tensor res = _{{Real}}Tensor.new()
-        cdef int resRows = TH{{Real}}Tensor_size(self.th{{Real}}Tensor, 0)
-        cdef int resCols = TH{{Real}}Tensor_size(M2.th{{Real}}Tensor, 1)
-        res.resize2d(resRows, resCols)
-        T.resize2d(resRows, resCols)
-        TH{{Real}}Tensor_addmm(res.th{{Real}}Tensor, 0, T.th{{Real}}Tensor, 1, self.th{{Real}}Tensor, M2.th{{Real}}Tensor)
-        return res
-
     def normal(_{{Real}}Tensor self, {{real}} mean=0, {{real}} stdv=1):
         TH{{Real}}Tensor_normal(self.th{{Real}}Tensor, globalState.generator, mean, stdv)
         return self

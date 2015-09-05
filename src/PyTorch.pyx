@@ -2,7 +2,7 @@
 # Source: src/PyTorch.jinja2.pyx
 
 from __future__ import print_function
-
+import numbers
 import cython
 cimport cython
 
@@ -48,9 +48,12 @@ cdef extern from "THTensor.h":
     THDoubleTensor *THDoubleTensor_new()
     THDoubleTensor *THDoubleTensor_newWithSize1d(long size0)
     THDoubleTensor *THDoubleTensor_newWithSize2d(long size0, long size1)
+    THDoubleTensor* THDoubleTensor_newWithStorage1d(Storage.THDoubleStorage *storage, long storageOffset, long size0, long stride0)
+    THDoubleTensor* THDoubleTensor_newWithStorage2d(Storage.THDoubleStorage *storage, long storageOffset, long size0, long stride0, long size1, long stride1)
+    void THDoubleTensor_retain(THDoubleTensor *self)
     void THDoubleTensor_free(THDoubleTensor *self)
+
     int THDoubleTensor_nDimension(THDoubleTensor *tensor)
-    THDoubleTensor *THDoubleTensor_newSelect(THDoubleTensor *self, int dimension, int sliceIndex)
     void THDoubleTensor_resizeAs(THDoubleTensor *self, THFloatTensor *model)
     void THDoubleTensor_resize1d(THDoubleTensor *self, long size0)
     void THDoubleTensor_resize2d(THDoubleTensor *self, long size0, long size1)
@@ -58,18 +61,21 @@ cdef extern from "THTensor.h":
     void THDoubleTensor_resize4d(THDoubleTensor *self, long size0, long size1, long size2, long size3)
     long THDoubleTensor_size(const THDoubleTensor *self, int dim)
     long THDoubleTensor_nElement(THDoubleTensor *self)
-    void THDoubleTensor_retain(THDoubleTensor *self)
+    long THDoubleTensor_stride(const THDoubleTensor *self, int dim)
+
     void THDoubleTensor_set1d(const THDoubleTensor *tensor, long x0, float value)
     void THDoubleTensor_set2d(const THDoubleTensor *tensor, long x0, long x1, float value)
     double THDoubleTensor_get1d(const THDoubleTensor *tensor, long x0)
     double THDoubleTensor_get2d(const THDoubleTensor *tensor, long x0, long x1)
-    long THDoubleTensor_stride(const THDoubleTensor *self, int dim)
+
     void THDoubleTensor_fill(THDoubleTensor *self, double value)
-    void THDoubleTensor_add(THDoubleTensor *r_, THDoubleTensor *t, double value)
+    THDoubleTensor *THDoubleTensor_newSelect(THDoubleTensor *self, int dimension, int sliceIndex)
     THDoubleTensor *THDoubleTensor_newNarrow(THDoubleTensor *self, int dimension, long firstIndex, long size)
-    THDoubleTensor* THDoubleTensor_newWithStorage1d(Storage.THDoubleStorage *storage, long storageOffset, long size0, long stride0)
-    THDoubleTensor* THDoubleTensor_newWithStorage2d(Storage.THDoubleStorage *storage, long storageOffset, long size0, long stride0, long size1, long stride1)
     Storage.THDoubleStorage *THDoubleTensor_storage(THDoubleTensor *self)
+
+    void THDoubleTensor_add(THDoubleTensor *r_, THDoubleTensor *t, double value)
+    void THDoubleTensor_div(THDoubleTensor *r_, THDoubleTensor *t, double value)
+    void THDoubleTensor_mul(THDoubleTensor *r_, THDoubleTensor *t, double value)
     void THDoubleTensor_add(THDoubleTensor *tensorSelf, THDoubleTensor *tensorOne, double value)
 
     void THDoubleTensor_geometric(THDoubleTensor *self, THGenerator *_generator, double p)
@@ -94,9 +100,12 @@ cdef extern from "THTensor.h":
     THByteTensor *THByteTensor_new()
     THByteTensor *THByteTensor_newWithSize1d(long size0)
     THByteTensor *THByteTensor_newWithSize2d(long size0, long size1)
+    THByteTensor* THByteTensor_newWithStorage1d(Storage.THByteStorage *storage, long storageOffset, long size0, long stride0)
+    THByteTensor* THByteTensor_newWithStorage2d(Storage.THByteStorage *storage, long storageOffset, long size0, long stride0, long size1, long stride1)
+    void THByteTensor_retain(THByteTensor *self)
     void THByteTensor_free(THByteTensor *self)
+
     int THByteTensor_nDimension(THByteTensor *tensor)
-    THByteTensor *THByteTensor_newSelect(THByteTensor *self, int dimension, int sliceIndex)
     void THByteTensor_resizeAs(THByteTensor *self, THFloatTensor *model)
     void THByteTensor_resize1d(THByteTensor *self, long size0)
     void THByteTensor_resize2d(THByteTensor *self, long size0, long size1)
@@ -104,18 +113,21 @@ cdef extern from "THTensor.h":
     void THByteTensor_resize4d(THByteTensor *self, long size0, long size1, long size2, long size3)
     long THByteTensor_size(const THByteTensor *self, int dim)
     long THByteTensor_nElement(THByteTensor *self)
-    void THByteTensor_retain(THByteTensor *self)
+    long THByteTensor_stride(const THByteTensor *self, int dim)
+
     void THByteTensor_set1d(const THByteTensor *tensor, long x0, float value)
     void THByteTensor_set2d(const THByteTensor *tensor, long x0, long x1, float value)
     unsigned char THByteTensor_get1d(const THByteTensor *tensor, long x0)
     unsigned char THByteTensor_get2d(const THByteTensor *tensor, long x0, long x1)
-    long THByteTensor_stride(const THByteTensor *self, int dim)
+
     void THByteTensor_fill(THByteTensor *self, unsigned char value)
-    void THByteTensor_add(THByteTensor *r_, THByteTensor *t, unsigned char value)
+    THByteTensor *THByteTensor_newSelect(THByteTensor *self, int dimension, int sliceIndex)
     THByteTensor *THByteTensor_newNarrow(THByteTensor *self, int dimension, long firstIndex, long size)
-    THByteTensor* THByteTensor_newWithStorage1d(Storage.THByteStorage *storage, long storageOffset, long size0, long stride0)
-    THByteTensor* THByteTensor_newWithStorage2d(Storage.THByteStorage *storage, long storageOffset, long size0, long stride0, long size1, long stride1)
     Storage.THByteStorage *THByteTensor_storage(THByteTensor *self)
+
+    void THByteTensor_add(THByteTensor *r_, THByteTensor *t, unsigned char value)
+    void THByteTensor_div(THByteTensor *r_, THByteTensor *t, unsigned char value)
+    void THByteTensor_mul(THByteTensor *r_, THByteTensor *t, unsigned char value)
     void THByteTensor_add(THByteTensor *tensorSelf, THByteTensor *tensorOne, unsigned char value)
 
     void THByteTensor_geometric(THByteTensor *self, THGenerator *_generator, double p)
@@ -132,9 +144,12 @@ cdef extern from "THTensor.h":
     THFloatTensor *THFloatTensor_new()
     THFloatTensor *THFloatTensor_newWithSize1d(long size0)
     THFloatTensor *THFloatTensor_newWithSize2d(long size0, long size1)
+    THFloatTensor* THFloatTensor_newWithStorage1d(Storage.THFloatStorage *storage, long storageOffset, long size0, long stride0)
+    THFloatTensor* THFloatTensor_newWithStorage2d(Storage.THFloatStorage *storage, long storageOffset, long size0, long stride0, long size1, long stride1)
+    void THFloatTensor_retain(THFloatTensor *self)
     void THFloatTensor_free(THFloatTensor *self)
+
     int THFloatTensor_nDimension(THFloatTensor *tensor)
-    THFloatTensor *THFloatTensor_newSelect(THFloatTensor *self, int dimension, int sliceIndex)
     void THFloatTensor_resizeAs(THFloatTensor *self, THFloatTensor *model)
     void THFloatTensor_resize1d(THFloatTensor *self, long size0)
     void THFloatTensor_resize2d(THFloatTensor *self, long size0, long size1)
@@ -142,18 +157,21 @@ cdef extern from "THTensor.h":
     void THFloatTensor_resize4d(THFloatTensor *self, long size0, long size1, long size2, long size3)
     long THFloatTensor_size(const THFloatTensor *self, int dim)
     long THFloatTensor_nElement(THFloatTensor *self)
-    void THFloatTensor_retain(THFloatTensor *self)
+    long THFloatTensor_stride(const THFloatTensor *self, int dim)
+
     void THFloatTensor_set1d(const THFloatTensor *tensor, long x0, float value)
     void THFloatTensor_set2d(const THFloatTensor *tensor, long x0, long x1, float value)
     float THFloatTensor_get1d(const THFloatTensor *tensor, long x0)
     float THFloatTensor_get2d(const THFloatTensor *tensor, long x0, long x1)
-    long THFloatTensor_stride(const THFloatTensor *self, int dim)
+
     void THFloatTensor_fill(THFloatTensor *self, float value)
-    void THFloatTensor_add(THFloatTensor *r_, THFloatTensor *t, float value)
+    THFloatTensor *THFloatTensor_newSelect(THFloatTensor *self, int dimension, int sliceIndex)
     THFloatTensor *THFloatTensor_newNarrow(THFloatTensor *self, int dimension, long firstIndex, long size)
-    THFloatTensor* THFloatTensor_newWithStorage1d(Storage.THFloatStorage *storage, long storageOffset, long size0, long stride0)
-    THFloatTensor* THFloatTensor_newWithStorage2d(Storage.THFloatStorage *storage, long storageOffset, long size0, long stride0, long size1, long stride1)
     Storage.THFloatStorage *THFloatTensor_storage(THFloatTensor *self)
+
+    void THFloatTensor_add(THFloatTensor *r_, THFloatTensor *t, float value)
+    void THFloatTensor_div(THFloatTensor *r_, THFloatTensor *t, float value)
+    void THFloatTensor_mul(THFloatTensor *r_, THFloatTensor *t, float value)
     void THFloatTensor_add(THFloatTensor *tensorSelf, THFloatTensor *tensorOne, float value)
 
     void THFloatTensor_geometric(THFloatTensor *self, THGenerator *_generator, double p)
@@ -178,9 +196,12 @@ cdef extern from "THTensor.h":
     THLongTensor *THLongTensor_new()
     THLongTensor *THLongTensor_newWithSize1d(long size0)
     THLongTensor *THLongTensor_newWithSize2d(long size0, long size1)
+    THLongTensor* THLongTensor_newWithStorage1d(Storage.THLongStorage *storage, long storageOffset, long size0, long stride0)
+    THLongTensor* THLongTensor_newWithStorage2d(Storage.THLongStorage *storage, long storageOffset, long size0, long stride0, long size1, long stride1)
+    void THLongTensor_retain(THLongTensor *self)
     void THLongTensor_free(THLongTensor *self)
+
     int THLongTensor_nDimension(THLongTensor *tensor)
-    THLongTensor *THLongTensor_newSelect(THLongTensor *self, int dimension, int sliceIndex)
     void THLongTensor_resizeAs(THLongTensor *self, THFloatTensor *model)
     void THLongTensor_resize1d(THLongTensor *self, long size0)
     void THLongTensor_resize2d(THLongTensor *self, long size0, long size1)
@@ -188,18 +209,21 @@ cdef extern from "THTensor.h":
     void THLongTensor_resize4d(THLongTensor *self, long size0, long size1, long size2, long size3)
     long THLongTensor_size(const THLongTensor *self, int dim)
     long THLongTensor_nElement(THLongTensor *self)
-    void THLongTensor_retain(THLongTensor *self)
+    long THLongTensor_stride(const THLongTensor *self, int dim)
+
     void THLongTensor_set1d(const THLongTensor *tensor, long x0, float value)
     void THLongTensor_set2d(const THLongTensor *tensor, long x0, long x1, float value)
     long THLongTensor_get1d(const THLongTensor *tensor, long x0)
     long THLongTensor_get2d(const THLongTensor *tensor, long x0, long x1)
-    long THLongTensor_stride(const THLongTensor *self, int dim)
+
     void THLongTensor_fill(THLongTensor *self, long value)
-    void THLongTensor_add(THLongTensor *r_, THLongTensor *t, long value)
+    THLongTensor *THLongTensor_newSelect(THLongTensor *self, int dimension, int sliceIndex)
     THLongTensor *THLongTensor_newNarrow(THLongTensor *self, int dimension, long firstIndex, long size)
-    THLongTensor* THLongTensor_newWithStorage1d(Storage.THLongStorage *storage, long storageOffset, long size0, long stride0)
-    THLongTensor* THLongTensor_newWithStorage2d(Storage.THLongStorage *storage, long storageOffset, long size0, long stride0, long size1, long stride1)
     Storage.THLongStorage *THLongTensor_storage(THLongTensor *self)
+
+    void THLongTensor_add(THLongTensor *r_, THLongTensor *t, long value)
+    void THLongTensor_div(THLongTensor *r_, THLongTensor *t, long value)
+    void THLongTensor_mul(THLongTensor *r_, THLongTensor *t, long value)
     void THLongTensor_add(THLongTensor *tensorSelf, THLongTensor *tensorOne, long value)
 
     void THLongTensor_geometric(THLongTensor *self, THGenerator *_generator, double p)
@@ -369,13 +393,6 @@ cdef class _DoubleTensor(object):
         return _DoubleTensor()
 #        return _FloatTensor_fromNative(newTensorC, False)
 
-    def __add__(_DoubleTensor self, double value):
-        # assume 2d matrix for now?
-        cdef _DoubleTensor res = _DoubleTensor.new()
-#        THFloatTensor_resizeAs(cresult, self.thFloatTensor)
-        THDoubleTensor_add(res.thDoubleTensor, self.thDoubleTensor, value)
-        return res
-
     def narrow(_DoubleTensor self, int dimension, long firstIndex, long size):
         cdef THDoubleTensor *narrowedC = THDoubleTensor_newNarrow(self.thDoubleTensor, dimension, firstIndex, size)
         return _DoubleTensor_fromNative(narrowedC, retain=False)
@@ -432,9 +449,52 @@ cdef class _DoubleTensor(object):
             return None
         return Storage.DoubleStorage_fromNative(storageC)
 
+    def __add__(_DoubleTensor self, double value):
+        # assume 2d matrix for now?
+        cdef _DoubleTensor res = _DoubleTensor.new()
+#        THFloatTensor_resizeAs(cresult, self.thFloatTensor)
+        THDoubleTensor_add(res.thDoubleTensor, self.thDoubleTensor, value)
+        return res
+
     def __iadd__(_DoubleTensor self, double value):
         THDoubleTensor_add(self.thDoubleTensor, self.thDoubleTensor, value)
         return self
+
+    def __isub__(_DoubleTensor self, double value):
+        THDoubleTensor_add(self.thDoubleTensor, self.thDoubleTensor, -value)
+        return self
+
+    def __idiv__(_DoubleTensor self, double value):
+        THDoubleTensor_div(self.thDoubleTensor, self.thDoubleTensor, value)
+        return self
+
+    def __imul__(_DoubleTensor self, double value):
+        THDoubleTensor_mul(self.thDoubleTensor, self.thDoubleTensor, value)
+        return self
+
+#    def __mul__(_DoubleTensor self, _DoubleTensor M2):
+    def __mul__(_DoubleTensor self, second):
+        cdef _DoubleTensor M2
+        cdef _DoubleTensor T
+        cdef _DoubleTensor res
+        cdef int resRows
+        cdef int resCols
+
+        res = _DoubleTensor.new()
+        if isinstance(second, numbers.Number):
+            THDoubleTensor_mul(res.thDoubleTensor, self.thDoubleTensor, second)
+            return res
+        else:
+        
+            M2 = second
+            T = _DoubleTensor.new()
+            resRows = THDoubleTensor_size(self.thDoubleTensor, 0)
+            resCols = THDoubleTensor_size(M2.thDoubleTensor, 1)
+            res.resize2d(resRows, resCols)
+            T.resize2d(resRows, resCols)
+            THDoubleTensor_addmm(res.thDoubleTensor, 0, T.thDoubleTensor, 1, self.thDoubleTensor, M2.thDoubleTensor)
+            return res
+        
 
     # ========== random ===============================
 
@@ -446,16 +506,6 @@ cdef class _DoubleTensor(object):
         THDoubleTensor_geometric(self.thDoubleTensor, globalState.generator, p)
         return self
 
-
-    def __mul__(_DoubleTensor self, _DoubleTensor M2):
-        cdef _DoubleTensor T = _DoubleTensor.new()
-        cdef _DoubleTensor res = _DoubleTensor.new()
-        cdef int resRows = THDoubleTensor_size(self.thDoubleTensor, 0)
-        cdef int resCols = THDoubleTensor_size(M2.thDoubleTensor, 1)
-        res.resize2d(resRows, resCols)
-        T.resize2d(resRows, resCols)
-        THDoubleTensor_addmm(res.thDoubleTensor, 0, T.thDoubleTensor, 1, self.thDoubleTensor, M2.thDoubleTensor)
-        return res
 
     def normal(_DoubleTensor self, double mean=0, double stdv=1):
         THDoubleTensor_normal(self.thDoubleTensor, globalState.generator, mean, stdv)
@@ -647,13 +697,6 @@ cdef class _ByteTensor(object):
         return _ByteTensor()
 #        return _FloatTensor_fromNative(newTensorC, False)
 
-    def __add__(_ByteTensor self, unsigned char value):
-        # assume 2d matrix for now?
-        cdef _ByteTensor res = _ByteTensor.new()
-#        THFloatTensor_resizeAs(cresult, self.thFloatTensor)
-        THByteTensor_add(res.thByteTensor, self.thByteTensor, value)
-        return res
-
     def narrow(_ByteTensor self, int dimension, long firstIndex, long size):
         cdef THByteTensor *narrowedC = THByteTensor_newNarrow(self.thByteTensor, dimension, firstIndex, size)
         return _ByteTensor_fromNative(narrowedC, retain=False)
@@ -710,9 +753,45 @@ cdef class _ByteTensor(object):
             return None
         return Storage.ByteStorage_fromNative(storageC)
 
+    def __add__(_ByteTensor self, unsigned char value):
+        # assume 2d matrix for now?
+        cdef _ByteTensor res = _ByteTensor.new()
+#        THFloatTensor_resizeAs(cresult, self.thFloatTensor)
+        THByteTensor_add(res.thByteTensor, self.thByteTensor, value)
+        return res
+
     def __iadd__(_ByteTensor self, unsigned char value):
         THByteTensor_add(self.thByteTensor, self.thByteTensor, value)
         return self
+
+    def __isub__(_ByteTensor self, unsigned char value):
+        THByteTensor_add(self.thByteTensor, self.thByteTensor, -value)
+        return self
+
+    def __idiv__(_ByteTensor self, unsigned char value):
+        THByteTensor_div(self.thByteTensor, self.thByteTensor, value)
+        return self
+
+    def __imul__(_ByteTensor self, unsigned char value):
+        THByteTensor_mul(self.thByteTensor, self.thByteTensor, value)
+        return self
+
+#    def __mul__(_ByteTensor self, _ByteTensor M2):
+    def __mul__(_ByteTensor self, second):
+        cdef _ByteTensor M2
+        cdef _ByteTensor T
+        cdef _ByteTensor res
+        cdef int resRows
+        cdef int resCols
+
+        res = _ByteTensor.new()
+        if isinstance(second, numbers.Number):
+            THByteTensor_mul(res.thByteTensor, self.thByteTensor, second)
+            return res
+        else:
+        
+            raise Exception('Invalid arg type for second: ' + str(type(second)))
+        
 
     # ========== random ===============================
 
@@ -895,13 +974,6 @@ cdef class _FloatTensor(object):
         return _FloatTensor()
 #        return _FloatTensor_fromNative(newTensorC, False)
 
-    def __add__(_FloatTensor self, float value):
-        # assume 2d matrix for now?
-        cdef _FloatTensor res = _FloatTensor.new()
-#        THFloatTensor_resizeAs(cresult, self.thFloatTensor)
-        THFloatTensor_add(res.thFloatTensor, self.thFloatTensor, value)
-        return res
-
     def narrow(_FloatTensor self, int dimension, long firstIndex, long size):
         cdef THFloatTensor *narrowedC = THFloatTensor_newNarrow(self.thFloatTensor, dimension, firstIndex, size)
         return _FloatTensor_fromNative(narrowedC, retain=False)
@@ -958,9 +1030,52 @@ cdef class _FloatTensor(object):
             return None
         return Storage.FloatStorage_fromNative(storageC)
 
+    def __add__(_FloatTensor self, float value):
+        # assume 2d matrix for now?
+        cdef _FloatTensor res = _FloatTensor.new()
+#        THFloatTensor_resizeAs(cresult, self.thFloatTensor)
+        THFloatTensor_add(res.thFloatTensor, self.thFloatTensor, value)
+        return res
+
     def __iadd__(_FloatTensor self, float value):
         THFloatTensor_add(self.thFloatTensor, self.thFloatTensor, value)
         return self
+
+    def __isub__(_FloatTensor self, float value):
+        THFloatTensor_add(self.thFloatTensor, self.thFloatTensor, -value)
+        return self
+
+    def __idiv__(_FloatTensor self, float value):
+        THFloatTensor_div(self.thFloatTensor, self.thFloatTensor, value)
+        return self
+
+    def __imul__(_FloatTensor self, float value):
+        THFloatTensor_mul(self.thFloatTensor, self.thFloatTensor, value)
+        return self
+
+#    def __mul__(_FloatTensor self, _FloatTensor M2):
+    def __mul__(_FloatTensor self, second):
+        cdef _FloatTensor M2
+        cdef _FloatTensor T
+        cdef _FloatTensor res
+        cdef int resRows
+        cdef int resCols
+
+        res = _FloatTensor.new()
+        if isinstance(second, numbers.Number):
+            THFloatTensor_mul(res.thFloatTensor, self.thFloatTensor, second)
+            return res
+        else:
+        
+            M2 = second
+            T = _FloatTensor.new()
+            resRows = THFloatTensor_size(self.thFloatTensor, 0)
+            resCols = THFloatTensor_size(M2.thFloatTensor, 1)
+            res.resize2d(resRows, resCols)
+            T.resize2d(resRows, resCols)
+            THFloatTensor_addmm(res.thFloatTensor, 0, T.thFloatTensor, 1, self.thFloatTensor, M2.thFloatTensor)
+            return res
+        
 
     # ========== random ===============================
 
@@ -972,16 +1087,6 @@ cdef class _FloatTensor(object):
         THFloatTensor_geometric(self.thFloatTensor, globalState.generator, p)
         return self
 
-
-    def __mul__(_FloatTensor self, _FloatTensor M2):
-        cdef _FloatTensor T = _FloatTensor.new()
-        cdef _FloatTensor res = _FloatTensor.new()
-        cdef int resRows = THFloatTensor_size(self.thFloatTensor, 0)
-        cdef int resCols = THFloatTensor_size(M2.thFloatTensor, 1)
-        res.resize2d(resRows, resCols)
-        T.resize2d(resRows, resCols)
-        THFloatTensor_addmm(res.thFloatTensor, 0, T.thFloatTensor, 1, self.thFloatTensor, M2.thFloatTensor)
-        return res
 
     def normal(_FloatTensor self, float mean=0, float stdv=1):
         THFloatTensor_normal(self.thFloatTensor, globalState.generator, mean, stdv)
@@ -1173,13 +1278,6 @@ cdef class _LongTensor(object):
         return _LongTensor()
 #        return _FloatTensor_fromNative(newTensorC, False)
 
-    def __add__(_LongTensor self, long value):
-        # assume 2d matrix for now?
-        cdef _LongTensor res = _LongTensor.new()
-#        THFloatTensor_resizeAs(cresult, self.thFloatTensor)
-        THLongTensor_add(res.thLongTensor, self.thLongTensor, value)
-        return res
-
     def narrow(_LongTensor self, int dimension, long firstIndex, long size):
         cdef THLongTensor *narrowedC = THLongTensor_newNarrow(self.thLongTensor, dimension, firstIndex, size)
         return _LongTensor_fromNative(narrowedC, retain=False)
@@ -1236,9 +1334,45 @@ cdef class _LongTensor(object):
             return None
         return Storage.LongStorage_fromNative(storageC)
 
+    def __add__(_LongTensor self, long value):
+        # assume 2d matrix for now?
+        cdef _LongTensor res = _LongTensor.new()
+#        THFloatTensor_resizeAs(cresult, self.thFloatTensor)
+        THLongTensor_add(res.thLongTensor, self.thLongTensor, value)
+        return res
+
     def __iadd__(_LongTensor self, long value):
         THLongTensor_add(self.thLongTensor, self.thLongTensor, value)
         return self
+
+    def __isub__(_LongTensor self, long value):
+        THLongTensor_add(self.thLongTensor, self.thLongTensor, -value)
+        return self
+
+    def __idiv__(_LongTensor self, long value):
+        THLongTensor_div(self.thLongTensor, self.thLongTensor, value)
+        return self
+
+    def __imul__(_LongTensor self, long value):
+        THLongTensor_mul(self.thLongTensor, self.thLongTensor, value)
+        return self
+
+#    def __mul__(_LongTensor self, _LongTensor M2):
+    def __mul__(_LongTensor self, second):
+        cdef _LongTensor M2
+        cdef _LongTensor T
+        cdef _LongTensor res
+        cdef int resRows
+        cdef int resCols
+
+        res = _LongTensor.new()
+        if isinstance(second, numbers.Number):
+            THLongTensor_mul(res.thLongTensor, self.thLongTensor, second)
+            return res
+        else:
+        
+            raise Exception('Invalid arg type for second: ' + str(type(second)))
+        
 
     # ========== random ===============================
 
