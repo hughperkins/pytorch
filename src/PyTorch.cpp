@@ -763,13 +763,13 @@ struct __pyx_obj_3lua_LuaState {
  *     cdef struct THDoubleTensor
  * 
  * cdef class _DoubleTensor(object):             # <<<<<<<<<<<<<<
- *     cdef THDoubleTensor *thDoubleTensor
+ *     cdef THDoubleTensor *native
  *     cpdef int dims(self)
  */
 struct __pyx_obj_7PyTorch__DoubleTensor {
   PyObject_HEAD
   struct __pyx_vtabstruct_7PyTorch__DoubleTensor *__pyx_vtab;
-  struct THDoubleTensor *thDoubleTensor;
+  struct THDoubleTensor *native;
 };
 
 
@@ -777,13 +777,13 @@ struct __pyx_obj_7PyTorch__DoubleTensor {
  *     cdef struct THByteTensor
  * 
  * cdef class _ByteTensor(object):             # <<<<<<<<<<<<<<
- *     cdef THByteTensor *thByteTensor
+ *     cdef THByteTensor *native
  *     cpdef int dims(self)
  */
 struct __pyx_obj_7PyTorch__ByteTensor {
   PyObject_HEAD
   struct __pyx_vtabstruct_7PyTorch__ByteTensor *__pyx_vtab;
-  struct THByteTensor *thByteTensor;
+  struct THByteTensor *native;
 };
 
 
@@ -791,13 +791,13 @@ struct __pyx_obj_7PyTorch__ByteTensor {
  *     cdef struct THFloatTensor
  * 
  * cdef class _FloatTensor(object):             # <<<<<<<<<<<<<<
- *     cdef THFloatTensor *thFloatTensor
+ *     cdef THFloatTensor *native
  *     cpdef int dims(self)
  */
 struct __pyx_obj_7PyTorch__FloatTensor {
   PyObject_HEAD
   struct __pyx_vtabstruct_7PyTorch__FloatTensor *__pyx_vtab;
-  struct THFloatTensor *thFloatTensor;
+  struct THFloatTensor *native;
 };
 
 
@@ -805,13 +805,13 @@ struct __pyx_obj_7PyTorch__FloatTensor {
  *     cdef struct THLongTensor
  * 
  * cdef class _LongTensor(object):             # <<<<<<<<<<<<<<
- *     cdef THLongTensor *thLongTensor
+ *     cdef THLongTensor *native
  *     cpdef int dims(self)
  */
 struct __pyx_obj_7PyTorch__LongTensor {
   PyObject_HEAD
   struct __pyx_vtabstruct_7PyTorch__LongTensor *__pyx_vtab;
-  struct THLongTensor *thLongTensor;
+  struct THLongTensor *native;
 };
 
 
@@ -2841,7 +2841,7 @@ static int __pyx_pf_7PyTorch_13_DoubleTensor___cinit__(struct __pyx_obj_7PyTorch
  *                     raise Exception('cannot provide arguments to initializer')
  *             if len(args) == 0:             # <<<<<<<<<<<<<<
  * #                print('no args, calling THDoubleTensor_new()')
- *                 self.thDoubleTensor = THDoubleTensor_new()
+ *                 self.native = THDoubleTensor_new()
  */
     __pyx_t_3 = PyTuple_GET_SIZE(__pyx_v_args); if (unlikely(__pyx_t_3 == -1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 259; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
     __pyx_t_5 = ((__pyx_t_3 == 0) != 0);
@@ -2850,20 +2850,20 @@ static int __pyx_pf_7PyTorch_13_DoubleTensor___cinit__(struct __pyx_obj_7PyTorch
       /* "PyTorch.pyx":261
  *             if len(args) == 0:
  * #                print('no args, calling THDoubleTensor_new()')
- *                 self.thDoubleTensor = THDoubleTensor_new()             # <<<<<<<<<<<<<<
+ *                 self.native = THDoubleTensor_new()             # <<<<<<<<<<<<<<
  *             elif len(args) == 1:
  * #                print('new tensor 1d length', args[0])
  */
-      __pyx_v_self->thDoubleTensor = THDoubleTensor_new();
+      __pyx_v_self->native = THDoubleTensor_new();
       goto __pyx_L7;
     }
 
     /* "PyTorch.pyx":262
  * #                print('no args, calling THDoubleTensor_new()')
- *                 self.thDoubleTensor = THDoubleTensor_new()
+ *                 self.native = THDoubleTensor_new()
  *             elif len(args) == 1:             # <<<<<<<<<<<<<<
  * #                print('new tensor 1d length', args[0])
- *                 self.thDoubleTensor = THDoubleTensor_newWithSize1d(args[0])
+ *                 self.native = THDoubleTensor_newWithSize1d(args[0])
  */
     __pyx_t_3 = PyTuple_GET_SIZE(__pyx_v_args); if (unlikely(__pyx_t_3 == -1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 262; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
     __pyx_t_5 = ((__pyx_t_3 == 1) != 0);
@@ -2872,7 +2872,7 @@ static int __pyx_pf_7PyTorch_13_DoubleTensor___cinit__(struct __pyx_obj_7PyTorch
       /* "PyTorch.pyx":264
  *             elif len(args) == 1:
  * #                print('new tensor 1d length', args[0])
- *                 self.thDoubleTensor = THDoubleTensor_newWithSize1d(args[0])             # <<<<<<<<<<<<<<
+ *                 self.native = THDoubleTensor_newWithSize1d(args[0])             # <<<<<<<<<<<<<<
  * #                storageC = THFloatTensor_storage(self.thFloatTensor)
  * #                if storageC == NULL:
  */
@@ -2880,7 +2880,7 @@ static int __pyx_pf_7PyTorch_13_DoubleTensor___cinit__(struct __pyx_obj_7PyTorch
       __Pyx_GOTREF(__pyx_t_2);
       __pyx_t_6 = __Pyx_PyInt_As_long(__pyx_t_2); if (unlikely((__pyx_t_6 == (long)-1) && PyErr_Occurred())) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 264; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
       __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-      __pyx_v_self->thDoubleTensor = THDoubleTensor_newWithSize1d(__pyx_t_6);
+      __pyx_v_self->native = THDoubleTensor_newWithSize1d(__pyx_t_6);
       goto __pyx_L7;
     }
 
@@ -2888,7 +2888,7 @@ static int __pyx_pf_7PyTorch_13_DoubleTensor___cinit__(struct __pyx_obj_7PyTorch
  * #                    print('storageaddr', hex(addr))
  * #                    print('storageC refcount', THFloatStorage_getRefCount(storageC))
  *             elif len(args) == 2:             # <<<<<<<<<<<<<<
- *                 self.thDoubleTensor = THDoubleTensor_newWithSize2d(args[0], args[1])
+ *                 self.native = THDoubleTensor_newWithSize2d(args[0], args[1])
  *             else:
  */
     __pyx_t_3 = PyTuple_GET_SIZE(__pyx_v_args); if (unlikely(__pyx_t_3 == -1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 273; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
@@ -2898,7 +2898,7 @@ static int __pyx_pf_7PyTorch_13_DoubleTensor___cinit__(struct __pyx_obj_7PyTorch
       /* "PyTorch.pyx":274
  * #                    print('storageC refcount', THFloatStorage_getRefCount(storageC))
  *             elif len(args) == 2:
- *                 self.thDoubleTensor = THDoubleTensor_newWithSize2d(args[0], args[1])             # <<<<<<<<<<<<<<
+ *                 self.native = THDoubleTensor_newWithSize2d(args[0], args[1])             # <<<<<<<<<<<<<<
  *             else:
  *                 raise Exception('Not implemented, len(args)=' + str(len(args)))
  */
@@ -2910,13 +2910,13 @@ static int __pyx_pf_7PyTorch_13_DoubleTensor___cinit__(struct __pyx_obj_7PyTorch
       __Pyx_GOTREF(__pyx_t_2);
       __pyx_t_7 = __Pyx_PyInt_As_long(__pyx_t_2); if (unlikely((__pyx_t_7 == (long)-1) && PyErr_Occurred())) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 274; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
       __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-      __pyx_v_self->thDoubleTensor = THDoubleTensor_newWithSize2d(__pyx_t_6, __pyx_t_7);
+      __pyx_v_self->native = THDoubleTensor_newWithSize2d(__pyx_t_6, __pyx_t_7);
       goto __pyx_L7;
     }
     /*else*/ {
 
       /* "PyTorch.pyx":276
- *                 self.thDoubleTensor = THDoubleTensor_newWithSize2d(args[0], args[1])
+ *                 self.native = THDoubleTensor_newWithSize2d(args[0], args[1])
  *             else:
  *                 raise Exception('Not implemented, len(args)=' + str(len(args)))             # <<<<<<<<<<<<<<
  * 
@@ -3007,18 +3007,18 @@ static void __pyx_pf_7PyTorch_13_DoubleTensor_2__dealloc__(struct __pyx_obj_7PyT
   /* "PyTorch.pyx":292
  * #        cdef int i
  * #        cdef THFloatStorage *storage
- *         refCount = THDoubleTensor_getRefCount(self.thDoubleTensor)             # <<<<<<<<<<<<<<
+ *         refCount = THDoubleTensor_getRefCount(self.native)             # <<<<<<<<<<<<<<
  * #        print('DoubleTensor.dealloc old refcount', refCount)
  * #        storage = THFloatTensor_storage(self.thFloatTensor)
  */
-  __pyx_v_refCount = THDoubleTensor_getRefCount(__pyx_v_self->thDoubleTensor);
+  __pyx_v_refCount = THDoubleTensor_getRefCount(__pyx_v_self->native);
 
   /* "PyTorch.pyx":303
  * #        for i in range(dims):
  * #            print('   size[', i, ']', THFloatTensor_size(self.thFloatTensor, i))
  *         if refCount < 1:             # <<<<<<<<<<<<<<
  *             raise Exception('Unallocated an already deallocated tensor... :-O')  # Hmmm, seems this exceptoin wont go anywhere useful... :-P
- *         THDoubleTensor_free(self.thDoubleTensor)
+ *         THDoubleTensor_free(self.native)
  */
   __pyx_t_1 = ((__pyx_v_refCount < 1) != 0);
   if (__pyx_t_1) {
@@ -3027,7 +3027,7 @@ static void __pyx_pf_7PyTorch_13_DoubleTensor_2__dealloc__(struct __pyx_obj_7PyT
  * #            print('   size[', i, ']', THFloatTensor_size(self.thFloatTensor, i))
  *         if refCount < 1:
  *             raise Exception('Unallocated an already deallocated tensor... :-O')  # Hmmm, seems this exceptoin wont go anywhere useful... :-P             # <<<<<<<<<<<<<<
- *         THDoubleTensor_free(self.thDoubleTensor)
+ *         THDoubleTensor_free(self.native)
  * 
  */
     __pyx_t_2 = __Pyx_PyObject_Call(__pyx_builtin_Exception, __pyx_tuple__2, NULL); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 304; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
@@ -3040,11 +3040,11 @@ static void __pyx_pf_7PyTorch_13_DoubleTensor_2__dealloc__(struct __pyx_obj_7PyT
   /* "PyTorch.pyx":305
  *         if refCount < 1:
  *             raise Exception('Unallocated an already deallocated tensor... :-O')  # Hmmm, seems this exceptoin wont go anywhere useful... :-P
- *         THDoubleTensor_free(self.thDoubleTensor)             # <<<<<<<<<<<<<<
+ *         THDoubleTensor_free(self.native)             # <<<<<<<<<<<<<<
  * 
  *     def nElement(_DoubleTensor self):
  */
-  THDoubleTensor_free(__pyx_v_self->thDoubleTensor);
+  THDoubleTensor_free(__pyx_v_self->native);
 
   /* "PyTorch.pyx":286
  * #        self.storage = storage
@@ -3064,10 +3064,10 @@ static void __pyx_pf_7PyTorch_13_DoubleTensor_2__dealloc__(struct __pyx_obj_7PyT
 }
 
 /* "PyTorch.pyx":307
- *         THDoubleTensor_free(self.thDoubleTensor)
+ *         THDoubleTensor_free(self.native)
  * 
  *     def nElement(_DoubleTensor self):             # <<<<<<<<<<<<<<
- *         return THDoubleTensor_nElement(self.thDoubleTensor)
+ *         return THDoubleTensor_nElement(self.native)
  * 
  */
 
@@ -3096,22 +3096,22 @@ static PyObject *__pyx_pf_7PyTorch_13_DoubleTensor_4nElement(struct __pyx_obj_7P
   /* "PyTorch.pyx":308
  * 
  *     def nElement(_DoubleTensor self):
- *         return THDoubleTensor_nElement(self.thDoubleTensor)             # <<<<<<<<<<<<<<
+ *         return THDoubleTensor_nElement(self.native)             # <<<<<<<<<<<<<<
  * 
  *     @property
  */
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_1 = __Pyx_PyInt_From_long(THDoubleTensor_nElement(__pyx_v_self->thDoubleTensor)); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 308; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_1 = __Pyx_PyInt_From_long(THDoubleTensor_nElement(__pyx_v_self->native)); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 308; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_r = __pyx_t_1;
   __pyx_t_1 = 0;
   goto __pyx_L0;
 
   /* "PyTorch.pyx":307
- *         THDoubleTensor_free(self.thDoubleTensor)
+ *         THDoubleTensor_free(self.native)
  * 
  *     def nElement(_DoubleTensor self):             # <<<<<<<<<<<<<<
- *         return THDoubleTensor_nElement(self.thDoubleTensor)
+ *         return THDoubleTensor_nElement(self.native)
  * 
  */
 
@@ -3130,7 +3130,7 @@ static PyObject *__pyx_pf_7PyTorch_13_DoubleTensor_4nElement(struct __pyx_obj_7P
  * 
  *     @property
  *     def refCount(_DoubleTensor self):             # <<<<<<<<<<<<<<
- *         return THDoubleTensor_getRefCount(self.thDoubleTensor)
+ *         return THDoubleTensor_getRefCount(self.native)
  * 
  */
 
@@ -3159,12 +3159,12 @@ static PyObject *__pyx_pf_7PyTorch_13_DoubleTensor_6refCount(struct __pyx_obj_7P
   /* "PyTorch.pyx":312
  *     @property
  *     def refCount(_DoubleTensor self):
- *         return THDoubleTensor_getRefCount(self.thDoubleTensor)             # <<<<<<<<<<<<<<
+ *         return THDoubleTensor_getRefCount(self.native)             # <<<<<<<<<<<<<<
  * 
  *     cpdef int dims(self):
  */
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_1 = __Pyx_PyInt_From_int(THDoubleTensor_getRefCount(__pyx_v_self->thDoubleTensor)); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 312; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_1 = __Pyx_PyInt_From_int(THDoubleTensor_getRefCount(__pyx_v_self->native)); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 312; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_r = __pyx_t_1;
   __pyx_t_1 = 0;
@@ -3174,7 +3174,7 @@ static PyObject *__pyx_pf_7PyTorch_13_DoubleTensor_6refCount(struct __pyx_obj_7P
  * 
  *     @property
  *     def refCount(_DoubleTensor self):             # <<<<<<<<<<<<<<
- *         return THDoubleTensor_getRefCount(self.thDoubleTensor)
+ *         return THDoubleTensor_getRefCount(self.native)
  * 
  */
 
@@ -3190,10 +3190,10 @@ static PyObject *__pyx_pf_7PyTorch_13_DoubleTensor_6refCount(struct __pyx_obj_7P
 }
 
 /* "PyTorch.pyx":314
- *         return THDoubleTensor_getRefCount(self.thDoubleTensor)
+ *         return THDoubleTensor_getRefCount(self.native)
  * 
  *     cpdef int dims(self):             # <<<<<<<<<<<<<<
- *         return THDoubleTensor_nDimension(self.thDoubleTensor)
+ *         return THDoubleTensor_nDimension(self.native)
  * 
  */
 
@@ -3248,18 +3248,18 @@ static int __pyx_f_7PyTorch_13_DoubleTensor_dims(struct __pyx_obj_7PyTorch__Doub
   /* "PyTorch.pyx":315
  * 
  *     cpdef int dims(self):
- *         return THDoubleTensor_nDimension(self.thDoubleTensor)             # <<<<<<<<<<<<<<
+ *         return THDoubleTensor_nDimension(self.native)             # <<<<<<<<<<<<<<
  * 
  *     cpdef set1d(self, int x0, double value):
  */
-  __pyx_r = THDoubleTensor_nDimension(__pyx_v_self->thDoubleTensor);
+  __pyx_r = THDoubleTensor_nDimension(__pyx_v_self->native);
   goto __pyx_L0;
 
   /* "PyTorch.pyx":314
- *         return THDoubleTensor_getRefCount(self.thDoubleTensor)
+ *         return THDoubleTensor_getRefCount(self.native)
  * 
  *     cpdef int dims(self):             # <<<<<<<<<<<<<<
- *         return THDoubleTensor_nDimension(self.thDoubleTensor)
+ *         return THDoubleTensor_nDimension(self.native)
  * 
  */
 
@@ -3316,10 +3316,10 @@ static PyObject *__pyx_pf_7PyTorch_13_DoubleTensor_8dims(struct __pyx_obj_7PyTor
 }
 
 /* "PyTorch.pyx":317
- *         return THDoubleTensor_nDimension(self.thDoubleTensor)
+ *         return THDoubleTensor_nDimension(self.native)
  * 
  *     cpdef set1d(self, int x0, double value):             # <<<<<<<<<<<<<<
- *         THDoubleTensor_set1d(self.thDoubleTensor, x0, value)
+ *         THDoubleTensor_set1d(self.native, x0, value)
  * 
  */
 
@@ -3390,17 +3390,17 @@ static PyObject *__pyx_f_7PyTorch_13_DoubleTensor_set1d(struct __pyx_obj_7PyTorc
   /* "PyTorch.pyx":318
  * 
  *     cpdef set1d(self, int x0, double value):
- *         THDoubleTensor_set1d(self.thDoubleTensor, x0, value)             # <<<<<<<<<<<<<<
+ *         THDoubleTensor_set1d(self.native, x0, value)             # <<<<<<<<<<<<<<
  * 
  *     cpdef set2d(self, int x0, int x1, double value):
  */
-  THDoubleTensor_set1d(__pyx_v_self->thDoubleTensor, __pyx_v_x0, __pyx_v_value);
+  THDoubleTensor_set1d(__pyx_v_self->native, __pyx_v_x0, __pyx_v_value);
 
   /* "PyTorch.pyx":317
- *         return THDoubleTensor_nDimension(self.thDoubleTensor)
+ *         return THDoubleTensor_nDimension(self.native)
  * 
  *     cpdef set1d(self, int x0, double value):             # <<<<<<<<<<<<<<
- *         THDoubleTensor_set1d(self.thDoubleTensor, x0, value)
+ *         THDoubleTensor_set1d(self.native, x0, value)
  * 
  */
 
@@ -3511,10 +3511,10 @@ static PyObject *__pyx_pf_7PyTorch_13_DoubleTensor_10set1d(struct __pyx_obj_7PyT
 }
 
 /* "PyTorch.pyx":320
- *         THDoubleTensor_set1d(self.thDoubleTensor, x0, value)
+ *         THDoubleTensor_set1d(self.native, x0, value)
  * 
  *     cpdef set2d(self, int x0, int x1, double value):             # <<<<<<<<<<<<<<
- *         THDoubleTensor_set2d(self.thDoubleTensor, x0, x1, value)
+ *         THDoubleTensor_set2d(self.native, x0, x1, value)
  * 
  */
 
@@ -3591,17 +3591,17 @@ static PyObject *__pyx_f_7PyTorch_13_DoubleTensor_set2d(struct __pyx_obj_7PyTorc
   /* "PyTorch.pyx":321
  * 
  *     cpdef set2d(self, int x0, int x1, double value):
- *         THDoubleTensor_set2d(self.thDoubleTensor, x0, x1, value)             # <<<<<<<<<<<<<<
+ *         THDoubleTensor_set2d(self.native, x0, x1, value)             # <<<<<<<<<<<<<<
  * 
  *     cpdef double get1d(self, int x0):
  */
-  THDoubleTensor_set2d(__pyx_v_self->thDoubleTensor, __pyx_v_x0, __pyx_v_x1, __pyx_v_value);
+  THDoubleTensor_set2d(__pyx_v_self->native, __pyx_v_x0, __pyx_v_x1, __pyx_v_value);
 
   /* "PyTorch.pyx":320
- *         THDoubleTensor_set1d(self.thDoubleTensor, x0, value)
+ *         THDoubleTensor_set1d(self.native, x0, value)
  * 
  *     cpdef set2d(self, int x0, int x1, double value):             # <<<<<<<<<<<<<<
- *         THDoubleTensor_set2d(self.thDoubleTensor, x0, x1, value)
+ *         THDoubleTensor_set2d(self.native, x0, x1, value)
  * 
  */
 
@@ -3722,10 +3722,10 @@ static PyObject *__pyx_pf_7PyTorch_13_DoubleTensor_12set2d(struct __pyx_obj_7PyT
 }
 
 /* "PyTorch.pyx":323
- *         THDoubleTensor_set2d(self.thDoubleTensor, x0, x1, value)
+ *         THDoubleTensor_set2d(self.native, x0, x1, value)
  * 
  *     cpdef double get1d(self, int x0):             # <<<<<<<<<<<<<<
- *         return THDoubleTensor_get1d(self.thDoubleTensor, x0)
+ *         return THDoubleTensor_get1d(self.native, x0)
  * 
  */
 
@@ -3792,18 +3792,18 @@ static double __pyx_f_7PyTorch_13_DoubleTensor_get1d(struct __pyx_obj_7PyTorch__
   /* "PyTorch.pyx":324
  * 
  *     cpdef double get1d(self, int x0):
- *         return THDoubleTensor_get1d(self.thDoubleTensor, x0)             # <<<<<<<<<<<<<<
+ *         return THDoubleTensor_get1d(self.native, x0)             # <<<<<<<<<<<<<<
  * 
  *     cpdef double get2d(self, int x0, int x1):
  */
-  __pyx_r = THDoubleTensor_get1d(__pyx_v_self->thDoubleTensor, __pyx_v_x0);
+  __pyx_r = THDoubleTensor_get1d(__pyx_v_self->native, __pyx_v_x0);
   goto __pyx_L0;
 
   /* "PyTorch.pyx":323
- *         THDoubleTensor_set2d(self.thDoubleTensor, x0, x1, value)
+ *         THDoubleTensor_set2d(self.native, x0, x1, value)
  * 
  *     cpdef double get1d(self, int x0):             # <<<<<<<<<<<<<<
- *         return THDoubleTensor_get1d(self.thDoubleTensor, x0)
+ *         return THDoubleTensor_get1d(self.native, x0)
  * 
  */
 
@@ -3875,10 +3875,10 @@ static PyObject *__pyx_pf_7PyTorch_13_DoubleTensor_14get1d(struct __pyx_obj_7PyT
 }
 
 /* "PyTorch.pyx":326
- *         return THDoubleTensor_get1d(self.thDoubleTensor, x0)
+ *         return THDoubleTensor_get1d(self.native, x0)
  * 
  *     cpdef double get2d(self, int x0, int x1):             # <<<<<<<<<<<<<<
- *         return THDoubleTensor_get2d(self.thDoubleTensor, x0, x1)
+ *         return THDoubleTensor_get2d(self.native, x0, x1)
  * 
  */
 
@@ -3950,18 +3950,18 @@ static double __pyx_f_7PyTorch_13_DoubleTensor_get2d(struct __pyx_obj_7PyTorch__
   /* "PyTorch.pyx":327
  * 
  *     cpdef double get2d(self, int x0, int x1):
- *         return THDoubleTensor_get2d(self.thDoubleTensor, x0, x1)             # <<<<<<<<<<<<<<
+ *         return THDoubleTensor_get2d(self.native, x0, x1)             # <<<<<<<<<<<<<<
  * 
  *     def __repr__(_DoubleTensor self):
  */
-  __pyx_r = THDoubleTensor_get2d(__pyx_v_self->thDoubleTensor, __pyx_v_x0, __pyx_v_x1);
+  __pyx_r = THDoubleTensor_get2d(__pyx_v_self->native, __pyx_v_x0, __pyx_v_x1);
   goto __pyx_L0;
 
   /* "PyTorch.pyx":326
- *         return THDoubleTensor_get1d(self.thDoubleTensor, x0)
+ *         return THDoubleTensor_get1d(self.native, x0)
  * 
  *     cpdef double get2d(self, int x0, int x1):             # <<<<<<<<<<<<<<
- *         return THDoubleTensor_get2d(self.thDoubleTensor, x0, x1)
+ *         return THDoubleTensor_get2d(self.native, x0, x1)
  * 
  */
 
@@ -4069,7 +4069,7 @@ static PyObject *__pyx_pf_7PyTorch_13_DoubleTensor_16get2d(struct __pyx_obj_7PyT
 }
 
 /* "PyTorch.pyx":329
- *         return THDoubleTensor_get2d(self.thDoubleTensor, x0, x1)
+ *         return THDoubleTensor_get2d(self.native, x0, x1)
  * 
  *     def __repr__(_DoubleTensor self):             # <<<<<<<<<<<<<<
  *         # assume 2d matrix for now
@@ -4125,7 +4125,7 @@ static PyObject *__pyx_pf_7PyTorch_13_DoubleTensor_18__repr__(struct __pyx_obj_7
  *             res += '[torch.DoubleTensor of size ' + ('%.0f' % size0) + 'x' + str(size1) + ']\n'
  *             return res
  *         elif dims == 1:             # <<<<<<<<<<<<<<
- *             size0 = THDoubleTensor_size(self.thDoubleTensor, 0)
+ *             size0 = THDoubleTensor_size(self.native, 0)
  *             res = ''
  */
   switch (__pyx_v_dims) {
@@ -4144,7 +4144,7 @@ static PyObject *__pyx_pf_7PyTorch_13_DoubleTensor_18__repr__(struct __pyx_obj_7
  *         if dims == 0:
  *             return '[torch.DoubleTensor with no dimension]\n'             # <<<<<<<<<<<<<<
  *         elif dims == 2:
- *             size0 = THDoubleTensor_size(self.thDoubleTensor, 0)
+ *             size0 = THDoubleTensor_size(self.native, 0)
  */
     __Pyx_XDECREF(__pyx_r);
     __Pyx_INCREF(__pyx_kp_s_torch_DoubleTensor_with_no_dime);
@@ -4156,32 +4156,32 @@ static PyObject *__pyx_pf_7PyTorch_13_DoubleTensor_18__repr__(struct __pyx_obj_7
  *         if dims == 0:
  *             return '[torch.DoubleTensor with no dimension]\n'
  *         elif dims == 2:             # <<<<<<<<<<<<<<
- *             size0 = THDoubleTensor_size(self.thDoubleTensor, 0)
- *             size1 = THDoubleTensor_size(self.thDoubleTensor, 1)
+ *             size0 = THDoubleTensor_size(self.native, 0)
+ *             size1 = THDoubleTensor_size(self.native, 1)
  */
     case 2:
 
     /* "PyTorch.pyx":337
  *             return '[torch.DoubleTensor with no dimension]\n'
  *         elif dims == 2:
- *             size0 = THDoubleTensor_size(self.thDoubleTensor, 0)             # <<<<<<<<<<<<<<
- *             size1 = THDoubleTensor_size(self.thDoubleTensor, 1)
+ *             size0 = THDoubleTensor_size(self.native, 0)             # <<<<<<<<<<<<<<
+ *             size1 = THDoubleTensor_size(self.native, 1)
  *             res = ''
  */
-    __pyx_v_size0 = THDoubleTensor_size(__pyx_v_self->thDoubleTensor, 0);
+    __pyx_v_size0 = THDoubleTensor_size(__pyx_v_self->native, 0);
 
     /* "PyTorch.pyx":338
  *         elif dims == 2:
- *             size0 = THDoubleTensor_size(self.thDoubleTensor, 0)
- *             size1 = THDoubleTensor_size(self.thDoubleTensor, 1)             # <<<<<<<<<<<<<<
+ *             size0 = THDoubleTensor_size(self.native, 0)
+ *             size1 = THDoubleTensor_size(self.native, 1)             # <<<<<<<<<<<<<<
  *             res = ''
  *             for r in range(size0):
  */
-    __pyx_v_size1 = THDoubleTensor_size(__pyx_v_self->thDoubleTensor, 1);
+    __pyx_v_size1 = THDoubleTensor_size(__pyx_v_self->native, 1);
 
     /* "PyTorch.pyx":339
- *             size0 = THDoubleTensor_size(self.thDoubleTensor, 0)
- *             size1 = THDoubleTensor_size(self.thDoubleTensor, 1)
+ *             size0 = THDoubleTensor_size(self.native, 0)
+ *             size1 = THDoubleTensor_size(self.native, 1)
  *             res = ''             # <<<<<<<<<<<<<<
  *             for r in range(size0):
  *                 thisline = ''
@@ -4190,7 +4190,7 @@ static PyObject *__pyx_pf_7PyTorch_13_DoubleTensor_18__repr__(struct __pyx_obj_7
     __pyx_v_res = __pyx_kp_s__3;
 
     /* "PyTorch.pyx":340
- *             size1 = THDoubleTensor_size(self.thDoubleTensor, 1)
+ *             size1 = THDoubleTensor_size(self.native, 1)
  *             res = ''
  *             for r in range(size0):             # <<<<<<<<<<<<<<
  *                 thisline = ''
@@ -4332,7 +4332,7 @@ static PyObject *__pyx_pf_7PyTorch_13_DoubleTensor_18__repr__(struct __pyx_obj_7
  *             res += '[torch.DoubleTensor of size ' + ('%.0f' % size0) + 'x' + str(size1) + ']\n'
  *             return res             # <<<<<<<<<<<<<<
  *         elif dims == 1:
- *             size0 = THDoubleTensor_size(self.thDoubleTensor, 0)
+ *             size0 = THDoubleTensor_size(self.native, 0)
  */
     __Pyx_XDECREF(__pyx_r);
     __Pyx_INCREF(__pyx_v_res);
@@ -4344,7 +4344,7 @@ static PyObject *__pyx_pf_7PyTorch_13_DoubleTensor_18__repr__(struct __pyx_obj_7
  *             res += '[torch.DoubleTensor of size ' + ('%.0f' % size0) + 'x' + str(size1) + ']\n'
  *             return res
  *         elif dims == 1:             # <<<<<<<<<<<<<<
- *             size0 = THDoubleTensor_size(self.thDoubleTensor, 0)
+ *             size0 = THDoubleTensor_size(self.native, 0)
  *             res = ''
  */
     case 1:
@@ -4352,15 +4352,15 @@ static PyObject *__pyx_pf_7PyTorch_13_DoubleTensor_18__repr__(struct __pyx_obj_7
     /* "PyTorch.pyx":352
  *             return res
  *         elif dims == 1:
- *             size0 = THDoubleTensor_size(self.thDoubleTensor, 0)             # <<<<<<<<<<<<<<
+ *             size0 = THDoubleTensor_size(self.native, 0)             # <<<<<<<<<<<<<<
  *             res = ''
  *             thisline = ''
  */
-    __pyx_v_size0 = THDoubleTensor_size(__pyx_v_self->thDoubleTensor, 0);
+    __pyx_v_size0 = THDoubleTensor_size(__pyx_v_self->native, 0);
 
     /* "PyTorch.pyx":353
  *         elif dims == 1:
- *             size0 = THDoubleTensor_size(self.thDoubleTensor, 0)
+ *             size0 = THDoubleTensor_size(self.native, 0)
  *             res = ''             # <<<<<<<<<<<<<<
  *             thisline = ''
  *             for c in range(size0):
@@ -4369,7 +4369,7 @@ static PyObject *__pyx_pf_7PyTorch_13_DoubleTensor_18__repr__(struct __pyx_obj_7
     __pyx_v_res = __pyx_kp_s__3;
 
     /* "PyTorch.pyx":354
- *             size0 = THDoubleTensor_size(self.thDoubleTensor, 0)
+ *             size0 = THDoubleTensor_size(self.native, 0)
  *             res = ''
  *             thisline = ''             # <<<<<<<<<<<<<<
  *             for c in range(size0):
@@ -4512,7 +4512,7 @@ static PyObject *__pyx_pf_7PyTorch_13_DoubleTensor_18__repr__(struct __pyx_obj_7
   }
 
   /* "PyTorch.pyx":329
- *         return THDoubleTensor_get2d(self.thDoubleTensor, x0, x1)
+ *         return THDoubleTensor_get2d(self.native, x0, x1)
  * 
  *     def __repr__(_DoubleTensor self):             # <<<<<<<<<<<<<<
  *         # assume 2d matrix for now
@@ -4585,7 +4585,7 @@ static PyObject *__pyx_pf_7PyTorch_13_DoubleTensor_20__getitem__(struct __pyx_ob
  *     def __getitem__(_DoubleTensor self, int index):
  *         if self.dims() == 1:             # <<<<<<<<<<<<<<
  *             return self.get1d(index)
- *         cdef THDoubleTensor *res = THDoubleTensor_newSelect(self.thDoubleTensor, 0, index)
+ *         cdef THDoubleTensor *res = THDoubleTensor_newSelect(self.native, 0, index)
  */
   __pyx_t_1 = ((((struct __pyx_vtabstruct_7PyTorch__DoubleTensor *)__pyx_v_self->__pyx_vtab)->dims(__pyx_v_self, 0) == 1) != 0);
   if (__pyx_t_1) {
@@ -4594,7 +4594,7 @@ static PyObject *__pyx_pf_7PyTorch_13_DoubleTensor_20__getitem__(struct __pyx_ob
  *     def __getitem__(_DoubleTensor self, int index):
  *         if self.dims() == 1:
  *             return self.get1d(index)             # <<<<<<<<<<<<<<
- *         cdef THDoubleTensor *res = THDoubleTensor_newSelect(self.thDoubleTensor, 0, index)
+ *         cdef THDoubleTensor *res = THDoubleTensor_newSelect(self.native, 0, index)
  *         return _DoubleTensor_fromNative(res, False)
  */
     __Pyx_XDECREF(__pyx_r);
@@ -4608,15 +4608,15 @@ static PyObject *__pyx_pf_7PyTorch_13_DoubleTensor_20__getitem__(struct __pyx_ob
   /* "PyTorch.pyx":370
  *         if self.dims() == 1:
  *             return self.get1d(index)
- *         cdef THDoubleTensor *res = THDoubleTensor_newSelect(self.thDoubleTensor, 0, index)             # <<<<<<<<<<<<<<
+ *         cdef THDoubleTensor *res = THDoubleTensor_newSelect(self.native, 0, index)             # <<<<<<<<<<<<<<
  *         return _DoubleTensor_fromNative(res, False)
  * 
  */
-  __pyx_v_res = THDoubleTensor_newSelect(__pyx_v_self->thDoubleTensor, 0, __pyx_v_index);
+  __pyx_v_res = THDoubleTensor_newSelect(__pyx_v_self->native, 0, __pyx_v_index);
 
   /* "PyTorch.pyx":371
  *             return self.get1d(index)
- *         cdef THDoubleTensor *res = THDoubleTensor_newSelect(self.thDoubleTensor, 0, index)
+ *         cdef THDoubleTensor *res = THDoubleTensor_newSelect(self.native, 0, index)
  *         return _DoubleTensor_fromNative(res, False)             # <<<<<<<<<<<<<<
  * 
  *     def __setitem__(_DoubleTensor self, int index, double value):
@@ -4760,7 +4760,7 @@ static int __pyx_pf_7PyTorch_13_DoubleTensor_22__setitem__(struct __pyx_obj_7PyT
  *             raise Exception("not implemented")
  * 
  *     def fill(_DoubleTensor self, double value):             # <<<<<<<<<<<<<<
- *         THDoubleTensor_fill(self.thDoubleTensor, value)
+ *         THDoubleTensor_fill(self.native, value)
  *         return self
  */
 
@@ -4798,15 +4798,15 @@ static PyObject *__pyx_pf_7PyTorch_13_DoubleTensor_24fill(struct __pyx_obj_7PyTo
   /* "PyTorch.pyx":380
  * 
  *     def fill(_DoubleTensor self, double value):
- *         THDoubleTensor_fill(self.thDoubleTensor, value)             # <<<<<<<<<<<<<<
+ *         THDoubleTensor_fill(self.native, value)             # <<<<<<<<<<<<<<
  *         return self
  * 
  */
-  THDoubleTensor_fill(__pyx_v_self->thDoubleTensor, __pyx_v_value);
+  THDoubleTensor_fill(__pyx_v_self->native, __pyx_v_value);
 
   /* "PyTorch.pyx":381
  *     def fill(_DoubleTensor self, double value):
- *         THDoubleTensor_fill(self.thDoubleTensor, value)
+ *         THDoubleTensor_fill(self.native, value)
  *         return self             # <<<<<<<<<<<<<<
  * 
  *     def size(_DoubleTensor self):
@@ -4820,7 +4820,7 @@ static PyObject *__pyx_pf_7PyTorch_13_DoubleTensor_24fill(struct __pyx_obj_7PyTo
  *             raise Exception("not implemented")
  * 
  *     def fill(_DoubleTensor self, double value):             # <<<<<<<<<<<<<<
- *         THDoubleTensor_fill(self.thDoubleTensor, value)
+ *         THDoubleTensor_fill(self.native, value)
  *         return self
  */
 
@@ -4892,7 +4892,7 @@ static PyObject *__pyx_pf_7PyTorch_13_DoubleTensor_26size(struct __pyx_obj_7PyTo
  *         if dims > 0:
  *             size = _LongTensor(dims)             # <<<<<<<<<<<<<<
  *             for d in range(dims):
- *                 size.set1d(d, THDoubleTensor_size(self.thDoubleTensor, d))
+ *                 size.set1d(d, THDoubleTensor_size(self.native, d))
  */
     __pyx_t_2 = __Pyx_PyInt_From_int(__pyx_v_dims); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 387; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
     __Pyx_GOTREF(__pyx_t_2);
@@ -4911,7 +4911,7 @@ static PyObject *__pyx_pf_7PyTorch_13_DoubleTensor_26size(struct __pyx_obj_7PyTo
  *         if dims > 0:
  *             size = _LongTensor(dims)
  *             for d in range(dims):             # <<<<<<<<<<<<<<
- *                 size.set1d(d, THDoubleTensor_size(self.thDoubleTensor, d))
+ *                 size.set1d(d, THDoubleTensor_size(self.native, d))
  *             return size
  */
     __pyx_t_4 = __pyx_v_dims;
@@ -4921,18 +4921,18 @@ static PyObject *__pyx_pf_7PyTorch_13_DoubleTensor_26size(struct __pyx_obj_7PyTo
       /* "PyTorch.pyx":389
  *             size = _LongTensor(dims)
  *             for d in range(dims):
- *                 size.set1d(d, THDoubleTensor_size(self.thDoubleTensor, d))             # <<<<<<<<<<<<<<
+ *                 size.set1d(d, THDoubleTensor_size(self.native, d))             # <<<<<<<<<<<<<<
  *             return size
  *         else:
  */
-      __pyx_t_2 = ((struct __pyx_vtabstruct_7PyTorch__LongTensor *)__pyx_v_size->__pyx_vtab)->set1d(__pyx_v_size, __pyx_v_d, THDoubleTensor_size(__pyx_v_self->thDoubleTensor, __pyx_v_d), 0); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 389; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+      __pyx_t_2 = ((struct __pyx_vtabstruct_7PyTorch__LongTensor *)__pyx_v_size->__pyx_vtab)->set1d(__pyx_v_size, __pyx_v_d, THDoubleTensor_size(__pyx_v_self->native, __pyx_v_d), 0); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 389; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
       __Pyx_GOTREF(__pyx_t_2);
       __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
     }
 
     /* "PyTorch.pyx":390
  *             for d in range(dims):
- *                 size.set1d(d, THDoubleTensor_size(self.thDoubleTensor, d))
+ *                 size.set1d(d, THDoubleTensor_size(self.native, d))
  *             return size             # <<<<<<<<<<<<<<
  *         else:
  *             return None  # not sure how to handle this yet
@@ -5049,7 +5049,7 @@ static PyObject *__pyx_pf_7PyTorch_13_DoubleTensor_28new() {
  * #        return _FloatTensor_fromNative(newTensorC, False)
  * 
  *     def narrow(_DoubleTensor self, int dimension, long firstIndex, long size):             # <<<<<<<<<<<<<<
- *         cdef THDoubleTensor *narrowedC = THDoubleTensor_newNarrow(self.thDoubleTensor, dimension, firstIndex, size)
+ *         cdef THDoubleTensor *narrowedC = THDoubleTensor_newNarrow(self.native, dimension, firstIndex, size)
  *         return _DoubleTensor_fromNative(narrowedC, retain=False)
  */
 
@@ -5137,15 +5137,15 @@ static PyObject *__pyx_pf_7PyTorch_13_DoubleTensor_30narrow(struct __pyx_obj_7Py
   /* "PyTorch.pyx":401
  * 
  *     def narrow(_DoubleTensor self, int dimension, long firstIndex, long size):
- *         cdef THDoubleTensor *narrowedC = THDoubleTensor_newNarrow(self.thDoubleTensor, dimension, firstIndex, size)             # <<<<<<<<<<<<<<
+ *         cdef THDoubleTensor *narrowedC = THDoubleTensor_newNarrow(self.native, dimension, firstIndex, size)             # <<<<<<<<<<<<<<
  *         return _DoubleTensor_fromNative(narrowedC, retain=False)
  * 
  */
-  __pyx_v_narrowedC = THDoubleTensor_newNarrow(__pyx_v_self->thDoubleTensor, __pyx_v_dimension, __pyx_v_firstIndex, __pyx_v_size);
+  __pyx_v_narrowedC = THDoubleTensor_newNarrow(__pyx_v_self->native, __pyx_v_dimension, __pyx_v_firstIndex, __pyx_v_size);
 
   /* "PyTorch.pyx":402
  *     def narrow(_DoubleTensor self, int dimension, long firstIndex, long size):
- *         cdef THDoubleTensor *narrowedC = THDoubleTensor_newNarrow(self.thDoubleTensor, dimension, firstIndex, size)
+ *         cdef THDoubleTensor *narrowedC = THDoubleTensor_newNarrow(self.native, dimension, firstIndex, size)
  *         return _DoubleTensor_fromNative(narrowedC, retain=False)             # <<<<<<<<<<<<<<
  * 
  *     def resize1d(_DoubleTensor self, int size0):
@@ -5163,7 +5163,7 @@ static PyObject *__pyx_pf_7PyTorch_13_DoubleTensor_30narrow(struct __pyx_obj_7Py
  * #        return _FloatTensor_fromNative(newTensorC, False)
  * 
  *     def narrow(_DoubleTensor self, int dimension, long firstIndex, long size):             # <<<<<<<<<<<<<<
- *         cdef THDoubleTensor *narrowedC = THDoubleTensor_newNarrow(self.thDoubleTensor, dimension, firstIndex, size)
+ *         cdef THDoubleTensor *narrowedC = THDoubleTensor_newNarrow(self.native, dimension, firstIndex, size)
  *         return _DoubleTensor_fromNative(narrowedC, retain=False)
  */
 
@@ -5182,7 +5182,7 @@ static PyObject *__pyx_pf_7PyTorch_13_DoubleTensor_30narrow(struct __pyx_obj_7Py
  *         return _DoubleTensor_fromNative(narrowedC, retain=False)
  * 
  *     def resize1d(_DoubleTensor self, int size0):             # <<<<<<<<<<<<<<
- *         THDoubleTensor_resize1d(self.thDoubleTensor, size0)
+ *         THDoubleTensor_resize1d(self.native, size0)
  *         return self
  */
 
@@ -5220,15 +5220,15 @@ static PyObject *__pyx_pf_7PyTorch_13_DoubleTensor_32resize1d(struct __pyx_obj_7
   /* "PyTorch.pyx":405
  * 
  *     def resize1d(_DoubleTensor self, int size0):
- *         THDoubleTensor_resize1d(self.thDoubleTensor, size0)             # <<<<<<<<<<<<<<
+ *         THDoubleTensor_resize1d(self.native, size0)             # <<<<<<<<<<<<<<
  *         return self
  * 
  */
-  THDoubleTensor_resize1d(__pyx_v_self->thDoubleTensor, __pyx_v_size0);
+  THDoubleTensor_resize1d(__pyx_v_self->native, __pyx_v_size0);
 
   /* "PyTorch.pyx":406
  *     def resize1d(_DoubleTensor self, int size0):
- *         THDoubleTensor_resize1d(self.thDoubleTensor, size0)
+ *         THDoubleTensor_resize1d(self.native, size0)
  *         return self             # <<<<<<<<<<<<<<
  * 
  *     def resize2d(_DoubleTensor self, int size0, int size1):
@@ -5242,7 +5242,7 @@ static PyObject *__pyx_pf_7PyTorch_13_DoubleTensor_32resize1d(struct __pyx_obj_7
  *         return _DoubleTensor_fromNative(narrowedC, retain=False)
  * 
  *     def resize1d(_DoubleTensor self, int size0):             # <<<<<<<<<<<<<<
- *         THDoubleTensor_resize1d(self.thDoubleTensor, size0)
+ *         THDoubleTensor_resize1d(self.native, size0)
  *         return self
  */
 
@@ -5257,7 +5257,7 @@ static PyObject *__pyx_pf_7PyTorch_13_DoubleTensor_32resize1d(struct __pyx_obj_7
  *         return self
  * 
  *     def resize2d(_DoubleTensor self, int size0, int size1):             # <<<<<<<<<<<<<<
- *         THDoubleTensor_resize2d(self.thDoubleTensor, size0, size1)
+ *         THDoubleTensor_resize2d(self.native, size0, size1)
  *         return self
  */
 
@@ -5330,15 +5330,15 @@ static PyObject *__pyx_pf_7PyTorch_13_DoubleTensor_34resize2d(struct __pyx_obj_7
   /* "PyTorch.pyx":409
  * 
  *     def resize2d(_DoubleTensor self, int size0, int size1):
- *         THDoubleTensor_resize2d(self.thDoubleTensor, size0, size1)             # <<<<<<<<<<<<<<
+ *         THDoubleTensor_resize2d(self.native, size0, size1)             # <<<<<<<<<<<<<<
  *         return self
  * 
  */
-  THDoubleTensor_resize2d(__pyx_v_self->thDoubleTensor, __pyx_v_size0, __pyx_v_size1);
+  THDoubleTensor_resize2d(__pyx_v_self->native, __pyx_v_size0, __pyx_v_size1);
 
   /* "PyTorch.pyx":410
  *     def resize2d(_DoubleTensor self, int size0, int size1):
- *         THDoubleTensor_resize2d(self.thDoubleTensor, size0, size1)
+ *         THDoubleTensor_resize2d(self.native, size0, size1)
  *         return self             # <<<<<<<<<<<<<<
  * 
  *     def resize3d(_DoubleTensor self, int size0, int size1, int size2):
@@ -5352,7 +5352,7 @@ static PyObject *__pyx_pf_7PyTorch_13_DoubleTensor_34resize2d(struct __pyx_obj_7
  *         return self
  * 
  *     def resize2d(_DoubleTensor self, int size0, int size1):             # <<<<<<<<<<<<<<
- *         THDoubleTensor_resize2d(self.thDoubleTensor, size0, size1)
+ *         THDoubleTensor_resize2d(self.native, size0, size1)
  *         return self
  */
 
@@ -5367,7 +5367,7 @@ static PyObject *__pyx_pf_7PyTorch_13_DoubleTensor_34resize2d(struct __pyx_obj_7
  *         return self
  * 
  *     def resize3d(_DoubleTensor self, int size0, int size1, int size2):             # <<<<<<<<<<<<<<
- *         THDoubleTensor_resize3d(self.thDoubleTensor, size0, size1, size2)
+ *         THDoubleTensor_resize3d(self.native, size0, size1, size2)
  *         return self
  */
 
@@ -5449,15 +5449,15 @@ static PyObject *__pyx_pf_7PyTorch_13_DoubleTensor_36resize3d(struct __pyx_obj_7
   /* "PyTorch.pyx":413
  * 
  *     def resize3d(_DoubleTensor self, int size0, int size1, int size2):
- *         THDoubleTensor_resize3d(self.thDoubleTensor, size0, size1, size2)             # <<<<<<<<<<<<<<
+ *         THDoubleTensor_resize3d(self.native, size0, size1, size2)             # <<<<<<<<<<<<<<
  *         return self
  * 
  */
-  THDoubleTensor_resize3d(__pyx_v_self->thDoubleTensor, __pyx_v_size0, __pyx_v_size1, __pyx_v_size2);
+  THDoubleTensor_resize3d(__pyx_v_self->native, __pyx_v_size0, __pyx_v_size1, __pyx_v_size2);
 
   /* "PyTorch.pyx":414
  *     def resize3d(_DoubleTensor self, int size0, int size1, int size2):
- *         THDoubleTensor_resize3d(self.thDoubleTensor, size0, size1, size2)
+ *         THDoubleTensor_resize3d(self.native, size0, size1, size2)
  *         return self             # <<<<<<<<<<<<<<
  * 
  *     def resize4d(_DoubleTensor self, int size0, int size1, int size2, int size3):
@@ -5471,7 +5471,7 @@ static PyObject *__pyx_pf_7PyTorch_13_DoubleTensor_36resize3d(struct __pyx_obj_7
  *         return self
  * 
  *     def resize3d(_DoubleTensor self, int size0, int size1, int size2):             # <<<<<<<<<<<<<<
- *         THDoubleTensor_resize3d(self.thDoubleTensor, size0, size1, size2)
+ *         THDoubleTensor_resize3d(self.native, size0, size1, size2)
  *         return self
  */
 
@@ -5486,7 +5486,7 @@ static PyObject *__pyx_pf_7PyTorch_13_DoubleTensor_36resize3d(struct __pyx_obj_7
  *         return self
  * 
  *     def resize4d(_DoubleTensor self, int size0, int size1, int size2, int size3):             # <<<<<<<<<<<<<<
- *         THDoubleTensor_resize4d(self.thDoubleTensor, size0, size1, size2, size3)
+ *         THDoubleTensor_resize4d(self.native, size0, size1, size2, size3)
  *         return self
  */
 
@@ -5577,15 +5577,15 @@ static PyObject *__pyx_pf_7PyTorch_13_DoubleTensor_38resize4d(struct __pyx_obj_7
   /* "PyTorch.pyx":417
  * 
  *     def resize4d(_DoubleTensor self, int size0, int size1, int size2, int size3):
- *         THDoubleTensor_resize4d(self.thDoubleTensor, size0, size1, size2, size3)             # <<<<<<<<<<<<<<
+ *         THDoubleTensor_resize4d(self.native, size0, size1, size2, size3)             # <<<<<<<<<<<<<<
  *         return self
  * 
  */
-  THDoubleTensor_resize4d(__pyx_v_self->thDoubleTensor, __pyx_v_size0, __pyx_v_size1, __pyx_v_size2, __pyx_v_size3);
+  THDoubleTensor_resize4d(__pyx_v_self->native, __pyx_v_size0, __pyx_v_size1, __pyx_v_size2, __pyx_v_size3);
 
   /* "PyTorch.pyx":418
  *     def resize4d(_DoubleTensor self, int size0, int size1, int size2, int size3):
- *         THDoubleTensor_resize4d(self.thDoubleTensor, size0, size1, size2, size3)
+ *         THDoubleTensor_resize4d(self.native, size0, size1, size2, size3)
  *         return self             # <<<<<<<<<<<<<<
  * 
  *     def resizeAs(_DoubleTensor self, _DoubleTensor model):
@@ -5599,7 +5599,7 @@ static PyObject *__pyx_pf_7PyTorch_13_DoubleTensor_38resize4d(struct __pyx_obj_7
  *         return self
  * 
  *     def resize4d(_DoubleTensor self, int size0, int size1, int size2, int size3):             # <<<<<<<<<<<<<<
- *         THDoubleTensor_resize4d(self.thDoubleTensor, size0, size1, size2, size3)
+ *         THDoubleTensor_resize4d(self.native, size0, size1, size2, size3)
  *         return self
  */
 
@@ -5614,7 +5614,7 @@ static PyObject *__pyx_pf_7PyTorch_13_DoubleTensor_38resize4d(struct __pyx_obj_7
  *         return self
  * 
  *     def resizeAs(_DoubleTensor self, _DoubleTensor model):             # <<<<<<<<<<<<<<
- *         THDoubleTensor_resizeAs(self.thDoubleTensor, model.thDoubleTensor)
+ *         THDoubleTensor_resizeAs(self.native, model.native)
  *         return self
  */
 
@@ -5647,15 +5647,15 @@ static PyObject *__pyx_pf_7PyTorch_13_DoubleTensor_40resizeAs(struct __pyx_obj_7
   /* "PyTorch.pyx":421
  * 
  *     def resizeAs(_DoubleTensor self, _DoubleTensor model):
- *         THDoubleTensor_resizeAs(self.thDoubleTensor, model.thDoubleTensor)             # <<<<<<<<<<<<<<
+ *         THDoubleTensor_resizeAs(self.native, model.native)             # <<<<<<<<<<<<<<
  *         return self
  * 
  */
-  THDoubleTensor_resizeAs(__pyx_v_self->thDoubleTensor, __pyx_v_model->thDoubleTensor);
+  THDoubleTensor_resizeAs(__pyx_v_self->native, __pyx_v_model->native);
 
   /* "PyTorch.pyx":422
  *     def resizeAs(_DoubleTensor self, _DoubleTensor model):
- *         THDoubleTensor_resizeAs(self.thDoubleTensor, model.thDoubleTensor)
+ *         THDoubleTensor_resizeAs(self.native, model.native)
  *         return self             # <<<<<<<<<<<<<<
  * 
  *     def resize(_DoubleTensor self, _LongTensor size):
@@ -5669,7 +5669,7 @@ static PyObject *__pyx_pf_7PyTorch_13_DoubleTensor_40resizeAs(struct __pyx_obj_7
  *         return self
  * 
  *     def resizeAs(_DoubleTensor self, _DoubleTensor model):             # <<<<<<<<<<<<<<
- *         THDoubleTensor_resizeAs(self.thDoubleTensor, model.thDoubleTensor)
+ *         THDoubleTensor_resizeAs(self.native, model.native)
  *         return self
  */
 
@@ -5786,9 +5786,9 @@ static PyObject *__pyx_pf_7PyTorch_13_DoubleTensor_42resize(struct __pyx_obj_7Py
 
   /* "PyTorch.pyx":436
  *         elif dims == 3:
- *             THDoubleTensor_resize3d(self.thDoubleTensor, size[0], size[1], size[2])
+ *             THDoubleTensor_resize3d(self.native, size[0], size[1], size[2])
  *         elif dims == 4:             # <<<<<<<<<<<<<<
- *             THDoubleTensor_resize4d(self.thDoubleTensor, size[0], size[1], size[2], size[3])
+ *             THDoubleTensor_resize4d(self.native, size[0], size[1], size[2], size[3])
  *         else:
  */
   switch (__pyx_v_dims) {
@@ -5797,7 +5797,7 @@ static PyObject *__pyx_pf_7PyTorch_13_DoubleTensor_42resize(struct __pyx_obj_7Py
  *         cdef int dims = size.size()[0]
  * #        print('_FloatTensor.resize dims:', dims)
  *         if dims == 1:             # <<<<<<<<<<<<<<
- *             THDoubleTensor_resize1d(self.thDoubleTensor, size[0])
+ *             THDoubleTensor_resize1d(self.native, size[0])
  *         elif dims == 2:
  */
     case 1:
@@ -5805,32 +5805,32 @@ static PyObject *__pyx_pf_7PyTorch_13_DoubleTensor_42resize(struct __pyx_obj_7Py
     /* "PyTorch.pyx":431
  * #        print('_FloatTensor.resize dims:', dims)
  *         if dims == 1:
- *             THDoubleTensor_resize1d(self.thDoubleTensor, size[0])             # <<<<<<<<<<<<<<
+ *             THDoubleTensor_resize1d(self.native, size[0])             # <<<<<<<<<<<<<<
  *         elif dims == 2:
- *             THDoubleTensor_resize2d(self.thDoubleTensor, size[0], size[1])
+ *             THDoubleTensor_resize2d(self.native, size[0], size[1])
  */
     __pyx_t_3 = __Pyx_GetItemInt(((PyObject *)__pyx_v_size), 0, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(__pyx_t_3 == NULL)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 431; __pyx_clineno = __LINE__; goto __pyx_L1_error;};
     __Pyx_GOTREF(__pyx_t_3);
     __pyx_t_6 = __Pyx_PyInt_As_long(__pyx_t_3); if (unlikely((__pyx_t_6 == (long)-1) && PyErr_Occurred())) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 431; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
     __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-    THDoubleTensor_resize1d(__pyx_v_self->thDoubleTensor, __pyx_t_6);
+    THDoubleTensor_resize1d(__pyx_v_self->native, __pyx_t_6);
     break;
 
     /* "PyTorch.pyx":432
  *         if dims == 1:
- *             THDoubleTensor_resize1d(self.thDoubleTensor, size[0])
+ *             THDoubleTensor_resize1d(self.native, size[0])
  *         elif dims == 2:             # <<<<<<<<<<<<<<
- *             THDoubleTensor_resize2d(self.thDoubleTensor, size[0], size[1])
+ *             THDoubleTensor_resize2d(self.native, size[0], size[1])
  *         elif dims == 3:
  */
     case 2:
 
     /* "PyTorch.pyx":433
- *             THDoubleTensor_resize1d(self.thDoubleTensor, size[0])
+ *             THDoubleTensor_resize1d(self.native, size[0])
  *         elif dims == 2:
- *             THDoubleTensor_resize2d(self.thDoubleTensor, size[0], size[1])             # <<<<<<<<<<<<<<
+ *             THDoubleTensor_resize2d(self.native, size[0], size[1])             # <<<<<<<<<<<<<<
  *         elif dims == 3:
- *             THDoubleTensor_resize3d(self.thDoubleTensor, size[0], size[1], size[2])
+ *             THDoubleTensor_resize3d(self.native, size[0], size[1], size[2])
  */
     __pyx_t_3 = __Pyx_GetItemInt(((PyObject *)__pyx_v_size), 0, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(__pyx_t_3 == NULL)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 433; __pyx_clineno = __LINE__; goto __pyx_L1_error;};
     __Pyx_GOTREF(__pyx_t_3);
@@ -5840,24 +5840,24 @@ static PyObject *__pyx_pf_7PyTorch_13_DoubleTensor_42resize(struct __pyx_obj_7Py
     __Pyx_GOTREF(__pyx_t_3);
     __pyx_t_7 = __Pyx_PyInt_As_long(__pyx_t_3); if (unlikely((__pyx_t_7 == (long)-1) && PyErr_Occurred())) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 433; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
     __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-    THDoubleTensor_resize2d(__pyx_v_self->thDoubleTensor, __pyx_t_6, __pyx_t_7);
+    THDoubleTensor_resize2d(__pyx_v_self->native, __pyx_t_6, __pyx_t_7);
     break;
 
     /* "PyTorch.pyx":434
  *         elif dims == 2:
- *             THDoubleTensor_resize2d(self.thDoubleTensor, size[0], size[1])
+ *             THDoubleTensor_resize2d(self.native, size[0], size[1])
  *         elif dims == 3:             # <<<<<<<<<<<<<<
- *             THDoubleTensor_resize3d(self.thDoubleTensor, size[0], size[1], size[2])
+ *             THDoubleTensor_resize3d(self.native, size[0], size[1], size[2])
  *         elif dims == 4:
  */
     case 3:
 
     /* "PyTorch.pyx":435
- *             THDoubleTensor_resize2d(self.thDoubleTensor, size[0], size[1])
+ *             THDoubleTensor_resize2d(self.native, size[0], size[1])
  *         elif dims == 3:
- *             THDoubleTensor_resize3d(self.thDoubleTensor, size[0], size[1], size[2])             # <<<<<<<<<<<<<<
+ *             THDoubleTensor_resize3d(self.native, size[0], size[1], size[2])             # <<<<<<<<<<<<<<
  *         elif dims == 4:
- *             THDoubleTensor_resize4d(self.thDoubleTensor, size[0], size[1], size[2], size[3])
+ *             THDoubleTensor_resize4d(self.native, size[0], size[1], size[2], size[3])
  */
     __pyx_t_3 = __Pyx_GetItemInt(((PyObject *)__pyx_v_size), 0, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(__pyx_t_3 == NULL)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 435; __pyx_clineno = __LINE__; goto __pyx_L1_error;};
     __Pyx_GOTREF(__pyx_t_3);
@@ -5871,22 +5871,22 @@ static PyObject *__pyx_pf_7PyTorch_13_DoubleTensor_42resize(struct __pyx_obj_7Py
     __Pyx_GOTREF(__pyx_t_3);
     __pyx_t_8 = __Pyx_PyInt_As_long(__pyx_t_3); if (unlikely((__pyx_t_8 == (long)-1) && PyErr_Occurred())) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 435; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
     __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-    THDoubleTensor_resize3d(__pyx_v_self->thDoubleTensor, __pyx_t_7, __pyx_t_6, __pyx_t_8);
+    THDoubleTensor_resize3d(__pyx_v_self->native, __pyx_t_7, __pyx_t_6, __pyx_t_8);
     break;
 
     /* "PyTorch.pyx":436
  *         elif dims == 3:
- *             THDoubleTensor_resize3d(self.thDoubleTensor, size[0], size[1], size[2])
+ *             THDoubleTensor_resize3d(self.native, size[0], size[1], size[2])
  *         elif dims == 4:             # <<<<<<<<<<<<<<
- *             THDoubleTensor_resize4d(self.thDoubleTensor, size[0], size[1], size[2], size[3])
+ *             THDoubleTensor_resize4d(self.native, size[0], size[1], size[2], size[3])
  *         else:
  */
     case 4:
 
     /* "PyTorch.pyx":437
- *             THDoubleTensor_resize3d(self.thDoubleTensor, size[0], size[1], size[2])
+ *             THDoubleTensor_resize3d(self.native, size[0], size[1], size[2])
  *         elif dims == 4:
- *             THDoubleTensor_resize4d(self.thDoubleTensor, size[0], size[1], size[2], size[3])             # <<<<<<<<<<<<<<
+ *             THDoubleTensor_resize4d(self.native, size[0], size[1], size[2], size[3])             # <<<<<<<<<<<<<<
  *         else:
  *             raise Exception('Not implemented for dims=' + str(dims))
  */
@@ -5906,12 +5906,12 @@ static PyObject *__pyx_pf_7PyTorch_13_DoubleTensor_42resize(struct __pyx_obj_7Py
     __Pyx_GOTREF(__pyx_t_3);
     __pyx_t_9 = __Pyx_PyInt_As_long(__pyx_t_3); if (unlikely((__pyx_t_9 == (long)-1) && PyErr_Occurred())) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 437; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
     __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-    THDoubleTensor_resize4d(__pyx_v_self->thDoubleTensor, __pyx_t_8, __pyx_t_6, __pyx_t_7, __pyx_t_9);
+    THDoubleTensor_resize4d(__pyx_v_self->native, __pyx_t_8, __pyx_t_6, __pyx_t_7, __pyx_t_9);
     break;
     default:
 
     /* "PyTorch.pyx":439
- *             THDoubleTensor_resize4d(self.thDoubleTensor, size[0], size[1], size[2], size[3])
+ *             THDoubleTensor_resize4d(self.native, size[0], size[1], size[2], size[3])
  *         else:
  *             raise Exception('Not implemented for dims=' + str(dims))             # <<<<<<<<<<<<<<
  *         return self
@@ -6311,7 +6311,7 @@ static PyObject *__pyx_pf_7PyTorch_13_DoubleTensor_46newWithStorage2d(struct __p
  *         return _DoubleTensor_fromNative(newTensorC, False)
  * 
  *     def storage(_DoubleTensor self):             # <<<<<<<<<<<<<<
- *         cdef Storage.THDoubleStorage *storageC = THDoubleTensor_storage(self.thDoubleTensor)
+ *         cdef Storage.THDoubleStorage *storageC = THDoubleTensor_storage(self.native)
  *         if storageC == NULL:
  */
 
@@ -6342,15 +6342,15 @@ static PyObject *__pyx_pf_7PyTorch_13_DoubleTensor_48storage(struct __pyx_obj_7P
   /* "PyTorch.pyx":455
  * 
  *     def storage(_DoubleTensor self):
- *         cdef Storage.THDoubleStorage *storageC = THDoubleTensor_storage(self.thDoubleTensor)             # <<<<<<<<<<<<<<
+ *         cdef Storage.THDoubleStorage *storageC = THDoubleTensor_storage(self.native)             # <<<<<<<<<<<<<<
  *         if storageC == NULL:
  *             return None
  */
-  __pyx_v_storageC = THDoubleTensor_storage(__pyx_v_self->thDoubleTensor);
+  __pyx_v_storageC = THDoubleTensor_storage(__pyx_v_self->native);
 
   /* "PyTorch.pyx":456
  *     def storage(_DoubleTensor self):
- *         cdef Storage.THDoubleStorage *storageC = THDoubleTensor_storage(self.thDoubleTensor)
+ *         cdef Storage.THDoubleStorage *storageC = THDoubleTensor_storage(self.native)
  *         if storageC == NULL:             # <<<<<<<<<<<<<<
  *             return None
  *         return Storage.DoubleStorage_fromNative(storageC)
@@ -6359,7 +6359,7 @@ static PyObject *__pyx_pf_7PyTorch_13_DoubleTensor_48storage(struct __pyx_obj_7P
   if (__pyx_t_1) {
 
     /* "PyTorch.pyx":457
- *         cdef Storage.THDoubleStorage *storageC = THDoubleTensor_storage(self.thDoubleTensor)
+ *         cdef Storage.THDoubleStorage *storageC = THDoubleTensor_storage(self.native)
  *         if storageC == NULL:
  *             return None             # <<<<<<<<<<<<<<
  *         return Storage.DoubleStorage_fromNative(storageC)
@@ -6389,7 +6389,7 @@ static PyObject *__pyx_pf_7PyTorch_13_DoubleTensor_48storage(struct __pyx_obj_7P
  *         return _DoubleTensor_fromNative(newTensorC, False)
  * 
  *     def storage(_DoubleTensor self):             # <<<<<<<<<<<<<<
- *         cdef Storage.THDoubleStorage *storageC = THDoubleTensor_storage(self.thDoubleTensor)
+ *         cdef Storage.THDoubleStorage *storageC = THDoubleTensor_storage(self.native)
  *         if storageC == NULL:
  */
 
@@ -6484,7 +6484,7 @@ static PyObject *__pyx_pf_7PyTorch_13_DoubleTensor_50__add__(struct __pyx_obj_7P
  *         cdef _DoubleTensor res = _DoubleTensor.new()
  *         cdef _DoubleTensor secondTensor
  *         if isinstance(second, numbers.Number):             # <<<<<<<<<<<<<<
- *             THDoubleTensor_add(res.thDoubleTensor, self.thDoubleTensor, second)
+ *             THDoubleTensor_add(res.native, self.native, second)
  *         else:
  */
   __pyx_t_1 = __Pyx_GetModuleGlobalName(__pyx_n_s_numbers); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 464; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
@@ -6500,21 +6500,21 @@ static PyObject *__pyx_pf_7PyTorch_13_DoubleTensor_50__add__(struct __pyx_obj_7P
     /* "PyTorch.pyx":465
  *         cdef _DoubleTensor secondTensor
  *         if isinstance(second, numbers.Number):
- *             THDoubleTensor_add(res.thDoubleTensor, self.thDoubleTensor, second)             # <<<<<<<<<<<<<<
+ *             THDoubleTensor_add(res.native, self.native, second)             # <<<<<<<<<<<<<<
  *         else:
  *             secondTensor = second
  */
     __pyx_t_6 = __pyx_PyFloat_AsDouble(__pyx_v_second); if (unlikely((__pyx_t_6 == (double)-1) && PyErr_Occurred())) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 465; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-    THDoubleTensor_add(__pyx_v_res->thDoubleTensor, __pyx_v_self->thDoubleTensor, __pyx_t_6);
+    THDoubleTensor_add(__pyx_v_res->native, __pyx_v_self->native, __pyx_t_6);
     goto __pyx_L3;
   }
   /*else*/ {
 
     /* "PyTorch.pyx":467
- *             THDoubleTensor_add(res.thDoubleTensor, self.thDoubleTensor, second)
+ *             THDoubleTensor_add(res.native, self.native, second)
  *         else:
  *             secondTensor = second             # <<<<<<<<<<<<<<
- *             THDoubleTensor_cadd(res.thDoubleTensor, self.thDoubleTensor, 1, secondTensor.thDoubleTensor)
+ *             THDoubleTensor_cadd(res.native, self.native, 1, secondTensor.native)
  *         return res
  */
     if (!(likely(((__pyx_v_second) == Py_None) || likely(__Pyx_TypeTest(__pyx_v_second, __pyx_ptype_7PyTorch__DoubleTensor))))) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 467; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
@@ -6526,17 +6526,17 @@ static PyObject *__pyx_pf_7PyTorch_13_DoubleTensor_50__add__(struct __pyx_obj_7P
     /* "PyTorch.pyx":468
  *         else:
  *             secondTensor = second
- *             THDoubleTensor_cadd(res.thDoubleTensor, self.thDoubleTensor, 1, secondTensor.thDoubleTensor)             # <<<<<<<<<<<<<<
+ *             THDoubleTensor_cadd(res.native, self.native, 1, secondTensor.native)             # <<<<<<<<<<<<<<
  *         return res
  * 
  */
-    THDoubleTensor_cadd(__pyx_v_res->thDoubleTensor, __pyx_v_self->thDoubleTensor, 1.0, __pyx_v_secondTensor->thDoubleTensor);
+    THDoubleTensor_cadd(__pyx_v_res->native, __pyx_v_self->native, 1.0, __pyx_v_secondTensor->native);
   }
   __pyx_L3:;
 
   /* "PyTorch.pyx":469
  *             secondTensor = second
- *             THDoubleTensor_cadd(res.thDoubleTensor, self.thDoubleTensor, 1, secondTensor.thDoubleTensor)
+ *             THDoubleTensor_cadd(res.native, self.native, 1, secondTensor.native)
  *         return res             # <<<<<<<<<<<<<<
  * 
  *     def __sub__(_DoubleTensor self, second):
@@ -6649,7 +6649,7 @@ static PyObject *__pyx_pf_7PyTorch_13_DoubleTensor_52__sub__(struct __pyx_obj_7P
  *         cdef _DoubleTensor res = _DoubleTensor.new()
  *         cdef _DoubleTensor secondTensor
  *         if isinstance(second, numbers.Number):             # <<<<<<<<<<<<<<
- *             THDoubleTensor_add(res.thDoubleTensor, self.thDoubleTensor, -second)
+ *             THDoubleTensor_add(res.native, self.native, -second)
  *         else:
  */
   __pyx_t_1 = __Pyx_GetModuleGlobalName(__pyx_n_s_numbers); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 475; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
@@ -6665,7 +6665,7 @@ static PyObject *__pyx_pf_7PyTorch_13_DoubleTensor_52__sub__(struct __pyx_obj_7P
     /* "PyTorch.pyx":476
  *         cdef _DoubleTensor secondTensor
  *         if isinstance(second, numbers.Number):
- *             THDoubleTensor_add(res.thDoubleTensor, self.thDoubleTensor, -second)             # <<<<<<<<<<<<<<
+ *             THDoubleTensor_add(res.native, self.native, -second)             # <<<<<<<<<<<<<<
  *         else:
  *             secondTensor = second
  */
@@ -6673,16 +6673,16 @@ static PyObject *__pyx_pf_7PyTorch_13_DoubleTensor_52__sub__(struct __pyx_obj_7P
     __Pyx_GOTREF(__pyx_t_2);
     __pyx_t_6 = __pyx_PyFloat_AsDouble(__pyx_t_2); if (unlikely((__pyx_t_6 == (double)-1) && PyErr_Occurred())) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 476; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
     __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-    THDoubleTensor_add(__pyx_v_res->thDoubleTensor, __pyx_v_self->thDoubleTensor, __pyx_t_6);
+    THDoubleTensor_add(__pyx_v_res->native, __pyx_v_self->native, __pyx_t_6);
     goto __pyx_L3;
   }
   /*else*/ {
 
     /* "PyTorch.pyx":478
- *             THDoubleTensor_add(res.thDoubleTensor, self.thDoubleTensor, -second)
+ *             THDoubleTensor_add(res.native, self.native, -second)
  *         else:
  *             secondTensor = second             # <<<<<<<<<<<<<<
- *             THDoubleTensor_cadd(res.thDoubleTensor, self.thDoubleTensor, -1, secondTensor.thDoubleTensor)
+ *             THDoubleTensor_cadd(res.native, self.native, -1, secondTensor.native)
  *         return res
  */
     if (!(likely(((__pyx_v_second) == Py_None) || likely(__Pyx_TypeTest(__pyx_v_second, __pyx_ptype_7PyTorch__DoubleTensor))))) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 478; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
@@ -6694,17 +6694,17 @@ static PyObject *__pyx_pf_7PyTorch_13_DoubleTensor_52__sub__(struct __pyx_obj_7P
     /* "PyTorch.pyx":479
  *         else:
  *             secondTensor = second
- *             THDoubleTensor_cadd(res.thDoubleTensor, self.thDoubleTensor, -1, secondTensor.thDoubleTensor)             # <<<<<<<<<<<<<<
+ *             THDoubleTensor_cadd(res.native, self.native, -1, secondTensor.native)             # <<<<<<<<<<<<<<
  *         return res
  * 
  */
-    THDoubleTensor_cadd(__pyx_v_res->thDoubleTensor, __pyx_v_self->thDoubleTensor, -1.0, __pyx_v_secondTensor->thDoubleTensor);
+    THDoubleTensor_cadd(__pyx_v_res->native, __pyx_v_self->native, -1.0, __pyx_v_secondTensor->native);
   }
   __pyx_L3:;
 
   /* "PyTorch.pyx":480
  *             secondTensor = second
- *             THDoubleTensor_cadd(res.thDoubleTensor, self.thDoubleTensor, -1, secondTensor.thDoubleTensor)
+ *             THDoubleTensor_cadd(res.native, self.native, -1, secondTensor.native)
  *         return res             # <<<<<<<<<<<<<<
  * 
  *     def __div__(_DoubleTensor self, double value):
@@ -6796,7 +6796,7 @@ static PyObject *__pyx_pf_7PyTorch_13_DoubleTensor_54__div__(struct __pyx_obj_7P
  *         # assume 2d matrix for now?
  *         cdef _DoubleTensor res = _DoubleTensor.new()             # <<<<<<<<<<<<<<
  * #        THFloatTensor_resizeAs(cresult, self.thFloatTensor)
- *         THDoubleTensor_div(res.thDoubleTensor, self.thDoubleTensor, value)
+ *         THDoubleTensor_div(res.native, self.native, value)
  */
   __pyx_t_2 = __Pyx_PyObject_GetAttrStr(((PyObject *)((PyObject*)__pyx_ptype_7PyTorch__DoubleTensor)), __pyx_n_s_new); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 484; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_2);
@@ -6825,15 +6825,15 @@ static PyObject *__pyx_pf_7PyTorch_13_DoubleTensor_54__div__(struct __pyx_obj_7P
   /* "PyTorch.pyx":486
  *         cdef _DoubleTensor res = _DoubleTensor.new()
  * #        THFloatTensor_resizeAs(cresult, self.thFloatTensor)
- *         THDoubleTensor_div(res.thDoubleTensor, self.thDoubleTensor, value)             # <<<<<<<<<<<<<<
+ *         THDoubleTensor_div(res.native, self.native, value)             # <<<<<<<<<<<<<<
  *         return res
  * 
  */
-  THDoubleTensor_div(__pyx_v_res->thDoubleTensor, __pyx_v_self->thDoubleTensor, __pyx_v_value);
+  THDoubleTensor_div(__pyx_v_res->native, __pyx_v_self->native, __pyx_v_value);
 
   /* "PyTorch.pyx":487
  * #        THFloatTensor_resizeAs(cresult, self.thFloatTensor)
- *         THDoubleTensor_div(res.thDoubleTensor, self.thDoubleTensor, value)
+ *         THDoubleTensor_div(res.native, self.native, value)
  *         return res             # <<<<<<<<<<<<<<
  * 
  *     def __iadd__(_DoubleTensor self, second):
@@ -6905,7 +6905,7 @@ static PyObject *__pyx_pf_7PyTorch_13_DoubleTensor_56__iadd__(struct __pyx_obj_7
  *     def __iadd__(_DoubleTensor self, second):
  *         cdef _DoubleTensor secondTensor
  *         if isinstance(second, numbers.Number):             # <<<<<<<<<<<<<<
- *             THDoubleTensor_add(self.thDoubleTensor, self.thDoubleTensor, second)
+ *             THDoubleTensor_add(self.native, self.native, second)
  *         else:
  */
   __pyx_t_1 = __Pyx_GetModuleGlobalName(__pyx_n_s_numbers); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 491; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
@@ -6921,21 +6921,21 @@ static PyObject *__pyx_pf_7PyTorch_13_DoubleTensor_56__iadd__(struct __pyx_obj_7
     /* "PyTorch.pyx":492
  *         cdef _DoubleTensor secondTensor
  *         if isinstance(second, numbers.Number):
- *             THDoubleTensor_add(self.thDoubleTensor, self.thDoubleTensor, second)             # <<<<<<<<<<<<<<
+ *             THDoubleTensor_add(self.native, self.native, second)             # <<<<<<<<<<<<<<
  *         else:
  *             secondTensor = second
  */
     __pyx_t_5 = __pyx_PyFloat_AsDouble(__pyx_v_second); if (unlikely((__pyx_t_5 == (double)-1) && PyErr_Occurred())) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 492; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-    THDoubleTensor_add(__pyx_v_self->thDoubleTensor, __pyx_v_self->thDoubleTensor, __pyx_t_5);
+    THDoubleTensor_add(__pyx_v_self->native, __pyx_v_self->native, __pyx_t_5);
     goto __pyx_L3;
   }
   /*else*/ {
 
     /* "PyTorch.pyx":494
- *             THDoubleTensor_add(self.thDoubleTensor, self.thDoubleTensor, second)
+ *             THDoubleTensor_add(self.native, self.native, second)
  *         else:
  *             secondTensor = second             # <<<<<<<<<<<<<<
- *             THDoubleTensor_cadd(self.thDoubleTensor, self.thDoubleTensor, 1, secondTensor.thDoubleTensor)
+ *             THDoubleTensor_cadd(self.native, self.native, 1, secondTensor.native)
  *         return self
  */
     if (!(likely(((__pyx_v_second) == Py_None) || likely(__Pyx_TypeTest(__pyx_v_second, __pyx_ptype_7PyTorch__DoubleTensor))))) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 494; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
@@ -6947,17 +6947,17 @@ static PyObject *__pyx_pf_7PyTorch_13_DoubleTensor_56__iadd__(struct __pyx_obj_7
     /* "PyTorch.pyx":495
  *         else:
  *             secondTensor = second
- *             THDoubleTensor_cadd(self.thDoubleTensor, self.thDoubleTensor, 1, secondTensor.thDoubleTensor)             # <<<<<<<<<<<<<<
+ *             THDoubleTensor_cadd(self.native, self.native, 1, secondTensor.native)             # <<<<<<<<<<<<<<
  *         return self
  * 
  */
-    THDoubleTensor_cadd(__pyx_v_self->thDoubleTensor, __pyx_v_self->thDoubleTensor, 1.0, __pyx_v_secondTensor->thDoubleTensor);
+    THDoubleTensor_cadd(__pyx_v_self->native, __pyx_v_self->native, 1.0, __pyx_v_secondTensor->native);
   }
   __pyx_L3:;
 
   /* "PyTorch.pyx":496
  *             secondTensor = second
- *             THDoubleTensor_cadd(self.thDoubleTensor, self.thDoubleTensor, 1, secondTensor.thDoubleTensor)
+ *             THDoubleTensor_cadd(self.native, self.native, 1, secondTensor.native)
  *         return self             # <<<<<<<<<<<<<<
  * 
  *     def __isub__(_DoubleTensor self, second):
@@ -7027,7 +7027,7 @@ static PyObject *__pyx_pf_7PyTorch_13_DoubleTensor_58__isub__(struct __pyx_obj_7
  *     def __isub__(_DoubleTensor self, second):
  *         cdef _DoubleTensor secondTensor
  *         if isinstance(second, numbers.Number):             # <<<<<<<<<<<<<<
- *             THDoubleTensor_add(self.thDoubleTensor, self.thDoubleTensor, -second)
+ *             THDoubleTensor_add(self.native, self.native, -second)
  *         else:
  */
   __pyx_t_1 = __Pyx_GetModuleGlobalName(__pyx_n_s_numbers); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 500; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
@@ -7043,7 +7043,7 @@ static PyObject *__pyx_pf_7PyTorch_13_DoubleTensor_58__isub__(struct __pyx_obj_7
     /* "PyTorch.pyx":501
  *         cdef _DoubleTensor secondTensor
  *         if isinstance(second, numbers.Number):
- *             THDoubleTensor_add(self.thDoubleTensor, self.thDoubleTensor, -second)             # <<<<<<<<<<<<<<
+ *             THDoubleTensor_add(self.native, self.native, -second)             # <<<<<<<<<<<<<<
  *         else:
  *             secondTensor = second
  */
@@ -7051,16 +7051,16 @@ static PyObject *__pyx_pf_7PyTorch_13_DoubleTensor_58__isub__(struct __pyx_obj_7
     __Pyx_GOTREF(__pyx_t_2);
     __pyx_t_5 = __pyx_PyFloat_AsDouble(__pyx_t_2); if (unlikely((__pyx_t_5 == (double)-1) && PyErr_Occurred())) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 501; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
     __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-    THDoubleTensor_add(__pyx_v_self->thDoubleTensor, __pyx_v_self->thDoubleTensor, __pyx_t_5);
+    THDoubleTensor_add(__pyx_v_self->native, __pyx_v_self->native, __pyx_t_5);
     goto __pyx_L3;
   }
   /*else*/ {
 
     /* "PyTorch.pyx":503
- *             THDoubleTensor_add(self.thDoubleTensor, self.thDoubleTensor, -second)
+ *             THDoubleTensor_add(self.native, self.native, -second)
  *         else:
  *             secondTensor = second             # <<<<<<<<<<<<<<
- *             THDoubleTensor_cadd(self.thDoubleTensor, self.thDoubleTensor, -1, secondTensor.thDoubleTensor)
+ *             THDoubleTensor_cadd(self.native, self.native, -1, secondTensor.native)
  *         return self
  */
     if (!(likely(((__pyx_v_second) == Py_None) || likely(__Pyx_TypeTest(__pyx_v_second, __pyx_ptype_7PyTorch__DoubleTensor))))) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 503; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
@@ -7072,17 +7072,17 @@ static PyObject *__pyx_pf_7PyTorch_13_DoubleTensor_58__isub__(struct __pyx_obj_7
     /* "PyTorch.pyx":504
  *         else:
  *             secondTensor = second
- *             THDoubleTensor_cadd(self.thDoubleTensor, self.thDoubleTensor, -1, secondTensor.thDoubleTensor)             # <<<<<<<<<<<<<<
+ *             THDoubleTensor_cadd(self.native, self.native, -1, secondTensor.native)             # <<<<<<<<<<<<<<
  *         return self
  * 
  */
-    THDoubleTensor_cadd(__pyx_v_self->thDoubleTensor, __pyx_v_self->thDoubleTensor, -1.0, __pyx_v_secondTensor->thDoubleTensor);
+    THDoubleTensor_cadd(__pyx_v_self->native, __pyx_v_self->native, -1.0, __pyx_v_secondTensor->native);
   }
   __pyx_L3:;
 
   /* "PyTorch.pyx":505
  *             secondTensor = second
- *             THDoubleTensor_cadd(self.thDoubleTensor, self.thDoubleTensor, -1, secondTensor.thDoubleTensor)
+ *             THDoubleTensor_cadd(self.native, self.native, -1, secondTensor.native)
  *         return self             # <<<<<<<<<<<<<<
  * 
  *     def __idiv__(_DoubleTensor self, double value):
@@ -7117,7 +7117,7 @@ static PyObject *__pyx_pf_7PyTorch_13_DoubleTensor_58__isub__(struct __pyx_obj_7
  *         return self
  * 
  *     def __idiv__(_DoubleTensor self, double value):             # <<<<<<<<<<<<<<
- *         THDoubleTensor_div(self.thDoubleTensor, self.thDoubleTensor, value)
+ *         THDoubleTensor_div(self.native, self.native, value)
  *         return self
  */
 
@@ -7158,15 +7158,15 @@ static PyObject *__pyx_pf_7PyTorch_13_DoubleTensor_60__idiv__(struct __pyx_obj_7
   /* "PyTorch.pyx":508
  * 
  *     def __idiv__(_DoubleTensor self, double value):
- *         THDoubleTensor_div(self.thDoubleTensor, self.thDoubleTensor, value)             # <<<<<<<<<<<<<<
+ *         THDoubleTensor_div(self.native, self.native, value)             # <<<<<<<<<<<<<<
  *         return self
  * 
  */
-  THDoubleTensor_div(__pyx_v_self->thDoubleTensor, __pyx_v_self->thDoubleTensor, __pyx_v_value);
+  THDoubleTensor_div(__pyx_v_self->native, __pyx_v_self->native, __pyx_v_value);
 
   /* "PyTorch.pyx":509
  *     def __idiv__(_DoubleTensor self, double value):
- *         THDoubleTensor_div(self.thDoubleTensor, self.thDoubleTensor, value)
+ *         THDoubleTensor_div(self.native, self.native, value)
  *         return self             # <<<<<<<<<<<<<<
  * 
  *     def __imul__(_DoubleTensor self, double value):
@@ -7180,7 +7180,7 @@ static PyObject *__pyx_pf_7PyTorch_13_DoubleTensor_60__idiv__(struct __pyx_obj_7
  *         return self
  * 
  *     def __idiv__(_DoubleTensor self, double value):             # <<<<<<<<<<<<<<
- *         THDoubleTensor_div(self.thDoubleTensor, self.thDoubleTensor, value)
+ *         THDoubleTensor_div(self.native, self.native, value)
  *         return self
  */
 
@@ -7196,7 +7196,7 @@ static PyObject *__pyx_pf_7PyTorch_13_DoubleTensor_60__idiv__(struct __pyx_obj_7
  *         return self
  * 
  *     def __imul__(_DoubleTensor self, double value):             # <<<<<<<<<<<<<<
- *         THDoubleTensor_mul(self.thDoubleTensor, self.thDoubleTensor, value)
+ *         THDoubleTensor_mul(self.native, self.native, value)
  *         return self
  */
 
@@ -7234,15 +7234,15 @@ static PyObject *__pyx_pf_7PyTorch_13_DoubleTensor_62__imul__(struct __pyx_obj_7
   /* "PyTorch.pyx":512
  * 
  *     def __imul__(_DoubleTensor self, double value):
- *         THDoubleTensor_mul(self.thDoubleTensor, self.thDoubleTensor, value)             # <<<<<<<<<<<<<<
+ *         THDoubleTensor_mul(self.native, self.native, value)             # <<<<<<<<<<<<<<
  *         return self
  * 
  */
-  THDoubleTensor_mul(__pyx_v_self->thDoubleTensor, __pyx_v_self->thDoubleTensor, __pyx_v_value);
+  THDoubleTensor_mul(__pyx_v_self->native, __pyx_v_self->native, __pyx_v_value);
 
   /* "PyTorch.pyx":513
  *     def __imul__(_DoubleTensor self, double value):
- *         THDoubleTensor_mul(self.thDoubleTensor, self.thDoubleTensor, value)
+ *         THDoubleTensor_mul(self.native, self.native, value)
  *         return self             # <<<<<<<<<<<<<<
  * 
  * #    def __mul__(_DoubleTensor self, _DoubleTensor M2):
@@ -7256,7 +7256,7 @@ static PyObject *__pyx_pf_7PyTorch_13_DoubleTensor_62__imul__(struct __pyx_obj_7
  *         return self
  * 
  *     def __imul__(_DoubleTensor self, double value):             # <<<<<<<<<<<<<<
- *         THDoubleTensor_mul(self.thDoubleTensor, self.thDoubleTensor, value)
+ *         THDoubleTensor_mul(self.native, self.native, value)
  *         return self
  */
 
@@ -7324,7 +7324,7 @@ static PyObject *__pyx_pf_7PyTorch_13_DoubleTensor_64__mul__(struct __pyx_obj_7P
  * 
  *         res = _DoubleTensor.new()             # <<<<<<<<<<<<<<
  *         if isinstance(second, numbers.Number):
- *             THDoubleTensor_mul(res.thDoubleTensor, self.thDoubleTensor, second)
+ *             THDoubleTensor_mul(res.native, self.native, second)
  */
   __pyx_t_2 = __Pyx_PyObject_GetAttrStr(((PyObject *)((PyObject*)__pyx_ptype_7PyTorch__DoubleTensor)), __pyx_n_s_new); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 523; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_2);
@@ -7354,7 +7354,7 @@ static PyObject *__pyx_pf_7PyTorch_13_DoubleTensor_64__mul__(struct __pyx_obj_7P
  * 
  *         res = _DoubleTensor.new()
  *         if isinstance(second, numbers.Number):             # <<<<<<<<<<<<<<
- *             THDoubleTensor_mul(res.thDoubleTensor, self.thDoubleTensor, second)
+ *             THDoubleTensor_mul(res.native, self.native, second)
  *             return res
  */
   __pyx_t_1 = __Pyx_GetModuleGlobalName(__pyx_n_s_numbers); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 524; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
@@ -7370,16 +7370,16 @@ static PyObject *__pyx_pf_7PyTorch_13_DoubleTensor_64__mul__(struct __pyx_obj_7P
     /* "PyTorch.pyx":525
  *         res = _DoubleTensor.new()
  *         if isinstance(second, numbers.Number):
- *             THDoubleTensor_mul(res.thDoubleTensor, self.thDoubleTensor, second)             # <<<<<<<<<<<<<<
+ *             THDoubleTensor_mul(res.native, self.native, second)             # <<<<<<<<<<<<<<
  *             return res
  *         else:
  */
     __pyx_t_6 = __pyx_PyFloat_AsDouble(__pyx_v_second); if (unlikely((__pyx_t_6 == (double)-1) && PyErr_Occurred())) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 525; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-    THDoubleTensor_mul(__pyx_v_res->thDoubleTensor, __pyx_v_self->thDoubleTensor, __pyx_t_6);
+    THDoubleTensor_mul(__pyx_v_res->native, __pyx_v_self->native, __pyx_t_6);
 
     /* "PyTorch.pyx":526
  *         if isinstance(second, numbers.Number):
- *             THDoubleTensor_mul(res.thDoubleTensor, self.thDoubleTensor, second)
+ *             THDoubleTensor_mul(res.native, self.native, second)
  *             return res             # <<<<<<<<<<<<<<
  *         else:
  * 
@@ -7396,7 +7396,7 @@ static PyObject *__pyx_pf_7PyTorch_13_DoubleTensor_64__mul__(struct __pyx_obj_7P
  * 
  *             M2 = second             # <<<<<<<<<<<<<<
  *             T = _DoubleTensor.new()
- *             resRows = THDoubleTensor_size(self.thDoubleTensor, 0)
+ *             resRows = THDoubleTensor_size(self.native, 0)
  */
     if (!(likely(((__pyx_v_second) == Py_None) || likely(__Pyx_TypeTest(__pyx_v_second, __pyx_ptype_7PyTorch__DoubleTensor))))) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 529; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
     __pyx_t_2 = __pyx_v_second;
@@ -7408,8 +7408,8 @@ static PyObject *__pyx_pf_7PyTorch_13_DoubleTensor_64__mul__(struct __pyx_obj_7P
  * 
  *             M2 = second
  *             T = _DoubleTensor.new()             # <<<<<<<<<<<<<<
- *             resRows = THDoubleTensor_size(self.thDoubleTensor, 0)
- *             resCols = THDoubleTensor_size(M2.thDoubleTensor, 1)
+ *             resRows = THDoubleTensor_size(self.native, 0)
+ *             resCols = THDoubleTensor_size(M2.native, 1)
  */
     __pyx_t_1 = __Pyx_PyObject_GetAttrStr(((PyObject *)((PyObject*)__pyx_ptype_7PyTorch__DoubleTensor)), __pyx_n_s_new); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 530; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
     __Pyx_GOTREF(__pyx_t_1);
@@ -7438,27 +7438,27 @@ static PyObject *__pyx_pf_7PyTorch_13_DoubleTensor_64__mul__(struct __pyx_obj_7P
     /* "PyTorch.pyx":531
  *             M2 = second
  *             T = _DoubleTensor.new()
- *             resRows = THDoubleTensor_size(self.thDoubleTensor, 0)             # <<<<<<<<<<<<<<
- *             resCols = THDoubleTensor_size(M2.thDoubleTensor, 1)
+ *             resRows = THDoubleTensor_size(self.native, 0)             # <<<<<<<<<<<<<<
+ *             resCols = THDoubleTensor_size(M2.native, 1)
  *             res.resize2d(resRows, resCols)
  */
-    __pyx_v_resRows = THDoubleTensor_size(__pyx_v_self->thDoubleTensor, 0);
+    __pyx_v_resRows = THDoubleTensor_size(__pyx_v_self->native, 0);
 
     /* "PyTorch.pyx":532
  *             T = _DoubleTensor.new()
- *             resRows = THDoubleTensor_size(self.thDoubleTensor, 0)
- *             resCols = THDoubleTensor_size(M2.thDoubleTensor, 1)             # <<<<<<<<<<<<<<
+ *             resRows = THDoubleTensor_size(self.native, 0)
+ *             resCols = THDoubleTensor_size(M2.native, 1)             # <<<<<<<<<<<<<<
  *             res.resize2d(resRows, resCols)
  *             T.resize2d(resRows, resCols)
  */
-    __pyx_v_resCols = THDoubleTensor_size(__pyx_v_M2->thDoubleTensor, 1);
+    __pyx_v_resCols = THDoubleTensor_size(__pyx_v_M2->native, 1);
 
     /* "PyTorch.pyx":533
- *             resRows = THDoubleTensor_size(self.thDoubleTensor, 0)
- *             resCols = THDoubleTensor_size(M2.thDoubleTensor, 1)
+ *             resRows = THDoubleTensor_size(self.native, 0)
+ *             resCols = THDoubleTensor_size(M2.native, 1)
  *             res.resize2d(resRows, resCols)             # <<<<<<<<<<<<<<
  *             T.resize2d(resRows, resCols)
- *             THDoubleTensor_addmm(res.thDoubleTensor, 0, T.thDoubleTensor, 1, self.thDoubleTensor, M2.thDoubleTensor)
+ *             THDoubleTensor_addmm(res.native, 0, T.native, 1, self.native, M2.native)
  */
     __pyx_t_1 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_res), __pyx_n_s_resize2d); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 533; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
     __Pyx_GOTREF(__pyx_t_1);
@@ -7496,10 +7496,10 @@ static PyObject *__pyx_pf_7PyTorch_13_DoubleTensor_64__mul__(struct __pyx_obj_7P
     __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
     /* "PyTorch.pyx":534
- *             resCols = THDoubleTensor_size(M2.thDoubleTensor, 1)
+ *             resCols = THDoubleTensor_size(M2.native, 1)
  *             res.resize2d(resRows, resCols)
  *             T.resize2d(resRows, resCols)             # <<<<<<<<<<<<<<
- *             THDoubleTensor_addmm(res.thDoubleTensor, 0, T.thDoubleTensor, 1, self.thDoubleTensor, M2.thDoubleTensor)
+ *             THDoubleTensor_addmm(res.native, 0, T.native, 1, self.native, M2.native)
  *             return res
  */
     __pyx_t_1 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_T), __pyx_n_s_resize2d); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 534; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
@@ -7540,15 +7540,15 @@ static PyObject *__pyx_pf_7PyTorch_13_DoubleTensor_64__mul__(struct __pyx_obj_7P
     /* "PyTorch.pyx":535
  *             res.resize2d(resRows, resCols)
  *             T.resize2d(resRows, resCols)
- *             THDoubleTensor_addmm(res.thDoubleTensor, 0, T.thDoubleTensor, 1, self.thDoubleTensor, M2.thDoubleTensor)             # <<<<<<<<<<<<<<
+ *             THDoubleTensor_addmm(res.native, 0, T.native, 1, self.native, M2.native)             # <<<<<<<<<<<<<<
  *             return res
  * 
  */
-    THDoubleTensor_addmm(__pyx_v_res->thDoubleTensor, 0.0, __pyx_v_T->thDoubleTensor, 1.0, __pyx_v_self->thDoubleTensor, __pyx_v_M2->thDoubleTensor);
+    THDoubleTensor_addmm(__pyx_v_res->native, 0.0, __pyx_v_T->native, 1.0, __pyx_v_self->native, __pyx_v_M2->native);
 
     /* "PyTorch.pyx":536
  *             T.resize2d(resRows, resCols)
- *             THDoubleTensor_addmm(res.thDoubleTensor, 0, T.thDoubleTensor, 1, self.thDoubleTensor, M2.thDoubleTensor)
+ *             THDoubleTensor_addmm(res.native, 0, T.native, 1, self.native, M2.native)
  *             return res             # <<<<<<<<<<<<<<
  * 
  * 
@@ -7590,7 +7590,7 @@ static PyObject *__pyx_pf_7PyTorch_13_DoubleTensor_64__mul__(struct __pyx_obj_7P
  *     # ========== random ===============================
  * 
  *     def bernoulli(_DoubleTensor self, float p=0.5):             # <<<<<<<<<<<<<<
- *         THDoubleTensor_bernoulli(self.thDoubleTensor, globalState.generator, p)
+ *         THDoubleTensor_bernoulli(self.native, globalState.generator, p)
  *         return self
  */
 
@@ -7662,15 +7662,15 @@ static PyObject *__pyx_pf_7PyTorch_13_DoubleTensor_66bernoulli(struct __pyx_obj_
   /* "PyTorch.pyx":542
  * 
  *     def bernoulli(_DoubleTensor self, float p=0.5):
- *         THDoubleTensor_bernoulli(self.thDoubleTensor, globalState.generator, p)             # <<<<<<<<<<<<<<
+ *         THDoubleTensor_bernoulli(self.native, globalState.generator, p)             # <<<<<<<<<<<<<<
  *         return self
  * 
  */
-  THDoubleTensor_bernoulli(__pyx_v_self->thDoubleTensor, __pyx_v_7PyTorch_globalState->generator, __pyx_v_p);
+  THDoubleTensor_bernoulli(__pyx_v_self->native, __pyx_v_7PyTorch_globalState->generator, __pyx_v_p);
 
   /* "PyTorch.pyx":543
  *     def bernoulli(_DoubleTensor self, float p=0.5):
- *         THDoubleTensor_bernoulli(self.thDoubleTensor, globalState.generator, p)
+ *         THDoubleTensor_bernoulli(self.native, globalState.generator, p)
  *         return self             # <<<<<<<<<<<<<<
  * 
  *     def geometric(_DoubleTensor self, float p=0.5):
@@ -7684,7 +7684,7 @@ static PyObject *__pyx_pf_7PyTorch_13_DoubleTensor_66bernoulli(struct __pyx_obj_
  *     # ========== random ===============================
  * 
  *     def bernoulli(_DoubleTensor self, float p=0.5):             # <<<<<<<<<<<<<<
- *         THDoubleTensor_bernoulli(self.thDoubleTensor, globalState.generator, p)
+ *         THDoubleTensor_bernoulli(self.native, globalState.generator, p)
  *         return self
  */
 
@@ -7699,7 +7699,7 @@ static PyObject *__pyx_pf_7PyTorch_13_DoubleTensor_66bernoulli(struct __pyx_obj_
  *         return self
  * 
  *     def geometric(_DoubleTensor self, float p=0.5):             # <<<<<<<<<<<<<<
- *         THDoubleTensor_geometric(self.thDoubleTensor, globalState.generator, p)
+ *         THDoubleTensor_geometric(self.native, globalState.generator, p)
  *         return self
  */
 
@@ -7771,15 +7771,15 @@ static PyObject *__pyx_pf_7PyTorch_13_DoubleTensor_68geometric(struct __pyx_obj_
   /* "PyTorch.pyx":546
  * 
  *     def geometric(_DoubleTensor self, float p=0.5):
- *         THDoubleTensor_geometric(self.thDoubleTensor, globalState.generator, p)             # <<<<<<<<<<<<<<
+ *         THDoubleTensor_geometric(self.native, globalState.generator, p)             # <<<<<<<<<<<<<<
  *         return self
  * 
  */
-  THDoubleTensor_geometric(__pyx_v_self->thDoubleTensor, __pyx_v_7PyTorch_globalState->generator, __pyx_v_p);
+  THDoubleTensor_geometric(__pyx_v_self->native, __pyx_v_7PyTorch_globalState->generator, __pyx_v_p);
 
   /* "PyTorch.pyx":547
  *     def geometric(_DoubleTensor self, float p=0.5):
- *         THDoubleTensor_geometric(self.thDoubleTensor, globalState.generator, p)
+ *         THDoubleTensor_geometric(self.native, globalState.generator, p)
  *         return self             # <<<<<<<<<<<<<<
  * 
  * 
@@ -7793,7 +7793,7 @@ static PyObject *__pyx_pf_7PyTorch_13_DoubleTensor_68geometric(struct __pyx_obj_
  *         return self
  * 
  *     def geometric(_DoubleTensor self, float p=0.5):             # <<<<<<<<<<<<<<
- *         THDoubleTensor_geometric(self.thDoubleTensor, globalState.generator, p)
+ *         THDoubleTensor_geometric(self.native, globalState.generator, p)
  *         return self
  */
 
@@ -7808,7 +7808,7 @@ static PyObject *__pyx_pf_7PyTorch_13_DoubleTensor_68geometric(struct __pyx_obj_
  * 
  * 
  *     def normal(_DoubleTensor self, double mean=0, double stdv=1):             # <<<<<<<<<<<<<<
- *         THDoubleTensor_normal(self.thDoubleTensor, globalState.generator, mean, stdv)
+ *         THDoubleTensor_normal(self.native, globalState.generator, mean, stdv)
  *         return self
  */
 
@@ -7893,15 +7893,15 @@ static PyObject *__pyx_pf_7PyTorch_13_DoubleTensor_70normal(struct __pyx_obj_7Py
   /* "PyTorch.pyx":551
  * 
  *     def normal(_DoubleTensor self, double mean=0, double stdv=1):
- *         THDoubleTensor_normal(self.thDoubleTensor, globalState.generator, mean, stdv)             # <<<<<<<<<<<<<<
+ *         THDoubleTensor_normal(self.native, globalState.generator, mean, stdv)             # <<<<<<<<<<<<<<
  *         return self
  * 
  */
-  THDoubleTensor_normal(__pyx_v_self->thDoubleTensor, __pyx_v_7PyTorch_globalState->generator, __pyx_v_mean, __pyx_v_stdv);
+  THDoubleTensor_normal(__pyx_v_self->native, __pyx_v_7PyTorch_globalState->generator, __pyx_v_mean, __pyx_v_stdv);
 
   /* "PyTorch.pyx":552
  *     def normal(_DoubleTensor self, double mean=0, double stdv=1):
- *         THDoubleTensor_normal(self.thDoubleTensor, globalState.generator, mean, stdv)
+ *         THDoubleTensor_normal(self.native, globalState.generator, mean, stdv)
  *         return self             # <<<<<<<<<<<<<<
  * 
  *     def exponential(_DoubleTensor self, double _lambda=1):
@@ -7915,7 +7915,7 @@ static PyObject *__pyx_pf_7PyTorch_13_DoubleTensor_70normal(struct __pyx_obj_7Py
  * 
  * 
  *     def normal(_DoubleTensor self, double mean=0, double stdv=1):             # <<<<<<<<<<<<<<
- *         THDoubleTensor_normal(self.thDoubleTensor, globalState.generator, mean, stdv)
+ *         THDoubleTensor_normal(self.native, globalState.generator, mean, stdv)
  *         return self
  */
 
@@ -7930,7 +7930,7 @@ static PyObject *__pyx_pf_7PyTorch_13_DoubleTensor_70normal(struct __pyx_obj_7Py
  *         return self
  * 
  *     def exponential(_DoubleTensor self, double _lambda=1):             # <<<<<<<<<<<<<<
- *         THDoubleTensor_exponential(self.thDoubleTensor, globalState.generator, _lambda)
+ *         THDoubleTensor_exponential(self.native, globalState.generator, _lambda)
  *         return self
  */
 
@@ -8002,15 +8002,15 @@ static PyObject *__pyx_pf_7PyTorch_13_DoubleTensor_72exponential(struct __pyx_ob
   /* "PyTorch.pyx":555
  * 
  *     def exponential(_DoubleTensor self, double _lambda=1):
- *         THDoubleTensor_exponential(self.thDoubleTensor, globalState.generator, _lambda)             # <<<<<<<<<<<<<<
+ *         THDoubleTensor_exponential(self.native, globalState.generator, _lambda)             # <<<<<<<<<<<<<<
  *         return self
  * 
  */
-  THDoubleTensor_exponential(__pyx_v_self->thDoubleTensor, __pyx_v_7PyTorch_globalState->generator, __pyx_v__lambda);
+  THDoubleTensor_exponential(__pyx_v_self->native, __pyx_v_7PyTorch_globalState->generator, __pyx_v__lambda);
 
   /* "PyTorch.pyx":556
  *     def exponential(_DoubleTensor self, double _lambda=1):
- *         THDoubleTensor_exponential(self.thDoubleTensor, globalState.generator, _lambda)
+ *         THDoubleTensor_exponential(self.native, globalState.generator, _lambda)
  *         return self             # <<<<<<<<<<<<<<
  * 
  *     def cauchy(_DoubleTensor self, double median=0, double sigma=1):
@@ -8024,7 +8024,7 @@ static PyObject *__pyx_pf_7PyTorch_13_DoubleTensor_72exponential(struct __pyx_ob
  *         return self
  * 
  *     def exponential(_DoubleTensor self, double _lambda=1):             # <<<<<<<<<<<<<<
- *         THDoubleTensor_exponential(self.thDoubleTensor, globalState.generator, _lambda)
+ *         THDoubleTensor_exponential(self.native, globalState.generator, _lambda)
  *         return self
  */
 
@@ -8039,7 +8039,7 @@ static PyObject *__pyx_pf_7PyTorch_13_DoubleTensor_72exponential(struct __pyx_ob
  *         return self
  * 
  *     def cauchy(_DoubleTensor self, double median=0, double sigma=1):             # <<<<<<<<<<<<<<
- *         THDoubleTensor_cauchy(self.thDoubleTensor, globalState.generator, median, sigma)
+ *         THDoubleTensor_cauchy(self.native, globalState.generator, median, sigma)
  *         return self
  */
 
@@ -8124,15 +8124,15 @@ static PyObject *__pyx_pf_7PyTorch_13_DoubleTensor_74cauchy(struct __pyx_obj_7Py
   /* "PyTorch.pyx":559
  * 
  *     def cauchy(_DoubleTensor self, double median=0, double sigma=1):
- *         THDoubleTensor_cauchy(self.thDoubleTensor, globalState.generator, median, sigma)             # <<<<<<<<<<<<<<
+ *         THDoubleTensor_cauchy(self.native, globalState.generator, median, sigma)             # <<<<<<<<<<<<<<
  *         return self
  * 
  */
-  THDoubleTensor_cauchy(__pyx_v_self->thDoubleTensor, __pyx_v_7PyTorch_globalState->generator, __pyx_v_median, __pyx_v_sigma);
+  THDoubleTensor_cauchy(__pyx_v_self->native, __pyx_v_7PyTorch_globalState->generator, __pyx_v_median, __pyx_v_sigma);
 
   /* "PyTorch.pyx":560
  *     def cauchy(_DoubleTensor self, double median=0, double sigma=1):
- *         THDoubleTensor_cauchy(self.thDoubleTensor, globalState.generator, median, sigma)
+ *         THDoubleTensor_cauchy(self.native, globalState.generator, median, sigma)
  *         return self             # <<<<<<<<<<<<<<
  * 
  *     def logNormal(_DoubleTensor self, double mean=1, double stdv=2):
@@ -8146,7 +8146,7 @@ static PyObject *__pyx_pf_7PyTorch_13_DoubleTensor_74cauchy(struct __pyx_obj_7Py
  *         return self
  * 
  *     def cauchy(_DoubleTensor self, double median=0, double sigma=1):             # <<<<<<<<<<<<<<
- *         THDoubleTensor_cauchy(self.thDoubleTensor, globalState.generator, median, sigma)
+ *         THDoubleTensor_cauchy(self.native, globalState.generator, median, sigma)
  *         return self
  */
 
@@ -8161,7 +8161,7 @@ static PyObject *__pyx_pf_7PyTorch_13_DoubleTensor_74cauchy(struct __pyx_obj_7Py
  *         return self
  * 
  *     def logNormal(_DoubleTensor self, double mean=1, double stdv=2):             # <<<<<<<<<<<<<<
- *         THDoubleTensor_logNormal(self.thDoubleTensor, globalState.generator, mean, stdv)
+ *         THDoubleTensor_logNormal(self.native, globalState.generator, mean, stdv)
  *         return self
  */
 
@@ -8246,15 +8246,15 @@ static PyObject *__pyx_pf_7PyTorch_13_DoubleTensor_76logNormal(struct __pyx_obj_
   /* "PyTorch.pyx":563
  * 
  *     def logNormal(_DoubleTensor self, double mean=1, double stdv=2):
- *         THDoubleTensor_logNormal(self.thDoubleTensor, globalState.generator, mean, stdv)             # <<<<<<<<<<<<<<
+ *         THDoubleTensor_logNormal(self.native, globalState.generator, mean, stdv)             # <<<<<<<<<<<<<<
  *         return self
  * 
  */
-  THDoubleTensor_logNormal(__pyx_v_self->thDoubleTensor, __pyx_v_7PyTorch_globalState->generator, __pyx_v_mean, __pyx_v_stdv);
+  THDoubleTensor_logNormal(__pyx_v_self->native, __pyx_v_7PyTorch_globalState->generator, __pyx_v_mean, __pyx_v_stdv);
 
   /* "PyTorch.pyx":564
  *     def logNormal(_DoubleTensor self, double mean=1, double stdv=2):
- *         THDoubleTensor_logNormal(self.thDoubleTensor, globalState.generator, mean, stdv)
+ *         THDoubleTensor_logNormal(self.native, globalState.generator, mean, stdv)
  *         return self             # <<<<<<<<<<<<<<
  * 
  *     def uniform(_DoubleTensor self, double a=0, double b=1):
@@ -8268,7 +8268,7 @@ static PyObject *__pyx_pf_7PyTorch_13_DoubleTensor_76logNormal(struct __pyx_obj_
  *         return self
  * 
  *     def logNormal(_DoubleTensor self, double mean=1, double stdv=2):             # <<<<<<<<<<<<<<
- *         THDoubleTensor_logNormal(self.thDoubleTensor, globalState.generator, mean, stdv)
+ *         THDoubleTensor_logNormal(self.native, globalState.generator, mean, stdv)
  *         return self
  */
 
@@ -8283,7 +8283,7 @@ static PyObject *__pyx_pf_7PyTorch_13_DoubleTensor_76logNormal(struct __pyx_obj_
  *         return self
  * 
  *     def uniform(_DoubleTensor self, double a=0, double b=1):             # <<<<<<<<<<<<<<
- *         THDoubleTensor_uniform(self.thDoubleTensor, globalState.generator, a, b)
+ *         THDoubleTensor_uniform(self.native, globalState.generator, a, b)
  *         return self
  */
 
@@ -8368,15 +8368,15 @@ static PyObject *__pyx_pf_7PyTorch_13_DoubleTensor_78uniform(struct __pyx_obj_7P
   /* "PyTorch.pyx":567
  * 
  *     def uniform(_DoubleTensor self, double a=0, double b=1):
- *         THDoubleTensor_uniform(self.thDoubleTensor, globalState.generator, a, b)             # <<<<<<<<<<<<<<
+ *         THDoubleTensor_uniform(self.native, globalState.generator, a, b)             # <<<<<<<<<<<<<<
  *         return self
  * 
  */
-  THDoubleTensor_uniform(__pyx_v_self->thDoubleTensor, __pyx_v_7PyTorch_globalState->generator, __pyx_v_a, __pyx_v_b);
+  THDoubleTensor_uniform(__pyx_v_self->native, __pyx_v_7PyTorch_globalState->generator, __pyx_v_a, __pyx_v_b);
 
   /* "PyTorch.pyx":568
  *     def uniform(_DoubleTensor self, double a=0, double b=1):
- *         THDoubleTensor_uniform(self.thDoubleTensor, globalState.generator, a, b)
+ *         THDoubleTensor_uniform(self.native, globalState.generator, a, b)
  *         return self             # <<<<<<<<<<<<<<
  * 
  * 
@@ -8390,7 +8390,7 @@ static PyObject *__pyx_pf_7PyTorch_13_DoubleTensor_78uniform(struct __pyx_obj_7P
  *         return self
  * 
  *     def uniform(_DoubleTensor self, double a=0, double b=1):             # <<<<<<<<<<<<<<
- *         THDoubleTensor_uniform(self.thDoubleTensor, globalState.generator, a, b)
+ *         THDoubleTensor_uniform(self.native, globalState.generator, a, b)
  *         return self
  */
 
@@ -8442,7 +8442,7 @@ static PyObject *__pyx_f_7PyTorch__DoubleTensor_fromNative(struct THDoubleTensor
  *     if retain:
  *         THDoubleTensor_retain(tensorC)             # <<<<<<<<<<<<<<
  *     tensor = _DoubleTensor(_allocate=False)
- *     tensor.thDoubleTensor = tensorC
+ *     tensor.native = tensorC
  */
     THDoubleTensor_retain(__pyx_v_tensorC);
     goto __pyx_L3;
@@ -8453,7 +8453,7 @@ static PyObject *__pyx_f_7PyTorch__DoubleTensor_fromNative(struct THDoubleTensor
  *     if retain:
  *         THDoubleTensor_retain(tensorC)
  *     tensor = _DoubleTensor(_allocate=False)             # <<<<<<<<<<<<<<
- *     tensor.thDoubleTensor = tensorC
+ *     tensor.native = tensorC
  *     return tensor
  */
   __pyx_t_2 = PyDict_New(); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 575; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
@@ -8468,15 +8468,15 @@ static PyObject *__pyx_f_7PyTorch__DoubleTensor_fromNative(struct THDoubleTensor
   /* "PyTorch.pyx":576
  *         THDoubleTensor_retain(tensorC)
  *     tensor = _DoubleTensor(_allocate=False)
- *     tensor.thDoubleTensor = tensorC             # <<<<<<<<<<<<<<
+ *     tensor.native = tensorC             # <<<<<<<<<<<<<<
  *     return tensor
  * 
  */
-  __pyx_v_tensor->thDoubleTensor = __pyx_v_tensorC;
+  __pyx_v_tensor->native = __pyx_v_tensorC;
 
   /* "PyTorch.pyx":577
  *     tensor = _DoubleTensor(_allocate=False)
- *     tensor.thDoubleTensor = tensorC
+ *     tensor.native = tensorC
  *     return tensor             # <<<<<<<<<<<<<<
  * 
  * 
@@ -8663,7 +8663,7 @@ static int __pyx_pf_7PyTorch_11_ByteTensor___cinit__(struct __pyx_obj_7PyTorch__
  *                     raise Exception('cannot provide arguments to initializer')
  *             if len(args) == 0:             # <<<<<<<<<<<<<<
  * #                print('no args, calling THByteTensor_new()')
- *                 self.thByteTensor = THByteTensor_new()
+ *                 self.native = THByteTensor_new()
  */
     __pyx_t_3 = PyTuple_GET_SIZE(__pyx_v_args); if (unlikely(__pyx_t_3 == -1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 599; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
     __pyx_t_5 = ((__pyx_t_3 == 0) != 0);
@@ -8672,20 +8672,20 @@ static int __pyx_pf_7PyTorch_11_ByteTensor___cinit__(struct __pyx_obj_7PyTorch__
       /* "PyTorch.pyx":601
  *             if len(args) == 0:
  * #                print('no args, calling THByteTensor_new()')
- *                 self.thByteTensor = THByteTensor_new()             # <<<<<<<<<<<<<<
+ *                 self.native = THByteTensor_new()             # <<<<<<<<<<<<<<
  *             elif len(args) == 1:
  * #                print('new tensor 1d length', args[0])
  */
-      __pyx_v_self->thByteTensor = THByteTensor_new();
+      __pyx_v_self->native = THByteTensor_new();
       goto __pyx_L7;
     }
 
     /* "PyTorch.pyx":602
  * #                print('no args, calling THByteTensor_new()')
- *                 self.thByteTensor = THByteTensor_new()
+ *                 self.native = THByteTensor_new()
  *             elif len(args) == 1:             # <<<<<<<<<<<<<<
  * #                print('new tensor 1d length', args[0])
- *                 self.thByteTensor = THByteTensor_newWithSize1d(args[0])
+ *                 self.native = THByteTensor_newWithSize1d(args[0])
  */
     __pyx_t_3 = PyTuple_GET_SIZE(__pyx_v_args); if (unlikely(__pyx_t_3 == -1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 602; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
     __pyx_t_5 = ((__pyx_t_3 == 1) != 0);
@@ -8694,7 +8694,7 @@ static int __pyx_pf_7PyTorch_11_ByteTensor___cinit__(struct __pyx_obj_7PyTorch__
       /* "PyTorch.pyx":604
  *             elif len(args) == 1:
  * #                print('new tensor 1d length', args[0])
- *                 self.thByteTensor = THByteTensor_newWithSize1d(args[0])             # <<<<<<<<<<<<<<
+ *                 self.native = THByteTensor_newWithSize1d(args[0])             # <<<<<<<<<<<<<<
  * #                storageC = THFloatTensor_storage(self.thFloatTensor)
  * #                if storageC == NULL:
  */
@@ -8702,7 +8702,7 @@ static int __pyx_pf_7PyTorch_11_ByteTensor___cinit__(struct __pyx_obj_7PyTorch__
       __Pyx_GOTREF(__pyx_t_2);
       __pyx_t_6 = __Pyx_PyInt_As_long(__pyx_t_2); if (unlikely((__pyx_t_6 == (long)-1) && PyErr_Occurred())) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 604; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
       __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-      __pyx_v_self->thByteTensor = THByteTensor_newWithSize1d(__pyx_t_6);
+      __pyx_v_self->native = THByteTensor_newWithSize1d(__pyx_t_6);
       goto __pyx_L7;
     }
 
@@ -8710,7 +8710,7 @@ static int __pyx_pf_7PyTorch_11_ByteTensor___cinit__(struct __pyx_obj_7PyTorch__
  * #                    print('storageaddr', hex(addr))
  * #                    print('storageC refcount', THFloatStorage_getRefCount(storageC))
  *             elif len(args) == 2:             # <<<<<<<<<<<<<<
- *                 self.thByteTensor = THByteTensor_newWithSize2d(args[0], args[1])
+ *                 self.native = THByteTensor_newWithSize2d(args[0], args[1])
  *             else:
  */
     __pyx_t_3 = PyTuple_GET_SIZE(__pyx_v_args); if (unlikely(__pyx_t_3 == -1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 613; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
@@ -8720,7 +8720,7 @@ static int __pyx_pf_7PyTorch_11_ByteTensor___cinit__(struct __pyx_obj_7PyTorch__
       /* "PyTorch.pyx":614
  * #                    print('storageC refcount', THFloatStorage_getRefCount(storageC))
  *             elif len(args) == 2:
- *                 self.thByteTensor = THByteTensor_newWithSize2d(args[0], args[1])             # <<<<<<<<<<<<<<
+ *                 self.native = THByteTensor_newWithSize2d(args[0], args[1])             # <<<<<<<<<<<<<<
  *             else:
  *                 raise Exception('Not implemented, len(args)=' + str(len(args)))
  */
@@ -8732,13 +8732,13 @@ static int __pyx_pf_7PyTorch_11_ByteTensor___cinit__(struct __pyx_obj_7PyTorch__
       __Pyx_GOTREF(__pyx_t_2);
       __pyx_t_7 = __Pyx_PyInt_As_long(__pyx_t_2); if (unlikely((__pyx_t_7 == (long)-1) && PyErr_Occurred())) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 614; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
       __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-      __pyx_v_self->thByteTensor = THByteTensor_newWithSize2d(__pyx_t_6, __pyx_t_7);
+      __pyx_v_self->native = THByteTensor_newWithSize2d(__pyx_t_6, __pyx_t_7);
       goto __pyx_L7;
     }
     /*else*/ {
 
       /* "PyTorch.pyx":616
- *                 self.thByteTensor = THByteTensor_newWithSize2d(args[0], args[1])
+ *                 self.native = THByteTensor_newWithSize2d(args[0], args[1])
  *             else:
  *                 raise Exception('Not implemented, len(args)=' + str(len(args)))             # <<<<<<<<<<<<<<
  * 
@@ -8829,18 +8829,18 @@ static void __pyx_pf_7PyTorch_11_ByteTensor_2__dealloc__(struct __pyx_obj_7PyTor
   /* "PyTorch.pyx":632
  * #        cdef int i
  * #        cdef THFloatStorage *storage
- *         refCount = THByteTensor_getRefCount(self.thByteTensor)             # <<<<<<<<<<<<<<
+ *         refCount = THByteTensor_getRefCount(self.native)             # <<<<<<<<<<<<<<
  * #        print('ByteTensor.dealloc old refcount', refCount)
  * #        storage = THFloatTensor_storage(self.thFloatTensor)
  */
-  __pyx_v_refCount = THByteTensor_getRefCount(__pyx_v_self->thByteTensor);
+  __pyx_v_refCount = THByteTensor_getRefCount(__pyx_v_self->native);
 
   /* "PyTorch.pyx":643
  * #        for i in range(dims):
  * #            print('   size[', i, ']', THFloatTensor_size(self.thFloatTensor, i))
  *         if refCount < 1:             # <<<<<<<<<<<<<<
  *             raise Exception('Unallocated an already deallocated tensor... :-O')  # Hmmm, seems this exceptoin wont go anywhere useful... :-P
- *         THByteTensor_free(self.thByteTensor)
+ *         THByteTensor_free(self.native)
  */
   __pyx_t_1 = ((__pyx_v_refCount < 1) != 0);
   if (__pyx_t_1) {
@@ -8849,7 +8849,7 @@ static void __pyx_pf_7PyTorch_11_ByteTensor_2__dealloc__(struct __pyx_obj_7PyTor
  * #            print('   size[', i, ']', THFloatTensor_size(self.thFloatTensor, i))
  *         if refCount < 1:
  *             raise Exception('Unallocated an already deallocated tensor... :-O')  # Hmmm, seems this exceptoin wont go anywhere useful... :-P             # <<<<<<<<<<<<<<
- *         THByteTensor_free(self.thByteTensor)
+ *         THByteTensor_free(self.native)
  * 
  */
     __pyx_t_2 = __Pyx_PyObject_Call(__pyx_builtin_Exception, __pyx_tuple__10, NULL); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 644; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
@@ -8862,11 +8862,11 @@ static void __pyx_pf_7PyTorch_11_ByteTensor_2__dealloc__(struct __pyx_obj_7PyTor
   /* "PyTorch.pyx":645
  *         if refCount < 1:
  *             raise Exception('Unallocated an already deallocated tensor... :-O')  # Hmmm, seems this exceptoin wont go anywhere useful... :-P
- *         THByteTensor_free(self.thByteTensor)             # <<<<<<<<<<<<<<
+ *         THByteTensor_free(self.native)             # <<<<<<<<<<<<<<
  * 
  *     def nElement(_ByteTensor self):
  */
-  THByteTensor_free(__pyx_v_self->thByteTensor);
+  THByteTensor_free(__pyx_v_self->native);
 
   /* "PyTorch.pyx":626
  * #        self.storage = storage
@@ -8886,10 +8886,10 @@ static void __pyx_pf_7PyTorch_11_ByteTensor_2__dealloc__(struct __pyx_obj_7PyTor
 }
 
 /* "PyTorch.pyx":647
- *         THByteTensor_free(self.thByteTensor)
+ *         THByteTensor_free(self.native)
  * 
  *     def nElement(_ByteTensor self):             # <<<<<<<<<<<<<<
- *         return THByteTensor_nElement(self.thByteTensor)
+ *         return THByteTensor_nElement(self.native)
  * 
  */
 
@@ -8918,22 +8918,22 @@ static PyObject *__pyx_pf_7PyTorch_11_ByteTensor_4nElement(struct __pyx_obj_7PyT
   /* "PyTorch.pyx":648
  * 
  *     def nElement(_ByteTensor self):
- *         return THByteTensor_nElement(self.thByteTensor)             # <<<<<<<<<<<<<<
+ *         return THByteTensor_nElement(self.native)             # <<<<<<<<<<<<<<
  * 
  *     @property
  */
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_1 = __Pyx_PyInt_From_long(THByteTensor_nElement(__pyx_v_self->thByteTensor)); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 648; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_1 = __Pyx_PyInt_From_long(THByteTensor_nElement(__pyx_v_self->native)); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 648; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_r = __pyx_t_1;
   __pyx_t_1 = 0;
   goto __pyx_L0;
 
   /* "PyTorch.pyx":647
- *         THByteTensor_free(self.thByteTensor)
+ *         THByteTensor_free(self.native)
  * 
  *     def nElement(_ByteTensor self):             # <<<<<<<<<<<<<<
- *         return THByteTensor_nElement(self.thByteTensor)
+ *         return THByteTensor_nElement(self.native)
  * 
  */
 
@@ -8952,7 +8952,7 @@ static PyObject *__pyx_pf_7PyTorch_11_ByteTensor_4nElement(struct __pyx_obj_7PyT
  * 
  *     @property
  *     def refCount(_ByteTensor self):             # <<<<<<<<<<<<<<
- *         return THByteTensor_getRefCount(self.thByteTensor)
+ *         return THByteTensor_getRefCount(self.native)
  * 
  */
 
@@ -8981,12 +8981,12 @@ static PyObject *__pyx_pf_7PyTorch_11_ByteTensor_6refCount(struct __pyx_obj_7PyT
   /* "PyTorch.pyx":652
  *     @property
  *     def refCount(_ByteTensor self):
- *         return THByteTensor_getRefCount(self.thByteTensor)             # <<<<<<<<<<<<<<
+ *         return THByteTensor_getRefCount(self.native)             # <<<<<<<<<<<<<<
  * 
  *     cpdef int dims(self):
  */
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_1 = __Pyx_PyInt_From_int(THByteTensor_getRefCount(__pyx_v_self->thByteTensor)); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 652; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_1 = __Pyx_PyInt_From_int(THByteTensor_getRefCount(__pyx_v_self->native)); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 652; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_r = __pyx_t_1;
   __pyx_t_1 = 0;
@@ -8996,7 +8996,7 @@ static PyObject *__pyx_pf_7PyTorch_11_ByteTensor_6refCount(struct __pyx_obj_7PyT
  * 
  *     @property
  *     def refCount(_ByteTensor self):             # <<<<<<<<<<<<<<
- *         return THByteTensor_getRefCount(self.thByteTensor)
+ *         return THByteTensor_getRefCount(self.native)
  * 
  */
 
@@ -9012,10 +9012,10 @@ static PyObject *__pyx_pf_7PyTorch_11_ByteTensor_6refCount(struct __pyx_obj_7PyT
 }
 
 /* "PyTorch.pyx":654
- *         return THByteTensor_getRefCount(self.thByteTensor)
+ *         return THByteTensor_getRefCount(self.native)
  * 
  *     cpdef int dims(self):             # <<<<<<<<<<<<<<
- *         return THByteTensor_nDimension(self.thByteTensor)
+ *         return THByteTensor_nDimension(self.native)
  * 
  */
 
@@ -9070,18 +9070,18 @@ static int __pyx_f_7PyTorch_11_ByteTensor_dims(struct __pyx_obj_7PyTorch__ByteTe
   /* "PyTorch.pyx":655
  * 
  *     cpdef int dims(self):
- *         return THByteTensor_nDimension(self.thByteTensor)             # <<<<<<<<<<<<<<
+ *         return THByteTensor_nDimension(self.native)             # <<<<<<<<<<<<<<
  * 
  *     cpdef set1d(self, int x0, unsigned char value):
  */
-  __pyx_r = THByteTensor_nDimension(__pyx_v_self->thByteTensor);
+  __pyx_r = THByteTensor_nDimension(__pyx_v_self->native);
   goto __pyx_L0;
 
   /* "PyTorch.pyx":654
- *         return THByteTensor_getRefCount(self.thByteTensor)
+ *         return THByteTensor_getRefCount(self.native)
  * 
  *     cpdef int dims(self):             # <<<<<<<<<<<<<<
- *         return THByteTensor_nDimension(self.thByteTensor)
+ *         return THByteTensor_nDimension(self.native)
  * 
  */
 
@@ -9138,10 +9138,10 @@ static PyObject *__pyx_pf_7PyTorch_11_ByteTensor_8dims(struct __pyx_obj_7PyTorch
 }
 
 /* "PyTorch.pyx":657
- *         return THByteTensor_nDimension(self.thByteTensor)
+ *         return THByteTensor_nDimension(self.native)
  * 
  *     cpdef set1d(self, int x0, unsigned char value):             # <<<<<<<<<<<<<<
- *         THByteTensor_set1d(self.thByteTensor, x0, value)
+ *         THByteTensor_set1d(self.native, x0, value)
  * 
  */
 
@@ -9212,17 +9212,17 @@ static PyObject *__pyx_f_7PyTorch_11_ByteTensor_set1d(struct __pyx_obj_7PyTorch_
   /* "PyTorch.pyx":658
  * 
  *     cpdef set1d(self, int x0, unsigned char value):
- *         THByteTensor_set1d(self.thByteTensor, x0, value)             # <<<<<<<<<<<<<<
+ *         THByteTensor_set1d(self.native, x0, value)             # <<<<<<<<<<<<<<
  * 
  *     cpdef set2d(self, int x0, int x1, unsigned char value):
  */
-  THByteTensor_set1d(__pyx_v_self->thByteTensor, __pyx_v_x0, __pyx_v_value);
+  THByteTensor_set1d(__pyx_v_self->native, __pyx_v_x0, __pyx_v_value);
 
   /* "PyTorch.pyx":657
- *         return THByteTensor_nDimension(self.thByteTensor)
+ *         return THByteTensor_nDimension(self.native)
  * 
  *     cpdef set1d(self, int x0, unsigned char value):             # <<<<<<<<<<<<<<
- *         THByteTensor_set1d(self.thByteTensor, x0, value)
+ *         THByteTensor_set1d(self.native, x0, value)
  * 
  */
 
@@ -9333,10 +9333,10 @@ static PyObject *__pyx_pf_7PyTorch_11_ByteTensor_10set1d(struct __pyx_obj_7PyTor
 }
 
 /* "PyTorch.pyx":660
- *         THByteTensor_set1d(self.thByteTensor, x0, value)
+ *         THByteTensor_set1d(self.native, x0, value)
  * 
  *     cpdef set2d(self, int x0, int x1, unsigned char value):             # <<<<<<<<<<<<<<
- *         THByteTensor_set2d(self.thByteTensor, x0, x1, value)
+ *         THByteTensor_set2d(self.native, x0, x1, value)
  * 
  */
 
@@ -9413,17 +9413,17 @@ static PyObject *__pyx_f_7PyTorch_11_ByteTensor_set2d(struct __pyx_obj_7PyTorch_
   /* "PyTorch.pyx":661
  * 
  *     cpdef set2d(self, int x0, int x1, unsigned char value):
- *         THByteTensor_set2d(self.thByteTensor, x0, x1, value)             # <<<<<<<<<<<<<<
+ *         THByteTensor_set2d(self.native, x0, x1, value)             # <<<<<<<<<<<<<<
  * 
  *     cpdef unsigned char get1d(self, int x0):
  */
-  THByteTensor_set2d(__pyx_v_self->thByteTensor, __pyx_v_x0, __pyx_v_x1, __pyx_v_value);
+  THByteTensor_set2d(__pyx_v_self->native, __pyx_v_x0, __pyx_v_x1, __pyx_v_value);
 
   /* "PyTorch.pyx":660
- *         THByteTensor_set1d(self.thByteTensor, x0, value)
+ *         THByteTensor_set1d(self.native, x0, value)
  * 
  *     cpdef set2d(self, int x0, int x1, unsigned char value):             # <<<<<<<<<<<<<<
- *         THByteTensor_set2d(self.thByteTensor, x0, x1, value)
+ *         THByteTensor_set2d(self.native, x0, x1, value)
  * 
  */
 
@@ -9544,10 +9544,10 @@ static PyObject *__pyx_pf_7PyTorch_11_ByteTensor_12set2d(struct __pyx_obj_7PyTor
 }
 
 /* "PyTorch.pyx":663
- *         THByteTensor_set2d(self.thByteTensor, x0, x1, value)
+ *         THByteTensor_set2d(self.native, x0, x1, value)
  * 
  *     cpdef unsigned char get1d(self, int x0):             # <<<<<<<<<<<<<<
- *         return THByteTensor_get1d(self.thByteTensor, x0)
+ *         return THByteTensor_get1d(self.native, x0)
  * 
  */
 
@@ -9614,18 +9614,18 @@ static unsigned char __pyx_f_7PyTorch_11_ByteTensor_get1d(struct __pyx_obj_7PyTo
   /* "PyTorch.pyx":664
  * 
  *     cpdef unsigned char get1d(self, int x0):
- *         return THByteTensor_get1d(self.thByteTensor, x0)             # <<<<<<<<<<<<<<
+ *         return THByteTensor_get1d(self.native, x0)             # <<<<<<<<<<<<<<
  * 
  *     cpdef unsigned char get2d(self, int x0, int x1):
  */
-  __pyx_r = THByteTensor_get1d(__pyx_v_self->thByteTensor, __pyx_v_x0);
+  __pyx_r = THByteTensor_get1d(__pyx_v_self->native, __pyx_v_x0);
   goto __pyx_L0;
 
   /* "PyTorch.pyx":663
- *         THByteTensor_set2d(self.thByteTensor, x0, x1, value)
+ *         THByteTensor_set2d(self.native, x0, x1, value)
  * 
  *     cpdef unsigned char get1d(self, int x0):             # <<<<<<<<<<<<<<
- *         return THByteTensor_get1d(self.thByteTensor, x0)
+ *         return THByteTensor_get1d(self.native, x0)
  * 
  */
 
@@ -9697,10 +9697,10 @@ static PyObject *__pyx_pf_7PyTorch_11_ByteTensor_14get1d(struct __pyx_obj_7PyTor
 }
 
 /* "PyTorch.pyx":666
- *         return THByteTensor_get1d(self.thByteTensor, x0)
+ *         return THByteTensor_get1d(self.native, x0)
  * 
  *     cpdef unsigned char get2d(self, int x0, int x1):             # <<<<<<<<<<<<<<
- *         return THByteTensor_get2d(self.thByteTensor, x0, x1)
+ *         return THByteTensor_get2d(self.native, x0, x1)
  * 
  */
 
@@ -9772,18 +9772,18 @@ static unsigned char __pyx_f_7PyTorch_11_ByteTensor_get2d(struct __pyx_obj_7PyTo
   /* "PyTorch.pyx":667
  * 
  *     cpdef unsigned char get2d(self, int x0, int x1):
- *         return THByteTensor_get2d(self.thByteTensor, x0, x1)             # <<<<<<<<<<<<<<
+ *         return THByteTensor_get2d(self.native, x0, x1)             # <<<<<<<<<<<<<<
  * 
  *     def __repr__(_ByteTensor self):
  */
-  __pyx_r = THByteTensor_get2d(__pyx_v_self->thByteTensor, __pyx_v_x0, __pyx_v_x1);
+  __pyx_r = THByteTensor_get2d(__pyx_v_self->native, __pyx_v_x0, __pyx_v_x1);
   goto __pyx_L0;
 
   /* "PyTorch.pyx":666
- *         return THByteTensor_get1d(self.thByteTensor, x0)
+ *         return THByteTensor_get1d(self.native, x0)
  * 
  *     cpdef unsigned char get2d(self, int x0, int x1):             # <<<<<<<<<<<<<<
- *         return THByteTensor_get2d(self.thByteTensor, x0, x1)
+ *         return THByteTensor_get2d(self.native, x0, x1)
  * 
  */
 
@@ -9891,7 +9891,7 @@ static PyObject *__pyx_pf_7PyTorch_11_ByteTensor_16get2d(struct __pyx_obj_7PyTor
 }
 
 /* "PyTorch.pyx":669
- *         return THByteTensor_get2d(self.thByteTensor, x0, x1)
+ *         return THByteTensor_get2d(self.native, x0, x1)
  * 
  *     def __repr__(_ByteTensor self):             # <<<<<<<<<<<<<<
  *         # assume 2d matrix for now
@@ -9947,7 +9947,7 @@ static PyObject *__pyx_pf_7PyTorch_11_ByteTensor_18__repr__(struct __pyx_obj_7Py
  *             res += '[torch.ByteTensor of size ' + ('%.0f' % size0) + 'x' + str(size1) + ']\n'
  *             return res
  *         elif dims == 1:             # <<<<<<<<<<<<<<
- *             size0 = THByteTensor_size(self.thByteTensor, 0)
+ *             size0 = THByteTensor_size(self.native, 0)
  *             res = ''
  */
   switch (__pyx_v_dims) {
@@ -9966,7 +9966,7 @@ static PyObject *__pyx_pf_7PyTorch_11_ByteTensor_18__repr__(struct __pyx_obj_7Py
  *         if dims == 0:
  *             return '[torch.ByteTensor with no dimension]\n'             # <<<<<<<<<<<<<<
  *         elif dims == 2:
- *             size0 = THByteTensor_size(self.thByteTensor, 0)
+ *             size0 = THByteTensor_size(self.native, 0)
  */
     __Pyx_XDECREF(__pyx_r);
     __Pyx_INCREF(__pyx_kp_s_torch_ByteTensor_with_no_dimens);
@@ -9978,32 +9978,32 @@ static PyObject *__pyx_pf_7PyTorch_11_ByteTensor_18__repr__(struct __pyx_obj_7Py
  *         if dims == 0:
  *             return '[torch.ByteTensor with no dimension]\n'
  *         elif dims == 2:             # <<<<<<<<<<<<<<
- *             size0 = THByteTensor_size(self.thByteTensor, 0)
- *             size1 = THByteTensor_size(self.thByteTensor, 1)
+ *             size0 = THByteTensor_size(self.native, 0)
+ *             size1 = THByteTensor_size(self.native, 1)
  */
     case 2:
 
     /* "PyTorch.pyx":677
  *             return '[torch.ByteTensor with no dimension]\n'
  *         elif dims == 2:
- *             size0 = THByteTensor_size(self.thByteTensor, 0)             # <<<<<<<<<<<<<<
- *             size1 = THByteTensor_size(self.thByteTensor, 1)
+ *             size0 = THByteTensor_size(self.native, 0)             # <<<<<<<<<<<<<<
+ *             size1 = THByteTensor_size(self.native, 1)
  *             res = ''
  */
-    __pyx_v_size0 = THByteTensor_size(__pyx_v_self->thByteTensor, 0);
+    __pyx_v_size0 = THByteTensor_size(__pyx_v_self->native, 0);
 
     /* "PyTorch.pyx":678
  *         elif dims == 2:
- *             size0 = THByteTensor_size(self.thByteTensor, 0)
- *             size1 = THByteTensor_size(self.thByteTensor, 1)             # <<<<<<<<<<<<<<
+ *             size0 = THByteTensor_size(self.native, 0)
+ *             size1 = THByteTensor_size(self.native, 1)             # <<<<<<<<<<<<<<
  *             res = ''
  *             for r in range(size0):
  */
-    __pyx_v_size1 = THByteTensor_size(__pyx_v_self->thByteTensor, 1);
+    __pyx_v_size1 = THByteTensor_size(__pyx_v_self->native, 1);
 
     /* "PyTorch.pyx":679
- *             size0 = THByteTensor_size(self.thByteTensor, 0)
- *             size1 = THByteTensor_size(self.thByteTensor, 1)
+ *             size0 = THByteTensor_size(self.native, 0)
+ *             size1 = THByteTensor_size(self.native, 1)
  *             res = ''             # <<<<<<<<<<<<<<
  *             for r in range(size0):
  *                 thisline = ''
@@ -10012,7 +10012,7 @@ static PyObject *__pyx_pf_7PyTorch_11_ByteTensor_18__repr__(struct __pyx_obj_7Py
     __pyx_v_res = __pyx_kp_s__3;
 
     /* "PyTorch.pyx":680
- *             size1 = THByteTensor_size(self.thByteTensor, 1)
+ *             size1 = THByteTensor_size(self.native, 1)
  *             res = ''
  *             for r in range(size0):             # <<<<<<<<<<<<<<
  *                 thisline = ''
@@ -10154,7 +10154,7 @@ static PyObject *__pyx_pf_7PyTorch_11_ByteTensor_18__repr__(struct __pyx_obj_7Py
  *             res += '[torch.ByteTensor of size ' + ('%.0f' % size0) + 'x' + str(size1) + ']\n'
  *             return res             # <<<<<<<<<<<<<<
  *         elif dims == 1:
- *             size0 = THByteTensor_size(self.thByteTensor, 0)
+ *             size0 = THByteTensor_size(self.native, 0)
  */
     __Pyx_XDECREF(__pyx_r);
     __Pyx_INCREF(__pyx_v_res);
@@ -10166,7 +10166,7 @@ static PyObject *__pyx_pf_7PyTorch_11_ByteTensor_18__repr__(struct __pyx_obj_7Py
  *             res += '[torch.ByteTensor of size ' + ('%.0f' % size0) + 'x' + str(size1) + ']\n'
  *             return res
  *         elif dims == 1:             # <<<<<<<<<<<<<<
- *             size0 = THByteTensor_size(self.thByteTensor, 0)
+ *             size0 = THByteTensor_size(self.native, 0)
  *             res = ''
  */
     case 1:
@@ -10174,15 +10174,15 @@ static PyObject *__pyx_pf_7PyTorch_11_ByteTensor_18__repr__(struct __pyx_obj_7Py
     /* "PyTorch.pyx":692
  *             return res
  *         elif dims == 1:
- *             size0 = THByteTensor_size(self.thByteTensor, 0)             # <<<<<<<<<<<<<<
+ *             size0 = THByteTensor_size(self.native, 0)             # <<<<<<<<<<<<<<
  *             res = ''
  *             thisline = ''
  */
-    __pyx_v_size0 = THByteTensor_size(__pyx_v_self->thByteTensor, 0);
+    __pyx_v_size0 = THByteTensor_size(__pyx_v_self->native, 0);
 
     /* "PyTorch.pyx":693
  *         elif dims == 1:
- *             size0 = THByteTensor_size(self.thByteTensor, 0)
+ *             size0 = THByteTensor_size(self.native, 0)
  *             res = ''             # <<<<<<<<<<<<<<
  *             thisline = ''
  *             for c in range(size0):
@@ -10191,7 +10191,7 @@ static PyObject *__pyx_pf_7PyTorch_11_ByteTensor_18__repr__(struct __pyx_obj_7Py
     __pyx_v_res = __pyx_kp_s__3;
 
     /* "PyTorch.pyx":694
- *             size0 = THByteTensor_size(self.thByteTensor, 0)
+ *             size0 = THByteTensor_size(self.native, 0)
  *             res = ''
  *             thisline = ''             # <<<<<<<<<<<<<<
  *             for c in range(size0):
@@ -10334,7 +10334,7 @@ static PyObject *__pyx_pf_7PyTorch_11_ByteTensor_18__repr__(struct __pyx_obj_7Py
   }
 
   /* "PyTorch.pyx":669
- *         return THByteTensor_get2d(self.thByteTensor, x0, x1)
+ *         return THByteTensor_get2d(self.native, x0, x1)
  * 
  *     def __repr__(_ByteTensor self):             # <<<<<<<<<<<<<<
  *         # assume 2d matrix for now
@@ -10407,7 +10407,7 @@ static PyObject *__pyx_pf_7PyTorch_11_ByteTensor_20__getitem__(struct __pyx_obj_
  *     def __getitem__(_ByteTensor self, int index):
  *         if self.dims() == 1:             # <<<<<<<<<<<<<<
  *             return self.get1d(index)
- *         cdef THByteTensor *res = THByteTensor_newSelect(self.thByteTensor, 0, index)
+ *         cdef THByteTensor *res = THByteTensor_newSelect(self.native, 0, index)
  */
   __pyx_t_1 = ((((struct __pyx_vtabstruct_7PyTorch__ByteTensor *)__pyx_v_self->__pyx_vtab)->dims(__pyx_v_self, 0) == 1) != 0);
   if (__pyx_t_1) {
@@ -10416,7 +10416,7 @@ static PyObject *__pyx_pf_7PyTorch_11_ByteTensor_20__getitem__(struct __pyx_obj_
  *     def __getitem__(_ByteTensor self, int index):
  *         if self.dims() == 1:
  *             return self.get1d(index)             # <<<<<<<<<<<<<<
- *         cdef THByteTensor *res = THByteTensor_newSelect(self.thByteTensor, 0, index)
+ *         cdef THByteTensor *res = THByteTensor_newSelect(self.native, 0, index)
  *         return _ByteTensor_fromNative(res, False)
  */
     __Pyx_XDECREF(__pyx_r);
@@ -10430,15 +10430,15 @@ static PyObject *__pyx_pf_7PyTorch_11_ByteTensor_20__getitem__(struct __pyx_obj_
   /* "PyTorch.pyx":710
  *         if self.dims() == 1:
  *             return self.get1d(index)
- *         cdef THByteTensor *res = THByteTensor_newSelect(self.thByteTensor, 0, index)             # <<<<<<<<<<<<<<
+ *         cdef THByteTensor *res = THByteTensor_newSelect(self.native, 0, index)             # <<<<<<<<<<<<<<
  *         return _ByteTensor_fromNative(res, False)
  * 
  */
-  __pyx_v_res = THByteTensor_newSelect(__pyx_v_self->thByteTensor, 0, __pyx_v_index);
+  __pyx_v_res = THByteTensor_newSelect(__pyx_v_self->native, 0, __pyx_v_index);
 
   /* "PyTorch.pyx":711
  *             return self.get1d(index)
- *         cdef THByteTensor *res = THByteTensor_newSelect(self.thByteTensor, 0, index)
+ *         cdef THByteTensor *res = THByteTensor_newSelect(self.native, 0, index)
  *         return _ByteTensor_fromNative(res, False)             # <<<<<<<<<<<<<<
  * 
  *     def __setitem__(_ByteTensor self, int index, unsigned char value):
@@ -10582,7 +10582,7 @@ static int __pyx_pf_7PyTorch_11_ByteTensor_22__setitem__(struct __pyx_obj_7PyTor
  *             raise Exception("not implemented")
  * 
  *     def fill(_ByteTensor self, unsigned char value):             # <<<<<<<<<<<<<<
- *         THByteTensor_fill(self.thByteTensor, value)
+ *         THByteTensor_fill(self.native, value)
  *         return self
  */
 
@@ -10620,15 +10620,15 @@ static PyObject *__pyx_pf_7PyTorch_11_ByteTensor_24fill(struct __pyx_obj_7PyTorc
   /* "PyTorch.pyx":720
  * 
  *     def fill(_ByteTensor self, unsigned char value):
- *         THByteTensor_fill(self.thByteTensor, value)             # <<<<<<<<<<<<<<
+ *         THByteTensor_fill(self.native, value)             # <<<<<<<<<<<<<<
  *         return self
  * 
  */
-  THByteTensor_fill(__pyx_v_self->thByteTensor, __pyx_v_value);
+  THByteTensor_fill(__pyx_v_self->native, __pyx_v_value);
 
   /* "PyTorch.pyx":721
  *     def fill(_ByteTensor self, unsigned char value):
- *         THByteTensor_fill(self.thByteTensor, value)
+ *         THByteTensor_fill(self.native, value)
  *         return self             # <<<<<<<<<<<<<<
  * 
  *     def size(_ByteTensor self):
@@ -10642,7 +10642,7 @@ static PyObject *__pyx_pf_7PyTorch_11_ByteTensor_24fill(struct __pyx_obj_7PyTorc
  *             raise Exception("not implemented")
  * 
  *     def fill(_ByteTensor self, unsigned char value):             # <<<<<<<<<<<<<<
- *         THByteTensor_fill(self.thByteTensor, value)
+ *         THByteTensor_fill(self.native, value)
  *         return self
  */
 
@@ -10714,7 +10714,7 @@ static PyObject *__pyx_pf_7PyTorch_11_ByteTensor_26size(struct __pyx_obj_7PyTorc
  *         if dims > 0:
  *             size = _LongTensor(dims)             # <<<<<<<<<<<<<<
  *             for d in range(dims):
- *                 size.set1d(d, THByteTensor_size(self.thByteTensor, d))
+ *                 size.set1d(d, THByteTensor_size(self.native, d))
  */
     __pyx_t_2 = __Pyx_PyInt_From_int(__pyx_v_dims); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 727; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
     __Pyx_GOTREF(__pyx_t_2);
@@ -10733,7 +10733,7 @@ static PyObject *__pyx_pf_7PyTorch_11_ByteTensor_26size(struct __pyx_obj_7PyTorc
  *         if dims > 0:
  *             size = _LongTensor(dims)
  *             for d in range(dims):             # <<<<<<<<<<<<<<
- *                 size.set1d(d, THByteTensor_size(self.thByteTensor, d))
+ *                 size.set1d(d, THByteTensor_size(self.native, d))
  *             return size
  */
     __pyx_t_4 = __pyx_v_dims;
@@ -10743,18 +10743,18 @@ static PyObject *__pyx_pf_7PyTorch_11_ByteTensor_26size(struct __pyx_obj_7PyTorc
       /* "PyTorch.pyx":729
  *             size = _LongTensor(dims)
  *             for d in range(dims):
- *                 size.set1d(d, THByteTensor_size(self.thByteTensor, d))             # <<<<<<<<<<<<<<
+ *                 size.set1d(d, THByteTensor_size(self.native, d))             # <<<<<<<<<<<<<<
  *             return size
  *         else:
  */
-      __pyx_t_2 = ((struct __pyx_vtabstruct_7PyTorch__LongTensor *)__pyx_v_size->__pyx_vtab)->set1d(__pyx_v_size, __pyx_v_d, THByteTensor_size(__pyx_v_self->thByteTensor, __pyx_v_d), 0); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 729; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+      __pyx_t_2 = ((struct __pyx_vtabstruct_7PyTorch__LongTensor *)__pyx_v_size->__pyx_vtab)->set1d(__pyx_v_size, __pyx_v_d, THByteTensor_size(__pyx_v_self->native, __pyx_v_d), 0); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 729; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
       __Pyx_GOTREF(__pyx_t_2);
       __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
     }
 
     /* "PyTorch.pyx":730
  *             for d in range(dims):
- *                 size.set1d(d, THByteTensor_size(self.thByteTensor, d))
+ *                 size.set1d(d, THByteTensor_size(self.native, d))
  *             return size             # <<<<<<<<<<<<<<
  *         else:
  *             return None  # not sure how to handle this yet
@@ -10871,7 +10871,7 @@ static PyObject *__pyx_pf_7PyTorch_11_ByteTensor_28new() {
  * #        return _FloatTensor_fromNative(newTensorC, False)
  * 
  *     def narrow(_ByteTensor self, int dimension, long firstIndex, long size):             # <<<<<<<<<<<<<<
- *         cdef THByteTensor *narrowedC = THByteTensor_newNarrow(self.thByteTensor, dimension, firstIndex, size)
+ *         cdef THByteTensor *narrowedC = THByteTensor_newNarrow(self.native, dimension, firstIndex, size)
  *         return _ByteTensor_fromNative(narrowedC, retain=False)
  */
 
@@ -10959,15 +10959,15 @@ static PyObject *__pyx_pf_7PyTorch_11_ByteTensor_30narrow(struct __pyx_obj_7PyTo
   /* "PyTorch.pyx":741
  * 
  *     def narrow(_ByteTensor self, int dimension, long firstIndex, long size):
- *         cdef THByteTensor *narrowedC = THByteTensor_newNarrow(self.thByteTensor, dimension, firstIndex, size)             # <<<<<<<<<<<<<<
+ *         cdef THByteTensor *narrowedC = THByteTensor_newNarrow(self.native, dimension, firstIndex, size)             # <<<<<<<<<<<<<<
  *         return _ByteTensor_fromNative(narrowedC, retain=False)
  * 
  */
-  __pyx_v_narrowedC = THByteTensor_newNarrow(__pyx_v_self->thByteTensor, __pyx_v_dimension, __pyx_v_firstIndex, __pyx_v_size);
+  __pyx_v_narrowedC = THByteTensor_newNarrow(__pyx_v_self->native, __pyx_v_dimension, __pyx_v_firstIndex, __pyx_v_size);
 
   /* "PyTorch.pyx":742
  *     def narrow(_ByteTensor self, int dimension, long firstIndex, long size):
- *         cdef THByteTensor *narrowedC = THByteTensor_newNarrow(self.thByteTensor, dimension, firstIndex, size)
+ *         cdef THByteTensor *narrowedC = THByteTensor_newNarrow(self.native, dimension, firstIndex, size)
  *         return _ByteTensor_fromNative(narrowedC, retain=False)             # <<<<<<<<<<<<<<
  * 
  *     def resize1d(_ByteTensor self, int size0):
@@ -10985,7 +10985,7 @@ static PyObject *__pyx_pf_7PyTorch_11_ByteTensor_30narrow(struct __pyx_obj_7PyTo
  * #        return _FloatTensor_fromNative(newTensorC, False)
  * 
  *     def narrow(_ByteTensor self, int dimension, long firstIndex, long size):             # <<<<<<<<<<<<<<
- *         cdef THByteTensor *narrowedC = THByteTensor_newNarrow(self.thByteTensor, dimension, firstIndex, size)
+ *         cdef THByteTensor *narrowedC = THByteTensor_newNarrow(self.native, dimension, firstIndex, size)
  *         return _ByteTensor_fromNative(narrowedC, retain=False)
  */
 
@@ -11004,7 +11004,7 @@ static PyObject *__pyx_pf_7PyTorch_11_ByteTensor_30narrow(struct __pyx_obj_7PyTo
  *         return _ByteTensor_fromNative(narrowedC, retain=False)
  * 
  *     def resize1d(_ByteTensor self, int size0):             # <<<<<<<<<<<<<<
- *         THByteTensor_resize1d(self.thByteTensor, size0)
+ *         THByteTensor_resize1d(self.native, size0)
  *         return self
  */
 
@@ -11042,15 +11042,15 @@ static PyObject *__pyx_pf_7PyTorch_11_ByteTensor_32resize1d(struct __pyx_obj_7Py
   /* "PyTorch.pyx":745
  * 
  *     def resize1d(_ByteTensor self, int size0):
- *         THByteTensor_resize1d(self.thByteTensor, size0)             # <<<<<<<<<<<<<<
+ *         THByteTensor_resize1d(self.native, size0)             # <<<<<<<<<<<<<<
  *         return self
  * 
  */
-  THByteTensor_resize1d(__pyx_v_self->thByteTensor, __pyx_v_size0);
+  THByteTensor_resize1d(__pyx_v_self->native, __pyx_v_size0);
 
   /* "PyTorch.pyx":746
  *     def resize1d(_ByteTensor self, int size0):
- *         THByteTensor_resize1d(self.thByteTensor, size0)
+ *         THByteTensor_resize1d(self.native, size0)
  *         return self             # <<<<<<<<<<<<<<
  * 
  *     def resize2d(_ByteTensor self, int size0, int size1):
@@ -11064,7 +11064,7 @@ static PyObject *__pyx_pf_7PyTorch_11_ByteTensor_32resize1d(struct __pyx_obj_7Py
  *         return _ByteTensor_fromNative(narrowedC, retain=False)
  * 
  *     def resize1d(_ByteTensor self, int size0):             # <<<<<<<<<<<<<<
- *         THByteTensor_resize1d(self.thByteTensor, size0)
+ *         THByteTensor_resize1d(self.native, size0)
  *         return self
  */
 
@@ -11079,7 +11079,7 @@ static PyObject *__pyx_pf_7PyTorch_11_ByteTensor_32resize1d(struct __pyx_obj_7Py
  *         return self
  * 
  *     def resize2d(_ByteTensor self, int size0, int size1):             # <<<<<<<<<<<<<<
- *         THByteTensor_resize2d(self.thByteTensor, size0, size1)
+ *         THByteTensor_resize2d(self.native, size0, size1)
  *         return self
  */
 
@@ -11152,15 +11152,15 @@ static PyObject *__pyx_pf_7PyTorch_11_ByteTensor_34resize2d(struct __pyx_obj_7Py
   /* "PyTorch.pyx":749
  * 
  *     def resize2d(_ByteTensor self, int size0, int size1):
- *         THByteTensor_resize2d(self.thByteTensor, size0, size1)             # <<<<<<<<<<<<<<
+ *         THByteTensor_resize2d(self.native, size0, size1)             # <<<<<<<<<<<<<<
  *         return self
  * 
  */
-  THByteTensor_resize2d(__pyx_v_self->thByteTensor, __pyx_v_size0, __pyx_v_size1);
+  THByteTensor_resize2d(__pyx_v_self->native, __pyx_v_size0, __pyx_v_size1);
 
   /* "PyTorch.pyx":750
  *     def resize2d(_ByteTensor self, int size0, int size1):
- *         THByteTensor_resize2d(self.thByteTensor, size0, size1)
+ *         THByteTensor_resize2d(self.native, size0, size1)
  *         return self             # <<<<<<<<<<<<<<
  * 
  *     def resize3d(_ByteTensor self, int size0, int size1, int size2):
@@ -11174,7 +11174,7 @@ static PyObject *__pyx_pf_7PyTorch_11_ByteTensor_34resize2d(struct __pyx_obj_7Py
  *         return self
  * 
  *     def resize2d(_ByteTensor self, int size0, int size1):             # <<<<<<<<<<<<<<
- *         THByteTensor_resize2d(self.thByteTensor, size0, size1)
+ *         THByteTensor_resize2d(self.native, size0, size1)
  *         return self
  */
 
@@ -11189,7 +11189,7 @@ static PyObject *__pyx_pf_7PyTorch_11_ByteTensor_34resize2d(struct __pyx_obj_7Py
  *         return self
  * 
  *     def resize3d(_ByteTensor self, int size0, int size1, int size2):             # <<<<<<<<<<<<<<
- *         THByteTensor_resize3d(self.thByteTensor, size0, size1, size2)
+ *         THByteTensor_resize3d(self.native, size0, size1, size2)
  *         return self
  */
 
@@ -11271,15 +11271,15 @@ static PyObject *__pyx_pf_7PyTorch_11_ByteTensor_36resize3d(struct __pyx_obj_7Py
   /* "PyTorch.pyx":753
  * 
  *     def resize3d(_ByteTensor self, int size0, int size1, int size2):
- *         THByteTensor_resize3d(self.thByteTensor, size0, size1, size2)             # <<<<<<<<<<<<<<
+ *         THByteTensor_resize3d(self.native, size0, size1, size2)             # <<<<<<<<<<<<<<
  *         return self
  * 
  */
-  THByteTensor_resize3d(__pyx_v_self->thByteTensor, __pyx_v_size0, __pyx_v_size1, __pyx_v_size2);
+  THByteTensor_resize3d(__pyx_v_self->native, __pyx_v_size0, __pyx_v_size1, __pyx_v_size2);
 
   /* "PyTorch.pyx":754
  *     def resize3d(_ByteTensor self, int size0, int size1, int size2):
- *         THByteTensor_resize3d(self.thByteTensor, size0, size1, size2)
+ *         THByteTensor_resize3d(self.native, size0, size1, size2)
  *         return self             # <<<<<<<<<<<<<<
  * 
  *     def resize4d(_ByteTensor self, int size0, int size1, int size2, int size3):
@@ -11293,7 +11293,7 @@ static PyObject *__pyx_pf_7PyTorch_11_ByteTensor_36resize3d(struct __pyx_obj_7Py
  *         return self
  * 
  *     def resize3d(_ByteTensor self, int size0, int size1, int size2):             # <<<<<<<<<<<<<<
- *         THByteTensor_resize3d(self.thByteTensor, size0, size1, size2)
+ *         THByteTensor_resize3d(self.native, size0, size1, size2)
  *         return self
  */
 
@@ -11308,7 +11308,7 @@ static PyObject *__pyx_pf_7PyTorch_11_ByteTensor_36resize3d(struct __pyx_obj_7Py
  *         return self
  * 
  *     def resize4d(_ByteTensor self, int size0, int size1, int size2, int size3):             # <<<<<<<<<<<<<<
- *         THByteTensor_resize4d(self.thByteTensor, size0, size1, size2, size3)
+ *         THByteTensor_resize4d(self.native, size0, size1, size2, size3)
  *         return self
  */
 
@@ -11399,15 +11399,15 @@ static PyObject *__pyx_pf_7PyTorch_11_ByteTensor_38resize4d(struct __pyx_obj_7Py
   /* "PyTorch.pyx":757
  * 
  *     def resize4d(_ByteTensor self, int size0, int size1, int size2, int size3):
- *         THByteTensor_resize4d(self.thByteTensor, size0, size1, size2, size3)             # <<<<<<<<<<<<<<
+ *         THByteTensor_resize4d(self.native, size0, size1, size2, size3)             # <<<<<<<<<<<<<<
  *         return self
  * 
  */
-  THByteTensor_resize4d(__pyx_v_self->thByteTensor, __pyx_v_size0, __pyx_v_size1, __pyx_v_size2, __pyx_v_size3);
+  THByteTensor_resize4d(__pyx_v_self->native, __pyx_v_size0, __pyx_v_size1, __pyx_v_size2, __pyx_v_size3);
 
   /* "PyTorch.pyx":758
  *     def resize4d(_ByteTensor self, int size0, int size1, int size2, int size3):
- *         THByteTensor_resize4d(self.thByteTensor, size0, size1, size2, size3)
+ *         THByteTensor_resize4d(self.native, size0, size1, size2, size3)
  *         return self             # <<<<<<<<<<<<<<
  * 
  *     def resizeAs(_ByteTensor self, _ByteTensor model):
@@ -11421,7 +11421,7 @@ static PyObject *__pyx_pf_7PyTorch_11_ByteTensor_38resize4d(struct __pyx_obj_7Py
  *         return self
  * 
  *     def resize4d(_ByteTensor self, int size0, int size1, int size2, int size3):             # <<<<<<<<<<<<<<
- *         THByteTensor_resize4d(self.thByteTensor, size0, size1, size2, size3)
+ *         THByteTensor_resize4d(self.native, size0, size1, size2, size3)
  *         return self
  */
 
@@ -11436,7 +11436,7 @@ static PyObject *__pyx_pf_7PyTorch_11_ByteTensor_38resize4d(struct __pyx_obj_7Py
  *         return self
  * 
  *     def resizeAs(_ByteTensor self, _ByteTensor model):             # <<<<<<<<<<<<<<
- *         THByteTensor_resizeAs(self.thByteTensor, model.thByteTensor)
+ *         THByteTensor_resizeAs(self.native, model.native)
  *         return self
  */
 
@@ -11469,15 +11469,15 @@ static PyObject *__pyx_pf_7PyTorch_11_ByteTensor_40resizeAs(struct __pyx_obj_7Py
   /* "PyTorch.pyx":761
  * 
  *     def resizeAs(_ByteTensor self, _ByteTensor model):
- *         THByteTensor_resizeAs(self.thByteTensor, model.thByteTensor)             # <<<<<<<<<<<<<<
+ *         THByteTensor_resizeAs(self.native, model.native)             # <<<<<<<<<<<<<<
  *         return self
  * 
  */
-  THByteTensor_resizeAs(__pyx_v_self->thByteTensor, __pyx_v_model->thByteTensor);
+  THByteTensor_resizeAs(__pyx_v_self->native, __pyx_v_model->native);
 
   /* "PyTorch.pyx":762
  *     def resizeAs(_ByteTensor self, _ByteTensor model):
- *         THByteTensor_resizeAs(self.thByteTensor, model.thByteTensor)
+ *         THByteTensor_resizeAs(self.native, model.native)
  *         return self             # <<<<<<<<<<<<<<
  * 
  *     def resize(_ByteTensor self, _LongTensor size):
@@ -11491,7 +11491,7 @@ static PyObject *__pyx_pf_7PyTorch_11_ByteTensor_40resizeAs(struct __pyx_obj_7Py
  *         return self
  * 
  *     def resizeAs(_ByteTensor self, _ByteTensor model):             # <<<<<<<<<<<<<<
- *         THByteTensor_resizeAs(self.thByteTensor, model.thByteTensor)
+ *         THByteTensor_resizeAs(self.native, model.native)
  *         return self
  */
 
@@ -11608,9 +11608,9 @@ static PyObject *__pyx_pf_7PyTorch_11_ByteTensor_42resize(struct __pyx_obj_7PyTo
 
   /* "PyTorch.pyx":776
  *         elif dims == 3:
- *             THByteTensor_resize3d(self.thByteTensor, size[0], size[1], size[2])
+ *             THByteTensor_resize3d(self.native, size[0], size[1], size[2])
  *         elif dims == 4:             # <<<<<<<<<<<<<<
- *             THByteTensor_resize4d(self.thByteTensor, size[0], size[1], size[2], size[3])
+ *             THByteTensor_resize4d(self.native, size[0], size[1], size[2], size[3])
  *         else:
  */
   switch (__pyx_v_dims) {
@@ -11619,7 +11619,7 @@ static PyObject *__pyx_pf_7PyTorch_11_ByteTensor_42resize(struct __pyx_obj_7PyTo
  *         cdef int dims = size.size()[0]
  * #        print('_FloatTensor.resize dims:', dims)
  *         if dims == 1:             # <<<<<<<<<<<<<<
- *             THByteTensor_resize1d(self.thByteTensor, size[0])
+ *             THByteTensor_resize1d(self.native, size[0])
  *         elif dims == 2:
  */
     case 1:
@@ -11627,32 +11627,32 @@ static PyObject *__pyx_pf_7PyTorch_11_ByteTensor_42resize(struct __pyx_obj_7PyTo
     /* "PyTorch.pyx":771
  * #        print('_FloatTensor.resize dims:', dims)
  *         if dims == 1:
- *             THByteTensor_resize1d(self.thByteTensor, size[0])             # <<<<<<<<<<<<<<
+ *             THByteTensor_resize1d(self.native, size[0])             # <<<<<<<<<<<<<<
  *         elif dims == 2:
- *             THByteTensor_resize2d(self.thByteTensor, size[0], size[1])
+ *             THByteTensor_resize2d(self.native, size[0], size[1])
  */
     __pyx_t_3 = __Pyx_GetItemInt(((PyObject *)__pyx_v_size), 0, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(__pyx_t_3 == NULL)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 771; __pyx_clineno = __LINE__; goto __pyx_L1_error;};
     __Pyx_GOTREF(__pyx_t_3);
     __pyx_t_6 = __Pyx_PyInt_As_long(__pyx_t_3); if (unlikely((__pyx_t_6 == (long)-1) && PyErr_Occurred())) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 771; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
     __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-    THByteTensor_resize1d(__pyx_v_self->thByteTensor, __pyx_t_6);
+    THByteTensor_resize1d(__pyx_v_self->native, __pyx_t_6);
     break;
 
     /* "PyTorch.pyx":772
  *         if dims == 1:
- *             THByteTensor_resize1d(self.thByteTensor, size[0])
+ *             THByteTensor_resize1d(self.native, size[0])
  *         elif dims == 2:             # <<<<<<<<<<<<<<
- *             THByteTensor_resize2d(self.thByteTensor, size[0], size[1])
+ *             THByteTensor_resize2d(self.native, size[0], size[1])
  *         elif dims == 3:
  */
     case 2:
 
     /* "PyTorch.pyx":773
- *             THByteTensor_resize1d(self.thByteTensor, size[0])
+ *             THByteTensor_resize1d(self.native, size[0])
  *         elif dims == 2:
- *             THByteTensor_resize2d(self.thByteTensor, size[0], size[1])             # <<<<<<<<<<<<<<
+ *             THByteTensor_resize2d(self.native, size[0], size[1])             # <<<<<<<<<<<<<<
  *         elif dims == 3:
- *             THByteTensor_resize3d(self.thByteTensor, size[0], size[1], size[2])
+ *             THByteTensor_resize3d(self.native, size[0], size[1], size[2])
  */
     __pyx_t_3 = __Pyx_GetItemInt(((PyObject *)__pyx_v_size), 0, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(__pyx_t_3 == NULL)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 773; __pyx_clineno = __LINE__; goto __pyx_L1_error;};
     __Pyx_GOTREF(__pyx_t_3);
@@ -11662,24 +11662,24 @@ static PyObject *__pyx_pf_7PyTorch_11_ByteTensor_42resize(struct __pyx_obj_7PyTo
     __Pyx_GOTREF(__pyx_t_3);
     __pyx_t_7 = __Pyx_PyInt_As_long(__pyx_t_3); if (unlikely((__pyx_t_7 == (long)-1) && PyErr_Occurred())) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 773; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
     __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-    THByteTensor_resize2d(__pyx_v_self->thByteTensor, __pyx_t_6, __pyx_t_7);
+    THByteTensor_resize2d(__pyx_v_self->native, __pyx_t_6, __pyx_t_7);
     break;
 
     /* "PyTorch.pyx":774
  *         elif dims == 2:
- *             THByteTensor_resize2d(self.thByteTensor, size[0], size[1])
+ *             THByteTensor_resize2d(self.native, size[0], size[1])
  *         elif dims == 3:             # <<<<<<<<<<<<<<
- *             THByteTensor_resize3d(self.thByteTensor, size[0], size[1], size[2])
+ *             THByteTensor_resize3d(self.native, size[0], size[1], size[2])
  *         elif dims == 4:
  */
     case 3:
 
     /* "PyTorch.pyx":775
- *             THByteTensor_resize2d(self.thByteTensor, size[0], size[1])
+ *             THByteTensor_resize2d(self.native, size[0], size[1])
  *         elif dims == 3:
- *             THByteTensor_resize3d(self.thByteTensor, size[0], size[1], size[2])             # <<<<<<<<<<<<<<
+ *             THByteTensor_resize3d(self.native, size[0], size[1], size[2])             # <<<<<<<<<<<<<<
  *         elif dims == 4:
- *             THByteTensor_resize4d(self.thByteTensor, size[0], size[1], size[2], size[3])
+ *             THByteTensor_resize4d(self.native, size[0], size[1], size[2], size[3])
  */
     __pyx_t_3 = __Pyx_GetItemInt(((PyObject *)__pyx_v_size), 0, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(__pyx_t_3 == NULL)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 775; __pyx_clineno = __LINE__; goto __pyx_L1_error;};
     __Pyx_GOTREF(__pyx_t_3);
@@ -11693,22 +11693,22 @@ static PyObject *__pyx_pf_7PyTorch_11_ByteTensor_42resize(struct __pyx_obj_7PyTo
     __Pyx_GOTREF(__pyx_t_3);
     __pyx_t_8 = __Pyx_PyInt_As_long(__pyx_t_3); if (unlikely((__pyx_t_8 == (long)-1) && PyErr_Occurred())) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 775; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
     __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-    THByteTensor_resize3d(__pyx_v_self->thByteTensor, __pyx_t_7, __pyx_t_6, __pyx_t_8);
+    THByteTensor_resize3d(__pyx_v_self->native, __pyx_t_7, __pyx_t_6, __pyx_t_8);
     break;
 
     /* "PyTorch.pyx":776
  *         elif dims == 3:
- *             THByteTensor_resize3d(self.thByteTensor, size[0], size[1], size[2])
+ *             THByteTensor_resize3d(self.native, size[0], size[1], size[2])
  *         elif dims == 4:             # <<<<<<<<<<<<<<
- *             THByteTensor_resize4d(self.thByteTensor, size[0], size[1], size[2], size[3])
+ *             THByteTensor_resize4d(self.native, size[0], size[1], size[2], size[3])
  *         else:
  */
     case 4:
 
     /* "PyTorch.pyx":777
- *             THByteTensor_resize3d(self.thByteTensor, size[0], size[1], size[2])
+ *             THByteTensor_resize3d(self.native, size[0], size[1], size[2])
  *         elif dims == 4:
- *             THByteTensor_resize4d(self.thByteTensor, size[0], size[1], size[2], size[3])             # <<<<<<<<<<<<<<
+ *             THByteTensor_resize4d(self.native, size[0], size[1], size[2], size[3])             # <<<<<<<<<<<<<<
  *         else:
  *             raise Exception('Not implemented for dims=' + str(dims))
  */
@@ -11728,12 +11728,12 @@ static PyObject *__pyx_pf_7PyTorch_11_ByteTensor_42resize(struct __pyx_obj_7PyTo
     __Pyx_GOTREF(__pyx_t_3);
     __pyx_t_9 = __Pyx_PyInt_As_long(__pyx_t_3); if (unlikely((__pyx_t_9 == (long)-1) && PyErr_Occurred())) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 777; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
     __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-    THByteTensor_resize4d(__pyx_v_self->thByteTensor, __pyx_t_8, __pyx_t_6, __pyx_t_7, __pyx_t_9);
+    THByteTensor_resize4d(__pyx_v_self->native, __pyx_t_8, __pyx_t_6, __pyx_t_7, __pyx_t_9);
     break;
     default:
 
     /* "PyTorch.pyx":779
- *             THByteTensor_resize4d(self.thByteTensor, size[0], size[1], size[2], size[3])
+ *             THByteTensor_resize4d(self.native, size[0], size[1], size[2], size[3])
  *         else:
  *             raise Exception('Not implemented for dims=' + str(dims))             # <<<<<<<<<<<<<<
  *         return self
@@ -12133,7 +12133,7 @@ static PyObject *__pyx_pf_7PyTorch_11_ByteTensor_46newWithStorage2d(struct __pyx
  *         return _ByteTensor_fromNative(newTensorC, False)
  * 
  *     def storage(_ByteTensor self):             # <<<<<<<<<<<<<<
- *         cdef Storage.THByteStorage *storageC = THByteTensor_storage(self.thByteTensor)
+ *         cdef Storage.THByteStorage *storageC = THByteTensor_storage(self.native)
  *         if storageC == NULL:
  */
 
@@ -12164,15 +12164,15 @@ static PyObject *__pyx_pf_7PyTorch_11_ByteTensor_48storage(struct __pyx_obj_7PyT
   /* "PyTorch.pyx":795
  * 
  *     def storage(_ByteTensor self):
- *         cdef Storage.THByteStorage *storageC = THByteTensor_storage(self.thByteTensor)             # <<<<<<<<<<<<<<
+ *         cdef Storage.THByteStorage *storageC = THByteTensor_storage(self.native)             # <<<<<<<<<<<<<<
  *         if storageC == NULL:
  *             return None
  */
-  __pyx_v_storageC = THByteTensor_storage(__pyx_v_self->thByteTensor);
+  __pyx_v_storageC = THByteTensor_storage(__pyx_v_self->native);
 
   /* "PyTorch.pyx":796
  *     def storage(_ByteTensor self):
- *         cdef Storage.THByteStorage *storageC = THByteTensor_storage(self.thByteTensor)
+ *         cdef Storage.THByteStorage *storageC = THByteTensor_storage(self.native)
  *         if storageC == NULL:             # <<<<<<<<<<<<<<
  *             return None
  *         return Storage.ByteStorage_fromNative(storageC)
@@ -12181,7 +12181,7 @@ static PyObject *__pyx_pf_7PyTorch_11_ByteTensor_48storage(struct __pyx_obj_7PyT
   if (__pyx_t_1) {
 
     /* "PyTorch.pyx":797
- *         cdef Storage.THByteStorage *storageC = THByteTensor_storage(self.thByteTensor)
+ *         cdef Storage.THByteStorage *storageC = THByteTensor_storage(self.native)
  *         if storageC == NULL:
  *             return None             # <<<<<<<<<<<<<<
  *         return Storage.ByteStorage_fromNative(storageC)
@@ -12211,7 +12211,7 @@ static PyObject *__pyx_pf_7PyTorch_11_ByteTensor_48storage(struct __pyx_obj_7PyT
  *         return _ByteTensor_fromNative(newTensorC, False)
  * 
  *     def storage(_ByteTensor self):             # <<<<<<<<<<<<<<
- *         cdef Storage.THByteStorage *storageC = THByteTensor_storage(self.thByteTensor)
+ *         cdef Storage.THByteStorage *storageC = THByteTensor_storage(self.native)
  *         if storageC == NULL:
  */
 
@@ -12306,7 +12306,7 @@ static PyObject *__pyx_pf_7PyTorch_11_ByteTensor_50__add__(struct __pyx_obj_7PyT
  *         cdef _ByteTensor res = _ByteTensor.new()
  *         cdef _ByteTensor secondTensor
  *         if isinstance(second, numbers.Number):             # <<<<<<<<<<<<<<
- *             THByteTensor_add(res.thByteTensor, self.thByteTensor, second)
+ *             THByteTensor_add(res.native, self.native, second)
  *         else:
  */
   __pyx_t_1 = __Pyx_GetModuleGlobalName(__pyx_n_s_numbers); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 804; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
@@ -12322,21 +12322,21 @@ static PyObject *__pyx_pf_7PyTorch_11_ByteTensor_50__add__(struct __pyx_obj_7PyT
     /* "PyTorch.pyx":805
  *         cdef _ByteTensor secondTensor
  *         if isinstance(second, numbers.Number):
- *             THByteTensor_add(res.thByteTensor, self.thByteTensor, second)             # <<<<<<<<<<<<<<
+ *             THByteTensor_add(res.native, self.native, second)             # <<<<<<<<<<<<<<
  *         else:
  *             secondTensor = second
  */
     __pyx_t_6 = __Pyx_PyInt_As_unsigned_char(__pyx_v_second); if (unlikely((__pyx_t_6 == (unsigned char)-1) && PyErr_Occurred())) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 805; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-    THByteTensor_add(__pyx_v_res->thByteTensor, __pyx_v_self->thByteTensor, __pyx_t_6);
+    THByteTensor_add(__pyx_v_res->native, __pyx_v_self->native, __pyx_t_6);
     goto __pyx_L3;
   }
   /*else*/ {
 
     /* "PyTorch.pyx":807
- *             THByteTensor_add(res.thByteTensor, self.thByteTensor, second)
+ *             THByteTensor_add(res.native, self.native, second)
  *         else:
  *             secondTensor = second             # <<<<<<<<<<<<<<
- *             THByteTensor_cadd(res.thByteTensor, self.thByteTensor, 1, secondTensor.thByteTensor)
+ *             THByteTensor_cadd(res.native, self.native, 1, secondTensor.native)
  *         return res
  */
     if (!(likely(((__pyx_v_second) == Py_None) || likely(__Pyx_TypeTest(__pyx_v_second, __pyx_ptype_7PyTorch__ByteTensor))))) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 807; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
@@ -12348,17 +12348,17 @@ static PyObject *__pyx_pf_7PyTorch_11_ByteTensor_50__add__(struct __pyx_obj_7PyT
     /* "PyTorch.pyx":808
  *         else:
  *             secondTensor = second
- *             THByteTensor_cadd(res.thByteTensor, self.thByteTensor, 1, secondTensor.thByteTensor)             # <<<<<<<<<<<<<<
+ *             THByteTensor_cadd(res.native, self.native, 1, secondTensor.native)             # <<<<<<<<<<<<<<
  *         return res
  * 
  */
-    THByteTensor_cadd(__pyx_v_res->thByteTensor, __pyx_v_self->thByteTensor, 1, __pyx_v_secondTensor->thByteTensor);
+    THByteTensor_cadd(__pyx_v_res->native, __pyx_v_self->native, 1, __pyx_v_secondTensor->native);
   }
   __pyx_L3:;
 
   /* "PyTorch.pyx":809
  *             secondTensor = second
- *             THByteTensor_cadd(res.thByteTensor, self.thByteTensor, 1, secondTensor.thByteTensor)
+ *             THByteTensor_cadd(res.native, self.native, 1, secondTensor.native)
  *         return res             # <<<<<<<<<<<<<<
  * 
  *     def __sub__(_ByteTensor self, second):
@@ -12471,7 +12471,7 @@ static PyObject *__pyx_pf_7PyTorch_11_ByteTensor_52__sub__(struct __pyx_obj_7PyT
  *         cdef _ByteTensor res = _ByteTensor.new()
  *         cdef _ByteTensor secondTensor
  *         if isinstance(second, numbers.Number):             # <<<<<<<<<<<<<<
- *             THByteTensor_add(res.thByteTensor, self.thByteTensor, -second)
+ *             THByteTensor_add(res.native, self.native, -second)
  *         else:
  */
   __pyx_t_1 = __Pyx_GetModuleGlobalName(__pyx_n_s_numbers); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 815; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
@@ -12487,7 +12487,7 @@ static PyObject *__pyx_pf_7PyTorch_11_ByteTensor_52__sub__(struct __pyx_obj_7PyT
     /* "PyTorch.pyx":816
  *         cdef _ByteTensor secondTensor
  *         if isinstance(second, numbers.Number):
- *             THByteTensor_add(res.thByteTensor, self.thByteTensor, -second)             # <<<<<<<<<<<<<<
+ *             THByteTensor_add(res.native, self.native, -second)             # <<<<<<<<<<<<<<
  *         else:
  *             secondTensor = second
  */
@@ -12495,16 +12495,16 @@ static PyObject *__pyx_pf_7PyTorch_11_ByteTensor_52__sub__(struct __pyx_obj_7PyT
     __Pyx_GOTREF(__pyx_t_2);
     __pyx_t_6 = __Pyx_PyInt_As_unsigned_char(__pyx_t_2); if (unlikely((__pyx_t_6 == (unsigned char)-1) && PyErr_Occurred())) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 816; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
     __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-    THByteTensor_add(__pyx_v_res->thByteTensor, __pyx_v_self->thByteTensor, __pyx_t_6);
+    THByteTensor_add(__pyx_v_res->native, __pyx_v_self->native, __pyx_t_6);
     goto __pyx_L3;
   }
   /*else*/ {
 
     /* "PyTorch.pyx":818
- *             THByteTensor_add(res.thByteTensor, self.thByteTensor, -second)
+ *             THByteTensor_add(res.native, self.native, -second)
  *         else:
  *             secondTensor = second             # <<<<<<<<<<<<<<
- *             THByteTensor_cadd(res.thByteTensor, self.thByteTensor, -1, secondTensor.thByteTensor)
+ *             THByteTensor_cadd(res.native, self.native, -1, secondTensor.native)
  *         return res
  */
     if (!(likely(((__pyx_v_second) == Py_None) || likely(__Pyx_TypeTest(__pyx_v_second, __pyx_ptype_7PyTorch__ByteTensor))))) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 818; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
@@ -12516,17 +12516,17 @@ static PyObject *__pyx_pf_7PyTorch_11_ByteTensor_52__sub__(struct __pyx_obj_7PyT
     /* "PyTorch.pyx":819
  *         else:
  *             secondTensor = second
- *             THByteTensor_cadd(res.thByteTensor, self.thByteTensor, -1, secondTensor.thByteTensor)             # <<<<<<<<<<<<<<
+ *             THByteTensor_cadd(res.native, self.native, -1, secondTensor.native)             # <<<<<<<<<<<<<<
  *         return res
  * 
  */
-    THByteTensor_cadd(__pyx_v_res->thByteTensor, __pyx_v_self->thByteTensor, -1, __pyx_v_secondTensor->thByteTensor);
+    THByteTensor_cadd(__pyx_v_res->native, __pyx_v_self->native, -1, __pyx_v_secondTensor->native);
   }
   __pyx_L3:;
 
   /* "PyTorch.pyx":820
  *             secondTensor = second
- *             THByteTensor_cadd(res.thByteTensor, self.thByteTensor, -1, secondTensor.thByteTensor)
+ *             THByteTensor_cadd(res.native, self.native, -1, secondTensor.native)
  *         return res             # <<<<<<<<<<<<<<
  * 
  *     def __div__(_ByteTensor self, unsigned char value):
@@ -12618,7 +12618,7 @@ static PyObject *__pyx_pf_7PyTorch_11_ByteTensor_54__div__(struct __pyx_obj_7PyT
  *         # assume 2d matrix for now?
  *         cdef _ByteTensor res = _ByteTensor.new()             # <<<<<<<<<<<<<<
  * #        THFloatTensor_resizeAs(cresult, self.thFloatTensor)
- *         THByteTensor_div(res.thByteTensor, self.thByteTensor, value)
+ *         THByteTensor_div(res.native, self.native, value)
  */
   __pyx_t_2 = __Pyx_PyObject_GetAttrStr(((PyObject *)((PyObject*)__pyx_ptype_7PyTorch__ByteTensor)), __pyx_n_s_new); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 824; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_2);
@@ -12647,15 +12647,15 @@ static PyObject *__pyx_pf_7PyTorch_11_ByteTensor_54__div__(struct __pyx_obj_7PyT
   /* "PyTorch.pyx":826
  *         cdef _ByteTensor res = _ByteTensor.new()
  * #        THFloatTensor_resizeAs(cresult, self.thFloatTensor)
- *         THByteTensor_div(res.thByteTensor, self.thByteTensor, value)             # <<<<<<<<<<<<<<
+ *         THByteTensor_div(res.native, self.native, value)             # <<<<<<<<<<<<<<
  *         return res
  * 
  */
-  THByteTensor_div(__pyx_v_res->thByteTensor, __pyx_v_self->thByteTensor, __pyx_v_value);
+  THByteTensor_div(__pyx_v_res->native, __pyx_v_self->native, __pyx_v_value);
 
   /* "PyTorch.pyx":827
  * #        THFloatTensor_resizeAs(cresult, self.thFloatTensor)
- *         THByteTensor_div(res.thByteTensor, self.thByteTensor, value)
+ *         THByteTensor_div(res.native, self.native, value)
  *         return res             # <<<<<<<<<<<<<<
  * 
  *     def __iadd__(_ByteTensor self, second):
@@ -12727,7 +12727,7 @@ static PyObject *__pyx_pf_7PyTorch_11_ByteTensor_56__iadd__(struct __pyx_obj_7Py
  *     def __iadd__(_ByteTensor self, second):
  *         cdef _ByteTensor secondTensor
  *         if isinstance(second, numbers.Number):             # <<<<<<<<<<<<<<
- *             THByteTensor_add(self.thByteTensor, self.thByteTensor, second)
+ *             THByteTensor_add(self.native, self.native, second)
  *         else:
  */
   __pyx_t_1 = __Pyx_GetModuleGlobalName(__pyx_n_s_numbers); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 831; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
@@ -12743,21 +12743,21 @@ static PyObject *__pyx_pf_7PyTorch_11_ByteTensor_56__iadd__(struct __pyx_obj_7Py
     /* "PyTorch.pyx":832
  *         cdef _ByteTensor secondTensor
  *         if isinstance(second, numbers.Number):
- *             THByteTensor_add(self.thByteTensor, self.thByteTensor, second)             # <<<<<<<<<<<<<<
+ *             THByteTensor_add(self.native, self.native, second)             # <<<<<<<<<<<<<<
  *         else:
  *             secondTensor = second
  */
     __pyx_t_5 = __Pyx_PyInt_As_unsigned_char(__pyx_v_second); if (unlikely((__pyx_t_5 == (unsigned char)-1) && PyErr_Occurred())) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 832; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-    THByteTensor_add(__pyx_v_self->thByteTensor, __pyx_v_self->thByteTensor, __pyx_t_5);
+    THByteTensor_add(__pyx_v_self->native, __pyx_v_self->native, __pyx_t_5);
     goto __pyx_L3;
   }
   /*else*/ {
 
     /* "PyTorch.pyx":834
- *             THByteTensor_add(self.thByteTensor, self.thByteTensor, second)
+ *             THByteTensor_add(self.native, self.native, second)
  *         else:
  *             secondTensor = second             # <<<<<<<<<<<<<<
- *             THByteTensor_cadd(self.thByteTensor, self.thByteTensor, 1, secondTensor.thByteTensor)
+ *             THByteTensor_cadd(self.native, self.native, 1, secondTensor.native)
  *         return self
  */
     if (!(likely(((__pyx_v_second) == Py_None) || likely(__Pyx_TypeTest(__pyx_v_second, __pyx_ptype_7PyTorch__ByteTensor))))) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 834; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
@@ -12769,17 +12769,17 @@ static PyObject *__pyx_pf_7PyTorch_11_ByteTensor_56__iadd__(struct __pyx_obj_7Py
     /* "PyTorch.pyx":835
  *         else:
  *             secondTensor = second
- *             THByteTensor_cadd(self.thByteTensor, self.thByteTensor, 1, secondTensor.thByteTensor)             # <<<<<<<<<<<<<<
+ *             THByteTensor_cadd(self.native, self.native, 1, secondTensor.native)             # <<<<<<<<<<<<<<
  *         return self
  * 
  */
-    THByteTensor_cadd(__pyx_v_self->thByteTensor, __pyx_v_self->thByteTensor, 1, __pyx_v_secondTensor->thByteTensor);
+    THByteTensor_cadd(__pyx_v_self->native, __pyx_v_self->native, 1, __pyx_v_secondTensor->native);
   }
   __pyx_L3:;
 
   /* "PyTorch.pyx":836
  *             secondTensor = second
- *             THByteTensor_cadd(self.thByteTensor, self.thByteTensor, 1, secondTensor.thByteTensor)
+ *             THByteTensor_cadd(self.native, self.native, 1, secondTensor.native)
  *         return self             # <<<<<<<<<<<<<<
  * 
  *     def __isub__(_ByteTensor self, second):
@@ -12849,7 +12849,7 @@ static PyObject *__pyx_pf_7PyTorch_11_ByteTensor_58__isub__(struct __pyx_obj_7Py
  *     def __isub__(_ByteTensor self, second):
  *         cdef _ByteTensor secondTensor
  *         if isinstance(second, numbers.Number):             # <<<<<<<<<<<<<<
- *             THByteTensor_add(self.thByteTensor, self.thByteTensor, -second)
+ *             THByteTensor_add(self.native, self.native, -second)
  *         else:
  */
   __pyx_t_1 = __Pyx_GetModuleGlobalName(__pyx_n_s_numbers); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 840; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
@@ -12865,7 +12865,7 @@ static PyObject *__pyx_pf_7PyTorch_11_ByteTensor_58__isub__(struct __pyx_obj_7Py
     /* "PyTorch.pyx":841
  *         cdef _ByteTensor secondTensor
  *         if isinstance(second, numbers.Number):
- *             THByteTensor_add(self.thByteTensor, self.thByteTensor, -second)             # <<<<<<<<<<<<<<
+ *             THByteTensor_add(self.native, self.native, -second)             # <<<<<<<<<<<<<<
  *         else:
  *             secondTensor = second
  */
@@ -12873,16 +12873,16 @@ static PyObject *__pyx_pf_7PyTorch_11_ByteTensor_58__isub__(struct __pyx_obj_7Py
     __Pyx_GOTREF(__pyx_t_2);
     __pyx_t_5 = __Pyx_PyInt_As_unsigned_char(__pyx_t_2); if (unlikely((__pyx_t_5 == (unsigned char)-1) && PyErr_Occurred())) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 841; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
     __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-    THByteTensor_add(__pyx_v_self->thByteTensor, __pyx_v_self->thByteTensor, __pyx_t_5);
+    THByteTensor_add(__pyx_v_self->native, __pyx_v_self->native, __pyx_t_5);
     goto __pyx_L3;
   }
   /*else*/ {
 
     /* "PyTorch.pyx":843
- *             THByteTensor_add(self.thByteTensor, self.thByteTensor, -second)
+ *             THByteTensor_add(self.native, self.native, -second)
  *         else:
  *             secondTensor = second             # <<<<<<<<<<<<<<
- *             THByteTensor_cadd(self.thByteTensor, self.thByteTensor, -1, secondTensor.thByteTensor)
+ *             THByteTensor_cadd(self.native, self.native, -1, secondTensor.native)
  *         return self
  */
     if (!(likely(((__pyx_v_second) == Py_None) || likely(__Pyx_TypeTest(__pyx_v_second, __pyx_ptype_7PyTorch__ByteTensor))))) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 843; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
@@ -12894,17 +12894,17 @@ static PyObject *__pyx_pf_7PyTorch_11_ByteTensor_58__isub__(struct __pyx_obj_7Py
     /* "PyTorch.pyx":844
  *         else:
  *             secondTensor = second
- *             THByteTensor_cadd(self.thByteTensor, self.thByteTensor, -1, secondTensor.thByteTensor)             # <<<<<<<<<<<<<<
+ *             THByteTensor_cadd(self.native, self.native, -1, secondTensor.native)             # <<<<<<<<<<<<<<
  *         return self
  * 
  */
-    THByteTensor_cadd(__pyx_v_self->thByteTensor, __pyx_v_self->thByteTensor, -1, __pyx_v_secondTensor->thByteTensor);
+    THByteTensor_cadd(__pyx_v_self->native, __pyx_v_self->native, -1, __pyx_v_secondTensor->native);
   }
   __pyx_L3:;
 
   /* "PyTorch.pyx":845
  *             secondTensor = second
- *             THByteTensor_cadd(self.thByteTensor, self.thByteTensor, -1, secondTensor.thByteTensor)
+ *             THByteTensor_cadd(self.native, self.native, -1, secondTensor.native)
  *         return self             # <<<<<<<<<<<<<<
  * 
  *     def __idiv__(_ByteTensor self, unsigned char value):
@@ -12939,7 +12939,7 @@ static PyObject *__pyx_pf_7PyTorch_11_ByteTensor_58__isub__(struct __pyx_obj_7Py
  *         return self
  * 
  *     def __idiv__(_ByteTensor self, unsigned char value):             # <<<<<<<<<<<<<<
- *         THByteTensor_div(self.thByteTensor, self.thByteTensor, value)
+ *         THByteTensor_div(self.native, self.native, value)
  *         return self
  */
 
@@ -12980,15 +12980,15 @@ static PyObject *__pyx_pf_7PyTorch_11_ByteTensor_60__idiv__(struct __pyx_obj_7Py
   /* "PyTorch.pyx":848
  * 
  *     def __idiv__(_ByteTensor self, unsigned char value):
- *         THByteTensor_div(self.thByteTensor, self.thByteTensor, value)             # <<<<<<<<<<<<<<
+ *         THByteTensor_div(self.native, self.native, value)             # <<<<<<<<<<<<<<
  *         return self
  * 
  */
-  THByteTensor_div(__pyx_v_self->thByteTensor, __pyx_v_self->thByteTensor, __pyx_v_value);
+  THByteTensor_div(__pyx_v_self->native, __pyx_v_self->native, __pyx_v_value);
 
   /* "PyTorch.pyx":849
  *     def __idiv__(_ByteTensor self, unsigned char value):
- *         THByteTensor_div(self.thByteTensor, self.thByteTensor, value)
+ *         THByteTensor_div(self.native, self.native, value)
  *         return self             # <<<<<<<<<<<<<<
  * 
  *     def __imul__(_ByteTensor self, unsigned char value):
@@ -13002,7 +13002,7 @@ static PyObject *__pyx_pf_7PyTorch_11_ByteTensor_60__idiv__(struct __pyx_obj_7Py
  *         return self
  * 
  *     def __idiv__(_ByteTensor self, unsigned char value):             # <<<<<<<<<<<<<<
- *         THByteTensor_div(self.thByteTensor, self.thByteTensor, value)
+ *         THByteTensor_div(self.native, self.native, value)
  *         return self
  */
 
@@ -13018,7 +13018,7 @@ static PyObject *__pyx_pf_7PyTorch_11_ByteTensor_60__idiv__(struct __pyx_obj_7Py
  *         return self
  * 
  *     def __imul__(_ByteTensor self, unsigned char value):             # <<<<<<<<<<<<<<
- *         THByteTensor_mul(self.thByteTensor, self.thByteTensor, value)
+ *         THByteTensor_mul(self.native, self.native, value)
  *         return self
  */
 
@@ -13056,15 +13056,15 @@ static PyObject *__pyx_pf_7PyTorch_11_ByteTensor_62__imul__(struct __pyx_obj_7Py
   /* "PyTorch.pyx":852
  * 
  *     def __imul__(_ByteTensor self, unsigned char value):
- *         THByteTensor_mul(self.thByteTensor, self.thByteTensor, value)             # <<<<<<<<<<<<<<
+ *         THByteTensor_mul(self.native, self.native, value)             # <<<<<<<<<<<<<<
  *         return self
  * 
  */
-  THByteTensor_mul(__pyx_v_self->thByteTensor, __pyx_v_self->thByteTensor, __pyx_v_value);
+  THByteTensor_mul(__pyx_v_self->native, __pyx_v_self->native, __pyx_v_value);
 
   /* "PyTorch.pyx":853
  *     def __imul__(_ByteTensor self, unsigned char value):
- *         THByteTensor_mul(self.thByteTensor, self.thByteTensor, value)
+ *         THByteTensor_mul(self.native, self.native, value)
  *         return self             # <<<<<<<<<<<<<<
  * 
  * #    def __mul__(_ByteTensor self, _ByteTensor M2):
@@ -13078,7 +13078,7 @@ static PyObject *__pyx_pf_7PyTorch_11_ByteTensor_62__imul__(struct __pyx_obj_7Py
  *         return self
  * 
  *     def __imul__(_ByteTensor self, unsigned char value):             # <<<<<<<<<<<<<<
- *         THByteTensor_mul(self.thByteTensor, self.thByteTensor, value)
+ *         THByteTensor_mul(self.native, self.native, value)
  *         return self
  */
 
@@ -13138,7 +13138,7 @@ static PyObject *__pyx_pf_7PyTorch_11_ByteTensor_64__mul__(struct __pyx_obj_7PyT
  * 
  *         res = _ByteTensor.new()             # <<<<<<<<<<<<<<
  *         if isinstance(second, numbers.Number):
- *             THByteTensor_mul(res.thByteTensor, self.thByteTensor, second)
+ *             THByteTensor_mul(res.native, self.native, second)
  */
   __pyx_t_2 = __Pyx_PyObject_GetAttrStr(((PyObject *)((PyObject*)__pyx_ptype_7PyTorch__ByteTensor)), __pyx_n_s_new); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 863; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_2);
@@ -13168,7 +13168,7 @@ static PyObject *__pyx_pf_7PyTorch_11_ByteTensor_64__mul__(struct __pyx_obj_7PyT
  * 
  *         res = _ByteTensor.new()
  *         if isinstance(second, numbers.Number):             # <<<<<<<<<<<<<<
- *             THByteTensor_mul(res.thByteTensor, self.thByteTensor, second)
+ *             THByteTensor_mul(res.native, self.native, second)
  *             return res
  */
   __pyx_t_1 = __Pyx_GetModuleGlobalName(__pyx_n_s_numbers); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 864; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
@@ -13184,16 +13184,16 @@ static PyObject *__pyx_pf_7PyTorch_11_ByteTensor_64__mul__(struct __pyx_obj_7PyT
     /* "PyTorch.pyx":865
  *         res = _ByteTensor.new()
  *         if isinstance(second, numbers.Number):
- *             THByteTensor_mul(res.thByteTensor, self.thByteTensor, second)             # <<<<<<<<<<<<<<
+ *             THByteTensor_mul(res.native, self.native, second)             # <<<<<<<<<<<<<<
  *             return res
  *         else:
  */
     __pyx_t_6 = __Pyx_PyInt_As_unsigned_char(__pyx_v_second); if (unlikely((__pyx_t_6 == (unsigned char)-1) && PyErr_Occurred())) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 865; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-    THByteTensor_mul(__pyx_v_res->thByteTensor, __pyx_v_self->thByteTensor, __pyx_t_6);
+    THByteTensor_mul(__pyx_v_res->native, __pyx_v_self->native, __pyx_t_6);
 
     /* "PyTorch.pyx":866
  *         if isinstance(second, numbers.Number):
- *             THByteTensor_mul(res.thByteTensor, self.thByteTensor, second)
+ *             THByteTensor_mul(res.native, self.native, second)
  *             return res             # <<<<<<<<<<<<<<
  *         else:
  * 
@@ -13262,7 +13262,7 @@ static PyObject *__pyx_pf_7PyTorch_11_ByteTensor_64__mul__(struct __pyx_obj_7PyT
  *     # ========== random ===============================
  * 
  *     def bernoulli(_ByteTensor self, float p=0.5):             # <<<<<<<<<<<<<<
- *         THByteTensor_bernoulli(self.thByteTensor, globalState.generator, p)
+ *         THByteTensor_bernoulli(self.native, globalState.generator, p)
  *         return self
  */
 
@@ -13334,15 +13334,15 @@ static PyObject *__pyx_pf_7PyTorch_11_ByteTensor_66bernoulli(struct __pyx_obj_7P
   /* "PyTorch.pyx":875
  * 
  *     def bernoulli(_ByteTensor self, float p=0.5):
- *         THByteTensor_bernoulli(self.thByteTensor, globalState.generator, p)             # <<<<<<<<<<<<<<
+ *         THByteTensor_bernoulli(self.native, globalState.generator, p)             # <<<<<<<<<<<<<<
  *         return self
  * 
  */
-  THByteTensor_bernoulli(__pyx_v_self->thByteTensor, __pyx_v_7PyTorch_globalState->generator, __pyx_v_p);
+  THByteTensor_bernoulli(__pyx_v_self->native, __pyx_v_7PyTorch_globalState->generator, __pyx_v_p);
 
   /* "PyTorch.pyx":876
  *     def bernoulli(_ByteTensor self, float p=0.5):
- *         THByteTensor_bernoulli(self.thByteTensor, globalState.generator, p)
+ *         THByteTensor_bernoulli(self.native, globalState.generator, p)
  *         return self             # <<<<<<<<<<<<<<
  * 
  *     def geometric(_ByteTensor self, float p=0.5):
@@ -13356,7 +13356,7 @@ static PyObject *__pyx_pf_7PyTorch_11_ByteTensor_66bernoulli(struct __pyx_obj_7P
  *     # ========== random ===============================
  * 
  *     def bernoulli(_ByteTensor self, float p=0.5):             # <<<<<<<<<<<<<<
- *         THByteTensor_bernoulli(self.thByteTensor, globalState.generator, p)
+ *         THByteTensor_bernoulli(self.native, globalState.generator, p)
  *         return self
  */
 
@@ -13371,7 +13371,7 @@ static PyObject *__pyx_pf_7PyTorch_11_ByteTensor_66bernoulli(struct __pyx_obj_7P
  *         return self
  * 
  *     def geometric(_ByteTensor self, float p=0.5):             # <<<<<<<<<<<<<<
- *         THByteTensor_geometric(self.thByteTensor, globalState.generator, p)
+ *         THByteTensor_geometric(self.native, globalState.generator, p)
  *         return self
  */
 
@@ -13443,15 +13443,15 @@ static PyObject *__pyx_pf_7PyTorch_11_ByteTensor_68geometric(struct __pyx_obj_7P
   /* "PyTorch.pyx":879
  * 
  *     def geometric(_ByteTensor self, float p=0.5):
- *         THByteTensor_geometric(self.thByteTensor, globalState.generator, p)             # <<<<<<<<<<<<<<
+ *         THByteTensor_geometric(self.native, globalState.generator, p)             # <<<<<<<<<<<<<<
  *         return self
  * 
  */
-  THByteTensor_geometric(__pyx_v_self->thByteTensor, __pyx_v_7PyTorch_globalState->generator, __pyx_v_p);
+  THByteTensor_geometric(__pyx_v_self->native, __pyx_v_7PyTorch_globalState->generator, __pyx_v_p);
 
   /* "PyTorch.pyx":880
  *     def geometric(_ByteTensor self, float p=0.5):
- *         THByteTensor_geometric(self.thByteTensor, globalState.generator, p)
+ *         THByteTensor_geometric(self.native, globalState.generator, p)
  *         return self             # <<<<<<<<<<<<<<
  * 
  * 
@@ -13465,7 +13465,7 @@ static PyObject *__pyx_pf_7PyTorch_11_ByteTensor_68geometric(struct __pyx_obj_7P
  *         return self
  * 
  *     def geometric(_ByteTensor self, float p=0.5):             # <<<<<<<<<<<<<<
- *         THByteTensor_geometric(self.thByteTensor, globalState.generator, p)
+ *         THByteTensor_geometric(self.native, globalState.generator, p)
  *         return self
  */
 
@@ -13517,7 +13517,7 @@ static PyObject *__pyx_f_7PyTorch__ByteTensor_fromNative(struct THByteTensor *__
  *     if retain:
  *         THByteTensor_retain(tensorC)             # <<<<<<<<<<<<<<
  *     tensor = _ByteTensor(_allocate=False)
- *     tensor.thByteTensor = tensorC
+ *     tensor.native = tensorC
  */
     THByteTensor_retain(__pyx_v_tensorC);
     goto __pyx_L3;
@@ -13528,7 +13528,7 @@ static PyObject *__pyx_f_7PyTorch__ByteTensor_fromNative(struct THByteTensor *__
  *     if retain:
  *         THByteTensor_retain(tensorC)
  *     tensor = _ByteTensor(_allocate=False)             # <<<<<<<<<<<<<<
- *     tensor.thByteTensor = tensorC
+ *     tensor.native = tensorC
  *     return tensor
  */
   __pyx_t_2 = PyDict_New(); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 888; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
@@ -13543,15 +13543,15 @@ static PyObject *__pyx_f_7PyTorch__ByteTensor_fromNative(struct THByteTensor *__
   /* "PyTorch.pyx":889
  *         THByteTensor_retain(tensorC)
  *     tensor = _ByteTensor(_allocate=False)
- *     tensor.thByteTensor = tensorC             # <<<<<<<<<<<<<<
+ *     tensor.native = tensorC             # <<<<<<<<<<<<<<
  *     return tensor
  * 
  */
-  __pyx_v_tensor->thByteTensor = __pyx_v_tensorC;
+  __pyx_v_tensor->native = __pyx_v_tensorC;
 
   /* "PyTorch.pyx":890
  *     tensor = _ByteTensor(_allocate=False)
- *     tensor.thByteTensor = tensorC
+ *     tensor.native = tensorC
  *     return tensor             # <<<<<<<<<<<<<<
  * 
  * 
@@ -13738,7 +13738,7 @@ static int __pyx_pf_7PyTorch_12_FloatTensor___cinit__(struct __pyx_obj_7PyTorch_
  *                     raise Exception('cannot provide arguments to initializer')
  *             if len(args) == 0:             # <<<<<<<<<<<<<<
  * #                print('no args, calling THFloatTensor_new()')
- *                 self.thFloatTensor = THFloatTensor_new()
+ *                 self.native = THFloatTensor_new()
  */
     __pyx_t_3 = PyTuple_GET_SIZE(__pyx_v_args); if (unlikely(__pyx_t_3 == -1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 912; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
     __pyx_t_5 = ((__pyx_t_3 == 0) != 0);
@@ -13747,20 +13747,20 @@ static int __pyx_pf_7PyTorch_12_FloatTensor___cinit__(struct __pyx_obj_7PyTorch_
       /* "PyTorch.pyx":914
  *             if len(args) == 0:
  * #                print('no args, calling THFloatTensor_new()')
- *                 self.thFloatTensor = THFloatTensor_new()             # <<<<<<<<<<<<<<
+ *                 self.native = THFloatTensor_new()             # <<<<<<<<<<<<<<
  *             elif len(args) == 1:
  * #                print('new tensor 1d length', args[0])
  */
-      __pyx_v_self->thFloatTensor = THFloatTensor_new();
+      __pyx_v_self->native = THFloatTensor_new();
       goto __pyx_L7;
     }
 
     /* "PyTorch.pyx":915
  * #                print('no args, calling THFloatTensor_new()')
- *                 self.thFloatTensor = THFloatTensor_new()
+ *                 self.native = THFloatTensor_new()
  *             elif len(args) == 1:             # <<<<<<<<<<<<<<
  * #                print('new tensor 1d length', args[0])
- *                 self.thFloatTensor = THFloatTensor_newWithSize1d(args[0])
+ *                 self.native = THFloatTensor_newWithSize1d(args[0])
  */
     __pyx_t_3 = PyTuple_GET_SIZE(__pyx_v_args); if (unlikely(__pyx_t_3 == -1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 915; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
     __pyx_t_5 = ((__pyx_t_3 == 1) != 0);
@@ -13769,7 +13769,7 @@ static int __pyx_pf_7PyTorch_12_FloatTensor___cinit__(struct __pyx_obj_7PyTorch_
       /* "PyTorch.pyx":917
  *             elif len(args) == 1:
  * #                print('new tensor 1d length', args[0])
- *                 self.thFloatTensor = THFloatTensor_newWithSize1d(args[0])             # <<<<<<<<<<<<<<
+ *                 self.native = THFloatTensor_newWithSize1d(args[0])             # <<<<<<<<<<<<<<
  * #                storageC = THFloatTensor_storage(self.thFloatTensor)
  * #                if storageC == NULL:
  */
@@ -13777,7 +13777,7 @@ static int __pyx_pf_7PyTorch_12_FloatTensor___cinit__(struct __pyx_obj_7PyTorch_
       __Pyx_GOTREF(__pyx_t_2);
       __pyx_t_6 = __Pyx_PyInt_As_long(__pyx_t_2); if (unlikely((__pyx_t_6 == (long)-1) && PyErr_Occurred())) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 917; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
       __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-      __pyx_v_self->thFloatTensor = THFloatTensor_newWithSize1d(__pyx_t_6);
+      __pyx_v_self->native = THFloatTensor_newWithSize1d(__pyx_t_6);
       goto __pyx_L7;
     }
 
@@ -13785,7 +13785,7 @@ static int __pyx_pf_7PyTorch_12_FloatTensor___cinit__(struct __pyx_obj_7PyTorch_
  * #                    print('storageaddr', hex(addr))
  * #                    print('storageC refcount', THFloatStorage_getRefCount(storageC))
  *             elif len(args) == 2:             # <<<<<<<<<<<<<<
- *                 self.thFloatTensor = THFloatTensor_newWithSize2d(args[0], args[1])
+ *                 self.native = THFloatTensor_newWithSize2d(args[0], args[1])
  *             else:
  */
     __pyx_t_3 = PyTuple_GET_SIZE(__pyx_v_args); if (unlikely(__pyx_t_3 == -1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 926; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
@@ -13795,7 +13795,7 @@ static int __pyx_pf_7PyTorch_12_FloatTensor___cinit__(struct __pyx_obj_7PyTorch_
       /* "PyTorch.pyx":927
  * #                    print('storageC refcount', THFloatStorage_getRefCount(storageC))
  *             elif len(args) == 2:
- *                 self.thFloatTensor = THFloatTensor_newWithSize2d(args[0], args[1])             # <<<<<<<<<<<<<<
+ *                 self.native = THFloatTensor_newWithSize2d(args[0], args[1])             # <<<<<<<<<<<<<<
  *             else:
  *                 raise Exception('Not implemented, len(args)=' + str(len(args)))
  */
@@ -13807,13 +13807,13 @@ static int __pyx_pf_7PyTorch_12_FloatTensor___cinit__(struct __pyx_obj_7PyTorch_
       __Pyx_GOTREF(__pyx_t_2);
       __pyx_t_7 = __Pyx_PyInt_As_long(__pyx_t_2); if (unlikely((__pyx_t_7 == (long)-1) && PyErr_Occurred())) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 927; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
       __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-      __pyx_v_self->thFloatTensor = THFloatTensor_newWithSize2d(__pyx_t_6, __pyx_t_7);
+      __pyx_v_self->native = THFloatTensor_newWithSize2d(__pyx_t_6, __pyx_t_7);
       goto __pyx_L7;
     }
     /*else*/ {
 
       /* "PyTorch.pyx":929
- *                 self.thFloatTensor = THFloatTensor_newWithSize2d(args[0], args[1])
+ *                 self.native = THFloatTensor_newWithSize2d(args[0], args[1])
  *             else:
  *                 raise Exception('Not implemented, len(args)=' + str(len(args)))             # <<<<<<<<<<<<<<
  * 
@@ -13904,18 +13904,18 @@ static void __pyx_pf_7PyTorch_12_FloatTensor_2__dealloc__(struct __pyx_obj_7PyTo
   /* "PyTorch.pyx":945
  * #        cdef int i
  * #        cdef THFloatStorage *storage
- *         refCount = THFloatTensor_getRefCount(self.thFloatTensor)             # <<<<<<<<<<<<<<
+ *         refCount = THFloatTensor_getRefCount(self.native)             # <<<<<<<<<<<<<<
  * #        print('FloatTensor.dealloc old refcount', refCount)
  * #        storage = THFloatTensor_storage(self.thFloatTensor)
  */
-  __pyx_v_refCount = THFloatTensor_getRefCount(__pyx_v_self->thFloatTensor);
+  __pyx_v_refCount = THFloatTensor_getRefCount(__pyx_v_self->native);
 
   /* "PyTorch.pyx":956
  * #        for i in range(dims):
  * #            print('   size[', i, ']', THFloatTensor_size(self.thFloatTensor, i))
  *         if refCount < 1:             # <<<<<<<<<<<<<<
  *             raise Exception('Unallocated an already deallocated tensor... :-O')  # Hmmm, seems this exceptoin wont go anywhere useful... :-P
- *         THFloatTensor_free(self.thFloatTensor)
+ *         THFloatTensor_free(self.native)
  */
   __pyx_t_1 = ((__pyx_v_refCount < 1) != 0);
   if (__pyx_t_1) {
@@ -13924,7 +13924,7 @@ static void __pyx_pf_7PyTorch_12_FloatTensor_2__dealloc__(struct __pyx_obj_7PyTo
  * #            print('   size[', i, ']', THFloatTensor_size(self.thFloatTensor, i))
  *         if refCount < 1:
  *             raise Exception('Unallocated an already deallocated tensor... :-O')  # Hmmm, seems this exceptoin wont go anywhere useful... :-P             # <<<<<<<<<<<<<<
- *         THFloatTensor_free(self.thFloatTensor)
+ *         THFloatTensor_free(self.native)
  * 
  */
     __pyx_t_2 = __Pyx_PyObject_Call(__pyx_builtin_Exception, __pyx_tuple__14, NULL); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 957; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
@@ -13937,11 +13937,11 @@ static void __pyx_pf_7PyTorch_12_FloatTensor_2__dealloc__(struct __pyx_obj_7PyTo
   /* "PyTorch.pyx":958
  *         if refCount < 1:
  *             raise Exception('Unallocated an already deallocated tensor... :-O')  # Hmmm, seems this exceptoin wont go anywhere useful... :-P
- *         THFloatTensor_free(self.thFloatTensor)             # <<<<<<<<<<<<<<
+ *         THFloatTensor_free(self.native)             # <<<<<<<<<<<<<<
  * 
  *     def nElement(_FloatTensor self):
  */
-  THFloatTensor_free(__pyx_v_self->thFloatTensor);
+  THFloatTensor_free(__pyx_v_self->native);
 
   /* "PyTorch.pyx":939
  * #        self.storage = storage
@@ -13961,10 +13961,10 @@ static void __pyx_pf_7PyTorch_12_FloatTensor_2__dealloc__(struct __pyx_obj_7PyTo
 }
 
 /* "PyTorch.pyx":960
- *         THFloatTensor_free(self.thFloatTensor)
+ *         THFloatTensor_free(self.native)
  * 
  *     def nElement(_FloatTensor self):             # <<<<<<<<<<<<<<
- *         return THFloatTensor_nElement(self.thFloatTensor)
+ *         return THFloatTensor_nElement(self.native)
  * 
  */
 
@@ -13993,22 +13993,22 @@ static PyObject *__pyx_pf_7PyTorch_12_FloatTensor_4nElement(struct __pyx_obj_7Py
   /* "PyTorch.pyx":961
  * 
  *     def nElement(_FloatTensor self):
- *         return THFloatTensor_nElement(self.thFloatTensor)             # <<<<<<<<<<<<<<
+ *         return THFloatTensor_nElement(self.native)             # <<<<<<<<<<<<<<
  * 
  *     @property
  */
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_1 = __Pyx_PyInt_From_long(THFloatTensor_nElement(__pyx_v_self->thFloatTensor)); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 961; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_1 = __Pyx_PyInt_From_long(THFloatTensor_nElement(__pyx_v_self->native)); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 961; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_r = __pyx_t_1;
   __pyx_t_1 = 0;
   goto __pyx_L0;
 
   /* "PyTorch.pyx":960
- *         THFloatTensor_free(self.thFloatTensor)
+ *         THFloatTensor_free(self.native)
  * 
  *     def nElement(_FloatTensor self):             # <<<<<<<<<<<<<<
- *         return THFloatTensor_nElement(self.thFloatTensor)
+ *         return THFloatTensor_nElement(self.native)
  * 
  */
 
@@ -14027,7 +14027,7 @@ static PyObject *__pyx_pf_7PyTorch_12_FloatTensor_4nElement(struct __pyx_obj_7Py
  * 
  *     @property
  *     def refCount(_FloatTensor self):             # <<<<<<<<<<<<<<
- *         return THFloatTensor_getRefCount(self.thFloatTensor)
+ *         return THFloatTensor_getRefCount(self.native)
  * 
  */
 
@@ -14056,12 +14056,12 @@ static PyObject *__pyx_pf_7PyTorch_12_FloatTensor_6refCount(struct __pyx_obj_7Py
   /* "PyTorch.pyx":965
  *     @property
  *     def refCount(_FloatTensor self):
- *         return THFloatTensor_getRefCount(self.thFloatTensor)             # <<<<<<<<<<<<<<
+ *         return THFloatTensor_getRefCount(self.native)             # <<<<<<<<<<<<<<
  * 
  *     cpdef int dims(self):
  */
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_1 = __Pyx_PyInt_From_int(THFloatTensor_getRefCount(__pyx_v_self->thFloatTensor)); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 965; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_1 = __Pyx_PyInt_From_int(THFloatTensor_getRefCount(__pyx_v_self->native)); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 965; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_r = __pyx_t_1;
   __pyx_t_1 = 0;
@@ -14071,7 +14071,7 @@ static PyObject *__pyx_pf_7PyTorch_12_FloatTensor_6refCount(struct __pyx_obj_7Py
  * 
  *     @property
  *     def refCount(_FloatTensor self):             # <<<<<<<<<<<<<<
- *         return THFloatTensor_getRefCount(self.thFloatTensor)
+ *         return THFloatTensor_getRefCount(self.native)
  * 
  */
 
@@ -14087,10 +14087,10 @@ static PyObject *__pyx_pf_7PyTorch_12_FloatTensor_6refCount(struct __pyx_obj_7Py
 }
 
 /* "PyTorch.pyx":967
- *         return THFloatTensor_getRefCount(self.thFloatTensor)
+ *         return THFloatTensor_getRefCount(self.native)
  * 
  *     cpdef int dims(self):             # <<<<<<<<<<<<<<
- *         return THFloatTensor_nDimension(self.thFloatTensor)
+ *         return THFloatTensor_nDimension(self.native)
  * 
  */
 
@@ -14145,18 +14145,18 @@ static int __pyx_f_7PyTorch_12_FloatTensor_dims(struct __pyx_obj_7PyTorch__Float
   /* "PyTorch.pyx":968
  * 
  *     cpdef int dims(self):
- *         return THFloatTensor_nDimension(self.thFloatTensor)             # <<<<<<<<<<<<<<
+ *         return THFloatTensor_nDimension(self.native)             # <<<<<<<<<<<<<<
  * 
  *     cpdef set1d(self, int x0, float value):
  */
-  __pyx_r = THFloatTensor_nDimension(__pyx_v_self->thFloatTensor);
+  __pyx_r = THFloatTensor_nDimension(__pyx_v_self->native);
   goto __pyx_L0;
 
   /* "PyTorch.pyx":967
- *         return THFloatTensor_getRefCount(self.thFloatTensor)
+ *         return THFloatTensor_getRefCount(self.native)
  * 
  *     cpdef int dims(self):             # <<<<<<<<<<<<<<
- *         return THFloatTensor_nDimension(self.thFloatTensor)
+ *         return THFloatTensor_nDimension(self.native)
  * 
  */
 
@@ -14213,10 +14213,10 @@ static PyObject *__pyx_pf_7PyTorch_12_FloatTensor_8dims(struct __pyx_obj_7PyTorc
 }
 
 /* "PyTorch.pyx":970
- *         return THFloatTensor_nDimension(self.thFloatTensor)
+ *         return THFloatTensor_nDimension(self.native)
  * 
  *     cpdef set1d(self, int x0, float value):             # <<<<<<<<<<<<<<
- *         THFloatTensor_set1d(self.thFloatTensor, x0, value)
+ *         THFloatTensor_set1d(self.native, x0, value)
  * 
  */
 
@@ -14287,17 +14287,17 @@ static PyObject *__pyx_f_7PyTorch_12_FloatTensor_set1d(struct __pyx_obj_7PyTorch
   /* "PyTorch.pyx":971
  * 
  *     cpdef set1d(self, int x0, float value):
- *         THFloatTensor_set1d(self.thFloatTensor, x0, value)             # <<<<<<<<<<<<<<
+ *         THFloatTensor_set1d(self.native, x0, value)             # <<<<<<<<<<<<<<
  * 
  *     cpdef set2d(self, int x0, int x1, float value):
  */
-  THFloatTensor_set1d(__pyx_v_self->thFloatTensor, __pyx_v_x0, __pyx_v_value);
+  THFloatTensor_set1d(__pyx_v_self->native, __pyx_v_x0, __pyx_v_value);
 
   /* "PyTorch.pyx":970
- *         return THFloatTensor_nDimension(self.thFloatTensor)
+ *         return THFloatTensor_nDimension(self.native)
  * 
  *     cpdef set1d(self, int x0, float value):             # <<<<<<<<<<<<<<
- *         THFloatTensor_set1d(self.thFloatTensor, x0, value)
+ *         THFloatTensor_set1d(self.native, x0, value)
  * 
  */
 
@@ -14408,10 +14408,10 @@ static PyObject *__pyx_pf_7PyTorch_12_FloatTensor_10set1d(struct __pyx_obj_7PyTo
 }
 
 /* "PyTorch.pyx":973
- *         THFloatTensor_set1d(self.thFloatTensor, x0, value)
+ *         THFloatTensor_set1d(self.native, x0, value)
  * 
  *     cpdef set2d(self, int x0, int x1, float value):             # <<<<<<<<<<<<<<
- *         THFloatTensor_set2d(self.thFloatTensor, x0, x1, value)
+ *         THFloatTensor_set2d(self.native, x0, x1, value)
  * 
  */
 
@@ -14488,17 +14488,17 @@ static PyObject *__pyx_f_7PyTorch_12_FloatTensor_set2d(struct __pyx_obj_7PyTorch
   /* "PyTorch.pyx":974
  * 
  *     cpdef set2d(self, int x0, int x1, float value):
- *         THFloatTensor_set2d(self.thFloatTensor, x0, x1, value)             # <<<<<<<<<<<<<<
+ *         THFloatTensor_set2d(self.native, x0, x1, value)             # <<<<<<<<<<<<<<
  * 
  *     cpdef float get1d(self, int x0):
  */
-  THFloatTensor_set2d(__pyx_v_self->thFloatTensor, __pyx_v_x0, __pyx_v_x1, __pyx_v_value);
+  THFloatTensor_set2d(__pyx_v_self->native, __pyx_v_x0, __pyx_v_x1, __pyx_v_value);
 
   /* "PyTorch.pyx":973
- *         THFloatTensor_set1d(self.thFloatTensor, x0, value)
+ *         THFloatTensor_set1d(self.native, x0, value)
  * 
  *     cpdef set2d(self, int x0, int x1, float value):             # <<<<<<<<<<<<<<
- *         THFloatTensor_set2d(self.thFloatTensor, x0, x1, value)
+ *         THFloatTensor_set2d(self.native, x0, x1, value)
  * 
  */
 
@@ -14619,10 +14619,10 @@ static PyObject *__pyx_pf_7PyTorch_12_FloatTensor_12set2d(struct __pyx_obj_7PyTo
 }
 
 /* "PyTorch.pyx":976
- *         THFloatTensor_set2d(self.thFloatTensor, x0, x1, value)
+ *         THFloatTensor_set2d(self.native, x0, x1, value)
  * 
  *     cpdef float get1d(self, int x0):             # <<<<<<<<<<<<<<
- *         return THFloatTensor_get1d(self.thFloatTensor, x0)
+ *         return THFloatTensor_get1d(self.native, x0)
  * 
  */
 
@@ -14689,18 +14689,18 @@ static float __pyx_f_7PyTorch_12_FloatTensor_get1d(struct __pyx_obj_7PyTorch__Fl
   /* "PyTorch.pyx":977
  * 
  *     cpdef float get1d(self, int x0):
- *         return THFloatTensor_get1d(self.thFloatTensor, x0)             # <<<<<<<<<<<<<<
+ *         return THFloatTensor_get1d(self.native, x0)             # <<<<<<<<<<<<<<
  * 
  *     cpdef float get2d(self, int x0, int x1):
  */
-  __pyx_r = THFloatTensor_get1d(__pyx_v_self->thFloatTensor, __pyx_v_x0);
+  __pyx_r = THFloatTensor_get1d(__pyx_v_self->native, __pyx_v_x0);
   goto __pyx_L0;
 
   /* "PyTorch.pyx":976
- *         THFloatTensor_set2d(self.thFloatTensor, x0, x1, value)
+ *         THFloatTensor_set2d(self.native, x0, x1, value)
  * 
  *     cpdef float get1d(self, int x0):             # <<<<<<<<<<<<<<
- *         return THFloatTensor_get1d(self.thFloatTensor, x0)
+ *         return THFloatTensor_get1d(self.native, x0)
  * 
  */
 
@@ -14772,10 +14772,10 @@ static PyObject *__pyx_pf_7PyTorch_12_FloatTensor_14get1d(struct __pyx_obj_7PyTo
 }
 
 /* "PyTorch.pyx":979
- *         return THFloatTensor_get1d(self.thFloatTensor, x0)
+ *         return THFloatTensor_get1d(self.native, x0)
  * 
  *     cpdef float get2d(self, int x0, int x1):             # <<<<<<<<<<<<<<
- *         return THFloatTensor_get2d(self.thFloatTensor, x0, x1)
+ *         return THFloatTensor_get2d(self.native, x0, x1)
  * 
  */
 
@@ -14847,18 +14847,18 @@ static float __pyx_f_7PyTorch_12_FloatTensor_get2d(struct __pyx_obj_7PyTorch__Fl
   /* "PyTorch.pyx":980
  * 
  *     cpdef float get2d(self, int x0, int x1):
- *         return THFloatTensor_get2d(self.thFloatTensor, x0, x1)             # <<<<<<<<<<<<<<
+ *         return THFloatTensor_get2d(self.native, x0, x1)             # <<<<<<<<<<<<<<
  * 
  *     def __repr__(_FloatTensor self):
  */
-  __pyx_r = THFloatTensor_get2d(__pyx_v_self->thFloatTensor, __pyx_v_x0, __pyx_v_x1);
+  __pyx_r = THFloatTensor_get2d(__pyx_v_self->native, __pyx_v_x0, __pyx_v_x1);
   goto __pyx_L0;
 
   /* "PyTorch.pyx":979
- *         return THFloatTensor_get1d(self.thFloatTensor, x0)
+ *         return THFloatTensor_get1d(self.native, x0)
  * 
  *     cpdef float get2d(self, int x0, int x1):             # <<<<<<<<<<<<<<
- *         return THFloatTensor_get2d(self.thFloatTensor, x0, x1)
+ *         return THFloatTensor_get2d(self.native, x0, x1)
  * 
  */
 
@@ -14966,7 +14966,7 @@ static PyObject *__pyx_pf_7PyTorch_12_FloatTensor_16get2d(struct __pyx_obj_7PyTo
 }
 
 /* "PyTorch.pyx":982
- *         return THFloatTensor_get2d(self.thFloatTensor, x0, x1)
+ *         return THFloatTensor_get2d(self.native, x0, x1)
  * 
  *     def __repr__(_FloatTensor self):             # <<<<<<<<<<<<<<
  *         # assume 2d matrix for now
@@ -15022,7 +15022,7 @@ static PyObject *__pyx_pf_7PyTorch_12_FloatTensor_18__repr__(struct __pyx_obj_7P
  *             res += '[torch.FloatTensor of size ' + ('%.0f' % size0) + 'x' + str(size1) + ']\n'
  *             return res
  *         elif dims == 1:             # <<<<<<<<<<<<<<
- *             size0 = THFloatTensor_size(self.thFloatTensor, 0)
+ *             size0 = THFloatTensor_size(self.native, 0)
  *             res = ''
  */
   switch (__pyx_v_dims) {
@@ -15041,7 +15041,7 @@ static PyObject *__pyx_pf_7PyTorch_12_FloatTensor_18__repr__(struct __pyx_obj_7P
  *         if dims == 0:
  *             return '[torch.FloatTensor with no dimension]\n'             # <<<<<<<<<<<<<<
  *         elif dims == 2:
- *             size0 = THFloatTensor_size(self.thFloatTensor, 0)
+ *             size0 = THFloatTensor_size(self.native, 0)
  */
     __Pyx_XDECREF(__pyx_r);
     __Pyx_INCREF(__pyx_kp_s_torch_FloatTensor_with_no_dimen);
@@ -15053,32 +15053,32 @@ static PyObject *__pyx_pf_7PyTorch_12_FloatTensor_18__repr__(struct __pyx_obj_7P
  *         if dims == 0:
  *             return '[torch.FloatTensor with no dimension]\n'
  *         elif dims == 2:             # <<<<<<<<<<<<<<
- *             size0 = THFloatTensor_size(self.thFloatTensor, 0)
- *             size1 = THFloatTensor_size(self.thFloatTensor, 1)
+ *             size0 = THFloatTensor_size(self.native, 0)
+ *             size1 = THFloatTensor_size(self.native, 1)
  */
     case 2:
 
     /* "PyTorch.pyx":990
  *             return '[torch.FloatTensor with no dimension]\n'
  *         elif dims == 2:
- *             size0 = THFloatTensor_size(self.thFloatTensor, 0)             # <<<<<<<<<<<<<<
- *             size1 = THFloatTensor_size(self.thFloatTensor, 1)
+ *             size0 = THFloatTensor_size(self.native, 0)             # <<<<<<<<<<<<<<
+ *             size1 = THFloatTensor_size(self.native, 1)
  *             res = ''
  */
-    __pyx_v_size0 = THFloatTensor_size(__pyx_v_self->thFloatTensor, 0);
+    __pyx_v_size0 = THFloatTensor_size(__pyx_v_self->native, 0);
 
     /* "PyTorch.pyx":991
  *         elif dims == 2:
- *             size0 = THFloatTensor_size(self.thFloatTensor, 0)
- *             size1 = THFloatTensor_size(self.thFloatTensor, 1)             # <<<<<<<<<<<<<<
+ *             size0 = THFloatTensor_size(self.native, 0)
+ *             size1 = THFloatTensor_size(self.native, 1)             # <<<<<<<<<<<<<<
  *             res = ''
  *             for r in range(size0):
  */
-    __pyx_v_size1 = THFloatTensor_size(__pyx_v_self->thFloatTensor, 1);
+    __pyx_v_size1 = THFloatTensor_size(__pyx_v_self->native, 1);
 
     /* "PyTorch.pyx":992
- *             size0 = THFloatTensor_size(self.thFloatTensor, 0)
- *             size1 = THFloatTensor_size(self.thFloatTensor, 1)
+ *             size0 = THFloatTensor_size(self.native, 0)
+ *             size1 = THFloatTensor_size(self.native, 1)
  *             res = ''             # <<<<<<<<<<<<<<
  *             for r in range(size0):
  *                 thisline = ''
@@ -15087,7 +15087,7 @@ static PyObject *__pyx_pf_7PyTorch_12_FloatTensor_18__repr__(struct __pyx_obj_7P
     __pyx_v_res = __pyx_kp_s__3;
 
     /* "PyTorch.pyx":993
- *             size1 = THFloatTensor_size(self.thFloatTensor, 1)
+ *             size1 = THFloatTensor_size(self.native, 1)
  *             res = ''
  *             for r in range(size0):             # <<<<<<<<<<<<<<
  *                 thisline = ''
@@ -15221,7 +15221,7 @@ static PyObject *__pyx_pf_7PyTorch_12_FloatTensor_18__repr__(struct __pyx_obj_7P
  *             res += '[torch.FloatTensor of size ' + ('%.0f' % size0) + 'x' + str(size1) + ']\n'
  *             return res             # <<<<<<<<<<<<<<
  *         elif dims == 1:
- *             size0 = THFloatTensor_size(self.thFloatTensor, 0)
+ *             size0 = THFloatTensor_size(self.native, 0)
  */
     __Pyx_XDECREF(__pyx_r);
     __Pyx_INCREF(__pyx_v_res);
@@ -15233,7 +15233,7 @@ static PyObject *__pyx_pf_7PyTorch_12_FloatTensor_18__repr__(struct __pyx_obj_7P
  *             res += '[torch.FloatTensor of size ' + ('%.0f' % size0) + 'x' + str(size1) + ']\n'
  *             return res
  *         elif dims == 1:             # <<<<<<<<<<<<<<
- *             size0 = THFloatTensor_size(self.thFloatTensor, 0)
+ *             size0 = THFloatTensor_size(self.native, 0)
  *             res = ''
  */
     case 1:
@@ -15241,15 +15241,15 @@ static PyObject *__pyx_pf_7PyTorch_12_FloatTensor_18__repr__(struct __pyx_obj_7P
     /* "PyTorch.pyx":1005
  *             return res
  *         elif dims == 1:
- *             size0 = THFloatTensor_size(self.thFloatTensor, 0)             # <<<<<<<<<<<<<<
+ *             size0 = THFloatTensor_size(self.native, 0)             # <<<<<<<<<<<<<<
  *             res = ''
  *             thisline = ''
  */
-    __pyx_v_size0 = THFloatTensor_size(__pyx_v_self->thFloatTensor, 0);
+    __pyx_v_size0 = THFloatTensor_size(__pyx_v_self->native, 0);
 
     /* "PyTorch.pyx":1006
  *         elif dims == 1:
- *             size0 = THFloatTensor_size(self.thFloatTensor, 0)
+ *             size0 = THFloatTensor_size(self.native, 0)
  *             res = ''             # <<<<<<<<<<<<<<
  *             thisline = ''
  *             for c in range(size0):
@@ -15258,7 +15258,7 @@ static PyObject *__pyx_pf_7PyTorch_12_FloatTensor_18__repr__(struct __pyx_obj_7P
     __pyx_v_res = __pyx_kp_s__3;
 
     /* "PyTorch.pyx":1007
- *             size0 = THFloatTensor_size(self.thFloatTensor, 0)
+ *             size0 = THFloatTensor_size(self.native, 0)
  *             res = ''
  *             thisline = ''             # <<<<<<<<<<<<<<
  *             for c in range(size0):
@@ -15393,7 +15393,7 @@ static PyObject *__pyx_pf_7PyTorch_12_FloatTensor_18__repr__(struct __pyx_obj_7P
   }
 
   /* "PyTorch.pyx":982
- *         return THFloatTensor_get2d(self.thFloatTensor, x0, x1)
+ *         return THFloatTensor_get2d(self.native, x0, x1)
  * 
  *     def __repr__(_FloatTensor self):             # <<<<<<<<<<<<<<
  *         # assume 2d matrix for now
@@ -15466,7 +15466,7 @@ static PyObject *__pyx_pf_7PyTorch_12_FloatTensor_20__getitem__(struct __pyx_obj
  *     def __getitem__(_FloatTensor self, int index):
  *         if self.dims() == 1:             # <<<<<<<<<<<<<<
  *             return self.get1d(index)
- *         cdef THFloatTensor *res = THFloatTensor_newSelect(self.thFloatTensor, 0, index)
+ *         cdef THFloatTensor *res = THFloatTensor_newSelect(self.native, 0, index)
  */
   __pyx_t_1 = ((((struct __pyx_vtabstruct_7PyTorch__FloatTensor *)__pyx_v_self->__pyx_vtab)->dims(__pyx_v_self, 0) == 1) != 0);
   if (__pyx_t_1) {
@@ -15475,7 +15475,7 @@ static PyObject *__pyx_pf_7PyTorch_12_FloatTensor_20__getitem__(struct __pyx_obj
  *     def __getitem__(_FloatTensor self, int index):
  *         if self.dims() == 1:
  *             return self.get1d(index)             # <<<<<<<<<<<<<<
- *         cdef THFloatTensor *res = THFloatTensor_newSelect(self.thFloatTensor, 0, index)
+ *         cdef THFloatTensor *res = THFloatTensor_newSelect(self.native, 0, index)
  *         return _FloatTensor_fromNative(res, False)
  */
     __Pyx_XDECREF(__pyx_r);
@@ -15489,15 +15489,15 @@ static PyObject *__pyx_pf_7PyTorch_12_FloatTensor_20__getitem__(struct __pyx_obj
   /* "PyTorch.pyx":1023
  *         if self.dims() == 1:
  *             return self.get1d(index)
- *         cdef THFloatTensor *res = THFloatTensor_newSelect(self.thFloatTensor, 0, index)             # <<<<<<<<<<<<<<
+ *         cdef THFloatTensor *res = THFloatTensor_newSelect(self.native, 0, index)             # <<<<<<<<<<<<<<
  *         return _FloatTensor_fromNative(res, False)
  * 
  */
-  __pyx_v_res = THFloatTensor_newSelect(__pyx_v_self->thFloatTensor, 0, __pyx_v_index);
+  __pyx_v_res = THFloatTensor_newSelect(__pyx_v_self->native, 0, __pyx_v_index);
 
   /* "PyTorch.pyx":1024
  *             return self.get1d(index)
- *         cdef THFloatTensor *res = THFloatTensor_newSelect(self.thFloatTensor, 0, index)
+ *         cdef THFloatTensor *res = THFloatTensor_newSelect(self.native, 0, index)
  *         return _FloatTensor_fromNative(res, False)             # <<<<<<<<<<<<<<
  * 
  *     def __setitem__(_FloatTensor self, int index, float value):
@@ -15641,7 +15641,7 @@ static int __pyx_pf_7PyTorch_12_FloatTensor_22__setitem__(struct __pyx_obj_7PyTo
  *             raise Exception("not implemented")
  * 
  *     def fill(_FloatTensor self, float value):             # <<<<<<<<<<<<<<
- *         THFloatTensor_fill(self.thFloatTensor, value)
+ *         THFloatTensor_fill(self.native, value)
  *         return self
  */
 
@@ -15679,15 +15679,15 @@ static PyObject *__pyx_pf_7PyTorch_12_FloatTensor_24fill(struct __pyx_obj_7PyTor
   /* "PyTorch.pyx":1033
  * 
  *     def fill(_FloatTensor self, float value):
- *         THFloatTensor_fill(self.thFloatTensor, value)             # <<<<<<<<<<<<<<
+ *         THFloatTensor_fill(self.native, value)             # <<<<<<<<<<<<<<
  *         return self
  * 
  */
-  THFloatTensor_fill(__pyx_v_self->thFloatTensor, __pyx_v_value);
+  THFloatTensor_fill(__pyx_v_self->native, __pyx_v_value);
 
   /* "PyTorch.pyx":1034
  *     def fill(_FloatTensor self, float value):
- *         THFloatTensor_fill(self.thFloatTensor, value)
+ *         THFloatTensor_fill(self.native, value)
  *         return self             # <<<<<<<<<<<<<<
  * 
  *     def size(_FloatTensor self):
@@ -15701,7 +15701,7 @@ static PyObject *__pyx_pf_7PyTorch_12_FloatTensor_24fill(struct __pyx_obj_7PyTor
  *             raise Exception("not implemented")
  * 
  *     def fill(_FloatTensor self, float value):             # <<<<<<<<<<<<<<
- *         THFloatTensor_fill(self.thFloatTensor, value)
+ *         THFloatTensor_fill(self.native, value)
  *         return self
  */
 
@@ -15773,7 +15773,7 @@ static PyObject *__pyx_pf_7PyTorch_12_FloatTensor_26size(struct __pyx_obj_7PyTor
  *         if dims > 0:
  *             size = _LongTensor(dims)             # <<<<<<<<<<<<<<
  *             for d in range(dims):
- *                 size.set1d(d, THFloatTensor_size(self.thFloatTensor, d))
+ *                 size.set1d(d, THFloatTensor_size(self.native, d))
  */
     __pyx_t_2 = __Pyx_PyInt_From_int(__pyx_v_dims); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1040; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
     __Pyx_GOTREF(__pyx_t_2);
@@ -15792,7 +15792,7 @@ static PyObject *__pyx_pf_7PyTorch_12_FloatTensor_26size(struct __pyx_obj_7PyTor
  *         if dims > 0:
  *             size = _LongTensor(dims)
  *             for d in range(dims):             # <<<<<<<<<<<<<<
- *                 size.set1d(d, THFloatTensor_size(self.thFloatTensor, d))
+ *                 size.set1d(d, THFloatTensor_size(self.native, d))
  *             return size
  */
     __pyx_t_4 = __pyx_v_dims;
@@ -15802,18 +15802,18 @@ static PyObject *__pyx_pf_7PyTorch_12_FloatTensor_26size(struct __pyx_obj_7PyTor
       /* "PyTorch.pyx":1042
  *             size = _LongTensor(dims)
  *             for d in range(dims):
- *                 size.set1d(d, THFloatTensor_size(self.thFloatTensor, d))             # <<<<<<<<<<<<<<
+ *                 size.set1d(d, THFloatTensor_size(self.native, d))             # <<<<<<<<<<<<<<
  *             return size
  *         else:
  */
-      __pyx_t_2 = ((struct __pyx_vtabstruct_7PyTorch__LongTensor *)__pyx_v_size->__pyx_vtab)->set1d(__pyx_v_size, __pyx_v_d, THFloatTensor_size(__pyx_v_self->thFloatTensor, __pyx_v_d), 0); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1042; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+      __pyx_t_2 = ((struct __pyx_vtabstruct_7PyTorch__LongTensor *)__pyx_v_size->__pyx_vtab)->set1d(__pyx_v_size, __pyx_v_d, THFloatTensor_size(__pyx_v_self->native, __pyx_v_d), 0); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1042; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
       __Pyx_GOTREF(__pyx_t_2);
       __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
     }
 
     /* "PyTorch.pyx":1043
  *             for d in range(dims):
- *                 size.set1d(d, THFloatTensor_size(self.thFloatTensor, d))
+ *                 size.set1d(d, THFloatTensor_size(self.native, d))
  *             return size             # <<<<<<<<<<<<<<
  *         else:
  *             return None  # not sure how to handle this yet
@@ -15930,7 +15930,7 @@ static PyObject *__pyx_pf_7PyTorch_12_FloatTensor_28new() {
  * #        return _FloatTensor_fromNative(newTensorC, False)
  * 
  *     def narrow(_FloatTensor self, int dimension, long firstIndex, long size):             # <<<<<<<<<<<<<<
- *         cdef THFloatTensor *narrowedC = THFloatTensor_newNarrow(self.thFloatTensor, dimension, firstIndex, size)
+ *         cdef THFloatTensor *narrowedC = THFloatTensor_newNarrow(self.native, dimension, firstIndex, size)
  *         return _FloatTensor_fromNative(narrowedC, retain=False)
  */
 
@@ -16018,15 +16018,15 @@ static PyObject *__pyx_pf_7PyTorch_12_FloatTensor_30narrow(struct __pyx_obj_7PyT
   /* "PyTorch.pyx":1054
  * 
  *     def narrow(_FloatTensor self, int dimension, long firstIndex, long size):
- *         cdef THFloatTensor *narrowedC = THFloatTensor_newNarrow(self.thFloatTensor, dimension, firstIndex, size)             # <<<<<<<<<<<<<<
+ *         cdef THFloatTensor *narrowedC = THFloatTensor_newNarrow(self.native, dimension, firstIndex, size)             # <<<<<<<<<<<<<<
  *         return _FloatTensor_fromNative(narrowedC, retain=False)
  * 
  */
-  __pyx_v_narrowedC = THFloatTensor_newNarrow(__pyx_v_self->thFloatTensor, __pyx_v_dimension, __pyx_v_firstIndex, __pyx_v_size);
+  __pyx_v_narrowedC = THFloatTensor_newNarrow(__pyx_v_self->native, __pyx_v_dimension, __pyx_v_firstIndex, __pyx_v_size);
 
   /* "PyTorch.pyx":1055
  *     def narrow(_FloatTensor self, int dimension, long firstIndex, long size):
- *         cdef THFloatTensor *narrowedC = THFloatTensor_newNarrow(self.thFloatTensor, dimension, firstIndex, size)
+ *         cdef THFloatTensor *narrowedC = THFloatTensor_newNarrow(self.native, dimension, firstIndex, size)
  *         return _FloatTensor_fromNative(narrowedC, retain=False)             # <<<<<<<<<<<<<<
  * 
  *     def resize1d(_FloatTensor self, int size0):
@@ -16044,7 +16044,7 @@ static PyObject *__pyx_pf_7PyTorch_12_FloatTensor_30narrow(struct __pyx_obj_7PyT
  * #        return _FloatTensor_fromNative(newTensorC, False)
  * 
  *     def narrow(_FloatTensor self, int dimension, long firstIndex, long size):             # <<<<<<<<<<<<<<
- *         cdef THFloatTensor *narrowedC = THFloatTensor_newNarrow(self.thFloatTensor, dimension, firstIndex, size)
+ *         cdef THFloatTensor *narrowedC = THFloatTensor_newNarrow(self.native, dimension, firstIndex, size)
  *         return _FloatTensor_fromNative(narrowedC, retain=False)
  */
 
@@ -16063,7 +16063,7 @@ static PyObject *__pyx_pf_7PyTorch_12_FloatTensor_30narrow(struct __pyx_obj_7PyT
  *         return _FloatTensor_fromNative(narrowedC, retain=False)
  * 
  *     def resize1d(_FloatTensor self, int size0):             # <<<<<<<<<<<<<<
- *         THFloatTensor_resize1d(self.thFloatTensor, size0)
+ *         THFloatTensor_resize1d(self.native, size0)
  *         return self
  */
 
@@ -16101,15 +16101,15 @@ static PyObject *__pyx_pf_7PyTorch_12_FloatTensor_32resize1d(struct __pyx_obj_7P
   /* "PyTorch.pyx":1058
  * 
  *     def resize1d(_FloatTensor self, int size0):
- *         THFloatTensor_resize1d(self.thFloatTensor, size0)             # <<<<<<<<<<<<<<
+ *         THFloatTensor_resize1d(self.native, size0)             # <<<<<<<<<<<<<<
  *         return self
  * 
  */
-  THFloatTensor_resize1d(__pyx_v_self->thFloatTensor, __pyx_v_size0);
+  THFloatTensor_resize1d(__pyx_v_self->native, __pyx_v_size0);
 
   /* "PyTorch.pyx":1059
  *     def resize1d(_FloatTensor self, int size0):
- *         THFloatTensor_resize1d(self.thFloatTensor, size0)
+ *         THFloatTensor_resize1d(self.native, size0)
  *         return self             # <<<<<<<<<<<<<<
  * 
  *     def resize2d(_FloatTensor self, int size0, int size1):
@@ -16123,7 +16123,7 @@ static PyObject *__pyx_pf_7PyTorch_12_FloatTensor_32resize1d(struct __pyx_obj_7P
  *         return _FloatTensor_fromNative(narrowedC, retain=False)
  * 
  *     def resize1d(_FloatTensor self, int size0):             # <<<<<<<<<<<<<<
- *         THFloatTensor_resize1d(self.thFloatTensor, size0)
+ *         THFloatTensor_resize1d(self.native, size0)
  *         return self
  */
 
@@ -16138,7 +16138,7 @@ static PyObject *__pyx_pf_7PyTorch_12_FloatTensor_32resize1d(struct __pyx_obj_7P
  *         return self
  * 
  *     def resize2d(_FloatTensor self, int size0, int size1):             # <<<<<<<<<<<<<<
- *         THFloatTensor_resize2d(self.thFloatTensor, size0, size1)
+ *         THFloatTensor_resize2d(self.native, size0, size1)
  *         return self
  */
 
@@ -16211,15 +16211,15 @@ static PyObject *__pyx_pf_7PyTorch_12_FloatTensor_34resize2d(struct __pyx_obj_7P
   /* "PyTorch.pyx":1062
  * 
  *     def resize2d(_FloatTensor self, int size0, int size1):
- *         THFloatTensor_resize2d(self.thFloatTensor, size0, size1)             # <<<<<<<<<<<<<<
+ *         THFloatTensor_resize2d(self.native, size0, size1)             # <<<<<<<<<<<<<<
  *         return self
  * 
  */
-  THFloatTensor_resize2d(__pyx_v_self->thFloatTensor, __pyx_v_size0, __pyx_v_size1);
+  THFloatTensor_resize2d(__pyx_v_self->native, __pyx_v_size0, __pyx_v_size1);
 
   /* "PyTorch.pyx":1063
  *     def resize2d(_FloatTensor self, int size0, int size1):
- *         THFloatTensor_resize2d(self.thFloatTensor, size0, size1)
+ *         THFloatTensor_resize2d(self.native, size0, size1)
  *         return self             # <<<<<<<<<<<<<<
  * 
  *     def resize3d(_FloatTensor self, int size0, int size1, int size2):
@@ -16233,7 +16233,7 @@ static PyObject *__pyx_pf_7PyTorch_12_FloatTensor_34resize2d(struct __pyx_obj_7P
  *         return self
  * 
  *     def resize2d(_FloatTensor self, int size0, int size1):             # <<<<<<<<<<<<<<
- *         THFloatTensor_resize2d(self.thFloatTensor, size0, size1)
+ *         THFloatTensor_resize2d(self.native, size0, size1)
  *         return self
  */
 
@@ -16248,7 +16248,7 @@ static PyObject *__pyx_pf_7PyTorch_12_FloatTensor_34resize2d(struct __pyx_obj_7P
  *         return self
  * 
  *     def resize3d(_FloatTensor self, int size0, int size1, int size2):             # <<<<<<<<<<<<<<
- *         THFloatTensor_resize3d(self.thFloatTensor, size0, size1, size2)
+ *         THFloatTensor_resize3d(self.native, size0, size1, size2)
  *         return self
  */
 
@@ -16330,15 +16330,15 @@ static PyObject *__pyx_pf_7PyTorch_12_FloatTensor_36resize3d(struct __pyx_obj_7P
   /* "PyTorch.pyx":1066
  * 
  *     def resize3d(_FloatTensor self, int size0, int size1, int size2):
- *         THFloatTensor_resize3d(self.thFloatTensor, size0, size1, size2)             # <<<<<<<<<<<<<<
+ *         THFloatTensor_resize3d(self.native, size0, size1, size2)             # <<<<<<<<<<<<<<
  *         return self
  * 
  */
-  THFloatTensor_resize3d(__pyx_v_self->thFloatTensor, __pyx_v_size0, __pyx_v_size1, __pyx_v_size2);
+  THFloatTensor_resize3d(__pyx_v_self->native, __pyx_v_size0, __pyx_v_size1, __pyx_v_size2);
 
   /* "PyTorch.pyx":1067
  *     def resize3d(_FloatTensor self, int size0, int size1, int size2):
- *         THFloatTensor_resize3d(self.thFloatTensor, size0, size1, size2)
+ *         THFloatTensor_resize3d(self.native, size0, size1, size2)
  *         return self             # <<<<<<<<<<<<<<
  * 
  *     def resize4d(_FloatTensor self, int size0, int size1, int size2, int size3):
@@ -16352,7 +16352,7 @@ static PyObject *__pyx_pf_7PyTorch_12_FloatTensor_36resize3d(struct __pyx_obj_7P
  *         return self
  * 
  *     def resize3d(_FloatTensor self, int size0, int size1, int size2):             # <<<<<<<<<<<<<<
- *         THFloatTensor_resize3d(self.thFloatTensor, size0, size1, size2)
+ *         THFloatTensor_resize3d(self.native, size0, size1, size2)
  *         return self
  */
 
@@ -16367,7 +16367,7 @@ static PyObject *__pyx_pf_7PyTorch_12_FloatTensor_36resize3d(struct __pyx_obj_7P
  *         return self
  * 
  *     def resize4d(_FloatTensor self, int size0, int size1, int size2, int size3):             # <<<<<<<<<<<<<<
- *         THFloatTensor_resize4d(self.thFloatTensor, size0, size1, size2, size3)
+ *         THFloatTensor_resize4d(self.native, size0, size1, size2, size3)
  *         return self
  */
 
@@ -16458,15 +16458,15 @@ static PyObject *__pyx_pf_7PyTorch_12_FloatTensor_38resize4d(struct __pyx_obj_7P
   /* "PyTorch.pyx":1070
  * 
  *     def resize4d(_FloatTensor self, int size0, int size1, int size2, int size3):
- *         THFloatTensor_resize4d(self.thFloatTensor, size0, size1, size2, size3)             # <<<<<<<<<<<<<<
+ *         THFloatTensor_resize4d(self.native, size0, size1, size2, size3)             # <<<<<<<<<<<<<<
  *         return self
  * 
  */
-  THFloatTensor_resize4d(__pyx_v_self->thFloatTensor, __pyx_v_size0, __pyx_v_size1, __pyx_v_size2, __pyx_v_size3);
+  THFloatTensor_resize4d(__pyx_v_self->native, __pyx_v_size0, __pyx_v_size1, __pyx_v_size2, __pyx_v_size3);
 
   /* "PyTorch.pyx":1071
  *     def resize4d(_FloatTensor self, int size0, int size1, int size2, int size3):
- *         THFloatTensor_resize4d(self.thFloatTensor, size0, size1, size2, size3)
+ *         THFloatTensor_resize4d(self.native, size0, size1, size2, size3)
  *         return self             # <<<<<<<<<<<<<<
  * 
  *     def resizeAs(_FloatTensor self, _FloatTensor model):
@@ -16480,7 +16480,7 @@ static PyObject *__pyx_pf_7PyTorch_12_FloatTensor_38resize4d(struct __pyx_obj_7P
  *         return self
  * 
  *     def resize4d(_FloatTensor self, int size0, int size1, int size2, int size3):             # <<<<<<<<<<<<<<
- *         THFloatTensor_resize4d(self.thFloatTensor, size0, size1, size2, size3)
+ *         THFloatTensor_resize4d(self.native, size0, size1, size2, size3)
  *         return self
  */
 
@@ -16495,7 +16495,7 @@ static PyObject *__pyx_pf_7PyTorch_12_FloatTensor_38resize4d(struct __pyx_obj_7P
  *         return self
  * 
  *     def resizeAs(_FloatTensor self, _FloatTensor model):             # <<<<<<<<<<<<<<
- *         THFloatTensor_resizeAs(self.thFloatTensor, model.thFloatTensor)
+ *         THFloatTensor_resizeAs(self.native, model.native)
  *         return self
  */
 
@@ -16528,15 +16528,15 @@ static PyObject *__pyx_pf_7PyTorch_12_FloatTensor_40resizeAs(struct __pyx_obj_7P
   /* "PyTorch.pyx":1074
  * 
  *     def resizeAs(_FloatTensor self, _FloatTensor model):
- *         THFloatTensor_resizeAs(self.thFloatTensor, model.thFloatTensor)             # <<<<<<<<<<<<<<
+ *         THFloatTensor_resizeAs(self.native, model.native)             # <<<<<<<<<<<<<<
  *         return self
  * 
  */
-  THFloatTensor_resizeAs(__pyx_v_self->thFloatTensor, __pyx_v_model->thFloatTensor);
+  THFloatTensor_resizeAs(__pyx_v_self->native, __pyx_v_model->native);
 
   /* "PyTorch.pyx":1075
  *     def resizeAs(_FloatTensor self, _FloatTensor model):
- *         THFloatTensor_resizeAs(self.thFloatTensor, model.thFloatTensor)
+ *         THFloatTensor_resizeAs(self.native, model.native)
  *         return self             # <<<<<<<<<<<<<<
  * 
  *     def resize(_FloatTensor self, _LongTensor size):
@@ -16550,7 +16550,7 @@ static PyObject *__pyx_pf_7PyTorch_12_FloatTensor_40resizeAs(struct __pyx_obj_7P
  *         return self
  * 
  *     def resizeAs(_FloatTensor self, _FloatTensor model):             # <<<<<<<<<<<<<<
- *         THFloatTensor_resizeAs(self.thFloatTensor, model.thFloatTensor)
+ *         THFloatTensor_resizeAs(self.native, model.native)
  *         return self
  */
 
@@ -16667,9 +16667,9 @@ static PyObject *__pyx_pf_7PyTorch_12_FloatTensor_42resize(struct __pyx_obj_7PyT
 
   /* "PyTorch.pyx":1089
  *         elif dims == 3:
- *             THFloatTensor_resize3d(self.thFloatTensor, size[0], size[1], size[2])
+ *             THFloatTensor_resize3d(self.native, size[0], size[1], size[2])
  *         elif dims == 4:             # <<<<<<<<<<<<<<
- *             THFloatTensor_resize4d(self.thFloatTensor, size[0], size[1], size[2], size[3])
+ *             THFloatTensor_resize4d(self.native, size[0], size[1], size[2], size[3])
  *         else:
  */
   switch (__pyx_v_dims) {
@@ -16678,7 +16678,7 @@ static PyObject *__pyx_pf_7PyTorch_12_FloatTensor_42resize(struct __pyx_obj_7PyT
  *         cdef int dims = size.size()[0]
  * #        print('_FloatTensor.resize dims:', dims)
  *         if dims == 1:             # <<<<<<<<<<<<<<
- *             THFloatTensor_resize1d(self.thFloatTensor, size[0])
+ *             THFloatTensor_resize1d(self.native, size[0])
  *         elif dims == 2:
  */
     case 1:
@@ -16686,32 +16686,32 @@ static PyObject *__pyx_pf_7PyTorch_12_FloatTensor_42resize(struct __pyx_obj_7PyT
     /* "PyTorch.pyx":1084
  * #        print('_FloatTensor.resize dims:', dims)
  *         if dims == 1:
- *             THFloatTensor_resize1d(self.thFloatTensor, size[0])             # <<<<<<<<<<<<<<
+ *             THFloatTensor_resize1d(self.native, size[0])             # <<<<<<<<<<<<<<
  *         elif dims == 2:
- *             THFloatTensor_resize2d(self.thFloatTensor, size[0], size[1])
+ *             THFloatTensor_resize2d(self.native, size[0], size[1])
  */
     __pyx_t_3 = __Pyx_GetItemInt(((PyObject *)__pyx_v_size), 0, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(__pyx_t_3 == NULL)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1084; __pyx_clineno = __LINE__; goto __pyx_L1_error;};
     __Pyx_GOTREF(__pyx_t_3);
     __pyx_t_6 = __Pyx_PyInt_As_long(__pyx_t_3); if (unlikely((__pyx_t_6 == (long)-1) && PyErr_Occurred())) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1084; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
     __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-    THFloatTensor_resize1d(__pyx_v_self->thFloatTensor, __pyx_t_6);
+    THFloatTensor_resize1d(__pyx_v_self->native, __pyx_t_6);
     break;
 
     /* "PyTorch.pyx":1085
  *         if dims == 1:
- *             THFloatTensor_resize1d(self.thFloatTensor, size[0])
+ *             THFloatTensor_resize1d(self.native, size[0])
  *         elif dims == 2:             # <<<<<<<<<<<<<<
- *             THFloatTensor_resize2d(self.thFloatTensor, size[0], size[1])
+ *             THFloatTensor_resize2d(self.native, size[0], size[1])
  *         elif dims == 3:
  */
     case 2:
 
     /* "PyTorch.pyx":1086
- *             THFloatTensor_resize1d(self.thFloatTensor, size[0])
+ *             THFloatTensor_resize1d(self.native, size[0])
  *         elif dims == 2:
- *             THFloatTensor_resize2d(self.thFloatTensor, size[0], size[1])             # <<<<<<<<<<<<<<
+ *             THFloatTensor_resize2d(self.native, size[0], size[1])             # <<<<<<<<<<<<<<
  *         elif dims == 3:
- *             THFloatTensor_resize3d(self.thFloatTensor, size[0], size[1], size[2])
+ *             THFloatTensor_resize3d(self.native, size[0], size[1], size[2])
  */
     __pyx_t_3 = __Pyx_GetItemInt(((PyObject *)__pyx_v_size), 0, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(__pyx_t_3 == NULL)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1086; __pyx_clineno = __LINE__; goto __pyx_L1_error;};
     __Pyx_GOTREF(__pyx_t_3);
@@ -16721,24 +16721,24 @@ static PyObject *__pyx_pf_7PyTorch_12_FloatTensor_42resize(struct __pyx_obj_7PyT
     __Pyx_GOTREF(__pyx_t_3);
     __pyx_t_7 = __Pyx_PyInt_As_long(__pyx_t_3); if (unlikely((__pyx_t_7 == (long)-1) && PyErr_Occurred())) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1086; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
     __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-    THFloatTensor_resize2d(__pyx_v_self->thFloatTensor, __pyx_t_6, __pyx_t_7);
+    THFloatTensor_resize2d(__pyx_v_self->native, __pyx_t_6, __pyx_t_7);
     break;
 
     /* "PyTorch.pyx":1087
  *         elif dims == 2:
- *             THFloatTensor_resize2d(self.thFloatTensor, size[0], size[1])
+ *             THFloatTensor_resize2d(self.native, size[0], size[1])
  *         elif dims == 3:             # <<<<<<<<<<<<<<
- *             THFloatTensor_resize3d(self.thFloatTensor, size[0], size[1], size[2])
+ *             THFloatTensor_resize3d(self.native, size[0], size[1], size[2])
  *         elif dims == 4:
  */
     case 3:
 
     /* "PyTorch.pyx":1088
- *             THFloatTensor_resize2d(self.thFloatTensor, size[0], size[1])
+ *             THFloatTensor_resize2d(self.native, size[0], size[1])
  *         elif dims == 3:
- *             THFloatTensor_resize3d(self.thFloatTensor, size[0], size[1], size[2])             # <<<<<<<<<<<<<<
+ *             THFloatTensor_resize3d(self.native, size[0], size[1], size[2])             # <<<<<<<<<<<<<<
  *         elif dims == 4:
- *             THFloatTensor_resize4d(self.thFloatTensor, size[0], size[1], size[2], size[3])
+ *             THFloatTensor_resize4d(self.native, size[0], size[1], size[2], size[3])
  */
     __pyx_t_3 = __Pyx_GetItemInt(((PyObject *)__pyx_v_size), 0, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(__pyx_t_3 == NULL)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1088; __pyx_clineno = __LINE__; goto __pyx_L1_error;};
     __Pyx_GOTREF(__pyx_t_3);
@@ -16752,22 +16752,22 @@ static PyObject *__pyx_pf_7PyTorch_12_FloatTensor_42resize(struct __pyx_obj_7PyT
     __Pyx_GOTREF(__pyx_t_3);
     __pyx_t_8 = __Pyx_PyInt_As_long(__pyx_t_3); if (unlikely((__pyx_t_8 == (long)-1) && PyErr_Occurred())) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1088; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
     __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-    THFloatTensor_resize3d(__pyx_v_self->thFloatTensor, __pyx_t_7, __pyx_t_6, __pyx_t_8);
+    THFloatTensor_resize3d(__pyx_v_self->native, __pyx_t_7, __pyx_t_6, __pyx_t_8);
     break;
 
     /* "PyTorch.pyx":1089
  *         elif dims == 3:
- *             THFloatTensor_resize3d(self.thFloatTensor, size[0], size[1], size[2])
+ *             THFloatTensor_resize3d(self.native, size[0], size[1], size[2])
  *         elif dims == 4:             # <<<<<<<<<<<<<<
- *             THFloatTensor_resize4d(self.thFloatTensor, size[0], size[1], size[2], size[3])
+ *             THFloatTensor_resize4d(self.native, size[0], size[1], size[2], size[3])
  *         else:
  */
     case 4:
 
     /* "PyTorch.pyx":1090
- *             THFloatTensor_resize3d(self.thFloatTensor, size[0], size[1], size[2])
+ *             THFloatTensor_resize3d(self.native, size[0], size[1], size[2])
  *         elif dims == 4:
- *             THFloatTensor_resize4d(self.thFloatTensor, size[0], size[1], size[2], size[3])             # <<<<<<<<<<<<<<
+ *             THFloatTensor_resize4d(self.native, size[0], size[1], size[2], size[3])             # <<<<<<<<<<<<<<
  *         else:
  *             raise Exception('Not implemented for dims=' + str(dims))
  */
@@ -16787,12 +16787,12 @@ static PyObject *__pyx_pf_7PyTorch_12_FloatTensor_42resize(struct __pyx_obj_7PyT
     __Pyx_GOTREF(__pyx_t_3);
     __pyx_t_9 = __Pyx_PyInt_As_long(__pyx_t_3); if (unlikely((__pyx_t_9 == (long)-1) && PyErr_Occurred())) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1090; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
     __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-    THFloatTensor_resize4d(__pyx_v_self->thFloatTensor, __pyx_t_8, __pyx_t_6, __pyx_t_7, __pyx_t_9);
+    THFloatTensor_resize4d(__pyx_v_self->native, __pyx_t_8, __pyx_t_6, __pyx_t_7, __pyx_t_9);
     break;
     default:
 
     /* "PyTorch.pyx":1092
- *             THFloatTensor_resize4d(self.thFloatTensor, size[0], size[1], size[2], size[3])
+ *             THFloatTensor_resize4d(self.native, size[0], size[1], size[2], size[3])
  *         else:
  *             raise Exception('Not implemented for dims=' + str(dims))             # <<<<<<<<<<<<<<
  *         return self
@@ -17192,7 +17192,7 @@ static PyObject *__pyx_pf_7PyTorch_12_FloatTensor_46newWithStorage2d(struct __py
  *         return _FloatTensor_fromNative(newTensorC, False)
  * 
  *     def storage(_FloatTensor self):             # <<<<<<<<<<<<<<
- *         cdef Storage.THFloatStorage *storageC = THFloatTensor_storage(self.thFloatTensor)
+ *         cdef Storage.THFloatStorage *storageC = THFloatTensor_storage(self.native)
  *         if storageC == NULL:
  */
 
@@ -17223,15 +17223,15 @@ static PyObject *__pyx_pf_7PyTorch_12_FloatTensor_48storage(struct __pyx_obj_7Py
   /* "PyTorch.pyx":1108
  * 
  *     def storage(_FloatTensor self):
- *         cdef Storage.THFloatStorage *storageC = THFloatTensor_storage(self.thFloatTensor)             # <<<<<<<<<<<<<<
+ *         cdef Storage.THFloatStorage *storageC = THFloatTensor_storage(self.native)             # <<<<<<<<<<<<<<
  *         if storageC == NULL:
  *             return None
  */
-  __pyx_v_storageC = THFloatTensor_storage(__pyx_v_self->thFloatTensor);
+  __pyx_v_storageC = THFloatTensor_storage(__pyx_v_self->native);
 
   /* "PyTorch.pyx":1109
  *     def storage(_FloatTensor self):
- *         cdef Storage.THFloatStorage *storageC = THFloatTensor_storage(self.thFloatTensor)
+ *         cdef Storage.THFloatStorage *storageC = THFloatTensor_storage(self.native)
  *         if storageC == NULL:             # <<<<<<<<<<<<<<
  *             return None
  *         return Storage.FloatStorage_fromNative(storageC)
@@ -17240,7 +17240,7 @@ static PyObject *__pyx_pf_7PyTorch_12_FloatTensor_48storage(struct __pyx_obj_7Py
   if (__pyx_t_1) {
 
     /* "PyTorch.pyx":1110
- *         cdef Storage.THFloatStorage *storageC = THFloatTensor_storage(self.thFloatTensor)
+ *         cdef Storage.THFloatStorage *storageC = THFloatTensor_storage(self.native)
  *         if storageC == NULL:
  *             return None             # <<<<<<<<<<<<<<
  *         return Storage.FloatStorage_fromNative(storageC)
@@ -17270,7 +17270,7 @@ static PyObject *__pyx_pf_7PyTorch_12_FloatTensor_48storage(struct __pyx_obj_7Py
  *         return _FloatTensor_fromNative(newTensorC, False)
  * 
  *     def storage(_FloatTensor self):             # <<<<<<<<<<<<<<
- *         cdef Storage.THFloatStorage *storageC = THFloatTensor_storage(self.thFloatTensor)
+ *         cdef Storage.THFloatStorage *storageC = THFloatTensor_storage(self.native)
  *         if storageC == NULL:
  */
 
@@ -17365,7 +17365,7 @@ static PyObject *__pyx_pf_7PyTorch_12_FloatTensor_50__add__(struct __pyx_obj_7Py
  *         cdef _FloatTensor res = _FloatTensor.new()
  *         cdef _FloatTensor secondTensor
  *         if isinstance(second, numbers.Number):             # <<<<<<<<<<<<<<
- *             THFloatTensor_add(res.thFloatTensor, self.thFloatTensor, second)
+ *             THFloatTensor_add(res.native, self.native, second)
  *         else:
  */
   __pyx_t_1 = __Pyx_GetModuleGlobalName(__pyx_n_s_numbers); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1117; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
@@ -17381,21 +17381,21 @@ static PyObject *__pyx_pf_7PyTorch_12_FloatTensor_50__add__(struct __pyx_obj_7Py
     /* "PyTorch.pyx":1118
  *         cdef _FloatTensor secondTensor
  *         if isinstance(second, numbers.Number):
- *             THFloatTensor_add(res.thFloatTensor, self.thFloatTensor, second)             # <<<<<<<<<<<<<<
+ *             THFloatTensor_add(res.native, self.native, second)             # <<<<<<<<<<<<<<
  *         else:
  *             secondTensor = second
  */
     __pyx_t_6 = __pyx_PyFloat_AsFloat(__pyx_v_second); if (unlikely((__pyx_t_6 == (float)-1) && PyErr_Occurred())) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1118; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-    THFloatTensor_add(__pyx_v_res->thFloatTensor, __pyx_v_self->thFloatTensor, __pyx_t_6);
+    THFloatTensor_add(__pyx_v_res->native, __pyx_v_self->native, __pyx_t_6);
     goto __pyx_L3;
   }
   /*else*/ {
 
     /* "PyTorch.pyx":1120
- *             THFloatTensor_add(res.thFloatTensor, self.thFloatTensor, second)
+ *             THFloatTensor_add(res.native, self.native, second)
  *         else:
  *             secondTensor = second             # <<<<<<<<<<<<<<
- *             THFloatTensor_cadd(res.thFloatTensor, self.thFloatTensor, 1, secondTensor.thFloatTensor)
+ *             THFloatTensor_cadd(res.native, self.native, 1, secondTensor.native)
  *         return res
  */
     if (!(likely(((__pyx_v_second) == Py_None) || likely(__Pyx_TypeTest(__pyx_v_second, __pyx_ptype_7PyTorch__FloatTensor))))) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1120; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
@@ -17407,17 +17407,17 @@ static PyObject *__pyx_pf_7PyTorch_12_FloatTensor_50__add__(struct __pyx_obj_7Py
     /* "PyTorch.pyx":1121
  *         else:
  *             secondTensor = second
- *             THFloatTensor_cadd(res.thFloatTensor, self.thFloatTensor, 1, secondTensor.thFloatTensor)             # <<<<<<<<<<<<<<
+ *             THFloatTensor_cadd(res.native, self.native, 1, secondTensor.native)             # <<<<<<<<<<<<<<
  *         return res
  * 
  */
-    THFloatTensor_cadd(__pyx_v_res->thFloatTensor, __pyx_v_self->thFloatTensor, 1.0, __pyx_v_secondTensor->thFloatTensor);
+    THFloatTensor_cadd(__pyx_v_res->native, __pyx_v_self->native, 1.0, __pyx_v_secondTensor->native);
   }
   __pyx_L3:;
 
   /* "PyTorch.pyx":1122
  *             secondTensor = second
- *             THFloatTensor_cadd(res.thFloatTensor, self.thFloatTensor, 1, secondTensor.thFloatTensor)
+ *             THFloatTensor_cadd(res.native, self.native, 1, secondTensor.native)
  *         return res             # <<<<<<<<<<<<<<
  * 
  *     def __sub__(_FloatTensor self, second):
@@ -17530,7 +17530,7 @@ static PyObject *__pyx_pf_7PyTorch_12_FloatTensor_52__sub__(struct __pyx_obj_7Py
  *         cdef _FloatTensor res = _FloatTensor.new()
  *         cdef _FloatTensor secondTensor
  *         if isinstance(second, numbers.Number):             # <<<<<<<<<<<<<<
- *             THFloatTensor_add(res.thFloatTensor, self.thFloatTensor, -second)
+ *             THFloatTensor_add(res.native, self.native, -second)
  *         else:
  */
   __pyx_t_1 = __Pyx_GetModuleGlobalName(__pyx_n_s_numbers); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1128; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
@@ -17546,7 +17546,7 @@ static PyObject *__pyx_pf_7PyTorch_12_FloatTensor_52__sub__(struct __pyx_obj_7Py
     /* "PyTorch.pyx":1129
  *         cdef _FloatTensor secondTensor
  *         if isinstance(second, numbers.Number):
- *             THFloatTensor_add(res.thFloatTensor, self.thFloatTensor, -second)             # <<<<<<<<<<<<<<
+ *             THFloatTensor_add(res.native, self.native, -second)             # <<<<<<<<<<<<<<
  *         else:
  *             secondTensor = second
  */
@@ -17554,16 +17554,16 @@ static PyObject *__pyx_pf_7PyTorch_12_FloatTensor_52__sub__(struct __pyx_obj_7Py
     __Pyx_GOTREF(__pyx_t_2);
     __pyx_t_6 = __pyx_PyFloat_AsFloat(__pyx_t_2); if (unlikely((__pyx_t_6 == (float)-1) && PyErr_Occurred())) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1129; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
     __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-    THFloatTensor_add(__pyx_v_res->thFloatTensor, __pyx_v_self->thFloatTensor, __pyx_t_6);
+    THFloatTensor_add(__pyx_v_res->native, __pyx_v_self->native, __pyx_t_6);
     goto __pyx_L3;
   }
   /*else*/ {
 
     /* "PyTorch.pyx":1131
- *             THFloatTensor_add(res.thFloatTensor, self.thFloatTensor, -second)
+ *             THFloatTensor_add(res.native, self.native, -second)
  *         else:
  *             secondTensor = second             # <<<<<<<<<<<<<<
- *             THFloatTensor_cadd(res.thFloatTensor, self.thFloatTensor, -1, secondTensor.thFloatTensor)
+ *             THFloatTensor_cadd(res.native, self.native, -1, secondTensor.native)
  *         return res
  */
     if (!(likely(((__pyx_v_second) == Py_None) || likely(__Pyx_TypeTest(__pyx_v_second, __pyx_ptype_7PyTorch__FloatTensor))))) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1131; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
@@ -17575,17 +17575,17 @@ static PyObject *__pyx_pf_7PyTorch_12_FloatTensor_52__sub__(struct __pyx_obj_7Py
     /* "PyTorch.pyx":1132
  *         else:
  *             secondTensor = second
- *             THFloatTensor_cadd(res.thFloatTensor, self.thFloatTensor, -1, secondTensor.thFloatTensor)             # <<<<<<<<<<<<<<
+ *             THFloatTensor_cadd(res.native, self.native, -1, secondTensor.native)             # <<<<<<<<<<<<<<
  *         return res
  * 
  */
-    THFloatTensor_cadd(__pyx_v_res->thFloatTensor, __pyx_v_self->thFloatTensor, -1.0, __pyx_v_secondTensor->thFloatTensor);
+    THFloatTensor_cadd(__pyx_v_res->native, __pyx_v_self->native, -1.0, __pyx_v_secondTensor->native);
   }
   __pyx_L3:;
 
   /* "PyTorch.pyx":1133
  *             secondTensor = second
- *             THFloatTensor_cadd(res.thFloatTensor, self.thFloatTensor, -1, secondTensor.thFloatTensor)
+ *             THFloatTensor_cadd(res.native, self.native, -1, secondTensor.native)
  *         return res             # <<<<<<<<<<<<<<
  * 
  *     def __div__(_FloatTensor self, float value):
@@ -17677,7 +17677,7 @@ static PyObject *__pyx_pf_7PyTorch_12_FloatTensor_54__div__(struct __pyx_obj_7Py
  *         # assume 2d matrix for now?
  *         cdef _FloatTensor res = _FloatTensor.new()             # <<<<<<<<<<<<<<
  * #        THFloatTensor_resizeAs(cresult, self.thFloatTensor)
- *         THFloatTensor_div(res.thFloatTensor, self.thFloatTensor, value)
+ *         THFloatTensor_div(res.native, self.native, value)
  */
   __pyx_t_2 = __Pyx_PyObject_GetAttrStr(((PyObject *)((PyObject*)__pyx_ptype_7PyTorch__FloatTensor)), __pyx_n_s_new); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1137; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_2);
@@ -17706,15 +17706,15 @@ static PyObject *__pyx_pf_7PyTorch_12_FloatTensor_54__div__(struct __pyx_obj_7Py
   /* "PyTorch.pyx":1139
  *         cdef _FloatTensor res = _FloatTensor.new()
  * #        THFloatTensor_resizeAs(cresult, self.thFloatTensor)
- *         THFloatTensor_div(res.thFloatTensor, self.thFloatTensor, value)             # <<<<<<<<<<<<<<
+ *         THFloatTensor_div(res.native, self.native, value)             # <<<<<<<<<<<<<<
  *         return res
  * 
  */
-  THFloatTensor_div(__pyx_v_res->thFloatTensor, __pyx_v_self->thFloatTensor, __pyx_v_value);
+  THFloatTensor_div(__pyx_v_res->native, __pyx_v_self->native, __pyx_v_value);
 
   /* "PyTorch.pyx":1140
  * #        THFloatTensor_resizeAs(cresult, self.thFloatTensor)
- *         THFloatTensor_div(res.thFloatTensor, self.thFloatTensor, value)
+ *         THFloatTensor_div(res.native, self.native, value)
  *         return res             # <<<<<<<<<<<<<<
  * 
  *     def __iadd__(_FloatTensor self, second):
@@ -17786,7 +17786,7 @@ static PyObject *__pyx_pf_7PyTorch_12_FloatTensor_56__iadd__(struct __pyx_obj_7P
  *     def __iadd__(_FloatTensor self, second):
  *         cdef _FloatTensor secondTensor
  *         if isinstance(second, numbers.Number):             # <<<<<<<<<<<<<<
- *             THFloatTensor_add(self.thFloatTensor, self.thFloatTensor, second)
+ *             THFloatTensor_add(self.native, self.native, second)
  *         else:
  */
   __pyx_t_1 = __Pyx_GetModuleGlobalName(__pyx_n_s_numbers); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1144; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
@@ -17802,21 +17802,21 @@ static PyObject *__pyx_pf_7PyTorch_12_FloatTensor_56__iadd__(struct __pyx_obj_7P
     /* "PyTorch.pyx":1145
  *         cdef _FloatTensor secondTensor
  *         if isinstance(second, numbers.Number):
- *             THFloatTensor_add(self.thFloatTensor, self.thFloatTensor, second)             # <<<<<<<<<<<<<<
+ *             THFloatTensor_add(self.native, self.native, second)             # <<<<<<<<<<<<<<
  *         else:
  *             secondTensor = second
  */
     __pyx_t_5 = __pyx_PyFloat_AsFloat(__pyx_v_second); if (unlikely((__pyx_t_5 == (float)-1) && PyErr_Occurred())) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1145; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-    THFloatTensor_add(__pyx_v_self->thFloatTensor, __pyx_v_self->thFloatTensor, __pyx_t_5);
+    THFloatTensor_add(__pyx_v_self->native, __pyx_v_self->native, __pyx_t_5);
     goto __pyx_L3;
   }
   /*else*/ {
 
     /* "PyTorch.pyx":1147
- *             THFloatTensor_add(self.thFloatTensor, self.thFloatTensor, second)
+ *             THFloatTensor_add(self.native, self.native, second)
  *         else:
  *             secondTensor = second             # <<<<<<<<<<<<<<
- *             THFloatTensor_cadd(self.thFloatTensor, self.thFloatTensor, 1, secondTensor.thFloatTensor)
+ *             THFloatTensor_cadd(self.native, self.native, 1, secondTensor.native)
  *         return self
  */
     if (!(likely(((__pyx_v_second) == Py_None) || likely(__Pyx_TypeTest(__pyx_v_second, __pyx_ptype_7PyTorch__FloatTensor))))) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1147; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
@@ -17828,17 +17828,17 @@ static PyObject *__pyx_pf_7PyTorch_12_FloatTensor_56__iadd__(struct __pyx_obj_7P
     /* "PyTorch.pyx":1148
  *         else:
  *             secondTensor = second
- *             THFloatTensor_cadd(self.thFloatTensor, self.thFloatTensor, 1, secondTensor.thFloatTensor)             # <<<<<<<<<<<<<<
+ *             THFloatTensor_cadd(self.native, self.native, 1, secondTensor.native)             # <<<<<<<<<<<<<<
  *         return self
  * 
  */
-    THFloatTensor_cadd(__pyx_v_self->thFloatTensor, __pyx_v_self->thFloatTensor, 1.0, __pyx_v_secondTensor->thFloatTensor);
+    THFloatTensor_cadd(__pyx_v_self->native, __pyx_v_self->native, 1.0, __pyx_v_secondTensor->native);
   }
   __pyx_L3:;
 
   /* "PyTorch.pyx":1149
  *             secondTensor = second
- *             THFloatTensor_cadd(self.thFloatTensor, self.thFloatTensor, 1, secondTensor.thFloatTensor)
+ *             THFloatTensor_cadd(self.native, self.native, 1, secondTensor.native)
  *         return self             # <<<<<<<<<<<<<<
  * 
  *     def __isub__(_FloatTensor self, second):
@@ -17908,7 +17908,7 @@ static PyObject *__pyx_pf_7PyTorch_12_FloatTensor_58__isub__(struct __pyx_obj_7P
  *     def __isub__(_FloatTensor self, second):
  *         cdef _FloatTensor secondTensor
  *         if isinstance(second, numbers.Number):             # <<<<<<<<<<<<<<
- *             THFloatTensor_add(self.thFloatTensor, self.thFloatTensor, -second)
+ *             THFloatTensor_add(self.native, self.native, -second)
  *         else:
  */
   __pyx_t_1 = __Pyx_GetModuleGlobalName(__pyx_n_s_numbers); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1153; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
@@ -17924,7 +17924,7 @@ static PyObject *__pyx_pf_7PyTorch_12_FloatTensor_58__isub__(struct __pyx_obj_7P
     /* "PyTorch.pyx":1154
  *         cdef _FloatTensor secondTensor
  *         if isinstance(second, numbers.Number):
- *             THFloatTensor_add(self.thFloatTensor, self.thFloatTensor, -second)             # <<<<<<<<<<<<<<
+ *             THFloatTensor_add(self.native, self.native, -second)             # <<<<<<<<<<<<<<
  *         else:
  *             secondTensor = second
  */
@@ -17932,16 +17932,16 @@ static PyObject *__pyx_pf_7PyTorch_12_FloatTensor_58__isub__(struct __pyx_obj_7P
     __Pyx_GOTREF(__pyx_t_2);
     __pyx_t_5 = __pyx_PyFloat_AsFloat(__pyx_t_2); if (unlikely((__pyx_t_5 == (float)-1) && PyErr_Occurred())) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1154; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
     __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-    THFloatTensor_add(__pyx_v_self->thFloatTensor, __pyx_v_self->thFloatTensor, __pyx_t_5);
+    THFloatTensor_add(__pyx_v_self->native, __pyx_v_self->native, __pyx_t_5);
     goto __pyx_L3;
   }
   /*else*/ {
 
     /* "PyTorch.pyx":1156
- *             THFloatTensor_add(self.thFloatTensor, self.thFloatTensor, -second)
+ *             THFloatTensor_add(self.native, self.native, -second)
  *         else:
  *             secondTensor = second             # <<<<<<<<<<<<<<
- *             THFloatTensor_cadd(self.thFloatTensor, self.thFloatTensor, -1, secondTensor.thFloatTensor)
+ *             THFloatTensor_cadd(self.native, self.native, -1, secondTensor.native)
  *         return self
  */
     if (!(likely(((__pyx_v_second) == Py_None) || likely(__Pyx_TypeTest(__pyx_v_second, __pyx_ptype_7PyTorch__FloatTensor))))) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1156; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
@@ -17953,17 +17953,17 @@ static PyObject *__pyx_pf_7PyTorch_12_FloatTensor_58__isub__(struct __pyx_obj_7P
     /* "PyTorch.pyx":1157
  *         else:
  *             secondTensor = second
- *             THFloatTensor_cadd(self.thFloatTensor, self.thFloatTensor, -1, secondTensor.thFloatTensor)             # <<<<<<<<<<<<<<
+ *             THFloatTensor_cadd(self.native, self.native, -1, secondTensor.native)             # <<<<<<<<<<<<<<
  *         return self
  * 
  */
-    THFloatTensor_cadd(__pyx_v_self->thFloatTensor, __pyx_v_self->thFloatTensor, -1.0, __pyx_v_secondTensor->thFloatTensor);
+    THFloatTensor_cadd(__pyx_v_self->native, __pyx_v_self->native, -1.0, __pyx_v_secondTensor->native);
   }
   __pyx_L3:;
 
   /* "PyTorch.pyx":1158
  *             secondTensor = second
- *             THFloatTensor_cadd(self.thFloatTensor, self.thFloatTensor, -1, secondTensor.thFloatTensor)
+ *             THFloatTensor_cadd(self.native, self.native, -1, secondTensor.native)
  *         return self             # <<<<<<<<<<<<<<
  * 
  *     def __idiv__(_FloatTensor self, float value):
@@ -17998,7 +17998,7 @@ static PyObject *__pyx_pf_7PyTorch_12_FloatTensor_58__isub__(struct __pyx_obj_7P
  *         return self
  * 
  *     def __idiv__(_FloatTensor self, float value):             # <<<<<<<<<<<<<<
- *         THFloatTensor_div(self.thFloatTensor, self.thFloatTensor, value)
+ *         THFloatTensor_div(self.native, self.native, value)
  *         return self
  */
 
@@ -18039,15 +18039,15 @@ static PyObject *__pyx_pf_7PyTorch_12_FloatTensor_60__idiv__(struct __pyx_obj_7P
   /* "PyTorch.pyx":1161
  * 
  *     def __idiv__(_FloatTensor self, float value):
- *         THFloatTensor_div(self.thFloatTensor, self.thFloatTensor, value)             # <<<<<<<<<<<<<<
+ *         THFloatTensor_div(self.native, self.native, value)             # <<<<<<<<<<<<<<
  *         return self
  * 
  */
-  THFloatTensor_div(__pyx_v_self->thFloatTensor, __pyx_v_self->thFloatTensor, __pyx_v_value);
+  THFloatTensor_div(__pyx_v_self->native, __pyx_v_self->native, __pyx_v_value);
 
   /* "PyTorch.pyx":1162
  *     def __idiv__(_FloatTensor self, float value):
- *         THFloatTensor_div(self.thFloatTensor, self.thFloatTensor, value)
+ *         THFloatTensor_div(self.native, self.native, value)
  *         return self             # <<<<<<<<<<<<<<
  * 
  *     def __imul__(_FloatTensor self, float value):
@@ -18061,7 +18061,7 @@ static PyObject *__pyx_pf_7PyTorch_12_FloatTensor_60__idiv__(struct __pyx_obj_7P
  *         return self
  * 
  *     def __idiv__(_FloatTensor self, float value):             # <<<<<<<<<<<<<<
- *         THFloatTensor_div(self.thFloatTensor, self.thFloatTensor, value)
+ *         THFloatTensor_div(self.native, self.native, value)
  *         return self
  */
 
@@ -18077,7 +18077,7 @@ static PyObject *__pyx_pf_7PyTorch_12_FloatTensor_60__idiv__(struct __pyx_obj_7P
  *         return self
  * 
  *     def __imul__(_FloatTensor self, float value):             # <<<<<<<<<<<<<<
- *         THFloatTensor_mul(self.thFloatTensor, self.thFloatTensor, value)
+ *         THFloatTensor_mul(self.native, self.native, value)
  *         return self
  */
 
@@ -18115,15 +18115,15 @@ static PyObject *__pyx_pf_7PyTorch_12_FloatTensor_62__imul__(struct __pyx_obj_7P
   /* "PyTorch.pyx":1165
  * 
  *     def __imul__(_FloatTensor self, float value):
- *         THFloatTensor_mul(self.thFloatTensor, self.thFloatTensor, value)             # <<<<<<<<<<<<<<
+ *         THFloatTensor_mul(self.native, self.native, value)             # <<<<<<<<<<<<<<
  *         return self
  * 
  */
-  THFloatTensor_mul(__pyx_v_self->thFloatTensor, __pyx_v_self->thFloatTensor, __pyx_v_value);
+  THFloatTensor_mul(__pyx_v_self->native, __pyx_v_self->native, __pyx_v_value);
 
   /* "PyTorch.pyx":1166
  *     def __imul__(_FloatTensor self, float value):
- *         THFloatTensor_mul(self.thFloatTensor, self.thFloatTensor, value)
+ *         THFloatTensor_mul(self.native, self.native, value)
  *         return self             # <<<<<<<<<<<<<<
  * 
  * #    def __mul__(_FloatTensor self, _FloatTensor M2):
@@ -18137,7 +18137,7 @@ static PyObject *__pyx_pf_7PyTorch_12_FloatTensor_62__imul__(struct __pyx_obj_7P
  *         return self
  * 
  *     def __imul__(_FloatTensor self, float value):             # <<<<<<<<<<<<<<
- *         THFloatTensor_mul(self.thFloatTensor, self.thFloatTensor, value)
+ *         THFloatTensor_mul(self.native, self.native, value)
  *         return self
  */
 
@@ -18205,7 +18205,7 @@ static PyObject *__pyx_pf_7PyTorch_12_FloatTensor_64__mul__(struct __pyx_obj_7Py
  * 
  *         res = _FloatTensor.new()             # <<<<<<<<<<<<<<
  *         if isinstance(second, numbers.Number):
- *             THFloatTensor_mul(res.thFloatTensor, self.thFloatTensor, second)
+ *             THFloatTensor_mul(res.native, self.native, second)
  */
   __pyx_t_2 = __Pyx_PyObject_GetAttrStr(((PyObject *)((PyObject*)__pyx_ptype_7PyTorch__FloatTensor)), __pyx_n_s_new); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1176; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_2);
@@ -18235,7 +18235,7 @@ static PyObject *__pyx_pf_7PyTorch_12_FloatTensor_64__mul__(struct __pyx_obj_7Py
  * 
  *         res = _FloatTensor.new()
  *         if isinstance(second, numbers.Number):             # <<<<<<<<<<<<<<
- *             THFloatTensor_mul(res.thFloatTensor, self.thFloatTensor, second)
+ *             THFloatTensor_mul(res.native, self.native, second)
  *             return res
  */
   __pyx_t_1 = __Pyx_GetModuleGlobalName(__pyx_n_s_numbers); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1177; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
@@ -18251,16 +18251,16 @@ static PyObject *__pyx_pf_7PyTorch_12_FloatTensor_64__mul__(struct __pyx_obj_7Py
     /* "PyTorch.pyx":1178
  *         res = _FloatTensor.new()
  *         if isinstance(second, numbers.Number):
- *             THFloatTensor_mul(res.thFloatTensor, self.thFloatTensor, second)             # <<<<<<<<<<<<<<
+ *             THFloatTensor_mul(res.native, self.native, second)             # <<<<<<<<<<<<<<
  *             return res
  *         else:
  */
     __pyx_t_6 = __pyx_PyFloat_AsFloat(__pyx_v_second); if (unlikely((__pyx_t_6 == (float)-1) && PyErr_Occurred())) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1178; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-    THFloatTensor_mul(__pyx_v_res->thFloatTensor, __pyx_v_self->thFloatTensor, __pyx_t_6);
+    THFloatTensor_mul(__pyx_v_res->native, __pyx_v_self->native, __pyx_t_6);
 
     /* "PyTorch.pyx":1179
  *         if isinstance(second, numbers.Number):
- *             THFloatTensor_mul(res.thFloatTensor, self.thFloatTensor, second)
+ *             THFloatTensor_mul(res.native, self.native, second)
  *             return res             # <<<<<<<<<<<<<<
  *         else:
  * 
@@ -18277,7 +18277,7 @@ static PyObject *__pyx_pf_7PyTorch_12_FloatTensor_64__mul__(struct __pyx_obj_7Py
  * 
  *             M2 = second             # <<<<<<<<<<<<<<
  *             T = _FloatTensor.new()
- *             resRows = THFloatTensor_size(self.thFloatTensor, 0)
+ *             resRows = THFloatTensor_size(self.native, 0)
  */
     if (!(likely(((__pyx_v_second) == Py_None) || likely(__Pyx_TypeTest(__pyx_v_second, __pyx_ptype_7PyTorch__FloatTensor))))) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1182; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
     __pyx_t_2 = __pyx_v_second;
@@ -18289,8 +18289,8 @@ static PyObject *__pyx_pf_7PyTorch_12_FloatTensor_64__mul__(struct __pyx_obj_7Py
  * 
  *             M2 = second
  *             T = _FloatTensor.new()             # <<<<<<<<<<<<<<
- *             resRows = THFloatTensor_size(self.thFloatTensor, 0)
- *             resCols = THFloatTensor_size(M2.thFloatTensor, 1)
+ *             resRows = THFloatTensor_size(self.native, 0)
+ *             resCols = THFloatTensor_size(M2.native, 1)
  */
     __pyx_t_1 = __Pyx_PyObject_GetAttrStr(((PyObject *)((PyObject*)__pyx_ptype_7PyTorch__FloatTensor)), __pyx_n_s_new); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1183; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
     __Pyx_GOTREF(__pyx_t_1);
@@ -18319,27 +18319,27 @@ static PyObject *__pyx_pf_7PyTorch_12_FloatTensor_64__mul__(struct __pyx_obj_7Py
     /* "PyTorch.pyx":1184
  *             M2 = second
  *             T = _FloatTensor.new()
- *             resRows = THFloatTensor_size(self.thFloatTensor, 0)             # <<<<<<<<<<<<<<
- *             resCols = THFloatTensor_size(M2.thFloatTensor, 1)
+ *             resRows = THFloatTensor_size(self.native, 0)             # <<<<<<<<<<<<<<
+ *             resCols = THFloatTensor_size(M2.native, 1)
  *             res.resize2d(resRows, resCols)
  */
-    __pyx_v_resRows = THFloatTensor_size(__pyx_v_self->thFloatTensor, 0);
+    __pyx_v_resRows = THFloatTensor_size(__pyx_v_self->native, 0);
 
     /* "PyTorch.pyx":1185
  *             T = _FloatTensor.new()
- *             resRows = THFloatTensor_size(self.thFloatTensor, 0)
- *             resCols = THFloatTensor_size(M2.thFloatTensor, 1)             # <<<<<<<<<<<<<<
+ *             resRows = THFloatTensor_size(self.native, 0)
+ *             resCols = THFloatTensor_size(M2.native, 1)             # <<<<<<<<<<<<<<
  *             res.resize2d(resRows, resCols)
  *             T.resize2d(resRows, resCols)
  */
-    __pyx_v_resCols = THFloatTensor_size(__pyx_v_M2->thFloatTensor, 1);
+    __pyx_v_resCols = THFloatTensor_size(__pyx_v_M2->native, 1);
 
     /* "PyTorch.pyx":1186
- *             resRows = THFloatTensor_size(self.thFloatTensor, 0)
- *             resCols = THFloatTensor_size(M2.thFloatTensor, 1)
+ *             resRows = THFloatTensor_size(self.native, 0)
+ *             resCols = THFloatTensor_size(M2.native, 1)
  *             res.resize2d(resRows, resCols)             # <<<<<<<<<<<<<<
  *             T.resize2d(resRows, resCols)
- *             THFloatTensor_addmm(res.thFloatTensor, 0, T.thFloatTensor, 1, self.thFloatTensor, M2.thFloatTensor)
+ *             THFloatTensor_addmm(res.native, 0, T.native, 1, self.native, M2.native)
  */
     __pyx_t_1 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_res), __pyx_n_s_resize2d); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1186; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
     __Pyx_GOTREF(__pyx_t_1);
@@ -18377,10 +18377,10 @@ static PyObject *__pyx_pf_7PyTorch_12_FloatTensor_64__mul__(struct __pyx_obj_7Py
     __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
     /* "PyTorch.pyx":1187
- *             resCols = THFloatTensor_size(M2.thFloatTensor, 1)
+ *             resCols = THFloatTensor_size(M2.native, 1)
  *             res.resize2d(resRows, resCols)
  *             T.resize2d(resRows, resCols)             # <<<<<<<<<<<<<<
- *             THFloatTensor_addmm(res.thFloatTensor, 0, T.thFloatTensor, 1, self.thFloatTensor, M2.thFloatTensor)
+ *             THFloatTensor_addmm(res.native, 0, T.native, 1, self.native, M2.native)
  *             return res
  */
     __pyx_t_1 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_T), __pyx_n_s_resize2d); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1187; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
@@ -18421,15 +18421,15 @@ static PyObject *__pyx_pf_7PyTorch_12_FloatTensor_64__mul__(struct __pyx_obj_7Py
     /* "PyTorch.pyx":1188
  *             res.resize2d(resRows, resCols)
  *             T.resize2d(resRows, resCols)
- *             THFloatTensor_addmm(res.thFloatTensor, 0, T.thFloatTensor, 1, self.thFloatTensor, M2.thFloatTensor)             # <<<<<<<<<<<<<<
+ *             THFloatTensor_addmm(res.native, 0, T.native, 1, self.native, M2.native)             # <<<<<<<<<<<<<<
  *             return res
  * 
  */
-    THFloatTensor_addmm(__pyx_v_res->thFloatTensor, 0.0, __pyx_v_T->thFloatTensor, 1.0, __pyx_v_self->thFloatTensor, __pyx_v_M2->thFloatTensor);
+    THFloatTensor_addmm(__pyx_v_res->native, 0.0, __pyx_v_T->native, 1.0, __pyx_v_self->native, __pyx_v_M2->native);
 
     /* "PyTorch.pyx":1189
  *             T.resize2d(resRows, resCols)
- *             THFloatTensor_addmm(res.thFloatTensor, 0, T.thFloatTensor, 1, self.thFloatTensor, M2.thFloatTensor)
+ *             THFloatTensor_addmm(res.native, 0, T.native, 1, self.native, M2.native)
  *             return res             # <<<<<<<<<<<<<<
  * 
  * 
@@ -18471,7 +18471,7 @@ static PyObject *__pyx_pf_7PyTorch_12_FloatTensor_64__mul__(struct __pyx_obj_7Py
  *     # ========== random ===============================
  * 
  *     def bernoulli(_FloatTensor self, float p=0.5):             # <<<<<<<<<<<<<<
- *         THFloatTensor_bernoulli(self.thFloatTensor, globalState.generator, p)
+ *         THFloatTensor_bernoulli(self.native, globalState.generator, p)
  *         return self
  */
 
@@ -18543,15 +18543,15 @@ static PyObject *__pyx_pf_7PyTorch_12_FloatTensor_66bernoulli(struct __pyx_obj_7
   /* "PyTorch.pyx":1195
  * 
  *     def bernoulli(_FloatTensor self, float p=0.5):
- *         THFloatTensor_bernoulli(self.thFloatTensor, globalState.generator, p)             # <<<<<<<<<<<<<<
+ *         THFloatTensor_bernoulli(self.native, globalState.generator, p)             # <<<<<<<<<<<<<<
  *         return self
  * 
  */
-  THFloatTensor_bernoulli(__pyx_v_self->thFloatTensor, __pyx_v_7PyTorch_globalState->generator, __pyx_v_p);
+  THFloatTensor_bernoulli(__pyx_v_self->native, __pyx_v_7PyTorch_globalState->generator, __pyx_v_p);
 
   /* "PyTorch.pyx":1196
  *     def bernoulli(_FloatTensor self, float p=0.5):
- *         THFloatTensor_bernoulli(self.thFloatTensor, globalState.generator, p)
+ *         THFloatTensor_bernoulli(self.native, globalState.generator, p)
  *         return self             # <<<<<<<<<<<<<<
  * 
  *     def geometric(_FloatTensor self, float p=0.5):
@@ -18565,7 +18565,7 @@ static PyObject *__pyx_pf_7PyTorch_12_FloatTensor_66bernoulli(struct __pyx_obj_7
  *     # ========== random ===============================
  * 
  *     def bernoulli(_FloatTensor self, float p=0.5):             # <<<<<<<<<<<<<<
- *         THFloatTensor_bernoulli(self.thFloatTensor, globalState.generator, p)
+ *         THFloatTensor_bernoulli(self.native, globalState.generator, p)
  *         return self
  */
 
@@ -18580,7 +18580,7 @@ static PyObject *__pyx_pf_7PyTorch_12_FloatTensor_66bernoulli(struct __pyx_obj_7
  *         return self
  * 
  *     def geometric(_FloatTensor self, float p=0.5):             # <<<<<<<<<<<<<<
- *         THFloatTensor_geometric(self.thFloatTensor, globalState.generator, p)
+ *         THFloatTensor_geometric(self.native, globalState.generator, p)
  *         return self
  */
 
@@ -18652,15 +18652,15 @@ static PyObject *__pyx_pf_7PyTorch_12_FloatTensor_68geometric(struct __pyx_obj_7
   /* "PyTorch.pyx":1199
  * 
  *     def geometric(_FloatTensor self, float p=0.5):
- *         THFloatTensor_geometric(self.thFloatTensor, globalState.generator, p)             # <<<<<<<<<<<<<<
+ *         THFloatTensor_geometric(self.native, globalState.generator, p)             # <<<<<<<<<<<<<<
  *         return self
  * 
  */
-  THFloatTensor_geometric(__pyx_v_self->thFloatTensor, __pyx_v_7PyTorch_globalState->generator, __pyx_v_p);
+  THFloatTensor_geometric(__pyx_v_self->native, __pyx_v_7PyTorch_globalState->generator, __pyx_v_p);
 
   /* "PyTorch.pyx":1200
  *     def geometric(_FloatTensor self, float p=0.5):
- *         THFloatTensor_geometric(self.thFloatTensor, globalState.generator, p)
+ *         THFloatTensor_geometric(self.native, globalState.generator, p)
  *         return self             # <<<<<<<<<<<<<<
  * 
  * 
@@ -18674,7 +18674,7 @@ static PyObject *__pyx_pf_7PyTorch_12_FloatTensor_68geometric(struct __pyx_obj_7
  *         return self
  * 
  *     def geometric(_FloatTensor self, float p=0.5):             # <<<<<<<<<<<<<<
- *         THFloatTensor_geometric(self.thFloatTensor, globalState.generator, p)
+ *         THFloatTensor_geometric(self.native, globalState.generator, p)
  *         return self
  */
 
@@ -18689,7 +18689,7 @@ static PyObject *__pyx_pf_7PyTorch_12_FloatTensor_68geometric(struct __pyx_obj_7
  * 
  * 
  *     def normal(_FloatTensor self, float mean=0, float stdv=1):             # <<<<<<<<<<<<<<
- *         THFloatTensor_normal(self.thFloatTensor, globalState.generator, mean, stdv)
+ *         THFloatTensor_normal(self.native, globalState.generator, mean, stdv)
  *         return self
  */
 
@@ -18774,15 +18774,15 @@ static PyObject *__pyx_pf_7PyTorch_12_FloatTensor_70normal(struct __pyx_obj_7PyT
   /* "PyTorch.pyx":1204
  * 
  *     def normal(_FloatTensor self, float mean=0, float stdv=1):
- *         THFloatTensor_normal(self.thFloatTensor, globalState.generator, mean, stdv)             # <<<<<<<<<<<<<<
+ *         THFloatTensor_normal(self.native, globalState.generator, mean, stdv)             # <<<<<<<<<<<<<<
  *         return self
  * 
  */
-  THFloatTensor_normal(__pyx_v_self->thFloatTensor, __pyx_v_7PyTorch_globalState->generator, __pyx_v_mean, __pyx_v_stdv);
+  THFloatTensor_normal(__pyx_v_self->native, __pyx_v_7PyTorch_globalState->generator, __pyx_v_mean, __pyx_v_stdv);
 
   /* "PyTorch.pyx":1205
  *     def normal(_FloatTensor self, float mean=0, float stdv=1):
- *         THFloatTensor_normal(self.thFloatTensor, globalState.generator, mean, stdv)
+ *         THFloatTensor_normal(self.native, globalState.generator, mean, stdv)
  *         return self             # <<<<<<<<<<<<<<
  * 
  *     def exponential(_FloatTensor self, float _lambda=1):
@@ -18796,7 +18796,7 @@ static PyObject *__pyx_pf_7PyTorch_12_FloatTensor_70normal(struct __pyx_obj_7PyT
  * 
  * 
  *     def normal(_FloatTensor self, float mean=0, float stdv=1):             # <<<<<<<<<<<<<<
- *         THFloatTensor_normal(self.thFloatTensor, globalState.generator, mean, stdv)
+ *         THFloatTensor_normal(self.native, globalState.generator, mean, stdv)
  *         return self
  */
 
@@ -18811,7 +18811,7 @@ static PyObject *__pyx_pf_7PyTorch_12_FloatTensor_70normal(struct __pyx_obj_7PyT
  *         return self
  * 
  *     def exponential(_FloatTensor self, float _lambda=1):             # <<<<<<<<<<<<<<
- *         THFloatTensor_exponential(self.thFloatTensor, globalState.generator, _lambda)
+ *         THFloatTensor_exponential(self.native, globalState.generator, _lambda)
  *         return self
  */
 
@@ -18883,15 +18883,15 @@ static PyObject *__pyx_pf_7PyTorch_12_FloatTensor_72exponential(struct __pyx_obj
   /* "PyTorch.pyx":1208
  * 
  *     def exponential(_FloatTensor self, float _lambda=1):
- *         THFloatTensor_exponential(self.thFloatTensor, globalState.generator, _lambda)             # <<<<<<<<<<<<<<
+ *         THFloatTensor_exponential(self.native, globalState.generator, _lambda)             # <<<<<<<<<<<<<<
  *         return self
  * 
  */
-  THFloatTensor_exponential(__pyx_v_self->thFloatTensor, __pyx_v_7PyTorch_globalState->generator, __pyx_v__lambda);
+  THFloatTensor_exponential(__pyx_v_self->native, __pyx_v_7PyTorch_globalState->generator, __pyx_v__lambda);
 
   /* "PyTorch.pyx":1209
  *     def exponential(_FloatTensor self, float _lambda=1):
- *         THFloatTensor_exponential(self.thFloatTensor, globalState.generator, _lambda)
+ *         THFloatTensor_exponential(self.native, globalState.generator, _lambda)
  *         return self             # <<<<<<<<<<<<<<
  * 
  *     def cauchy(_FloatTensor self, float median=0, float sigma=1):
@@ -18905,7 +18905,7 @@ static PyObject *__pyx_pf_7PyTorch_12_FloatTensor_72exponential(struct __pyx_obj
  *         return self
  * 
  *     def exponential(_FloatTensor self, float _lambda=1):             # <<<<<<<<<<<<<<
- *         THFloatTensor_exponential(self.thFloatTensor, globalState.generator, _lambda)
+ *         THFloatTensor_exponential(self.native, globalState.generator, _lambda)
  *         return self
  */
 
@@ -18920,7 +18920,7 @@ static PyObject *__pyx_pf_7PyTorch_12_FloatTensor_72exponential(struct __pyx_obj
  *         return self
  * 
  *     def cauchy(_FloatTensor self, float median=0, float sigma=1):             # <<<<<<<<<<<<<<
- *         THFloatTensor_cauchy(self.thFloatTensor, globalState.generator, median, sigma)
+ *         THFloatTensor_cauchy(self.native, globalState.generator, median, sigma)
  *         return self
  */
 
@@ -19005,15 +19005,15 @@ static PyObject *__pyx_pf_7PyTorch_12_FloatTensor_74cauchy(struct __pyx_obj_7PyT
   /* "PyTorch.pyx":1212
  * 
  *     def cauchy(_FloatTensor self, float median=0, float sigma=1):
- *         THFloatTensor_cauchy(self.thFloatTensor, globalState.generator, median, sigma)             # <<<<<<<<<<<<<<
+ *         THFloatTensor_cauchy(self.native, globalState.generator, median, sigma)             # <<<<<<<<<<<<<<
  *         return self
  * 
  */
-  THFloatTensor_cauchy(__pyx_v_self->thFloatTensor, __pyx_v_7PyTorch_globalState->generator, __pyx_v_median, __pyx_v_sigma);
+  THFloatTensor_cauchy(__pyx_v_self->native, __pyx_v_7PyTorch_globalState->generator, __pyx_v_median, __pyx_v_sigma);
 
   /* "PyTorch.pyx":1213
  *     def cauchy(_FloatTensor self, float median=0, float sigma=1):
- *         THFloatTensor_cauchy(self.thFloatTensor, globalState.generator, median, sigma)
+ *         THFloatTensor_cauchy(self.native, globalState.generator, median, sigma)
  *         return self             # <<<<<<<<<<<<<<
  * 
  *     def logNormal(_FloatTensor self, float mean=1, float stdv=2):
@@ -19027,7 +19027,7 @@ static PyObject *__pyx_pf_7PyTorch_12_FloatTensor_74cauchy(struct __pyx_obj_7PyT
  *         return self
  * 
  *     def cauchy(_FloatTensor self, float median=0, float sigma=1):             # <<<<<<<<<<<<<<
- *         THFloatTensor_cauchy(self.thFloatTensor, globalState.generator, median, sigma)
+ *         THFloatTensor_cauchy(self.native, globalState.generator, median, sigma)
  *         return self
  */
 
@@ -19042,7 +19042,7 @@ static PyObject *__pyx_pf_7PyTorch_12_FloatTensor_74cauchy(struct __pyx_obj_7PyT
  *         return self
  * 
  *     def logNormal(_FloatTensor self, float mean=1, float stdv=2):             # <<<<<<<<<<<<<<
- *         THFloatTensor_logNormal(self.thFloatTensor, globalState.generator, mean, stdv)
+ *         THFloatTensor_logNormal(self.native, globalState.generator, mean, stdv)
  *         return self
  */
 
@@ -19127,15 +19127,15 @@ static PyObject *__pyx_pf_7PyTorch_12_FloatTensor_76logNormal(struct __pyx_obj_7
   /* "PyTorch.pyx":1216
  * 
  *     def logNormal(_FloatTensor self, float mean=1, float stdv=2):
- *         THFloatTensor_logNormal(self.thFloatTensor, globalState.generator, mean, stdv)             # <<<<<<<<<<<<<<
+ *         THFloatTensor_logNormal(self.native, globalState.generator, mean, stdv)             # <<<<<<<<<<<<<<
  *         return self
  * 
  */
-  THFloatTensor_logNormal(__pyx_v_self->thFloatTensor, __pyx_v_7PyTorch_globalState->generator, __pyx_v_mean, __pyx_v_stdv);
+  THFloatTensor_logNormal(__pyx_v_self->native, __pyx_v_7PyTorch_globalState->generator, __pyx_v_mean, __pyx_v_stdv);
 
   /* "PyTorch.pyx":1217
  *     def logNormal(_FloatTensor self, float mean=1, float stdv=2):
- *         THFloatTensor_logNormal(self.thFloatTensor, globalState.generator, mean, stdv)
+ *         THFloatTensor_logNormal(self.native, globalState.generator, mean, stdv)
  *         return self             # <<<<<<<<<<<<<<
  * 
  *     def uniform(_FloatTensor self, float a=0, float b=1):
@@ -19149,7 +19149,7 @@ static PyObject *__pyx_pf_7PyTorch_12_FloatTensor_76logNormal(struct __pyx_obj_7
  *         return self
  * 
  *     def logNormal(_FloatTensor self, float mean=1, float stdv=2):             # <<<<<<<<<<<<<<
- *         THFloatTensor_logNormal(self.thFloatTensor, globalState.generator, mean, stdv)
+ *         THFloatTensor_logNormal(self.native, globalState.generator, mean, stdv)
  *         return self
  */
 
@@ -19164,7 +19164,7 @@ static PyObject *__pyx_pf_7PyTorch_12_FloatTensor_76logNormal(struct __pyx_obj_7
  *         return self
  * 
  *     def uniform(_FloatTensor self, float a=0, float b=1):             # <<<<<<<<<<<<<<
- *         THFloatTensor_uniform(self.thFloatTensor, globalState.generator, a, b)
+ *         THFloatTensor_uniform(self.native, globalState.generator, a, b)
  *         return self
  */
 
@@ -19249,15 +19249,15 @@ static PyObject *__pyx_pf_7PyTorch_12_FloatTensor_78uniform(struct __pyx_obj_7Py
   /* "PyTorch.pyx":1220
  * 
  *     def uniform(_FloatTensor self, float a=0, float b=1):
- *         THFloatTensor_uniform(self.thFloatTensor, globalState.generator, a, b)             # <<<<<<<<<<<<<<
+ *         THFloatTensor_uniform(self.native, globalState.generator, a, b)             # <<<<<<<<<<<<<<
  *         return self
  * 
  */
-  THFloatTensor_uniform(__pyx_v_self->thFloatTensor, __pyx_v_7PyTorch_globalState->generator, __pyx_v_a, __pyx_v_b);
+  THFloatTensor_uniform(__pyx_v_self->native, __pyx_v_7PyTorch_globalState->generator, __pyx_v_a, __pyx_v_b);
 
   /* "PyTorch.pyx":1221
  *     def uniform(_FloatTensor self, float a=0, float b=1):
- *         THFloatTensor_uniform(self.thFloatTensor, globalState.generator, a, b)
+ *         THFloatTensor_uniform(self.native, globalState.generator, a, b)
  *         return self             # <<<<<<<<<<<<<<
  * 
  * 
@@ -19271,7 +19271,7 @@ static PyObject *__pyx_pf_7PyTorch_12_FloatTensor_78uniform(struct __pyx_obj_7Py
  *         return self
  * 
  *     def uniform(_FloatTensor self, float a=0, float b=1):             # <<<<<<<<<<<<<<
- *         THFloatTensor_uniform(self.thFloatTensor, globalState.generator, a, b)
+ *         THFloatTensor_uniform(self.native, globalState.generator, a, b)
  *         return self
  */
 
@@ -19323,7 +19323,7 @@ static PyObject *__pyx_f_7PyTorch__FloatTensor_fromNative(struct THFloatTensor *
  *     if retain:
  *         THFloatTensor_retain(tensorC)             # <<<<<<<<<<<<<<
  *     tensor = _FloatTensor(_allocate=False)
- *     tensor.thFloatTensor = tensorC
+ *     tensor.native = tensorC
  */
     THFloatTensor_retain(__pyx_v_tensorC);
     goto __pyx_L3;
@@ -19334,7 +19334,7 @@ static PyObject *__pyx_f_7PyTorch__FloatTensor_fromNative(struct THFloatTensor *
  *     if retain:
  *         THFloatTensor_retain(tensorC)
  *     tensor = _FloatTensor(_allocate=False)             # <<<<<<<<<<<<<<
- *     tensor.thFloatTensor = tensorC
+ *     tensor.native = tensorC
  *     return tensor
  */
   __pyx_t_2 = PyDict_New(); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1228; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
@@ -19349,15 +19349,15 @@ static PyObject *__pyx_f_7PyTorch__FloatTensor_fromNative(struct THFloatTensor *
   /* "PyTorch.pyx":1229
  *         THFloatTensor_retain(tensorC)
  *     tensor = _FloatTensor(_allocate=False)
- *     tensor.thFloatTensor = tensorC             # <<<<<<<<<<<<<<
+ *     tensor.native = tensorC             # <<<<<<<<<<<<<<
  *     return tensor
  * 
  */
-  __pyx_v_tensor->thFloatTensor = __pyx_v_tensorC;
+  __pyx_v_tensor->native = __pyx_v_tensorC;
 
   /* "PyTorch.pyx":1230
  *     tensor = _FloatTensor(_allocate=False)
- *     tensor.thFloatTensor = tensorC
+ *     tensor.native = tensorC
  *     return tensor             # <<<<<<<<<<<<<<
  * 
  * 
@@ -19544,7 +19544,7 @@ static int __pyx_pf_7PyTorch_11_LongTensor___cinit__(struct __pyx_obj_7PyTorch__
  *                     raise Exception('cannot provide arguments to initializer')
  *             if len(args) == 0:             # <<<<<<<<<<<<<<
  * #                print('no args, calling THLongTensor_new()')
- *                 self.thLongTensor = THLongTensor_new()
+ *                 self.native = THLongTensor_new()
  */
     __pyx_t_3 = PyTuple_GET_SIZE(__pyx_v_args); if (unlikely(__pyx_t_3 == -1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1252; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
     __pyx_t_5 = ((__pyx_t_3 == 0) != 0);
@@ -19553,20 +19553,20 @@ static int __pyx_pf_7PyTorch_11_LongTensor___cinit__(struct __pyx_obj_7PyTorch__
       /* "PyTorch.pyx":1254
  *             if len(args) == 0:
  * #                print('no args, calling THLongTensor_new()')
- *                 self.thLongTensor = THLongTensor_new()             # <<<<<<<<<<<<<<
+ *                 self.native = THLongTensor_new()             # <<<<<<<<<<<<<<
  *             elif len(args) == 1:
  * #                print('new tensor 1d length', args[0])
  */
-      __pyx_v_self->thLongTensor = THLongTensor_new();
+      __pyx_v_self->native = THLongTensor_new();
       goto __pyx_L7;
     }
 
     /* "PyTorch.pyx":1255
  * #                print('no args, calling THLongTensor_new()')
- *                 self.thLongTensor = THLongTensor_new()
+ *                 self.native = THLongTensor_new()
  *             elif len(args) == 1:             # <<<<<<<<<<<<<<
  * #                print('new tensor 1d length', args[0])
- *                 self.thLongTensor = THLongTensor_newWithSize1d(args[0])
+ *                 self.native = THLongTensor_newWithSize1d(args[0])
  */
     __pyx_t_3 = PyTuple_GET_SIZE(__pyx_v_args); if (unlikely(__pyx_t_3 == -1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1255; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
     __pyx_t_5 = ((__pyx_t_3 == 1) != 0);
@@ -19575,7 +19575,7 @@ static int __pyx_pf_7PyTorch_11_LongTensor___cinit__(struct __pyx_obj_7PyTorch__
       /* "PyTorch.pyx":1257
  *             elif len(args) == 1:
  * #                print('new tensor 1d length', args[0])
- *                 self.thLongTensor = THLongTensor_newWithSize1d(args[0])             # <<<<<<<<<<<<<<
+ *                 self.native = THLongTensor_newWithSize1d(args[0])             # <<<<<<<<<<<<<<
  * #                storageC = THFloatTensor_storage(self.thFloatTensor)
  * #                if storageC == NULL:
  */
@@ -19583,7 +19583,7 @@ static int __pyx_pf_7PyTorch_11_LongTensor___cinit__(struct __pyx_obj_7PyTorch__
       __Pyx_GOTREF(__pyx_t_2);
       __pyx_t_6 = __Pyx_PyInt_As_long(__pyx_t_2); if (unlikely((__pyx_t_6 == (long)-1) && PyErr_Occurred())) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1257; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
       __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-      __pyx_v_self->thLongTensor = THLongTensor_newWithSize1d(__pyx_t_6);
+      __pyx_v_self->native = THLongTensor_newWithSize1d(__pyx_t_6);
       goto __pyx_L7;
     }
 
@@ -19591,7 +19591,7 @@ static int __pyx_pf_7PyTorch_11_LongTensor___cinit__(struct __pyx_obj_7PyTorch__
  * #                    print('storageaddr', hex(addr))
  * #                    print('storageC refcount', THFloatStorage_getRefCount(storageC))
  *             elif len(args) == 2:             # <<<<<<<<<<<<<<
- *                 self.thLongTensor = THLongTensor_newWithSize2d(args[0], args[1])
+ *                 self.native = THLongTensor_newWithSize2d(args[0], args[1])
  *             else:
  */
     __pyx_t_3 = PyTuple_GET_SIZE(__pyx_v_args); if (unlikely(__pyx_t_3 == -1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1266; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
@@ -19601,7 +19601,7 @@ static int __pyx_pf_7PyTorch_11_LongTensor___cinit__(struct __pyx_obj_7PyTorch__
       /* "PyTorch.pyx":1267
  * #                    print('storageC refcount', THFloatStorage_getRefCount(storageC))
  *             elif len(args) == 2:
- *                 self.thLongTensor = THLongTensor_newWithSize2d(args[0], args[1])             # <<<<<<<<<<<<<<
+ *                 self.native = THLongTensor_newWithSize2d(args[0], args[1])             # <<<<<<<<<<<<<<
  *             else:
  *                 raise Exception('Not implemented, len(args)=' + str(len(args)))
  */
@@ -19613,13 +19613,13 @@ static int __pyx_pf_7PyTorch_11_LongTensor___cinit__(struct __pyx_obj_7PyTorch__
       __Pyx_GOTREF(__pyx_t_2);
       __pyx_t_7 = __Pyx_PyInt_As_long(__pyx_t_2); if (unlikely((__pyx_t_7 == (long)-1) && PyErr_Occurred())) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1267; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
       __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-      __pyx_v_self->thLongTensor = THLongTensor_newWithSize2d(__pyx_t_6, __pyx_t_7);
+      __pyx_v_self->native = THLongTensor_newWithSize2d(__pyx_t_6, __pyx_t_7);
       goto __pyx_L7;
     }
     /*else*/ {
 
       /* "PyTorch.pyx":1269
- *                 self.thLongTensor = THLongTensor_newWithSize2d(args[0], args[1])
+ *                 self.native = THLongTensor_newWithSize2d(args[0], args[1])
  *             else:
  *                 raise Exception('Not implemented, len(args)=' + str(len(args)))             # <<<<<<<<<<<<<<
  * 
@@ -19710,18 +19710,18 @@ static void __pyx_pf_7PyTorch_11_LongTensor_2__dealloc__(struct __pyx_obj_7PyTor
   /* "PyTorch.pyx":1285
  * #        cdef int i
  * #        cdef THFloatStorage *storage
- *         refCount = THLongTensor_getRefCount(self.thLongTensor)             # <<<<<<<<<<<<<<
+ *         refCount = THLongTensor_getRefCount(self.native)             # <<<<<<<<<<<<<<
  * #        print('LongTensor.dealloc old refcount', refCount)
  * #        storage = THFloatTensor_storage(self.thFloatTensor)
  */
-  __pyx_v_refCount = THLongTensor_getRefCount(__pyx_v_self->thLongTensor);
+  __pyx_v_refCount = THLongTensor_getRefCount(__pyx_v_self->native);
 
   /* "PyTorch.pyx":1296
  * #        for i in range(dims):
  * #            print('   size[', i, ']', THFloatTensor_size(self.thFloatTensor, i))
  *         if refCount < 1:             # <<<<<<<<<<<<<<
  *             raise Exception('Unallocated an already deallocated tensor... :-O')  # Hmmm, seems this exceptoin wont go anywhere useful... :-P
- *         THLongTensor_free(self.thLongTensor)
+ *         THLongTensor_free(self.native)
  */
   __pyx_t_1 = ((__pyx_v_refCount < 1) != 0);
   if (__pyx_t_1) {
@@ -19730,7 +19730,7 @@ static void __pyx_pf_7PyTorch_11_LongTensor_2__dealloc__(struct __pyx_obj_7PyTor
  * #            print('   size[', i, ']', THFloatTensor_size(self.thFloatTensor, i))
  *         if refCount < 1:
  *             raise Exception('Unallocated an already deallocated tensor... :-O')  # Hmmm, seems this exceptoin wont go anywhere useful... :-P             # <<<<<<<<<<<<<<
- *         THLongTensor_free(self.thLongTensor)
+ *         THLongTensor_free(self.native)
  * 
  */
     __pyx_t_2 = __Pyx_PyObject_Call(__pyx_builtin_Exception, __pyx_tuple__18, NULL); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1297; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
@@ -19743,11 +19743,11 @@ static void __pyx_pf_7PyTorch_11_LongTensor_2__dealloc__(struct __pyx_obj_7PyTor
   /* "PyTorch.pyx":1298
  *         if refCount < 1:
  *             raise Exception('Unallocated an already deallocated tensor... :-O')  # Hmmm, seems this exceptoin wont go anywhere useful... :-P
- *         THLongTensor_free(self.thLongTensor)             # <<<<<<<<<<<<<<
+ *         THLongTensor_free(self.native)             # <<<<<<<<<<<<<<
  * 
  *     def nElement(_LongTensor self):
  */
-  THLongTensor_free(__pyx_v_self->thLongTensor);
+  THLongTensor_free(__pyx_v_self->native);
 
   /* "PyTorch.pyx":1279
  * #        self.storage = storage
@@ -19767,10 +19767,10 @@ static void __pyx_pf_7PyTorch_11_LongTensor_2__dealloc__(struct __pyx_obj_7PyTor
 }
 
 /* "PyTorch.pyx":1300
- *         THLongTensor_free(self.thLongTensor)
+ *         THLongTensor_free(self.native)
  * 
  *     def nElement(_LongTensor self):             # <<<<<<<<<<<<<<
- *         return THLongTensor_nElement(self.thLongTensor)
+ *         return THLongTensor_nElement(self.native)
  * 
  */
 
@@ -19799,22 +19799,22 @@ static PyObject *__pyx_pf_7PyTorch_11_LongTensor_4nElement(struct __pyx_obj_7PyT
   /* "PyTorch.pyx":1301
  * 
  *     def nElement(_LongTensor self):
- *         return THLongTensor_nElement(self.thLongTensor)             # <<<<<<<<<<<<<<
+ *         return THLongTensor_nElement(self.native)             # <<<<<<<<<<<<<<
  * 
  *     @property
  */
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_1 = __Pyx_PyInt_From_long(THLongTensor_nElement(__pyx_v_self->thLongTensor)); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1301; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_1 = __Pyx_PyInt_From_long(THLongTensor_nElement(__pyx_v_self->native)); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1301; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_r = __pyx_t_1;
   __pyx_t_1 = 0;
   goto __pyx_L0;
 
   /* "PyTorch.pyx":1300
- *         THLongTensor_free(self.thLongTensor)
+ *         THLongTensor_free(self.native)
  * 
  *     def nElement(_LongTensor self):             # <<<<<<<<<<<<<<
- *         return THLongTensor_nElement(self.thLongTensor)
+ *         return THLongTensor_nElement(self.native)
  * 
  */
 
@@ -19833,7 +19833,7 @@ static PyObject *__pyx_pf_7PyTorch_11_LongTensor_4nElement(struct __pyx_obj_7PyT
  * 
  *     @property
  *     def refCount(_LongTensor self):             # <<<<<<<<<<<<<<
- *         return THLongTensor_getRefCount(self.thLongTensor)
+ *         return THLongTensor_getRefCount(self.native)
  * 
  */
 
@@ -19862,12 +19862,12 @@ static PyObject *__pyx_pf_7PyTorch_11_LongTensor_6refCount(struct __pyx_obj_7PyT
   /* "PyTorch.pyx":1305
  *     @property
  *     def refCount(_LongTensor self):
- *         return THLongTensor_getRefCount(self.thLongTensor)             # <<<<<<<<<<<<<<
+ *         return THLongTensor_getRefCount(self.native)             # <<<<<<<<<<<<<<
  * 
  *     cpdef int dims(self):
  */
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_1 = __Pyx_PyInt_From_int(THLongTensor_getRefCount(__pyx_v_self->thLongTensor)); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1305; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_1 = __Pyx_PyInt_From_int(THLongTensor_getRefCount(__pyx_v_self->native)); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1305; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_r = __pyx_t_1;
   __pyx_t_1 = 0;
@@ -19877,7 +19877,7 @@ static PyObject *__pyx_pf_7PyTorch_11_LongTensor_6refCount(struct __pyx_obj_7PyT
  * 
  *     @property
  *     def refCount(_LongTensor self):             # <<<<<<<<<<<<<<
- *         return THLongTensor_getRefCount(self.thLongTensor)
+ *         return THLongTensor_getRefCount(self.native)
  * 
  */
 
@@ -19893,10 +19893,10 @@ static PyObject *__pyx_pf_7PyTorch_11_LongTensor_6refCount(struct __pyx_obj_7PyT
 }
 
 /* "PyTorch.pyx":1307
- *         return THLongTensor_getRefCount(self.thLongTensor)
+ *         return THLongTensor_getRefCount(self.native)
  * 
  *     cpdef int dims(self):             # <<<<<<<<<<<<<<
- *         return THLongTensor_nDimension(self.thLongTensor)
+ *         return THLongTensor_nDimension(self.native)
  * 
  */
 
@@ -19951,18 +19951,18 @@ static int __pyx_f_7PyTorch_11_LongTensor_dims(struct __pyx_obj_7PyTorch__LongTe
   /* "PyTorch.pyx":1308
  * 
  *     cpdef int dims(self):
- *         return THLongTensor_nDimension(self.thLongTensor)             # <<<<<<<<<<<<<<
+ *         return THLongTensor_nDimension(self.native)             # <<<<<<<<<<<<<<
  * 
  *     cpdef set1d(self, int x0, long value):
  */
-  __pyx_r = THLongTensor_nDimension(__pyx_v_self->thLongTensor);
+  __pyx_r = THLongTensor_nDimension(__pyx_v_self->native);
   goto __pyx_L0;
 
   /* "PyTorch.pyx":1307
- *         return THLongTensor_getRefCount(self.thLongTensor)
+ *         return THLongTensor_getRefCount(self.native)
  * 
  *     cpdef int dims(self):             # <<<<<<<<<<<<<<
- *         return THLongTensor_nDimension(self.thLongTensor)
+ *         return THLongTensor_nDimension(self.native)
  * 
  */
 
@@ -20019,10 +20019,10 @@ static PyObject *__pyx_pf_7PyTorch_11_LongTensor_8dims(struct __pyx_obj_7PyTorch
 }
 
 /* "PyTorch.pyx":1310
- *         return THLongTensor_nDimension(self.thLongTensor)
+ *         return THLongTensor_nDimension(self.native)
  * 
  *     cpdef set1d(self, int x0, long value):             # <<<<<<<<<<<<<<
- *         THLongTensor_set1d(self.thLongTensor, x0, value)
+ *         THLongTensor_set1d(self.native, x0, value)
  * 
  */
 
@@ -20093,17 +20093,17 @@ static PyObject *__pyx_f_7PyTorch_11_LongTensor_set1d(struct __pyx_obj_7PyTorch_
   /* "PyTorch.pyx":1311
  * 
  *     cpdef set1d(self, int x0, long value):
- *         THLongTensor_set1d(self.thLongTensor, x0, value)             # <<<<<<<<<<<<<<
+ *         THLongTensor_set1d(self.native, x0, value)             # <<<<<<<<<<<<<<
  * 
  *     cpdef set2d(self, int x0, int x1, long value):
  */
-  THLongTensor_set1d(__pyx_v_self->thLongTensor, __pyx_v_x0, __pyx_v_value);
+  THLongTensor_set1d(__pyx_v_self->native, __pyx_v_x0, __pyx_v_value);
 
   /* "PyTorch.pyx":1310
- *         return THLongTensor_nDimension(self.thLongTensor)
+ *         return THLongTensor_nDimension(self.native)
  * 
  *     cpdef set1d(self, int x0, long value):             # <<<<<<<<<<<<<<
- *         THLongTensor_set1d(self.thLongTensor, x0, value)
+ *         THLongTensor_set1d(self.native, x0, value)
  * 
  */
 
@@ -20214,10 +20214,10 @@ static PyObject *__pyx_pf_7PyTorch_11_LongTensor_10set1d(struct __pyx_obj_7PyTor
 }
 
 /* "PyTorch.pyx":1313
- *         THLongTensor_set1d(self.thLongTensor, x0, value)
+ *         THLongTensor_set1d(self.native, x0, value)
  * 
  *     cpdef set2d(self, int x0, int x1, long value):             # <<<<<<<<<<<<<<
- *         THLongTensor_set2d(self.thLongTensor, x0, x1, value)
+ *         THLongTensor_set2d(self.native, x0, x1, value)
  * 
  */
 
@@ -20294,17 +20294,17 @@ static PyObject *__pyx_f_7PyTorch_11_LongTensor_set2d(struct __pyx_obj_7PyTorch_
   /* "PyTorch.pyx":1314
  * 
  *     cpdef set2d(self, int x0, int x1, long value):
- *         THLongTensor_set2d(self.thLongTensor, x0, x1, value)             # <<<<<<<<<<<<<<
+ *         THLongTensor_set2d(self.native, x0, x1, value)             # <<<<<<<<<<<<<<
  * 
  *     cpdef long get1d(self, int x0):
  */
-  THLongTensor_set2d(__pyx_v_self->thLongTensor, __pyx_v_x0, __pyx_v_x1, __pyx_v_value);
+  THLongTensor_set2d(__pyx_v_self->native, __pyx_v_x0, __pyx_v_x1, __pyx_v_value);
 
   /* "PyTorch.pyx":1313
- *         THLongTensor_set1d(self.thLongTensor, x0, value)
+ *         THLongTensor_set1d(self.native, x0, value)
  * 
  *     cpdef set2d(self, int x0, int x1, long value):             # <<<<<<<<<<<<<<
- *         THLongTensor_set2d(self.thLongTensor, x0, x1, value)
+ *         THLongTensor_set2d(self.native, x0, x1, value)
  * 
  */
 
@@ -20425,10 +20425,10 @@ static PyObject *__pyx_pf_7PyTorch_11_LongTensor_12set2d(struct __pyx_obj_7PyTor
 }
 
 /* "PyTorch.pyx":1316
- *         THLongTensor_set2d(self.thLongTensor, x0, x1, value)
+ *         THLongTensor_set2d(self.native, x0, x1, value)
  * 
  *     cpdef long get1d(self, int x0):             # <<<<<<<<<<<<<<
- *         return THLongTensor_get1d(self.thLongTensor, x0)
+ *         return THLongTensor_get1d(self.native, x0)
  * 
  */
 
@@ -20495,18 +20495,18 @@ static long __pyx_f_7PyTorch_11_LongTensor_get1d(struct __pyx_obj_7PyTorch__Long
   /* "PyTorch.pyx":1317
  * 
  *     cpdef long get1d(self, int x0):
- *         return THLongTensor_get1d(self.thLongTensor, x0)             # <<<<<<<<<<<<<<
+ *         return THLongTensor_get1d(self.native, x0)             # <<<<<<<<<<<<<<
  * 
  *     cpdef long get2d(self, int x0, int x1):
  */
-  __pyx_r = THLongTensor_get1d(__pyx_v_self->thLongTensor, __pyx_v_x0);
+  __pyx_r = THLongTensor_get1d(__pyx_v_self->native, __pyx_v_x0);
   goto __pyx_L0;
 
   /* "PyTorch.pyx":1316
- *         THLongTensor_set2d(self.thLongTensor, x0, x1, value)
+ *         THLongTensor_set2d(self.native, x0, x1, value)
  * 
  *     cpdef long get1d(self, int x0):             # <<<<<<<<<<<<<<
- *         return THLongTensor_get1d(self.thLongTensor, x0)
+ *         return THLongTensor_get1d(self.native, x0)
  * 
  */
 
@@ -20578,10 +20578,10 @@ static PyObject *__pyx_pf_7PyTorch_11_LongTensor_14get1d(struct __pyx_obj_7PyTor
 }
 
 /* "PyTorch.pyx":1319
- *         return THLongTensor_get1d(self.thLongTensor, x0)
+ *         return THLongTensor_get1d(self.native, x0)
  * 
  *     cpdef long get2d(self, int x0, int x1):             # <<<<<<<<<<<<<<
- *         return THLongTensor_get2d(self.thLongTensor, x0, x1)
+ *         return THLongTensor_get2d(self.native, x0, x1)
  * 
  */
 
@@ -20653,18 +20653,18 @@ static long __pyx_f_7PyTorch_11_LongTensor_get2d(struct __pyx_obj_7PyTorch__Long
   /* "PyTorch.pyx":1320
  * 
  *     cpdef long get2d(self, int x0, int x1):
- *         return THLongTensor_get2d(self.thLongTensor, x0, x1)             # <<<<<<<<<<<<<<
+ *         return THLongTensor_get2d(self.native, x0, x1)             # <<<<<<<<<<<<<<
  * 
  *     def __repr__(_LongTensor self):
  */
-  __pyx_r = THLongTensor_get2d(__pyx_v_self->thLongTensor, __pyx_v_x0, __pyx_v_x1);
+  __pyx_r = THLongTensor_get2d(__pyx_v_self->native, __pyx_v_x0, __pyx_v_x1);
   goto __pyx_L0;
 
   /* "PyTorch.pyx":1319
- *         return THLongTensor_get1d(self.thLongTensor, x0)
+ *         return THLongTensor_get1d(self.native, x0)
  * 
  *     cpdef long get2d(self, int x0, int x1):             # <<<<<<<<<<<<<<
- *         return THLongTensor_get2d(self.thLongTensor, x0, x1)
+ *         return THLongTensor_get2d(self.native, x0, x1)
  * 
  */
 
@@ -20772,7 +20772,7 @@ static PyObject *__pyx_pf_7PyTorch_11_LongTensor_16get2d(struct __pyx_obj_7PyTor
 }
 
 /* "PyTorch.pyx":1322
- *         return THLongTensor_get2d(self.thLongTensor, x0, x1)
+ *         return THLongTensor_get2d(self.native, x0, x1)
  * 
  *     def __repr__(_LongTensor self):             # <<<<<<<<<<<<<<
  *         # assume 2d matrix for now
@@ -20828,7 +20828,7 @@ static PyObject *__pyx_pf_7PyTorch_11_LongTensor_18__repr__(struct __pyx_obj_7Py
  *             res += '[torch.LongTensor of size ' + ('%.0f' % size0) + 'x' + str(size1) + ']\n'
  *             return res
  *         elif dims == 1:             # <<<<<<<<<<<<<<
- *             size0 = THLongTensor_size(self.thLongTensor, 0)
+ *             size0 = THLongTensor_size(self.native, 0)
  *             res = ''
  */
   switch (__pyx_v_dims) {
@@ -20847,7 +20847,7 @@ static PyObject *__pyx_pf_7PyTorch_11_LongTensor_18__repr__(struct __pyx_obj_7Py
  *         if dims == 0:
  *             return '[torch.LongTensor with no dimension]\n'             # <<<<<<<<<<<<<<
  *         elif dims == 2:
- *             size0 = THLongTensor_size(self.thLongTensor, 0)
+ *             size0 = THLongTensor_size(self.native, 0)
  */
     __Pyx_XDECREF(__pyx_r);
     __Pyx_INCREF(__pyx_kp_s_torch_LongTensor_with_no_dimens);
@@ -20859,32 +20859,32 @@ static PyObject *__pyx_pf_7PyTorch_11_LongTensor_18__repr__(struct __pyx_obj_7Py
  *         if dims == 0:
  *             return '[torch.LongTensor with no dimension]\n'
  *         elif dims == 2:             # <<<<<<<<<<<<<<
- *             size0 = THLongTensor_size(self.thLongTensor, 0)
- *             size1 = THLongTensor_size(self.thLongTensor, 1)
+ *             size0 = THLongTensor_size(self.native, 0)
+ *             size1 = THLongTensor_size(self.native, 1)
  */
     case 2:
 
     /* "PyTorch.pyx":1330
  *             return '[torch.LongTensor with no dimension]\n'
  *         elif dims == 2:
- *             size0 = THLongTensor_size(self.thLongTensor, 0)             # <<<<<<<<<<<<<<
- *             size1 = THLongTensor_size(self.thLongTensor, 1)
+ *             size0 = THLongTensor_size(self.native, 0)             # <<<<<<<<<<<<<<
+ *             size1 = THLongTensor_size(self.native, 1)
  *             res = ''
  */
-    __pyx_v_size0 = THLongTensor_size(__pyx_v_self->thLongTensor, 0);
+    __pyx_v_size0 = THLongTensor_size(__pyx_v_self->native, 0);
 
     /* "PyTorch.pyx":1331
  *         elif dims == 2:
- *             size0 = THLongTensor_size(self.thLongTensor, 0)
- *             size1 = THLongTensor_size(self.thLongTensor, 1)             # <<<<<<<<<<<<<<
+ *             size0 = THLongTensor_size(self.native, 0)
+ *             size1 = THLongTensor_size(self.native, 1)             # <<<<<<<<<<<<<<
  *             res = ''
  *             for r in range(size0):
  */
-    __pyx_v_size1 = THLongTensor_size(__pyx_v_self->thLongTensor, 1);
+    __pyx_v_size1 = THLongTensor_size(__pyx_v_self->native, 1);
 
     /* "PyTorch.pyx":1332
- *             size0 = THLongTensor_size(self.thLongTensor, 0)
- *             size1 = THLongTensor_size(self.thLongTensor, 1)
+ *             size0 = THLongTensor_size(self.native, 0)
+ *             size1 = THLongTensor_size(self.native, 1)
  *             res = ''             # <<<<<<<<<<<<<<
  *             for r in range(size0):
  *                 thisline = ''
@@ -20893,7 +20893,7 @@ static PyObject *__pyx_pf_7PyTorch_11_LongTensor_18__repr__(struct __pyx_obj_7Py
     __pyx_v_res = __pyx_kp_s__3;
 
     /* "PyTorch.pyx":1333
- *             size1 = THLongTensor_size(self.thLongTensor, 1)
+ *             size1 = THLongTensor_size(self.native, 1)
  *             res = ''
  *             for r in range(size0):             # <<<<<<<<<<<<<<
  *                 thisline = ''
@@ -21035,7 +21035,7 @@ static PyObject *__pyx_pf_7PyTorch_11_LongTensor_18__repr__(struct __pyx_obj_7Py
  *             res += '[torch.LongTensor of size ' + ('%.0f' % size0) + 'x' + str(size1) + ']\n'
  *             return res             # <<<<<<<<<<<<<<
  *         elif dims == 1:
- *             size0 = THLongTensor_size(self.thLongTensor, 0)
+ *             size0 = THLongTensor_size(self.native, 0)
  */
     __Pyx_XDECREF(__pyx_r);
     __Pyx_INCREF(__pyx_v_res);
@@ -21047,7 +21047,7 @@ static PyObject *__pyx_pf_7PyTorch_11_LongTensor_18__repr__(struct __pyx_obj_7Py
  *             res += '[torch.LongTensor of size ' + ('%.0f' % size0) + 'x' + str(size1) + ']\n'
  *             return res
  *         elif dims == 1:             # <<<<<<<<<<<<<<
- *             size0 = THLongTensor_size(self.thLongTensor, 0)
+ *             size0 = THLongTensor_size(self.native, 0)
  *             res = ''
  */
     case 1:
@@ -21055,15 +21055,15 @@ static PyObject *__pyx_pf_7PyTorch_11_LongTensor_18__repr__(struct __pyx_obj_7Py
     /* "PyTorch.pyx":1345
  *             return res
  *         elif dims == 1:
- *             size0 = THLongTensor_size(self.thLongTensor, 0)             # <<<<<<<<<<<<<<
+ *             size0 = THLongTensor_size(self.native, 0)             # <<<<<<<<<<<<<<
  *             res = ''
  *             thisline = ''
  */
-    __pyx_v_size0 = THLongTensor_size(__pyx_v_self->thLongTensor, 0);
+    __pyx_v_size0 = THLongTensor_size(__pyx_v_self->native, 0);
 
     /* "PyTorch.pyx":1346
  *         elif dims == 1:
- *             size0 = THLongTensor_size(self.thLongTensor, 0)
+ *             size0 = THLongTensor_size(self.native, 0)
  *             res = ''             # <<<<<<<<<<<<<<
  *             thisline = ''
  *             for c in range(size0):
@@ -21072,7 +21072,7 @@ static PyObject *__pyx_pf_7PyTorch_11_LongTensor_18__repr__(struct __pyx_obj_7Py
     __pyx_v_res = __pyx_kp_s__3;
 
     /* "PyTorch.pyx":1347
- *             size0 = THLongTensor_size(self.thLongTensor, 0)
+ *             size0 = THLongTensor_size(self.native, 0)
  *             res = ''
  *             thisline = ''             # <<<<<<<<<<<<<<
  *             for c in range(size0):
@@ -21215,7 +21215,7 @@ static PyObject *__pyx_pf_7PyTorch_11_LongTensor_18__repr__(struct __pyx_obj_7Py
   }
 
   /* "PyTorch.pyx":1322
- *         return THLongTensor_get2d(self.thLongTensor, x0, x1)
+ *         return THLongTensor_get2d(self.native, x0, x1)
  * 
  *     def __repr__(_LongTensor self):             # <<<<<<<<<<<<<<
  *         # assume 2d matrix for now
@@ -21288,7 +21288,7 @@ static PyObject *__pyx_pf_7PyTorch_11_LongTensor_20__getitem__(struct __pyx_obj_
  *     def __getitem__(_LongTensor self, int index):
  *         if self.dims() == 1:             # <<<<<<<<<<<<<<
  *             return self.get1d(index)
- *         cdef THLongTensor *res = THLongTensor_newSelect(self.thLongTensor, 0, index)
+ *         cdef THLongTensor *res = THLongTensor_newSelect(self.native, 0, index)
  */
   __pyx_t_1 = ((((struct __pyx_vtabstruct_7PyTorch__LongTensor *)__pyx_v_self->__pyx_vtab)->dims(__pyx_v_self, 0) == 1) != 0);
   if (__pyx_t_1) {
@@ -21297,7 +21297,7 @@ static PyObject *__pyx_pf_7PyTorch_11_LongTensor_20__getitem__(struct __pyx_obj_
  *     def __getitem__(_LongTensor self, int index):
  *         if self.dims() == 1:
  *             return self.get1d(index)             # <<<<<<<<<<<<<<
- *         cdef THLongTensor *res = THLongTensor_newSelect(self.thLongTensor, 0, index)
+ *         cdef THLongTensor *res = THLongTensor_newSelect(self.native, 0, index)
  *         return _LongTensor_fromNative(res, False)
  */
     __Pyx_XDECREF(__pyx_r);
@@ -21311,15 +21311,15 @@ static PyObject *__pyx_pf_7PyTorch_11_LongTensor_20__getitem__(struct __pyx_obj_
   /* "PyTorch.pyx":1363
  *         if self.dims() == 1:
  *             return self.get1d(index)
- *         cdef THLongTensor *res = THLongTensor_newSelect(self.thLongTensor, 0, index)             # <<<<<<<<<<<<<<
+ *         cdef THLongTensor *res = THLongTensor_newSelect(self.native, 0, index)             # <<<<<<<<<<<<<<
  *         return _LongTensor_fromNative(res, False)
  * 
  */
-  __pyx_v_res = THLongTensor_newSelect(__pyx_v_self->thLongTensor, 0, __pyx_v_index);
+  __pyx_v_res = THLongTensor_newSelect(__pyx_v_self->native, 0, __pyx_v_index);
 
   /* "PyTorch.pyx":1364
  *             return self.get1d(index)
- *         cdef THLongTensor *res = THLongTensor_newSelect(self.thLongTensor, 0, index)
+ *         cdef THLongTensor *res = THLongTensor_newSelect(self.native, 0, index)
  *         return _LongTensor_fromNative(res, False)             # <<<<<<<<<<<<<<
  * 
  *     def __setitem__(_LongTensor self, int index, long value):
@@ -21463,7 +21463,7 @@ static int __pyx_pf_7PyTorch_11_LongTensor_22__setitem__(struct __pyx_obj_7PyTor
  *             raise Exception("not implemented")
  * 
  *     def fill(_LongTensor self, long value):             # <<<<<<<<<<<<<<
- *         THLongTensor_fill(self.thLongTensor, value)
+ *         THLongTensor_fill(self.native, value)
  *         return self
  */
 
@@ -21501,15 +21501,15 @@ static PyObject *__pyx_pf_7PyTorch_11_LongTensor_24fill(struct __pyx_obj_7PyTorc
   /* "PyTorch.pyx":1373
  * 
  *     def fill(_LongTensor self, long value):
- *         THLongTensor_fill(self.thLongTensor, value)             # <<<<<<<<<<<<<<
+ *         THLongTensor_fill(self.native, value)             # <<<<<<<<<<<<<<
  *         return self
  * 
  */
-  THLongTensor_fill(__pyx_v_self->thLongTensor, __pyx_v_value);
+  THLongTensor_fill(__pyx_v_self->native, __pyx_v_value);
 
   /* "PyTorch.pyx":1374
  *     def fill(_LongTensor self, long value):
- *         THLongTensor_fill(self.thLongTensor, value)
+ *         THLongTensor_fill(self.native, value)
  *         return self             # <<<<<<<<<<<<<<
  * 
  *     def size(_LongTensor self):
@@ -21523,7 +21523,7 @@ static PyObject *__pyx_pf_7PyTorch_11_LongTensor_24fill(struct __pyx_obj_7PyTorc
  *             raise Exception("not implemented")
  * 
  *     def fill(_LongTensor self, long value):             # <<<<<<<<<<<<<<
- *         THLongTensor_fill(self.thLongTensor, value)
+ *         THLongTensor_fill(self.native, value)
  *         return self
  */
 
@@ -21595,7 +21595,7 @@ static PyObject *__pyx_pf_7PyTorch_11_LongTensor_26size(struct __pyx_obj_7PyTorc
  *         if dims > 0:
  *             size = _LongTensor(dims)             # <<<<<<<<<<<<<<
  *             for d in range(dims):
- *                 size.set1d(d, THLongTensor_size(self.thLongTensor, d))
+ *                 size.set1d(d, THLongTensor_size(self.native, d))
  */
     __pyx_t_2 = __Pyx_PyInt_From_int(__pyx_v_dims); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1380; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
     __Pyx_GOTREF(__pyx_t_2);
@@ -21614,7 +21614,7 @@ static PyObject *__pyx_pf_7PyTorch_11_LongTensor_26size(struct __pyx_obj_7PyTorc
  *         if dims > 0:
  *             size = _LongTensor(dims)
  *             for d in range(dims):             # <<<<<<<<<<<<<<
- *                 size.set1d(d, THLongTensor_size(self.thLongTensor, d))
+ *                 size.set1d(d, THLongTensor_size(self.native, d))
  *             return size
  */
     __pyx_t_4 = __pyx_v_dims;
@@ -21624,18 +21624,18 @@ static PyObject *__pyx_pf_7PyTorch_11_LongTensor_26size(struct __pyx_obj_7PyTorc
       /* "PyTorch.pyx":1382
  *             size = _LongTensor(dims)
  *             for d in range(dims):
- *                 size.set1d(d, THLongTensor_size(self.thLongTensor, d))             # <<<<<<<<<<<<<<
+ *                 size.set1d(d, THLongTensor_size(self.native, d))             # <<<<<<<<<<<<<<
  *             return size
  *         else:
  */
-      __pyx_t_2 = ((struct __pyx_vtabstruct_7PyTorch__LongTensor *)__pyx_v_size->__pyx_vtab)->set1d(__pyx_v_size, __pyx_v_d, THLongTensor_size(__pyx_v_self->thLongTensor, __pyx_v_d), 0); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1382; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+      __pyx_t_2 = ((struct __pyx_vtabstruct_7PyTorch__LongTensor *)__pyx_v_size->__pyx_vtab)->set1d(__pyx_v_size, __pyx_v_d, THLongTensor_size(__pyx_v_self->native, __pyx_v_d), 0); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1382; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
       __Pyx_GOTREF(__pyx_t_2);
       __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
     }
 
     /* "PyTorch.pyx":1383
  *             for d in range(dims):
- *                 size.set1d(d, THLongTensor_size(self.thLongTensor, d))
+ *                 size.set1d(d, THLongTensor_size(self.native, d))
  *             return size             # <<<<<<<<<<<<<<
  *         else:
  *             return None  # not sure how to handle this yet
@@ -21752,7 +21752,7 @@ static PyObject *__pyx_pf_7PyTorch_11_LongTensor_28new() {
  * #        return _FloatTensor_fromNative(newTensorC, False)
  * 
  *     def narrow(_LongTensor self, int dimension, long firstIndex, long size):             # <<<<<<<<<<<<<<
- *         cdef THLongTensor *narrowedC = THLongTensor_newNarrow(self.thLongTensor, dimension, firstIndex, size)
+ *         cdef THLongTensor *narrowedC = THLongTensor_newNarrow(self.native, dimension, firstIndex, size)
  *         return _LongTensor_fromNative(narrowedC, retain=False)
  */
 
@@ -21840,15 +21840,15 @@ static PyObject *__pyx_pf_7PyTorch_11_LongTensor_30narrow(struct __pyx_obj_7PyTo
   /* "PyTorch.pyx":1394
  * 
  *     def narrow(_LongTensor self, int dimension, long firstIndex, long size):
- *         cdef THLongTensor *narrowedC = THLongTensor_newNarrow(self.thLongTensor, dimension, firstIndex, size)             # <<<<<<<<<<<<<<
+ *         cdef THLongTensor *narrowedC = THLongTensor_newNarrow(self.native, dimension, firstIndex, size)             # <<<<<<<<<<<<<<
  *         return _LongTensor_fromNative(narrowedC, retain=False)
  * 
  */
-  __pyx_v_narrowedC = THLongTensor_newNarrow(__pyx_v_self->thLongTensor, __pyx_v_dimension, __pyx_v_firstIndex, __pyx_v_size);
+  __pyx_v_narrowedC = THLongTensor_newNarrow(__pyx_v_self->native, __pyx_v_dimension, __pyx_v_firstIndex, __pyx_v_size);
 
   /* "PyTorch.pyx":1395
  *     def narrow(_LongTensor self, int dimension, long firstIndex, long size):
- *         cdef THLongTensor *narrowedC = THLongTensor_newNarrow(self.thLongTensor, dimension, firstIndex, size)
+ *         cdef THLongTensor *narrowedC = THLongTensor_newNarrow(self.native, dimension, firstIndex, size)
  *         return _LongTensor_fromNative(narrowedC, retain=False)             # <<<<<<<<<<<<<<
  * 
  *     def resize1d(_LongTensor self, int size0):
@@ -21866,7 +21866,7 @@ static PyObject *__pyx_pf_7PyTorch_11_LongTensor_30narrow(struct __pyx_obj_7PyTo
  * #        return _FloatTensor_fromNative(newTensorC, False)
  * 
  *     def narrow(_LongTensor self, int dimension, long firstIndex, long size):             # <<<<<<<<<<<<<<
- *         cdef THLongTensor *narrowedC = THLongTensor_newNarrow(self.thLongTensor, dimension, firstIndex, size)
+ *         cdef THLongTensor *narrowedC = THLongTensor_newNarrow(self.native, dimension, firstIndex, size)
  *         return _LongTensor_fromNative(narrowedC, retain=False)
  */
 
@@ -21885,7 +21885,7 @@ static PyObject *__pyx_pf_7PyTorch_11_LongTensor_30narrow(struct __pyx_obj_7PyTo
  *         return _LongTensor_fromNative(narrowedC, retain=False)
  * 
  *     def resize1d(_LongTensor self, int size0):             # <<<<<<<<<<<<<<
- *         THLongTensor_resize1d(self.thLongTensor, size0)
+ *         THLongTensor_resize1d(self.native, size0)
  *         return self
  */
 
@@ -21923,15 +21923,15 @@ static PyObject *__pyx_pf_7PyTorch_11_LongTensor_32resize1d(struct __pyx_obj_7Py
   /* "PyTorch.pyx":1398
  * 
  *     def resize1d(_LongTensor self, int size0):
- *         THLongTensor_resize1d(self.thLongTensor, size0)             # <<<<<<<<<<<<<<
+ *         THLongTensor_resize1d(self.native, size0)             # <<<<<<<<<<<<<<
  *         return self
  * 
  */
-  THLongTensor_resize1d(__pyx_v_self->thLongTensor, __pyx_v_size0);
+  THLongTensor_resize1d(__pyx_v_self->native, __pyx_v_size0);
 
   /* "PyTorch.pyx":1399
  *     def resize1d(_LongTensor self, int size0):
- *         THLongTensor_resize1d(self.thLongTensor, size0)
+ *         THLongTensor_resize1d(self.native, size0)
  *         return self             # <<<<<<<<<<<<<<
  * 
  *     def resize2d(_LongTensor self, int size0, int size1):
@@ -21945,7 +21945,7 @@ static PyObject *__pyx_pf_7PyTorch_11_LongTensor_32resize1d(struct __pyx_obj_7Py
  *         return _LongTensor_fromNative(narrowedC, retain=False)
  * 
  *     def resize1d(_LongTensor self, int size0):             # <<<<<<<<<<<<<<
- *         THLongTensor_resize1d(self.thLongTensor, size0)
+ *         THLongTensor_resize1d(self.native, size0)
  *         return self
  */
 
@@ -21960,7 +21960,7 @@ static PyObject *__pyx_pf_7PyTorch_11_LongTensor_32resize1d(struct __pyx_obj_7Py
  *         return self
  * 
  *     def resize2d(_LongTensor self, int size0, int size1):             # <<<<<<<<<<<<<<
- *         THLongTensor_resize2d(self.thLongTensor, size0, size1)
+ *         THLongTensor_resize2d(self.native, size0, size1)
  *         return self
  */
 
@@ -22033,15 +22033,15 @@ static PyObject *__pyx_pf_7PyTorch_11_LongTensor_34resize2d(struct __pyx_obj_7Py
   /* "PyTorch.pyx":1402
  * 
  *     def resize2d(_LongTensor self, int size0, int size1):
- *         THLongTensor_resize2d(self.thLongTensor, size0, size1)             # <<<<<<<<<<<<<<
+ *         THLongTensor_resize2d(self.native, size0, size1)             # <<<<<<<<<<<<<<
  *         return self
  * 
  */
-  THLongTensor_resize2d(__pyx_v_self->thLongTensor, __pyx_v_size0, __pyx_v_size1);
+  THLongTensor_resize2d(__pyx_v_self->native, __pyx_v_size0, __pyx_v_size1);
 
   /* "PyTorch.pyx":1403
  *     def resize2d(_LongTensor self, int size0, int size1):
- *         THLongTensor_resize2d(self.thLongTensor, size0, size1)
+ *         THLongTensor_resize2d(self.native, size0, size1)
  *         return self             # <<<<<<<<<<<<<<
  * 
  *     def resize3d(_LongTensor self, int size0, int size1, int size2):
@@ -22055,7 +22055,7 @@ static PyObject *__pyx_pf_7PyTorch_11_LongTensor_34resize2d(struct __pyx_obj_7Py
  *         return self
  * 
  *     def resize2d(_LongTensor self, int size0, int size1):             # <<<<<<<<<<<<<<
- *         THLongTensor_resize2d(self.thLongTensor, size0, size1)
+ *         THLongTensor_resize2d(self.native, size0, size1)
  *         return self
  */
 
@@ -22070,7 +22070,7 @@ static PyObject *__pyx_pf_7PyTorch_11_LongTensor_34resize2d(struct __pyx_obj_7Py
  *         return self
  * 
  *     def resize3d(_LongTensor self, int size0, int size1, int size2):             # <<<<<<<<<<<<<<
- *         THLongTensor_resize3d(self.thLongTensor, size0, size1, size2)
+ *         THLongTensor_resize3d(self.native, size0, size1, size2)
  *         return self
  */
 
@@ -22152,15 +22152,15 @@ static PyObject *__pyx_pf_7PyTorch_11_LongTensor_36resize3d(struct __pyx_obj_7Py
   /* "PyTorch.pyx":1406
  * 
  *     def resize3d(_LongTensor self, int size0, int size1, int size2):
- *         THLongTensor_resize3d(self.thLongTensor, size0, size1, size2)             # <<<<<<<<<<<<<<
+ *         THLongTensor_resize3d(self.native, size0, size1, size2)             # <<<<<<<<<<<<<<
  *         return self
  * 
  */
-  THLongTensor_resize3d(__pyx_v_self->thLongTensor, __pyx_v_size0, __pyx_v_size1, __pyx_v_size2);
+  THLongTensor_resize3d(__pyx_v_self->native, __pyx_v_size0, __pyx_v_size1, __pyx_v_size2);
 
   /* "PyTorch.pyx":1407
  *     def resize3d(_LongTensor self, int size0, int size1, int size2):
- *         THLongTensor_resize3d(self.thLongTensor, size0, size1, size2)
+ *         THLongTensor_resize3d(self.native, size0, size1, size2)
  *         return self             # <<<<<<<<<<<<<<
  * 
  *     def resize4d(_LongTensor self, int size0, int size1, int size2, int size3):
@@ -22174,7 +22174,7 @@ static PyObject *__pyx_pf_7PyTorch_11_LongTensor_36resize3d(struct __pyx_obj_7Py
  *         return self
  * 
  *     def resize3d(_LongTensor self, int size0, int size1, int size2):             # <<<<<<<<<<<<<<
- *         THLongTensor_resize3d(self.thLongTensor, size0, size1, size2)
+ *         THLongTensor_resize3d(self.native, size0, size1, size2)
  *         return self
  */
 
@@ -22189,7 +22189,7 @@ static PyObject *__pyx_pf_7PyTorch_11_LongTensor_36resize3d(struct __pyx_obj_7Py
  *         return self
  * 
  *     def resize4d(_LongTensor self, int size0, int size1, int size2, int size3):             # <<<<<<<<<<<<<<
- *         THLongTensor_resize4d(self.thLongTensor, size0, size1, size2, size3)
+ *         THLongTensor_resize4d(self.native, size0, size1, size2, size3)
  *         return self
  */
 
@@ -22280,15 +22280,15 @@ static PyObject *__pyx_pf_7PyTorch_11_LongTensor_38resize4d(struct __pyx_obj_7Py
   /* "PyTorch.pyx":1410
  * 
  *     def resize4d(_LongTensor self, int size0, int size1, int size2, int size3):
- *         THLongTensor_resize4d(self.thLongTensor, size0, size1, size2, size3)             # <<<<<<<<<<<<<<
+ *         THLongTensor_resize4d(self.native, size0, size1, size2, size3)             # <<<<<<<<<<<<<<
  *         return self
  * 
  */
-  THLongTensor_resize4d(__pyx_v_self->thLongTensor, __pyx_v_size0, __pyx_v_size1, __pyx_v_size2, __pyx_v_size3);
+  THLongTensor_resize4d(__pyx_v_self->native, __pyx_v_size0, __pyx_v_size1, __pyx_v_size2, __pyx_v_size3);
 
   /* "PyTorch.pyx":1411
  *     def resize4d(_LongTensor self, int size0, int size1, int size2, int size3):
- *         THLongTensor_resize4d(self.thLongTensor, size0, size1, size2, size3)
+ *         THLongTensor_resize4d(self.native, size0, size1, size2, size3)
  *         return self             # <<<<<<<<<<<<<<
  * 
  *     def resizeAs(_LongTensor self, _LongTensor model):
@@ -22302,7 +22302,7 @@ static PyObject *__pyx_pf_7PyTorch_11_LongTensor_38resize4d(struct __pyx_obj_7Py
  *         return self
  * 
  *     def resize4d(_LongTensor self, int size0, int size1, int size2, int size3):             # <<<<<<<<<<<<<<
- *         THLongTensor_resize4d(self.thLongTensor, size0, size1, size2, size3)
+ *         THLongTensor_resize4d(self.native, size0, size1, size2, size3)
  *         return self
  */
 
@@ -22317,7 +22317,7 @@ static PyObject *__pyx_pf_7PyTorch_11_LongTensor_38resize4d(struct __pyx_obj_7Py
  *         return self
  * 
  *     def resizeAs(_LongTensor self, _LongTensor model):             # <<<<<<<<<<<<<<
- *         THLongTensor_resizeAs(self.thLongTensor, model.thLongTensor)
+ *         THLongTensor_resizeAs(self.native, model.native)
  *         return self
  */
 
@@ -22350,15 +22350,15 @@ static PyObject *__pyx_pf_7PyTorch_11_LongTensor_40resizeAs(struct __pyx_obj_7Py
   /* "PyTorch.pyx":1414
  * 
  *     def resizeAs(_LongTensor self, _LongTensor model):
- *         THLongTensor_resizeAs(self.thLongTensor, model.thLongTensor)             # <<<<<<<<<<<<<<
+ *         THLongTensor_resizeAs(self.native, model.native)             # <<<<<<<<<<<<<<
  *         return self
  * 
  */
-  THLongTensor_resizeAs(__pyx_v_self->thLongTensor, __pyx_v_model->thLongTensor);
+  THLongTensor_resizeAs(__pyx_v_self->native, __pyx_v_model->native);
 
   /* "PyTorch.pyx":1415
  *     def resizeAs(_LongTensor self, _LongTensor model):
- *         THLongTensor_resizeAs(self.thLongTensor, model.thLongTensor)
+ *         THLongTensor_resizeAs(self.native, model.native)
  *         return self             # <<<<<<<<<<<<<<
  * 
  *     def resize(_LongTensor self, _LongTensor size):
@@ -22372,7 +22372,7 @@ static PyObject *__pyx_pf_7PyTorch_11_LongTensor_40resizeAs(struct __pyx_obj_7Py
  *         return self
  * 
  *     def resizeAs(_LongTensor self, _LongTensor model):             # <<<<<<<<<<<<<<
- *         THLongTensor_resizeAs(self.thLongTensor, model.thLongTensor)
+ *         THLongTensor_resizeAs(self.native, model.native)
  *         return self
  */
 
@@ -22489,9 +22489,9 @@ static PyObject *__pyx_pf_7PyTorch_11_LongTensor_42resize(struct __pyx_obj_7PyTo
 
   /* "PyTorch.pyx":1429
  *         elif dims == 3:
- *             THLongTensor_resize3d(self.thLongTensor, size[0], size[1], size[2])
+ *             THLongTensor_resize3d(self.native, size[0], size[1], size[2])
  *         elif dims == 4:             # <<<<<<<<<<<<<<
- *             THLongTensor_resize4d(self.thLongTensor, size[0], size[1], size[2], size[3])
+ *             THLongTensor_resize4d(self.native, size[0], size[1], size[2], size[3])
  *         else:
  */
   switch (__pyx_v_dims) {
@@ -22500,7 +22500,7 @@ static PyObject *__pyx_pf_7PyTorch_11_LongTensor_42resize(struct __pyx_obj_7PyTo
  *         cdef int dims = size.size()[0]
  * #        print('_FloatTensor.resize dims:', dims)
  *         if dims == 1:             # <<<<<<<<<<<<<<
- *             THLongTensor_resize1d(self.thLongTensor, size[0])
+ *             THLongTensor_resize1d(self.native, size[0])
  *         elif dims == 2:
  */
     case 1:
@@ -22508,32 +22508,32 @@ static PyObject *__pyx_pf_7PyTorch_11_LongTensor_42resize(struct __pyx_obj_7PyTo
     /* "PyTorch.pyx":1424
  * #        print('_FloatTensor.resize dims:', dims)
  *         if dims == 1:
- *             THLongTensor_resize1d(self.thLongTensor, size[0])             # <<<<<<<<<<<<<<
+ *             THLongTensor_resize1d(self.native, size[0])             # <<<<<<<<<<<<<<
  *         elif dims == 2:
- *             THLongTensor_resize2d(self.thLongTensor, size[0], size[1])
+ *             THLongTensor_resize2d(self.native, size[0], size[1])
  */
     __pyx_t_3 = __Pyx_GetItemInt(((PyObject *)__pyx_v_size), 0, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(__pyx_t_3 == NULL)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1424; __pyx_clineno = __LINE__; goto __pyx_L1_error;};
     __Pyx_GOTREF(__pyx_t_3);
     __pyx_t_6 = __Pyx_PyInt_As_long(__pyx_t_3); if (unlikely((__pyx_t_6 == (long)-1) && PyErr_Occurred())) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1424; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
     __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-    THLongTensor_resize1d(__pyx_v_self->thLongTensor, __pyx_t_6);
+    THLongTensor_resize1d(__pyx_v_self->native, __pyx_t_6);
     break;
 
     /* "PyTorch.pyx":1425
  *         if dims == 1:
- *             THLongTensor_resize1d(self.thLongTensor, size[0])
+ *             THLongTensor_resize1d(self.native, size[0])
  *         elif dims == 2:             # <<<<<<<<<<<<<<
- *             THLongTensor_resize2d(self.thLongTensor, size[0], size[1])
+ *             THLongTensor_resize2d(self.native, size[0], size[1])
  *         elif dims == 3:
  */
     case 2:
 
     /* "PyTorch.pyx":1426
- *             THLongTensor_resize1d(self.thLongTensor, size[0])
+ *             THLongTensor_resize1d(self.native, size[0])
  *         elif dims == 2:
- *             THLongTensor_resize2d(self.thLongTensor, size[0], size[1])             # <<<<<<<<<<<<<<
+ *             THLongTensor_resize2d(self.native, size[0], size[1])             # <<<<<<<<<<<<<<
  *         elif dims == 3:
- *             THLongTensor_resize3d(self.thLongTensor, size[0], size[1], size[2])
+ *             THLongTensor_resize3d(self.native, size[0], size[1], size[2])
  */
     __pyx_t_3 = __Pyx_GetItemInt(((PyObject *)__pyx_v_size), 0, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(__pyx_t_3 == NULL)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1426; __pyx_clineno = __LINE__; goto __pyx_L1_error;};
     __Pyx_GOTREF(__pyx_t_3);
@@ -22543,24 +22543,24 @@ static PyObject *__pyx_pf_7PyTorch_11_LongTensor_42resize(struct __pyx_obj_7PyTo
     __Pyx_GOTREF(__pyx_t_3);
     __pyx_t_7 = __Pyx_PyInt_As_long(__pyx_t_3); if (unlikely((__pyx_t_7 == (long)-1) && PyErr_Occurred())) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1426; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
     __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-    THLongTensor_resize2d(__pyx_v_self->thLongTensor, __pyx_t_6, __pyx_t_7);
+    THLongTensor_resize2d(__pyx_v_self->native, __pyx_t_6, __pyx_t_7);
     break;
 
     /* "PyTorch.pyx":1427
  *         elif dims == 2:
- *             THLongTensor_resize2d(self.thLongTensor, size[0], size[1])
+ *             THLongTensor_resize2d(self.native, size[0], size[1])
  *         elif dims == 3:             # <<<<<<<<<<<<<<
- *             THLongTensor_resize3d(self.thLongTensor, size[0], size[1], size[2])
+ *             THLongTensor_resize3d(self.native, size[0], size[1], size[2])
  *         elif dims == 4:
  */
     case 3:
 
     /* "PyTorch.pyx":1428
- *             THLongTensor_resize2d(self.thLongTensor, size[0], size[1])
+ *             THLongTensor_resize2d(self.native, size[0], size[1])
  *         elif dims == 3:
- *             THLongTensor_resize3d(self.thLongTensor, size[0], size[1], size[2])             # <<<<<<<<<<<<<<
+ *             THLongTensor_resize3d(self.native, size[0], size[1], size[2])             # <<<<<<<<<<<<<<
  *         elif dims == 4:
- *             THLongTensor_resize4d(self.thLongTensor, size[0], size[1], size[2], size[3])
+ *             THLongTensor_resize4d(self.native, size[0], size[1], size[2], size[3])
  */
     __pyx_t_3 = __Pyx_GetItemInt(((PyObject *)__pyx_v_size), 0, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(__pyx_t_3 == NULL)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1428; __pyx_clineno = __LINE__; goto __pyx_L1_error;};
     __Pyx_GOTREF(__pyx_t_3);
@@ -22574,22 +22574,22 @@ static PyObject *__pyx_pf_7PyTorch_11_LongTensor_42resize(struct __pyx_obj_7PyTo
     __Pyx_GOTREF(__pyx_t_3);
     __pyx_t_8 = __Pyx_PyInt_As_long(__pyx_t_3); if (unlikely((__pyx_t_8 == (long)-1) && PyErr_Occurred())) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1428; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
     __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-    THLongTensor_resize3d(__pyx_v_self->thLongTensor, __pyx_t_7, __pyx_t_6, __pyx_t_8);
+    THLongTensor_resize3d(__pyx_v_self->native, __pyx_t_7, __pyx_t_6, __pyx_t_8);
     break;
 
     /* "PyTorch.pyx":1429
  *         elif dims == 3:
- *             THLongTensor_resize3d(self.thLongTensor, size[0], size[1], size[2])
+ *             THLongTensor_resize3d(self.native, size[0], size[1], size[2])
  *         elif dims == 4:             # <<<<<<<<<<<<<<
- *             THLongTensor_resize4d(self.thLongTensor, size[0], size[1], size[2], size[3])
+ *             THLongTensor_resize4d(self.native, size[0], size[1], size[2], size[3])
  *         else:
  */
     case 4:
 
     /* "PyTorch.pyx":1430
- *             THLongTensor_resize3d(self.thLongTensor, size[0], size[1], size[2])
+ *             THLongTensor_resize3d(self.native, size[0], size[1], size[2])
  *         elif dims == 4:
- *             THLongTensor_resize4d(self.thLongTensor, size[0], size[1], size[2], size[3])             # <<<<<<<<<<<<<<
+ *             THLongTensor_resize4d(self.native, size[0], size[1], size[2], size[3])             # <<<<<<<<<<<<<<
  *         else:
  *             raise Exception('Not implemented for dims=' + str(dims))
  */
@@ -22609,12 +22609,12 @@ static PyObject *__pyx_pf_7PyTorch_11_LongTensor_42resize(struct __pyx_obj_7PyTo
     __Pyx_GOTREF(__pyx_t_3);
     __pyx_t_9 = __Pyx_PyInt_As_long(__pyx_t_3); if (unlikely((__pyx_t_9 == (long)-1) && PyErr_Occurred())) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1430; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
     __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-    THLongTensor_resize4d(__pyx_v_self->thLongTensor, __pyx_t_8, __pyx_t_6, __pyx_t_7, __pyx_t_9);
+    THLongTensor_resize4d(__pyx_v_self->native, __pyx_t_8, __pyx_t_6, __pyx_t_7, __pyx_t_9);
     break;
     default:
 
     /* "PyTorch.pyx":1432
- *             THLongTensor_resize4d(self.thLongTensor, size[0], size[1], size[2], size[3])
+ *             THLongTensor_resize4d(self.native, size[0], size[1], size[2], size[3])
  *         else:
  *             raise Exception('Not implemented for dims=' + str(dims))             # <<<<<<<<<<<<<<
  *         return self
@@ -23014,7 +23014,7 @@ static PyObject *__pyx_pf_7PyTorch_11_LongTensor_46newWithStorage2d(struct __pyx
  *         return _LongTensor_fromNative(newTensorC, False)
  * 
  *     def storage(_LongTensor self):             # <<<<<<<<<<<<<<
- *         cdef Storage.THLongStorage *storageC = THLongTensor_storage(self.thLongTensor)
+ *         cdef Storage.THLongStorage *storageC = THLongTensor_storage(self.native)
  *         if storageC == NULL:
  */
 
@@ -23045,15 +23045,15 @@ static PyObject *__pyx_pf_7PyTorch_11_LongTensor_48storage(struct __pyx_obj_7PyT
   /* "PyTorch.pyx":1448
  * 
  *     def storage(_LongTensor self):
- *         cdef Storage.THLongStorage *storageC = THLongTensor_storage(self.thLongTensor)             # <<<<<<<<<<<<<<
+ *         cdef Storage.THLongStorage *storageC = THLongTensor_storage(self.native)             # <<<<<<<<<<<<<<
  *         if storageC == NULL:
  *             return None
  */
-  __pyx_v_storageC = THLongTensor_storage(__pyx_v_self->thLongTensor);
+  __pyx_v_storageC = THLongTensor_storage(__pyx_v_self->native);
 
   /* "PyTorch.pyx":1449
  *     def storage(_LongTensor self):
- *         cdef Storage.THLongStorage *storageC = THLongTensor_storage(self.thLongTensor)
+ *         cdef Storage.THLongStorage *storageC = THLongTensor_storage(self.native)
  *         if storageC == NULL:             # <<<<<<<<<<<<<<
  *             return None
  *         return Storage.LongStorage_fromNative(storageC)
@@ -23062,7 +23062,7 @@ static PyObject *__pyx_pf_7PyTorch_11_LongTensor_48storage(struct __pyx_obj_7PyT
   if (__pyx_t_1) {
 
     /* "PyTorch.pyx":1450
- *         cdef Storage.THLongStorage *storageC = THLongTensor_storage(self.thLongTensor)
+ *         cdef Storage.THLongStorage *storageC = THLongTensor_storage(self.native)
  *         if storageC == NULL:
  *             return None             # <<<<<<<<<<<<<<
  *         return Storage.LongStorage_fromNative(storageC)
@@ -23092,7 +23092,7 @@ static PyObject *__pyx_pf_7PyTorch_11_LongTensor_48storage(struct __pyx_obj_7PyT
  *         return _LongTensor_fromNative(newTensorC, False)
  * 
  *     def storage(_LongTensor self):             # <<<<<<<<<<<<<<
- *         cdef Storage.THLongStorage *storageC = THLongTensor_storage(self.thLongTensor)
+ *         cdef Storage.THLongStorage *storageC = THLongTensor_storage(self.native)
  *         if storageC == NULL:
  */
 
@@ -23187,7 +23187,7 @@ static PyObject *__pyx_pf_7PyTorch_11_LongTensor_50__add__(struct __pyx_obj_7PyT
  *         cdef _LongTensor res = _LongTensor.new()
  *         cdef _LongTensor secondTensor
  *         if isinstance(second, numbers.Number):             # <<<<<<<<<<<<<<
- *             THLongTensor_add(res.thLongTensor, self.thLongTensor, second)
+ *             THLongTensor_add(res.native, self.native, second)
  *         else:
  */
   __pyx_t_1 = __Pyx_GetModuleGlobalName(__pyx_n_s_numbers); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1457; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
@@ -23203,21 +23203,21 @@ static PyObject *__pyx_pf_7PyTorch_11_LongTensor_50__add__(struct __pyx_obj_7PyT
     /* "PyTorch.pyx":1458
  *         cdef _LongTensor secondTensor
  *         if isinstance(second, numbers.Number):
- *             THLongTensor_add(res.thLongTensor, self.thLongTensor, second)             # <<<<<<<<<<<<<<
+ *             THLongTensor_add(res.native, self.native, second)             # <<<<<<<<<<<<<<
  *         else:
  *             secondTensor = second
  */
     __pyx_t_6 = __Pyx_PyInt_As_long(__pyx_v_second); if (unlikely((__pyx_t_6 == (long)-1) && PyErr_Occurred())) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1458; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-    THLongTensor_add(__pyx_v_res->thLongTensor, __pyx_v_self->thLongTensor, __pyx_t_6);
+    THLongTensor_add(__pyx_v_res->native, __pyx_v_self->native, __pyx_t_6);
     goto __pyx_L3;
   }
   /*else*/ {
 
     /* "PyTorch.pyx":1460
- *             THLongTensor_add(res.thLongTensor, self.thLongTensor, second)
+ *             THLongTensor_add(res.native, self.native, second)
  *         else:
  *             secondTensor = second             # <<<<<<<<<<<<<<
- *             THLongTensor_cadd(res.thLongTensor, self.thLongTensor, 1, secondTensor.thLongTensor)
+ *             THLongTensor_cadd(res.native, self.native, 1, secondTensor.native)
  *         return res
  */
     if (!(likely(((__pyx_v_second) == Py_None) || likely(__Pyx_TypeTest(__pyx_v_second, __pyx_ptype_7PyTorch__LongTensor))))) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1460; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
@@ -23229,17 +23229,17 @@ static PyObject *__pyx_pf_7PyTorch_11_LongTensor_50__add__(struct __pyx_obj_7PyT
     /* "PyTorch.pyx":1461
  *         else:
  *             secondTensor = second
- *             THLongTensor_cadd(res.thLongTensor, self.thLongTensor, 1, secondTensor.thLongTensor)             # <<<<<<<<<<<<<<
+ *             THLongTensor_cadd(res.native, self.native, 1, secondTensor.native)             # <<<<<<<<<<<<<<
  *         return res
  * 
  */
-    THLongTensor_cadd(__pyx_v_res->thLongTensor, __pyx_v_self->thLongTensor, 1, __pyx_v_secondTensor->thLongTensor);
+    THLongTensor_cadd(__pyx_v_res->native, __pyx_v_self->native, 1, __pyx_v_secondTensor->native);
   }
   __pyx_L3:;
 
   /* "PyTorch.pyx":1462
  *             secondTensor = second
- *             THLongTensor_cadd(res.thLongTensor, self.thLongTensor, 1, secondTensor.thLongTensor)
+ *             THLongTensor_cadd(res.native, self.native, 1, secondTensor.native)
  *         return res             # <<<<<<<<<<<<<<
  * 
  *     def __sub__(_LongTensor self, second):
@@ -23352,7 +23352,7 @@ static PyObject *__pyx_pf_7PyTorch_11_LongTensor_52__sub__(struct __pyx_obj_7PyT
  *         cdef _LongTensor res = _LongTensor.new()
  *         cdef _LongTensor secondTensor
  *         if isinstance(second, numbers.Number):             # <<<<<<<<<<<<<<
- *             THLongTensor_add(res.thLongTensor, self.thLongTensor, -second)
+ *             THLongTensor_add(res.native, self.native, -second)
  *         else:
  */
   __pyx_t_1 = __Pyx_GetModuleGlobalName(__pyx_n_s_numbers); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1468; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
@@ -23368,7 +23368,7 @@ static PyObject *__pyx_pf_7PyTorch_11_LongTensor_52__sub__(struct __pyx_obj_7PyT
     /* "PyTorch.pyx":1469
  *         cdef _LongTensor secondTensor
  *         if isinstance(second, numbers.Number):
- *             THLongTensor_add(res.thLongTensor, self.thLongTensor, -second)             # <<<<<<<<<<<<<<
+ *             THLongTensor_add(res.native, self.native, -second)             # <<<<<<<<<<<<<<
  *         else:
  *             secondTensor = second
  */
@@ -23376,16 +23376,16 @@ static PyObject *__pyx_pf_7PyTorch_11_LongTensor_52__sub__(struct __pyx_obj_7PyT
     __Pyx_GOTREF(__pyx_t_2);
     __pyx_t_6 = __Pyx_PyInt_As_long(__pyx_t_2); if (unlikely((__pyx_t_6 == (long)-1) && PyErr_Occurred())) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1469; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
     __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-    THLongTensor_add(__pyx_v_res->thLongTensor, __pyx_v_self->thLongTensor, __pyx_t_6);
+    THLongTensor_add(__pyx_v_res->native, __pyx_v_self->native, __pyx_t_6);
     goto __pyx_L3;
   }
   /*else*/ {
 
     /* "PyTorch.pyx":1471
- *             THLongTensor_add(res.thLongTensor, self.thLongTensor, -second)
+ *             THLongTensor_add(res.native, self.native, -second)
  *         else:
  *             secondTensor = second             # <<<<<<<<<<<<<<
- *             THLongTensor_cadd(res.thLongTensor, self.thLongTensor, -1, secondTensor.thLongTensor)
+ *             THLongTensor_cadd(res.native, self.native, -1, secondTensor.native)
  *         return res
  */
     if (!(likely(((__pyx_v_second) == Py_None) || likely(__Pyx_TypeTest(__pyx_v_second, __pyx_ptype_7PyTorch__LongTensor))))) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1471; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
@@ -23397,17 +23397,17 @@ static PyObject *__pyx_pf_7PyTorch_11_LongTensor_52__sub__(struct __pyx_obj_7PyT
     /* "PyTorch.pyx":1472
  *         else:
  *             secondTensor = second
- *             THLongTensor_cadd(res.thLongTensor, self.thLongTensor, -1, secondTensor.thLongTensor)             # <<<<<<<<<<<<<<
+ *             THLongTensor_cadd(res.native, self.native, -1, secondTensor.native)             # <<<<<<<<<<<<<<
  *         return res
  * 
  */
-    THLongTensor_cadd(__pyx_v_res->thLongTensor, __pyx_v_self->thLongTensor, -1, __pyx_v_secondTensor->thLongTensor);
+    THLongTensor_cadd(__pyx_v_res->native, __pyx_v_self->native, -1, __pyx_v_secondTensor->native);
   }
   __pyx_L3:;
 
   /* "PyTorch.pyx":1473
  *             secondTensor = second
- *             THLongTensor_cadd(res.thLongTensor, self.thLongTensor, -1, secondTensor.thLongTensor)
+ *             THLongTensor_cadd(res.native, self.native, -1, secondTensor.native)
  *         return res             # <<<<<<<<<<<<<<
  * 
  *     def __div__(_LongTensor self, long value):
@@ -23499,7 +23499,7 @@ static PyObject *__pyx_pf_7PyTorch_11_LongTensor_54__div__(struct __pyx_obj_7PyT
  *         # assume 2d matrix for now?
  *         cdef _LongTensor res = _LongTensor.new()             # <<<<<<<<<<<<<<
  * #        THFloatTensor_resizeAs(cresult, self.thFloatTensor)
- *         THLongTensor_div(res.thLongTensor, self.thLongTensor, value)
+ *         THLongTensor_div(res.native, self.native, value)
  */
   __pyx_t_2 = __Pyx_PyObject_GetAttrStr(((PyObject *)((PyObject*)__pyx_ptype_7PyTorch__LongTensor)), __pyx_n_s_new); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1477; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_2);
@@ -23528,15 +23528,15 @@ static PyObject *__pyx_pf_7PyTorch_11_LongTensor_54__div__(struct __pyx_obj_7PyT
   /* "PyTorch.pyx":1479
  *         cdef _LongTensor res = _LongTensor.new()
  * #        THFloatTensor_resizeAs(cresult, self.thFloatTensor)
- *         THLongTensor_div(res.thLongTensor, self.thLongTensor, value)             # <<<<<<<<<<<<<<
+ *         THLongTensor_div(res.native, self.native, value)             # <<<<<<<<<<<<<<
  *         return res
  * 
  */
-  THLongTensor_div(__pyx_v_res->thLongTensor, __pyx_v_self->thLongTensor, __pyx_v_value);
+  THLongTensor_div(__pyx_v_res->native, __pyx_v_self->native, __pyx_v_value);
 
   /* "PyTorch.pyx":1480
  * #        THFloatTensor_resizeAs(cresult, self.thFloatTensor)
- *         THLongTensor_div(res.thLongTensor, self.thLongTensor, value)
+ *         THLongTensor_div(res.native, self.native, value)
  *         return res             # <<<<<<<<<<<<<<
  * 
  *     def __iadd__(_LongTensor self, second):
@@ -23608,7 +23608,7 @@ static PyObject *__pyx_pf_7PyTorch_11_LongTensor_56__iadd__(struct __pyx_obj_7Py
  *     def __iadd__(_LongTensor self, second):
  *         cdef _LongTensor secondTensor
  *         if isinstance(second, numbers.Number):             # <<<<<<<<<<<<<<
- *             THLongTensor_add(self.thLongTensor, self.thLongTensor, second)
+ *             THLongTensor_add(self.native, self.native, second)
  *         else:
  */
   __pyx_t_1 = __Pyx_GetModuleGlobalName(__pyx_n_s_numbers); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1484; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
@@ -23624,21 +23624,21 @@ static PyObject *__pyx_pf_7PyTorch_11_LongTensor_56__iadd__(struct __pyx_obj_7Py
     /* "PyTorch.pyx":1485
  *         cdef _LongTensor secondTensor
  *         if isinstance(second, numbers.Number):
- *             THLongTensor_add(self.thLongTensor, self.thLongTensor, second)             # <<<<<<<<<<<<<<
+ *             THLongTensor_add(self.native, self.native, second)             # <<<<<<<<<<<<<<
  *         else:
  *             secondTensor = second
  */
     __pyx_t_5 = __Pyx_PyInt_As_long(__pyx_v_second); if (unlikely((__pyx_t_5 == (long)-1) && PyErr_Occurred())) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1485; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-    THLongTensor_add(__pyx_v_self->thLongTensor, __pyx_v_self->thLongTensor, __pyx_t_5);
+    THLongTensor_add(__pyx_v_self->native, __pyx_v_self->native, __pyx_t_5);
     goto __pyx_L3;
   }
   /*else*/ {
 
     /* "PyTorch.pyx":1487
- *             THLongTensor_add(self.thLongTensor, self.thLongTensor, second)
+ *             THLongTensor_add(self.native, self.native, second)
  *         else:
  *             secondTensor = second             # <<<<<<<<<<<<<<
- *             THLongTensor_cadd(self.thLongTensor, self.thLongTensor, 1, secondTensor.thLongTensor)
+ *             THLongTensor_cadd(self.native, self.native, 1, secondTensor.native)
  *         return self
  */
     if (!(likely(((__pyx_v_second) == Py_None) || likely(__Pyx_TypeTest(__pyx_v_second, __pyx_ptype_7PyTorch__LongTensor))))) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1487; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
@@ -23650,17 +23650,17 @@ static PyObject *__pyx_pf_7PyTorch_11_LongTensor_56__iadd__(struct __pyx_obj_7Py
     /* "PyTorch.pyx":1488
  *         else:
  *             secondTensor = second
- *             THLongTensor_cadd(self.thLongTensor, self.thLongTensor, 1, secondTensor.thLongTensor)             # <<<<<<<<<<<<<<
+ *             THLongTensor_cadd(self.native, self.native, 1, secondTensor.native)             # <<<<<<<<<<<<<<
  *         return self
  * 
  */
-    THLongTensor_cadd(__pyx_v_self->thLongTensor, __pyx_v_self->thLongTensor, 1, __pyx_v_secondTensor->thLongTensor);
+    THLongTensor_cadd(__pyx_v_self->native, __pyx_v_self->native, 1, __pyx_v_secondTensor->native);
   }
   __pyx_L3:;
 
   /* "PyTorch.pyx":1489
  *             secondTensor = second
- *             THLongTensor_cadd(self.thLongTensor, self.thLongTensor, 1, secondTensor.thLongTensor)
+ *             THLongTensor_cadd(self.native, self.native, 1, secondTensor.native)
  *         return self             # <<<<<<<<<<<<<<
  * 
  *     def __isub__(_LongTensor self, second):
@@ -23730,7 +23730,7 @@ static PyObject *__pyx_pf_7PyTorch_11_LongTensor_58__isub__(struct __pyx_obj_7Py
  *     def __isub__(_LongTensor self, second):
  *         cdef _LongTensor secondTensor
  *         if isinstance(second, numbers.Number):             # <<<<<<<<<<<<<<
- *             THLongTensor_add(self.thLongTensor, self.thLongTensor, -second)
+ *             THLongTensor_add(self.native, self.native, -second)
  *         else:
  */
   __pyx_t_1 = __Pyx_GetModuleGlobalName(__pyx_n_s_numbers); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1493; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
@@ -23746,7 +23746,7 @@ static PyObject *__pyx_pf_7PyTorch_11_LongTensor_58__isub__(struct __pyx_obj_7Py
     /* "PyTorch.pyx":1494
  *         cdef _LongTensor secondTensor
  *         if isinstance(second, numbers.Number):
- *             THLongTensor_add(self.thLongTensor, self.thLongTensor, -second)             # <<<<<<<<<<<<<<
+ *             THLongTensor_add(self.native, self.native, -second)             # <<<<<<<<<<<<<<
  *         else:
  *             secondTensor = second
  */
@@ -23754,16 +23754,16 @@ static PyObject *__pyx_pf_7PyTorch_11_LongTensor_58__isub__(struct __pyx_obj_7Py
     __Pyx_GOTREF(__pyx_t_2);
     __pyx_t_5 = __Pyx_PyInt_As_long(__pyx_t_2); if (unlikely((__pyx_t_5 == (long)-1) && PyErr_Occurred())) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1494; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
     __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-    THLongTensor_add(__pyx_v_self->thLongTensor, __pyx_v_self->thLongTensor, __pyx_t_5);
+    THLongTensor_add(__pyx_v_self->native, __pyx_v_self->native, __pyx_t_5);
     goto __pyx_L3;
   }
   /*else*/ {
 
     /* "PyTorch.pyx":1496
- *             THLongTensor_add(self.thLongTensor, self.thLongTensor, -second)
+ *             THLongTensor_add(self.native, self.native, -second)
  *         else:
  *             secondTensor = second             # <<<<<<<<<<<<<<
- *             THLongTensor_cadd(self.thLongTensor, self.thLongTensor, -1, secondTensor.thLongTensor)
+ *             THLongTensor_cadd(self.native, self.native, -1, secondTensor.native)
  *         return self
  */
     if (!(likely(((__pyx_v_second) == Py_None) || likely(__Pyx_TypeTest(__pyx_v_second, __pyx_ptype_7PyTorch__LongTensor))))) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1496; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
@@ -23775,17 +23775,17 @@ static PyObject *__pyx_pf_7PyTorch_11_LongTensor_58__isub__(struct __pyx_obj_7Py
     /* "PyTorch.pyx":1497
  *         else:
  *             secondTensor = second
- *             THLongTensor_cadd(self.thLongTensor, self.thLongTensor, -1, secondTensor.thLongTensor)             # <<<<<<<<<<<<<<
+ *             THLongTensor_cadd(self.native, self.native, -1, secondTensor.native)             # <<<<<<<<<<<<<<
  *         return self
  * 
  */
-    THLongTensor_cadd(__pyx_v_self->thLongTensor, __pyx_v_self->thLongTensor, -1, __pyx_v_secondTensor->thLongTensor);
+    THLongTensor_cadd(__pyx_v_self->native, __pyx_v_self->native, -1, __pyx_v_secondTensor->native);
   }
   __pyx_L3:;
 
   /* "PyTorch.pyx":1498
  *             secondTensor = second
- *             THLongTensor_cadd(self.thLongTensor, self.thLongTensor, -1, secondTensor.thLongTensor)
+ *             THLongTensor_cadd(self.native, self.native, -1, secondTensor.native)
  *         return self             # <<<<<<<<<<<<<<
  * 
  *     def __idiv__(_LongTensor self, long value):
@@ -23820,7 +23820,7 @@ static PyObject *__pyx_pf_7PyTorch_11_LongTensor_58__isub__(struct __pyx_obj_7Py
  *         return self
  * 
  *     def __idiv__(_LongTensor self, long value):             # <<<<<<<<<<<<<<
- *         THLongTensor_div(self.thLongTensor, self.thLongTensor, value)
+ *         THLongTensor_div(self.native, self.native, value)
  *         return self
  */
 
@@ -23861,15 +23861,15 @@ static PyObject *__pyx_pf_7PyTorch_11_LongTensor_60__idiv__(struct __pyx_obj_7Py
   /* "PyTorch.pyx":1501
  * 
  *     def __idiv__(_LongTensor self, long value):
- *         THLongTensor_div(self.thLongTensor, self.thLongTensor, value)             # <<<<<<<<<<<<<<
+ *         THLongTensor_div(self.native, self.native, value)             # <<<<<<<<<<<<<<
  *         return self
  * 
  */
-  THLongTensor_div(__pyx_v_self->thLongTensor, __pyx_v_self->thLongTensor, __pyx_v_value);
+  THLongTensor_div(__pyx_v_self->native, __pyx_v_self->native, __pyx_v_value);
 
   /* "PyTorch.pyx":1502
  *     def __idiv__(_LongTensor self, long value):
- *         THLongTensor_div(self.thLongTensor, self.thLongTensor, value)
+ *         THLongTensor_div(self.native, self.native, value)
  *         return self             # <<<<<<<<<<<<<<
  * 
  *     def __imul__(_LongTensor self, long value):
@@ -23883,7 +23883,7 @@ static PyObject *__pyx_pf_7PyTorch_11_LongTensor_60__idiv__(struct __pyx_obj_7Py
  *         return self
  * 
  *     def __idiv__(_LongTensor self, long value):             # <<<<<<<<<<<<<<
- *         THLongTensor_div(self.thLongTensor, self.thLongTensor, value)
+ *         THLongTensor_div(self.native, self.native, value)
  *         return self
  */
 
@@ -23899,7 +23899,7 @@ static PyObject *__pyx_pf_7PyTorch_11_LongTensor_60__idiv__(struct __pyx_obj_7Py
  *         return self
  * 
  *     def __imul__(_LongTensor self, long value):             # <<<<<<<<<<<<<<
- *         THLongTensor_mul(self.thLongTensor, self.thLongTensor, value)
+ *         THLongTensor_mul(self.native, self.native, value)
  *         return self
  */
 
@@ -23937,15 +23937,15 @@ static PyObject *__pyx_pf_7PyTorch_11_LongTensor_62__imul__(struct __pyx_obj_7Py
   /* "PyTorch.pyx":1505
  * 
  *     def __imul__(_LongTensor self, long value):
- *         THLongTensor_mul(self.thLongTensor, self.thLongTensor, value)             # <<<<<<<<<<<<<<
+ *         THLongTensor_mul(self.native, self.native, value)             # <<<<<<<<<<<<<<
  *         return self
  * 
  */
-  THLongTensor_mul(__pyx_v_self->thLongTensor, __pyx_v_self->thLongTensor, __pyx_v_value);
+  THLongTensor_mul(__pyx_v_self->native, __pyx_v_self->native, __pyx_v_value);
 
   /* "PyTorch.pyx":1506
  *     def __imul__(_LongTensor self, long value):
- *         THLongTensor_mul(self.thLongTensor, self.thLongTensor, value)
+ *         THLongTensor_mul(self.native, self.native, value)
  *         return self             # <<<<<<<<<<<<<<
  * 
  * #    def __mul__(_LongTensor self, _LongTensor M2):
@@ -23959,7 +23959,7 @@ static PyObject *__pyx_pf_7PyTorch_11_LongTensor_62__imul__(struct __pyx_obj_7Py
  *         return self
  * 
  *     def __imul__(_LongTensor self, long value):             # <<<<<<<<<<<<<<
- *         THLongTensor_mul(self.thLongTensor, self.thLongTensor, value)
+ *         THLongTensor_mul(self.native, self.native, value)
  *         return self
  */
 
@@ -24019,7 +24019,7 @@ static PyObject *__pyx_pf_7PyTorch_11_LongTensor_64__mul__(struct __pyx_obj_7PyT
  * 
  *         res = _LongTensor.new()             # <<<<<<<<<<<<<<
  *         if isinstance(second, numbers.Number):
- *             THLongTensor_mul(res.thLongTensor, self.thLongTensor, second)
+ *             THLongTensor_mul(res.native, self.native, second)
  */
   __pyx_t_2 = __Pyx_PyObject_GetAttrStr(((PyObject *)((PyObject*)__pyx_ptype_7PyTorch__LongTensor)), __pyx_n_s_new); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1516; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_2);
@@ -24049,7 +24049,7 @@ static PyObject *__pyx_pf_7PyTorch_11_LongTensor_64__mul__(struct __pyx_obj_7PyT
  * 
  *         res = _LongTensor.new()
  *         if isinstance(second, numbers.Number):             # <<<<<<<<<<<<<<
- *             THLongTensor_mul(res.thLongTensor, self.thLongTensor, second)
+ *             THLongTensor_mul(res.native, self.native, second)
  *             return res
  */
   __pyx_t_1 = __Pyx_GetModuleGlobalName(__pyx_n_s_numbers); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1517; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
@@ -24065,16 +24065,16 @@ static PyObject *__pyx_pf_7PyTorch_11_LongTensor_64__mul__(struct __pyx_obj_7PyT
     /* "PyTorch.pyx":1518
  *         res = _LongTensor.new()
  *         if isinstance(second, numbers.Number):
- *             THLongTensor_mul(res.thLongTensor, self.thLongTensor, second)             # <<<<<<<<<<<<<<
+ *             THLongTensor_mul(res.native, self.native, second)             # <<<<<<<<<<<<<<
  *             return res
  *         else:
  */
     __pyx_t_6 = __Pyx_PyInt_As_long(__pyx_v_second); if (unlikely((__pyx_t_6 == (long)-1) && PyErr_Occurred())) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1518; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-    THLongTensor_mul(__pyx_v_res->thLongTensor, __pyx_v_self->thLongTensor, __pyx_t_6);
+    THLongTensor_mul(__pyx_v_res->native, __pyx_v_self->native, __pyx_t_6);
 
     /* "PyTorch.pyx":1519
  *         if isinstance(second, numbers.Number):
- *             THLongTensor_mul(res.thLongTensor, self.thLongTensor, second)
+ *             THLongTensor_mul(res.native, self.native, second)
  *             return res             # <<<<<<<<<<<<<<
  *         else:
  * 
@@ -24143,7 +24143,7 @@ static PyObject *__pyx_pf_7PyTorch_11_LongTensor_64__mul__(struct __pyx_obj_7PyT
  *     # ========== random ===============================
  * 
  *     def bernoulli(_LongTensor self, float p=0.5):             # <<<<<<<<<<<<<<
- *         THLongTensor_bernoulli(self.thLongTensor, globalState.generator, p)
+ *         THLongTensor_bernoulli(self.native, globalState.generator, p)
  *         return self
  */
 
@@ -24215,15 +24215,15 @@ static PyObject *__pyx_pf_7PyTorch_11_LongTensor_66bernoulli(struct __pyx_obj_7P
   /* "PyTorch.pyx":1528
  * 
  *     def bernoulli(_LongTensor self, float p=0.5):
- *         THLongTensor_bernoulli(self.thLongTensor, globalState.generator, p)             # <<<<<<<<<<<<<<
+ *         THLongTensor_bernoulli(self.native, globalState.generator, p)             # <<<<<<<<<<<<<<
  *         return self
  * 
  */
-  THLongTensor_bernoulli(__pyx_v_self->thLongTensor, __pyx_v_7PyTorch_globalState->generator, __pyx_v_p);
+  THLongTensor_bernoulli(__pyx_v_self->native, __pyx_v_7PyTorch_globalState->generator, __pyx_v_p);
 
   /* "PyTorch.pyx":1529
  *     def bernoulli(_LongTensor self, float p=0.5):
- *         THLongTensor_bernoulli(self.thLongTensor, globalState.generator, p)
+ *         THLongTensor_bernoulli(self.native, globalState.generator, p)
  *         return self             # <<<<<<<<<<<<<<
  * 
  *     def geometric(_LongTensor self, float p=0.5):
@@ -24237,7 +24237,7 @@ static PyObject *__pyx_pf_7PyTorch_11_LongTensor_66bernoulli(struct __pyx_obj_7P
  *     # ========== random ===============================
  * 
  *     def bernoulli(_LongTensor self, float p=0.5):             # <<<<<<<<<<<<<<
- *         THLongTensor_bernoulli(self.thLongTensor, globalState.generator, p)
+ *         THLongTensor_bernoulli(self.native, globalState.generator, p)
  *         return self
  */
 
@@ -24252,7 +24252,7 @@ static PyObject *__pyx_pf_7PyTorch_11_LongTensor_66bernoulli(struct __pyx_obj_7P
  *         return self
  * 
  *     def geometric(_LongTensor self, float p=0.5):             # <<<<<<<<<<<<<<
- *         THLongTensor_geometric(self.thLongTensor, globalState.generator, p)
+ *         THLongTensor_geometric(self.native, globalState.generator, p)
  *         return self
  */
 
@@ -24324,15 +24324,15 @@ static PyObject *__pyx_pf_7PyTorch_11_LongTensor_68geometric(struct __pyx_obj_7P
   /* "PyTorch.pyx":1532
  * 
  *     def geometric(_LongTensor self, float p=0.5):
- *         THLongTensor_geometric(self.thLongTensor, globalState.generator, p)             # <<<<<<<<<<<<<<
+ *         THLongTensor_geometric(self.native, globalState.generator, p)             # <<<<<<<<<<<<<<
  *         return self
  * 
  */
-  THLongTensor_geometric(__pyx_v_self->thLongTensor, __pyx_v_7PyTorch_globalState->generator, __pyx_v_p);
+  THLongTensor_geometric(__pyx_v_self->native, __pyx_v_7PyTorch_globalState->generator, __pyx_v_p);
 
   /* "PyTorch.pyx":1533
  *     def geometric(_LongTensor self, float p=0.5):
- *         THLongTensor_geometric(self.thLongTensor, globalState.generator, p)
+ *         THLongTensor_geometric(self.native, globalState.generator, p)
  *         return self             # <<<<<<<<<<<<<<
  * 
  * 
@@ -24346,7 +24346,7 @@ static PyObject *__pyx_pf_7PyTorch_11_LongTensor_68geometric(struct __pyx_obj_7P
  *         return self
  * 
  *     def geometric(_LongTensor self, float p=0.5):             # <<<<<<<<<<<<<<
- *         THLongTensor_geometric(self.thLongTensor, globalState.generator, p)
+ *         THLongTensor_geometric(self.native, globalState.generator, p)
  *         return self
  */
 
@@ -24398,7 +24398,7 @@ static PyObject *__pyx_f_7PyTorch__LongTensor_fromNative(struct THLongTensor *__
  *     if retain:
  *         THLongTensor_retain(tensorC)             # <<<<<<<<<<<<<<
  *     tensor = _LongTensor(_allocate=False)
- *     tensor.thLongTensor = tensorC
+ *     tensor.native = tensorC
  */
     THLongTensor_retain(__pyx_v_tensorC);
     goto __pyx_L3;
@@ -24409,7 +24409,7 @@ static PyObject *__pyx_f_7PyTorch__LongTensor_fromNative(struct THLongTensor *__
  *     if retain:
  *         THLongTensor_retain(tensorC)
  *     tensor = _LongTensor(_allocate=False)             # <<<<<<<<<<<<<<
- *     tensor.thLongTensor = tensorC
+ *     tensor.native = tensorC
  *     return tensor
  */
   __pyx_t_2 = PyDict_New(); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1541; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
@@ -24424,15 +24424,15 @@ static PyObject *__pyx_f_7PyTorch__LongTensor_fromNative(struct THLongTensor *__
   /* "PyTorch.pyx":1542
  *         THLongTensor_retain(tensorC)
  *     tensor = _LongTensor(_allocate=False)
- *     tensor.thLongTensor = tensorC             # <<<<<<<<<<<<<<
+ *     tensor.native = tensorC             # <<<<<<<<<<<<<<
  *     return tensor
  * 
  */
-  __pyx_v_tensor->thLongTensor = __pyx_v_tensorC;
+  __pyx_v_tensor->native = __pyx_v_tensorC;
 
   /* "PyTorch.pyx":1543
  *     tensor = _LongTensor(_allocate=False)
- *     tensor.thLongTensor = tensorC
+ *     tensor.native = tensorC
  *     return tensor             # <<<<<<<<<<<<<<
  * 
  * 
@@ -25567,7 +25567,7 @@ static PyObject *__pyx_pf_7PyTorch_8_popDoubleTensor(CYTHON_UNUSED PyObject *__p
  * 
  * def _pushDoubleTensor(_DoubleTensor tensor):             # <<<<<<<<<<<<<<
  *     global globalState
- *     pushDoubleTensor(globalState.L, tensor.thDoubleTensor)
+ *     pushDoubleTensor(globalState.L, tensor.native)
  */
 
 /* Python wrapper */
@@ -25600,18 +25600,18 @@ static PyObject *__pyx_pf_7PyTorch_10_pushDoubleTensor(CYTHON_UNUSED PyObject *_
   /* "PyTorch.pyx":1614
  * def _pushDoubleTensor(_DoubleTensor tensor):
  *     global globalState
- *     pushDoubleTensor(globalState.L, tensor.thDoubleTensor)             # <<<<<<<<<<<<<<
+ *     pushDoubleTensor(globalState.L, tensor.native)             # <<<<<<<<<<<<<<
  * 
  * 
  */
-  pushDoubleTensor(__pyx_v_7PyTorch_globalState->L, __pyx_v_tensor->thDoubleTensor);
+  pushDoubleTensor(__pyx_v_7PyTorch_globalState->L, __pyx_v_tensor->native);
 
   /* "PyTorch.pyx":1612
  *     return _DoubleTensor_fromNative(tensorC)
  * 
  * def _pushDoubleTensor(_DoubleTensor tensor):             # <<<<<<<<<<<<<<
  *     global globalState
- *     pushDoubleTensor(globalState.L, tensor.thDoubleTensor)
+ *     pushDoubleTensor(globalState.L, tensor.native)
  */
 
   /* function exit code */
@@ -25700,7 +25700,7 @@ static PyObject *__pyx_pf_7PyTorch_12_popFloatTensor(CYTHON_UNUSED PyObject *__p
  * 
  * def _pushFloatTensor(_FloatTensor tensor):             # <<<<<<<<<<<<<<
  *     global globalState
- *     pushFloatTensor(globalState.L, tensor.thFloatTensor)
+ *     pushFloatTensor(globalState.L, tensor.native)
  */
 
 /* Python wrapper */
@@ -25733,18 +25733,18 @@ static PyObject *__pyx_pf_7PyTorch_14_pushFloatTensor(CYTHON_UNUSED PyObject *__
   /* "PyTorch.pyx":1627
  * def _pushFloatTensor(_FloatTensor tensor):
  *     global globalState
- *     pushFloatTensor(globalState.L, tensor.thFloatTensor)             # <<<<<<<<<<<<<<
+ *     pushFloatTensor(globalState.L, tensor.native)             # <<<<<<<<<<<<<<
  * 
  * 
  */
-  pushFloatTensor(__pyx_v_7PyTorch_globalState->L, __pyx_v_tensor->thFloatTensor);
+  pushFloatTensor(__pyx_v_7PyTorch_globalState->L, __pyx_v_tensor->native);
 
   /* "PyTorch.pyx":1625
  *     return _FloatTensor_fromNative(tensorC)
  * 
  * def _pushFloatTensor(_FloatTensor tensor):             # <<<<<<<<<<<<<<
  *     global globalState
- *     pushFloatTensor(globalState.L, tensor.thFloatTensor)
+ *     pushFloatTensor(globalState.L, tensor.native)
  */
 
   /* function exit code */
@@ -25807,7 +25807,7 @@ static int __pyx_f_7PyTorch_getDoublePrediction(struct __pyx_obj_7PyTorch__Doubl
  *     cdef double maxSoFar = output[0]
  *     cdef double thisValue = 0             # <<<<<<<<<<<<<<
  *     cdef int i = 0
- *     for i in range(THDoubleTensor_size(output.thDoubleTensor, 0)):
+ *     for i in range(THDoubleTensor_size(output.native, 0)):
  */
   __pyx_v_thisValue = 0.0;
 
@@ -25815,34 +25815,34 @@ static int __pyx_f_7PyTorch_getDoublePrediction(struct __pyx_obj_7PyTorch__Doubl
  *     cdef double maxSoFar = output[0]
  *     cdef double thisValue = 0
  *     cdef int i = 0             # <<<<<<<<<<<<<<
- *     for i in range(THDoubleTensor_size(output.thDoubleTensor, 0)):
- *         thisValue = THDoubleTensor_get1d(output.thDoubleTensor, i)
+ *     for i in range(THDoubleTensor_size(output.native, 0)):
+ *         thisValue = THDoubleTensor_get1d(output.native, i)
  */
   __pyx_v_i = 0;
 
   /* "PyTorch.pyx":1642
  *     cdef double thisValue = 0
  *     cdef int i = 0
- *     for i in range(THDoubleTensor_size(output.thDoubleTensor, 0)):             # <<<<<<<<<<<<<<
- *         thisValue = THDoubleTensor_get1d(output.thDoubleTensor, i)
+ *     for i in range(THDoubleTensor_size(output.native, 0)):             # <<<<<<<<<<<<<<
+ *         thisValue = THDoubleTensor_get1d(output.native, i)
  *         if thisValue > maxSoFar:
  */
-  __pyx_t_3 = THDoubleTensor_size(__pyx_v_output->thDoubleTensor, 0);
+  __pyx_t_3 = THDoubleTensor_size(__pyx_v_output->native, 0);
   for (__pyx_t_4 = 0; __pyx_t_4 < __pyx_t_3; __pyx_t_4+=1) {
     __pyx_v_i = __pyx_t_4;
 
     /* "PyTorch.pyx":1643
  *     cdef int i = 0
- *     for i in range(THDoubleTensor_size(output.thDoubleTensor, 0)):
- *         thisValue = THDoubleTensor_get1d(output.thDoubleTensor, i)             # <<<<<<<<<<<<<<
+ *     for i in range(THDoubleTensor_size(output.native, 0)):
+ *         thisValue = THDoubleTensor_get1d(output.native, i)             # <<<<<<<<<<<<<<
  *         if thisValue > maxSoFar:
  *             maxSoFar = thisValue
  */
-    __pyx_v_thisValue = THDoubleTensor_get1d(__pyx_v_output->thDoubleTensor, __pyx_v_i);
+    __pyx_v_thisValue = THDoubleTensor_get1d(__pyx_v_output->native, __pyx_v_i);
 
     /* "PyTorch.pyx":1644
- *     for i in range(THDoubleTensor_size(output.thDoubleTensor, 0)):
- *         thisValue = THDoubleTensor_get1d(output.thDoubleTensor, i)
+ *     for i in range(THDoubleTensor_size(output.native, 0)):
+ *         thisValue = THDoubleTensor_get1d(output.native, i)
  *         if thisValue > maxSoFar:             # <<<<<<<<<<<<<<
  *             maxSoFar = thisValue
  *             prediction = i
@@ -25851,7 +25851,7 @@ static int __pyx_f_7PyTorch_getDoublePrediction(struct __pyx_obj_7PyTorch__Doubl
     if (__pyx_t_5) {
 
       /* "PyTorch.pyx":1645
- *         thisValue = THDoubleTensor_get1d(output.thDoubleTensor, i)
+ *         thisValue = THDoubleTensor_get1d(output.native, i)
  *         if thisValue > maxSoFar:
  *             maxSoFar = thisValue             # <<<<<<<<<<<<<<
  *             prediction = i
@@ -26000,7 +26000,7 @@ static int __pyx_f_7PyTorch_getFloatPrediction(struct __pyx_obj_7PyTorch__FloatT
  *     cdef float maxSoFar = output[0]
  *     cdef float thisValue = 0             # <<<<<<<<<<<<<<
  *     cdef int i = 0
- *     for i in range(THFloatTensor_size(output.thFloatTensor, 0)):
+ *     for i in range(THFloatTensor_size(output.native, 0)):
  */
   __pyx_v_thisValue = 0.0;
 
@@ -26008,34 +26008,34 @@ static int __pyx_f_7PyTorch_getFloatPrediction(struct __pyx_obj_7PyTorch__FloatT
  *     cdef float maxSoFar = output[0]
  *     cdef float thisValue = 0
  *     cdef int i = 0             # <<<<<<<<<<<<<<
- *     for i in range(THFloatTensor_size(output.thFloatTensor, 0)):
- *         thisValue = THFloatTensor_get1d(output.thFloatTensor, i)
+ *     for i in range(THFloatTensor_size(output.native, 0)):
+ *         thisValue = THFloatTensor_get1d(output.native, i)
  */
   __pyx_v_i = 0;
 
   /* "PyTorch.pyx":1660
  *     cdef float thisValue = 0
  *     cdef int i = 0
- *     for i in range(THFloatTensor_size(output.thFloatTensor, 0)):             # <<<<<<<<<<<<<<
- *         thisValue = THFloatTensor_get1d(output.thFloatTensor, i)
+ *     for i in range(THFloatTensor_size(output.native, 0)):             # <<<<<<<<<<<<<<
+ *         thisValue = THFloatTensor_get1d(output.native, i)
  *         if thisValue > maxSoFar:
  */
-  __pyx_t_3 = THFloatTensor_size(__pyx_v_output->thFloatTensor, 0);
+  __pyx_t_3 = THFloatTensor_size(__pyx_v_output->native, 0);
   for (__pyx_t_4 = 0; __pyx_t_4 < __pyx_t_3; __pyx_t_4+=1) {
     __pyx_v_i = __pyx_t_4;
 
     /* "PyTorch.pyx":1661
  *     cdef int i = 0
- *     for i in range(THFloatTensor_size(output.thFloatTensor, 0)):
- *         thisValue = THFloatTensor_get1d(output.thFloatTensor, i)             # <<<<<<<<<<<<<<
+ *     for i in range(THFloatTensor_size(output.native, 0)):
+ *         thisValue = THFloatTensor_get1d(output.native, i)             # <<<<<<<<<<<<<<
  *         if thisValue > maxSoFar:
  *             maxSoFar = thisValue
  */
-    __pyx_v_thisValue = THFloatTensor_get1d(__pyx_v_output->thFloatTensor, __pyx_v_i);
+    __pyx_v_thisValue = THFloatTensor_get1d(__pyx_v_output->native, __pyx_v_i);
 
     /* "PyTorch.pyx":1662
- *     for i in range(THFloatTensor_size(output.thFloatTensor, 0)):
- *         thisValue = THFloatTensor_get1d(output.thFloatTensor, i)
+ *     for i in range(THFloatTensor_size(output.native, 0)):
+ *         thisValue = THFloatTensor_get1d(output.native, i)
  *         if thisValue > maxSoFar:             # <<<<<<<<<<<<<<
  *             maxSoFar = thisValue
  *             prediction = i
@@ -26044,7 +26044,7 @@ static int __pyx_f_7PyTorch_getFloatPrediction(struct __pyx_obj_7PyTorch__FloatT
     if (__pyx_t_5) {
 
       /* "PyTorch.pyx":1663
- *         thisValue = THFloatTensor_get1d(output.thFloatTensor, i)
+ *         thisValue = THFloatTensor_get1d(output.native, i)
  *         if thisValue > maxSoFar:
  *             maxSoFar = thisValue             # <<<<<<<<<<<<<<
  *             prediction = i
@@ -39808,7 +39808,7 @@ static int __Pyx_InitCachedConstants(void) {
  * #            print('   size[', i, ']', THFloatTensor_size(self.thFloatTensor, i))
  *         if refCount < 1:
  *             raise Exception('Unallocated an already deallocated tensor... :-O')  # Hmmm, seems this exceptoin wont go anywhere useful... :-P             # <<<<<<<<<<<<<<
- *         THDoubleTensor_free(self.thDoubleTensor)
+ *         THDoubleTensor_free(self.native)
  * 
  */
   __pyx_tuple__2 = PyTuple_Pack(1, __pyx_kp_s_Unallocated_an_already_deallocat); if (unlikely(!__pyx_tuple__2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 304; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
@@ -39852,7 +39852,7 @@ static int __Pyx_InitCachedConstants(void) {
  * #            print('   size[', i, ']', THFloatTensor_size(self.thFloatTensor, i))
  *         if refCount < 1:
  *             raise Exception('Unallocated an already deallocated tensor... :-O')  # Hmmm, seems this exceptoin wont go anywhere useful... :-P             # <<<<<<<<<<<<<<
- *         THByteTensor_free(self.thByteTensor)
+ *         THByteTensor_free(self.native)
  * 
  */
   __pyx_tuple__10 = PyTuple_Pack(1, __pyx_kp_s_Unallocated_an_already_deallocat); if (unlikely(!__pyx_tuple__10)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 644; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
@@ -39896,7 +39896,7 @@ static int __Pyx_InitCachedConstants(void) {
  * #            print('   size[', i, ']', THFloatTensor_size(self.thFloatTensor, i))
  *         if refCount < 1:
  *             raise Exception('Unallocated an already deallocated tensor... :-O')  # Hmmm, seems this exceptoin wont go anywhere useful... :-P             # <<<<<<<<<<<<<<
- *         THFloatTensor_free(self.thFloatTensor)
+ *         THFloatTensor_free(self.native)
  * 
  */
   __pyx_tuple__14 = PyTuple_Pack(1, __pyx_kp_s_Unallocated_an_already_deallocat); if (unlikely(!__pyx_tuple__14)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 957; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
@@ -39940,7 +39940,7 @@ static int __Pyx_InitCachedConstants(void) {
  * #            print('   size[', i, ']', THFloatTensor_size(self.thFloatTensor, i))
  *         if refCount < 1:
  *             raise Exception('Unallocated an already deallocated tensor... :-O')  # Hmmm, seems this exceptoin wont go anywhere useful... :-P             # <<<<<<<<<<<<<<
- *         THLongTensor_free(self.thLongTensor)
+ *         THLongTensor_free(self.native)
  * 
  */
   __pyx_tuple__18 = PyTuple_Pack(1, __pyx_kp_s_Unallocated_an_already_deallocat); if (unlikely(!__pyx_tuple__18)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1297; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
@@ -40345,7 +40345,7 @@ static int __Pyx_InitCachedConstants(void) {
  * 
  * def _pushDoubleTensor(_DoubleTensor tensor):             # <<<<<<<<<<<<<<
  *     global globalState
- *     pushDoubleTensor(globalState.L, tensor.thDoubleTensor)
+ *     pushDoubleTensor(globalState.L, tensor.native)
  */
   __pyx_tuple__67 = PyTuple_Pack(1, __pyx_n_s_tensor); if (unlikely(!__pyx_tuple__67)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1612; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_tuple__67);
@@ -40369,7 +40369,7 @@ static int __Pyx_InitCachedConstants(void) {
  * 
  * def _pushFloatTensor(_FloatTensor tensor):             # <<<<<<<<<<<<<<
  *     global globalState
- *     pushFloatTensor(globalState.L, tensor.thFloatTensor)
+ *     pushFloatTensor(globalState.L, tensor.native)
  */
   __pyx_tuple__71 = PyTuple_Pack(1, __pyx_n_s_tensor); if (unlikely(!__pyx_tuple__71)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1625; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_tuple__71);
@@ -40787,18 +40787,18 @@ PyMODINIT_FUNC PyInit_PyTorch(void)
  * 
  *     @property
  *     def refCount(_DoubleTensor self):             # <<<<<<<<<<<<<<
- *         return THDoubleTensor_getRefCount(self.thDoubleTensor)
+ *         return THDoubleTensor_getRefCount(self.native)
  * 
  */
   __pyx_t_4 = __Pyx_GetNameInClass((PyObject *)__pyx_ptype_7PyTorch__DoubleTensor, __pyx_n_s_refCount); if (unlikely(!__pyx_t_4)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 311; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_4);
 
   /* "PyTorch.pyx":310
- *         return THDoubleTensor_nElement(self.thDoubleTensor)
+ *         return THDoubleTensor_nElement(self.native)
  * 
  *     @property             # <<<<<<<<<<<<<<
  *     def refCount(_DoubleTensor self):
- *         return THDoubleTensor_getRefCount(self.thDoubleTensor)
+ *         return THDoubleTensor_getRefCount(self.native)
  */
   __pyx_t_3 = PyTuple_New(1); if (unlikely(!__pyx_t_3)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 310; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_3);
@@ -40990,18 +40990,18 @@ PyMODINIT_FUNC PyInit_PyTorch(void)
  * 
  *     @property
  *     def refCount(_ByteTensor self):             # <<<<<<<<<<<<<<
- *         return THByteTensor_getRefCount(self.thByteTensor)
+ *         return THByteTensor_getRefCount(self.native)
  * 
  */
   __pyx_t_4 = __Pyx_GetNameInClass((PyObject *)__pyx_ptype_7PyTorch__ByteTensor, __pyx_n_s_refCount); if (unlikely(!__pyx_t_4)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 651; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_4);
 
   /* "PyTorch.pyx":650
- *         return THByteTensor_nElement(self.thByteTensor)
+ *         return THByteTensor_nElement(self.native)
  * 
  *     @property             # <<<<<<<<<<<<<<
  *     def refCount(_ByteTensor self):
- *         return THByteTensor_getRefCount(self.thByteTensor)
+ *         return THByteTensor_getRefCount(self.native)
  */
   __pyx_t_3 = PyTuple_New(1); if (unlikely(!__pyx_t_3)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 650; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_3);
@@ -41193,18 +41193,18 @@ PyMODINIT_FUNC PyInit_PyTorch(void)
  * 
  *     @property
  *     def refCount(_FloatTensor self):             # <<<<<<<<<<<<<<
- *         return THFloatTensor_getRefCount(self.thFloatTensor)
+ *         return THFloatTensor_getRefCount(self.native)
  * 
  */
   __pyx_t_4 = __Pyx_GetNameInClass((PyObject *)__pyx_ptype_7PyTorch__FloatTensor, __pyx_n_s_refCount); if (unlikely(!__pyx_t_4)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 964; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_4);
 
   /* "PyTorch.pyx":963
- *         return THFloatTensor_nElement(self.thFloatTensor)
+ *         return THFloatTensor_nElement(self.native)
  * 
  *     @property             # <<<<<<<<<<<<<<
  *     def refCount(_FloatTensor self):
- *         return THFloatTensor_getRefCount(self.thFloatTensor)
+ *         return THFloatTensor_getRefCount(self.native)
  */
   __pyx_t_3 = PyTuple_New(1); if (unlikely(!__pyx_t_3)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 963; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_3);
@@ -41396,18 +41396,18 @@ PyMODINIT_FUNC PyInit_PyTorch(void)
  * 
  *     @property
  *     def refCount(_LongTensor self):             # <<<<<<<<<<<<<<
- *         return THLongTensor_getRefCount(self.thLongTensor)
+ *         return THLongTensor_getRefCount(self.native)
  * 
  */
   __pyx_t_4 = __Pyx_GetNameInClass((PyObject *)__pyx_ptype_7PyTorch__LongTensor, __pyx_n_s_refCount); if (unlikely(!__pyx_t_4)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1304; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_4);
 
   /* "PyTorch.pyx":1303
- *         return THLongTensor_nElement(self.thLongTensor)
+ *         return THLongTensor_nElement(self.native)
  * 
  *     @property             # <<<<<<<<<<<<<<
  *     def refCount(_LongTensor self):
- *         return THLongTensor_getRefCount(self.thLongTensor)
+ *         return THLongTensor_getRefCount(self.native)
  */
   __pyx_t_3 = PyTuple_New(1); if (unlikely(!__pyx_t_3)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1303; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_3);
@@ -41636,7 +41636,7 @@ PyMODINIT_FUNC PyInit_PyTorch(void)
  * 
  * def _pushDoubleTensor(_DoubleTensor tensor):             # <<<<<<<<<<<<<<
  *     global globalState
- *     pushDoubleTensor(globalState.L, tensor.thDoubleTensor)
+ *     pushDoubleTensor(globalState.L, tensor.native)
  */
   __pyx_t_4 = PyCFunction_NewEx(&__pyx_mdef_7PyTorch_11_pushDoubleTensor, NULL, __pyx_n_s_PyTorch); if (unlikely(!__pyx_t_4)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1612; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_4);
@@ -41660,7 +41660,7 @@ PyMODINIT_FUNC PyInit_PyTorch(void)
  * 
  * def _pushFloatTensor(_FloatTensor tensor):             # <<<<<<<<<<<<<<
  *     global globalState
- *     pushFloatTensor(globalState.L, tensor.thFloatTensor)
+ *     pushFloatTensor(globalState.L, tensor.native)
  */
   __pyx_t_4 = PyCFunction_NewEx(&__pyx_mdef_7PyTorch_15_pushFloatTensor, NULL, __pyx_n_s_PyTorch); if (unlikely(!__pyx_t_4)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1625; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_4);

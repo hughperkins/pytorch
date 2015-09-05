@@ -258,10 +258,10 @@ cdef class _DoubleTensor(object):
                     raise Exception('cannot provide arguments to initializer')
             if len(args) == 0:
 #                print('no args, calling THDoubleTensor_new()')
-                self.thDoubleTensor = THDoubleTensor_new()
+                self.native = THDoubleTensor_new()
             elif len(args) == 1:
 #                print('new tensor 1d length', args[0])
-                self.thDoubleTensor = THDoubleTensor_newWithSize1d(args[0])
+                self.native = THDoubleTensor_newWithSize1d(args[0])
 #                storageC = THFloatTensor_storage(self.thFloatTensor)
 #                if storageC == NULL:
 #                    print('storageC is NULL')
@@ -271,7 +271,7 @@ cdef class _DoubleTensor(object):
 #                    print('storageaddr', hex(addr))
 #                    print('storageC refcount', THFloatStorage_getRefCount(storageC))
             elif len(args) == 2:
-                self.thDoubleTensor = THDoubleTensor_newWithSize2d(args[0], args[1])
+                self.native = THDoubleTensor_newWithSize2d(args[0], args[1])
             else:
                 raise Exception('Not implemented, len(args)=' + str(len(args)))
 
@@ -289,7 +289,7 @@ cdef class _DoubleTensor(object):
 #        cdef int size
 #        cdef int i
 #        cdef THFloatStorage *storage
-        refCount = THDoubleTensor_getRefCount(self.thDoubleTensor)
+        refCount = THDoubleTensor_getRefCount(self.native)
 #        print('DoubleTensor.dealloc old refcount', refCount)
 #        storage = THFloatTensor_storage(self.thFloatTensor)
 #        if storage == NULL:
@@ -302,29 +302,29 @@ cdef class _DoubleTensor(object):
 #            print('   size[', i, ']', THFloatTensor_size(self.thFloatTensor, i))
         if refCount < 1:
             raise Exception('Unallocated an already deallocated tensor... :-O')  # Hmmm, seems this exceptoin wont go anywhere useful... :-P
-        THDoubleTensor_free(self.thDoubleTensor)
+        THDoubleTensor_free(self.native)
 
     def nElement(_DoubleTensor self):
-        return THDoubleTensor_nElement(self.thDoubleTensor)
+        return THDoubleTensor_nElement(self.native)
 
     @property
     def refCount(_DoubleTensor self):
-        return THDoubleTensor_getRefCount(self.thDoubleTensor)
+        return THDoubleTensor_getRefCount(self.native)
 
     cpdef int dims(self):
-        return THDoubleTensor_nDimension(self.thDoubleTensor)
+        return THDoubleTensor_nDimension(self.native)
 
     cpdef set1d(self, int x0, double value):
-        THDoubleTensor_set1d(self.thDoubleTensor, x0, value)
+        THDoubleTensor_set1d(self.native, x0, value)
 
     cpdef set2d(self, int x0, int x1, double value):
-        THDoubleTensor_set2d(self.thDoubleTensor, x0, x1, value)
+        THDoubleTensor_set2d(self.native, x0, x1, value)
 
     cpdef double get1d(self, int x0):
-        return THDoubleTensor_get1d(self.thDoubleTensor, x0)
+        return THDoubleTensor_get1d(self.native, x0)
 
     cpdef double get2d(self, int x0, int x1):
-        return THDoubleTensor_get2d(self.thDoubleTensor, x0, x1)
+        return THDoubleTensor_get2d(self.native, x0, x1)
 
     def __repr__(_DoubleTensor self):
         # assume 2d matrix for now
@@ -334,8 +334,8 @@ cdef class _DoubleTensor(object):
         if dims == 0:
             return '[torch.DoubleTensor with no dimension]\n'
         elif dims == 2:
-            size0 = THDoubleTensor_size(self.thDoubleTensor, 0)
-            size1 = THDoubleTensor_size(self.thDoubleTensor, 1)
+            size0 = THDoubleTensor_size(self.native, 0)
+            size1 = THDoubleTensor_size(self.native, 1)
             res = ''
             for r in range(size0):
                 thisline = ''
@@ -349,7 +349,7 @@ cdef class _DoubleTensor(object):
             res += '[torch.DoubleTensor of size ' + ('%.0f' % size0) + 'x' + str(size1) + ']\n'
             return res
         elif dims == 1:
-            size0 = THDoubleTensor_size(self.thDoubleTensor, 0)
+            size0 = THDoubleTensor_size(self.native, 0)
             res = ''
             thisline = ''
             for c in range(size0):
@@ -367,7 +367,7 @@ cdef class _DoubleTensor(object):
     def __getitem__(_DoubleTensor self, int index):
         if self.dims() == 1:
             return self.get1d(index)
-        cdef THDoubleTensor *res = THDoubleTensor_newSelect(self.thDoubleTensor, 0, index)
+        cdef THDoubleTensor *res = THDoubleTensor_newSelect(self.native, 0, index)
         return _DoubleTensor_fromNative(res, False)
 
     def __setitem__(_DoubleTensor self, int index, double value):
@@ -377,7 +377,7 @@ cdef class _DoubleTensor(object):
             raise Exception("not implemented")
 
     def fill(_DoubleTensor self, double value):
-        THDoubleTensor_fill(self.thDoubleTensor, value)
+        THDoubleTensor_fill(self.native, value)
         return self
 
     def size(_DoubleTensor self):
@@ -386,7 +386,7 @@ cdef class _DoubleTensor(object):
         if dims > 0:
             size = _LongTensor(dims)
             for d in range(dims):
-                size.set1d(d, THDoubleTensor_size(self.thDoubleTensor, d))
+                size.set1d(d, THDoubleTensor_size(self.native, d))
             return size
         else:
             return None  # not sure how to handle this yet
@@ -398,27 +398,27 @@ cdef class _DoubleTensor(object):
 #        return _FloatTensor_fromNative(newTensorC, False)
 
     def narrow(_DoubleTensor self, int dimension, long firstIndex, long size):
-        cdef THDoubleTensor *narrowedC = THDoubleTensor_newNarrow(self.thDoubleTensor, dimension, firstIndex, size)
+        cdef THDoubleTensor *narrowedC = THDoubleTensor_newNarrow(self.native, dimension, firstIndex, size)
         return _DoubleTensor_fromNative(narrowedC, retain=False)
 
     def resize1d(_DoubleTensor self, int size0):
-        THDoubleTensor_resize1d(self.thDoubleTensor, size0)
+        THDoubleTensor_resize1d(self.native, size0)
         return self
 
     def resize2d(_DoubleTensor self, int size0, int size1):
-        THDoubleTensor_resize2d(self.thDoubleTensor, size0, size1)
+        THDoubleTensor_resize2d(self.native, size0, size1)
         return self
 
     def resize3d(_DoubleTensor self, int size0, int size1, int size2):
-        THDoubleTensor_resize3d(self.thDoubleTensor, size0, size1, size2)
+        THDoubleTensor_resize3d(self.native, size0, size1, size2)
         return self
 
     def resize4d(_DoubleTensor self, int size0, int size1, int size2, int size3):
-        THDoubleTensor_resize4d(self.thDoubleTensor, size0, size1, size2, size3)
+        THDoubleTensor_resize4d(self.native, size0, size1, size2, size3)
         return self
 
     def resizeAs(_DoubleTensor self, _DoubleTensor model):
-        THDoubleTensor_resizeAs(self.thDoubleTensor, model.thDoubleTensor)
+        THDoubleTensor_resizeAs(self.native, model.native)
         return self
     
     def resize(_DoubleTensor self, _LongTensor size):
@@ -428,13 +428,13 @@ cdef class _DoubleTensor(object):
         cdef int dims = size.size()[0]
 #        print('_FloatTensor.resize dims:', dims)
         if dims == 1:
-            THDoubleTensor_resize1d(self.thDoubleTensor, size[0])
+            THDoubleTensor_resize1d(self.native, size[0])
         elif dims == 2:
-            THDoubleTensor_resize2d(self.thDoubleTensor, size[0], size[1])
+            THDoubleTensor_resize2d(self.native, size[0], size[1])
         elif dims == 3:
-            THDoubleTensor_resize3d(self.thDoubleTensor, size[0], size[1], size[2])
+            THDoubleTensor_resize3d(self.native, size[0], size[1], size[2])
         elif dims == 4:
-            THDoubleTensor_resize4d(self.thDoubleTensor, size[0], size[1], size[2], size[3])
+            THDoubleTensor_resize4d(self.native, size[0], size[1], size[2], size[3])
         else:
             raise Exception('Not implemented for dims=' + str(dims))
         return self
@@ -452,7 +452,7 @@ cdef class _DoubleTensor(object):
         return _DoubleTensor_fromNative(newTensorC, False)
 
     def storage(_DoubleTensor self):
-        cdef Storage.THDoubleStorage *storageC = THDoubleTensor_storage(self.thDoubleTensor)
+        cdef Storage.THDoubleStorage *storageC = THDoubleTensor_storage(self.native)
         if storageC == NULL:
             return None
         return Storage.DoubleStorage_fromNative(storageC)
@@ -462,10 +462,10 @@ cdef class _DoubleTensor(object):
         cdef _DoubleTensor res = _DoubleTensor.new()
         cdef _DoubleTensor secondTensor
         if isinstance(second, numbers.Number):
-            THDoubleTensor_add(res.thDoubleTensor, self.thDoubleTensor, second)
+            THDoubleTensor_add(res.native, self.native, second)
         else:
             secondTensor = second
-            THDoubleTensor_cadd(res.thDoubleTensor, self.thDoubleTensor, 1, secondTensor.thDoubleTensor)
+            THDoubleTensor_cadd(res.native, self.native, 1, secondTensor.native)
         return res
 
     def __sub__(_DoubleTensor self, second):
@@ -473,43 +473,43 @@ cdef class _DoubleTensor(object):
         cdef _DoubleTensor res = _DoubleTensor.new()
         cdef _DoubleTensor secondTensor
         if isinstance(second, numbers.Number):
-            THDoubleTensor_add(res.thDoubleTensor, self.thDoubleTensor, -second)
+            THDoubleTensor_add(res.native, self.native, -second)
         else:
             secondTensor = second
-            THDoubleTensor_cadd(res.thDoubleTensor, self.thDoubleTensor, -1, secondTensor.thDoubleTensor)
+            THDoubleTensor_cadd(res.native, self.native, -1, secondTensor.native)
         return res
 
     def __div__(_DoubleTensor self, double value):
         # assume 2d matrix for now?
         cdef _DoubleTensor res = _DoubleTensor.new()
 #        THFloatTensor_resizeAs(cresult, self.thFloatTensor)
-        THDoubleTensor_div(res.thDoubleTensor, self.thDoubleTensor, value)
+        THDoubleTensor_div(res.native, self.native, value)
         return res
 
     def __iadd__(_DoubleTensor self, second):
         cdef _DoubleTensor secondTensor
         if isinstance(second, numbers.Number):
-            THDoubleTensor_add(self.thDoubleTensor, self.thDoubleTensor, second)
+            THDoubleTensor_add(self.native, self.native, second)
         else:
             secondTensor = second
-            THDoubleTensor_cadd(self.thDoubleTensor, self.thDoubleTensor, 1, secondTensor.thDoubleTensor)
+            THDoubleTensor_cadd(self.native, self.native, 1, secondTensor.native)
         return self
 
     def __isub__(_DoubleTensor self, second):
         cdef _DoubleTensor secondTensor
         if isinstance(second, numbers.Number):
-            THDoubleTensor_add(self.thDoubleTensor, self.thDoubleTensor, -second)
+            THDoubleTensor_add(self.native, self.native, -second)
         else:
             secondTensor = second
-            THDoubleTensor_cadd(self.thDoubleTensor, self.thDoubleTensor, -1, secondTensor.thDoubleTensor)
+            THDoubleTensor_cadd(self.native, self.native, -1, secondTensor.native)
         return self
 
     def __idiv__(_DoubleTensor self, double value):
-        THDoubleTensor_div(self.thDoubleTensor, self.thDoubleTensor, value)
+        THDoubleTensor_div(self.native, self.native, value)
         return self
 
     def __imul__(_DoubleTensor self, double value):
-        THDoubleTensor_mul(self.thDoubleTensor, self.thDoubleTensor, value)
+        THDoubleTensor_mul(self.native, self.native, value)
         return self
 
 #    def __mul__(_DoubleTensor self, _DoubleTensor M2):
@@ -522,49 +522,49 @@ cdef class _DoubleTensor(object):
 
         res = _DoubleTensor.new()
         if isinstance(second, numbers.Number):
-            THDoubleTensor_mul(res.thDoubleTensor, self.thDoubleTensor, second)
+            THDoubleTensor_mul(res.native, self.native, second)
             return res
         else:
         
             M2 = second
             T = _DoubleTensor.new()
-            resRows = THDoubleTensor_size(self.thDoubleTensor, 0)
-            resCols = THDoubleTensor_size(M2.thDoubleTensor, 1)
+            resRows = THDoubleTensor_size(self.native, 0)
+            resCols = THDoubleTensor_size(M2.native, 1)
             res.resize2d(resRows, resCols)
             T.resize2d(resRows, resCols)
-            THDoubleTensor_addmm(res.thDoubleTensor, 0, T.thDoubleTensor, 1, self.thDoubleTensor, M2.thDoubleTensor)
+            THDoubleTensor_addmm(res.native, 0, T.native, 1, self.native, M2.native)
             return res
         
 
     # ========== random ===============================
 
     def bernoulli(_DoubleTensor self, float p=0.5):
-        THDoubleTensor_bernoulli(self.thDoubleTensor, globalState.generator, p)
+        THDoubleTensor_bernoulli(self.native, globalState.generator, p)
         return self
 
     def geometric(_DoubleTensor self, float p=0.5):
-        THDoubleTensor_geometric(self.thDoubleTensor, globalState.generator, p)
+        THDoubleTensor_geometric(self.native, globalState.generator, p)
         return self
 
 
     def normal(_DoubleTensor self, double mean=0, double stdv=1):
-        THDoubleTensor_normal(self.thDoubleTensor, globalState.generator, mean, stdv)
+        THDoubleTensor_normal(self.native, globalState.generator, mean, stdv)
         return self
 
     def exponential(_DoubleTensor self, double _lambda=1):
-        THDoubleTensor_exponential(self.thDoubleTensor, globalState.generator, _lambda)
+        THDoubleTensor_exponential(self.native, globalState.generator, _lambda)
         return self
 
     def cauchy(_DoubleTensor self, double median=0, double sigma=1):
-        THDoubleTensor_cauchy(self.thDoubleTensor, globalState.generator, median, sigma)
+        THDoubleTensor_cauchy(self.native, globalState.generator, median, sigma)
         return self
 
     def logNormal(_DoubleTensor self, double mean=1, double stdv=2):
-        THDoubleTensor_logNormal(self.thDoubleTensor, globalState.generator, mean, stdv)
+        THDoubleTensor_logNormal(self.native, globalState.generator, mean, stdv)
         return self
 
     def uniform(_DoubleTensor self, double a=0, double b=1):
-        THDoubleTensor_uniform(self.thDoubleTensor, globalState.generator, a, b)
+        THDoubleTensor_uniform(self.native, globalState.generator, a, b)
         return self
 
 
@@ -573,7 +573,7 @@ cdef _DoubleTensor_fromNative(THDoubleTensor *tensorC, retain=True):
     if retain:
         THDoubleTensor_retain(tensorC)
     tensor = _DoubleTensor(_allocate=False)
-    tensor.thDoubleTensor = tensorC
+    tensor.native = tensorC
     return tensor
 
 
@@ -598,10 +598,10 @@ cdef class _ByteTensor(object):
                     raise Exception('cannot provide arguments to initializer')
             if len(args) == 0:
 #                print('no args, calling THByteTensor_new()')
-                self.thByteTensor = THByteTensor_new()
+                self.native = THByteTensor_new()
             elif len(args) == 1:
 #                print('new tensor 1d length', args[0])
-                self.thByteTensor = THByteTensor_newWithSize1d(args[0])
+                self.native = THByteTensor_newWithSize1d(args[0])
 #                storageC = THFloatTensor_storage(self.thFloatTensor)
 #                if storageC == NULL:
 #                    print('storageC is NULL')
@@ -611,7 +611,7 @@ cdef class _ByteTensor(object):
 #                    print('storageaddr', hex(addr))
 #                    print('storageC refcount', THFloatStorage_getRefCount(storageC))
             elif len(args) == 2:
-                self.thByteTensor = THByteTensor_newWithSize2d(args[0], args[1])
+                self.native = THByteTensor_newWithSize2d(args[0], args[1])
             else:
                 raise Exception('Not implemented, len(args)=' + str(len(args)))
 
@@ -629,7 +629,7 @@ cdef class _ByteTensor(object):
 #        cdef int size
 #        cdef int i
 #        cdef THFloatStorage *storage
-        refCount = THByteTensor_getRefCount(self.thByteTensor)
+        refCount = THByteTensor_getRefCount(self.native)
 #        print('ByteTensor.dealloc old refcount', refCount)
 #        storage = THFloatTensor_storage(self.thFloatTensor)
 #        if storage == NULL:
@@ -642,29 +642,29 @@ cdef class _ByteTensor(object):
 #            print('   size[', i, ']', THFloatTensor_size(self.thFloatTensor, i))
         if refCount < 1:
             raise Exception('Unallocated an already deallocated tensor... :-O')  # Hmmm, seems this exceptoin wont go anywhere useful... :-P
-        THByteTensor_free(self.thByteTensor)
+        THByteTensor_free(self.native)
 
     def nElement(_ByteTensor self):
-        return THByteTensor_nElement(self.thByteTensor)
+        return THByteTensor_nElement(self.native)
 
     @property
     def refCount(_ByteTensor self):
-        return THByteTensor_getRefCount(self.thByteTensor)
+        return THByteTensor_getRefCount(self.native)
 
     cpdef int dims(self):
-        return THByteTensor_nDimension(self.thByteTensor)
+        return THByteTensor_nDimension(self.native)
 
     cpdef set1d(self, int x0, unsigned char value):
-        THByteTensor_set1d(self.thByteTensor, x0, value)
+        THByteTensor_set1d(self.native, x0, value)
 
     cpdef set2d(self, int x0, int x1, unsigned char value):
-        THByteTensor_set2d(self.thByteTensor, x0, x1, value)
+        THByteTensor_set2d(self.native, x0, x1, value)
 
     cpdef unsigned char get1d(self, int x0):
-        return THByteTensor_get1d(self.thByteTensor, x0)
+        return THByteTensor_get1d(self.native, x0)
 
     cpdef unsigned char get2d(self, int x0, int x1):
-        return THByteTensor_get2d(self.thByteTensor, x0, x1)
+        return THByteTensor_get2d(self.native, x0, x1)
 
     def __repr__(_ByteTensor self):
         # assume 2d matrix for now
@@ -674,8 +674,8 @@ cdef class _ByteTensor(object):
         if dims == 0:
             return '[torch.ByteTensor with no dimension]\n'
         elif dims == 2:
-            size0 = THByteTensor_size(self.thByteTensor, 0)
-            size1 = THByteTensor_size(self.thByteTensor, 1)
+            size0 = THByteTensor_size(self.native, 0)
+            size1 = THByteTensor_size(self.native, 1)
             res = ''
             for r in range(size0):
                 thisline = ''
@@ -689,7 +689,7 @@ cdef class _ByteTensor(object):
             res += '[torch.ByteTensor of size ' + ('%.0f' % size0) + 'x' + str(size1) + ']\n'
             return res
         elif dims == 1:
-            size0 = THByteTensor_size(self.thByteTensor, 0)
+            size0 = THByteTensor_size(self.native, 0)
             res = ''
             thisline = ''
             for c in range(size0):
@@ -707,7 +707,7 @@ cdef class _ByteTensor(object):
     def __getitem__(_ByteTensor self, int index):
         if self.dims() == 1:
             return self.get1d(index)
-        cdef THByteTensor *res = THByteTensor_newSelect(self.thByteTensor, 0, index)
+        cdef THByteTensor *res = THByteTensor_newSelect(self.native, 0, index)
         return _ByteTensor_fromNative(res, False)
 
     def __setitem__(_ByteTensor self, int index, unsigned char value):
@@ -717,7 +717,7 @@ cdef class _ByteTensor(object):
             raise Exception("not implemented")
 
     def fill(_ByteTensor self, unsigned char value):
-        THByteTensor_fill(self.thByteTensor, value)
+        THByteTensor_fill(self.native, value)
         return self
 
     def size(_ByteTensor self):
@@ -726,7 +726,7 @@ cdef class _ByteTensor(object):
         if dims > 0:
             size = _LongTensor(dims)
             for d in range(dims):
-                size.set1d(d, THByteTensor_size(self.thByteTensor, d))
+                size.set1d(d, THByteTensor_size(self.native, d))
             return size
         else:
             return None  # not sure how to handle this yet
@@ -738,27 +738,27 @@ cdef class _ByteTensor(object):
 #        return _FloatTensor_fromNative(newTensorC, False)
 
     def narrow(_ByteTensor self, int dimension, long firstIndex, long size):
-        cdef THByteTensor *narrowedC = THByteTensor_newNarrow(self.thByteTensor, dimension, firstIndex, size)
+        cdef THByteTensor *narrowedC = THByteTensor_newNarrow(self.native, dimension, firstIndex, size)
         return _ByteTensor_fromNative(narrowedC, retain=False)
 
     def resize1d(_ByteTensor self, int size0):
-        THByteTensor_resize1d(self.thByteTensor, size0)
+        THByteTensor_resize1d(self.native, size0)
         return self
 
     def resize2d(_ByteTensor self, int size0, int size1):
-        THByteTensor_resize2d(self.thByteTensor, size0, size1)
+        THByteTensor_resize2d(self.native, size0, size1)
         return self
 
     def resize3d(_ByteTensor self, int size0, int size1, int size2):
-        THByteTensor_resize3d(self.thByteTensor, size0, size1, size2)
+        THByteTensor_resize3d(self.native, size0, size1, size2)
         return self
 
     def resize4d(_ByteTensor self, int size0, int size1, int size2, int size3):
-        THByteTensor_resize4d(self.thByteTensor, size0, size1, size2, size3)
+        THByteTensor_resize4d(self.native, size0, size1, size2, size3)
         return self
 
     def resizeAs(_ByteTensor self, _ByteTensor model):
-        THByteTensor_resizeAs(self.thByteTensor, model.thByteTensor)
+        THByteTensor_resizeAs(self.native, model.native)
         return self
     
     def resize(_ByteTensor self, _LongTensor size):
@@ -768,13 +768,13 @@ cdef class _ByteTensor(object):
         cdef int dims = size.size()[0]
 #        print('_FloatTensor.resize dims:', dims)
         if dims == 1:
-            THByteTensor_resize1d(self.thByteTensor, size[0])
+            THByteTensor_resize1d(self.native, size[0])
         elif dims == 2:
-            THByteTensor_resize2d(self.thByteTensor, size[0], size[1])
+            THByteTensor_resize2d(self.native, size[0], size[1])
         elif dims == 3:
-            THByteTensor_resize3d(self.thByteTensor, size[0], size[1], size[2])
+            THByteTensor_resize3d(self.native, size[0], size[1], size[2])
         elif dims == 4:
-            THByteTensor_resize4d(self.thByteTensor, size[0], size[1], size[2], size[3])
+            THByteTensor_resize4d(self.native, size[0], size[1], size[2], size[3])
         else:
             raise Exception('Not implemented for dims=' + str(dims))
         return self
@@ -792,7 +792,7 @@ cdef class _ByteTensor(object):
         return _ByteTensor_fromNative(newTensorC, False)
 
     def storage(_ByteTensor self):
-        cdef Storage.THByteStorage *storageC = THByteTensor_storage(self.thByteTensor)
+        cdef Storage.THByteStorage *storageC = THByteTensor_storage(self.native)
         if storageC == NULL:
             return None
         return Storage.ByteStorage_fromNative(storageC)
@@ -802,10 +802,10 @@ cdef class _ByteTensor(object):
         cdef _ByteTensor res = _ByteTensor.new()
         cdef _ByteTensor secondTensor
         if isinstance(second, numbers.Number):
-            THByteTensor_add(res.thByteTensor, self.thByteTensor, second)
+            THByteTensor_add(res.native, self.native, second)
         else:
             secondTensor = second
-            THByteTensor_cadd(res.thByteTensor, self.thByteTensor, 1, secondTensor.thByteTensor)
+            THByteTensor_cadd(res.native, self.native, 1, secondTensor.native)
         return res
 
     def __sub__(_ByteTensor self, second):
@@ -813,43 +813,43 @@ cdef class _ByteTensor(object):
         cdef _ByteTensor res = _ByteTensor.new()
         cdef _ByteTensor secondTensor
         if isinstance(second, numbers.Number):
-            THByteTensor_add(res.thByteTensor, self.thByteTensor, -second)
+            THByteTensor_add(res.native, self.native, -second)
         else:
             secondTensor = second
-            THByteTensor_cadd(res.thByteTensor, self.thByteTensor, -1, secondTensor.thByteTensor)
+            THByteTensor_cadd(res.native, self.native, -1, secondTensor.native)
         return res
 
     def __div__(_ByteTensor self, unsigned char value):
         # assume 2d matrix for now?
         cdef _ByteTensor res = _ByteTensor.new()
 #        THFloatTensor_resizeAs(cresult, self.thFloatTensor)
-        THByteTensor_div(res.thByteTensor, self.thByteTensor, value)
+        THByteTensor_div(res.native, self.native, value)
         return res
 
     def __iadd__(_ByteTensor self, second):
         cdef _ByteTensor secondTensor
         if isinstance(second, numbers.Number):
-            THByteTensor_add(self.thByteTensor, self.thByteTensor, second)
+            THByteTensor_add(self.native, self.native, second)
         else:
             secondTensor = second
-            THByteTensor_cadd(self.thByteTensor, self.thByteTensor, 1, secondTensor.thByteTensor)
+            THByteTensor_cadd(self.native, self.native, 1, secondTensor.native)
         return self
 
     def __isub__(_ByteTensor self, second):
         cdef _ByteTensor secondTensor
         if isinstance(second, numbers.Number):
-            THByteTensor_add(self.thByteTensor, self.thByteTensor, -second)
+            THByteTensor_add(self.native, self.native, -second)
         else:
             secondTensor = second
-            THByteTensor_cadd(self.thByteTensor, self.thByteTensor, -1, secondTensor.thByteTensor)
+            THByteTensor_cadd(self.native, self.native, -1, secondTensor.native)
         return self
 
     def __idiv__(_ByteTensor self, unsigned char value):
-        THByteTensor_div(self.thByteTensor, self.thByteTensor, value)
+        THByteTensor_div(self.native, self.native, value)
         return self
 
     def __imul__(_ByteTensor self, unsigned char value):
-        THByteTensor_mul(self.thByteTensor, self.thByteTensor, value)
+        THByteTensor_mul(self.native, self.native, value)
         return self
 
 #    def __mul__(_ByteTensor self, _ByteTensor M2):
@@ -862,7 +862,7 @@ cdef class _ByteTensor(object):
 
         res = _ByteTensor.new()
         if isinstance(second, numbers.Number):
-            THByteTensor_mul(res.thByteTensor, self.thByteTensor, second)
+            THByteTensor_mul(res.native, self.native, second)
             return res
         else:
         
@@ -872,11 +872,11 @@ cdef class _ByteTensor(object):
     # ========== random ===============================
 
     def bernoulli(_ByteTensor self, float p=0.5):
-        THByteTensor_bernoulli(self.thByteTensor, globalState.generator, p)
+        THByteTensor_bernoulli(self.native, globalState.generator, p)
         return self
 
     def geometric(_ByteTensor self, float p=0.5):
-        THByteTensor_geometric(self.thByteTensor, globalState.generator, p)
+        THByteTensor_geometric(self.native, globalState.generator, p)
         return self
 
 
@@ -886,7 +886,7 @@ cdef _ByteTensor_fromNative(THByteTensor *tensorC, retain=True):
     if retain:
         THByteTensor_retain(tensorC)
     tensor = _ByteTensor(_allocate=False)
-    tensor.thByteTensor = tensorC
+    tensor.native = tensorC
     return tensor
 
 
@@ -911,10 +911,10 @@ cdef class _FloatTensor(object):
                     raise Exception('cannot provide arguments to initializer')
             if len(args) == 0:
 #                print('no args, calling THFloatTensor_new()')
-                self.thFloatTensor = THFloatTensor_new()
+                self.native = THFloatTensor_new()
             elif len(args) == 1:
 #                print('new tensor 1d length', args[0])
-                self.thFloatTensor = THFloatTensor_newWithSize1d(args[0])
+                self.native = THFloatTensor_newWithSize1d(args[0])
 #                storageC = THFloatTensor_storage(self.thFloatTensor)
 #                if storageC == NULL:
 #                    print('storageC is NULL')
@@ -924,7 +924,7 @@ cdef class _FloatTensor(object):
 #                    print('storageaddr', hex(addr))
 #                    print('storageC refcount', THFloatStorage_getRefCount(storageC))
             elif len(args) == 2:
-                self.thFloatTensor = THFloatTensor_newWithSize2d(args[0], args[1])
+                self.native = THFloatTensor_newWithSize2d(args[0], args[1])
             else:
                 raise Exception('Not implemented, len(args)=' + str(len(args)))
 
@@ -942,7 +942,7 @@ cdef class _FloatTensor(object):
 #        cdef int size
 #        cdef int i
 #        cdef THFloatStorage *storage
-        refCount = THFloatTensor_getRefCount(self.thFloatTensor)
+        refCount = THFloatTensor_getRefCount(self.native)
 #        print('FloatTensor.dealloc old refcount', refCount)
 #        storage = THFloatTensor_storage(self.thFloatTensor)
 #        if storage == NULL:
@@ -955,29 +955,29 @@ cdef class _FloatTensor(object):
 #            print('   size[', i, ']', THFloatTensor_size(self.thFloatTensor, i))
         if refCount < 1:
             raise Exception('Unallocated an already deallocated tensor... :-O')  # Hmmm, seems this exceptoin wont go anywhere useful... :-P
-        THFloatTensor_free(self.thFloatTensor)
+        THFloatTensor_free(self.native)
 
     def nElement(_FloatTensor self):
-        return THFloatTensor_nElement(self.thFloatTensor)
+        return THFloatTensor_nElement(self.native)
 
     @property
     def refCount(_FloatTensor self):
-        return THFloatTensor_getRefCount(self.thFloatTensor)
+        return THFloatTensor_getRefCount(self.native)
 
     cpdef int dims(self):
-        return THFloatTensor_nDimension(self.thFloatTensor)
+        return THFloatTensor_nDimension(self.native)
 
     cpdef set1d(self, int x0, float value):
-        THFloatTensor_set1d(self.thFloatTensor, x0, value)
+        THFloatTensor_set1d(self.native, x0, value)
 
     cpdef set2d(self, int x0, int x1, float value):
-        THFloatTensor_set2d(self.thFloatTensor, x0, x1, value)
+        THFloatTensor_set2d(self.native, x0, x1, value)
 
     cpdef float get1d(self, int x0):
-        return THFloatTensor_get1d(self.thFloatTensor, x0)
+        return THFloatTensor_get1d(self.native, x0)
 
     cpdef float get2d(self, int x0, int x1):
-        return THFloatTensor_get2d(self.thFloatTensor, x0, x1)
+        return THFloatTensor_get2d(self.native, x0, x1)
 
     def __repr__(_FloatTensor self):
         # assume 2d matrix for now
@@ -987,8 +987,8 @@ cdef class _FloatTensor(object):
         if dims == 0:
             return '[torch.FloatTensor with no dimension]\n'
         elif dims == 2:
-            size0 = THFloatTensor_size(self.thFloatTensor, 0)
-            size1 = THFloatTensor_size(self.thFloatTensor, 1)
+            size0 = THFloatTensor_size(self.native, 0)
+            size1 = THFloatTensor_size(self.native, 1)
             res = ''
             for r in range(size0):
                 thisline = ''
@@ -1002,7 +1002,7 @@ cdef class _FloatTensor(object):
             res += '[torch.FloatTensor of size ' + ('%.0f' % size0) + 'x' + str(size1) + ']\n'
             return res
         elif dims == 1:
-            size0 = THFloatTensor_size(self.thFloatTensor, 0)
+            size0 = THFloatTensor_size(self.native, 0)
             res = ''
             thisline = ''
             for c in range(size0):
@@ -1020,7 +1020,7 @@ cdef class _FloatTensor(object):
     def __getitem__(_FloatTensor self, int index):
         if self.dims() == 1:
             return self.get1d(index)
-        cdef THFloatTensor *res = THFloatTensor_newSelect(self.thFloatTensor, 0, index)
+        cdef THFloatTensor *res = THFloatTensor_newSelect(self.native, 0, index)
         return _FloatTensor_fromNative(res, False)
 
     def __setitem__(_FloatTensor self, int index, float value):
@@ -1030,7 +1030,7 @@ cdef class _FloatTensor(object):
             raise Exception("not implemented")
 
     def fill(_FloatTensor self, float value):
-        THFloatTensor_fill(self.thFloatTensor, value)
+        THFloatTensor_fill(self.native, value)
         return self
 
     def size(_FloatTensor self):
@@ -1039,7 +1039,7 @@ cdef class _FloatTensor(object):
         if dims > 0:
             size = _LongTensor(dims)
             for d in range(dims):
-                size.set1d(d, THFloatTensor_size(self.thFloatTensor, d))
+                size.set1d(d, THFloatTensor_size(self.native, d))
             return size
         else:
             return None  # not sure how to handle this yet
@@ -1051,27 +1051,27 @@ cdef class _FloatTensor(object):
 #        return _FloatTensor_fromNative(newTensorC, False)
 
     def narrow(_FloatTensor self, int dimension, long firstIndex, long size):
-        cdef THFloatTensor *narrowedC = THFloatTensor_newNarrow(self.thFloatTensor, dimension, firstIndex, size)
+        cdef THFloatTensor *narrowedC = THFloatTensor_newNarrow(self.native, dimension, firstIndex, size)
         return _FloatTensor_fromNative(narrowedC, retain=False)
 
     def resize1d(_FloatTensor self, int size0):
-        THFloatTensor_resize1d(self.thFloatTensor, size0)
+        THFloatTensor_resize1d(self.native, size0)
         return self
 
     def resize2d(_FloatTensor self, int size0, int size1):
-        THFloatTensor_resize2d(self.thFloatTensor, size0, size1)
+        THFloatTensor_resize2d(self.native, size0, size1)
         return self
 
     def resize3d(_FloatTensor self, int size0, int size1, int size2):
-        THFloatTensor_resize3d(self.thFloatTensor, size0, size1, size2)
+        THFloatTensor_resize3d(self.native, size0, size1, size2)
         return self
 
     def resize4d(_FloatTensor self, int size0, int size1, int size2, int size3):
-        THFloatTensor_resize4d(self.thFloatTensor, size0, size1, size2, size3)
+        THFloatTensor_resize4d(self.native, size0, size1, size2, size3)
         return self
 
     def resizeAs(_FloatTensor self, _FloatTensor model):
-        THFloatTensor_resizeAs(self.thFloatTensor, model.thFloatTensor)
+        THFloatTensor_resizeAs(self.native, model.native)
         return self
     
     def resize(_FloatTensor self, _LongTensor size):
@@ -1081,13 +1081,13 @@ cdef class _FloatTensor(object):
         cdef int dims = size.size()[0]
 #        print('_FloatTensor.resize dims:', dims)
         if dims == 1:
-            THFloatTensor_resize1d(self.thFloatTensor, size[0])
+            THFloatTensor_resize1d(self.native, size[0])
         elif dims == 2:
-            THFloatTensor_resize2d(self.thFloatTensor, size[0], size[1])
+            THFloatTensor_resize2d(self.native, size[0], size[1])
         elif dims == 3:
-            THFloatTensor_resize3d(self.thFloatTensor, size[0], size[1], size[2])
+            THFloatTensor_resize3d(self.native, size[0], size[1], size[2])
         elif dims == 4:
-            THFloatTensor_resize4d(self.thFloatTensor, size[0], size[1], size[2], size[3])
+            THFloatTensor_resize4d(self.native, size[0], size[1], size[2], size[3])
         else:
             raise Exception('Not implemented for dims=' + str(dims))
         return self
@@ -1105,7 +1105,7 @@ cdef class _FloatTensor(object):
         return _FloatTensor_fromNative(newTensorC, False)
 
     def storage(_FloatTensor self):
-        cdef Storage.THFloatStorage *storageC = THFloatTensor_storage(self.thFloatTensor)
+        cdef Storage.THFloatStorage *storageC = THFloatTensor_storage(self.native)
         if storageC == NULL:
             return None
         return Storage.FloatStorage_fromNative(storageC)
@@ -1115,10 +1115,10 @@ cdef class _FloatTensor(object):
         cdef _FloatTensor res = _FloatTensor.new()
         cdef _FloatTensor secondTensor
         if isinstance(second, numbers.Number):
-            THFloatTensor_add(res.thFloatTensor, self.thFloatTensor, second)
+            THFloatTensor_add(res.native, self.native, second)
         else:
             secondTensor = second
-            THFloatTensor_cadd(res.thFloatTensor, self.thFloatTensor, 1, secondTensor.thFloatTensor)
+            THFloatTensor_cadd(res.native, self.native, 1, secondTensor.native)
         return res
 
     def __sub__(_FloatTensor self, second):
@@ -1126,43 +1126,43 @@ cdef class _FloatTensor(object):
         cdef _FloatTensor res = _FloatTensor.new()
         cdef _FloatTensor secondTensor
         if isinstance(second, numbers.Number):
-            THFloatTensor_add(res.thFloatTensor, self.thFloatTensor, -second)
+            THFloatTensor_add(res.native, self.native, -second)
         else:
             secondTensor = second
-            THFloatTensor_cadd(res.thFloatTensor, self.thFloatTensor, -1, secondTensor.thFloatTensor)
+            THFloatTensor_cadd(res.native, self.native, -1, secondTensor.native)
         return res
 
     def __div__(_FloatTensor self, float value):
         # assume 2d matrix for now?
         cdef _FloatTensor res = _FloatTensor.new()
 #        THFloatTensor_resizeAs(cresult, self.thFloatTensor)
-        THFloatTensor_div(res.thFloatTensor, self.thFloatTensor, value)
+        THFloatTensor_div(res.native, self.native, value)
         return res
 
     def __iadd__(_FloatTensor self, second):
         cdef _FloatTensor secondTensor
         if isinstance(second, numbers.Number):
-            THFloatTensor_add(self.thFloatTensor, self.thFloatTensor, second)
+            THFloatTensor_add(self.native, self.native, second)
         else:
             secondTensor = second
-            THFloatTensor_cadd(self.thFloatTensor, self.thFloatTensor, 1, secondTensor.thFloatTensor)
+            THFloatTensor_cadd(self.native, self.native, 1, secondTensor.native)
         return self
 
     def __isub__(_FloatTensor self, second):
         cdef _FloatTensor secondTensor
         if isinstance(second, numbers.Number):
-            THFloatTensor_add(self.thFloatTensor, self.thFloatTensor, -second)
+            THFloatTensor_add(self.native, self.native, -second)
         else:
             secondTensor = second
-            THFloatTensor_cadd(self.thFloatTensor, self.thFloatTensor, -1, secondTensor.thFloatTensor)
+            THFloatTensor_cadd(self.native, self.native, -1, secondTensor.native)
         return self
 
     def __idiv__(_FloatTensor self, float value):
-        THFloatTensor_div(self.thFloatTensor, self.thFloatTensor, value)
+        THFloatTensor_div(self.native, self.native, value)
         return self
 
     def __imul__(_FloatTensor self, float value):
-        THFloatTensor_mul(self.thFloatTensor, self.thFloatTensor, value)
+        THFloatTensor_mul(self.native, self.native, value)
         return self
 
 #    def __mul__(_FloatTensor self, _FloatTensor M2):
@@ -1175,49 +1175,49 @@ cdef class _FloatTensor(object):
 
         res = _FloatTensor.new()
         if isinstance(second, numbers.Number):
-            THFloatTensor_mul(res.thFloatTensor, self.thFloatTensor, second)
+            THFloatTensor_mul(res.native, self.native, second)
             return res
         else:
         
             M2 = second
             T = _FloatTensor.new()
-            resRows = THFloatTensor_size(self.thFloatTensor, 0)
-            resCols = THFloatTensor_size(M2.thFloatTensor, 1)
+            resRows = THFloatTensor_size(self.native, 0)
+            resCols = THFloatTensor_size(M2.native, 1)
             res.resize2d(resRows, resCols)
             T.resize2d(resRows, resCols)
-            THFloatTensor_addmm(res.thFloatTensor, 0, T.thFloatTensor, 1, self.thFloatTensor, M2.thFloatTensor)
+            THFloatTensor_addmm(res.native, 0, T.native, 1, self.native, M2.native)
             return res
         
 
     # ========== random ===============================
 
     def bernoulli(_FloatTensor self, float p=0.5):
-        THFloatTensor_bernoulli(self.thFloatTensor, globalState.generator, p)
+        THFloatTensor_bernoulli(self.native, globalState.generator, p)
         return self
 
     def geometric(_FloatTensor self, float p=0.5):
-        THFloatTensor_geometric(self.thFloatTensor, globalState.generator, p)
+        THFloatTensor_geometric(self.native, globalState.generator, p)
         return self
 
 
     def normal(_FloatTensor self, float mean=0, float stdv=1):
-        THFloatTensor_normal(self.thFloatTensor, globalState.generator, mean, stdv)
+        THFloatTensor_normal(self.native, globalState.generator, mean, stdv)
         return self
 
     def exponential(_FloatTensor self, float _lambda=1):
-        THFloatTensor_exponential(self.thFloatTensor, globalState.generator, _lambda)
+        THFloatTensor_exponential(self.native, globalState.generator, _lambda)
         return self
 
     def cauchy(_FloatTensor self, float median=0, float sigma=1):
-        THFloatTensor_cauchy(self.thFloatTensor, globalState.generator, median, sigma)
+        THFloatTensor_cauchy(self.native, globalState.generator, median, sigma)
         return self
 
     def logNormal(_FloatTensor self, float mean=1, float stdv=2):
-        THFloatTensor_logNormal(self.thFloatTensor, globalState.generator, mean, stdv)
+        THFloatTensor_logNormal(self.native, globalState.generator, mean, stdv)
         return self
 
     def uniform(_FloatTensor self, float a=0, float b=1):
-        THFloatTensor_uniform(self.thFloatTensor, globalState.generator, a, b)
+        THFloatTensor_uniform(self.native, globalState.generator, a, b)
         return self
 
 
@@ -1226,7 +1226,7 @@ cdef _FloatTensor_fromNative(THFloatTensor *tensorC, retain=True):
     if retain:
         THFloatTensor_retain(tensorC)
     tensor = _FloatTensor(_allocate=False)
-    tensor.thFloatTensor = tensorC
+    tensor.native = tensorC
     return tensor
 
 
@@ -1251,10 +1251,10 @@ cdef class _LongTensor(object):
                     raise Exception('cannot provide arguments to initializer')
             if len(args) == 0:
 #                print('no args, calling THLongTensor_new()')
-                self.thLongTensor = THLongTensor_new()
+                self.native = THLongTensor_new()
             elif len(args) == 1:
 #                print('new tensor 1d length', args[0])
-                self.thLongTensor = THLongTensor_newWithSize1d(args[0])
+                self.native = THLongTensor_newWithSize1d(args[0])
 #                storageC = THFloatTensor_storage(self.thFloatTensor)
 #                if storageC == NULL:
 #                    print('storageC is NULL')
@@ -1264,7 +1264,7 @@ cdef class _LongTensor(object):
 #                    print('storageaddr', hex(addr))
 #                    print('storageC refcount', THFloatStorage_getRefCount(storageC))
             elif len(args) == 2:
-                self.thLongTensor = THLongTensor_newWithSize2d(args[0], args[1])
+                self.native = THLongTensor_newWithSize2d(args[0], args[1])
             else:
                 raise Exception('Not implemented, len(args)=' + str(len(args)))
 
@@ -1282,7 +1282,7 @@ cdef class _LongTensor(object):
 #        cdef int size
 #        cdef int i
 #        cdef THFloatStorage *storage
-        refCount = THLongTensor_getRefCount(self.thLongTensor)
+        refCount = THLongTensor_getRefCount(self.native)
 #        print('LongTensor.dealloc old refcount', refCount)
 #        storage = THFloatTensor_storage(self.thFloatTensor)
 #        if storage == NULL:
@@ -1295,29 +1295,29 @@ cdef class _LongTensor(object):
 #            print('   size[', i, ']', THFloatTensor_size(self.thFloatTensor, i))
         if refCount < 1:
             raise Exception('Unallocated an already deallocated tensor... :-O')  # Hmmm, seems this exceptoin wont go anywhere useful... :-P
-        THLongTensor_free(self.thLongTensor)
+        THLongTensor_free(self.native)
 
     def nElement(_LongTensor self):
-        return THLongTensor_nElement(self.thLongTensor)
+        return THLongTensor_nElement(self.native)
 
     @property
     def refCount(_LongTensor self):
-        return THLongTensor_getRefCount(self.thLongTensor)
+        return THLongTensor_getRefCount(self.native)
 
     cpdef int dims(self):
-        return THLongTensor_nDimension(self.thLongTensor)
+        return THLongTensor_nDimension(self.native)
 
     cpdef set1d(self, int x0, long value):
-        THLongTensor_set1d(self.thLongTensor, x0, value)
+        THLongTensor_set1d(self.native, x0, value)
 
     cpdef set2d(self, int x0, int x1, long value):
-        THLongTensor_set2d(self.thLongTensor, x0, x1, value)
+        THLongTensor_set2d(self.native, x0, x1, value)
 
     cpdef long get1d(self, int x0):
-        return THLongTensor_get1d(self.thLongTensor, x0)
+        return THLongTensor_get1d(self.native, x0)
 
     cpdef long get2d(self, int x0, int x1):
-        return THLongTensor_get2d(self.thLongTensor, x0, x1)
+        return THLongTensor_get2d(self.native, x0, x1)
 
     def __repr__(_LongTensor self):
         # assume 2d matrix for now
@@ -1327,8 +1327,8 @@ cdef class _LongTensor(object):
         if dims == 0:
             return '[torch.LongTensor with no dimension]\n'
         elif dims == 2:
-            size0 = THLongTensor_size(self.thLongTensor, 0)
-            size1 = THLongTensor_size(self.thLongTensor, 1)
+            size0 = THLongTensor_size(self.native, 0)
+            size1 = THLongTensor_size(self.native, 1)
             res = ''
             for r in range(size0):
                 thisline = ''
@@ -1342,7 +1342,7 @@ cdef class _LongTensor(object):
             res += '[torch.LongTensor of size ' + ('%.0f' % size0) + 'x' + str(size1) + ']\n'
             return res
         elif dims == 1:
-            size0 = THLongTensor_size(self.thLongTensor, 0)
+            size0 = THLongTensor_size(self.native, 0)
             res = ''
             thisline = ''
             for c in range(size0):
@@ -1360,7 +1360,7 @@ cdef class _LongTensor(object):
     def __getitem__(_LongTensor self, int index):
         if self.dims() == 1:
             return self.get1d(index)
-        cdef THLongTensor *res = THLongTensor_newSelect(self.thLongTensor, 0, index)
+        cdef THLongTensor *res = THLongTensor_newSelect(self.native, 0, index)
         return _LongTensor_fromNative(res, False)
 
     def __setitem__(_LongTensor self, int index, long value):
@@ -1370,7 +1370,7 @@ cdef class _LongTensor(object):
             raise Exception("not implemented")
 
     def fill(_LongTensor self, long value):
-        THLongTensor_fill(self.thLongTensor, value)
+        THLongTensor_fill(self.native, value)
         return self
 
     def size(_LongTensor self):
@@ -1379,7 +1379,7 @@ cdef class _LongTensor(object):
         if dims > 0:
             size = _LongTensor(dims)
             for d in range(dims):
-                size.set1d(d, THLongTensor_size(self.thLongTensor, d))
+                size.set1d(d, THLongTensor_size(self.native, d))
             return size
         else:
             return None  # not sure how to handle this yet
@@ -1391,27 +1391,27 @@ cdef class _LongTensor(object):
 #        return _FloatTensor_fromNative(newTensorC, False)
 
     def narrow(_LongTensor self, int dimension, long firstIndex, long size):
-        cdef THLongTensor *narrowedC = THLongTensor_newNarrow(self.thLongTensor, dimension, firstIndex, size)
+        cdef THLongTensor *narrowedC = THLongTensor_newNarrow(self.native, dimension, firstIndex, size)
         return _LongTensor_fromNative(narrowedC, retain=False)
 
     def resize1d(_LongTensor self, int size0):
-        THLongTensor_resize1d(self.thLongTensor, size0)
+        THLongTensor_resize1d(self.native, size0)
         return self
 
     def resize2d(_LongTensor self, int size0, int size1):
-        THLongTensor_resize2d(self.thLongTensor, size0, size1)
+        THLongTensor_resize2d(self.native, size0, size1)
         return self
 
     def resize3d(_LongTensor self, int size0, int size1, int size2):
-        THLongTensor_resize3d(self.thLongTensor, size0, size1, size2)
+        THLongTensor_resize3d(self.native, size0, size1, size2)
         return self
 
     def resize4d(_LongTensor self, int size0, int size1, int size2, int size3):
-        THLongTensor_resize4d(self.thLongTensor, size0, size1, size2, size3)
+        THLongTensor_resize4d(self.native, size0, size1, size2, size3)
         return self
 
     def resizeAs(_LongTensor self, _LongTensor model):
-        THLongTensor_resizeAs(self.thLongTensor, model.thLongTensor)
+        THLongTensor_resizeAs(self.native, model.native)
         return self
     
     def resize(_LongTensor self, _LongTensor size):
@@ -1421,13 +1421,13 @@ cdef class _LongTensor(object):
         cdef int dims = size.size()[0]
 #        print('_FloatTensor.resize dims:', dims)
         if dims == 1:
-            THLongTensor_resize1d(self.thLongTensor, size[0])
+            THLongTensor_resize1d(self.native, size[0])
         elif dims == 2:
-            THLongTensor_resize2d(self.thLongTensor, size[0], size[1])
+            THLongTensor_resize2d(self.native, size[0], size[1])
         elif dims == 3:
-            THLongTensor_resize3d(self.thLongTensor, size[0], size[1], size[2])
+            THLongTensor_resize3d(self.native, size[0], size[1], size[2])
         elif dims == 4:
-            THLongTensor_resize4d(self.thLongTensor, size[0], size[1], size[2], size[3])
+            THLongTensor_resize4d(self.native, size[0], size[1], size[2], size[3])
         else:
             raise Exception('Not implemented for dims=' + str(dims))
         return self
@@ -1445,7 +1445,7 @@ cdef class _LongTensor(object):
         return _LongTensor_fromNative(newTensorC, False)
 
     def storage(_LongTensor self):
-        cdef Storage.THLongStorage *storageC = THLongTensor_storage(self.thLongTensor)
+        cdef Storage.THLongStorage *storageC = THLongTensor_storage(self.native)
         if storageC == NULL:
             return None
         return Storage.LongStorage_fromNative(storageC)
@@ -1455,10 +1455,10 @@ cdef class _LongTensor(object):
         cdef _LongTensor res = _LongTensor.new()
         cdef _LongTensor secondTensor
         if isinstance(second, numbers.Number):
-            THLongTensor_add(res.thLongTensor, self.thLongTensor, second)
+            THLongTensor_add(res.native, self.native, second)
         else:
             secondTensor = second
-            THLongTensor_cadd(res.thLongTensor, self.thLongTensor, 1, secondTensor.thLongTensor)
+            THLongTensor_cadd(res.native, self.native, 1, secondTensor.native)
         return res
 
     def __sub__(_LongTensor self, second):
@@ -1466,43 +1466,43 @@ cdef class _LongTensor(object):
         cdef _LongTensor res = _LongTensor.new()
         cdef _LongTensor secondTensor
         if isinstance(second, numbers.Number):
-            THLongTensor_add(res.thLongTensor, self.thLongTensor, -second)
+            THLongTensor_add(res.native, self.native, -second)
         else:
             secondTensor = second
-            THLongTensor_cadd(res.thLongTensor, self.thLongTensor, -1, secondTensor.thLongTensor)
+            THLongTensor_cadd(res.native, self.native, -1, secondTensor.native)
         return res
 
     def __div__(_LongTensor self, long value):
         # assume 2d matrix for now?
         cdef _LongTensor res = _LongTensor.new()
 #        THFloatTensor_resizeAs(cresult, self.thFloatTensor)
-        THLongTensor_div(res.thLongTensor, self.thLongTensor, value)
+        THLongTensor_div(res.native, self.native, value)
         return res
 
     def __iadd__(_LongTensor self, second):
         cdef _LongTensor secondTensor
         if isinstance(second, numbers.Number):
-            THLongTensor_add(self.thLongTensor, self.thLongTensor, second)
+            THLongTensor_add(self.native, self.native, second)
         else:
             secondTensor = second
-            THLongTensor_cadd(self.thLongTensor, self.thLongTensor, 1, secondTensor.thLongTensor)
+            THLongTensor_cadd(self.native, self.native, 1, secondTensor.native)
         return self
 
     def __isub__(_LongTensor self, second):
         cdef _LongTensor secondTensor
         if isinstance(second, numbers.Number):
-            THLongTensor_add(self.thLongTensor, self.thLongTensor, -second)
+            THLongTensor_add(self.native, self.native, -second)
         else:
             secondTensor = second
-            THLongTensor_cadd(self.thLongTensor, self.thLongTensor, -1, secondTensor.thLongTensor)
+            THLongTensor_cadd(self.native, self.native, -1, secondTensor.native)
         return self
 
     def __idiv__(_LongTensor self, long value):
-        THLongTensor_div(self.thLongTensor, self.thLongTensor, value)
+        THLongTensor_div(self.native, self.native, value)
         return self
 
     def __imul__(_LongTensor self, long value):
-        THLongTensor_mul(self.thLongTensor, self.thLongTensor, value)
+        THLongTensor_mul(self.native, self.native, value)
         return self
 
 #    def __mul__(_LongTensor self, _LongTensor M2):
@@ -1515,7 +1515,7 @@ cdef class _LongTensor(object):
 
         res = _LongTensor.new()
         if isinstance(second, numbers.Number):
-            THLongTensor_mul(res.thLongTensor, self.thLongTensor, second)
+            THLongTensor_mul(res.native, self.native, second)
             return res
         else:
         
@@ -1525,11 +1525,11 @@ cdef class _LongTensor(object):
     # ========== random ===============================
 
     def bernoulli(_LongTensor self, float p=0.5):
-        THLongTensor_bernoulli(self.thLongTensor, globalState.generator, p)
+        THLongTensor_bernoulli(self.native, globalState.generator, p)
         return self
 
     def geometric(_LongTensor self, float p=0.5):
-        THLongTensor_geometric(self.thLongTensor, globalState.generator, p)
+        THLongTensor_geometric(self.native, globalState.generator, p)
         return self
 
 
@@ -1539,7 +1539,7 @@ cdef _LongTensor_fromNative(THLongTensor *tensorC, retain=True):
     if retain:
         THLongTensor_retain(tensorC)
     tensor = _LongTensor(_allocate=False)
-    tensor.thLongTensor = tensorC
+    tensor.native = tensorC
     return tensor
 
 
@@ -1611,7 +1611,7 @@ def _popDoubleTensor():
 
 def _pushDoubleTensor(_DoubleTensor tensor):
     global globalState
-    pushDoubleTensor(globalState.L, tensor.thDoubleTensor)
+    pushDoubleTensor(globalState.L, tensor.native)
 
 
 
@@ -1624,7 +1624,7 @@ def _popFloatTensor():
 
 def _pushFloatTensor(_FloatTensor tensor):
     global globalState
-    pushFloatTensor(globalState.L, tensor.thFloatTensor)
+    pushFloatTensor(globalState.L, tensor.native)
 
 
 
@@ -1639,8 +1639,8 @@ cpdef int getDoublePrediction(_DoubleTensor output):
     cdef double maxSoFar = output[0]
     cdef double thisValue = 0
     cdef int i = 0
-    for i in range(THDoubleTensor_size(output.thDoubleTensor, 0)):
-        thisValue = THDoubleTensor_get1d(output.thDoubleTensor, i)
+    for i in range(THDoubleTensor_size(output.native, 0)):
+        thisValue = THDoubleTensor_get1d(output.native, i)
         if thisValue > maxSoFar:
             maxSoFar = thisValue
             prediction = i
@@ -1657,8 +1657,8 @@ cpdef int getFloatPrediction(_FloatTensor output):
     cdef float maxSoFar = output[0]
     cdef float thisValue = 0
     cdef int i = 0
-    for i in range(THFloatTensor_size(output.thFloatTensor, 0)):
-        thisValue = THFloatTensor_get1d(output.thFloatTensor, i)
+    for i in range(THFloatTensor_size(output.native, 0)):
+        thisValue = THFloatTensor_get1d(output.native, i)
         if thisValue > maxSoFar:
             maxSoFar = thisValue
             prediction = i

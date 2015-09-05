@@ -19,7 +19,7 @@ cdef extern from "THTensor.h":
     cdef struct TH{{Real}}Tensor
 
 cdef class _{{Real}}Tensor(object):
-    cdef TH{{Real}}Tensor *th{{Real}}Tensor
+    cdef TH{{Real}}Tensor *native
     cpdef int dims(self)
     cpdef set1d(self, int x0, {{real}} value)
     cpdef set2d(self, int x0, int x1, {{real}} value)

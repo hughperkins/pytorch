@@ -121,10 +121,10 @@ cdef class _{{Real}}Tensor(object):
                     raise Exception('cannot provide arguments to initializer')
             if len(args) == 0:
 #                print('no args, calling TH{{Real}}Tensor_new()')
-                self.th{{Real}}Tensor = TH{{Real}}Tensor_new()
+                self.native = TH{{Real}}Tensor_new()
             elif len(args) == 1:
 #                print('new tensor 1d length', args[0])
-                self.th{{Real}}Tensor = TH{{Real}}Tensor_newWithSize1d(args[0])
+                self.native = TH{{Real}}Tensor_newWithSize1d(args[0])
 #                storageC = THFloatTensor_storage(self.thFloatTensor)
 #                if storageC == NULL:
 #                    print('storageC is NULL')
@@ -134,7 +134,7 @@ cdef class _{{Real}}Tensor(object):
 #                    print('storageaddr', hex(addr))
 #                    print('storageC refcount', THFloatStorage_getRefCount(storageC))
             elif len(args) == 2:
-                self.th{{Real}}Tensor = TH{{Real}}Tensor_newWithSize2d(args[0], args[1])
+                self.native = TH{{Real}}Tensor_newWithSize2d(args[0], args[1])
             else:
                 raise Exception('Not implemented, len(args)=' + str(len(args)))
 
@@ -152,7 +152,7 @@ cdef class _{{Real}}Tensor(object):
 #        cdef int size
 #        cdef int i
 #        cdef THFloatStorage *storage
-        refCount = TH{{Real}}Tensor_getRefCount(self.th{{Real}}Tensor)
+        refCount = TH{{Real}}Tensor_getRefCount(self.native)
 #        print('{{Real}}Tensor.dealloc old refcount', refCount)
 #        storage = THFloatTensor_storage(self.thFloatTensor)
 #        if storage == NULL:
@@ -165,29 +165,29 @@ cdef class _{{Real}}Tensor(object):
 #            print('   size[', i, ']', THFloatTensor_size(self.thFloatTensor, i))
         if refCount < 1:
             raise Exception('Unallocated an already deallocated tensor... :-O')  # Hmmm, seems this exceptoin wont go anywhere useful... :-P
-        TH{{Real}}Tensor_free(self.th{{Real}}Tensor)
+        TH{{Real}}Tensor_free(self.native)
 
     def nElement(_{{Real}}Tensor self):
-        return TH{{Real}}Tensor_nElement(self.th{{Real}}Tensor)
+        return TH{{Real}}Tensor_nElement(self.native)
 
     @property
     def refCount(_{{Real}}Tensor self):
-        return TH{{Real}}Tensor_getRefCount(self.th{{Real}}Tensor)
+        return TH{{Real}}Tensor_getRefCount(self.native)
 
     cpdef int dims(self):
-        return TH{{Real}}Tensor_nDimension(self.th{{Real}}Tensor)
+        return TH{{Real}}Tensor_nDimension(self.native)
 
     cpdef set1d(self, int x0, {{real}} value):
-        TH{{Real}}Tensor_set1d(self.th{{Real}}Tensor, x0, value)
+        TH{{Real}}Tensor_set1d(self.native, x0, value)
 
     cpdef set2d(self, int x0, int x1, {{real}} value):
-        TH{{Real}}Tensor_set2d(self.th{{Real}}Tensor, x0, x1, value)
+        TH{{Real}}Tensor_set2d(self.native, x0, x1, value)
 
     cpdef {{real}} get1d(self, int x0):
-        return TH{{Real}}Tensor_get1d(self.th{{Real}}Tensor, x0)
+        return TH{{Real}}Tensor_get1d(self.native, x0)
 
     cpdef {{real}} get2d(self, int x0, int x1):
-        return TH{{Real}}Tensor_get2d(self.th{{Real}}Tensor, x0, x1)
+        return TH{{Real}}Tensor_get2d(self.native, x0, x1)
 
     def __repr__(_{{Real}}Tensor self):
         # assume 2d matrix for now
@@ -197,8 +197,8 @@ cdef class _{{Real}}Tensor(object):
         if dims == 0:
             return '[torch.{{Real}}Tensor with no dimension]\n'
         elif dims == 2:
-            size0 = TH{{Real}}Tensor_size(self.th{{Real}}Tensor, 0)
-            size1 = TH{{Real}}Tensor_size(self.th{{Real}}Tensor, 1)
+            size0 = TH{{Real}}Tensor_size(self.native, 0)
+            size1 = TH{{Real}}Tensor_size(self.native, 1)
             res = ''
             for r in range(size0):
                 thisline = ''
@@ -214,7 +214,7 @@ cdef class _{{Real}}Tensor(object):
             res += '[torch.{{Real}}Tensor of size ' + ('%.0f' % size0) + 'x' + str(size1) + ']\n'
             return res
         elif dims == 1:
-            size0 = TH{{Real}}Tensor_size(self.th{{Real}}Tensor, 0)
+            size0 = TH{{Real}}Tensor_size(self.native, 0)
             res = ''
             thisline = ''
             for c in range(size0):
@@ -234,7 +234,7 @@ cdef class _{{Real}}Tensor(object):
     def __getitem__(_{{Real}}Tensor self, int index):
         if self.dims() == 1:
             return self.get1d(index)
-        cdef TH{{Real}}Tensor *res = TH{{Real}}Tensor_newSelect(self.th{{Real}}Tensor, 0, index)
+        cdef TH{{Real}}Tensor *res = TH{{Real}}Tensor_newSelect(self.native, 0, index)
         return _{{Real}}Tensor_fromNative(res, False)
 
     def __setitem__(_{{Real}}Tensor self, int index, {{real}} value):
@@ -244,7 +244,7 @@ cdef class _{{Real}}Tensor(object):
             raise Exception("not implemented")
 
     def fill(_{{Real}}Tensor self, {{real}} value):
-        TH{{Real}}Tensor_fill(self.th{{Real}}Tensor, value)
+        TH{{Real}}Tensor_fill(self.native, value)
         return self
 
     def size(_{{Real}}Tensor self):
@@ -253,7 +253,7 @@ cdef class _{{Real}}Tensor(object):
         if dims > 0:
             size = _LongTensor(dims)
             for d in range(dims):
-                size.set1d(d, TH{{Real}}Tensor_size(self.th{{Real}}Tensor, d))
+                size.set1d(d, TH{{Real}}Tensor_size(self.native, d))
             return size
         else:
             return None  # not sure how to handle this yet
@@ -265,27 +265,27 @@ cdef class _{{Real}}Tensor(object):
 #        return _FloatTensor_fromNative(newTensorC, False)
 
     def narrow(_{{Real}}Tensor self, int dimension, long firstIndex, long size):
-        cdef TH{{Real}}Tensor *narrowedC = TH{{Real}}Tensor_newNarrow(self.th{{Real}}Tensor, dimension, firstIndex, size)
+        cdef TH{{Real}}Tensor *narrowedC = TH{{Real}}Tensor_newNarrow(self.native, dimension, firstIndex, size)
         return _{{Real}}Tensor_fromNative(narrowedC, retain=False)
 
     def resize1d(_{{Real}}Tensor self, int size0):
-        TH{{Real}}Tensor_resize1d(self.th{{Real}}Tensor, size0)
+        TH{{Real}}Tensor_resize1d(self.native, size0)
         return self
 
     def resize2d(_{{Real}}Tensor self, int size0, int size1):
-        TH{{Real}}Tensor_resize2d(self.th{{Real}}Tensor, size0, size1)
+        TH{{Real}}Tensor_resize2d(self.native, size0, size1)
         return self
 
     def resize3d(_{{Real}}Tensor self, int size0, int size1, int size2):
-        TH{{Real}}Tensor_resize3d(self.th{{Real}}Tensor, size0, size1, size2)
+        TH{{Real}}Tensor_resize3d(self.native, size0, size1, size2)
         return self
 
     def resize4d(_{{Real}}Tensor self, int size0, int size1, int size2, int size3):
-        TH{{Real}}Tensor_resize4d(self.th{{Real}}Tensor, size0, size1, size2, size3)
+        TH{{Real}}Tensor_resize4d(self.native, size0, size1, size2, size3)
         return self
 
     def resizeAs(_{{Real}}Tensor self, _{{Real}}Tensor model):
-        TH{{Real}}Tensor_resizeAs(self.th{{Real}}Tensor, model.th{{Real}}Tensor)
+        TH{{Real}}Tensor_resizeAs(self.native, model.native)
         return self
     
     def resize(_{{Real}}Tensor self, _LongTensor size):
@@ -295,13 +295,13 @@ cdef class _{{Real}}Tensor(object):
         cdef int dims = size.size()[0]
 #        print('_FloatTensor.resize dims:', dims)
         if dims == 1:
-            TH{{Real}}Tensor_resize1d(self.th{{Real}}Tensor, size[0])
+            TH{{Real}}Tensor_resize1d(self.native, size[0])
         elif dims == 2:
-            TH{{Real}}Tensor_resize2d(self.th{{Real}}Tensor, size[0], size[1])
+            TH{{Real}}Tensor_resize2d(self.native, size[0], size[1])
         elif dims == 3:
-            TH{{Real}}Tensor_resize3d(self.th{{Real}}Tensor, size[0], size[1], size[2])
+            TH{{Real}}Tensor_resize3d(self.native, size[0], size[1], size[2])
         elif dims == 4:
-            TH{{Real}}Tensor_resize4d(self.th{{Real}}Tensor, size[0], size[1], size[2], size[3])
+            TH{{Real}}Tensor_resize4d(self.native, size[0], size[1], size[2], size[3])
         else:
             raise Exception('Not implemented for dims=' + str(dims))
         return self
@@ -319,7 +319,7 @@ cdef class _{{Real}}Tensor(object):
         return _{{Real}}Tensor_fromNative(newTensorC, False)
 
     def storage(_{{Real}}Tensor self):
-        cdef Storage.TH{{Real}}Storage *storageC = TH{{Real}}Tensor_storage(self.th{{Real}}Tensor)
+        cdef Storage.TH{{Real}}Storage *storageC = TH{{Real}}Tensor_storage(self.native)
         if storageC == NULL:
             return None
         return Storage.{{Real}}Storage_fromNative(storageC)
@@ -329,10 +329,10 @@ cdef class _{{Real}}Tensor(object):
         cdef _{{Real}}Tensor res = _{{Real}}Tensor.new()
         cdef _{{Real}}Tensor secondTensor
         if isinstance(second, numbers.Number):
-            TH{{Real}}Tensor_add(res.th{{Real}}Tensor, self.th{{Real}}Tensor, second)
+            TH{{Real}}Tensor_add(res.native, self.native, second)
         else:
             secondTensor = second
-            TH{{Real}}Tensor_cadd(res.th{{Real}}Tensor, self.th{{Real}}Tensor, 1, secondTensor.th{{Real}}Tensor)
+            TH{{Real}}Tensor_cadd(res.native, self.native, 1, secondTensor.native)
         return res
 
     def __sub__(_{{Real}}Tensor self, second):
@@ -340,43 +340,43 @@ cdef class _{{Real}}Tensor(object):
         cdef _{{Real}}Tensor res = _{{Real}}Tensor.new()
         cdef _{{Real}}Tensor secondTensor
         if isinstance(second, numbers.Number):
-            TH{{Real}}Tensor_add(res.th{{Real}}Tensor, self.th{{Real}}Tensor, -second)
+            TH{{Real}}Tensor_add(res.native, self.native, -second)
         else:
             secondTensor = second
-            TH{{Real}}Tensor_cadd(res.th{{Real}}Tensor, self.th{{Real}}Tensor, -1, secondTensor.th{{Real}}Tensor)
+            TH{{Real}}Tensor_cadd(res.native, self.native, -1, secondTensor.native)
         return res
 
     def __div__(_{{Real}}Tensor self, {{real}} value):
         # assume 2d matrix for now?
         cdef _{{Real}}Tensor res = _{{Real}}Tensor.new()
 #        THFloatTensor_resizeAs(cresult, self.thFloatTensor)
-        TH{{Real}}Tensor_div(res.th{{Real}}Tensor, self.th{{Real}}Tensor, value)
+        TH{{Real}}Tensor_div(res.native, self.native, value)
         return res
 
     def __iadd__(_{{Real}}Tensor self, second):
         cdef _{{Real}}Tensor secondTensor
         if isinstance(second, numbers.Number):
-            TH{{Real}}Tensor_add(self.th{{Real}}Tensor, self.th{{Real}}Tensor, second)
+            TH{{Real}}Tensor_add(self.native, self.native, second)
         else:
             secondTensor = second
-            TH{{Real}}Tensor_cadd(self.th{{Real}}Tensor, self.th{{Real}}Tensor, 1, secondTensor.th{{Real}}Tensor)
+            TH{{Real}}Tensor_cadd(self.native, self.native, 1, secondTensor.native)
         return self
 
     def __isub__(_{{Real}}Tensor self, second):
         cdef _{{Real}}Tensor secondTensor
         if isinstance(second, numbers.Number):
-            TH{{Real}}Tensor_add(self.th{{Real}}Tensor, self.th{{Real}}Tensor, -second)
+            TH{{Real}}Tensor_add(self.native, self.native, -second)
         else:
             secondTensor = second
-            TH{{Real}}Tensor_cadd(self.th{{Real}}Tensor, self.th{{Real}}Tensor, -1, secondTensor.th{{Real}}Tensor)
+            TH{{Real}}Tensor_cadd(self.native, self.native, -1, secondTensor.native)
         return self
 
     def __idiv__(_{{Real}}Tensor self, {{real}} value):
-        TH{{Real}}Tensor_div(self.th{{Real}}Tensor, self.th{{Real}}Tensor, value)
+        TH{{Real}}Tensor_div(self.native, self.native, value)
         return self
 
     def __imul__(_{{Real}}Tensor self, {{real}} value):
-        TH{{Real}}Tensor_mul(self.th{{Real}}Tensor, self.th{{Real}}Tensor, value)
+        TH{{Real}}Tensor_mul(self.native, self.native, value)
         return self
 
 #    def __mul__(_{{Real}}Tensor self, _{{Real}}Tensor M2):
@@ -389,17 +389,17 @@ cdef class _{{Real}}Tensor(object):
 
         res = _{{Real}}Tensor.new()
         if isinstance(second, numbers.Number):
-            TH{{Real}}Tensor_mul(res.th{{Real}}Tensor, self.th{{Real}}Tensor, second)
+            TH{{Real}}Tensor_mul(res.native, self.native, second)
             return res
         else:
         {% if Real in ['Float', 'Double'] %}
             M2 = second
             T = _{{Real}}Tensor.new()
-            resRows = TH{{Real}}Tensor_size(self.th{{Real}}Tensor, 0)
-            resCols = TH{{Real}}Tensor_size(M2.th{{Real}}Tensor, 1)
+            resRows = TH{{Real}}Tensor_size(self.native, 0)
+            resCols = TH{{Real}}Tensor_size(M2.native, 1)
             res.resize2d(resRows, resCols)
             T.resize2d(resRows, resCols)
-            TH{{Real}}Tensor_addmm(res.th{{Real}}Tensor, 0, T.th{{Real}}Tensor, 1, self.th{{Real}}Tensor, M2.th{{Real}}Tensor)
+            TH{{Real}}Tensor_addmm(res.native, 0, T.native, 1, self.native, M2.native)
             return res
         {% else %}
             raise Exception('Invalid arg type for second: ' + str(type(second)))
@@ -408,32 +408,32 @@ cdef class _{{Real}}Tensor(object):
     # ========== random ===============================
 
     def bernoulli(_{{Real}}Tensor self, float p=0.5):
-        TH{{Real}}Tensor_bernoulli(self.th{{Real}}Tensor, globalState.generator, p)
+        TH{{Real}}Tensor_bernoulli(self.native, globalState.generator, p)
         return self
 
     def geometric(_{{Real}}Tensor self, float p=0.5):
-        TH{{Real}}Tensor_geometric(self.th{{Real}}Tensor, globalState.generator, p)
+        TH{{Real}}Tensor_geometric(self.native, globalState.generator, p)
         return self
 
 {% if Real in ['Float', 'Double'] %}
     def normal(_{{Real}}Tensor self, {{real}} mean=0, {{real}} stdv=1):
-        TH{{Real}}Tensor_normal(self.th{{Real}}Tensor, globalState.generator, mean, stdv)
+        TH{{Real}}Tensor_normal(self.native, globalState.generator, mean, stdv)
         return self
 
     def exponential(_{{Real}}Tensor self, {{real}} _lambda=1):
-        TH{{Real}}Tensor_exponential(self.th{{Real}}Tensor, globalState.generator, _lambda)
+        TH{{Real}}Tensor_exponential(self.native, globalState.generator, _lambda)
         return self
 
     def cauchy(_{{Real}}Tensor self, {{real}} median=0, {{real}} sigma=1):
-        TH{{Real}}Tensor_cauchy(self.th{{Real}}Tensor, globalState.generator, median, sigma)
+        TH{{Real}}Tensor_cauchy(self.native, globalState.generator, median, sigma)
         return self
 
     def logNormal(_{{Real}}Tensor self, {{real}} mean=1, {{real}} stdv=2):
-        TH{{Real}}Tensor_logNormal(self.th{{Real}}Tensor, globalState.generator, mean, stdv)
+        TH{{Real}}Tensor_logNormal(self.native, globalState.generator, mean, stdv)
         return self
 
     def uniform(_{{Real}}Tensor self, {{real}} a=0, {{real}} b=1):
-        TH{{Real}}Tensor_uniform(self.th{{Real}}Tensor, globalState.generator, a, b)
+        TH{{Real}}Tensor_uniform(self.native, globalState.generator, a, b)
         return self
 {% endif %}
 
@@ -442,7 +442,7 @@ cdef _{{Real}}Tensor_fromNative(TH{{Real}}Tensor *tensorC, retain=True):
     if retain:
         TH{{Real}}Tensor_retain(tensorC)
     tensor = _{{Real}}Tensor(_allocate=False)
-    tensor.th{{Real}}Tensor = tensorC
+    tensor.native = tensorC
     return tensor
 
 {% endfor %}
@@ -514,7 +514,7 @@ def _pop{{Real}}Tensor():
 
 def _push{{Real}}Tensor(_{{Real}}Tensor tensor):
     global globalState
-    push{{Real}}Tensor(globalState.L, tensor.th{{Real}}Tensor)
+    push{{Real}}Tensor(globalState.L, tensor.native)
 {% endif %}
 {% endfor %}
 
@@ -527,8 +527,8 @@ cpdef int get{{Real}}Prediction(_{{Real}}Tensor output):
     cdef {{real}} maxSoFar = output[0]
     cdef {{real}} thisValue = 0
     cdef int i = 0
-    for i in range(TH{{Real}}Tensor_size(output.th{{Real}}Tensor, 0)):
-        thisValue = TH{{Real}}Tensor_get1d(output.th{{Real}}Tensor, i)
+    for i in range(TH{{Real}}Tensor_size(output.native, 0)):
+        thisValue = TH{{Real}}Tensor_get1d(output.native, i)
         if thisValue > maxSoFar:
             maxSoFar = thisValue
             prediction = i

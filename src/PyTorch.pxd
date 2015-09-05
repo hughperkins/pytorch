@@ -19,7 +19,7 @@ cdef extern from "THTensor.h":
     cdef struct THDoubleTensor
 
 cdef class _DoubleTensor(object):
-    cdef THDoubleTensor *thDoubleTensor
+    cdef THDoubleTensor *native
     cpdef int dims(self)
     cpdef set1d(self, int x0, double value)
     cpdef set2d(self, int x0, int x1, double value)
@@ -34,7 +34,7 @@ cdef extern from "THTensor.h":
     cdef struct THByteTensor
 
 cdef class _ByteTensor(object):
-    cdef THByteTensor *thByteTensor
+    cdef THByteTensor *native
     cpdef int dims(self)
     cpdef set1d(self, int x0, unsigned char value)
     cpdef set2d(self, int x0, int x1, unsigned char value)
@@ -49,7 +49,7 @@ cdef extern from "THTensor.h":
     cdef struct THFloatTensor
 
 cdef class _FloatTensor(object):
-    cdef THFloatTensor *thFloatTensor
+    cdef THFloatTensor *native
     cpdef int dims(self)
     cpdef set1d(self, int x0, float value)
     cpdef set2d(self, int x0, int x1, float value)
@@ -64,7 +64,7 @@ cdef extern from "THTensor.h":
     cdef struct THLongTensor
 
 cdef class _LongTensor(object):
-    cdef THLongTensor *thLongTensor
+    cdef THLongTensor *native
     cpdef int dims(self)
     cpdef set1d(self, int x0, long value)
     cpdef set2d(self, int x0, int x1, long value)
