@@ -464,11 +464,14 @@ cdef extern from "THTensor.h":
     THDoubleTensor* THDoubleTensor_newWithStorage1d(THDoubleStorage *storage, long storageOffset, long size0, long stride0)
     THDoubleTensor* THDoubleTensor_newWithStorage2d(THDoubleStorage *storage, long storageOffset, long size0, long stride0, long size1, long stride1)
     THDoubleStorage *THDoubleTensor_storage(THDoubleTensor *self)
+    void THDoubleTensor_add(THDoubleTensor *tensorSelf, THDoubleTensor *tensorOne, double value)
 
     void THDoubleTensor_geometric(THDoubleTensor *self, THGenerator *_generator, double p)
     void THDoubleTensor_bernoulli(THDoubleTensor *self, THGenerator *_generator, double p)
 
     
+    void THDoubleTensor_addmm(THDoubleTensor *tensorSelf, double beta, THDoubleTensor *tensorOne, double alpha, THDoubleTensor *mat1, THDoubleTensor *mat2)
+
     void THDoubleTensor_uniform(THDoubleTensor *self, THGenerator *_generator, double a, double b)
     void THDoubleTensor_normal(THDoubleTensor *self, THGenerator *_generator, double mean, double stdv)
     void THDoubleTensor_exponential(THDoubleTensor *self, THGenerator *_generator, double _lambda);
@@ -504,6 +507,7 @@ cdef extern from "THTensor.h":
     THByteTensor* THByteTensor_newWithStorage1d(THByteStorage *storage, long storageOffset, long size0, long stride0)
     THByteTensor* THByteTensor_newWithStorage2d(THByteStorage *storage, long storageOffset, long size0, long stride0, long size1, long stride1)
     THByteStorage *THByteTensor_storage(THByteTensor *self)
+    void THByteTensor_add(THByteTensor *tensorSelf, THByteTensor *tensorOne, unsigned char value)
 
     void THByteTensor_geometric(THByteTensor *self, THGenerator *_generator, double p)
     void THByteTensor_bernoulli(THByteTensor *self, THGenerator *_generator, double p)
@@ -538,11 +542,14 @@ cdef extern from "THTensor.h":
     THFloatTensor* THFloatTensor_newWithStorage1d(THFloatStorage *storage, long storageOffset, long size0, long stride0)
     THFloatTensor* THFloatTensor_newWithStorage2d(THFloatStorage *storage, long storageOffset, long size0, long stride0, long size1, long stride1)
     THFloatStorage *THFloatTensor_storage(THFloatTensor *self)
+    void THFloatTensor_add(THFloatTensor *tensorSelf, THFloatTensor *tensorOne, float value)
 
     void THFloatTensor_geometric(THFloatTensor *self, THGenerator *_generator, double p)
     void THFloatTensor_bernoulli(THFloatTensor *self, THGenerator *_generator, double p)
 
     
+    void THFloatTensor_addmm(THFloatTensor *tensorSelf, double beta, THFloatTensor *tensorOne, double alpha, THFloatTensor *mat1, THFloatTensor *mat2)
+
     void THFloatTensor_uniform(THFloatTensor *self, THGenerator *_generator, double a, double b)
     void THFloatTensor_normal(THFloatTensor *self, THGenerator *_generator, double mean, double stdv)
     void THFloatTensor_exponential(THFloatTensor *self, THGenerator *_generator, double _lambda);
@@ -578,16 +585,13 @@ cdef extern from "THTensor.h":
     THLongTensor* THLongTensor_newWithStorage1d(THLongStorage *storage, long storageOffset, long size0, long stride0)
     THLongTensor* THLongTensor_newWithStorage2d(THLongStorage *storage, long storageOffset, long size0, long stride0, long size1, long stride1)
     THLongStorage *THLongTensor_storage(THLongTensor *self)
+    void THLongTensor_add(THLongTensor *tensorSelf, THLongTensor *tensorOne, long value)
 
     void THLongTensor_geometric(THLongTensor *self, THGenerator *_generator, double p)
     void THLongTensor_bernoulli(THLongTensor *self, THGenerator *_generator, double p)
 
     
 
-
-cdef extern from "THTensor.h":
-    void THFloatTensor_add(THFloatTensor *tensorSelf, THFloatTensor *tensorOne, float value)
-    void THFloatTensor_addmm(THFloatTensor *tensorSelf, float beta, THFloatTensor *tensorOne, float alpha, THFloatTensor *mat1, THFloatTensor *mat2)
 
 
 
@@ -813,6 +817,12 @@ cdef class _DoubleTensor(object):
             return None
         return DoubleStorage.fromNative(storageC)
 
+    def __iadd__(_DoubleTensor self, double value):
+        THDoubleTensor_add(self.thDoubleTensor, self.thDoubleTensor, value)
+        return self
+
+    # ========== random ===============================
+
     def bernoulli(_DoubleTensor self, float p=0.5):
         THDoubleTensor_bernoulli(self.thDoubleTensor, globalState.generator, p)
         return self
@@ -822,7 +832,16 @@ cdef class _DoubleTensor(object):
         return self
 
 
-    # ========== random ===============================
+    def __mul__(_DoubleTensor self, _DoubleTensor M2):
+        cdef _DoubleTensor T = _DoubleTensor.new()
+        cdef _DoubleTensor res = _DoubleTensor.new()
+        cdef int resRows = THDoubleTensor_size(self.thDoubleTensor, 0)
+        cdef int resCols = THDoubleTensor_size(M2.thDoubleTensor, 1)
+        res.resize2d(resRows, resCols)
+        T.resize2d(resRows, resCols)
+        THDoubleTensor_addmm(res.thDoubleTensor, 0, T.thDoubleTensor, 1, self.thDoubleTensor, M2.thDoubleTensor)
+        return res
+
     def normal(_DoubleTensor self, double mean=0, double stdv=1):
         THDoubleTensor_normal(self.thDoubleTensor, globalState.generator, mean, stdv)
         return self
@@ -843,12 +862,6 @@ cdef class _DoubleTensor(object):
         THDoubleTensor_uniform(self.thDoubleTensor, globalState.generator, a, b)
         return self
 
-
-
-
-
-#class FloatTensor(_FloatTensor):
-#    pass
 
 #    @staticmethod
 cdef _DoubleTensor_fromNative(THDoubleTensor *tensorC, retain=True):
@@ -1082,6 +1095,12 @@ cdef class _ByteTensor(object):
             return None
         return ByteStorage.fromNative(storageC)
 
+    def __iadd__(_ByteTensor self, unsigned char value):
+        THByteTensor_add(self.thByteTensor, self.thByteTensor, value)
+        return self
+
+    # ========== random ===============================
+
     def bernoulli(_ByteTensor self, float p=0.5):
         THByteTensor_bernoulli(self.thByteTensor, globalState.generator, p)
         return self
@@ -1091,12 +1110,6 @@ cdef class _ByteTensor(object):
         return self
 
 
-
-
-
-
-#class FloatTensor(_FloatTensor):
-#    pass
 
 #    @staticmethod
 cdef _ByteTensor_fromNative(THByteTensor *tensorC, retain=True):
@@ -1330,6 +1343,12 @@ cdef class _FloatTensor(object):
             return None
         return FloatStorage.fromNative(storageC)
 
+    def __iadd__(_FloatTensor self, float value):
+        THFloatTensor_add(self.thFloatTensor, self.thFloatTensor, value)
+        return self
+
+    # ========== random ===============================
+
     def bernoulli(_FloatTensor self, float p=0.5):
         THFloatTensor_bernoulli(self.thFloatTensor, globalState.generator, p)
         return self
@@ -1339,7 +1358,16 @@ cdef class _FloatTensor(object):
         return self
 
 
-    # ========== random ===============================
+    def __mul__(_FloatTensor self, _FloatTensor M2):
+        cdef _FloatTensor T = _FloatTensor.new()
+        cdef _FloatTensor res = _FloatTensor.new()
+        cdef int resRows = THFloatTensor_size(self.thFloatTensor, 0)
+        cdef int resCols = THFloatTensor_size(M2.thFloatTensor, 1)
+        res.resize2d(resRows, resCols)
+        T.resize2d(resRows, resCols)
+        THFloatTensor_addmm(res.thFloatTensor, 0, T.thFloatTensor, 1, self.thFloatTensor, M2.thFloatTensor)
+        return res
+
     def normal(_FloatTensor self, float mean=0, float stdv=1):
         THFloatTensor_normal(self.thFloatTensor, globalState.generator, mean, stdv)
         return self
@@ -1360,30 +1388,6 @@ cdef class _FloatTensor(object):
         THFloatTensor_uniform(self.thFloatTensor, globalState.generator, a, b)
         return self
 
-
-
-
-    def __iadd__(_FloatTensor self, float value):
-        THFloatTensor_add(self.thFloatTensor, self.thFloatTensor, value)
-        return self
-
-
-    # ====================================
-
-    def __mul__(_FloatTensor self, _FloatTensor M2):
-        cdef _FloatTensor T = _FloatTensor.new()
-        cdef _FloatTensor res = _FloatTensor.new()
-        cdef int resRows = THFloatTensor_size(self.thFloatTensor, 0)
-        cdef int resCols = THFloatTensor_size(M2.thFloatTensor, 1)
-        res.resize2d(resRows, resCols)
-        T.resize2d(resRows, resCols)
-        THFloatTensor_addmm(res.thFloatTensor, 0, T.thFloatTensor, 1, self.thFloatTensor, M2.thFloatTensor)
-        return res
-
-
-
-#class FloatTensor(_FloatTensor):
-#    pass
 
 #    @staticmethod
 cdef _FloatTensor_fromNative(THFloatTensor *tensorC, retain=True):
@@ -1617,6 +1621,12 @@ cdef class _LongTensor(object):
             return None
         return LongStorage.fromNative(storageC)
 
+    def __iadd__(_LongTensor self, long value):
+        THLongTensor_add(self.thLongTensor, self.thLongTensor, value)
+        return self
+
+    # ========== random ===============================
+
     def bernoulli(_LongTensor self, float p=0.5):
         THLongTensor_bernoulli(self.thLongTensor, globalState.generator, p)
         return self
@@ -1626,12 +1636,6 @@ cdef class _LongTensor(object):
         return self
 
 
-
-
-
-
-#class FloatTensor(_FloatTensor):
-#    pass
 
 #    @staticmethod
 cdef _LongTensor_fromNative(THLongTensor *tensorC, retain=True):

@@ -256,11 +256,14 @@ cdef extern from "THTensor.h":
     TH{{Real}}Tensor* TH{{Real}}Tensor_newWithStorage1d(TH{{Real}}Storage *storage, long storageOffset, long size0, long stride0)
     TH{{Real}}Tensor* TH{{Real}}Tensor_newWithStorage2d(TH{{Real}}Storage *storage, long storageOffset, long size0, long stride0, long size1, long stride1)
     TH{{Real}}Storage *TH{{Real}}Tensor_storage(TH{{Real}}Tensor *self)
+    void TH{{Real}}Tensor_add(TH{{Real}}Tensor *tensorSelf, TH{{Real}}Tensor *tensorOne, {{real}} value)
 
     void TH{{Real}}Tensor_geometric(TH{{Real}}Tensor *self, THGenerator *_generator, double p)
     void TH{{Real}}Tensor_bernoulli(TH{{Real}}Tensor *self, THGenerator *_generator, double p)
 
     {% if Real in ['Float', 'Double'] %}
+    void TH{{Real}}Tensor_addmm(TH{{Real}}Tensor *tensorSelf, double beta, TH{{Real}}Tensor *tensorOne, double alpha, TH{{Real}}Tensor *mat1, TH{{Real}}Tensor *mat2)
+
     void TH{{Real}}Tensor_uniform(TH{{Real}}Tensor *self, THGenerator *_generator, double a, double b)
     void TH{{Real}}Tensor_normal(TH{{Real}}Tensor *self, THGenerator *_generator, double mean, double stdv)
     void TH{{Real}}Tensor_exponential(TH{{Real}}Tensor *self, THGenerator *_generator, double _lambda);
@@ -268,10 +271,6 @@ cdef extern from "THTensor.h":
     void TH{{Real}}Tensor_logNormal(TH{{Real}}Tensor *self, THGenerator *_generator, double mean, double stdv)
     {% endif %}
 {% endfor %}
-
-cdef extern from "THTensor.h":
-    void THFloatTensor_add(THFloatTensor *tensorSelf, THFloatTensor *tensorOne, float value)
-    void THFloatTensor_addmm(THFloatTensor *tensorSelf, float beta, THFloatTensor *tensorOne, float alpha, THFloatTensor *mat1, THFloatTensor *mat2)
 
 {% for Real in types %}
 {% set real = types[Real]['real'] %}
@@ -501,6 +500,12 @@ cdef class _{{Real}}Tensor(object):
             return None
         return {{Real}}Storage.fromNative(storageC)
 
+    def __iadd__(_{{Real}}Tensor self, {{real}} value):
+        TH{{Real}}Tensor_add(self.th{{Real}}Tensor, self.th{{Real}}Tensor, value)
+        return self
+
+    # ========== random ===============================
+
     def bernoulli(_{{Real}}Tensor self, float p=0.5):
         TH{{Real}}Tensor_bernoulli(self.th{{Real}}Tensor, globalState.generator, p)
         return self
@@ -510,7 +515,16 @@ cdef class _{{Real}}Tensor(object):
         return self
 
 {% if Real in ['Float', 'Double'] %}
-    # ========== random ===============================
+    def __mul__(_{{Real}}Tensor self, _{{Real}}Tensor M2):
+        cdef _{{Real}}Tensor T = _{{Real}}Tensor.new()
+        cdef _{{Real}}Tensor res = _{{Real}}Tensor.new()
+        cdef int resRows = TH{{Real}}Tensor_size(self.th{{Real}}Tensor, 0)
+        cdef int resCols = TH{{Real}}Tensor_size(M2.th{{Real}}Tensor, 1)
+        res.resize2d(resRows, resCols)
+        T.resize2d(resRows, resCols)
+        TH{{Real}}Tensor_addmm(res.th{{Real}}Tensor, 0, T.th{{Real}}Tensor, 1, self.th{{Real}}Tensor, M2.th{{Real}}Tensor)
+        return res
+
     def normal(_{{Real}}Tensor self, {{real}} mean=0, {{real}} stdv=1):
         TH{{Real}}Tensor_normal(self.th{{Real}}Tensor, globalState.generator, mean, stdv)
         return self
@@ -531,30 +545,6 @@ cdef class _{{Real}}Tensor(object):
         TH{{Real}}Tensor_uniform(self.th{{Real}}Tensor, globalState.generator, a, b)
         return self
 {% endif %}
-
-{% if Real == 'Float' %}
-
-    def __iadd__(_FloatTensor self, float value):
-        THFloatTensor_add(self.thFloatTensor, self.thFloatTensor, value)
-        return self
-
-
-    # ====================================
-
-    def __mul__(_FloatTensor self, _FloatTensor M2):
-        cdef _FloatTensor T = _FloatTensor.new()
-        cdef _FloatTensor res = _FloatTensor.new()
-        cdef int resRows = THFloatTensor_size(self.thFloatTensor, 0)
-        cdef int resCols = THFloatTensor_size(M2.thFloatTensor, 1)
-        res.resize2d(resRows, resCols)
-        T.resize2d(resRows, resCols)
-        THFloatTensor_addmm(res.thFloatTensor, 0, T.thFloatTensor, 1, self.thFloatTensor, M2.thFloatTensor)
-        return res
-{% endif %}
-
-
-#class FloatTensor(_FloatTensor):
-#    pass
 
 #    @staticmethod
 cdef _{{Real}}Tensor_fromNative(TH{{Real}}Tensor *tensorC, retain=True):
