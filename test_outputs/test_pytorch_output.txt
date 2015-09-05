@@ -103,53 +103,53 @@ resize 1.0 1.0 1.0
 DoubleTensor(3,2).nElement() : 6
 DoubleTensor().nElement() : 0
 DoubleTensor(1).nElement() : 1
-A : 1.0 1.0 1.0 1.0
-1.0 1.0 1.0 2.0
-1.0 1.0 1.0 1.0
+A : 2.0 1.0 3.0 3.0
+1.0 1.0 6.0 12.0
+1.0 2.0 6.0 6.0
 [torch.DoubleTensor of size 3x4]
 
 A += 3
-A : 4.0 4.0 4.0 4.0
-4.0 4.0 4.0 5.0
-4.0 4.0 4.0 4.0
+A : 5.0 4.0 6.0 6.0
+4.0 4.0 9.0 15.0
+4.0 5.0 9.0 9.0
 [torch.DoubleTensor of size 3x4]
 
 A *= 3
-A : 12.0 12.0 12.0 12.0
-12.0 12.0 12.0 15.0
-12.0 12.0 12.0 12.0
+A : 15.0 12.0 18.0 18.0
+12.0 12.0 27.0 45.0
+12.0 15.0 27.0 27.0
 [torch.DoubleTensor of size 3x4]
 
 A -= 3
-A : 9.0 9.0 9.0 9.0
-9.0 9.0 9.0 12.0
-9.0 9.0 9.0 9.0
+A : 12.0 9.0 15.0 15.0
+9.0 9.0 24.0 42.0
+9.0 12.0 24.0 24.0
 [torch.DoubleTensor of size 3x4]
 
 A /= 3
-A : 3.0 3.0 3.0 3.0
-3.0 3.0 3.0 4.0
-3.0 3.0 3.0 3.0
+A : 4.0 3.0 5.0 5.0
+3.0 3.0 8.0 14.0
+3.0 4.0 8.0 8.0
 [torch.DoubleTensor of size 3x4]
 
-A + 5 : 8.0 8.0 8.0 8.0
-8.0 8.0 8.0 9.0
-8.0 8.0 8.0 8.0
+A + 5 : 9.0 8.0 10.0 10.0
+8.0 8.0 13.0 19.0
+8.0 9.0 13.0 13.0
 [torch.DoubleTensor of size 3x4]
 
-A - 5 : -2.0 -2.0 -2.0 -2.0
--2.0 -2.0 -2.0 -1.0
--2.0 -2.0 -2.0 -2.0
+A - 5 : -1.0 -2.0 0.0 0.0
+-2.0 -2.0 3.0 9.0
+-2.0 -1.0 3.0 3.0
 [torch.DoubleTensor of size 3x4]
 
-A * 5 : 15.0 15.0 15.0 15.0
-15.0 15.0 15.0 20.0
-15.0 15.0 15.0 15.0
+A * 5 : 20.0 15.0 25.0 25.0
+15.0 15.0 40.0 70.0
+15.0 20.0 40.0 40.0
 [torch.DoubleTensor of size 3x4]
 
-A / 2 : 1.5 1.5 1.5 1.5
-1.5 1.5 1.5 2.0
-1.5 1.5 1.5 1.5
+A / 2 : 2.0 1.5 2.5 2.5
+1.5 1.5 4.0 7.0
+1.5 2.0 4.0 4.0
 [torch.DoubleTensor of size 3x4]
 
 D 1 1 1
@@ -229,53 +229,53 @@ resize 1 1 1
 ByteTensor(3,2).nElement() : 6
 ByteTensor().nElement() : 0
 ByteTensor(1).nElement() : 1
-A : 1 1 1 1
-1 1 1 2
-1 1 1 1
+A : 2 1 3 3
+1 1 6 12
+1 2 6 6
 [torch.ByteTensor of size 3x4]
 
 A += 3
-A : 4 4 4 4
-4 4 4 5
-4 4 4 4
+A : 5 4 6 6
+4 4 9 15
+4 5 9 9
 [torch.ByteTensor of size 3x4]
 
 A *= 3
-A : 12 12 12 12
-12 12 12 15
-12 12 12 12
+A : 15 12 18 18
+12 12 27 45
+12 15 27 27
 [torch.ByteTensor of size 3x4]
 
 A -= 3
-A : 9 9 9 9
-9 9 9 12
-9 9 9 9
+A : 12 9 15 15
+9 9 24 42
+9 12 24 24
 [torch.ByteTensor of size 3x4]
 
 A /= 3
-A : 3 3 3 3
-3 3 3 4
-3 3 3 3
+A : 4 3 5 5
+3 3 8 14
+3 4 8 8
 [torch.ByteTensor of size 3x4]
 
-A + 5 : 8 8 8 8
-8 8 8 9
-8 8 8 8
+A + 5 : 9 8 10 10
+8 8 13 19
+8 9 13 13
 [torch.ByteTensor of size 3x4]
 
-A - 5 : 254 254 254 254
-254 254 254 255
-254 254 254 254
+A - 5 : 255 254 0 0
+254 254 3 9
+254 255 3 3
 [torch.ByteTensor of size 3x4]
 
-A * 5 : 15 15 15 15
-15 15 15 20
-15 15 15 15
+A * 5 : 20 15 25 25
+15 15 40 70
+15 20 40 40
 [torch.ByteTensor of size 3x4]
 
-A / 2 : 1 1 1 1
-1 1 1 2
-1 1 1 1
+A / 2 : 2 1 2 2
+1 1 4 7
+1 2 4 4
 [torch.ByteTensor of size 3x4]
 
 C [[ 0.78126878  0.68557262  0.46044704  0.29017398]
@@ -429,53 +429,53 @@ resize 1 1 1
 FloatTensor(3,2).nElement() : 6
 FloatTensor().nElement() : 0
 FloatTensor(1).nElement() : 1
-A : 1 1 1 1
-1 1 1 2
-1 1 1 1
+A : 2 1 3 3
+1 1 6 12
+1 2 6 6
 [torch.FloatTensor of size 3x4]
 
 A += 3
-A : 4 4 4 4
-4 4 4 5
-4 4 4 4
+A : 5 4 6 6
+4 4 9 15
+4 5 9 9
 [torch.FloatTensor of size 3x4]
 
 A *= 3
-A : 12 12 12 12
-12 12 12 15
-12 12 12 12
+A : 15 12 18 18
+12 12 27 45
+12 15 27 27
 [torch.FloatTensor of size 3x4]
 
 A -= 3
-A : 9 9 9 9
-9 9 9 12
-9 9 9 9
+A : 12 9 15 15
+9 9 24 42
+9 12 24 24
 [torch.FloatTensor of size 3x4]
 
 A /= 3
-A : 3 3 3 3
-3 3 3 4
-3 3 3 3
+A : 4 3 5 5
+3 3 8 14
+3 4 8 8
 [torch.FloatTensor of size 3x4]
 
-A + 5 : 8 8 8 8
-8 8 8 9
-8 8 8 8
+A + 5 : 9 8 10 10
+8 8 13 19
+8 9 13 13
 [torch.FloatTensor of size 3x4]
 
-A - 5 : -2 -2 -2 -2
--2 -2 -2 -1
--2 -2 -2 -2
+A - 5 : -1 -2 0 0
+-2 -2 3 9
+-2 -1 3 3
 [torch.FloatTensor of size 3x4]
 
-A * 5 : 15 15 15 15
-15 15 15 20
-15 15 15 15
+A * 5 : 20 15 25 25
+15 15 40 70
+15 20 40 40
 [torch.FloatTensor of size 3x4]
 
-A / 2 : 1.5 1.5 1.5 1.5
-1.5 1.5 1.5 2
-1.5 1.5 1.5 1.5
+A / 2 : 2 1.5 2.5 2.5
+1.5 1.5 4 7
+1.5 2 4 4
 [torch.FloatTensor of size 3x4]
 
 D 1 1 1
@@ -555,52 +555,52 @@ resize 1 1 1
 LongTensor(3,2).nElement() : 6
 LongTensor().nElement() : 0
 LongTensor(1).nElement() : 1
-A : 1 1 1 1
-1 1 1 2
-1 1 1 1
+A : 2 1 3 3
+1 1 6 12
+1 2 6 6
 [torch.LongTensor of size 3x4]
 
 A += 3
-A : 4 4 4 4
-4 4 4 5
-4 4 4 4
+A : 5 4 6 6
+4 4 9 15
+4 5 9 9
 [torch.LongTensor of size 3x4]
 
 A *= 3
-A : 12 12 12 12
-12 12 12 15
-12 12 12 12
+A : 15 12 18 18
+12 12 27 45
+12 15 27 27
 [torch.LongTensor of size 3x4]
 
 A -= 3
-A : 9 9 9 9
-9 9 9 12
-9 9 9 9
+A : 12 9 15 15
+9 9 24 42
+9 12 24 24
 [torch.LongTensor of size 3x4]
 
 A /= 3
-A : 3 3 3 3
-3 3 3 4
-3 3 3 3
+A : 4 3 5 5
+3 3 8 14
+3 4 8 8
 [torch.LongTensor of size 3x4]
 
-A + 5 : 8 8 8 8
-8 8 8 9
-8 8 8 8
+A + 5 : 9 8 10 10
+8 8 13 19
+8 9 13 13
 [torch.LongTensor of size 3x4]
 
-A - 5 : -2 -2 -2 -2
--2 -2 -2 -1
--2 -2 -2 -2
+A - 5 : -1 -2 0 0
+-2 -2 3 9
+-2 -1 3 3
 [torch.LongTensor of size 3x4]
 
-A * 5 : 15 15 15 15
-15 15 15 20
-15 15 15 15
+A * 5 : 20 15 25 25
+15 15 40 70
+15 20 40 40
 [torch.LongTensor of size 3x4]
 
-A / 2 : 1 1 1 1
-1 1 1 2
-1 1 1 1
+A / 2 : 2 1 2 2
+1 1 4 7
+1 2 4 4
 [torch.LongTensor of size 3x4]
 

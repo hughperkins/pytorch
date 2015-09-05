@@ -119,7 +119,7 @@ def test_pytorch{{Real}}():
     myeval('{{Real}}Tensor().nElement()')
     myeval('{{Real}}Tensor(1).nElement()')
 
-    A = {{Real}}Tensor(3,4).geometric()
+    A = {{Real}}Tensor(3,4).geometric(0.9)
     myeval('A')
     myexec('A += 3')
     myeval('A')

@@ -78,7 +78,7 @@ def test_pytorchDouble():
     myeval('DoubleTensor().nElement()')
     myeval('DoubleTensor(1).nElement()')
 
-    A = DoubleTensor(3,4).geometric()
+    A = DoubleTensor(3,4).geometric(0.9)
     myeval('A')
     myexec('A += 3')
     myeval('A')
@@ -147,7 +147,7 @@ def test_pytorchByte():
     myeval('ByteTensor().nElement()')
     myeval('ByteTensor(1).nElement()')
 
-    A = ByteTensor(3,4).geometric()
+    A = ByteTensor(3,4).geometric(0.9)
     myeval('A')
     myexec('A += 3')
     myeval('A')
@@ -257,7 +257,7 @@ def test_pytorchFloat():
     myeval('FloatTensor().nElement()')
     myeval('FloatTensor(1).nElement()')
 
-    A = FloatTensor(3,4).geometric()
+    A = FloatTensor(3,4).geometric(0.9)
     myeval('A')
     myexec('A += 3')
     myeval('A')
@@ -326,7 +326,7 @@ def test_pytorchLong():
     myeval('LongTensor().nElement()')
     myeval('LongTensor(1).nElement()')
 
-    A = LongTensor(3,4).geometric()
+    A = LongTensor(3,4).geometric(0.9)
     myeval('A')
     myexec('A += 3')
     myeval('A')
