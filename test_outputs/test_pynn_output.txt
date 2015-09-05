@@ -53,10 +53,3 @@ start training...
 epoch 0 accuracy: 44.53125%
 epoch 1 accuracy: 90.625%
 epoch 2 accuracy: 88.28125%
-epoch 3 accuracy: 94.53125%
-epoch 4 accuracy: 97.65625%
-epoch 5 accuracy: 97.65625%
-epoch 6 accuracy: 97.65625%
-epoch 7 accuracy: 98.4375%
-epoch 8 accuracy: 100.0%
-epoch 9 accuracy: 100.0%

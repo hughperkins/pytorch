@@ -8,7 +8,7 @@
 export PYTHONPATH=.:src
 
 if [[ x$RUNGDB == x ]]; then {
-    LD_LIBRARY_PATH=$HOME/torch/install/lib:$PWD/cbuild py.test -sv test/test* $* | grep --line-buffered -v 'seconds =============' | tee test_outputs/tests_output.txt
+    LD_LIBRARY_PATH=$HOME/torch/install/lib:$PWD/cbuild stdbuf --output=L py.test -sv test/test* $* | grep --line-buffered -v 'seconds =============' | tee test_outputs/tests_output.txt
 } else {
     LD_LIBRARY_PATH=$HOME/torch/install/lib:$PWD/cbuild rungdb.sh python $(which py.test) test/test* $*
 } fi
