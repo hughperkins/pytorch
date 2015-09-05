@@ -152,6 +152,33 @@ A / 2 : 2.0 1.5 2.5 2.5
 1.5 2.0 4.0 4.0
 [torch.DoubleTensor of size 3x4]
 
+B : 10.0 3.0 4.0 5.0
+11.0 7.0 9.0 24.0
+1.0 14.0 8.0 35.0
+[torch.DoubleTensor of size 3x4]
+
+A + B : 14.0 6.0 9.0 10.0
+14.0 10.0 17.0 38.0
+4.0 18.0 16.0 43.0
+[torch.DoubleTensor of size 3x4]
+
+A - B : -6.0 0.0 1.0 0.0
+-8.0 -4.0 -1.0 -10.0
+2.0 -10.0 0.0 -27.0
+[torch.DoubleTensor of size 3x4]
+
+A += B
+A : 14.0 6.0 9.0 10.0
+14.0 10.0 17.0 38.0
+4.0 18.0 16.0 43.0
+[torch.DoubleTensor of size 3x4]
+
+A -= B
+A : 4.0 3.0 5.0 5.0
+3.0 3.0 8.0 14.0
+3.0 4.0 8.0 8.0
+[torch.DoubleTensor of size 3x4]
+
 D 1 1 1
 1 1 1
 1 1 1
@@ -246,36 +273,46 @@ A : 15 12 18 18
 12 15 27 27
 [torch.ByteTensor of size 3x4]
 
-A -= 3
-A : 12 9 15 15
-9 9 24 42
-9 12 24 24
+A : 15 12 18 18
+12 12 27 45
+12 15 27 27
 [torch.ByteTensor of size 3x4]
 
 A /= 3
-A : 4 3 5 5
-3 3 8 14
-3 4 8 8
+A : 5 4 6 6
+4 4 9 15
+4 5 9 9
 [torch.ByteTensor of size 3x4]
 
-A + 5 : 9 8 10 10
-8 8 13 19
-8 9 13 13
+A + 5 : 10 9 11 11
+9 9 14 20
+9 10 14 14
 [torch.ByteTensor of size 3x4]
 
-A - 5 : 255 254 0 0
-254 254 3 9
-254 255 3 3
+A * 5 : 25 20 30 30
+20 20 45 75
+20 25 45 45
 [torch.ByteTensor of size 3x4]
 
-A * 5 : 20 15 25 25
-15 15 40 70
-15 20 40 40
+A / 2 : 2 2 3 3
+2 2 4 7
+2 2 4 4
 [torch.ByteTensor of size 3x4]
 
-A / 2 : 2 1 2 2
-1 1 4 7
-1 2 4 4
+B : 10 3 4 5
+11 7 9 24
+1 14 8 35
+[torch.ByteTensor of size 3x4]
+
+A + B : 15 7 10 11
+15 11 18 39
+5 19 17 44
+[torch.ByteTensor of size 3x4]
+
+A += B
+A : 15 7 10 11
+15 11 18 39
+5 19 17 44
 [torch.ByteTensor of size 3x4]
 
 C [[ 0.78126878  0.68557262  0.46044704  0.29017398]
@@ -478,6 +515,33 @@ A / 2 : 2 1.5 2.5 2.5
 1.5 2 4 4
 [torch.FloatTensor of size 3x4]
 
+B : 10 3 4 5
+11 7 9 24
+1 14 8 35
+[torch.FloatTensor of size 3x4]
+
+A + B : 14 6 9 10
+14 10 17 38
+4 18 16 43
+[torch.FloatTensor of size 3x4]
+
+A - B : -6 0 1 0
+-8 -4 -1 -10
+2 -10 0 -27
+[torch.FloatTensor of size 3x4]
+
+A += B
+A : 14 6 9 10
+14 10 17 38
+4 18 16 43
+[torch.FloatTensor of size 3x4]
+
+A -= B
+A : 4 3 5 5
+3 3 8 14
+3 4 8 8
+[torch.FloatTensor of size 3x4]
+
 D 1 1 1
 1 1 1
 1 1 1
@@ -602,5 +666,32 @@ A * 5 : 20 15 25 25
 A / 2 : 2 1 2 2
 1 1 4 7
 1 2 4 4
+[torch.LongTensor of size 3x4]
+
+B : 10 3 4 5
+11 7 9 24
+1 14 8 35
+[torch.LongTensor of size 3x4]
+
+A + B : 14 6 9 10
+14 10 17 38
+4 18 16 43
+[torch.LongTensor of size 3x4]
+
+A - B : -6 0 1 0
+-8 -4 -1 -10
+2 -10 0 -27
+[torch.LongTensor of size 3x4]
+
+A += B
+A : 14 6 9 10
+14 10 17 38
+4 18 16 43
+[torch.LongTensor of size 3x4]
+
+A -= B
+A : 4 3 5 5
+3 3 8 14
+3 4 8 8
 [torch.LongTensor of size 3x4]
 

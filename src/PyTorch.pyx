@@ -54,7 +54,7 @@ cdef extern from "THTensor.h":
     void THDoubleTensor_free(THDoubleTensor *self)
 
     int THDoubleTensor_nDimension(THDoubleTensor *tensor)
-    void THDoubleTensor_resizeAs(THDoubleTensor *self, THFloatTensor *model)
+    void THDoubleTensor_resizeAs(THDoubleTensor *self, THDoubleTensor *model)
     void THDoubleTensor_resize1d(THDoubleTensor *self, long size0)
     void THDoubleTensor_resize2d(THDoubleTensor *self, long size0, long size1)
     void THDoubleTensor_resize3d(THDoubleTensor *self, long size0, long size1, long size2)
@@ -77,6 +77,7 @@ cdef extern from "THTensor.h":
     void THDoubleTensor_div(THDoubleTensor *r_, THDoubleTensor *t, double value)
     void THDoubleTensor_mul(THDoubleTensor *r_, THDoubleTensor *t, double value)
     void THDoubleTensor_add(THDoubleTensor *tensorSelf, THDoubleTensor *tensorOne, double value)
+    void THDoubleTensor_cadd(THDoubleTensor *r_, THDoubleTensor *t, double value, THDoubleTensor *second)
 
     void THDoubleTensor_geometric(THDoubleTensor *self, THGenerator *_generator, double p)
     void THDoubleTensor_bernoulli(THDoubleTensor *self, THGenerator *_generator, double p)
@@ -106,7 +107,7 @@ cdef extern from "THTensor.h":
     void THByteTensor_free(THByteTensor *self)
 
     int THByteTensor_nDimension(THByteTensor *tensor)
-    void THByteTensor_resizeAs(THByteTensor *self, THFloatTensor *model)
+    void THByteTensor_resizeAs(THByteTensor *self, THByteTensor *model)
     void THByteTensor_resize1d(THByteTensor *self, long size0)
     void THByteTensor_resize2d(THByteTensor *self, long size0, long size1)
     void THByteTensor_resize3d(THByteTensor *self, long size0, long size1, long size2)
@@ -129,6 +130,7 @@ cdef extern from "THTensor.h":
     void THByteTensor_div(THByteTensor *r_, THByteTensor *t, unsigned char value)
     void THByteTensor_mul(THByteTensor *r_, THByteTensor *t, unsigned char value)
     void THByteTensor_add(THByteTensor *tensorSelf, THByteTensor *tensorOne, unsigned char value)
+    void THByteTensor_cadd(THByteTensor *r_, THByteTensor *t, unsigned char value, THByteTensor *second)
 
     void THByteTensor_geometric(THByteTensor *self, THGenerator *_generator, double p)
     void THByteTensor_bernoulli(THByteTensor *self, THGenerator *_generator, double p)
@@ -173,6 +175,7 @@ cdef extern from "THTensor.h":
     void THFloatTensor_div(THFloatTensor *r_, THFloatTensor *t, float value)
     void THFloatTensor_mul(THFloatTensor *r_, THFloatTensor *t, float value)
     void THFloatTensor_add(THFloatTensor *tensorSelf, THFloatTensor *tensorOne, float value)
+    void THFloatTensor_cadd(THFloatTensor *r_, THFloatTensor *t, float value, THFloatTensor *second)
 
     void THFloatTensor_geometric(THFloatTensor *self, THGenerator *_generator, double p)
     void THFloatTensor_bernoulli(THFloatTensor *self, THGenerator *_generator, double p)
@@ -202,7 +205,7 @@ cdef extern from "THTensor.h":
     void THLongTensor_free(THLongTensor *self)
 
     int THLongTensor_nDimension(THLongTensor *tensor)
-    void THLongTensor_resizeAs(THLongTensor *self, THFloatTensor *model)
+    void THLongTensor_resizeAs(THLongTensor *self, THLongTensor *model)
     void THLongTensor_resize1d(THLongTensor *self, long size0)
     void THLongTensor_resize2d(THLongTensor *self, long size0, long size1)
     void THLongTensor_resize3d(THLongTensor *self, long size0, long size1, long size2)
@@ -225,6 +228,7 @@ cdef extern from "THTensor.h":
     void THLongTensor_div(THLongTensor *r_, THLongTensor *t, long value)
     void THLongTensor_mul(THLongTensor *r_, THLongTensor *t, long value)
     void THLongTensor_add(THLongTensor *tensorSelf, THLongTensor *tensorOne, long value)
+    void THLongTensor_cadd(THLongTensor *r_, THLongTensor *t, long value, THLongTensor *second)
 
     void THLongTensor_geometric(THLongTensor *self, THGenerator *_generator, double p)
     void THLongTensor_bernoulli(THLongTensor *self, THGenerator *_generator, double p)
@@ -413,6 +417,10 @@ cdef class _DoubleTensor(object):
         THDoubleTensor_resize4d(self.thDoubleTensor, size0, size1, size2, size3)
         return self
 
+    def resizeAs(_DoubleTensor self, _DoubleTensor model):
+        THDoubleTensor_resizeAs(self.thDoubleTensor, model.thDoubleTensor)
+        return self
+    
     def resize(_DoubleTensor self, _LongTensor size):
 #        print('_FloatTensor.resize size:', size)
         if size.dims() == 0:
@@ -449,18 +457,26 @@ cdef class _DoubleTensor(object):
             return None
         return Storage.DoubleStorage_fromNative(storageC)
 
-    def __add__(_DoubleTensor self, double value):
+    def __add__(_DoubleTensor self, second):
         # assume 2d matrix for now?
         cdef _DoubleTensor res = _DoubleTensor.new()
-#        THFloatTensor_resizeAs(cresult, self.thFloatTensor)
-        THDoubleTensor_add(res.thDoubleTensor, self.thDoubleTensor, value)
+        cdef _DoubleTensor secondTensor
+        if isinstance(second, numbers.Number):
+            THDoubleTensor_add(res.thDoubleTensor, self.thDoubleTensor, second)
+        else:
+            secondTensor = second
+            THDoubleTensor_cadd(res.thDoubleTensor, self.thDoubleTensor, 1, secondTensor.thDoubleTensor)
         return res
 
-    def __sub__(_DoubleTensor self, double value):
+    def __sub__(_DoubleTensor self, second):
         # assume 2d matrix for now?
         cdef _DoubleTensor res = _DoubleTensor.new()
-#        THFloatTensor_resizeAs(cresult, self.thFloatTensor)
-        THDoubleTensor_add(res.thDoubleTensor, self.thDoubleTensor, -value)
+        cdef _DoubleTensor secondTensor
+        if isinstance(second, numbers.Number):
+            THDoubleTensor_add(res.thDoubleTensor, self.thDoubleTensor, -second)
+        else:
+            secondTensor = second
+            THDoubleTensor_cadd(res.thDoubleTensor, self.thDoubleTensor, -1, secondTensor.thDoubleTensor)
         return res
 
     def __div__(_DoubleTensor self, double value):
@@ -470,12 +486,22 @@ cdef class _DoubleTensor(object):
         THDoubleTensor_div(res.thDoubleTensor, self.thDoubleTensor, value)
         return res
 
-    def __iadd__(_DoubleTensor self, double value):
-        THDoubleTensor_add(self.thDoubleTensor, self.thDoubleTensor, value)
+    def __iadd__(_DoubleTensor self, second):
+        cdef _DoubleTensor secondTensor
+        if isinstance(second, numbers.Number):
+            THDoubleTensor_add(self.thDoubleTensor, self.thDoubleTensor, second)
+        else:
+            secondTensor = second
+            THDoubleTensor_cadd(self.thDoubleTensor, self.thDoubleTensor, 1, secondTensor.thDoubleTensor)
         return self
 
-    def __isub__(_DoubleTensor self, double value):
-        THDoubleTensor_add(self.thDoubleTensor, self.thDoubleTensor, -value)
+    def __isub__(_DoubleTensor self, second):
+        cdef _DoubleTensor secondTensor
+        if isinstance(second, numbers.Number):
+            THDoubleTensor_add(self.thDoubleTensor, self.thDoubleTensor, -second)
+        else:
+            secondTensor = second
+            THDoubleTensor_cadd(self.thDoubleTensor, self.thDoubleTensor, -1, secondTensor.thDoubleTensor)
         return self
 
     def __idiv__(_DoubleTensor self, double value):
@@ -731,6 +757,10 @@ cdef class _ByteTensor(object):
         THByteTensor_resize4d(self.thByteTensor, size0, size1, size2, size3)
         return self
 
+    def resizeAs(_ByteTensor self, _ByteTensor model):
+        THByteTensor_resizeAs(self.thByteTensor, model.thByteTensor)
+        return self
+    
     def resize(_ByteTensor self, _LongTensor size):
 #        print('_FloatTensor.resize size:', size)
         if size.dims() == 0:
@@ -767,18 +797,26 @@ cdef class _ByteTensor(object):
             return None
         return Storage.ByteStorage_fromNative(storageC)
 
-    def __add__(_ByteTensor self, unsigned char value):
+    def __add__(_ByteTensor self, second):
         # assume 2d matrix for now?
         cdef _ByteTensor res = _ByteTensor.new()
-#        THFloatTensor_resizeAs(cresult, self.thFloatTensor)
-        THByteTensor_add(res.thByteTensor, self.thByteTensor, value)
+        cdef _ByteTensor secondTensor
+        if isinstance(second, numbers.Number):
+            THByteTensor_add(res.thByteTensor, self.thByteTensor, second)
+        else:
+            secondTensor = second
+            THByteTensor_cadd(res.thByteTensor, self.thByteTensor, 1, secondTensor.thByteTensor)
         return res
 
-    def __sub__(_ByteTensor self, unsigned char value):
+    def __sub__(_ByteTensor self, second):
         # assume 2d matrix for now?
         cdef _ByteTensor res = _ByteTensor.new()
-#        THFloatTensor_resizeAs(cresult, self.thFloatTensor)
-        THByteTensor_add(res.thByteTensor, self.thByteTensor, -value)
+        cdef _ByteTensor secondTensor
+        if isinstance(second, numbers.Number):
+            THByteTensor_add(res.thByteTensor, self.thByteTensor, -second)
+        else:
+            secondTensor = second
+            THByteTensor_cadd(res.thByteTensor, self.thByteTensor, -1, secondTensor.thByteTensor)
         return res
 
     def __div__(_ByteTensor self, unsigned char value):
@@ -788,12 +826,22 @@ cdef class _ByteTensor(object):
         THByteTensor_div(res.thByteTensor, self.thByteTensor, value)
         return res
 
-    def __iadd__(_ByteTensor self, unsigned char value):
-        THByteTensor_add(self.thByteTensor, self.thByteTensor, value)
+    def __iadd__(_ByteTensor self, second):
+        cdef _ByteTensor secondTensor
+        if isinstance(second, numbers.Number):
+            THByteTensor_add(self.thByteTensor, self.thByteTensor, second)
+        else:
+            secondTensor = second
+            THByteTensor_cadd(self.thByteTensor, self.thByteTensor, 1, secondTensor.thByteTensor)
         return self
 
-    def __isub__(_ByteTensor self, unsigned char value):
-        THByteTensor_add(self.thByteTensor, self.thByteTensor, -value)
+    def __isub__(_ByteTensor self, second):
+        cdef _ByteTensor secondTensor
+        if isinstance(second, numbers.Number):
+            THByteTensor_add(self.thByteTensor, self.thByteTensor, -second)
+        else:
+            secondTensor = second
+            THByteTensor_cadd(self.thByteTensor, self.thByteTensor, -1, secondTensor.thByteTensor)
         return self
 
     def __idiv__(_ByteTensor self, unsigned char value):
@@ -1022,6 +1070,10 @@ cdef class _FloatTensor(object):
         THFloatTensor_resize4d(self.thFloatTensor, size0, size1, size2, size3)
         return self
 
+    def resizeAs(_FloatTensor self, _FloatTensor model):
+        THFloatTensor_resizeAs(self.thFloatTensor, model.thFloatTensor)
+        return self
+    
     def resize(_FloatTensor self, _LongTensor size):
 #        print('_FloatTensor.resize size:', size)
         if size.dims() == 0:
@@ -1058,18 +1110,26 @@ cdef class _FloatTensor(object):
             return None
         return Storage.FloatStorage_fromNative(storageC)
 
-    def __add__(_FloatTensor self, float value):
+    def __add__(_FloatTensor self, second):
         # assume 2d matrix for now?
         cdef _FloatTensor res = _FloatTensor.new()
-#        THFloatTensor_resizeAs(cresult, self.thFloatTensor)
-        THFloatTensor_add(res.thFloatTensor, self.thFloatTensor, value)
+        cdef _FloatTensor secondTensor
+        if isinstance(second, numbers.Number):
+            THFloatTensor_add(res.thFloatTensor, self.thFloatTensor, second)
+        else:
+            secondTensor = second
+            THFloatTensor_cadd(res.thFloatTensor, self.thFloatTensor, 1, secondTensor.thFloatTensor)
         return res
 
-    def __sub__(_FloatTensor self, float value):
+    def __sub__(_FloatTensor self, second):
         # assume 2d matrix for now?
         cdef _FloatTensor res = _FloatTensor.new()
-#        THFloatTensor_resizeAs(cresult, self.thFloatTensor)
-        THFloatTensor_add(res.thFloatTensor, self.thFloatTensor, -value)
+        cdef _FloatTensor secondTensor
+        if isinstance(second, numbers.Number):
+            THFloatTensor_add(res.thFloatTensor, self.thFloatTensor, -second)
+        else:
+            secondTensor = second
+            THFloatTensor_cadd(res.thFloatTensor, self.thFloatTensor, -1, secondTensor.thFloatTensor)
         return res
 
     def __div__(_FloatTensor self, float value):
@@ -1079,12 +1139,22 @@ cdef class _FloatTensor(object):
         THFloatTensor_div(res.thFloatTensor, self.thFloatTensor, value)
         return res
 
-    def __iadd__(_FloatTensor self, float value):
-        THFloatTensor_add(self.thFloatTensor, self.thFloatTensor, value)
+    def __iadd__(_FloatTensor self, second):
+        cdef _FloatTensor secondTensor
+        if isinstance(second, numbers.Number):
+            THFloatTensor_add(self.thFloatTensor, self.thFloatTensor, second)
+        else:
+            secondTensor = second
+            THFloatTensor_cadd(self.thFloatTensor, self.thFloatTensor, 1, secondTensor.thFloatTensor)
         return self
 
-    def __isub__(_FloatTensor self, float value):
-        THFloatTensor_add(self.thFloatTensor, self.thFloatTensor, -value)
+    def __isub__(_FloatTensor self, second):
+        cdef _FloatTensor secondTensor
+        if isinstance(second, numbers.Number):
+            THFloatTensor_add(self.thFloatTensor, self.thFloatTensor, -second)
+        else:
+            secondTensor = second
+            THFloatTensor_cadd(self.thFloatTensor, self.thFloatTensor, -1, secondTensor.thFloatTensor)
         return self
 
     def __idiv__(_FloatTensor self, float value):
@@ -1340,6 +1410,10 @@ cdef class _LongTensor(object):
         THLongTensor_resize4d(self.thLongTensor, size0, size1, size2, size3)
         return self
 
+    def resizeAs(_LongTensor self, _LongTensor model):
+        THLongTensor_resizeAs(self.thLongTensor, model.thLongTensor)
+        return self
+    
     def resize(_LongTensor self, _LongTensor size):
 #        print('_FloatTensor.resize size:', size)
         if size.dims() == 0:
@@ -1376,18 +1450,26 @@ cdef class _LongTensor(object):
             return None
         return Storage.LongStorage_fromNative(storageC)
 
-    def __add__(_LongTensor self, long value):
+    def __add__(_LongTensor self, second):
         # assume 2d matrix for now?
         cdef _LongTensor res = _LongTensor.new()
-#        THFloatTensor_resizeAs(cresult, self.thFloatTensor)
-        THLongTensor_add(res.thLongTensor, self.thLongTensor, value)
+        cdef _LongTensor secondTensor
+        if isinstance(second, numbers.Number):
+            THLongTensor_add(res.thLongTensor, self.thLongTensor, second)
+        else:
+            secondTensor = second
+            THLongTensor_cadd(res.thLongTensor, self.thLongTensor, 1, secondTensor.thLongTensor)
         return res
 
-    def __sub__(_LongTensor self, long value):
+    def __sub__(_LongTensor self, second):
         # assume 2d matrix for now?
         cdef _LongTensor res = _LongTensor.new()
-#        THFloatTensor_resizeAs(cresult, self.thFloatTensor)
-        THLongTensor_add(res.thLongTensor, self.thLongTensor, -value)
+        cdef _LongTensor secondTensor
+        if isinstance(second, numbers.Number):
+            THLongTensor_add(res.thLongTensor, self.thLongTensor, -second)
+        else:
+            secondTensor = second
+            THLongTensor_cadd(res.thLongTensor, self.thLongTensor, -1, secondTensor.thLongTensor)
         return res
 
     def __div__(_LongTensor self, long value):
@@ -1397,12 +1479,22 @@ cdef class _LongTensor(object):
         THLongTensor_div(res.thLongTensor, self.thLongTensor, value)
         return res
 
-    def __iadd__(_LongTensor self, long value):
-        THLongTensor_add(self.thLongTensor, self.thLongTensor, value)
+    def __iadd__(_LongTensor self, second):
+        cdef _LongTensor secondTensor
+        if isinstance(second, numbers.Number):
+            THLongTensor_add(self.thLongTensor, self.thLongTensor, second)
+        else:
+            secondTensor = second
+            THLongTensor_cadd(self.thLongTensor, self.thLongTensor, 1, secondTensor.thLongTensor)
         return self
 
-    def __isub__(_LongTensor self, long value):
-        THLongTensor_add(self.thLongTensor, self.thLongTensor, -value)
+    def __isub__(_LongTensor self, second):
+        cdef _LongTensor secondTensor
+        if isinstance(second, numbers.Number):
+            THLongTensor_add(self.thLongTensor, self.thLongTensor, -second)
+        else:
+            secondTensor = second
+            THLongTensor_cadd(self.thLongTensor, self.thLongTensor, -1, secondTensor.thLongTensor)
         return self
 
     def __idiv__(_LongTensor self, long value):

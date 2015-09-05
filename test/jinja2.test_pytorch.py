@@ -125,15 +125,32 @@ def test_pytorch{{Real}}():
     myeval('A')
     myexec('A *= 3')
     myeval('A')
+    {% if Real != 'Byte' %}
     myexec('A -= 3')
+    {% endif %}
     myeval('A')
     myexec('A /= 3')
     myeval('A')
 
     myeval('A + 5')
+    {% if Real != 'Byte' %}
     myeval('A - 5')
+    {% endif %}
     myeval('A * 5')
     myeval('A / 2')
+
+    B = {{Real}}Tensor().resizeAs(A).geometric(0.9)
+    myeval('B')
+    myeval('A + B')
+    {% if Real != 'Byte' %}
+    myeval('A - B')
+    {% endif %}
+    myexec('A += B')
+    myeval('A')
+    {% if Real != 'Byte' %}
+    myexec('A -= B')
+    myeval('A')
+    {% endif %}
 {% endfor %}
 
 if __name__ == '__main__':

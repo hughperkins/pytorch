@@ -60,7 +60,7 @@ cdef extern from "THTensor.h":
     void TH{{Real}}Tensor_free(TH{{Real}}Tensor *self)
 
     int TH{{Real}}Tensor_nDimension(TH{{Real}}Tensor *tensor)
-    void TH{{Real}}Tensor_resizeAs(TH{{Real}}Tensor *self, THFloatTensor *model)
+    void TH{{Real}}Tensor_resizeAs(TH{{Real}}Tensor *self, TH{{Real}}Tensor *model)
     void TH{{Real}}Tensor_resize1d(TH{{Real}}Tensor *self, long size0)
     void TH{{Real}}Tensor_resize2d(TH{{Real}}Tensor *self, long size0, long size1)
     void TH{{Real}}Tensor_resize3d(TH{{Real}}Tensor *self, long size0, long size1, long size2)
@@ -83,6 +83,7 @@ cdef extern from "THTensor.h":
     void TH{{Real}}Tensor_div(TH{{Real}}Tensor *r_, TH{{Real}}Tensor *t, {{real}} value)
     void TH{{Real}}Tensor_mul(TH{{Real}}Tensor *r_, TH{{Real}}Tensor *t, {{real}} value)
     void TH{{Real}}Tensor_add(TH{{Real}}Tensor *tensorSelf, TH{{Real}}Tensor *tensorOne, {{real}} value)
+    void TH{{Real}}Tensor_cadd(TH{{Real}}Tensor *r_, TH{{Real}}Tensor *t, {{real}} value, TH{{Real}}Tensor *second)
 
     void TH{{Real}}Tensor_geometric(TH{{Real}}Tensor *self, THGenerator *_generator, double p)
     void TH{{Real}}Tensor_bernoulli(TH{{Real}}Tensor *self, THGenerator *_generator, double p)
@@ -283,6 +284,10 @@ cdef class _{{Real}}Tensor(object):
         TH{{Real}}Tensor_resize4d(self.th{{Real}}Tensor, size0, size1, size2, size3)
         return self
 
+    def resizeAs(_{{Real}}Tensor self, _{{Real}}Tensor model):
+        TH{{Real}}Tensor_resizeAs(self.th{{Real}}Tensor, model.th{{Real}}Tensor)
+        return self
+    
     def resize(_{{Real}}Tensor self, _LongTensor size):
 #        print('_FloatTensor.resize size:', size)
         if size.dims() == 0:
@@ -319,18 +324,26 @@ cdef class _{{Real}}Tensor(object):
             return None
         return Storage.{{Real}}Storage_fromNative(storageC)
 
-    def __add__(_{{Real}}Tensor self, {{real}} value):
+    def __add__(_{{Real}}Tensor self, second):
         # assume 2d matrix for now?
         cdef _{{Real}}Tensor res = _{{Real}}Tensor.new()
-#        THFloatTensor_resizeAs(cresult, self.thFloatTensor)
-        TH{{Real}}Tensor_add(res.th{{Real}}Tensor, self.th{{Real}}Tensor, value)
+        cdef _{{Real}}Tensor secondTensor
+        if isinstance(second, numbers.Number):
+            TH{{Real}}Tensor_add(res.th{{Real}}Tensor, self.th{{Real}}Tensor, second)
+        else:
+            secondTensor = second
+            TH{{Real}}Tensor_cadd(res.th{{Real}}Tensor, self.th{{Real}}Tensor, 1, secondTensor.th{{Real}}Tensor)
         return res
 
-    def __sub__(_{{Real}}Tensor self, {{real}} value):
+    def __sub__(_{{Real}}Tensor self, second):
         # assume 2d matrix for now?
         cdef _{{Real}}Tensor res = _{{Real}}Tensor.new()
-#        THFloatTensor_resizeAs(cresult, self.thFloatTensor)
-        TH{{Real}}Tensor_add(res.th{{Real}}Tensor, self.th{{Real}}Tensor, -value)
+        cdef _{{Real}}Tensor secondTensor
+        if isinstance(second, numbers.Number):
+            TH{{Real}}Tensor_add(res.th{{Real}}Tensor, self.th{{Real}}Tensor, -second)
+        else:
+            secondTensor = second
+            TH{{Real}}Tensor_cadd(res.th{{Real}}Tensor, self.th{{Real}}Tensor, -1, secondTensor.th{{Real}}Tensor)
         return res
 
     def __div__(_{{Real}}Tensor self, {{real}} value):
@@ -340,12 +353,22 @@ cdef class _{{Real}}Tensor(object):
         TH{{Real}}Tensor_div(res.th{{Real}}Tensor, self.th{{Real}}Tensor, value)
         return res
 
-    def __iadd__(_{{Real}}Tensor self, {{real}} value):
-        TH{{Real}}Tensor_add(self.th{{Real}}Tensor, self.th{{Real}}Tensor, value)
+    def __iadd__(_{{Real}}Tensor self, second):
+        cdef _{{Real}}Tensor secondTensor
+        if isinstance(second, numbers.Number):
+            TH{{Real}}Tensor_add(self.th{{Real}}Tensor, self.th{{Real}}Tensor, second)
+        else:
+            secondTensor = second
+            TH{{Real}}Tensor_cadd(self.th{{Real}}Tensor, self.th{{Real}}Tensor, 1, secondTensor.th{{Real}}Tensor)
         return self
 
-    def __isub__(_{{Real}}Tensor self, {{real}} value):
-        TH{{Real}}Tensor_add(self.th{{Real}}Tensor, self.th{{Real}}Tensor, -value)
+    def __isub__(_{{Real}}Tensor self, second):
+        cdef _{{Real}}Tensor secondTensor
+        if isinstance(second, numbers.Number):
+            TH{{Real}}Tensor_add(self.th{{Real}}Tensor, self.th{{Real}}Tensor, -second)
+        else:
+            secondTensor = second
+            TH{{Real}}Tensor_cadd(self.th{{Real}}Tensor, self.th{{Real}}Tensor, -1, secondTensor.th{{Real}}Tensor)
         return self
 
     def __idiv__(_{{Real}}Tensor self, {{real}} value):
