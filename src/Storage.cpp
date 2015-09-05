@@ -10,7 +10,9 @@
         "libraries": [
             "TorchLanguageIndependence"
         ], 
-        "depends": [], 
+        "depends": [
+            "/home/user/torch/install/include/TH/THStorage.h"
+        ], 
         "extra_compile_args": [
             "-std=c++0x", 
             "-g"
@@ -587,7 +589,7 @@ struct __pyx_opt_args_7Storage_ByteStorage_fromNative;
 struct __pyx_opt_args_7Storage_FloatStorage_fromNative;
 struct __pyx_opt_args_7Storage_LongStorage_fromNative;
 
-/* "Storage.pxd":69
+/* "Storage.pxd":72
  *     cpdef long size(self)
  * 
  * cdef DoubleStorage_fromNative(THDoubleStorage *storageC, retain=*)             # <<<<<<<<<<<<<<
@@ -599,7 +601,7 @@ struct __pyx_opt_args_7Storage_DoubleStorage_fromNative {
   PyObject *retain;
 };
 
-/* "Storage.pxd":76
+/* "Storage.pxd":79
  *     cpdef long size(self)
  * 
  * cdef ByteStorage_fromNative(THByteStorage *storageC, retain=*)             # <<<<<<<<<<<<<<
@@ -611,7 +613,7 @@ struct __pyx_opt_args_7Storage_ByteStorage_fromNative {
   PyObject *retain;
 };
 
-/* "Storage.pxd":83
+/* "Storage.pxd":86
  *     cpdef long size(self)
  * 
  * cdef FloatStorage_fromNative(THFloatStorage *storageC, retain=*)             # <<<<<<<<<<<<<<
@@ -623,7 +625,7 @@ struct __pyx_opt_args_7Storage_FloatStorage_fromNative {
   PyObject *retain;
 };
 
-/* "Storage.pxd":90
+/* "Storage.pxd":93
  *     cpdef long size(self)
  * 
  * cdef LongStorage_fromNative(THLongStorage *storageC, retain=*)             # <<<<<<<<<<<<<<
@@ -704,8 +706,8 @@ struct __pyx_obj_7PyTorch_GlobalState {
 };
 
 
-/* "lua.pxd":53
- * LUA_REGISTRYINDEX = getLuaRegistryIndex()
+/* "lua.pxd":51
+ *     int lua_isuserdata(lua_State *L, int index)
  * 
  * cdef class LuaState(object):             # <<<<<<<<<<<<<<
  *     cdef lua_State *L
@@ -717,7 +719,7 @@ struct __pyx_obj_3lua_LuaState {
 };
 
 
-/* "Storage.pxd":65
+/* "Storage.pxd":68
  * 
  * 
  * cdef class DoubleStorage(object):             # <<<<<<<<<<<<<<
@@ -731,7 +733,7 @@ struct __pyx_obj_7Storage_DoubleStorage {
 };
 
 
-/* "Storage.pxd":72
+/* "Storage.pxd":75
  * 
  * 
  * cdef class ByteStorage(object):             # <<<<<<<<<<<<<<
@@ -745,7 +747,7 @@ struct __pyx_obj_7Storage_ByteStorage {
 };
 
 
-/* "Storage.pxd":79
+/* "Storage.pxd":82
  * 
  * 
  * cdef class FloatStorage(object):             # <<<<<<<<<<<<<<
@@ -759,7 +761,7 @@ struct __pyx_obj_7Storage_FloatStorage {
 };
 
 
-/* "Storage.pxd":86
+/* "Storage.pxd":89
  * 
  * 
  * cdef class LongStorage(object):             # <<<<<<<<<<<<<<
@@ -18334,7 +18336,7 @@ PyMODINIT_FUNC PyInit_Storage(void)
   __pyx_ptype_7PyTorch__LongTensor = __Pyx_ImportType("PyTorch", "_LongTensor", sizeof(struct __pyx_obj_7PyTorch__LongTensor), 1); if (unlikely(!__pyx_ptype_7PyTorch__LongTensor)) {__pyx_filename = __pyx_f[3]; __pyx_lineno = 66; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __pyx_vtabptr_7PyTorch__LongTensor = (struct __pyx_vtabstruct_7PyTorch__LongTensor*)__Pyx_GetVtable(__pyx_ptype_7PyTorch__LongTensor->tp_dict); if (unlikely(!__pyx_vtabptr_7PyTorch__LongTensor)) {__pyx_filename = __pyx_f[3]; __pyx_lineno = 66; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __pyx_ptype_7PyTorch_GlobalState = __Pyx_ImportType("PyTorch", "GlobalState", sizeof(struct __pyx_obj_7PyTorch_GlobalState), 1); if (unlikely(!__pyx_ptype_7PyTorch_GlobalState)) {__pyx_filename = __pyx_f[3]; __pyx_lineno = 77; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-  __pyx_ptype_3lua_LuaState = __Pyx_ImportType("lua", "LuaState", sizeof(struct __pyx_obj_3lua_LuaState), 1); if (unlikely(!__pyx_ptype_3lua_LuaState)) {__pyx_filename = __pyx_f[4]; __pyx_lineno = 53; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_ptype_3lua_LuaState = __Pyx_ImportType("lua", "LuaState", sizeof(struct __pyx_obj_3lua_LuaState), 1); if (unlikely(!__pyx_ptype_3lua_LuaState)) {__pyx_filename = __pyx_f[4]; __pyx_lineno = 51; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   /*--- Variable import code ---*/
   /*--- Function import code ---*/
   /*--- Execution code ---*/

@@ -1,3 +1,6 @@
+# {{header1}}
+# {{header2}}
+
 {% set types = {
     'Long': {'real': 'long'},
     'Float': {'real': 'float'}, 

@@ -1,3 +1,6 @@
+# GENERATED FILE, do not edit by hand
+# Source: src/Storage.jinja2.pxd
+
 
 
 
