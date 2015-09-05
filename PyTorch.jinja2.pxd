@@ -1,6 +1,7 @@
-# {{header}}
+# {{header1}}
+# {{header2}}
 
-{% set types = {'Long': 'long', 'Float': 'float', 'Double': 'double'} %}
+{% set types = {'Long': 'long', 'Float': 'float', 'Double': 'double', 'Byte': 'unsigned char'} %}
 
 cdef extern from "THRandom.h":
     cdef struct THGenerator

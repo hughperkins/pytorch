@@ -1,4 +1,5 @@
 # GENERATED FILE, do not edit by hand
+# Source: PyTorch.jinja2.pxd
 
 
 
@@ -26,6 +27,21 @@ cdef class _DoubleTensor(object):
     cpdef double get2d(self, int x0, int x1)
 #    @cython.staticmethod
 #    cdef fromNative(THDoubleTensor *tensorC, retain=*)
+
+
+
+cdef extern from "THTensor.h":
+    cdef struct THByteTensor
+
+cdef class _ByteTensor(object):
+    cdef THByteTensor *thByteTensor
+    cpdef int dims(self)
+    cpdef set1d(self, int x0, unsigned char value)
+    cpdef set2d(self, int x0, int x1, unsigned char value)
+    cpdef unsigned char get1d(self, int x0)
+    cpdef unsigned char get2d(self, int x0, int x1)
+#    @cython.staticmethod
+#    cdef fromNative(THByteTensor *tensorC, retain=*)
 
 
 

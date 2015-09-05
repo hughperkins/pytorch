@@ -1,4 +1,5 @@
-# {{header}}
+# {{header1}}
+# {{header2}}
 
 from __future__ import print_function
 
@@ -12,7 +13,18 @@ from math import log10, floor
 
 cimport PyTorch
 
-{% set types = {'Long': 'long', 'Float': 'float', 'Double': 'double'} %}
+{% set types = {
+    'Long': {'real': 'long'},
+    'Float': {'real': 'float'}, 
+    'Double': {'real': 'double'},
+    'Byte': {'real': 'unsigned char'}
+}
+%}
+
+#define real unsigned char
+#define accreal long
+#define Real Byte
+#define TH_REAL_IS_BYTE
 
 # from http://stackoverflow.com/questions/3410976/how-to-round-a-number-to-significant-figures-in-python
 def round_sig(x, sig=2):
@@ -145,7 +157,7 @@ def manualSeed(long seed):
 
 
 {% for Real in types %}
-{% set real = types[Real] %}
+{% set real = types[Real]['real'] %}
 cdef extern from "THStorage.h":
     cdef struct TH{{Real}}Storage
     TH{{Real}}Storage* TH{{Real}}Storage_newWithData({{real}} *data, long size)
@@ -161,7 +173,7 @@ cdef floatToString(float floatValue):
     return '%.6g'% floatValue
 
 {% for Real in types %}
-{% set real = types[Real] %}
+{% set real = types[Real]['real'] %}
 cdef class {{Real}}Storage(object):
     cdef TH{{Real}}Storage *th{{Real}}Storage
 
@@ -216,7 +228,7 @@ cdef class {{Real}}Storage(object):
 {% endfor %}
 
 {% for Real in types %}
-{% set real = types[Real] %}
+{% set real = types[Real]['real'] %}
 cdef extern from "THTensor.h":
     cdef struct TH{{Real}}Tensor
     TH{{Real}}Tensor *TH{{Real}}Tensor_new()
@@ -261,7 +273,7 @@ cdef extern from "THTensor.h":
     void THFloatTensor_addmm(THFloatTensor *tensorSelf, float beta, THFloatTensor *tensorOne, float alpha, THFloatTensor *mat1, THFloatTensor *mat2)
 
 {% for Real in types %}
-{% set real = types[Real] %}
+{% set real = types[Real]['real'] %}
 cdef class _{{Real}}Tensor(object):
     # properties are in the PyTorch.pxd file
 
@@ -631,7 +643,7 @@ def _push{{Real}}Tensor(_{{Real}}Tensor tensor):
 
 # there's probably an official Torch way of doing this
 {% for Real in types %}
-{% set real = types[Real] %}
+{% set real = types[Real]['real'] %}
 {% if Real in ['Double', 'Float'] %}
 cpdef int get{{Real}}Prediction(_{{Real}}Tensor output):
     cdef int prediction = 0

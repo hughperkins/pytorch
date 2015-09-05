@@ -1,4 +1,5 @@
 // GENERATED FILE, do not edit by hand
+// Source: nnWrapper.jinja2.h
 
 #pragma once
 
@@ -13,6 +14,12 @@ class THDoubleStorage;
 
 int THDoubleStorage_getRefCount(THDoubleStorage *self);
 int THDoubleTensor_getRefCount(THDoubleTensor *self);
+
+class THByteTensor;
+class THByteStorage;
+
+int THByteStorage_getRefCount(THByteStorage *self);
+int THByteTensor_getRefCount(THByteTensor *self);
 
 class THFloatTensor;
 class THFloatStorage;

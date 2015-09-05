@@ -1,4 +1,5 @@
 // GENERATED FILE, do not edit by hand
+// Source: nnWrapper.jinja2.cpp
 
 extern "C" {
     #include "lua.h"
@@ -62,6 +63,13 @@ int THDoubleStorage_getRefCount(THDoubleStorage *self) {
     return self->refcount;
 }
 int THDoubleTensor_getRefCount(THDoubleTensor *self) {
+    return self->refcount;
+}
+
+int THByteStorage_getRefCount(THByteStorage *self) {
+    return self->refcount;
+}
+int THByteTensor_getRefCount(THByteTensor *self) {
     return self->refcount;
 }
 

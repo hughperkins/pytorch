@@ -29,12 +29,22 @@ env = Environment(loader=jinja2.FileSystemLoader('.'))
 templateNames = ['PyTorch.jinja2.pyx', 'PyTorch.jinja2.pxd', 'nnWrapper.jinja2.cpp', 'nnWrapper.jinja2.h']
 for templateName in templateNames:
     template = env.get_template(templateName)
-    pyx = template.render(header='GENERATED FILE, do not edit by hand')
+    pyx = template.render(
+        header='GENERATED FILE, do not edit by hand, ' +
+        'Source: ' + templateName,
+        header1='GENERATED FILE, do not edit by hand',
+        header2='Source: ' + templateName)
     outFilename = templateName.replace('.jinja2', '')
     print('outfilename', outFilename)
-    f = open(outFilename, 'wb')
-    f.write(pyx)
+    # read existing file, see if anything changed
+    f = open(outFilename, 'rb')  # binary, so get linux line endings, even on Windows
+    pyx_current = f.read()
     f.close()
+    if pyx_current != pyx:
+        print(outFilename + ' (changed)')
+        f = open(outFilename, 'wb')
+        f.write(pyx)
+        f.close()
 
 building_dist = False
 for arg in sys.argv:

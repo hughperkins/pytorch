@@ -1,4 +1,5 @@
 # GENERATED FILE, do not edit by hand
+# Source: PyTorch.jinja2.pyx
 
 from __future__ import print_function
 
@@ -14,6 +15,11 @@ cimport PyTorch
 
 
 
+#define real unsigned char
+#define accreal long
+#define Real Byte
+#define TH_REAL_IS_BYTE
+
 # from http://stackoverflow.com/questions/3410976/how-to-round-a-number-to-significant-figures-in-python
 def round_sig(x, sig=2):
     return round(x, sig-int(floor(log10(abs(x))))-1)
@@ -28,6 +34,8 @@ cdef extern from "LuaHelper.h":
 cdef extern from "LuaHelper.h":
     THDoubleTensor *popDoubleTensor(lua_State *L)
     void pushDoubleTensor(lua_State *L, THDoubleTensor *tensor)
+
+
 
 
 
@@ -144,6 +152,10 @@ cdef extern from "nnWrapper.h":
     int THDoubleTensor_getRefCount(THDoubleTensor *self)
 
 cdef extern from "nnWrapper.h":
+    int THByteStorage_getRefCount(THByteStorage *self)
+    int THByteTensor_getRefCount(THByteTensor *self)
+
+cdef extern from "nnWrapper.h":
     int THFloatStorage_getRefCount(THFloatStorage *self)
     int THFloatTensor_getRefCount(THFloatTensor *self)
 
@@ -171,6 +183,17 @@ cdef extern from "THStorage.h":
     long THDoubleStorage_size(THDoubleStorage *self)
     void THDoubleStorage_free(THDoubleStorage *self)
     void THDoubleStorage_retain(THDoubleStorage *self)
+
+
+cdef extern from "THStorage.h":
+    cdef struct THByteStorage
+    THByteStorage* THByteStorage_newWithData(unsigned char *data, long size)
+    THByteStorage* THByteStorage_new()
+    THByteStorage* THByteStorage_newWithSize(long size)
+    unsigned char *THByteStorage_data(THByteStorage *self)
+    long THByteStorage_size(THByteStorage *self)
+    void THByteStorage_free(THByteStorage *self)
+    void THByteStorage_retain(THByteStorage *self)
 
 
 cdef extern from "THStorage.h":
@@ -251,6 +274,59 @@ cdef class DoubleStorage(object):
 #        print('THFloatStorage.dealloc, old refcount ', THFloatStorage_getRefCount(self.thFloatStorage))
 #        print('   dealloc storage: ', hex(<long>(self.thFloatStorage)))
         THDoubleStorage_free(self.thDoubleStorage)
+
+
+cdef class ByteStorage(object):
+    cdef THByteStorage *thByteStorage
+
+    def __init__(self, *args, **kwargs):
+#        print('floatStorage.__cinit__')
+        if len(args) > 0:
+            raise Exception('cannot provide arguments to initializer')
+        if len(kwargs) > 0:
+            raise Exception('cannot provide arguments to initializer')
+
+    @staticmethod
+    cdef fromNative(THByteStorage *storageC, retain=True):
+        if retain:
+            THByteStorage_retain(storageC)
+        storage = ByteStorage()
+        storage.thByteStorage = storageC
+        return storage
+
+    @staticmethod
+    def new():
+#        print('allocate storage')
+        return ByteStorage.fromNative(THByteStorage_new(), retain=False)
+
+    @staticmethod
+    def newWithData(unsigned char [:] data):
+        cdef THByteStorage *storageC = THByteStorage_newWithData(&data[0], len(data))
+#        print('allocate storage')
+        return ByteStorage.fromNative(storageC, retain=False)
+
+    @property
+    def refCount(ByteStorage self):
+        return THByteStorage_getRefCount(self.thByteStorage)
+
+    def dataAddr(ByteStorage self):
+        cdef unsigned char *data = THByteStorage_data(self.thByteStorage)
+        cdef long dataAddr = pointerAsInt(data)
+        return dataAddr
+
+    @staticmethod
+    def newWithSize(long size):
+        cdef THByteStorage *storageC = THByteStorage_newWithSize(size)
+#        print('allocate storage')
+        return ByteStorage.fromNative(storageC, retain=False)
+
+    cpdef long size(self):
+        return THByteStorage_size(self.thByteStorage)
+
+    def __dealloc__(self):
+#        print('THFloatStorage.dealloc, old refcount ', THFloatStorage_getRefCount(self.thFloatStorage))
+#        print('   dealloc storage: ', hex(<long>(self.thFloatStorage)))
+        THByteStorage_free(self.thByteStorage)
 
 
 cdef class FloatStorage(object):
@@ -397,6 +473,38 @@ cdef extern from "THTensor.h":
     void THDoubleTensor_cauchy(THDoubleTensor *self, THGenerator *_generator, double median, double sigma)
     void THDoubleTensor_logNormal(THDoubleTensor *self, THGenerator *_generator, double mean, double stdv)
     void THDoubleTensor_bernoulli(THDoubleTensor *self, THGenerator *_generator, double p)
+    
+
+
+cdef extern from "THTensor.h":
+    cdef struct THByteTensor
+    THByteTensor *THByteTensor_new()
+    THByteTensor *THByteTensor_newWithSize1d(long size0)
+    THByteTensor *THByteTensor_newWithSize2d(long size0, long size1)
+    void THByteTensor_free(THByteTensor *self)
+    int THByteTensor_nDimension(THByteTensor *tensor)
+    THByteTensor *THByteTensor_newSelect(THByteTensor *self, int dimension, int sliceIndex)
+    void THByteTensor_resizeAs(THByteTensor *self, THFloatTensor *model)
+    void THByteTensor_resize1d(THByteTensor *self, long size0)
+    void THByteTensor_resize2d(THByteTensor *self, long size0, long size1)
+    void THByteTensor_resize3d(THByteTensor *self, long size0, long size1, long size2)
+    void THByteTensor_resize4d(THByteTensor *self, long size0, long size1, long size2, long size3)
+    long THByteTensor_size(const THByteTensor *self, int dim)
+    long THByteTensor_nElement(THByteTensor *self)
+    void THByteTensor_retain(THByteTensor *self)
+    void THByteTensor_geometric(THByteTensor *self, THGenerator *_generator, double p)
+    void THByteTensor_set1d(const THByteTensor *tensor, long x0, float value)
+    void THByteTensor_set2d(const THByteTensor *tensor, long x0, long x1, float value)
+    unsigned char THByteTensor_get1d(const THByteTensor *tensor, long x0)
+    unsigned char THByteTensor_get2d(const THByteTensor *tensor, long x0, long x1)
+    long THByteTensor_stride(const THByteTensor *self, int dim)
+    void THByteTensor_fill(THByteTensor *self, unsigned char value)
+    void THByteTensor_add(THByteTensor *r_, THByteTensor *t, unsigned char value)
+    THByteTensor *THByteTensor_newNarrow(THByteTensor *self, int dimension, long firstIndex, long size)
+    THByteTensor* THByteTensor_newWithStorage1d(THByteStorage *storage, long storageOffset, long size0, long stride0)
+    THByteTensor* THByteTensor_newWithStorage2d(THByteStorage *storage, long storageOffset, long size0, long stride0, long size1, long stride1)
+    THByteStorage *THByteTensor_storage(THByteTensor *self)
+
     
 
 
@@ -742,6 +850,250 @@ cdef _DoubleTensor_fromNative(THDoubleTensor *tensorC, retain=True):
         THDoubleTensor_retain(tensorC)
     tensor = _DoubleTensor(_allocate=False)
     tensor.thDoubleTensor = tensorC
+    return tensor
+
+
+
+cdef class _ByteTensor(object):
+    # properties are in the PyTorch.pxd file
+
+#    def __cinit__(Tensor self, THFloatTensor *tensorC = NULL):
+#        self.thFloatTensor = tensorC
+
+    def __cinit__(self, *args, _allocate=True):
+#        print('ByteTensor.__cinit__')
+#        cdef THByteStorage *storageC
+#        cdef long addr
+#        if len(kwargs) > 0:
+#            raise Exception('cannot provide arguments to initializer')
+        if _allocate:
+#            if len(args) == 1 and isinstance(args[0], _LongTensor):  # it's a size tensor
+#                self.thFloatTensor = THFloatTensor_new()
+            for arg in args:
+                if not isinstance(arg, int):
+                    raise Exception('cannot provide arguments to initializer')
+            if len(args) == 0:
+#                print('no args, calling THByteTensor_new()')
+                self.thByteTensor = THByteTensor_new()
+            elif len(args) == 1:
+#                print('new tensor 1d length', args[0])
+                self.thByteTensor = THByteTensor_newWithSize1d(args[0])
+#                storageC = THFloatTensor_storage(self.thFloatTensor)
+#                if storageC == NULL:
+#                    print('storageC is NULL')
+#                else:
+#                    print('storageC not null')
+#                    addr = <long>(storageC)
+#                    print('storageaddr', hex(addr))
+#                    print('storageC refcount', THFloatStorage_getRefCount(storageC))
+            elif len(args) == 2:
+                self.thByteTensor = THByteTensor_newWithSize2d(args[0], args[1])
+            else:
+                raise Exception('Not implemented, len(args)=' + str(len(args)))
+
+#    def __cinit__(self, THFloatTensor *tensorC, Storage storage):
+#        self.thFloatTensor = tensorC
+#        self.storage = storage
+
+#    def __cinit__(self, Storage storage, offset, size0, stride0, size1, stride1):
+#        self.thFloatTensor = THFloatTensor_newWithStorage2d(storage.thFloatStorage, offset, size0, stride0, size1, stride1)
+#        self.storage = storage
+
+    def __dealloc__(self):
+        cdef int refCount
+#        cdef int dims
+#        cdef int size
+#        cdef int i
+#        cdef THFloatStorage *storage
+        refCount = THByteTensor_getRefCount(self.thByteTensor)
+#        print('ByteTensor.dealloc old refcount', refCount)
+#        storage = THFloatTensor_storage(self.thFloatTensor)
+#        if storage == NULL:
+#            print('   dealloc, storage NULL')
+#        else:
+#            print('   dealloc, storage ', hex(<long>(storage)))
+#        dims = THFloatTensor_nDimension(self.thFloatTensor)
+#        print('   dims of dealloc', dims)
+#        for i in range(dims):
+#            print('   size[', i, ']', THFloatTensor_size(self.thFloatTensor, i))
+        if refCount < 1:
+            raise Exception('Unallocated an already deallocated tensor... :-O')  # Hmmm, seems this exceptoin wont go anywhere useful... :-P
+        THByteTensor_free(self.thByteTensor)
+
+    def nElement(_ByteTensor self):
+        return THByteTensor_nElement(self.thByteTensor)
+
+    @property
+    def refCount(_ByteTensor self):
+        return THByteTensor_getRefCount(self.thByteTensor)
+
+    def geometric(_ByteTensor self, float p=0.5):
+        THByteTensor_geometric(self.thByteTensor, globalState.generator, p)
+        return self
+
+    cpdef int dims(self):
+        return THByteTensor_nDimension(self.thByteTensor)
+
+    cpdef set1d(self, int x0, unsigned char value):
+        THByteTensor_set1d(self.thByteTensor, x0, value)
+
+    cpdef set2d(self, int x0, int x1, unsigned char value):
+        THByteTensor_set2d(self.thByteTensor, x0, x1, value)
+
+    cpdef unsigned char get1d(self, int x0):
+        return THByteTensor_get1d(self.thByteTensor, x0)
+
+    cpdef unsigned char get2d(self, int x0, int x1):
+        return THByteTensor_get2d(self.thByteTensor, x0, x1)
+
+    def __repr__(_ByteTensor self):
+        # assume 2d matrix for now
+        cdef int size0
+        cdef int size1
+        dims = self.dims()
+        if dims == 0:
+            return '[torch.ByteTensor with no dimension]\n'
+        elif dims == 2:
+            size0 = THByteTensor_size(self.thByteTensor, 0)
+            size1 = THByteTensor_size(self.thByteTensor, 1)
+            res = ''
+            for r in range(size0):
+                thisline = ''
+                for c in range(size1):
+                    if c > 0:
+                        thisline += ' '
+                    
+                    thisline += str(self.get2d(r,c),)
+                    
+                res += thisline + '\n'
+            res += '[torch.ByteTensor of size ' + ('%.0f' % size0) + 'x' + str(size1) + ']\n'
+            return res
+        elif dims == 1:
+            size0 = THByteTensor_size(self.thByteTensor, 0)
+            res = ''
+            thisline = ''
+            for c in range(size0):
+                if c > 0:
+                    thisline += ' '
+                
+                thisline += str(self.get1d(c))
+                
+            res += thisline + '\n'
+            res += '[torch.ByteTensor of size ' + str(size0) + ']\n'
+            return res
+        else:
+            raise Exception("Not implemented: dims > 2")
+
+    def __getitem__(_ByteTensor self, int index):
+        if self.dims() == 1:
+            return self.get1d(index)
+        cdef THByteTensor *res = THByteTensor_newSelect(self.thByteTensor, 0, index)
+        return _ByteTensor_fromNative(res, False)
+
+    def __setitem__(_ByteTensor self, int index, unsigned char value):
+        if self.dims() == 1:
+            self.set1d(index, value)
+        else:
+            raise Exception("not implemented")
+
+    def fill(_ByteTensor self, unsigned char value):
+        THByteTensor_fill(self.thByteTensor, value)
+        return self
+
+    def size(_ByteTensor self):
+        cdef int dims = self.dims()
+        cdef _LongTensor size
+        if dims > 0:
+            size = _LongTensor(dims)
+            for d in range(dims):
+                size.set1d(d, THByteTensor_size(self.thByteTensor, d))
+            return size
+        else:
+            return None  # not sure how to handle this yet
+
+    @staticmethod
+    def new():
+#        print('allocate tensor')
+        return _ByteTensor()
+#        return _FloatTensor_fromNative(newTensorC, False)
+
+    def __add__(_ByteTensor self, unsigned char value):
+        # assume 2d matrix for now?
+        cdef _ByteTensor res = _ByteTensor.new()
+#        THFloatTensor_resizeAs(cresult, self.thFloatTensor)
+        THByteTensor_add(res.thByteTensor, self.thByteTensor, value)
+        return res
+
+    def narrow(_ByteTensor self, int dimension, long firstIndex, long size):
+        cdef THByteTensor *narrowedC = THByteTensor_newNarrow(self.thByteTensor, dimension, firstIndex, size)
+        return _ByteTensor_fromNative(narrowedC, retain=False)
+
+    def resize1d(_ByteTensor self, int size0):
+        THByteTensor_resize1d(self.thByteTensor, size0)
+        return self
+
+    def resize2d(_ByteTensor self, int size0, int size1):
+        THByteTensor_resize2d(self.thByteTensor, size0, size1)
+        return self
+
+    def resize3d(_ByteTensor self, int size0, int size1, int size2):
+        THByteTensor_resize3d(self.thByteTensor, size0, size1, size2)
+        return self
+
+    def resize4d(_ByteTensor self, int size0, int size1, int size2, int size3):
+        THByteTensor_resize4d(self.thByteTensor, size0, size1, size2, size3)
+        return self
+
+    def resize(_ByteTensor self, _LongTensor size):
+#        print('_FloatTensor.resize size:', size)
+        if size.dims() == 0:
+            return self
+        cdef int dims = size.size()[0]
+#        print('_FloatTensor.resize dims:', dims)
+        if dims == 1:
+            THByteTensor_resize1d(self.thByteTensor, size[0])
+        elif dims == 2:
+            THByteTensor_resize2d(self.thByteTensor, size[0], size[1])
+        elif dims == 3:
+            THByteTensor_resize3d(self.thByteTensor, size[0], size[1], size[2])
+        elif dims == 4:
+            THByteTensor_resize4d(self.thByteTensor, size[0], size[1], size[2], size[3])
+        else:
+            raise Exception('Not implemented for dims=' + str(dims))
+        return self
+
+    @staticmethod
+    def newWithStorage1d(ByteStorage storage, offset, size0, stride0):
+#        print('allocate tensor')
+        cdef THByteTensor *newTensorC = THByteTensor_newWithStorage1d(storage.thByteStorage, offset, size0, stride0)
+        return _ByteTensor_fromNative(newTensorC, False)
+
+    @staticmethod
+    def newWithStorage2d(ByteStorage storage, offset, size0, stride0, size1, stride1):
+#        print('allocate tensor')
+        cdef THByteTensor *newTensorC = THByteTensor_newWithStorage2d(storage.thByteStorage, offset, size0, stride0, size1, stride1)
+        return _ByteTensor_fromNative(newTensorC, False)
+
+    def storage(_ByteTensor self):
+        cdef THByteStorage *storageC = THByteTensor_storage(self.thByteTensor)
+        if storageC == NULL:
+            return None
+        return ByteStorage.fromNative(storageC)
+
+
+
+
+
+
+#class FloatTensor(_FloatTensor):
+#    pass
+
+#    @staticmethod
+cdef _ByteTensor_fromNative(THByteTensor *tensorC, retain=True):
+    if retain:
+        THByteTensor_retain(tensorC)
+    tensor = _ByteTensor(_allocate=False)
+    tensor.thByteTensor = tensorC
     return tensor
 
 
@@ -1353,6 +1705,8 @@ def _pushDoubleTensor(_DoubleTensor tensor):
 
 
 
+
+
 def _popFloatTensor():
     global globalState
     cdef THFloatTensor *tensorC = popFloatTensor(globalState.L)
@@ -1381,6 +1735,9 @@ cpdef int getDoublePrediction(_DoubleTensor output):
             maxSoFar = thisValue
             prediction = i
     return prediction + 1
+
+
+
 
 
 

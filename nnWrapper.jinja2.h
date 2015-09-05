@@ -1,8 +1,15 @@
-// {{header}}
+// {{header1}}
+// {{header2}}
 
 #pragma once
 
-{% set types = {'Long': 'long', 'Float': 'float', 'Double': 'double'} %}
+{% set types = {
+    'Long': 'long',
+    'Float': 'float',
+    'Double': 'double',
+    'Byte': 'unsigned char'
+}
+%}
 
 #include <iostream>
 #include <string>

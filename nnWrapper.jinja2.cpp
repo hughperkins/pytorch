@@ -1,4 +1,5 @@
-// {{header}}
+// {{header1}}
+// {{header2}}
 
 extern "C" {
     #include "lua.h"
@@ -21,7 +22,13 @@ extern "C" {
 
 using namespace std;
 
-{% set types = {'Long': 'long', 'Float': 'float', 'Double': 'double'} %}
+{% set types = {
+    'Long': 'long',
+    'Float': 'float',
+    'Double': 'double',
+    'Byte': 'unsigned char'
+}
+%}
 
 lua_State *luaInit() {
     #ifndef _WIN32
