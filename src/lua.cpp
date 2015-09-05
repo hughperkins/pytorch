@@ -475,13 +475,13 @@ struct __pyx_obj_3lua_LuaState;
  *     cdef struct THDoubleTensor
  * 
  * cdef class _DoubleTensor(object):             # <<<<<<<<<<<<<<
- *     cdef THDoubleTensor *thDoubleTensor
+ *     cdef THDoubleTensor *native
  *     cpdef int dims(self)
  */
 struct __pyx_obj_7PyTorch__DoubleTensor {
   PyObject_HEAD
   struct __pyx_vtabstruct_7PyTorch__DoubleTensor *__pyx_vtab;
-  struct THDoubleTensor *thDoubleTensor;
+  struct THDoubleTensor *native;
 };
 
 
@@ -489,13 +489,13 @@ struct __pyx_obj_7PyTorch__DoubleTensor {
  *     cdef struct THByteTensor
  * 
  * cdef class _ByteTensor(object):             # <<<<<<<<<<<<<<
- *     cdef THByteTensor *thByteTensor
+ *     cdef THByteTensor *native
  *     cpdef int dims(self)
  */
 struct __pyx_obj_7PyTorch__ByteTensor {
   PyObject_HEAD
   struct __pyx_vtabstruct_7PyTorch__ByteTensor *__pyx_vtab;
-  struct THByteTensor *thByteTensor;
+  struct THByteTensor *native;
 };
 
 
@@ -503,13 +503,13 @@ struct __pyx_obj_7PyTorch__ByteTensor {
  *     cdef struct THFloatTensor
  * 
  * cdef class _FloatTensor(object):             # <<<<<<<<<<<<<<
- *     cdef THFloatTensor *thFloatTensor
+ *     cdef THFloatTensor *native
  *     cpdef int dims(self)
  */
 struct __pyx_obj_7PyTorch__FloatTensor {
   PyObject_HEAD
   struct __pyx_vtabstruct_7PyTorch__FloatTensor *__pyx_vtab;
-  struct THFloatTensor *thFloatTensor;
+  struct THFloatTensor *native;
 };
 
 
@@ -517,13 +517,13 @@ struct __pyx_obj_7PyTorch__FloatTensor {
  *     cdef struct THLongTensor
  * 
  * cdef class _LongTensor(object):             # <<<<<<<<<<<<<<
- *     cdef THLongTensor *thLongTensor
+ *     cdef THLongTensor *native
  *     cpdef int dims(self)
  */
 struct __pyx_obj_7PyTorch__LongTensor {
   PyObject_HEAD
   struct __pyx_vtabstruct_7PyTorch__LongTensor *__pyx_vtab;
-  struct THLongTensor *thLongTensor;
+  struct THLongTensor *native;
 };
 
 
@@ -559,7 +559,7 @@ struct __pyx_obj_3lua_LuaState {
  *     cdef struct THDoubleTensor
  * 
  * cdef class _DoubleTensor(object):             # <<<<<<<<<<<<<<
- *     cdef THDoubleTensor *thDoubleTensor
+ *     cdef THDoubleTensor *native
  *     cpdef int dims(self)
  */
 
@@ -577,7 +577,7 @@ static struct __pyx_vtabstruct_7PyTorch__DoubleTensor *__pyx_vtabptr_7PyTorch__D
  *     cdef struct THByteTensor
  * 
  * cdef class _ByteTensor(object):             # <<<<<<<<<<<<<<
- *     cdef THByteTensor *thByteTensor
+ *     cdef THByteTensor *native
  *     cpdef int dims(self)
  */
 
@@ -595,7 +595,7 @@ static struct __pyx_vtabstruct_7PyTorch__ByteTensor *__pyx_vtabptr_7PyTorch__Byt
  *     cdef struct THFloatTensor
  * 
  * cdef class _FloatTensor(object):             # <<<<<<<<<<<<<<
- *     cdef THFloatTensor *thFloatTensor
+ *     cdef THFloatTensor *native
  *     cpdef int dims(self)
  */
 
@@ -613,7 +613,7 @@ static struct __pyx_vtabstruct_7PyTorch__FloatTensor *__pyx_vtabptr_7PyTorch__Fl
  *     cdef struct THLongTensor
  * 
  * cdef class _LongTensor(object):             # <<<<<<<<<<<<<<
- *     cdef THLongTensor *thLongTensor
+ *     cdef THLongTensor *native
  *     cpdef int dims(self)
  */
 
