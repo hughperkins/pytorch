@@ -8,6 +8,7 @@ from __future__ import print_function
 import os
 import os.path
 import sys
+import datetime
 import platform
 from setuptools import setup
 from setuptools import Extension
@@ -91,32 +92,29 @@ if osfamily == 'Windows':
 #sources = ["PyTorch.cxx"]
 #if cython_present:
 #sources = ['src/lua.pyx', 'src/Storage.pyx', "src/PyTorch.pyx"]
-ext_modules = [
-    Extension("PyTorch",
-              sources=['src/PyTorch.pyx'],
-              include_dirs=[home_dir + '/torch/install/include/TH', 'thirdparty/lua-5.1.5/src', home_dir + '/torch/install/include'],
-              library_dirs=library_dirs,
-              libraries=libraries,
-              extra_compile_args=compile_options,
-              runtime_library_dirs=runtime_library_dirs,
-              language="c++"),
-    Extension("Storage",
-              sources=['src/Storage.pyx'],
-              include_dirs=[home_dir + '/torch/install/include/TH', 'thirdparty/lua-5.1.5/src', home_dir + '/torch/install/include'],
-              library_dirs=library_dirs,
-              libraries=libraries,
-              extra_compile_args=compile_options,
-              runtime_library_dirs=runtime_library_dirs,
-              language="c++"),
-    Extension("lua",
-              sources=['src/lua.pyx'],
-              include_dirs=[home_dir + '/torch/install/include/TH', 'thirdparty/lua-5.1.5/src', home_dir + '/torch/install/include'],
-              library_dirs=library_dirs,
-              libraries=libraries,
-              extra_compile_args=compile_options,
-              runtime_library_dirs=runtime_library_dirs,
-              language="c++")
-]
+
+def get_file_datetime(filepath):
+    t = os.path.getmtime(filepath)
+    return datetime.datetime.fromtimestamp(t)
+
+cython_sources = ['src/lua.pyx', 'src/Storage.pyx', "src/PyTorch.pyx"]
+ext_modules = []
+for cython_source in cython_sources:
+    cythoned_filepath = cython_source.replace('.pyx', '.cpp')
+    basename = os.path.basename(cython_source).replace('.pyx', '')
+    source_name = cythoned_filepath
+    if not os.path.isfile(cythoned_filepath) or get_file_datetime(cythoned_filepath) < get_file_datetime(cython_source):
+        source_name = cython_source
+    ext_modules.append(
+        Extension(basename,
+                  sources=[source_name],
+                  include_dirs=[home_dir + '/torch/install/include/TH', 'thirdparty/lua-5.1.5/src', home_dir + '/torch/install/include'],
+                  library_dirs=library_dirs,
+                  libraries=libraries,
+                  extra_compile_args=compile_options,
+                  runtime_library_dirs=runtime_library_dirs,
+                  language="c++")
+    )
 
 ext_modules = cythonize(ext_modules)
 
