@@ -14,6 +14,17 @@ Types supported currently:
 
 (fairly easy to add others, since templated)
 
+# Unit-tests
+
+Run:
+```
+./build.sh
+./run_tests.sh
+```
+
+[test](test) folder, containing test scripts
+[test_output.txt](test_output.txt)
+
 # pytorch
 
 Run by doing:

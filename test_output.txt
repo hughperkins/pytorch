@@ -1,0 +1,130 @@
+============================= test session starts ==============================
+platform linux2 -- Python 2.7.6 -- py-1.4.30 -- pytest-2.7.2 -- /home/user/envs/bin/python
+rootdir: /data/norep/git/pytorch, inifile: 
+collecting 0 itemsinitializing PyTorch...
+generator null: False
+ ... PyTorch initialized
+collected 3 items 
+
+test/testDoubleTensor.py::test_double_tensor dir(G) ['DoubleTensor', 'LongTensor']
+test_double_tensor
+got double a
+a.dims() : 2
+a : 0.50735364994 0.742995736655
+0.590737399412 0.82107172953
+0.624186974484 0.109543747734
+[torch.DoubleTensor of size 3x2]
+
+a[1][1] = 9
+a : 0.50735364994 0.742995736655
+0.590737399412 9.0
+0.624186974484 0.109543747734
+[torch.DoubleTensor of size 3x2]
+
+a.size() : 3 2
+[torch.LongTensor of size 2]
+
+a + 2 : 2.50735364994 2.74299573665
+2.59073739941 11.0
+2.62418697448 2.10954374773
+[torch.DoubleTensor of size 3x2]
+
+a.resize2d(3,3)
+a : 0.50735364994 0.742995736655 0.590737399412
+9.0 0.624186974484 0.109543747734
+6.91504797312e-310 0.0 6.91504925242e-310
+[torch.DoubleTensor of size 3x3]
+
+size = LongTensor(2)
+size[0] = 4
+size[1] = 2
+a.resize(size)
+a : 0.50735364994 0.742995736655
+0.590737399412 9.0
+0.624186974484 0.109543747734
+6.91504797312e-310 0.0
+[torch.DoubleTensor of size 4x2]
+
+DoubleTensor(3,4).uniform() : 0.802396006417 0.233683708124 0.394685339415 0.0420998497866
+0.967274507508 0.969779283274 0.161941955332 0.555666775443
+0.703492399072 0.735906828893 0.932627078844 0.256216052221
+[torch.DoubleTensor of size 3x4]
+
+DoubleTensor(3,4).bernoulli() : 0.0 0.0 1.0 1.0
+1.0 0.0 0.0 0.0
+0.0 1.0 1.0 0.0
+[torch.DoubleTensor of size 3x4]
+
+DoubleTensor(3,4).normal() : -1.52206009997 0.0095487119546 0.11029751987 -1.13843502199
+-0.602847307424 -1.01539233632 0.0951539128057 1.17383088731
+0.610528916409 -0.414617262576 0.582837453047 0.109673185517
+[torch.DoubleTensor of size 3x4]
+
+DoubleTensor(3,4).cauchy() : 4.38040757578 -0.436768877465 -0.421389809747 -0.86123370933
+0.927873252712 -0.00143860683615 -0.630134704672 -0.231990085969
+-1.60599754987 14.9369707265 -0.603544843125 0.254436930906
+[torch.DoubleTensor of size 3x4]
+
+DoubleTensor(3,4).exponential() : 0.17748035328 5.04018395487 0.0739553568655 1.79432280806
+0.464175561433 0.179200416179 1.11292663998 3.84862976058
+0.192586168111 2.70086665378 0.363442985845 0.08525706512
+[torch.DoubleTensor of size 3x4]
+
+DoubleTensor(3,4).logNormal() : 0.830567652849 0.616478050992 0.103770533481 0.114557484764
+1.06681421216 1.44909438152 0.121638908227 0.162534119216
+0.167915451262 0.742382143465 0.0752270057595 0.320481061018
+[torch.DoubleTensor of size 3x4]
+
+DoubleTensor(3,4).geometric() : 2.0 4.0 1.0 3.0
+1.0 1.0 1.0 1.0
+3.0 1.0 1.0 1.0
+[torch.DoubleTensor of size 3x4]
+
+PASSED
+test/testFloatTensor.py::test_float_tensor dir(G) []
+test_float_tensor
+got float a
+a.dims() : 2
+a : 0.901446 0.893269
+0.710932 0.288354
+0.770901 0.166946
+[torch.FloatTensor of size 3x2]
+
+a[1][1] = 9
+a : 0.901446 0.893269
+0.710932 9
+0.770901 0.166946
+[torch.FloatTensor of size 3x2]
+
+a.size() : 3 2
+[torch.LongTensor of size 2]
+
+PASSED
+test/testLongTensor.py::test_long_tensor test_long_tensor
+a : 1 1
+2 4
+1 4
+[torch.LongTensor of size 3x2]
+
+a[1][1] = 9
+a : 1 1
+2 9
+1 4
+[torch.LongTensor of size 3x2]
+
+a.size() : 3 2
+[torch.LongTensor of size 2]
+
+a + 2 : 3 3
+4 11
+3 6
+[torch.LongTensor of size 3x2]
+
+a.resize2d(3,3)
+a : 1 1 2
+9 1 4
+139962120772696 81 0
+[torch.LongTensor of size 3x3]
+
+PASSED
+
