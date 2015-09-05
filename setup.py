@@ -27,8 +27,8 @@ jinja_present = True
 from jinja2 import Environment, PackageLoader, Template
 env = Environment(loader=jinja2.FileSystemLoader('.'))
 templateNames = [
-    'src/PyTorch.jinja2.pyx', 'src/PyTorch.jinja2.pxd', 'src/nnWrapper.jinja2.cpp', 'src/nnWrapper.jinja2.h',
-    'test/jinja2.test_pytorch.py']
+    'src/PyTorch.jinja2.pyx', 'src/Storage.jinja2.pyx', 'src/PyTorch.jinja2.pxd', 'src/nnWrapper.jinja2.cpp', 'src/nnWrapper.jinja2.h',
+    'test/jinja2.test_pytorch.py', 'src/Storage.jinja2.pxd', 'src/nnWrapper.jinja2.pxd', 'src/lua.jinja2.pxd', 'src/lua.jinja2.pyx']
 for templateName in templateNames:
     template = env.get_template(templateName)
     pyx = template.render(
@@ -38,11 +38,15 @@ for templateName in templateNames:
         header2='Source: ' + templateName)
     outFilename = templateName.replace('.jinja2', '').replace('jinja2.', '')
     print('outfilename', outFilename)
-    # read existing file, see if anything changed
-    f = open(outFilename, 'rb')  # binary, so get linux line endings, even on Windows
-    pyx_current = f.read()
-    f.close()
-    if pyx_current != pyx:
+    isUpdate = True
+    if os.path.isfile(outFilename):
+        # read existing file, see if anything changed
+        f = open(outFilename, 'rb')  # binary, so get linux line endings, even on Windows
+        pyx_current = f.read()
+        f.close()
+        if pyx_current == pyx:
+            isUpdate = False
+    if isUpdate:
         print(outFilename + ' (changed)')
         f = open(outFilename, 'wb')
         f.write(pyx)
@@ -86,16 +90,33 @@ if osfamily == 'Windows':
 
 #sources = ["PyTorch.cxx"]
 #if cython_present:
-sources = ["src/PyTorch.pyx"]
+#sources = ['src/lua.pyx', 'src/Storage.pyx', "src/PyTorch.pyx"]
 ext_modules = [
     Extension("PyTorch",
-              sources=sources,
+              sources=['src/PyTorch.pyx'],
               include_dirs=[home_dir + '/torch/install/include/TH', 'thirdparty/lua-5.1.5/src', home_dir + '/torch/install/include'],
               library_dirs=library_dirs,
               libraries=libraries,
               extra_compile_args=compile_options,
               runtime_library_dirs=runtime_library_dirs,
-              language="c++")]
+              language="c++"),
+    Extension("Storage",
+              sources=['src/Storage.pyx'],
+              include_dirs=[home_dir + '/torch/install/include/TH', 'thirdparty/lua-5.1.5/src', home_dir + '/torch/install/include'],
+              library_dirs=library_dirs,
+              libraries=libraries,
+              extra_compile_args=compile_options,
+              runtime_library_dirs=runtime_library_dirs,
+              language="c++"),
+    Extension("lua",
+              sources=['src/lua.pyx'],
+              include_dirs=[home_dir + '/torch/install/include/TH', 'thirdparty/lua-5.1.5/src', home_dir + '/torch/install/include'],
+              library_dirs=library_dirs,
+              libraries=libraries,
+              extra_compile_args=compile_options,
+              runtime_library_dirs=runtime_library_dirs,
+              language="c++")
+]
 
 ext_modules = cythonize(ext_modules)
 

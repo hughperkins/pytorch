@@ -11,6 +11,10 @@ import array
 
 from math import log10, floor
 
+cimport Storage
+import Storage
+from lua cimport *
+from nnWrapper cimport *
 cimport PyTorch
 
 {% set types = {
@@ -30,124 +34,6 @@ cimport PyTorch
 def round_sig(x, sig=2):
     return round(x, sig-int(floor(log10(abs(x))))-1)
 
-cdef extern from "LuaHelper.h":
-    void *getGlobal(lua_State *L, const char *name1, const char *name2);
-    void require(lua_State *L, const char *name)
-    int getLuaRegistryIndex()
-
-{% for Real in types %}
-{% if Real in ['Double', 'Float'] %}
-cdef extern from "LuaHelper.h":
-    TH{{Real}}Tensor *pop{{Real}}Tensor(lua_State *L)
-    void push{{Real}}Tensor(lua_State *L, TH{{Real}}Tensor *tensor)
-{% endif %}
-{% endfor %}
-
-cdef class LuaHelper(object):
-    @staticmethod
-    def require(name):
-        require(globalState.L, name)
-
-cdef extern from "lua_externc.h":
-    struct lua_State
-    void lua_pushnumber(lua_State *L, float number)
-    float lua_tonumber(lua_State *L, int index)
-    void lua_pushstring(lua_State *L, const char *value)
-    const char *lua_tostring(lua_State *L, int index)
-    void lua_call(lua_State *L, int argsIn, int argsOut)
-    void lua_remove(lua_State *L, int index)
-    void lua_insert(lua_State *L, int index)
-    void lua_getglobal(lua_State *L, const char *name)
-    void lua_setglobal(lua_State *L, const char *name)
-    void lua_settable(lua_State *L, int index)
-    void lua_gettable(lua_State *L, int index)
-    void lua_getfield(lua_State *L, int index, const char *name)
-    void lua_pushnil(lua_State *L)
-    void lua_pushvalue(lua_State *L, int index)
-    int lua_next(lua_State *L, int index)
-    int lua_gettop(lua_State *L)
-    int lua_isuserdata(lua_State *L, int index)
-
-LUA_REGISTRYINDEX = getLuaRegistryIndex()
-
-cdef class LuaState(object):
-    cdef lua_State *L
-
-    def __cinit__(self):
-#        print('LuaState.__cinit__')
-        self.L = luaInit()
-
-    def __dealloc__(self):
-#        print('LuaState.__dealloc__')
-        pass
-
-    def insert(self, int index):
-        lua_insert(self.L, index)
-
-    def remove(self, int index):
-        lua_remove(self.L, index)
-
-    def pushNumber(self, float number):
-        lua_pushnumber(self.L, number)
-
-    def pushString(self, mystring):
-        lua_pushstring(self.L, mystring)
-
-    def toString(self, int index):
-        cdef bytes py_string = lua_tostring(self.L, index)
-        return py_string
-
-    def toNumber(self, int index):
-        return lua_tonumber(self.L, index)
-
-    def getGlobal(self, name):
-        lua_getglobal(self.L, name)
-
-    def setGlobal(self, name):
-        lua_setglobal(self.L, name)
-
-    def pushNil(self):
-        lua_pushnil(self.L)
-
-    def pushValue(self, int index):
-        lua_pushvalue(self.L, index)
-
-    def call(self, int numIn, int numOut):
-        lua_call(self.L, numIn, numOut)
-
-    def getField(self, int index, name):
-        lua_getfield(self.L, index, name)
-
-    def setRegistry(self):
-        lua_settable(self.L, LUA_REGISTRYINDEX)
-
-    def getRegistry(self):
-        lua_gettable(self.L, LUA_REGISTRYINDEX)
-
-    def next(self, int index):
-        return lua_next(self.L, index)
-
-    def getTop(self):
-        return lua_gettop(self.L)
-
-    def isUserData(self, int index):
-        return lua_isuserdata(self.L, index)
-
-cdef LuaState_fromNative(lua_State *L):
-    cdef LuaState luaState = LuaState()
-    luaState.L = L
-    return luaState
-
-cdef extern from "nnWrapper.h":
-    long pointerAsInt(void *ptr)
-    void collectGarbage(lua_State *L)
-
-{% for Real in types %}
-cdef extern from "nnWrapper.h":
-    int TH{{Real}}Storage_getRefCount(TH{{Real}}Storage *self)
-    int TH{{Real}}Tensor_getRefCount(TH{{Real}}Tensor *self)
-{% endfor %}
-
 cdef extern from "THRandom.h":
     cdef struct THGenerator
     void THRandom_manualSeed(THGenerator *_generator, unsigned long the_seed_)
@@ -155,80 +41,14 @@ cdef extern from "THRandom.h":
 def manualSeed(long seed):
     THRandom_manualSeed(globalState.generator, seed)
 
-
-{% for Real in types %}
-{% set real = types[Real]['real'] %}
-cdef extern from "THStorage.h":
-    cdef struct TH{{Real}}Storage
-    TH{{Real}}Storage* TH{{Real}}Storage_newWithData({{real}} *data, long size)
-    TH{{Real}}Storage* TH{{Real}}Storage_new()
-    TH{{Real}}Storage* TH{{Real}}Storage_newWithSize(long size)
-    {{real}} *TH{{Real}}Storage_data(TH{{Real}}Storage *self)
-    long TH{{Real}}Storage_size(TH{{Real}}Storage *self)
-    void TH{{Real}}Storage_free(TH{{Real}}Storage *self)
-    void TH{{Real}}Storage_retain(TH{{Real}}Storage *self)
-{% endfor %}
-
 cdef floatToString(float floatValue):
     return '%.6g'% floatValue
 
 {% for Real in types %}
 {% set real = types[Real]['real'] %}
-cdef class {{Real}}Storage(object):
-    cdef TH{{Real}}Storage *th{{Real}}Storage
 
-    def __init__(self, *args, **kwargs):
-#        print('floatStorage.__cinit__')
-        if len(args) > 0:
-            raise Exception('cannot provide arguments to initializer')
-        if len(kwargs) > 0:
-            raise Exception('cannot provide arguments to initializer')
+{{Real}}Storage = Storage.{{Real}}Storage
 
-    @staticmethod
-    cdef fromNative(TH{{Real}}Storage *storageC, retain=True):
-        if retain:
-            TH{{Real}}Storage_retain(storageC)
-        storage = {{Real}}Storage()
-        storage.th{{Real}}Storage = storageC
-        return storage
-
-    @staticmethod
-    def new():
-#        print('allocate storage')
-        return {{Real}}Storage.fromNative(TH{{Real}}Storage_new(), retain=False)
-
-    @staticmethod
-    def newWithData({{real}} [:] data):
-        cdef TH{{Real}}Storage *storageC = TH{{Real}}Storage_newWithData(&data[0], len(data))
-#        print('allocate storage')
-        return {{Real}}Storage.fromNative(storageC, retain=False)
-
-    @property
-    def refCount({{Real}}Storage self):
-        return TH{{Real}}Storage_getRefCount(self.th{{Real}}Storage)
-
-    def dataAddr({{Real}}Storage self):
-        cdef {{real}} *data = TH{{Real}}Storage_data(self.th{{Real}}Storage)
-        cdef long dataAddr = pointerAsInt(data)
-        return dataAddr
-
-    @staticmethod
-    def newWithSize(long size):
-        cdef TH{{Real}}Storage *storageC = TH{{Real}}Storage_newWithSize(size)
-#        print('allocate storage')
-        return {{Real}}Storage.fromNative(storageC, retain=False)
-
-    cpdef long size(self):
-        return TH{{Real}}Storage_size(self.th{{Real}}Storage)
-
-    def __dealloc__(self):
-#        print('THFloatStorage.dealloc, old refcount ', THFloatStorage_getRefCount(self.thFloatStorage))
-#        print('   dealloc storage: ', hex(<long>(self.thFloatStorage)))
-        TH{{Real}}Storage_free(self.th{{Real}}Storage)
-{% endfor %}
-
-{% for Real in types %}
-{% set real = types[Real]['real'] %}
 cdef extern from "THTensor.h":
     cdef struct TH{{Real}}Tensor
     TH{{Real}}Tensor *TH{{Real}}Tensor_new()
@@ -253,9 +73,9 @@ cdef extern from "THTensor.h":
     void TH{{Real}}Tensor_fill(TH{{Real}}Tensor *self, {{real}} value)
     void TH{{Real}}Tensor_add(TH{{Real}}Tensor *r_, TH{{Real}}Tensor *t, {{real}} value)
     TH{{Real}}Tensor *TH{{Real}}Tensor_newNarrow(TH{{Real}}Tensor *self, int dimension, long firstIndex, long size)
-    TH{{Real}}Tensor* TH{{Real}}Tensor_newWithStorage1d(TH{{Real}}Storage *storage, long storageOffset, long size0, long stride0)
-    TH{{Real}}Tensor* TH{{Real}}Tensor_newWithStorage2d(TH{{Real}}Storage *storage, long storageOffset, long size0, long stride0, long size1, long stride1)
-    TH{{Real}}Storage *TH{{Real}}Tensor_storage(TH{{Real}}Tensor *self)
+    TH{{Real}}Tensor* TH{{Real}}Tensor_newWithStorage1d(Storage.TH{{Real}}Storage *storage, long storageOffset, long size0, long stride0)
+    TH{{Real}}Tensor* TH{{Real}}Tensor_newWithStorage2d(Storage.TH{{Real}}Storage *storage, long storageOffset, long size0, long stride0, long size1, long stride1)
+    Storage.TH{{Real}}Storage *TH{{Real}}Tensor_storage(TH{{Real}}Tensor *self)
     void TH{{Real}}Tensor_add(TH{{Real}}Tensor *tensorSelf, TH{{Real}}Tensor *tensorOne, {{real}} value)
 
     void TH{{Real}}Tensor_geometric(TH{{Real}}Tensor *self, THGenerator *_generator, double p)
@@ -483,22 +303,22 @@ cdef class _{{Real}}Tensor(object):
         return self
 
     @staticmethod
-    def newWithStorage1d({{Real}}Storage storage, offset, size0, stride0):
+    def newWithStorage1d(Storage.{{Real}}Storage storage, offset, size0, stride0):
 #        print('allocate tensor')
         cdef TH{{Real}}Tensor *newTensorC = TH{{Real}}Tensor_newWithStorage1d(storage.th{{Real}}Storage, offset, size0, stride0)
         return _{{Real}}Tensor_fromNative(newTensorC, False)
 
     @staticmethod
-    def newWithStorage2d({{Real}}Storage storage, offset, size0, stride0, size1, stride1):
+    def newWithStorage2d(Storage.{{Real}}Storage storage, offset, size0, stride0, size1, stride1):
 #        print('allocate tensor')
         cdef TH{{Real}}Tensor *newTensorC = TH{{Real}}Tensor_newWithStorage2d(storage.th{{Real}}Storage, offset, size0, stride0, size1, stride1)
         return _{{Real}}Tensor_fromNative(newTensorC, False)
 
     def storage(_{{Real}}Tensor self):
-        cdef TH{{Real}}Storage *storageC = TH{{Real}}Tensor_storage(self.th{{Real}}Tensor)
+        cdef Storage.TH{{Real}}Storage *storageC = TH{{Real}}Tensor_storage(self.th{{Real}}Tensor)
         if storageC == NULL:
             return None
-        return {{Real}}Storage.fromNative(storageC)
+        return Storage.{{Real}}Storage_fromNative(storageC)
 
     def __iadd__(_{{Real}}Tensor self, {{real}} value):
         TH{{Real}}Tensor_add(self.th{{Real}}Tensor, self.th{{Real}}Tensor, value)
@@ -558,21 +378,21 @@ cdef _{{Real}}Tensor_fromNative(TH{{Real}}Tensor *tensorC, retain=True):
 
 def asFloatTensor(myarray):
     cdef float[:] myarraymv
-    cdef FloatStorage storage
+    cdef Storage.FloatStorage storage
     if str(type(myarray)) == "<type 'numpy.ndarray'>":
         dims = len(myarray.shape)
         rows = myarray.shape[0]
         cols = myarray.shape[1]
 
         myarraymv = myarray.reshape(rows * cols)
-        storage = FloatStorage.newWithData(myarraymv)
-        THFloatStorage_retain(storage.thFloatStorage) # since newWithData takes ownership
+        storage = Storage.FloatStorage.newWithData(myarraymv)
+        Storage.THFloatStorage_retain(storage.thFloatStorage) # since newWithData takes ownership
         tensor = _FloatTensor.newWithStorage2d(storage, 0, rows, cols, cols, 1)
         return tensor
     elif isinstance(myarray, array.array):
         myarraymv = myarray
-        storage = FloatStorage.newWithData(myarraymv)
-        THFloatStorage_retain(storage.thFloatStorage) # since newWithData takes ownership
+        storage = Storage.FloatStorage.newWithData(myarraymv)
+        Storage.THFloatStorage_retain(storage.thFloatStorage) # since newWithData takes ownership
         tensor = _FloatTensor.newWithStorage1d(storage, 0, len(myarray), 1)
         return tensor        
     else:
@@ -580,30 +400,25 @@ def asFloatTensor(myarray):
 
 def asDoubleTensor(myarray):
     cdef double[:] myarraymv
-    cdef DoubleStorage storage
+    cdef Storage.DoubleStorage storage
     if str(type(myarray)) == "<type 'numpy.ndarray'>":
         dims = len(myarray.shape)
         rows = myarray.shape[0]
         cols = myarray.shape[1]
 
         myarraymv = myarray.reshape(rows * cols)
-        storage = DoubleStorage.newWithData(myarraymv)
-        THDoubleStorage_retain(storage.thDoubleStorage) # since newWithData takes ownership
+        storage = Storage.DoubleStorage.newWithData(myarraymv)
+        Storage.THDoubleStorage_retain(storage.thDoubleStorage) # since newWithData takes ownership
         tensor = _DoubleTensor.newWithStorage2d(storage, 0, rows, cols, cols, 1)
         return tensor
     elif isinstance(myarray, array.array):
         myarraymv = myarray
-        storage = DoubleStorage.newWithData(myarraymv)
-        THDoubleStorage_retain(storage.thDoubleStorage) # since newWithData takes ownership
+        storage = Storage.DoubleStorage.newWithData(myarraymv)
+        Storage.THDoubleStorage_retain(storage.thDoubleStorage) # since newWithData takes ownership
         tensor = _DoubleTensor.newWithStorage1d(storage, 0, len(myarray), 1)
         return tensor        
     else:
         raise Exception("not implemented")
-
-cdef extern from "nnWrapper.h":
-    cdef struct lua_State
-    lua_State *luaInit()
-    void luaClose(lua_State *L)
 
 cdef class GlobalState(object):
     # properties are in the PyTorch.pxd file
