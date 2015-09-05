@@ -11,6 +11,7 @@ Types supported currently:
 * FloatTensor
 * DoubleTensor
 * LongTensor
+* ByteTensor
 
 (fairly easy to add others, since templated)
 
