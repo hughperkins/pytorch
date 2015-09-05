@@ -104,6 +104,7 @@ This has been simplified a bunch since before.  We no longer try to wrap C++ cla
 * added ByteTensor
 * moved test scripts and output out of readme, provide links instead
 * test output linked from readme updated automatically
+* added + - * / for tensor/scalar pairs, and + - for tensor pairs
 
 4th September:
 * added LongTensor
