@@ -1,5 +1,5 @@
 // GENERATED FILE, do not edit by hand
-// Source: nnWrapper.jinja2.cpp
+// Source: src/nnWrapper.jinja2.cpp
 
 extern "C" {
     #include "lua.h"

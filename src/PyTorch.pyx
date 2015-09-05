@@ -1,5 +1,5 @@
 # GENERATED FILE, do not edit by hand
-# Source: PyTorch.jinja2.pyx
+# Source: src/PyTorch.jinja2.pyx
 
 from __future__ import print_function
 

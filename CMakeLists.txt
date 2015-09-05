@@ -16,7 +16,7 @@ include_directories(${HOME}/torch/install/include)
 #endforeach()
 
 #SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wl,-export-dynamic")
-add_library(TorchLanguageIndependence SHARED nnWrapper.cpp LuaHelper.cpp)
+add_library(TorchLanguageIndependence SHARED src/nnWrapper.cpp src/LuaHelper.cpp)
 #add_library(nnWrapper SHARED nnWrapper.cpp ${lua_src})
 target_link_libraries(TorchLanguageIndependence ${LUA_LIBRARIES})
 target_link_libraries(TorchLanguageIndependence ${HOME}/torch/install/lib/libluaT.so)

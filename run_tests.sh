@@ -5,7 +5,7 @@
 #    ... or similar
 # - torch is expected to be at $HOME/torch
 
-export PYTHONPATH=.
+export PYTHONPATH=.:src
 
 if [[ x$RUNGDB == x ]]; then {
     LD_LIBRARY_PATH=$HOME/torch/install/lib:$PWD/cbuild py.test -sv test/test* | tee test_outputs/tests_output.txt

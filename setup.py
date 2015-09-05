@@ -26,7 +26,7 @@ jinja_present = True
 # first generate cython pyx from jinja template...
 from jinja2 import Environment, PackageLoader, Template
 env = Environment(loader=jinja2.FileSystemLoader('.'))
-templateNames = ['PyTorch.jinja2.pyx', 'PyTorch.jinja2.pxd', 'nnWrapper.jinja2.cpp', 'nnWrapper.jinja2.h']
+templateNames = ['src/PyTorch.jinja2.pyx', 'src/PyTorch.jinja2.pxd', 'src/nnWrapper.jinja2.cpp', 'src/nnWrapper.jinja2.h']
 for templateName in templateNames:
     template = env.get_template(templateName)
     pyx = template.render(
@@ -84,7 +84,7 @@ if osfamily == 'Windows':
 
 #sources = ["PyTorch.cxx"]
 #if cython_present:
-sources = ["PyTorch.pyx"]
+sources = ["src/PyTorch.pyx"]
 ext_modules = [
     Extension("PyTorch",
               sources=sources,
@@ -109,9 +109,9 @@ setup(
     long_description='Python wrappers for torch and nn',
     classifiers=[
     ],
-    install_requires=['cython', 'numpy'],
+    install_requires=['Cython', 'numpy', 'Jinja2'],
     scripts=[],
     ext_modules=ext_modules,
-    py_modules=['floattensor', 'PyTorchAug'],
+    py_modules=['src/floattensor', 'src/PyTorchAug'],
 )
 
