@@ -23,8 +23,8 @@ Run:
 ./run_tests.sh
 ```
 
-[test](test) folder, containing test scripts
-[tests_output.txt](tests_output.txt)
+* [test](test) folder, containing test scripts
+* [tests_output.txt](tests_output.txt)
 
 # pytorch, example using FloatTensor
 
