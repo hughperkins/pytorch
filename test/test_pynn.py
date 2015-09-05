@@ -92,7 +92,7 @@ def test_pynn():
     print('type(imagesTensor)', type(imagesTensor))
 
     print('start training...')
-    for epoch in range(10):
+    for epoch in range(4):
         numRight = 0
         for n in range(N):
     #        print('n', n)

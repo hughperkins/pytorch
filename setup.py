@@ -133,6 +133,7 @@ setup(
     install_requires=['Cython', 'numpy', 'Jinja2'],
     scripts=[],
     ext_modules=ext_modules,
-    py_modules=['src/floattensor', 'src/PyTorchAug'],
+    py_modules=['floattensor', 'PyTorchAug'],
+    package_dir={'': 'src'}
 )
 
