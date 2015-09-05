@@ -4,6 +4,7 @@ import PyTorch
 from PyTorchAug import *
 
 def test_pynn():
+    PyTorch.manualSeed(123)
     linear = Linear(3, 5)
     linear
     print('linear', linear)
@@ -35,6 +36,8 @@ def test_pynn():
     from mnist import MNIST
     import numpy
     import array
+
+    numpy.random.seed(123)
 
     mlp = Sequential()
     linear = Linear(784, 10)

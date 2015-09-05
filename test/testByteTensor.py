@@ -13,6 +13,7 @@ def myexec(expr):
     exec(expr, parent_vars)
 
 def test_byte_tensor():
+    PyTorch.manualSeed(123)
     print('test_byte_tensor')
     a = PyTorch.ByteTensor(3,2).geometric()
     myeval('a')
@@ -20,6 +21,6 @@ def test_byte_tensor():
     myeval('a')
     myeval('a.size()')
     myeval('a + 2')
-    myexec('a.resize2d(3,3)')
+    myexec('a.resize2d(3,3).fill(1)')
     myeval('a')
 

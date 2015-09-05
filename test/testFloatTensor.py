@@ -12,6 +12,7 @@ def myexec(expr):
     exec(expr, parent_vars)
 
 def test_float_tensor():
+    PyTorch.manualSeed(123)
     print('dir(G)', dir())
     print('test_float_tensor')
     a = PyTorch.FloatTensor(3, 2)
