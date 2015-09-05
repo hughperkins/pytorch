@@ -1,0 +1,154 @@
+initializing PyTorch...
+generator null: False
+ ... PyTorch initialized
+C [[ 0.67856336  0.56924146  0.96715772  0.07215774]
+ [ 0.58159328  0.45907578  0.95387912  0.07113266]
+ [ 0.19980511  0.04715244  0.80701327  0.06006594]]
+calling .asTensor...
+ ... asTensor called
+tensorA 0.86082 0.415794
+0.693269 0.521738
+0.0673082 0.813664
+[torch.FloatTensor of size 3x2]
+
+tensorA 0.86082 0.415794
+0.693269 56.4
+76.5 0.813664
+[torch.FloatTensor of size 3x2]
+
+A [[  0.86082023   0.4157941 ]
+ [  0.69326895  56.40000153]
+ [ 76.5          0.81366378]]
+add 5 to tensorA
+tensorA 5.86082 5.41579
+5.69327 61.4
+81.5 5.81366
+[torch.FloatTensor of size 3x2]
+
+A [[  5.86082029   5.4157939 ]
+ [  5.69326878  61.40000153]
+ [ 81.5          5.81366396]]
+add 7 to tensorA
+tensorA2 12.8608 12.4158
+12.6933 68.4
+88.5 12.8137
+[torch.FloatTensor of size 3x2]
+
+tensorA 5.86082 5.41579
+5.69327 61.4
+81.5 5.81366
+[torch.FloatTensor of size 3x2]
+
+tensorAB 5.10554 3.88438 9.00504 0.671373
+15.5059 3.96328 61.3104 4.56346
+57.9412 53.7806 60.1526 4.49404
+[torch.FloatTensor of size 3x4]
+
+A.dot(B) [[  5.10554028   3.88437724   9.00503922   0.67137265]
+ [ 15.5058918    3.96327543  61.31039429   4.56345606]
+ [ 57.94124603  53.7806282   60.15260315   4.49404144]]
+tensorA[2] 81.5 5.81366
+[torch.FloatTensor of size 2]
+
+D 1 1 1
+1 1 1
+1 1 1
+1 1 1
+1 1 1
+[torch.FloatTensor of size 5x3]
+
+D 1 1 1
+1 1 1
+1 1 4
+1 1 1
+1 1 1
+[torch.FloatTensor of size 5x3]
+
+D 1 1 1
+1 1 1
+1 1 4
+9 9 9
+1 1 1
+[torch.FloatTensor of size 5x3]
+
+D 1 1 0
+1 1 0
+1 1 0
+9 9 0
+1 1 0
+[torch.FloatTensor of size 5x3]
+
+0.608286 0.0151877 0.597974 0.151648
+0.284967 0.313867 0.613785 0.775501
+0.860624 0.14065 0.979034 0.445626
+[torch.FloatTensor of size 3x4]
+
+1 0 0 1
+0 1 1 0
+1 1 1 0
+[torch.FloatTensor of size 3x4]
+
+1.56286 -0.440709 -0.0906783 0.0200882
+-0.922045 1.49963 -0.181987 0.917013
+1.51809 -0.942249 1.25079 1.12997
+[torch.FloatTensor of size 3x4]
+
+-3.49809 1.43304 1.63321 -3.66444
+2.13265 1.2771 8.93457 -0.237934
+-2.42991 2.47877 -11.8722 1.11422
+[torch.FloatTensor of size 3x4]
+
+2.04474 0.89146 1.31343 2.23572
+1.1783 0.317533 2.21286 1.01557
+0.275023 2.19258 0.203894 0.069235
+[torch.FloatTensor of size 3x4]
+
+1.22322 0.272413 0.141553 2.43577
+0.046345 0.0356395 0.191791 0.0212112
+0.0770106 0.404205 0.103719 2.59821
+[torch.FloatTensor of size 3x4]
+
+3 2 2 1
+2 1 1 4
+1 1 1 2
+[torch.FloatTensor of size 3x4]
+
+1 1 1 2
+2 7 4 5
+2 1 2 1
+[torch.FloatTensor of size 3x4]
+
+2 1 2 3
+1 1 2 2
+4 1 4 1
+[torch.FloatTensor of size 3x4]
+
+2 1 2 3
+1 1 2 2
+4 1 4 1
+[torch.FloatTensor of size 3x4]
+
+<class 'floattensor.FloatTensor'>
+D after resize:
+ 1 1 0
+1 1 0
+1 1 0
+9 9 0
+[torch.FloatTensor of size 4x3]
+
+resize1d -1 -1 -1
+[torch.FloatTensor of size 3]
+
+resize2d -1 -1 -1
+-1 -1 -1
+[torch.FloatTensor of size 2x3]
+
+resize -1 -1 -1
+-1 -1 -1
+-1 -1 -1
+-1 -1 -1
+[torch.FloatTensor of size 4x3]
+
+PyTorch.FloatTensor(3,2).nElement() : 6
+PyTorch.FloatTensor().nElement() : 0
+PyTorch.FloatTensor(1).nElement() : 1

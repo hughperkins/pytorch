@@ -24,7 +24,7 @@ Run:
 ```
 
 * [test](test) folder, containing test scripts
-* [tests_output.txt](tests_output.txt)
+* [tests_output.txt](test_outputs/tests_output.txt)
 
 # pytorch, example using FloatTensor
 
@@ -35,7 +35,7 @@ Run example script by doing:
 ```
 
 * [test_pytorch.py](test_pytorch.py)
-* [test_pytorch_output.txt](test_pytorch_output.txt)
+* [test_pytorch_output.txt](test_outputs/test_pytorch_output.txt)
 
 # pynn
 
@@ -46,7 +46,7 @@ Run example script by doing:
 ```
 
 * [test_pynn.py](test_pynn.py)
-* [test_pynn_output.txt](test_pynn_output.txt)
+* [test_pynn_output.txt](test_outputs/test_pynn_output.txt)
 
 # Installation
 
