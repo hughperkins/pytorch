@@ -129,6 +129,11 @@ def test_pytorch{{Real}}():
     myeval('A')
     myexec('A /= 3')
     myeval('A')
+
+    myeval('A + 5')
+    myeval('A - 5')
+    myeval('A * 5')
+    myeval('A / 2')
 {% endfor %}
 
 if __name__ == '__main__':

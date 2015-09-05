@@ -326,6 +326,20 @@ cdef class _{{Real}}Tensor(object):
         TH{{Real}}Tensor_add(res.th{{Real}}Tensor, self.th{{Real}}Tensor, value)
         return res
 
+    def __sub__(_{{Real}}Tensor self, {{real}} value):
+        # assume 2d matrix for now?
+        cdef _{{Real}}Tensor res = _{{Real}}Tensor.new()
+#        THFloatTensor_resizeAs(cresult, self.thFloatTensor)
+        TH{{Real}}Tensor_add(res.th{{Real}}Tensor, self.th{{Real}}Tensor, -value)
+        return res
+
+    def __div__(_{{Real}}Tensor self, {{real}} value):
+        # assume 2d matrix for now?
+        cdef _{{Real}}Tensor res = _{{Real}}Tensor.new()
+#        THFloatTensor_resizeAs(cresult, self.thFloatTensor)
+        TH{{Real}}Tensor_div(res.th{{Real}}Tensor, self.th{{Real}}Tensor, value)
+        return res
+
     def __iadd__(_{{Real}}Tensor self, {{real}} value):
         TH{{Real}}Tensor_add(self.th{{Real}}Tensor, self.th{{Real}}Tensor, value)
         return self

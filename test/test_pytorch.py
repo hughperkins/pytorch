@@ -89,6 +89,11 @@ def test_pytorchDouble():
     myexec('A /= 3')
     myeval('A')
 
+    myeval('A + 5')
+    myeval('A - 5')
+    myeval('A * 5')
+    myeval('A / 2')
+
 
 def test_pytorchByte():
     PyTorch.manualSeed(123)
@@ -152,6 +157,11 @@ def test_pytorchByte():
     myeval('A')
     myexec('A /= 3')
     myeval('A')
+
+    myeval('A + 5')
+    myeval('A - 5')
+    myeval('A * 5')
+    myeval('A / 2')
 
 
 def test_pytorchFloat():
@@ -258,6 +268,11 @@ def test_pytorchFloat():
     myexec('A /= 3')
     myeval('A')
 
+    myeval('A + 5')
+    myeval('A - 5')
+    myeval('A * 5')
+    myeval('A / 2')
+
 
 def test_pytorchLong():
     PyTorch.manualSeed(123)
@@ -321,6 +336,11 @@ def test_pytorchLong():
     myeval('A')
     myexec('A /= 3')
     myeval('A')
+
+    myeval('A + 5')
+    myeval('A - 5')
+    myeval('A * 5')
+    myeval('A / 2')
 
 
 if __name__ == '__main__':

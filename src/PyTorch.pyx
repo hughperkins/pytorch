@@ -456,6 +456,20 @@ cdef class _DoubleTensor(object):
         THDoubleTensor_add(res.thDoubleTensor, self.thDoubleTensor, value)
         return res
 
+    def __sub__(_DoubleTensor self, double value):
+        # assume 2d matrix for now?
+        cdef _DoubleTensor res = _DoubleTensor.new()
+#        THFloatTensor_resizeAs(cresult, self.thFloatTensor)
+        THDoubleTensor_add(res.thDoubleTensor, self.thDoubleTensor, -value)
+        return res
+
+    def __div__(_DoubleTensor self, double value):
+        # assume 2d matrix for now?
+        cdef _DoubleTensor res = _DoubleTensor.new()
+#        THFloatTensor_resizeAs(cresult, self.thFloatTensor)
+        THDoubleTensor_div(res.thDoubleTensor, self.thDoubleTensor, value)
+        return res
+
     def __iadd__(_DoubleTensor self, double value):
         THDoubleTensor_add(self.thDoubleTensor, self.thDoubleTensor, value)
         return self
@@ -760,6 +774,20 @@ cdef class _ByteTensor(object):
         THByteTensor_add(res.thByteTensor, self.thByteTensor, value)
         return res
 
+    def __sub__(_ByteTensor self, unsigned char value):
+        # assume 2d matrix for now?
+        cdef _ByteTensor res = _ByteTensor.new()
+#        THFloatTensor_resizeAs(cresult, self.thFloatTensor)
+        THByteTensor_add(res.thByteTensor, self.thByteTensor, -value)
+        return res
+
+    def __div__(_ByteTensor self, unsigned char value):
+        # assume 2d matrix for now?
+        cdef _ByteTensor res = _ByteTensor.new()
+#        THFloatTensor_resizeAs(cresult, self.thFloatTensor)
+        THByteTensor_div(res.thByteTensor, self.thByteTensor, value)
+        return res
+
     def __iadd__(_ByteTensor self, unsigned char value):
         THByteTensor_add(self.thByteTensor, self.thByteTensor, value)
         return self
@@ -1035,6 +1063,20 @@ cdef class _FloatTensor(object):
         cdef _FloatTensor res = _FloatTensor.new()
 #        THFloatTensor_resizeAs(cresult, self.thFloatTensor)
         THFloatTensor_add(res.thFloatTensor, self.thFloatTensor, value)
+        return res
+
+    def __sub__(_FloatTensor self, float value):
+        # assume 2d matrix for now?
+        cdef _FloatTensor res = _FloatTensor.new()
+#        THFloatTensor_resizeAs(cresult, self.thFloatTensor)
+        THFloatTensor_add(res.thFloatTensor, self.thFloatTensor, -value)
+        return res
+
+    def __div__(_FloatTensor self, float value):
+        # assume 2d matrix for now?
+        cdef _FloatTensor res = _FloatTensor.new()
+#        THFloatTensor_resizeAs(cresult, self.thFloatTensor)
+        THFloatTensor_div(res.thFloatTensor, self.thFloatTensor, value)
         return res
 
     def __iadd__(_FloatTensor self, float value):
@@ -1339,6 +1381,20 @@ cdef class _LongTensor(object):
         cdef _LongTensor res = _LongTensor.new()
 #        THFloatTensor_resizeAs(cresult, self.thFloatTensor)
         THLongTensor_add(res.thLongTensor, self.thLongTensor, value)
+        return res
+
+    def __sub__(_LongTensor self, long value):
+        # assume 2d matrix for now?
+        cdef _LongTensor res = _LongTensor.new()
+#        THFloatTensor_resizeAs(cresult, self.thFloatTensor)
+        THLongTensor_add(res.thLongTensor, self.thLongTensor, -value)
+        return res
+
+    def __div__(_LongTensor self, long value):
+        # assume 2d matrix for now?
+        cdef _LongTensor res = _LongTensor.new()
+#        THFloatTensor_resizeAs(cresult, self.thFloatTensor)
+        THLongTensor_div(res.thLongTensor, self.thLongTensor, value)
         return res
 
     def __iadd__(_LongTensor self, long value):
