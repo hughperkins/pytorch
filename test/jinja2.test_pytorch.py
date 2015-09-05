@@ -17,6 +17,9 @@ import numpy
 {% for Real in types %}
 {% set real = types[Real]['real'] %}
 def test_pytorch{{Real}}():
+    PyTorch.manualSeed(123)
+    numpy.random.seed(123)
+
     {% if Real == 'Float' %}
     A = numpy.random.rand(6).reshape(3,2).astype(numpy.float32)
     B = numpy.random.rand(8).reshape(2,4).astype(numpy.float32)

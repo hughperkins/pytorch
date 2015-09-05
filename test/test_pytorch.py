@@ -11,6 +11,9 @@ import numpy
 
 
 def test_pytorchDouble():
+    PyTorch.manualSeed(123)
+    numpy.random.seed(123)
+
     
 
     D = PyTorch.DoubleTensor(5,3).fill(1)
@@ -61,6 +64,9 @@ def test_pytorchDouble():
 
 
 def test_pytorchByte():
+    PyTorch.manualSeed(123)
+    numpy.random.seed(123)
+
     
 
     D = PyTorch.ByteTensor(5,3).fill(1)
@@ -105,6 +111,9 @@ def test_pytorchByte():
 
 
 def test_pytorchFloat():
+    PyTorch.manualSeed(123)
+    numpy.random.seed(123)
+
     
     A = numpy.random.rand(6).reshape(3,2).astype(numpy.float32)
     B = numpy.random.rand(8).reshape(2,4).astype(numpy.float32)
@@ -190,6 +199,9 @@ def test_pytorchFloat():
 
 
 def test_pytorchLong():
+    PyTorch.manualSeed(123)
+    numpy.random.seed(123)
+
     
 
     D = PyTorch.LongTensor(5,3).fill(1)
