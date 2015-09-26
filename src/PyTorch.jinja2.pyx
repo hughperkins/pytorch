@@ -16,6 +16,8 @@ import Storage
 from lua cimport *
 from nnWrapper cimport *
 cimport PyTorch
+# import Storage
+# from Storage cimport *
 
 import logging
 logging.basicConfig()
@@ -206,6 +208,9 @@ cdef class _{{Real}}Tensor(object):
         return TH{{Real}}Tensor_get2d(self.native, x0, x1)
 
     def __repr__(_{{Real}}Tensor self):
+        return self.as_string(self)
+
+    def as_string(_{{Real}}Tensor self, show_size=True):
         # assume 2d matrix for now
         cdef int size0
         cdef int size1
@@ -227,7 +232,8 @@ cdef class _{{Real}}Tensor(object):
                     thisline += str(self.get2d(r,c),)
                     {% endif %}
                 res += thisline + '\n'
-            res += '[torch.{{Real}}Tensor of size ' + ('%.0f' % size0) + 'x' + str(size1) + ']\n'
+            if show_size:
+                res += '[torch.{{Real}}Tensor of size ' + ('%.0f' % size0) + 'x' + str(size1) + ']\n'
             return res
         elif dims == 1:
             size0 = TH{{Real}}Tensor_size(self.native, 0)
@@ -242,7 +248,22 @@ cdef class _{{Real}}Tensor(object):
                 thisline += str(self.get1d(c))
                 {% endif %}
             res += thisline + '\n'
-            res += '[torch.{{Real}}Tensor of size ' + str(size0) + ']\n'
+            if show_size:
+                res += '[torch.{{Real}}Tensor of size ' + str(size0) + ']\n'
+            return res
+        elif dims == 3:
+            res = ''
+            for d in range(self.size()[0]):
+                res += '(' + str(d) + ',.,.) =\n'
+                res += self[d].as_string(show_size=False)
+            res += '\ntorch.{{Real}}Tensor of size '
+            first = True
+            for d in self.size():
+               if not first:
+                  res += 'x'
+               res += str(d)
+               first = False
+            res += ']'
             return res
         else:
             raise Exception("Not implemented: dims > 2")
@@ -265,11 +286,11 @@ cdef class _{{Real}}Tensor(object):
 
     def size(_{{Real}}Tensor self):
         cdef int dims = self.dims()
-        cdef _LongTensor size
+#        cdef LongStorage size
         if dims > 0:
-            size = _LongTensor(dims)
+            size = LongStorage(dims)
             for d in range(dims):
-                size.set1d(d, TH{{Real}}Tensor_size(self.native, d))
+                size[d] = TH{{Real}}Tensor_size(self.native, d)
             return size
         else:
             return None  # not sure how to handle this yet
@@ -356,11 +377,11 @@ cdef class _{{Real}}Tensor(object):
         return res
 
     def cmul(_{{Real}}Tensor self, second):
-        cdef _{{Real}}Tensor res = _{{Real}}Tensor.new()
+#        cdef _{{Real}}Tensor res = _{{Real}}Tensor.new()
         cdef _{{Real}}Tensor secondTensor
         secondTensor = second
-        TH{{Real}}Tensor_cmul(res.native, self.native, secondTensor.native)
-        return res
+        TH{{Real}}Tensor_cmul(self.native, self.native, secondTensor.native)
+        return self
 
     def __sub__(_{{Real}}Tensor self, second):
         # assume 2d matrix for now?

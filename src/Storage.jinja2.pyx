@@ -29,6 +29,9 @@ logger = logging.getLogger(__name__)
 }
 %}
 
+cdef floatToString(float floatValue):
+    return '%.6g'% floatValue
+
 {% for Real in types %}
 {% set real = types[Real]['real'] %}
 cdef class {{Real}}Storage(object):
@@ -38,9 +41,34 @@ cdef class {{Real}}Storage(object):
         # print('{{Real}}Storage.__cinit__')
         logger.debug('{{Real}}Storage.__cinit__')
         if len(args) > 0:
-            raise Exception('cannot provide arguments to initializer')
+            for arg in args:
+                if not isinstance(arg, int):
+                    raise Exception('cannot provide arguments to initializer')
+            if len(args) == 1:
+                self.th{{Real}}Storage = TH{{Real}}Storage_newWithSize(args[0])
+            else:
+                raise Exception('cannot provide arguments to initializer')
         if len(kwargs) > 0:
             raise Exception('cannot provide arguments to initializer')
+
+    def __repr__({{Real}}Storage self):
+        cdef int size0
+        size0 = TH{{Real}}Storage_size(self.th{{Real}}Storage)
+        res = ''
+#        thisline = ''
+        for c in range(size0):
+            res += ' '
+#            if c > 0:
+#                thisline += ' '
+            {% if Real in ['Float', 'Double'] %}
+            res += floatToString(self[c])
+            {% else %}
+            res += str(self[c])
+            {% endif %}
+            res += '\n'
+#        res += thisline + '\n'
+        res += '[torch.{{Real}}Storage of size ' + str(size0) + ']\n'
+        return res
 
     @staticmethod
     def new():
@@ -75,6 +103,12 @@ cdef class {{Real}}Storage(object):
         # print('TH{{Real}}Storage.dealloc, old refcount ', TH{{Real}}Storage_getRefCount(self.th{{Real}}Storage))
         # print('   dealloc storage: ', hex(<long>(self.th{{Real}}Storage)))
         TH{{Real}}Storage_free(self.th{{Real}}Storage)
+
+    def __iter__(self):
+        cdef int size0
+        size0 = TH{{Real}}Storage_size(self.th{{Real}}Storage)
+        for c in range(size0):
+            yield self[c]
 
     def __getitem__({{Real}}Storage self, int index):
         cdef {{real}} res = TH{{Real}}Storage_get(self.th{{Real}}Storage, index)

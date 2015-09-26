@@ -23,6 +23,9 @@ logger = logging.getLogger(__name__)
 
 
 
+cdef floatToString(float floatValue):
+    return '%.6g'% floatValue
+
 
 
 cdef class DoubleStorage(object):
@@ -32,9 +35,32 @@ cdef class DoubleStorage(object):
         # print('DoubleStorage.__cinit__')
         logger.debug('DoubleStorage.__cinit__')
         if len(args) > 0:
-            raise Exception('cannot provide arguments to initializer')
+            for arg in args:
+                if not isinstance(arg, int):
+                    raise Exception('cannot provide arguments to initializer')
+            if len(args) == 1:
+                self.thDoubleStorage = THDoubleStorage_newWithSize(args[0])
+            else:
+                raise Exception('cannot provide arguments to initializer')
         if len(kwargs) > 0:
             raise Exception('cannot provide arguments to initializer')
+
+    def __repr__(DoubleStorage self):
+        cdef int size0
+        size0 = THDoubleStorage_size(self.thDoubleStorage)
+        res = ''
+#        thisline = ''
+        for c in range(size0):
+            res += ' '
+#            if c > 0:
+#                thisline += ' '
+            
+            res += floatToString(self[c])
+            
+            res += '\n'
+#        res += thisline + '\n'
+        res += '[torch.DoubleStorage of size ' + str(size0) + ']\n'
+        return res
 
     @staticmethod
     def new():
@@ -70,6 +96,12 @@ cdef class DoubleStorage(object):
         # print('   dealloc storage: ', hex(<long>(self.thDoubleStorage)))
         THDoubleStorage_free(self.thDoubleStorage)
 
+    def __iter__(self):
+        cdef int size0
+        size0 = THDoubleStorage_size(self.thDoubleStorage)
+        for c in range(size0):
+            yield self[c]
+
     def __getitem__(DoubleStorage self, int index):
         cdef double res = THDoubleStorage_get(self.thDoubleStorage, index)
         return res
@@ -93,9 +125,32 @@ cdef class ByteStorage(object):
         # print('ByteStorage.__cinit__')
         logger.debug('ByteStorage.__cinit__')
         if len(args) > 0:
-            raise Exception('cannot provide arguments to initializer')
+            for arg in args:
+                if not isinstance(arg, int):
+                    raise Exception('cannot provide arguments to initializer')
+            if len(args) == 1:
+                self.thByteStorage = THByteStorage_newWithSize(args[0])
+            else:
+                raise Exception('cannot provide arguments to initializer')
         if len(kwargs) > 0:
             raise Exception('cannot provide arguments to initializer')
+
+    def __repr__(ByteStorage self):
+        cdef int size0
+        size0 = THByteStorage_size(self.thByteStorage)
+        res = ''
+#        thisline = ''
+        for c in range(size0):
+            res += ' '
+#            if c > 0:
+#                thisline += ' '
+            
+            res += str(self[c])
+            
+            res += '\n'
+#        res += thisline + '\n'
+        res += '[torch.ByteStorage of size ' + str(size0) + ']\n'
+        return res
 
     @staticmethod
     def new():
@@ -131,6 +186,12 @@ cdef class ByteStorage(object):
         # print('   dealloc storage: ', hex(<long>(self.thByteStorage)))
         THByteStorage_free(self.thByteStorage)
 
+    def __iter__(self):
+        cdef int size0
+        size0 = THByteStorage_size(self.thByteStorage)
+        for c in range(size0):
+            yield self[c]
+
     def __getitem__(ByteStorage self, int index):
         cdef unsigned char res = THByteStorage_get(self.thByteStorage, index)
         return res
@@ -154,9 +215,32 @@ cdef class FloatStorage(object):
         # print('FloatStorage.__cinit__')
         logger.debug('FloatStorage.__cinit__')
         if len(args) > 0:
-            raise Exception('cannot provide arguments to initializer')
+            for arg in args:
+                if not isinstance(arg, int):
+                    raise Exception('cannot provide arguments to initializer')
+            if len(args) == 1:
+                self.thFloatStorage = THFloatStorage_newWithSize(args[0])
+            else:
+                raise Exception('cannot provide arguments to initializer')
         if len(kwargs) > 0:
             raise Exception('cannot provide arguments to initializer')
+
+    def __repr__(FloatStorage self):
+        cdef int size0
+        size0 = THFloatStorage_size(self.thFloatStorage)
+        res = ''
+#        thisline = ''
+        for c in range(size0):
+            res += ' '
+#            if c > 0:
+#                thisline += ' '
+            
+            res += floatToString(self[c])
+            
+            res += '\n'
+#        res += thisline + '\n'
+        res += '[torch.FloatStorage of size ' + str(size0) + ']\n'
+        return res
 
     @staticmethod
     def new():
@@ -192,6 +276,12 @@ cdef class FloatStorage(object):
         # print('   dealloc storage: ', hex(<long>(self.thFloatStorage)))
         THFloatStorage_free(self.thFloatStorage)
 
+    def __iter__(self):
+        cdef int size0
+        size0 = THFloatStorage_size(self.thFloatStorage)
+        for c in range(size0):
+            yield self[c]
+
     def __getitem__(FloatStorage self, int index):
         cdef float res = THFloatStorage_get(self.thFloatStorage, index)
         return res
@@ -215,9 +305,32 @@ cdef class LongStorage(object):
         # print('LongStorage.__cinit__')
         logger.debug('LongStorage.__cinit__')
         if len(args) > 0:
-            raise Exception('cannot provide arguments to initializer')
+            for arg in args:
+                if not isinstance(arg, int):
+                    raise Exception('cannot provide arguments to initializer')
+            if len(args) == 1:
+                self.thLongStorage = THLongStorage_newWithSize(args[0])
+            else:
+                raise Exception('cannot provide arguments to initializer')
         if len(kwargs) > 0:
             raise Exception('cannot provide arguments to initializer')
+
+    def __repr__(LongStorage self):
+        cdef int size0
+        size0 = THLongStorage_size(self.thLongStorage)
+        res = ''
+#        thisline = ''
+        for c in range(size0):
+            res += ' '
+#            if c > 0:
+#                thisline += ' '
+            
+            res += str(self[c])
+            
+            res += '\n'
+#        res += thisline + '\n'
+        res += '[torch.LongStorage of size ' + str(size0) + ']\n'
+        return res
 
     @staticmethod
     def new():
@@ -252,6 +365,12 @@ cdef class LongStorage(object):
         # print('THLongStorage.dealloc, old refcount ', THLongStorage_getRefCount(self.thLongStorage))
         # print('   dealloc storage: ', hex(<long>(self.thLongStorage)))
         THLongStorage_free(self.thLongStorage)
+
+    def __iter__(self):
+        cdef int size0
+        size0 = THLongStorage_size(self.thLongStorage)
+        for c in range(size0):
+            yield self[c]
 
     def __getitem__(LongStorage self, int index):
         cdef long res = THLongStorage_get(self.thLongStorage, index)

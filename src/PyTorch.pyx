@@ -16,6 +16,8 @@ import Storage
 from lua cimport *
 from nnWrapper cimport *
 cimport PyTorch
+# import Storage
+# from Storage cimport *
 
 import logging
 logging.basicConfig()
@@ -364,6 +366,9 @@ cdef class _DoubleTensor(object):
         return THDoubleTensor_get2d(self.native, x0, x1)
 
     def __repr__(_DoubleTensor self):
+        return self.as_string(self)
+
+    def as_string(_DoubleTensor self, show_size=True):
         # assume 2d matrix for now
         cdef int size0
         cdef int size1
@@ -383,7 +388,8 @@ cdef class _DoubleTensor(object):
                     thisline += str(self.get2d(r,c),)
                     
                 res += thisline + '\n'
-            res += '[torch.DoubleTensor of size ' + ('%.0f' % size0) + 'x' + str(size1) + ']\n'
+            if show_size:
+                res += '[torch.DoubleTensor of size ' + ('%.0f' % size0) + 'x' + str(size1) + ']\n'
             return res
         elif dims == 1:
             size0 = THDoubleTensor_size(self.native, 0)
@@ -396,7 +402,22 @@ cdef class _DoubleTensor(object):
                 thisline += str(self.get1d(c))
                 
             res += thisline + '\n'
-            res += '[torch.DoubleTensor of size ' + str(size0) + ']\n'
+            if show_size:
+                res += '[torch.DoubleTensor of size ' + str(size0) + ']\n'
+            return res
+        elif dims == 3:
+            res = ''
+            for d in range(self.size()[0]):
+                res += '(' + str(d) + ',.,.) =\n'
+                res += self[d].as_string(show_size=False)
+            res += '\ntorch.DoubleTensor of size '
+            first = True
+            for d in self.size():
+               if not first:
+                  res += 'x'
+               res += str(d)
+               first = False
+            res += ']'
             return res
         else:
             raise Exception("Not implemented: dims > 2")
@@ -419,11 +440,11 @@ cdef class _DoubleTensor(object):
 
     def size(_DoubleTensor self):
         cdef int dims = self.dims()
-        cdef _LongTensor size
+#        cdef LongStorage size
         if dims > 0:
-            size = _LongTensor(dims)
+            size = LongStorage(dims)
             for d in range(dims):
-                size.set1d(d, THDoubleTensor_size(self.native, d))
+                size[d] = THDoubleTensor_size(self.native, d)
             return size
         else:
             return None  # not sure how to handle this yet
@@ -510,11 +531,11 @@ cdef class _DoubleTensor(object):
         return res
 
     def cmul(_DoubleTensor self, second):
-        cdef _DoubleTensor res = _DoubleTensor.new()
+#        cdef _DoubleTensor res = _DoubleTensor.new()
         cdef _DoubleTensor secondTensor
         secondTensor = second
-        THDoubleTensor_cmul(res.native, self.native, secondTensor.native)
-        return res
+        THDoubleTensor_cmul(self.native, self.native, secondTensor.native)
+        return self
 
     def __sub__(_DoubleTensor self, second):
         # assume 2d matrix for now?
@@ -719,6 +740,9 @@ cdef class _ByteTensor(object):
         return THByteTensor_get2d(self.native, x0, x1)
 
     def __repr__(_ByteTensor self):
+        return self.as_string(self)
+
+    def as_string(_ByteTensor self, show_size=True):
         # assume 2d matrix for now
         cdef int size0
         cdef int size1
@@ -738,7 +762,8 @@ cdef class _ByteTensor(object):
                     thisline += str(self.get2d(r,c),)
                     
                 res += thisline + '\n'
-            res += '[torch.ByteTensor of size ' + ('%.0f' % size0) + 'x' + str(size1) + ']\n'
+            if show_size:
+                res += '[torch.ByteTensor of size ' + ('%.0f' % size0) + 'x' + str(size1) + ']\n'
             return res
         elif dims == 1:
             size0 = THByteTensor_size(self.native, 0)
@@ -751,7 +776,22 @@ cdef class _ByteTensor(object):
                 thisline += str(self.get1d(c))
                 
             res += thisline + '\n'
-            res += '[torch.ByteTensor of size ' + str(size0) + ']\n'
+            if show_size:
+                res += '[torch.ByteTensor of size ' + str(size0) + ']\n'
+            return res
+        elif dims == 3:
+            res = ''
+            for d in range(self.size()[0]):
+                res += '(' + str(d) + ',.,.) =\n'
+                res += self[d].as_string(show_size=False)
+            res += '\ntorch.ByteTensor of size '
+            first = True
+            for d in self.size():
+               if not first:
+                  res += 'x'
+               res += str(d)
+               first = False
+            res += ']'
             return res
         else:
             raise Exception("Not implemented: dims > 2")
@@ -774,11 +814,11 @@ cdef class _ByteTensor(object):
 
     def size(_ByteTensor self):
         cdef int dims = self.dims()
-        cdef _LongTensor size
+#        cdef LongStorage size
         if dims > 0:
-            size = _LongTensor(dims)
+            size = LongStorage(dims)
             for d in range(dims):
-                size.set1d(d, THByteTensor_size(self.native, d))
+                size[d] = THByteTensor_size(self.native, d)
             return size
         else:
             return None  # not sure how to handle this yet
@@ -865,11 +905,11 @@ cdef class _ByteTensor(object):
         return res
 
     def cmul(_ByteTensor self, second):
-        cdef _ByteTensor res = _ByteTensor.new()
+#        cdef _ByteTensor res = _ByteTensor.new()
         cdef _ByteTensor secondTensor
         secondTensor = second
-        THByteTensor_cmul(res.native, self.native, secondTensor.native)
-        return res
+        THByteTensor_cmul(self.native, self.native, secondTensor.native)
+        return self
 
     def __sub__(_ByteTensor self, second):
         # assume 2d matrix for now?
@@ -1047,6 +1087,9 @@ cdef class _FloatTensor(object):
         return THFloatTensor_get2d(self.native, x0, x1)
 
     def __repr__(_FloatTensor self):
+        return self.as_string(self)
+
+    def as_string(_FloatTensor self, show_size=True):
         # assume 2d matrix for now
         cdef int size0
         cdef int size1
@@ -1066,7 +1109,8 @@ cdef class _FloatTensor(object):
                     thisline += floatToString(self.get2d(r,c),)
                     
                 res += thisline + '\n'
-            res += '[torch.FloatTensor of size ' + ('%.0f' % size0) + 'x' + str(size1) + ']\n'
+            if show_size:
+                res += '[torch.FloatTensor of size ' + ('%.0f' % size0) + 'x' + str(size1) + ']\n'
             return res
         elif dims == 1:
             size0 = THFloatTensor_size(self.native, 0)
@@ -1079,7 +1123,22 @@ cdef class _FloatTensor(object):
                 thisline += floatToString(self.get1d(c))
                 
             res += thisline + '\n'
-            res += '[torch.FloatTensor of size ' + str(size0) + ']\n'
+            if show_size:
+                res += '[torch.FloatTensor of size ' + str(size0) + ']\n'
+            return res
+        elif dims == 3:
+            res = ''
+            for d in range(self.size()[0]):
+                res += '(' + str(d) + ',.,.) =\n'
+                res += self[d].as_string(show_size=False)
+            res += '\ntorch.FloatTensor of size '
+            first = True
+            for d in self.size():
+               if not first:
+                  res += 'x'
+               res += str(d)
+               first = False
+            res += ']'
             return res
         else:
             raise Exception("Not implemented: dims > 2")
@@ -1102,11 +1161,11 @@ cdef class _FloatTensor(object):
 
     def size(_FloatTensor self):
         cdef int dims = self.dims()
-        cdef _LongTensor size
+#        cdef LongStorage size
         if dims > 0:
-            size = _LongTensor(dims)
+            size = LongStorage(dims)
             for d in range(dims):
-                size.set1d(d, THFloatTensor_size(self.native, d))
+                size[d] = THFloatTensor_size(self.native, d)
             return size
         else:
             return None  # not sure how to handle this yet
@@ -1193,11 +1252,11 @@ cdef class _FloatTensor(object):
         return res
 
     def cmul(_FloatTensor self, second):
-        cdef _FloatTensor res = _FloatTensor.new()
+#        cdef _FloatTensor res = _FloatTensor.new()
         cdef _FloatTensor secondTensor
         secondTensor = second
-        THFloatTensor_cmul(res.native, self.native, secondTensor.native)
-        return res
+        THFloatTensor_cmul(self.native, self.native, secondTensor.native)
+        return self
 
     def __sub__(_FloatTensor self, second):
         # assume 2d matrix for now?
@@ -1402,6 +1461,9 @@ cdef class _LongTensor(object):
         return THLongTensor_get2d(self.native, x0, x1)
 
     def __repr__(_LongTensor self):
+        return self.as_string(self)
+
+    def as_string(_LongTensor self, show_size=True):
         # assume 2d matrix for now
         cdef int size0
         cdef int size1
@@ -1421,7 +1483,8 @@ cdef class _LongTensor(object):
                     thisline += str(self.get2d(r,c),)
                     
                 res += thisline + '\n'
-            res += '[torch.LongTensor of size ' + ('%.0f' % size0) + 'x' + str(size1) + ']\n'
+            if show_size:
+                res += '[torch.LongTensor of size ' + ('%.0f' % size0) + 'x' + str(size1) + ']\n'
             return res
         elif dims == 1:
             size0 = THLongTensor_size(self.native, 0)
@@ -1434,7 +1497,22 @@ cdef class _LongTensor(object):
                 thisline += str(self.get1d(c))
                 
             res += thisline + '\n'
-            res += '[torch.LongTensor of size ' + str(size0) + ']\n'
+            if show_size:
+                res += '[torch.LongTensor of size ' + str(size0) + ']\n'
+            return res
+        elif dims == 3:
+            res = ''
+            for d in range(self.size()[0]):
+                res += '(' + str(d) + ',.,.) =\n'
+                res += self[d].as_string(show_size=False)
+            res += '\ntorch.LongTensor of size '
+            first = True
+            for d in self.size():
+               if not first:
+                  res += 'x'
+               res += str(d)
+               first = False
+            res += ']'
             return res
         else:
             raise Exception("Not implemented: dims > 2")
@@ -1457,11 +1535,11 @@ cdef class _LongTensor(object):
 
     def size(_LongTensor self):
         cdef int dims = self.dims()
-        cdef _LongTensor size
+#        cdef LongStorage size
         if dims > 0:
-            size = _LongTensor(dims)
+            size = LongStorage(dims)
             for d in range(dims):
-                size.set1d(d, THLongTensor_size(self.native, d))
+                size[d] = THLongTensor_size(self.native, d)
             return size
         else:
             return None  # not sure how to handle this yet
@@ -1548,11 +1626,11 @@ cdef class _LongTensor(object):
         return res
 
     def cmul(_LongTensor self, second):
-        cdef _LongTensor res = _LongTensor.new()
+#        cdef _LongTensor res = _LongTensor.new()
         cdef _LongTensor secondTensor
         secondTensor = second
-        THLongTensor_cmul(res.native, self.native, secondTensor.native)
-        return res
+        THLongTensor_cmul(self.native, self.native, secondTensor.native)
+        return self
 
     def __sub__(_LongTensor self, second):
         # assume 2d matrix for now?

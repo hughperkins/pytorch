@@ -114,9 +114,9 @@ def test_pytorchDouble():
 def test_pytorch_Double_constructors():
     DoubleTensor = PyTorch.DoubleTensor
     a = DoubleTensor(3,2,5)
-    assert(a.size().size()[0] == 3)
+    assert(a.size().size() == 3)
     a = DoubleTensor(3,2,5,6)
-    assert(a.size().size()[0] == 4)
+    assert(a.size().size() == 4)
 
 def test_Pytorch_Double_operator_plus():
     DoubleTensor = PyTorch.DoubleTensor
@@ -172,6 +172,20 @@ def test_Pytorch_Double_operator_minusequals():
         assert(abs(res.storage()[i] - (a.storage()[i] - b.storage()[i])) < 0.000001)
 
 
+#def test_Pytorch_Double_cmul():
+#    DoubleTensor = PyTorch.DoubleTensor
+#    a = DoubleTensor(3,2,5)
+#    b = DoubleTensor(3,2,5)
+#    
+#    a.uniform()
+#    b.uniform()
+#    
+#    res = a.cmul(b)
+#    for i in range(3*2*5):
+#        
+#        assert(abs(res.storage()[i] - (a.storage()[i] * b.storage()[i])) < 0.000001)
+#        
+
 def test_Pytorch_Double_cmul():
     DoubleTensor = PyTorch.DoubleTensor
     a = DoubleTensor(3,2,5)
@@ -180,24 +194,12 @@ def test_Pytorch_Double_cmul():
     a.uniform()
     b.uniform()
     
-    res = a.cmul(b)
+    res = a.clone() #.cmul(b)
+    res.cmul(b)
     for i in range(3*2*5):
         
         assert(abs(res.storage()[i] - (a.storage()[i] * b.storage()[i])) < 0.000001)
         
-
-#def test_Pytorch_Double_cmul_inplace():
-#    DoubleTensor = PyTorch.DoubleTensor
-#    a = DoubleTensor(3,2,5)
-#    b = DoubleTensor(3,2,5)
-#    
-#    a.uniform()
-#    b.uniform()
-#    
-#    res = a.clone()
-#    res.cmul(b)
-#    for i in range(3*2*5):
-#        assert(abs(res.storage()[i] - (a.storage()[i] * b.storage()[i])) < 0.000001)
 
 #def test_Pytorch_Double_operator_div():
 #    DoubleTensor = PyTorch.DoubleTensor
@@ -306,9 +308,9 @@ def test_pytorchByte():
 def test_pytorch_Byte_constructors():
     ByteTensor = PyTorch.ByteTensor
     a = ByteTensor(3,2,5)
-    assert(a.size().size()[0] == 3)
+    assert(a.size().size() == 3)
     a = ByteTensor(3,2,5,6)
-    assert(a.size().size()[0] == 4)
+    assert(a.size().size() == 4)
 
 def test_Pytorch_Byte_operator_plus():
     ByteTensor = PyTorch.ByteTensor
@@ -339,6 +341,20 @@ def test_Pytorch_Byte_operator_plusequals():
 
 
 
+#def test_Pytorch_Byte_cmul():
+#    ByteTensor = PyTorch.ByteTensor
+#    a = ByteTensor(3,2,5)
+#    b = ByteTensor(3,2,5)
+#    
+#    a.geometric(0.9)
+#    b.geometric(0.9)
+#    
+#    res = a.cmul(b)
+#    for i in range(3*2*5):
+#        
+#        assert(abs(res.storage()[i] - ((a.storage()[i] * b.storage()[i])) % 256) < 0.000001)
+#        
+
 def test_Pytorch_Byte_cmul():
     ByteTensor = PyTorch.ByteTensor
     a = ByteTensor(3,2,5)
@@ -347,24 +363,12 @@ def test_Pytorch_Byte_cmul():
     a.geometric(0.9)
     b.geometric(0.9)
     
-    res = a.cmul(b)
+    res = a.clone() #.cmul(b)
+    res.cmul(b)
     for i in range(3*2*5):
         
         assert(abs(res.storage()[i] - ((a.storage()[i] * b.storage()[i])) % 256) < 0.000001)
         
-
-#def test_Pytorch_Byte_cmul_inplace():
-#    ByteTensor = PyTorch.ByteTensor
-#    a = ByteTensor(3,2,5)
-#    b = ByteTensor(3,2,5)
-#    
-#    a.geometric(0.9)
-#    b.geometric(0.9)
-#    
-#    res = a.clone()
-#    res.cmul(b)
-#    for i in range(3*2*5):
-#        assert(abs(res.storage()[i] - (a.storage()[i] * b.storage()[i])) < 0.000001)
 
 #def test_Pytorch_Byte_operator_div():
 #    ByteTensor = PyTorch.ByteTensor
@@ -523,9 +527,9 @@ def test_pytorchFloat():
 def test_pytorch_Float_constructors():
     FloatTensor = PyTorch.FloatTensor
     a = FloatTensor(3,2,5)
-    assert(a.size().size()[0] == 3)
+    assert(a.size().size() == 3)
     a = FloatTensor(3,2,5,6)
-    assert(a.size().size()[0] == 4)
+    assert(a.size().size() == 4)
 
 def test_Pytorch_Float_operator_plus():
     FloatTensor = PyTorch.FloatTensor
@@ -581,6 +585,20 @@ def test_Pytorch_Float_operator_minusequals():
         assert(abs(res.storage()[i] - (a.storage()[i] - b.storage()[i])) < 0.000001)
 
 
+#def test_Pytorch_Float_cmul():
+#    FloatTensor = PyTorch.FloatTensor
+#    a = FloatTensor(3,2,5)
+#    b = FloatTensor(3,2,5)
+#    
+#    a.uniform()
+#    b.uniform()
+#    
+#    res = a.cmul(b)
+#    for i in range(3*2*5):
+#        
+#        assert(abs(res.storage()[i] - (a.storage()[i] * b.storage()[i])) < 0.000001)
+#        
+
 def test_Pytorch_Float_cmul():
     FloatTensor = PyTorch.FloatTensor
     a = FloatTensor(3,2,5)
@@ -589,24 +607,12 @@ def test_Pytorch_Float_cmul():
     a.uniform()
     b.uniform()
     
-    res = a.cmul(b)
+    res = a.clone() #.cmul(b)
+    res.cmul(b)
     for i in range(3*2*5):
         
         assert(abs(res.storage()[i] - (a.storage()[i] * b.storage()[i])) < 0.000001)
         
-
-#def test_Pytorch_Float_cmul_inplace():
-#    FloatTensor = PyTorch.FloatTensor
-#    a = FloatTensor(3,2,5)
-#    b = FloatTensor(3,2,5)
-#    
-#    a.uniform()
-#    b.uniform()
-#    
-#    res = a.clone()
-#    res.cmul(b)
-#    for i in range(3*2*5):
-#        assert(abs(res.storage()[i] - (a.storage()[i] * b.storage()[i])) < 0.000001)
 
 #def test_Pytorch_Float_operator_div():
 #    FloatTensor = PyTorch.FloatTensor
@@ -724,9 +730,9 @@ def test_pytorchLong():
 def test_pytorch_Long_constructors():
     LongTensor = PyTorch.LongTensor
     a = LongTensor(3,2,5)
-    assert(a.size().size()[0] == 3)
+    assert(a.size().size() == 3)
     a = LongTensor(3,2,5,6)
-    assert(a.size().size()[0] == 4)
+    assert(a.size().size() == 4)
 
 def test_Pytorch_Long_operator_plus():
     LongTensor = PyTorch.LongTensor
@@ -782,6 +788,20 @@ def test_Pytorch_Long_operator_minusequals():
         assert(abs(res.storage()[i] - (a.storage()[i] - b.storage()[i])) < 0.000001)
 
 
+#def test_Pytorch_Long_cmul():
+#    LongTensor = PyTorch.LongTensor
+#    a = LongTensor(3,2,5)
+#    b = LongTensor(3,2,5)
+#    
+#    a.geometric(0.9)
+#    b.geometric(0.9)
+#    
+#    res = a.cmul(b)
+#    for i in range(3*2*5):
+#        
+#        assert(abs(res.storage()[i] - (a.storage()[i] * b.storage()[i])) < 0.000001)
+#        
+
 def test_Pytorch_Long_cmul():
     LongTensor = PyTorch.LongTensor
     a = LongTensor(3,2,5)
@@ -790,24 +810,12 @@ def test_Pytorch_Long_cmul():
     a.geometric(0.9)
     b.geometric(0.9)
     
-    res = a.cmul(b)
+    res = a.clone() #.cmul(b)
+    res.cmul(b)
     for i in range(3*2*5):
         
         assert(abs(res.storage()[i] - (a.storage()[i] * b.storage()[i])) < 0.000001)
         
-
-#def test_Pytorch_Long_cmul_inplace():
-#    LongTensor = PyTorch.LongTensor
-#    a = LongTensor(3,2,5)
-#    b = LongTensor(3,2,5)
-#    
-#    a.geometric(0.9)
-#    b.geometric(0.9)
-#    
-#    res = a.clone()
-#    res.cmul(b)
-#    for i in range(3*2*5):
-#        assert(abs(res.storage()[i] - (a.storage()[i] * b.storage()[i])) < 0.000001)
 
 #def test_Pytorch_Long_operator_div():
 #    LongTensor = PyTorch.LongTensor
