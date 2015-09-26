@@ -20,7 +20,7 @@ cimport PyTorch
 import logging
 logging.basicConfig()
 logger = logging.getLogger(__name__)
-logger.setLevel(logging.DEBUG)
+# logger.setLevel(logging.DEBUG)
 
 
 
@@ -53,6 +53,8 @@ cdef extern from "THTensor.h":
     THDoubleTensor *THDoubleTensor_new()
     THDoubleTensor *THDoubleTensor_newWithSize1d(long size0)
     THDoubleTensor *THDoubleTensor_newWithSize2d(long size0, long size1)
+    THDoubleTensor *THDoubleTensor_newWithSize3d(long size0, long size1, long size2)
+    THDoubleTensor *THDoubleTensor_newWithSize4d(long size0, long size1, long size2, long size3)
     THDoubleTensor* THDoubleTensor_newWithStorage1d(Storage.THDoubleStorage *storage, long storageOffset, long size0, long stride0)
     THDoubleTensor* THDoubleTensor_newWithStorage2d(Storage.THDoubleStorage *storage, long storageOffset, long size0, long stride0, long size1, long stride1)
     void THDoubleTensor_retain(THDoubleTensor *self)
@@ -106,6 +108,8 @@ cdef extern from "THTensor.h":
     THByteTensor *THByteTensor_new()
     THByteTensor *THByteTensor_newWithSize1d(long size0)
     THByteTensor *THByteTensor_newWithSize2d(long size0, long size1)
+    THByteTensor *THByteTensor_newWithSize3d(long size0, long size1, long size2)
+    THByteTensor *THByteTensor_newWithSize4d(long size0, long size1, long size2, long size3)
     THByteTensor* THByteTensor_newWithStorage1d(Storage.THByteStorage *storage, long storageOffset, long size0, long stride0)
     THByteTensor* THByteTensor_newWithStorage2d(Storage.THByteStorage *storage, long storageOffset, long size0, long stride0, long size1, long stride1)
     void THByteTensor_retain(THByteTensor *self)
@@ -151,6 +155,8 @@ cdef extern from "THTensor.h":
     THFloatTensor *THFloatTensor_new()
     THFloatTensor *THFloatTensor_newWithSize1d(long size0)
     THFloatTensor *THFloatTensor_newWithSize2d(long size0, long size1)
+    THFloatTensor *THFloatTensor_newWithSize3d(long size0, long size1, long size2)
+    THFloatTensor *THFloatTensor_newWithSize4d(long size0, long size1, long size2, long size3)
     THFloatTensor* THFloatTensor_newWithStorage1d(Storage.THFloatStorage *storage, long storageOffset, long size0, long stride0)
     THFloatTensor* THFloatTensor_newWithStorage2d(Storage.THFloatStorage *storage, long storageOffset, long size0, long stride0, long size1, long stride1)
     void THFloatTensor_retain(THFloatTensor *self)
@@ -204,6 +210,8 @@ cdef extern from "THTensor.h":
     THLongTensor *THLongTensor_new()
     THLongTensor *THLongTensor_newWithSize1d(long size0)
     THLongTensor *THLongTensor_newWithSize2d(long size0, long size1)
+    THLongTensor *THLongTensor_newWithSize3d(long size0, long size1, long size2)
+    THLongTensor *THLongTensor_newWithSize4d(long size0, long size1, long size2, long size3)
     THLongTensor* THLongTensor_newWithStorage1d(Storage.THLongStorage *storage, long storageOffset, long size0, long stride0)
     THLongTensor* THLongTensor_newWithStorage2d(Storage.THLongStorage *storage, long storageOffset, long size0, long stride0, long size1, long stride1)
     void THLongTensor_retain(THLongTensor *self)
@@ -267,17 +275,15 @@ cdef class _DoubleTensor(object):
             elif len(args) == 1:
                 # print('new tensor 1d length', args[0])
                 self.native = THDoubleTensor_newWithSize1d(args[0])
-#                storageC = THFloatTensor_storage(self.thFloatTensor)
-#                if storageC == NULL:
-#                    # print('storageC is NULL')
-#                else:
-#                    # print('storageC not null')
-#                    addr = <long>(storageC)
-#                    # print('storageaddr', hex(addr))
-#                    # print('storageC refcount', THFloatStorage_getRefCount(storageC))
             elif len(args) == 2:
                 # print('args=2')
                 self.native = THDoubleTensor_newWithSize2d(args[0], args[1])
+            elif len(args) == 3:
+                # print('new tensor 1d length', args[0])
+                self.native = THDoubleTensor_newWithSize3d(args[0], args[1], args[2])
+            elif len(args) == 4:
+                # print('new tensor 1d length', args[0])
+                self.native = THDoubleTensor_newWithSize4d(args[0], args[1], args[2], args[3])
             else:
                 logger.error('Raising exception...')
                 raise Exception('Not implemented, len(args)=' + str(len(args)))
@@ -613,17 +619,15 @@ cdef class _ByteTensor(object):
             elif len(args) == 1:
                 # print('new tensor 1d length', args[0])
                 self.native = THByteTensor_newWithSize1d(args[0])
-#                storageC = THFloatTensor_storage(self.thFloatTensor)
-#                if storageC == NULL:
-#                    # print('storageC is NULL')
-#                else:
-#                    # print('storageC not null')
-#                    addr = <long>(storageC)
-#                    # print('storageaddr', hex(addr))
-#                    # print('storageC refcount', THFloatStorage_getRefCount(storageC))
             elif len(args) == 2:
                 # print('args=2')
                 self.native = THByteTensor_newWithSize2d(args[0], args[1])
+            elif len(args) == 3:
+                # print('new tensor 1d length', args[0])
+                self.native = THByteTensor_newWithSize3d(args[0], args[1], args[2])
+            elif len(args) == 4:
+                # print('new tensor 1d length', args[0])
+                self.native = THByteTensor_newWithSize4d(args[0], args[1], args[2], args[3])
             else:
                 logger.error('Raising exception...')
                 raise Exception('Not implemented, len(args)=' + str(len(args)))
@@ -932,17 +936,15 @@ cdef class _FloatTensor(object):
             elif len(args) == 1:
                 # print('new tensor 1d length', args[0])
                 self.native = THFloatTensor_newWithSize1d(args[0])
-#                storageC = THFloatTensor_storage(self.thFloatTensor)
-#                if storageC == NULL:
-#                    # print('storageC is NULL')
-#                else:
-#                    # print('storageC not null')
-#                    addr = <long>(storageC)
-#                    # print('storageaddr', hex(addr))
-#                    # print('storageC refcount', THFloatStorage_getRefCount(storageC))
             elif len(args) == 2:
                 # print('args=2')
                 self.native = THFloatTensor_newWithSize2d(args[0], args[1])
+            elif len(args) == 3:
+                # print('new tensor 1d length', args[0])
+                self.native = THFloatTensor_newWithSize3d(args[0], args[1], args[2])
+            elif len(args) == 4:
+                # print('new tensor 1d length', args[0])
+                self.native = THFloatTensor_newWithSize4d(args[0], args[1], args[2], args[3])
             else:
                 logger.error('Raising exception...')
                 raise Exception('Not implemented, len(args)=' + str(len(args)))
@@ -1278,17 +1280,15 @@ cdef class _LongTensor(object):
             elif len(args) == 1:
                 # print('new tensor 1d length', args[0])
                 self.native = THLongTensor_newWithSize1d(args[0])
-#                storageC = THFloatTensor_storage(self.thFloatTensor)
-#                if storageC == NULL:
-#                    # print('storageC is NULL')
-#                else:
-#                    # print('storageC not null')
-#                    addr = <long>(storageC)
-#                    # print('storageaddr', hex(addr))
-#                    # print('storageC refcount', THFloatStorage_getRefCount(storageC))
             elif len(args) == 2:
                 # print('args=2')
                 self.native = THLongTensor_newWithSize2d(args[0], args[1])
+            elif len(args) == 3:
+                # print('new tensor 1d length', args[0])
+                self.native = THLongTensor_newWithSize3d(args[0], args[1], args[2])
+            elif len(args) == 4:
+                # print('new tensor 1d length', args[0])
+                self.native = THLongTensor_newWithSize4d(args[0], args[1], args[2], args[3])
             else:
                 logger.error('Raising exception...')
                 raise Exception('Not implemented, len(args)=' + str(len(args)))

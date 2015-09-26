@@ -20,7 +20,7 @@ cimport PyTorch
 import logging
 logging.basicConfig()
 logger = logging.getLogger(__name__)
-logger.setLevel(logging.DEBUG)
+# logger.setLevel(logging.DEBUG)
 
 {% set types = {
     'Long': {'real': 'long'},
@@ -59,6 +59,8 @@ cdef extern from "THTensor.h":
     TH{{Real}}Tensor *TH{{Real}}Tensor_new()
     TH{{Real}}Tensor *TH{{Real}}Tensor_newWithSize1d(long size0)
     TH{{Real}}Tensor *TH{{Real}}Tensor_newWithSize2d(long size0, long size1)
+    TH{{Real}}Tensor *TH{{Real}}Tensor_newWithSize3d(long size0, long size1, long size2)
+    TH{{Real}}Tensor *TH{{Real}}Tensor_newWithSize4d(long size0, long size1, long size2, long size3)
     TH{{Real}}Tensor* TH{{Real}}Tensor_newWithStorage1d(Storage.TH{{Real}}Storage *storage, long storageOffset, long size0, long stride0)
     TH{{Real}}Tensor* TH{{Real}}Tensor_newWithStorage2d(Storage.TH{{Real}}Storage *storage, long storageOffset, long size0, long stride0, long size1, long stride1)
     void TH{{Real}}Tensor_retain(TH{{Real}}Tensor *self)
@@ -130,17 +132,15 @@ cdef class _{{Real}}Tensor(object):
             elif len(args) == 1:
                 # print('new tensor 1d length', args[0])
                 self.native = TH{{Real}}Tensor_newWithSize1d(args[0])
-#                storageC = THFloatTensor_storage(self.thFloatTensor)
-#                if storageC == NULL:
-#                    # print('storageC is NULL')
-#                else:
-#                    # print('storageC not null')
-#                    addr = <long>(storageC)
-#                    # print('storageaddr', hex(addr))
-#                    # print('storageC refcount', THFloatStorage_getRefCount(storageC))
             elif len(args) == 2:
                 # print('args=2')
                 self.native = TH{{Real}}Tensor_newWithSize2d(args[0], args[1])
+            elif len(args) == 3:
+                # print('new tensor 1d length', args[0])
+                self.native = TH{{Real}}Tensor_newWithSize3d(args[0], args[1], args[2])
+            elif len(args) == 4:
+                # print('new tensor 1d length', args[0])
+                self.native = TH{{Real}}Tensor_newWithSize4d(args[0], args[1], args[2], args[3])
             else:
                 logger.error('Raising exception...')
                 raise Exception('Not implemented, len(args)=' + str(len(args)))

@@ -151,6 +151,14 @@ def test_pytorch{{Real}}():
     myexec('A -= B')
     myeval('A')
     {% endif %}
+
+def test_pytorch_{{Real}}_constructors():
+    {{Real}}Tensor = PyTorch.{{Real}}Tensor
+    a = {{Real}}Tensor(3,2,5)
+    assert(a.size().size()[0] == 3)
+    a = {{Real}}Tensor(3,2,5,6)
+    assert(a.size().size()[0] == 4)
+
 {% endfor %}
 
 if __name__ == '__main__':

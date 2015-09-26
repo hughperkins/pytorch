@@ -111,6 +111,14 @@ def test_pytorchDouble():
     myeval('A')
     
 
+def test_pytorch_Double_constructors():
+    DoubleTensor = PyTorch.DoubleTensor
+    a = DoubleTensor(3,2,5)
+    assert(a.size().size()[0] == 3)
+    a = DoubleTensor(3,2,5,6)
+    assert(a.size().size()[0] == 4)
+
+
 
 def test_pytorchByte():
     PyTorch.manualSeed(123)
@@ -187,6 +195,14 @@ def test_pytorchByte():
     myexec('A += B')
     myeval('A')
     
+
+def test_pytorch_Byte_constructors():
+    ByteTensor = PyTorch.ByteTensor
+    a = ByteTensor(3,2,5)
+    assert(a.size().size()[0] == 3)
+    a = ByteTensor(3,2,5,6)
+    assert(a.size().size()[0] == 4)
+
 
 
 def test_pytorchFloat():
@@ -315,6 +331,14 @@ def test_pytorchFloat():
     myeval('A')
     
 
+def test_pytorch_Float_constructors():
+    FloatTensor = PyTorch.FloatTensor
+    a = FloatTensor(3,2,5)
+    assert(a.size().size()[0] == 3)
+    a = FloatTensor(3,2,5,6)
+    assert(a.size().size()[0] == 4)
+
+
 
 def test_pytorchLong():
     PyTorch.manualSeed(123)
@@ -400,6 +424,14 @@ def test_pytorchLong():
     myexec('A -= B')
     myeval('A')
     
+
+def test_pytorch_Long_constructors():
+    LongTensor = PyTorch.LongTensor
+    a = LongTensor(3,2,5)
+    assert(a.size().size()[0] == 3)
+    a = LongTensor(3,2,5,6)
+    assert(a.size().size()[0] == 4)
+
 
 
 if __name__ == '__main__':
