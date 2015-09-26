@@ -211,20 +211,20 @@ def test_Pytorch_Double_operator_div():
     
     res = a / b
     for i in range(3*2*5):
-        assert(abs(res.storage()[i] - (a.storage()[i] / b.storage()[i])) < 0.000001)
+        assert(abs(res.storage()[i] - (a.storage()[i] / b.storage()[i])) < 0.00001)
 
-#def test_Pytorch_Double_operator_divequals():
-#    DoubleTensor = PyTorch.DoubleTensor
-#    a = DoubleTensor(3,2,5)
-#    b = DoubleTensor(3,2,5)
-#    
-#    a.uniform()
-#    b.uniform()
-#    
-#    res = a.clone()
-#    res /= b
-#    for i in range(3*2*5):
-#        assert(abs(res.storage()[i] - (a.storage()[i] / b.storage()[i])) < 0.000001)
+def test_Pytorch_Double_operator_divequals():
+    DoubleTensor = PyTorch.DoubleTensor
+    a = DoubleTensor(3,2,5)
+    b = DoubleTensor(3,2,5)
+    
+    a.uniform()
+    b.uniform()
+    
+    res = a.clone()
+    res /= b
+    for i in range(3*2*5):
+        assert(abs(res.storage()[i] - (a.storage()[i] / b.storage()[i])) < 0.00001)
 
 
 
@@ -380,20 +380,20 @@ def test_Pytorch_Byte_operator_div():
     
     res = a / b
     for i in range(3*2*5):
-        assert(abs(res.storage()[i] - (a.storage()[i] / b.storage()[i])) < 0.000001)
+        assert(abs(res.storage()[i] - (a.storage()[i] / b.storage()[i])) < 0.00001)
 
-#def test_Pytorch_Byte_operator_divequals():
-#    ByteTensor = PyTorch.ByteTensor
-#    a = ByteTensor(3,2,5)
-#    b = ByteTensor(3,2,5)
-#    
-#    a.geometric(0.9)
-#    b.geometric(0.9)
-#    
-#    res = a.clone()
-#    res /= b
-#    for i in range(3*2*5):
-#        assert(abs(res.storage()[i] - (a.storage()[i] / b.storage()[i])) < 0.000001)
+def test_Pytorch_Byte_operator_divequals():
+    ByteTensor = PyTorch.ByteTensor
+    a = ByteTensor(3,2,5)
+    b = ByteTensor(3,2,5)
+    
+    a.geometric(0.9)
+    b.geometric(0.9)
+    
+    res = a.clone()
+    res /= b
+    for i in range(3*2*5):
+        assert(abs(res.storage()[i] - (a.storage()[i] / b.storage()[i])) < 0.00001)
 
 
 
@@ -624,20 +624,20 @@ def test_Pytorch_Float_operator_div():
     
     res = a / b
     for i in range(3*2*5):
-        assert(abs(res.storage()[i] - (a.storage()[i] / b.storage()[i])) < 0.000001)
+        assert(abs(res.storage()[i] - (a.storage()[i] / b.storage()[i])) < 0.00001)
 
-#def test_Pytorch_Float_operator_divequals():
-#    FloatTensor = PyTorch.FloatTensor
-#    a = FloatTensor(3,2,5)
-#    b = FloatTensor(3,2,5)
-#    
-#    a.uniform()
-#    b.uniform()
-#    
-#    res = a.clone()
-#    res /= b
-#    for i in range(3*2*5):
-#        assert(abs(res.storage()[i] - (a.storage()[i] / b.storage()[i])) < 0.000001)
+def test_Pytorch_Float_operator_divequals():
+    FloatTensor = PyTorch.FloatTensor
+    a = FloatTensor(3,2,5)
+    b = FloatTensor(3,2,5)
+    
+    a.uniform()
+    b.uniform()
+    
+    res = a.clone()
+    res /= b
+    for i in range(3*2*5):
+        assert(abs(res.storage()[i] - (a.storage()[i] / b.storage()[i])) < 0.00001)
 
 
 
@@ -827,20 +827,20 @@ def test_Pytorch_Long_operator_div():
     
     res = a / b
     for i in range(3*2*5):
-        assert(abs(res.storage()[i] - (a.storage()[i] / b.storage()[i])) < 0.000001)
+        assert(abs(res.storage()[i] - (a.storage()[i] / b.storage()[i])) < 0.00001)
 
-#def test_Pytorch_Long_operator_divequals():
-#    LongTensor = PyTorch.LongTensor
-#    a = LongTensor(3,2,5)
-#    b = LongTensor(3,2,5)
-#    
-#    a.geometric(0.9)
-#    b.geometric(0.9)
-#    
-#    res = a.clone()
-#    res /= b
-#    for i in range(3*2*5):
-#        assert(abs(res.storage()[i] - (a.storage()[i] / b.storage()[i])) < 0.000001)
+def test_Pytorch_Long_operator_divequals():
+    LongTensor = PyTorch.LongTensor
+    a = LongTensor(3,2,5)
+    b = LongTensor(3,2,5)
+    
+    a.geometric(0.9)
+    b.geometric(0.9)
+    
+    res = a.clone()
+    res /= b
+    for i in range(3*2*5):
+        assert(abs(res.storage()[i] - (a.storage()[i] / b.storage()[i])) < 0.00001)
 
 
 

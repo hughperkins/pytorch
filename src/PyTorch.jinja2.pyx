@@ -422,8 +422,13 @@ cdef class _{{Real}}Tensor(object):
             TH{{Real}}Tensor_cadd(self.native, self.native, -1, secondTensor.native)
         return self
 
-    def __idiv__(_{{Real}}Tensor self, {{real}} value):
-        TH{{Real}}Tensor_div(self.native, self.native, value)
+    def __idiv__(_{{Real}}Tensor self, second):
+        cdef _{{Real}}Tensor secondTensor
+        if isinstance(second, numbers.Number):
+            TH{{Real}}Tensor_div(self.native, self.native, second)
+        else:
+            secondTensor = second
+            TH{{Real}}Tensor_cdiv(self.native, self.native, secondTensor.native)
         return self
 
     def __imul__(_{{Real}}Tensor self, {{real}} value):

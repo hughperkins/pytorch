@@ -576,8 +576,13 @@ cdef class _DoubleTensor(object):
             THDoubleTensor_cadd(self.native, self.native, -1, secondTensor.native)
         return self
 
-    def __idiv__(_DoubleTensor self, double value):
-        THDoubleTensor_div(self.native, self.native, value)
+    def __idiv__(_DoubleTensor self, second):
+        cdef _DoubleTensor secondTensor
+        if isinstance(second, numbers.Number):
+            THDoubleTensor_div(self.native, self.native, second)
+        else:
+            secondTensor = second
+            THDoubleTensor_cdiv(self.native, self.native, secondTensor.native)
         return self
 
     def __imul__(_DoubleTensor self, double value):
@@ -953,8 +958,13 @@ cdef class _ByteTensor(object):
             THByteTensor_cadd(self.native, self.native, -1, secondTensor.native)
         return self
 
-    def __idiv__(_ByteTensor self, unsigned char value):
-        THByteTensor_div(self.native, self.native, value)
+    def __idiv__(_ByteTensor self, second):
+        cdef _ByteTensor secondTensor
+        if isinstance(second, numbers.Number):
+            THByteTensor_div(self.native, self.native, second)
+        else:
+            secondTensor = second
+            THByteTensor_cdiv(self.native, self.native, secondTensor.native)
         return self
 
     def __imul__(_ByteTensor self, unsigned char value):
@@ -1303,8 +1313,13 @@ cdef class _FloatTensor(object):
             THFloatTensor_cadd(self.native, self.native, -1, secondTensor.native)
         return self
 
-    def __idiv__(_FloatTensor self, float value):
-        THFloatTensor_div(self.native, self.native, value)
+    def __idiv__(_FloatTensor self, second):
+        cdef _FloatTensor secondTensor
+        if isinstance(second, numbers.Number):
+            THFloatTensor_div(self.native, self.native, second)
+        else:
+            secondTensor = second
+            THFloatTensor_cdiv(self.native, self.native, secondTensor.native)
         return self
 
     def __imul__(_FloatTensor self, float value):
@@ -1680,8 +1695,13 @@ cdef class _LongTensor(object):
             THLongTensor_cadd(self.native, self.native, -1, secondTensor.native)
         return self
 
-    def __idiv__(_LongTensor self, long value):
-        THLongTensor_div(self.native, self.native, value)
+    def __idiv__(_LongTensor self, second):
+        cdef _LongTensor secondTensor
+        if isinstance(second, numbers.Number):
+            THLongTensor_div(self.native, self.native, second)
+        else:
+            secondTensor = second
+            THLongTensor_cdiv(self.native, self.native, secondTensor.native)
         return self
 
     def __imul__(_LongTensor self, long value):
