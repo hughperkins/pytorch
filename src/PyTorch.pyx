@@ -245,7 +245,7 @@ cdef class _DoubleTensor(object):
 #        self.thFloatTensor = tensorC
 
     def __cinit__(self, *args, _allocate=True):
-#        print('DoubleTensor.__cinit__')
+        # print('DoubleTensor.__cinit__')
 #        cdef THDoubleStorage *storageC
 #        cdef long addr
 #        if len(kwargs) > 0:
@@ -257,20 +257,21 @@ cdef class _DoubleTensor(object):
                 if not isinstance(arg, int):
                     raise Exception('cannot provide arguments to initializer')
             if len(args) == 0:
-#                print('no args, calling THDoubleTensor_new()')
+                # print('no args, calling THDoubleTensor_new()')
                 self.native = THDoubleTensor_new()
             elif len(args) == 1:
-#                print('new tensor 1d length', args[0])
+                # print('new tensor 1d length', args[0])
                 self.native = THDoubleTensor_newWithSize1d(args[0])
 #                storageC = THFloatTensor_storage(self.thFloatTensor)
 #                if storageC == NULL:
-#                    print('storageC is NULL')
+#                    # print('storageC is NULL')
 #                else:
-#                    print('storageC not null')
+#                    # print('storageC not null')
 #                    addr = <long>(storageC)
-#                    print('storageaddr', hex(addr))
-#                    print('storageC refcount', THFloatStorage_getRefCount(storageC))
+#                    # print('storageaddr', hex(addr))
+#                    # print('storageC refcount', THFloatStorage_getRefCount(storageC))
             elif len(args) == 2:
+                # print('args=2')
                 self.native = THDoubleTensor_newWithSize2d(args[0], args[1])
             else:
                 raise Exception('Not implemented, len(args)=' + str(len(args)))
@@ -290,16 +291,16 @@ cdef class _DoubleTensor(object):
 #        cdef int i
 #        cdef THFloatStorage *storage
         refCount = THDoubleTensor_getRefCount(self.native)
-#        print('DoubleTensor.dealloc old refcount', refCount)
+        # print('DoubleTensor.dealloc old refcount', refCount)
 #        storage = THFloatTensor_storage(self.thFloatTensor)
 #        if storage == NULL:
-#            print('   dealloc, storage NULL')
+#            # print('   dealloc, storage NULL')
 #        else:
-#            print('   dealloc, storage ', hex(<long>(storage)))
+#            # print('   dealloc, storage ', hex(<long>(storage)))
 #        dims = THFloatTensor_nDimension(self.thFloatTensor)
-#        print('   dims of dealloc', dims)
+#        # print('   dims of dealloc', dims)
 #        for i in range(dims):
-#            print('   size[', i, ']', THFloatTensor_size(self.thFloatTensor, i))
+#            # print('   size[', i, ']', THFloatTensor_size(self.thFloatTensor, i))
         if refCount < 1:
             raise Exception('Unallocated an already deallocated tensor... :-O')  # Hmmm, seems this exceptoin wont go anywhere useful... :-P
         THDoubleTensor_free(self.native)
@@ -393,7 +394,7 @@ cdef class _DoubleTensor(object):
 
     @staticmethod
     def new():
-#        print('allocate tensor')
+#        # print('allocate tensor')
         return _DoubleTensor()
 #        return _FloatTensor_fromNative(newTensorC, False)
 
@@ -422,11 +423,11 @@ cdef class _DoubleTensor(object):
         return self
     
     def resize(_DoubleTensor self, _LongTensor size):
-#        print('_FloatTensor.resize size:', size)
+#        # print('_FloatTensor.resize size:', size)
         if size.dims() == 0:
             return self
         cdef int dims = size.size()[0]
-#        print('_FloatTensor.resize dims:', dims)
+#        # print('_FloatTensor.resize dims:', dims)
         if dims == 1:
             THDoubleTensor_resize1d(self.native, size[0])
         elif dims == 2:
@@ -441,13 +442,13 @@ cdef class _DoubleTensor(object):
 
     @staticmethod
     def newWithStorage1d(Storage.DoubleStorage storage, offset, size0, stride0):
-#        print('allocate tensor')
+#        # print('allocate tensor')
         cdef THDoubleTensor *newTensorC = THDoubleTensor_newWithStorage1d(storage.thDoubleStorage, offset, size0, stride0)
         return _DoubleTensor_fromNative(newTensorC, False)
 
     @staticmethod
     def newWithStorage2d(Storage.DoubleStorage storage, offset, size0, stride0, size1, stride1):
-#        print('allocate tensor')
+#        # print('allocate tensor')
         cdef THDoubleTensor *newTensorC = THDoubleTensor_newWithStorage2d(storage.thDoubleStorage, offset, size0, stride0, size1, stride1)
         return _DoubleTensor_fromNative(newTensorC, False)
 
@@ -585,7 +586,7 @@ cdef class _ByteTensor(object):
 #        self.thFloatTensor = tensorC
 
     def __cinit__(self, *args, _allocate=True):
-#        print('ByteTensor.__cinit__')
+        # print('ByteTensor.__cinit__')
 #        cdef THByteStorage *storageC
 #        cdef long addr
 #        if len(kwargs) > 0:
@@ -597,20 +598,21 @@ cdef class _ByteTensor(object):
                 if not isinstance(arg, int):
                     raise Exception('cannot provide arguments to initializer')
             if len(args) == 0:
-#                print('no args, calling THByteTensor_new()')
+                # print('no args, calling THByteTensor_new()')
                 self.native = THByteTensor_new()
             elif len(args) == 1:
-#                print('new tensor 1d length', args[0])
+                # print('new tensor 1d length', args[0])
                 self.native = THByteTensor_newWithSize1d(args[0])
 #                storageC = THFloatTensor_storage(self.thFloatTensor)
 #                if storageC == NULL:
-#                    print('storageC is NULL')
+#                    # print('storageC is NULL')
 #                else:
-#                    print('storageC not null')
+#                    # print('storageC not null')
 #                    addr = <long>(storageC)
-#                    print('storageaddr', hex(addr))
-#                    print('storageC refcount', THFloatStorage_getRefCount(storageC))
+#                    # print('storageaddr', hex(addr))
+#                    # print('storageC refcount', THFloatStorage_getRefCount(storageC))
             elif len(args) == 2:
+                # print('args=2')
                 self.native = THByteTensor_newWithSize2d(args[0], args[1])
             else:
                 raise Exception('Not implemented, len(args)=' + str(len(args)))
@@ -630,16 +632,16 @@ cdef class _ByteTensor(object):
 #        cdef int i
 #        cdef THFloatStorage *storage
         refCount = THByteTensor_getRefCount(self.native)
-#        print('ByteTensor.dealloc old refcount', refCount)
+        # print('ByteTensor.dealloc old refcount', refCount)
 #        storage = THFloatTensor_storage(self.thFloatTensor)
 #        if storage == NULL:
-#            print('   dealloc, storage NULL')
+#            # print('   dealloc, storage NULL')
 #        else:
-#            print('   dealloc, storage ', hex(<long>(storage)))
+#            # print('   dealloc, storage ', hex(<long>(storage)))
 #        dims = THFloatTensor_nDimension(self.thFloatTensor)
-#        print('   dims of dealloc', dims)
+#        # print('   dims of dealloc', dims)
 #        for i in range(dims):
-#            print('   size[', i, ']', THFloatTensor_size(self.thFloatTensor, i))
+#            # print('   size[', i, ']', THFloatTensor_size(self.thFloatTensor, i))
         if refCount < 1:
             raise Exception('Unallocated an already deallocated tensor... :-O')  # Hmmm, seems this exceptoin wont go anywhere useful... :-P
         THByteTensor_free(self.native)
@@ -733,7 +735,7 @@ cdef class _ByteTensor(object):
 
     @staticmethod
     def new():
-#        print('allocate tensor')
+#        # print('allocate tensor')
         return _ByteTensor()
 #        return _FloatTensor_fromNative(newTensorC, False)
 
@@ -762,11 +764,11 @@ cdef class _ByteTensor(object):
         return self
     
     def resize(_ByteTensor self, _LongTensor size):
-#        print('_FloatTensor.resize size:', size)
+#        # print('_FloatTensor.resize size:', size)
         if size.dims() == 0:
             return self
         cdef int dims = size.size()[0]
-#        print('_FloatTensor.resize dims:', dims)
+#        # print('_FloatTensor.resize dims:', dims)
         if dims == 1:
             THByteTensor_resize1d(self.native, size[0])
         elif dims == 2:
@@ -781,13 +783,13 @@ cdef class _ByteTensor(object):
 
     @staticmethod
     def newWithStorage1d(Storage.ByteStorage storage, offset, size0, stride0):
-#        print('allocate tensor')
+#        # print('allocate tensor')
         cdef THByteTensor *newTensorC = THByteTensor_newWithStorage1d(storage.thByteStorage, offset, size0, stride0)
         return _ByteTensor_fromNative(newTensorC, False)
 
     @staticmethod
     def newWithStorage2d(Storage.ByteStorage storage, offset, size0, stride0, size1, stride1):
-#        print('allocate tensor')
+#        # print('allocate tensor')
         cdef THByteTensor *newTensorC = THByteTensor_newWithStorage2d(storage.thByteStorage, offset, size0, stride0, size1, stride1)
         return _ByteTensor_fromNative(newTensorC, False)
 
@@ -898,7 +900,7 @@ cdef class _FloatTensor(object):
 #        self.thFloatTensor = tensorC
 
     def __cinit__(self, *args, _allocate=True):
-#        print('FloatTensor.__cinit__')
+        # print('FloatTensor.__cinit__')
 #        cdef THFloatStorage *storageC
 #        cdef long addr
 #        if len(kwargs) > 0:
@@ -910,20 +912,21 @@ cdef class _FloatTensor(object):
                 if not isinstance(arg, int):
                     raise Exception('cannot provide arguments to initializer')
             if len(args) == 0:
-#                print('no args, calling THFloatTensor_new()')
+                # print('no args, calling THFloatTensor_new()')
                 self.native = THFloatTensor_new()
             elif len(args) == 1:
-#                print('new tensor 1d length', args[0])
+                # print('new tensor 1d length', args[0])
                 self.native = THFloatTensor_newWithSize1d(args[0])
 #                storageC = THFloatTensor_storage(self.thFloatTensor)
 #                if storageC == NULL:
-#                    print('storageC is NULL')
+#                    # print('storageC is NULL')
 #                else:
-#                    print('storageC not null')
+#                    # print('storageC not null')
 #                    addr = <long>(storageC)
-#                    print('storageaddr', hex(addr))
-#                    print('storageC refcount', THFloatStorage_getRefCount(storageC))
+#                    # print('storageaddr', hex(addr))
+#                    # print('storageC refcount', THFloatStorage_getRefCount(storageC))
             elif len(args) == 2:
+                # print('args=2')
                 self.native = THFloatTensor_newWithSize2d(args[0], args[1])
             else:
                 raise Exception('Not implemented, len(args)=' + str(len(args)))
@@ -943,16 +946,16 @@ cdef class _FloatTensor(object):
 #        cdef int i
 #        cdef THFloatStorage *storage
         refCount = THFloatTensor_getRefCount(self.native)
-#        print('FloatTensor.dealloc old refcount', refCount)
+        # print('FloatTensor.dealloc old refcount', refCount)
 #        storage = THFloatTensor_storage(self.thFloatTensor)
 #        if storage == NULL:
-#            print('   dealloc, storage NULL')
+#            # print('   dealloc, storage NULL')
 #        else:
-#            print('   dealloc, storage ', hex(<long>(storage)))
+#            # print('   dealloc, storage ', hex(<long>(storage)))
 #        dims = THFloatTensor_nDimension(self.thFloatTensor)
-#        print('   dims of dealloc', dims)
+#        # print('   dims of dealloc', dims)
 #        for i in range(dims):
-#            print('   size[', i, ']', THFloatTensor_size(self.thFloatTensor, i))
+#            # print('   size[', i, ']', THFloatTensor_size(self.thFloatTensor, i))
         if refCount < 1:
             raise Exception('Unallocated an already deallocated tensor... :-O')  # Hmmm, seems this exceptoin wont go anywhere useful... :-P
         THFloatTensor_free(self.native)
@@ -1046,7 +1049,7 @@ cdef class _FloatTensor(object):
 
     @staticmethod
     def new():
-#        print('allocate tensor')
+#        # print('allocate tensor')
         return _FloatTensor()
 #        return _FloatTensor_fromNative(newTensorC, False)
 
@@ -1075,11 +1078,11 @@ cdef class _FloatTensor(object):
         return self
     
     def resize(_FloatTensor self, _LongTensor size):
-#        print('_FloatTensor.resize size:', size)
+#        # print('_FloatTensor.resize size:', size)
         if size.dims() == 0:
             return self
         cdef int dims = size.size()[0]
-#        print('_FloatTensor.resize dims:', dims)
+#        # print('_FloatTensor.resize dims:', dims)
         if dims == 1:
             THFloatTensor_resize1d(self.native, size[0])
         elif dims == 2:
@@ -1094,13 +1097,13 @@ cdef class _FloatTensor(object):
 
     @staticmethod
     def newWithStorage1d(Storage.FloatStorage storage, offset, size0, stride0):
-#        print('allocate tensor')
+#        # print('allocate tensor')
         cdef THFloatTensor *newTensorC = THFloatTensor_newWithStorage1d(storage.thFloatStorage, offset, size0, stride0)
         return _FloatTensor_fromNative(newTensorC, False)
 
     @staticmethod
     def newWithStorage2d(Storage.FloatStorage storage, offset, size0, stride0, size1, stride1):
-#        print('allocate tensor')
+#        # print('allocate tensor')
         cdef THFloatTensor *newTensorC = THFloatTensor_newWithStorage2d(storage.thFloatStorage, offset, size0, stride0, size1, stride1)
         return _FloatTensor_fromNative(newTensorC, False)
 
@@ -1238,7 +1241,7 @@ cdef class _LongTensor(object):
 #        self.thFloatTensor = tensorC
 
     def __cinit__(self, *args, _allocate=True):
-#        print('LongTensor.__cinit__')
+        # print('LongTensor.__cinit__')
 #        cdef THLongStorage *storageC
 #        cdef long addr
 #        if len(kwargs) > 0:
@@ -1250,20 +1253,21 @@ cdef class _LongTensor(object):
                 if not isinstance(arg, int):
                     raise Exception('cannot provide arguments to initializer')
             if len(args) == 0:
-#                print('no args, calling THLongTensor_new()')
+                # print('no args, calling THLongTensor_new()')
                 self.native = THLongTensor_new()
             elif len(args) == 1:
-#                print('new tensor 1d length', args[0])
+                # print('new tensor 1d length', args[0])
                 self.native = THLongTensor_newWithSize1d(args[0])
 #                storageC = THFloatTensor_storage(self.thFloatTensor)
 #                if storageC == NULL:
-#                    print('storageC is NULL')
+#                    # print('storageC is NULL')
 #                else:
-#                    print('storageC not null')
+#                    # print('storageC not null')
 #                    addr = <long>(storageC)
-#                    print('storageaddr', hex(addr))
-#                    print('storageC refcount', THFloatStorage_getRefCount(storageC))
+#                    # print('storageaddr', hex(addr))
+#                    # print('storageC refcount', THFloatStorage_getRefCount(storageC))
             elif len(args) == 2:
+                # print('args=2')
                 self.native = THLongTensor_newWithSize2d(args[0], args[1])
             else:
                 raise Exception('Not implemented, len(args)=' + str(len(args)))
@@ -1283,16 +1287,16 @@ cdef class _LongTensor(object):
 #        cdef int i
 #        cdef THFloatStorage *storage
         refCount = THLongTensor_getRefCount(self.native)
-#        print('LongTensor.dealloc old refcount', refCount)
+        # print('LongTensor.dealloc old refcount', refCount)
 #        storage = THFloatTensor_storage(self.thFloatTensor)
 #        if storage == NULL:
-#            print('   dealloc, storage NULL')
+#            # print('   dealloc, storage NULL')
 #        else:
-#            print('   dealloc, storage ', hex(<long>(storage)))
+#            # print('   dealloc, storage ', hex(<long>(storage)))
 #        dims = THFloatTensor_nDimension(self.thFloatTensor)
-#        print('   dims of dealloc', dims)
+#        # print('   dims of dealloc', dims)
 #        for i in range(dims):
-#            print('   size[', i, ']', THFloatTensor_size(self.thFloatTensor, i))
+#            # print('   size[', i, ']', THFloatTensor_size(self.thFloatTensor, i))
         if refCount < 1:
             raise Exception('Unallocated an already deallocated tensor... :-O')  # Hmmm, seems this exceptoin wont go anywhere useful... :-P
         THLongTensor_free(self.native)
@@ -1386,7 +1390,7 @@ cdef class _LongTensor(object):
 
     @staticmethod
     def new():
-#        print('allocate tensor')
+#        # print('allocate tensor')
         return _LongTensor()
 #        return _FloatTensor_fromNative(newTensorC, False)
 
@@ -1415,11 +1419,11 @@ cdef class _LongTensor(object):
         return self
     
     def resize(_LongTensor self, _LongTensor size):
-#        print('_FloatTensor.resize size:', size)
+#        # print('_FloatTensor.resize size:', size)
         if size.dims() == 0:
             return self
         cdef int dims = size.size()[0]
-#        print('_FloatTensor.resize dims:', dims)
+#        # print('_FloatTensor.resize dims:', dims)
         if dims == 1:
             THLongTensor_resize1d(self.native, size[0])
         elif dims == 2:
@@ -1434,13 +1438,13 @@ cdef class _LongTensor(object):
 
     @staticmethod
     def newWithStorage1d(Storage.LongStorage storage, offset, size0, stride0):
-#        print('allocate tensor')
+#        # print('allocate tensor')
         cdef THLongTensor *newTensorC = THLongTensor_newWithStorage1d(storage.thLongStorage, offset, size0, stride0)
         return _LongTensor_fromNative(newTensorC, False)
 
     @staticmethod
     def newWithStorage2d(Storage.LongStorage storage, offset, size0, stride0, size1, stride1):
-#        print('allocate tensor')
+#        # print('allocate tensor')
         cdef THLongTensor *newTensorC = THLongTensor_newWithStorage2d(storage.thLongStorage, offset, size0, stride0, size1, stride1)
         return _LongTensor_fromNative(newTensorC, False)
 
@@ -1593,11 +1597,11 @@ cdef class GlobalState(object):
 
     def __cinit__(GlobalState self):
         pass
-#        print('GlobalState.__cinit__')
+#        # print('GlobalState.__cinit__')
 
     def __dealloc__(self):
         pass
-#        print('GlobalState.__dealloc__')
+#        # print('GlobalState.__dealloc__')
 
     def getLua(self):
         return LuaState_fromNative(self.L)
@@ -1677,12 +1681,12 @@ def getGlobalState():
 
 def init():
     global globalState
-    print('initializing PyTorch...')
+    # print('initializing PyTorch...')
     globalState = GlobalState()
     globalState.L = luaInit()
     globalState.generator = <THGenerator *>(getGlobal(globalState.L, 'torch', '_gen'))
-    print('generator null:', globalState.generator == NULL)
-    print(' ... PyTorch initialized')
+    # print('generator null:', globalState.generator == NULL)
+    # print(' ... PyTorch initialized')
 
 init()
 

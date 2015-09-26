@@ -640,13 +640,13 @@ struct __pyx_opt_args_7Storage_LongStorage_fromNative {
  *     cdef struct THDoubleTensor
  * 
  * cdef class _DoubleTensor(object):             # <<<<<<<<<<<<<<
- *     cdef THDoubleTensor *thDoubleTensor
+ *     cdef THDoubleTensor *native
  *     cpdef int dims(self)
  */
 struct __pyx_obj_7PyTorch__DoubleTensor {
   PyObject_HEAD
   struct __pyx_vtabstruct_7PyTorch__DoubleTensor *__pyx_vtab;
-  struct THDoubleTensor *thDoubleTensor;
+  struct THDoubleTensor *native;
 };
 
 
@@ -654,13 +654,13 @@ struct __pyx_obj_7PyTorch__DoubleTensor {
  *     cdef struct THByteTensor
  * 
  * cdef class _ByteTensor(object):             # <<<<<<<<<<<<<<
- *     cdef THByteTensor *thByteTensor
+ *     cdef THByteTensor *native
  *     cpdef int dims(self)
  */
 struct __pyx_obj_7PyTorch__ByteTensor {
   PyObject_HEAD
   struct __pyx_vtabstruct_7PyTorch__ByteTensor *__pyx_vtab;
-  struct THByteTensor *thByteTensor;
+  struct THByteTensor *native;
 };
 
 
@@ -668,13 +668,13 @@ struct __pyx_obj_7PyTorch__ByteTensor {
  *     cdef struct THFloatTensor
  * 
  * cdef class _FloatTensor(object):             # <<<<<<<<<<<<<<
- *     cdef THFloatTensor *thFloatTensor
+ *     cdef THFloatTensor *native
  *     cpdef int dims(self)
  */
 struct __pyx_obj_7PyTorch__FloatTensor {
   PyObject_HEAD
   struct __pyx_vtabstruct_7PyTorch__FloatTensor *__pyx_vtab;
-  struct THFloatTensor *thFloatTensor;
+  struct THFloatTensor *native;
 };
 
 
@@ -682,13 +682,13 @@ struct __pyx_obj_7PyTorch__FloatTensor {
  *     cdef struct THLongTensor
  * 
  * cdef class _LongTensor(object):             # <<<<<<<<<<<<<<
- *     cdef THLongTensor *thLongTensor
+ *     cdef THLongTensor *native
  *     cpdef int dims(self)
  */
 struct __pyx_obj_7PyTorch__LongTensor {
   PyObject_HEAD
   struct __pyx_vtabstruct_7PyTorch__LongTensor *__pyx_vtab;
-  struct THLongTensor *thLongTensor;
+  struct THLongTensor *native;
 };
 
 
@@ -856,7 +856,7 @@ struct __pyx_memoryviewslice_obj {
  *     cdef struct THDoubleTensor
  * 
  * cdef class _DoubleTensor(object):             # <<<<<<<<<<<<<<
- *     cdef THDoubleTensor *thDoubleTensor
+ *     cdef THDoubleTensor *native
  *     cpdef int dims(self)
  */
 
@@ -874,7 +874,7 @@ static struct __pyx_vtabstruct_7PyTorch__DoubleTensor *__pyx_vtabptr_7PyTorch__D
  *     cdef struct THByteTensor
  * 
  * cdef class _ByteTensor(object):             # <<<<<<<<<<<<<<
- *     cdef THByteTensor *thByteTensor
+ *     cdef THByteTensor *native
  *     cpdef int dims(self)
  */
 
@@ -892,7 +892,7 @@ static struct __pyx_vtabstruct_7PyTorch__ByteTensor *__pyx_vtabptr_7PyTorch__Byt
  *     cdef struct THFloatTensor
  * 
  * cdef class _FloatTensor(object):             # <<<<<<<<<<<<<<
- *     cdef THFloatTensor *thFloatTensor
+ *     cdef THFloatTensor *native
  *     cpdef int dims(self)
  */
 
@@ -910,7 +910,7 @@ static struct __pyx_vtabstruct_7PyTorch__FloatTensor *__pyx_vtabptr_7PyTorch__Fl
  *     cdef struct THLongTensor
  * 
  * cdef class _LongTensor(object):             # <<<<<<<<<<<<<<
- *     cdef THLongTensor *thLongTensor
+ *     cdef THLongTensor *native
  *     cpdef int dims(self)
  */
 
@@ -1934,7 +1934,7 @@ static PyObject *__pyx_codeobj__40;
  *     # properties in .pxd file of same name
  * 
  *     def __init__(self, *args, **kwargs):             # <<<<<<<<<<<<<<
- * #        print('floatStorage.__cinit__')
+ *         # print('DoubleStorage.__cinit__')
  *         if len(args) > 0:
  */
 
@@ -1974,7 +1974,7 @@ static int __pyx_pf_7Storage_13DoubleStorage___init__(CYTHON_UNUSED struct __pyx
 
   /* "Storage.pyx":27
  *     def __init__(self, *args, **kwargs):
- * #        print('floatStorage.__cinit__')
+ *         # print('DoubleStorage.__cinit__')
  *         if len(args) > 0:             # <<<<<<<<<<<<<<
  *             raise Exception('cannot provide arguments to initializer')
  *         if len(kwargs) > 0:
@@ -1984,7 +1984,7 @@ static int __pyx_pf_7Storage_13DoubleStorage___init__(CYTHON_UNUSED struct __pyx
   if (__pyx_t_2) {
 
     /* "Storage.pyx":28
- * #        print('floatStorage.__cinit__')
+ *         # print('DoubleStorage.__cinit__')
  *         if len(args) > 0:
  *             raise Exception('cannot provide arguments to initializer')             # <<<<<<<<<<<<<<
  *         if len(kwargs) > 0:
@@ -2026,7 +2026,7 @@ static int __pyx_pf_7Storage_13DoubleStorage___init__(CYTHON_UNUSED struct __pyx
  *     # properties in .pxd file of same name
  * 
  *     def __init__(self, *args, **kwargs):             # <<<<<<<<<<<<<<
- * #        print('floatStorage.__cinit__')
+ *         # print('DoubleStorage.__cinit__')
  *         if len(args) > 0:
  */
 
@@ -2046,7 +2046,7 @@ static int __pyx_pf_7Storage_13DoubleStorage___init__(CYTHON_UNUSED struct __pyx
  * 
  *     @staticmethod
  *     def new():             # <<<<<<<<<<<<<<
- * #        print('allocate storage')
+ *         # print('allocate storage')
  *         return DoubleStorage_fromNative(THDoubleStorage_new(), retain=False)
  */
 
@@ -2079,7 +2079,7 @@ static PyObject *__pyx_pf_7Storage_13DoubleStorage_2new() {
 
   /* "Storage.pyx":35
  *     def new():
- * #        print('allocate storage')
+ *         # print('allocate storage')
  *         return DoubleStorage_fromNative(THDoubleStorage_new(), retain=False)             # <<<<<<<<<<<<<<
  * 
  *     @staticmethod
@@ -2097,7 +2097,7 @@ static PyObject *__pyx_pf_7Storage_13DoubleStorage_2new() {
  * 
  *     @staticmethod
  *     def new():             # <<<<<<<<<<<<<<
- * #        print('allocate storage')
+ *         # print('allocate storage')
  *         return DoubleStorage_fromNative(THDoubleStorage_new(), retain=False)
  */
 
@@ -2117,7 +2117,7 @@ static PyObject *__pyx_pf_7Storage_13DoubleStorage_2new() {
  *     @staticmethod
  *     def newWithData(double [:] data):             # <<<<<<<<<<<<<<
  *         cdef THDoubleStorage *storageC = THDoubleStorage_newWithData(&data[0], len(data))
- * #        print('allocate storage')
+ *         # print('allocate storage')
  */
 
 /* Python wrapper */
@@ -2191,7 +2191,7 @@ static PyObject *__pyx_pf_7Storage_13DoubleStorage_4newWithData(__Pyx_memviewsli
  *     @staticmethod
  *     def newWithData(double [:] data):
  *         cdef THDoubleStorage *storageC = THDoubleStorage_newWithData(&data[0], len(data))             # <<<<<<<<<<<<<<
- * #        print('allocate storage')
+ *         # print('allocate storage')
  *         return DoubleStorage_fromNative(storageC, retain=False)
  */
   __pyx_t_1 = 0;
@@ -2212,7 +2212,7 @@ static PyObject *__pyx_pf_7Storage_13DoubleStorage_4newWithData(__Pyx_memviewsli
 
   /* "Storage.pyx":41
  *         cdef THDoubleStorage *storageC = THDoubleStorage_newWithData(&data[0], len(data))
- * #        print('allocate storage')
+ *         # print('allocate storage')
  *         return DoubleStorage_fromNative(storageC, retain=False)             # <<<<<<<<<<<<<<
  * 
  *     @property
@@ -2231,7 +2231,7 @@ static PyObject *__pyx_pf_7Storage_13DoubleStorage_4newWithData(__Pyx_memviewsli
  *     @staticmethod
  *     def newWithData(double [:] data):             # <<<<<<<<<<<<<<
  *         cdef THDoubleStorage *storageC = THDoubleStorage_newWithData(&data[0], len(data))
- * #        print('allocate storage')
+ *         # print('allocate storage')
  */
 
   /* function exit code */
@@ -2397,7 +2397,7 @@ static PyObject *__pyx_pf_7Storage_13DoubleStorage_8dataAddr(struct __pyx_obj_7S
  *     @staticmethod
  *     def newWithSize(long size):             # <<<<<<<<<<<<<<
  *         cdef THDoubleStorage *storageC = THDoubleStorage_newWithSize(size)
- * #        print('allocate storage')
+ *         # print('allocate storage')
  */
 
 /* Python wrapper */
@@ -2468,14 +2468,14 @@ static PyObject *__pyx_pf_7Storage_13DoubleStorage_10newWithSize(long __pyx_v_si
  *     @staticmethod
  *     def newWithSize(long size):
  *         cdef THDoubleStorage *storageC = THDoubleStorage_newWithSize(size)             # <<<<<<<<<<<<<<
- * #        print('allocate storage')
+ *         # print('allocate storage')
  *         return DoubleStorage_fromNative(storageC, retain=False)
  */
   __pyx_v_storageC = THDoubleStorage_newWithSize(__pyx_v_size);
 
   /* "Storage.pyx":56
  *         cdef THDoubleStorage *storageC = THDoubleStorage_newWithSize(size)
- * #        print('allocate storage')
+ *         # print('allocate storage')
  *         return DoubleStorage_fromNative(storageC, retain=False)             # <<<<<<<<<<<<<<
  * 
  *     cpdef long size(self):
@@ -2494,7 +2494,7 @@ static PyObject *__pyx_pf_7Storage_13DoubleStorage_10newWithSize(long __pyx_v_si
  *     @staticmethod
  *     def newWithSize(long size):             # <<<<<<<<<<<<<<
  *         cdef THDoubleStorage *storageC = THDoubleStorage_newWithSize(size)
- * #        print('allocate storage')
+ *         # print('allocate storage')
  */
 
   /* function exit code */
@@ -2638,8 +2638,8 @@ static PyObject *__pyx_pf_7Storage_13DoubleStorage_12size(struct __pyx_obj_7Stor
  *         return THDoubleStorage_size(self.thDoubleStorage)
  * 
  *     def __dealloc__(self):             # <<<<<<<<<<<<<<
- * #        print('THFloatStorage.dealloc, old refcount ', THFloatStorage_getRefCount(self.thFloatStorage))
- * #        print('   dealloc storage: ', hex(<long>(self.thFloatStorage)))
+ *         # print('THDoubleStorage.dealloc, old refcount ', THDoubleStorage_getRefCount(self.thDoubleStorage))
+ *         # print('   dealloc storage: ', hex(<long>(self.thDoubleStorage)))
  */
 
 /* Python wrapper */
@@ -2658,8 +2658,8 @@ static void __pyx_pf_7Storage_13DoubleStorage_14__dealloc__(struct __pyx_obj_7St
   __Pyx_RefNannySetupContext("__dealloc__", 0);
 
   /* "Storage.pyx":64
- * #        print('THFloatStorage.dealloc, old refcount ', THFloatStorage_getRefCount(self.thFloatStorage))
- * #        print('   dealloc storage: ', hex(<long>(self.thFloatStorage)))
+ *         # print('THDoubleStorage.dealloc, old refcount ', THDoubleStorage_getRefCount(self.thDoubleStorage))
+ *         # print('   dealloc storage: ', hex(<long>(self.thDoubleStorage)))
  *         THDoubleStorage_free(self.thDoubleStorage)             # <<<<<<<<<<<<<<
  * 
  * cdef DoubleStorage_fromNative(THDoubleStorage *storageC, retain=True):
@@ -2670,8 +2670,8 @@ static void __pyx_pf_7Storage_13DoubleStorage_14__dealloc__(struct __pyx_obj_7St
  *         return THDoubleStorage_size(self.thDoubleStorage)
  * 
  *     def __dealloc__(self):             # <<<<<<<<<<<<<<
- * #        print('THFloatStorage.dealloc, old refcount ', THFloatStorage_getRefCount(self.thFloatStorage))
- * #        print('   dealloc storage: ', hex(<long>(self.thFloatStorage)))
+ *         # print('THDoubleStorage.dealloc, old refcount ', THDoubleStorage_getRefCount(self.thDoubleStorage))
+ *         # print('   dealloc storage: ', hex(<long>(self.thDoubleStorage)))
  */
 
   /* function exit code */
@@ -2782,7 +2782,7 @@ static PyObject *__pyx_f_7Storage_DoubleStorage_fromNative(struct THDoubleStorag
  *     # properties in .pxd file of same name
  * 
  *     def __init__(self, *args, **kwargs):             # <<<<<<<<<<<<<<
- * #        print('floatStorage.__cinit__')
+ *         # print('ByteStorage.__cinit__')
  *         if len(args) > 0:
  */
 
@@ -2822,7 +2822,7 @@ static int __pyx_pf_7Storage_11ByteStorage___init__(CYTHON_UNUSED struct __pyx_o
 
   /* "Storage.pyx":79
  *     def __init__(self, *args, **kwargs):
- * #        print('floatStorage.__cinit__')
+ *         # print('ByteStorage.__cinit__')
  *         if len(args) > 0:             # <<<<<<<<<<<<<<
  *             raise Exception('cannot provide arguments to initializer')
  *         if len(kwargs) > 0:
@@ -2832,7 +2832,7 @@ static int __pyx_pf_7Storage_11ByteStorage___init__(CYTHON_UNUSED struct __pyx_o
   if (__pyx_t_2) {
 
     /* "Storage.pyx":80
- * #        print('floatStorage.__cinit__')
+ *         # print('ByteStorage.__cinit__')
  *         if len(args) > 0:
  *             raise Exception('cannot provide arguments to initializer')             # <<<<<<<<<<<<<<
  *         if len(kwargs) > 0:
@@ -2874,7 +2874,7 @@ static int __pyx_pf_7Storage_11ByteStorage___init__(CYTHON_UNUSED struct __pyx_o
  *     # properties in .pxd file of same name
  * 
  *     def __init__(self, *args, **kwargs):             # <<<<<<<<<<<<<<
- * #        print('floatStorage.__cinit__')
+ *         # print('ByteStorage.__cinit__')
  *         if len(args) > 0:
  */
 
@@ -2894,7 +2894,7 @@ static int __pyx_pf_7Storage_11ByteStorage___init__(CYTHON_UNUSED struct __pyx_o
  * 
  *     @staticmethod
  *     def new():             # <<<<<<<<<<<<<<
- * #        print('allocate storage')
+ *         # print('allocate storage')
  *         return ByteStorage_fromNative(THByteStorage_new(), retain=False)
  */
 
@@ -2927,7 +2927,7 @@ static PyObject *__pyx_pf_7Storage_11ByteStorage_2new() {
 
   /* "Storage.pyx":87
  *     def new():
- * #        print('allocate storage')
+ *         # print('allocate storage')
  *         return ByteStorage_fromNative(THByteStorage_new(), retain=False)             # <<<<<<<<<<<<<<
  * 
  *     @staticmethod
@@ -2945,7 +2945,7 @@ static PyObject *__pyx_pf_7Storage_11ByteStorage_2new() {
  * 
  *     @staticmethod
  *     def new():             # <<<<<<<<<<<<<<
- * #        print('allocate storage')
+ *         # print('allocate storage')
  *         return ByteStorage_fromNative(THByteStorage_new(), retain=False)
  */
 
@@ -2965,7 +2965,7 @@ static PyObject *__pyx_pf_7Storage_11ByteStorage_2new() {
  *     @staticmethod
  *     def newWithData(unsigned char [:] data):             # <<<<<<<<<<<<<<
  *         cdef THByteStorage *storageC = THByteStorage_newWithData(&data[0], len(data))
- * #        print('allocate storage')
+ *         # print('allocate storage')
  */
 
 /* Python wrapper */
@@ -3039,7 +3039,7 @@ static PyObject *__pyx_pf_7Storage_11ByteStorage_4newWithData(__Pyx_memviewslice
  *     @staticmethod
  *     def newWithData(unsigned char [:] data):
  *         cdef THByteStorage *storageC = THByteStorage_newWithData(&data[0], len(data))             # <<<<<<<<<<<<<<
- * #        print('allocate storage')
+ *         # print('allocate storage')
  *         return ByteStorage_fromNative(storageC, retain=False)
  */
   __pyx_t_1 = 0;
@@ -3060,7 +3060,7 @@ static PyObject *__pyx_pf_7Storage_11ByteStorage_4newWithData(__Pyx_memviewslice
 
   /* "Storage.pyx":93
  *         cdef THByteStorage *storageC = THByteStorage_newWithData(&data[0], len(data))
- * #        print('allocate storage')
+ *         # print('allocate storage')
  *         return ByteStorage_fromNative(storageC, retain=False)             # <<<<<<<<<<<<<<
  * 
  *     @property
@@ -3079,7 +3079,7 @@ static PyObject *__pyx_pf_7Storage_11ByteStorage_4newWithData(__Pyx_memviewslice
  *     @staticmethod
  *     def newWithData(unsigned char [:] data):             # <<<<<<<<<<<<<<
  *         cdef THByteStorage *storageC = THByteStorage_newWithData(&data[0], len(data))
- * #        print('allocate storage')
+ *         # print('allocate storage')
  */
 
   /* function exit code */
@@ -3245,7 +3245,7 @@ static PyObject *__pyx_pf_7Storage_11ByteStorage_8dataAddr(struct __pyx_obj_7Sto
  *     @staticmethod
  *     def newWithSize(long size):             # <<<<<<<<<<<<<<
  *         cdef THByteStorage *storageC = THByteStorage_newWithSize(size)
- * #        print('allocate storage')
+ *         # print('allocate storage')
  */
 
 /* Python wrapper */
@@ -3316,14 +3316,14 @@ static PyObject *__pyx_pf_7Storage_11ByteStorage_10newWithSize(long __pyx_v_size
  *     @staticmethod
  *     def newWithSize(long size):
  *         cdef THByteStorage *storageC = THByteStorage_newWithSize(size)             # <<<<<<<<<<<<<<
- * #        print('allocate storage')
+ *         # print('allocate storage')
  *         return ByteStorage_fromNative(storageC, retain=False)
  */
   __pyx_v_storageC = THByteStorage_newWithSize(__pyx_v_size);
 
   /* "Storage.pyx":108
  *         cdef THByteStorage *storageC = THByteStorage_newWithSize(size)
- * #        print('allocate storage')
+ *         # print('allocate storage')
  *         return ByteStorage_fromNative(storageC, retain=False)             # <<<<<<<<<<<<<<
  * 
  *     cpdef long size(self):
@@ -3342,7 +3342,7 @@ static PyObject *__pyx_pf_7Storage_11ByteStorage_10newWithSize(long __pyx_v_size
  *     @staticmethod
  *     def newWithSize(long size):             # <<<<<<<<<<<<<<
  *         cdef THByteStorage *storageC = THByteStorage_newWithSize(size)
- * #        print('allocate storage')
+ *         # print('allocate storage')
  */
 
   /* function exit code */
@@ -3486,8 +3486,8 @@ static PyObject *__pyx_pf_7Storage_11ByteStorage_12size(struct __pyx_obj_7Storag
  *         return THByteStorage_size(self.thByteStorage)
  * 
  *     def __dealloc__(self):             # <<<<<<<<<<<<<<
- * #        print('THFloatStorage.dealloc, old refcount ', THFloatStorage_getRefCount(self.thFloatStorage))
- * #        print('   dealloc storage: ', hex(<long>(self.thFloatStorage)))
+ *         # print('THByteStorage.dealloc, old refcount ', THByteStorage_getRefCount(self.thByteStorage))
+ *         # print('   dealloc storage: ', hex(<long>(self.thByteStorage)))
  */
 
 /* Python wrapper */
@@ -3506,8 +3506,8 @@ static void __pyx_pf_7Storage_11ByteStorage_14__dealloc__(struct __pyx_obj_7Stor
   __Pyx_RefNannySetupContext("__dealloc__", 0);
 
   /* "Storage.pyx":116
- * #        print('THFloatStorage.dealloc, old refcount ', THFloatStorage_getRefCount(self.thFloatStorage))
- * #        print('   dealloc storage: ', hex(<long>(self.thFloatStorage)))
+ *         # print('THByteStorage.dealloc, old refcount ', THByteStorage_getRefCount(self.thByteStorage))
+ *         # print('   dealloc storage: ', hex(<long>(self.thByteStorage)))
  *         THByteStorage_free(self.thByteStorage)             # <<<<<<<<<<<<<<
  * 
  * cdef ByteStorage_fromNative(THByteStorage *storageC, retain=True):
@@ -3518,8 +3518,8 @@ static void __pyx_pf_7Storage_11ByteStorage_14__dealloc__(struct __pyx_obj_7Stor
  *         return THByteStorage_size(self.thByteStorage)
  * 
  *     def __dealloc__(self):             # <<<<<<<<<<<<<<
- * #        print('THFloatStorage.dealloc, old refcount ', THFloatStorage_getRefCount(self.thFloatStorage))
- * #        print('   dealloc storage: ', hex(<long>(self.thFloatStorage)))
+ *         # print('THByteStorage.dealloc, old refcount ', THByteStorage_getRefCount(self.thByteStorage))
+ *         # print('   dealloc storage: ', hex(<long>(self.thByteStorage)))
  */
 
   /* function exit code */
@@ -3630,7 +3630,7 @@ static PyObject *__pyx_f_7Storage_ByteStorage_fromNative(struct THByteStorage *_
  *     # properties in .pxd file of same name
  * 
  *     def __init__(self, *args, **kwargs):             # <<<<<<<<<<<<<<
- * #        print('floatStorage.__cinit__')
+ *         # print('FloatStorage.__cinit__')
  *         if len(args) > 0:
  */
 
@@ -3670,7 +3670,7 @@ static int __pyx_pf_7Storage_12FloatStorage___init__(CYTHON_UNUSED struct __pyx_
 
   /* "Storage.pyx":131
  *     def __init__(self, *args, **kwargs):
- * #        print('floatStorage.__cinit__')
+ *         # print('FloatStorage.__cinit__')
  *         if len(args) > 0:             # <<<<<<<<<<<<<<
  *             raise Exception('cannot provide arguments to initializer')
  *         if len(kwargs) > 0:
@@ -3680,7 +3680,7 @@ static int __pyx_pf_7Storage_12FloatStorage___init__(CYTHON_UNUSED struct __pyx_
   if (__pyx_t_2) {
 
     /* "Storage.pyx":132
- * #        print('floatStorage.__cinit__')
+ *         # print('FloatStorage.__cinit__')
  *         if len(args) > 0:
  *             raise Exception('cannot provide arguments to initializer')             # <<<<<<<<<<<<<<
  *         if len(kwargs) > 0:
@@ -3722,7 +3722,7 @@ static int __pyx_pf_7Storage_12FloatStorage___init__(CYTHON_UNUSED struct __pyx_
  *     # properties in .pxd file of same name
  * 
  *     def __init__(self, *args, **kwargs):             # <<<<<<<<<<<<<<
- * #        print('floatStorage.__cinit__')
+ *         # print('FloatStorage.__cinit__')
  *         if len(args) > 0:
  */
 
@@ -3742,7 +3742,7 @@ static int __pyx_pf_7Storage_12FloatStorage___init__(CYTHON_UNUSED struct __pyx_
  * 
  *     @staticmethod
  *     def new():             # <<<<<<<<<<<<<<
- * #        print('allocate storage')
+ *         # print('allocate storage')
  *         return FloatStorage_fromNative(THFloatStorage_new(), retain=False)
  */
 
@@ -3775,7 +3775,7 @@ static PyObject *__pyx_pf_7Storage_12FloatStorage_2new() {
 
   /* "Storage.pyx":139
  *     def new():
- * #        print('allocate storage')
+ *         # print('allocate storage')
  *         return FloatStorage_fromNative(THFloatStorage_new(), retain=False)             # <<<<<<<<<<<<<<
  * 
  *     @staticmethod
@@ -3793,7 +3793,7 @@ static PyObject *__pyx_pf_7Storage_12FloatStorage_2new() {
  * 
  *     @staticmethod
  *     def new():             # <<<<<<<<<<<<<<
- * #        print('allocate storage')
+ *         # print('allocate storage')
  *         return FloatStorage_fromNative(THFloatStorage_new(), retain=False)
  */
 
@@ -3813,7 +3813,7 @@ static PyObject *__pyx_pf_7Storage_12FloatStorage_2new() {
  *     @staticmethod
  *     def newWithData(float [:] data):             # <<<<<<<<<<<<<<
  *         cdef THFloatStorage *storageC = THFloatStorage_newWithData(&data[0], len(data))
- * #        print('allocate storage')
+ *         # print('allocate storage')
  */
 
 /* Python wrapper */
@@ -3887,7 +3887,7 @@ static PyObject *__pyx_pf_7Storage_12FloatStorage_4newWithData(__Pyx_memviewslic
  *     @staticmethod
  *     def newWithData(float [:] data):
  *         cdef THFloatStorage *storageC = THFloatStorage_newWithData(&data[0], len(data))             # <<<<<<<<<<<<<<
- * #        print('allocate storage')
+ *         # print('allocate storage')
  *         return FloatStorage_fromNative(storageC, retain=False)
  */
   __pyx_t_1 = 0;
@@ -3908,7 +3908,7 @@ static PyObject *__pyx_pf_7Storage_12FloatStorage_4newWithData(__Pyx_memviewslic
 
   /* "Storage.pyx":145
  *         cdef THFloatStorage *storageC = THFloatStorage_newWithData(&data[0], len(data))
- * #        print('allocate storage')
+ *         # print('allocate storage')
  *         return FloatStorage_fromNative(storageC, retain=False)             # <<<<<<<<<<<<<<
  * 
  *     @property
@@ -3927,7 +3927,7 @@ static PyObject *__pyx_pf_7Storage_12FloatStorage_4newWithData(__Pyx_memviewslic
  *     @staticmethod
  *     def newWithData(float [:] data):             # <<<<<<<<<<<<<<
  *         cdef THFloatStorage *storageC = THFloatStorage_newWithData(&data[0], len(data))
- * #        print('allocate storage')
+ *         # print('allocate storage')
  */
 
   /* function exit code */
@@ -4093,7 +4093,7 @@ static PyObject *__pyx_pf_7Storage_12FloatStorage_8dataAddr(struct __pyx_obj_7St
  *     @staticmethod
  *     def newWithSize(long size):             # <<<<<<<<<<<<<<
  *         cdef THFloatStorage *storageC = THFloatStorage_newWithSize(size)
- * #        print('allocate storage')
+ *         # print('allocate storage')
  */
 
 /* Python wrapper */
@@ -4164,14 +4164,14 @@ static PyObject *__pyx_pf_7Storage_12FloatStorage_10newWithSize(long __pyx_v_siz
  *     @staticmethod
  *     def newWithSize(long size):
  *         cdef THFloatStorage *storageC = THFloatStorage_newWithSize(size)             # <<<<<<<<<<<<<<
- * #        print('allocate storage')
+ *         # print('allocate storage')
  *         return FloatStorage_fromNative(storageC, retain=False)
  */
   __pyx_v_storageC = THFloatStorage_newWithSize(__pyx_v_size);
 
   /* "Storage.pyx":160
  *         cdef THFloatStorage *storageC = THFloatStorage_newWithSize(size)
- * #        print('allocate storage')
+ *         # print('allocate storage')
  *         return FloatStorage_fromNative(storageC, retain=False)             # <<<<<<<<<<<<<<
  * 
  *     cpdef long size(self):
@@ -4190,7 +4190,7 @@ static PyObject *__pyx_pf_7Storage_12FloatStorage_10newWithSize(long __pyx_v_siz
  *     @staticmethod
  *     def newWithSize(long size):             # <<<<<<<<<<<<<<
  *         cdef THFloatStorage *storageC = THFloatStorage_newWithSize(size)
- * #        print('allocate storage')
+ *         # print('allocate storage')
  */
 
   /* function exit code */
@@ -4334,8 +4334,8 @@ static PyObject *__pyx_pf_7Storage_12FloatStorage_12size(struct __pyx_obj_7Stora
  *         return THFloatStorage_size(self.thFloatStorage)
  * 
  *     def __dealloc__(self):             # <<<<<<<<<<<<<<
- * #        print('THFloatStorage.dealloc, old refcount ', THFloatStorage_getRefCount(self.thFloatStorage))
- * #        print('   dealloc storage: ', hex(<long>(self.thFloatStorage)))
+ *         # print('THFloatStorage.dealloc, old refcount ', THFloatStorage_getRefCount(self.thFloatStorage))
+ *         # print('   dealloc storage: ', hex(<long>(self.thFloatStorage)))
  */
 
 /* Python wrapper */
@@ -4354,8 +4354,8 @@ static void __pyx_pf_7Storage_12FloatStorage_14__dealloc__(struct __pyx_obj_7Sto
   __Pyx_RefNannySetupContext("__dealloc__", 0);
 
   /* "Storage.pyx":168
- * #        print('THFloatStorage.dealloc, old refcount ', THFloatStorage_getRefCount(self.thFloatStorage))
- * #        print('   dealloc storage: ', hex(<long>(self.thFloatStorage)))
+ *         # print('THFloatStorage.dealloc, old refcount ', THFloatStorage_getRefCount(self.thFloatStorage))
+ *         # print('   dealloc storage: ', hex(<long>(self.thFloatStorage)))
  *         THFloatStorage_free(self.thFloatStorage)             # <<<<<<<<<<<<<<
  * 
  * cdef FloatStorage_fromNative(THFloatStorage *storageC, retain=True):
@@ -4366,8 +4366,8 @@ static void __pyx_pf_7Storage_12FloatStorage_14__dealloc__(struct __pyx_obj_7Sto
  *         return THFloatStorage_size(self.thFloatStorage)
  * 
  *     def __dealloc__(self):             # <<<<<<<<<<<<<<
- * #        print('THFloatStorage.dealloc, old refcount ', THFloatStorage_getRefCount(self.thFloatStorage))
- * #        print('   dealloc storage: ', hex(<long>(self.thFloatStorage)))
+ *         # print('THFloatStorage.dealloc, old refcount ', THFloatStorage_getRefCount(self.thFloatStorage))
+ *         # print('   dealloc storage: ', hex(<long>(self.thFloatStorage)))
  */
 
   /* function exit code */
@@ -4478,7 +4478,7 @@ static PyObject *__pyx_f_7Storage_FloatStorage_fromNative(struct THFloatStorage 
  *     # properties in .pxd file of same name
  * 
  *     def __init__(self, *args, **kwargs):             # <<<<<<<<<<<<<<
- * #        print('floatStorage.__cinit__')
+ *         # print('LongStorage.__cinit__')
  *         if len(args) > 0:
  */
 
@@ -4518,7 +4518,7 @@ static int __pyx_pf_7Storage_11LongStorage___init__(CYTHON_UNUSED struct __pyx_o
 
   /* "Storage.pyx":183
  *     def __init__(self, *args, **kwargs):
- * #        print('floatStorage.__cinit__')
+ *         # print('LongStorage.__cinit__')
  *         if len(args) > 0:             # <<<<<<<<<<<<<<
  *             raise Exception('cannot provide arguments to initializer')
  *         if len(kwargs) > 0:
@@ -4528,7 +4528,7 @@ static int __pyx_pf_7Storage_11LongStorage___init__(CYTHON_UNUSED struct __pyx_o
   if (__pyx_t_2) {
 
     /* "Storage.pyx":184
- * #        print('floatStorage.__cinit__')
+ *         # print('LongStorage.__cinit__')
  *         if len(args) > 0:
  *             raise Exception('cannot provide arguments to initializer')             # <<<<<<<<<<<<<<
  *         if len(kwargs) > 0:
@@ -4570,7 +4570,7 @@ static int __pyx_pf_7Storage_11LongStorage___init__(CYTHON_UNUSED struct __pyx_o
  *     # properties in .pxd file of same name
  * 
  *     def __init__(self, *args, **kwargs):             # <<<<<<<<<<<<<<
- * #        print('floatStorage.__cinit__')
+ *         # print('LongStorage.__cinit__')
  *         if len(args) > 0:
  */
 
@@ -4590,7 +4590,7 @@ static int __pyx_pf_7Storage_11LongStorage___init__(CYTHON_UNUSED struct __pyx_o
  * 
  *     @staticmethod
  *     def new():             # <<<<<<<<<<<<<<
- * #        print('allocate storage')
+ *         # print('allocate storage')
  *         return LongStorage_fromNative(THLongStorage_new(), retain=False)
  */
 
@@ -4623,7 +4623,7 @@ static PyObject *__pyx_pf_7Storage_11LongStorage_2new() {
 
   /* "Storage.pyx":191
  *     def new():
- * #        print('allocate storage')
+ *         # print('allocate storage')
  *         return LongStorage_fromNative(THLongStorage_new(), retain=False)             # <<<<<<<<<<<<<<
  * 
  *     @staticmethod
@@ -4641,7 +4641,7 @@ static PyObject *__pyx_pf_7Storage_11LongStorage_2new() {
  * 
  *     @staticmethod
  *     def new():             # <<<<<<<<<<<<<<
- * #        print('allocate storage')
+ *         # print('allocate storage')
  *         return LongStorage_fromNative(THLongStorage_new(), retain=False)
  */
 
@@ -4661,7 +4661,7 @@ static PyObject *__pyx_pf_7Storage_11LongStorage_2new() {
  *     @staticmethod
  *     def newWithData(long [:] data):             # <<<<<<<<<<<<<<
  *         cdef THLongStorage *storageC = THLongStorage_newWithData(&data[0], len(data))
- * #        print('allocate storage')
+ *         # print('allocate storage')
  */
 
 /* Python wrapper */
@@ -4735,7 +4735,7 @@ static PyObject *__pyx_pf_7Storage_11LongStorage_4newWithData(__Pyx_memviewslice
  *     @staticmethod
  *     def newWithData(long [:] data):
  *         cdef THLongStorage *storageC = THLongStorage_newWithData(&data[0], len(data))             # <<<<<<<<<<<<<<
- * #        print('allocate storage')
+ *         # print('allocate storage')
  *         return LongStorage_fromNative(storageC, retain=False)
  */
   __pyx_t_1 = 0;
@@ -4756,7 +4756,7 @@ static PyObject *__pyx_pf_7Storage_11LongStorage_4newWithData(__Pyx_memviewslice
 
   /* "Storage.pyx":197
  *         cdef THLongStorage *storageC = THLongStorage_newWithData(&data[0], len(data))
- * #        print('allocate storage')
+ *         # print('allocate storage')
  *         return LongStorage_fromNative(storageC, retain=False)             # <<<<<<<<<<<<<<
  * 
  *     @property
@@ -4775,7 +4775,7 @@ static PyObject *__pyx_pf_7Storage_11LongStorage_4newWithData(__Pyx_memviewslice
  *     @staticmethod
  *     def newWithData(long [:] data):             # <<<<<<<<<<<<<<
  *         cdef THLongStorage *storageC = THLongStorage_newWithData(&data[0], len(data))
- * #        print('allocate storage')
+ *         # print('allocate storage')
  */
 
   /* function exit code */
@@ -4941,7 +4941,7 @@ static PyObject *__pyx_pf_7Storage_11LongStorage_8dataAddr(struct __pyx_obj_7Sto
  *     @staticmethod
  *     def newWithSize(long size):             # <<<<<<<<<<<<<<
  *         cdef THLongStorage *storageC = THLongStorage_newWithSize(size)
- * #        print('allocate storage')
+ *         # print('allocate storage')
  */
 
 /* Python wrapper */
@@ -5012,14 +5012,14 @@ static PyObject *__pyx_pf_7Storage_11LongStorage_10newWithSize(long __pyx_v_size
  *     @staticmethod
  *     def newWithSize(long size):
  *         cdef THLongStorage *storageC = THLongStorage_newWithSize(size)             # <<<<<<<<<<<<<<
- * #        print('allocate storage')
+ *         # print('allocate storage')
  *         return LongStorage_fromNative(storageC, retain=False)
  */
   __pyx_v_storageC = THLongStorage_newWithSize(__pyx_v_size);
 
   /* "Storage.pyx":212
  *         cdef THLongStorage *storageC = THLongStorage_newWithSize(size)
- * #        print('allocate storage')
+ *         # print('allocate storage')
  *         return LongStorage_fromNative(storageC, retain=False)             # <<<<<<<<<<<<<<
  * 
  *     cpdef long size(self):
@@ -5038,7 +5038,7 @@ static PyObject *__pyx_pf_7Storage_11LongStorage_10newWithSize(long __pyx_v_size
  *     @staticmethod
  *     def newWithSize(long size):             # <<<<<<<<<<<<<<
  *         cdef THLongStorage *storageC = THLongStorage_newWithSize(size)
- * #        print('allocate storage')
+ *         # print('allocate storage')
  */
 
   /* function exit code */
@@ -5182,8 +5182,8 @@ static PyObject *__pyx_pf_7Storage_11LongStorage_12size(struct __pyx_obj_7Storag
  *         return THLongStorage_size(self.thLongStorage)
  * 
  *     def __dealloc__(self):             # <<<<<<<<<<<<<<
- * #        print('THFloatStorage.dealloc, old refcount ', THFloatStorage_getRefCount(self.thFloatStorage))
- * #        print('   dealloc storage: ', hex(<long>(self.thFloatStorage)))
+ *         # print('THLongStorage.dealloc, old refcount ', THLongStorage_getRefCount(self.thLongStorage))
+ *         # print('   dealloc storage: ', hex(<long>(self.thLongStorage)))
  */
 
 /* Python wrapper */
@@ -5202,8 +5202,8 @@ static void __pyx_pf_7Storage_11LongStorage_14__dealloc__(struct __pyx_obj_7Stor
   __Pyx_RefNannySetupContext("__dealloc__", 0);
 
   /* "Storage.pyx":220
- * #        print('THFloatStorage.dealloc, old refcount ', THFloatStorage_getRefCount(self.thFloatStorage))
- * #        print('   dealloc storage: ', hex(<long>(self.thFloatStorage)))
+ *         # print('THLongStorage.dealloc, old refcount ', THLongStorage_getRefCount(self.thLongStorage))
+ *         # print('   dealloc storage: ', hex(<long>(self.thLongStorage)))
  *         THLongStorage_free(self.thLongStorage)             # <<<<<<<<<<<<<<
  * 
  * cdef LongStorage_fromNative(THLongStorage *storageC, retain=True):
@@ -5214,8 +5214,8 @@ static void __pyx_pf_7Storage_11LongStorage_14__dealloc__(struct __pyx_obj_7Stor
  *         return THLongStorage_size(self.thLongStorage)
  * 
  *     def __dealloc__(self):             # <<<<<<<<<<<<<<
- * #        print('THFloatStorage.dealloc, old refcount ', THFloatStorage_getRefCount(self.thFloatStorage))
- * #        print('   dealloc storage: ', hex(<long>(self.thFloatStorage)))
+ *         # print('THLongStorage.dealloc, old refcount ', THLongStorage_getRefCount(self.thLongStorage))
+ *         # print('   dealloc storage: ', hex(<long>(self.thLongStorage)))
  */
 
   /* function exit code */
@@ -17755,7 +17755,7 @@ static int __Pyx_InitCachedConstants(void) {
   __Pyx_RefNannySetupContext("__Pyx_InitCachedConstants", 0);
 
   /* "Storage.pyx":28
- * #        print('floatStorage.__cinit__')
+ *         # print('DoubleStorage.__cinit__')
  *         if len(args) > 0:
  *             raise Exception('cannot provide arguments to initializer')             # <<<<<<<<<<<<<<
  *         if len(kwargs) > 0:
@@ -17777,7 +17777,7 @@ static int __Pyx_InitCachedConstants(void) {
   __Pyx_GIVEREF(__pyx_tuple__2);
 
   /* "Storage.pyx":80
- * #        print('floatStorage.__cinit__')
+ *         # print('ByteStorage.__cinit__')
  *         if len(args) > 0:
  *             raise Exception('cannot provide arguments to initializer')             # <<<<<<<<<<<<<<
  *         if len(kwargs) > 0:
@@ -17799,7 +17799,7 @@ static int __Pyx_InitCachedConstants(void) {
   __Pyx_GIVEREF(__pyx_tuple__4);
 
   /* "Storage.pyx":132
- * #        print('floatStorage.__cinit__')
+ *         # print('FloatStorage.__cinit__')
  *         if len(args) > 0:
  *             raise Exception('cannot provide arguments to initializer')             # <<<<<<<<<<<<<<
  *         if len(kwargs) > 0:
@@ -17821,7 +17821,7 @@ static int __Pyx_InitCachedConstants(void) {
   __Pyx_GIVEREF(__pyx_tuple__6);
 
   /* "Storage.pyx":184
- * #        print('floatStorage.__cinit__')
+ *         # print('LongStorage.__cinit__')
  *         if len(args) > 0:
  *             raise Exception('cannot provide arguments to initializer')             # <<<<<<<<<<<<<<
  *         if len(kwargs) > 0:
@@ -17981,7 +17981,7 @@ static int __Pyx_InitCachedConstants(void) {
  * 
  *     @staticmethod
  *     def new():             # <<<<<<<<<<<<<<
- * #        print('allocate storage')
+ *         # print('allocate storage')
  *         return DoubleStorage_fromNative(THDoubleStorage_new(), retain=False)
  */
   __pyx_codeobj__21 = (PyObject*)__Pyx_PyCode_New(0, 0, 0, 0, 0, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_data_norep_git_pytorch_src_Stor, __pyx_n_s_new, 33, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__21)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 33; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
@@ -17991,7 +17991,7 @@ static int __Pyx_InitCachedConstants(void) {
  *     @staticmethod
  *     def newWithData(double [:] data):             # <<<<<<<<<<<<<<
  *         cdef THDoubleStorage *storageC = THDoubleStorage_newWithData(&data[0], len(data))
- * #        print('allocate storage')
+ *         # print('allocate storage')
  */
   __pyx_tuple__22 = PyTuple_Pack(2, __pyx_n_s_data, __pyx_n_s_storageC); if (unlikely(!__pyx_tuple__22)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 38; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_tuple__22);
@@ -18003,7 +18003,7 @@ static int __Pyx_InitCachedConstants(void) {
  *     @staticmethod
  *     def newWithSize(long size):             # <<<<<<<<<<<<<<
  *         cdef THDoubleStorage *storageC = THDoubleStorage_newWithSize(size)
- * #        print('allocate storage')
+ *         # print('allocate storage')
  */
   __pyx_tuple__24 = PyTuple_Pack(2, __pyx_n_s_size, __pyx_n_s_storageC); if (unlikely(!__pyx_tuple__24)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 53; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_tuple__24);
@@ -18014,7 +18014,7 @@ static int __Pyx_InitCachedConstants(void) {
  * 
  *     @staticmethod
  *     def new():             # <<<<<<<<<<<<<<
- * #        print('allocate storage')
+ *         # print('allocate storage')
  *         return ByteStorage_fromNative(THByteStorage_new(), retain=False)
  */
   __pyx_codeobj__26 = (PyObject*)__Pyx_PyCode_New(0, 0, 0, 0, 0, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_data_norep_git_pytorch_src_Stor, __pyx_n_s_new, 85, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__26)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 85; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
@@ -18024,7 +18024,7 @@ static int __Pyx_InitCachedConstants(void) {
  *     @staticmethod
  *     def newWithData(unsigned char [:] data):             # <<<<<<<<<<<<<<
  *         cdef THByteStorage *storageC = THByteStorage_newWithData(&data[0], len(data))
- * #        print('allocate storage')
+ *         # print('allocate storage')
  */
   __pyx_tuple__27 = PyTuple_Pack(2, __pyx_n_s_data, __pyx_n_s_storageC); if (unlikely(!__pyx_tuple__27)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 90; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_tuple__27);
@@ -18036,7 +18036,7 @@ static int __Pyx_InitCachedConstants(void) {
  *     @staticmethod
  *     def newWithSize(long size):             # <<<<<<<<<<<<<<
  *         cdef THByteStorage *storageC = THByteStorage_newWithSize(size)
- * #        print('allocate storage')
+ *         # print('allocate storage')
  */
   __pyx_tuple__29 = PyTuple_Pack(2, __pyx_n_s_size, __pyx_n_s_storageC); if (unlikely(!__pyx_tuple__29)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 105; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_tuple__29);
@@ -18047,7 +18047,7 @@ static int __Pyx_InitCachedConstants(void) {
  * 
  *     @staticmethod
  *     def new():             # <<<<<<<<<<<<<<
- * #        print('allocate storage')
+ *         # print('allocate storage')
  *         return FloatStorage_fromNative(THFloatStorage_new(), retain=False)
  */
   __pyx_codeobj__31 = (PyObject*)__Pyx_PyCode_New(0, 0, 0, 0, 0, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_data_norep_git_pytorch_src_Stor, __pyx_n_s_new, 137, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__31)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 137; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
@@ -18057,7 +18057,7 @@ static int __Pyx_InitCachedConstants(void) {
  *     @staticmethod
  *     def newWithData(float [:] data):             # <<<<<<<<<<<<<<
  *         cdef THFloatStorage *storageC = THFloatStorage_newWithData(&data[0], len(data))
- * #        print('allocate storage')
+ *         # print('allocate storage')
  */
   __pyx_tuple__32 = PyTuple_Pack(2, __pyx_n_s_data, __pyx_n_s_storageC); if (unlikely(!__pyx_tuple__32)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 142; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_tuple__32);
@@ -18069,7 +18069,7 @@ static int __Pyx_InitCachedConstants(void) {
  *     @staticmethod
  *     def newWithSize(long size):             # <<<<<<<<<<<<<<
  *         cdef THFloatStorage *storageC = THFloatStorage_newWithSize(size)
- * #        print('allocate storage')
+ *         # print('allocate storage')
  */
   __pyx_tuple__34 = PyTuple_Pack(2, __pyx_n_s_size, __pyx_n_s_storageC); if (unlikely(!__pyx_tuple__34)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 157; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_tuple__34);
@@ -18080,7 +18080,7 @@ static int __Pyx_InitCachedConstants(void) {
  * 
  *     @staticmethod
  *     def new():             # <<<<<<<<<<<<<<
- * #        print('allocate storage')
+ *         # print('allocate storage')
  *         return LongStorage_fromNative(THLongStorage_new(), retain=False)
  */
   __pyx_codeobj__36 = (PyObject*)__Pyx_PyCode_New(0, 0, 0, 0, 0, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_data_norep_git_pytorch_src_Stor, __pyx_n_s_new, 189, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__36)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 189; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
@@ -18090,7 +18090,7 @@ static int __Pyx_InitCachedConstants(void) {
  *     @staticmethod
  *     def newWithData(long [:] data):             # <<<<<<<<<<<<<<
  *         cdef THLongStorage *storageC = THLongStorage_newWithData(&data[0], len(data))
- * #        print('allocate storage')
+ *         # print('allocate storage')
  */
   __pyx_tuple__37 = PyTuple_Pack(2, __pyx_n_s_data, __pyx_n_s_storageC); if (unlikely(!__pyx_tuple__37)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 194; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_tuple__37);
@@ -18102,7 +18102,7 @@ static int __Pyx_InitCachedConstants(void) {
  *     @staticmethod
  *     def newWithSize(long size):             # <<<<<<<<<<<<<<
  *         cdef THLongStorage *storageC = THLongStorage_newWithSize(size)
- * #        print('allocate storage')
+ *         # print('allocate storage')
  */
   __pyx_tuple__39 = PyTuple_Pack(2, __pyx_n_s_size, __pyx_n_s_storageC); if (unlikely(!__pyx_tuple__39)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 209; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_tuple__39);
@@ -18385,7 +18385,7 @@ PyMODINIT_FUNC PyInit_Storage(void)
  * 
  *     @staticmethod
  *     def new():             # <<<<<<<<<<<<<<
- * #        print('allocate storage')
+ *         # print('allocate storage')
  *         return DoubleStorage_fromNative(THDoubleStorage_new(), retain=False)
  */
   __pyx_t_2 = PyCFunction_NewEx(&__pyx_mdef_7Storage_13DoubleStorage_3new, NULL, __pyx_n_s_Storage); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 33; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
@@ -18396,7 +18396,7 @@ PyMODINIT_FUNC PyInit_Storage(void)
  * 
  *     @staticmethod             # <<<<<<<<<<<<<<
  *     def new():
- * #        print('allocate storage')
+ *         # print('allocate storage')
  */
   __pyx_t_1 = PyTuple_New(1); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 32; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_1);
@@ -18414,7 +18414,7 @@ PyMODINIT_FUNC PyInit_Storage(void)
  * 
  *     @staticmethod
  *     def new():             # <<<<<<<<<<<<<<
- * #        print('allocate storage')
+ *         # print('allocate storage')
  *         return DoubleStorage_fromNative(THDoubleStorage_new(), retain=False)
  */
   __pyx_t_2 = __Pyx_GetNameInClass((PyObject *)__pyx_ptype_7Storage_DoubleStorage, __pyx_n_s_new); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 33; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
@@ -18425,7 +18425,7 @@ PyMODINIT_FUNC PyInit_Storage(void)
  * 
  *     @staticmethod             # <<<<<<<<<<<<<<
  *     def new():
- * #        print('allocate storage')
+ *         # print('allocate storage')
  */
   __pyx_t_1 = PyTuple_New(1); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 32; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_1);
@@ -18444,7 +18444,7 @@ PyMODINIT_FUNC PyInit_Storage(void)
  *     @staticmethod
  *     def newWithData(double [:] data):             # <<<<<<<<<<<<<<
  *         cdef THDoubleStorage *storageC = THDoubleStorage_newWithData(&data[0], len(data))
- * #        print('allocate storage')
+ *         # print('allocate storage')
  */
   __pyx_t_2 = PyCFunction_NewEx(&__pyx_mdef_7Storage_13DoubleStorage_5newWithData, NULL, __pyx_n_s_Storage); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 38; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_2);
@@ -18473,7 +18473,7 @@ PyMODINIT_FUNC PyInit_Storage(void)
  *     @staticmethod
  *     def newWithData(double [:] data):             # <<<<<<<<<<<<<<
  *         cdef THDoubleStorage *storageC = THDoubleStorage_newWithData(&data[0], len(data))
- * #        print('allocate storage')
+ *         # print('allocate storage')
  */
   __pyx_t_2 = __Pyx_GetNameInClass((PyObject *)__pyx_ptype_7Storage_DoubleStorage, __pyx_n_s_newWithData); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 38; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_2);
@@ -18531,7 +18531,7 @@ PyMODINIT_FUNC PyInit_Storage(void)
  *     @staticmethod
  *     def newWithSize(long size):             # <<<<<<<<<<<<<<
  *         cdef THDoubleStorage *storageC = THDoubleStorage_newWithSize(size)
- * #        print('allocate storage')
+ *         # print('allocate storage')
  */
   __pyx_t_2 = PyCFunction_NewEx(&__pyx_mdef_7Storage_13DoubleStorage_11newWithSize, NULL, __pyx_n_s_Storage); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 53; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_2);
@@ -18560,7 +18560,7 @@ PyMODINIT_FUNC PyInit_Storage(void)
  *     @staticmethod
  *     def newWithSize(long size):             # <<<<<<<<<<<<<<
  *         cdef THDoubleStorage *storageC = THDoubleStorage_newWithSize(size)
- * #        print('allocate storage')
+ *         # print('allocate storage')
  */
   __pyx_t_2 = __Pyx_GetNameInClass((PyObject *)__pyx_ptype_7Storage_DoubleStorage, __pyx_n_s_newWithSize); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 53; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_2);
@@ -18588,7 +18588,7 @@ PyMODINIT_FUNC PyInit_Storage(void)
  * 
  *     @staticmethod
  *     def new():             # <<<<<<<<<<<<<<
- * #        print('allocate storage')
+ *         # print('allocate storage')
  *         return ByteStorage_fromNative(THByteStorage_new(), retain=False)
  */
   __pyx_t_2 = PyCFunction_NewEx(&__pyx_mdef_7Storage_11ByteStorage_3new, NULL, __pyx_n_s_Storage); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 85; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
@@ -18599,7 +18599,7 @@ PyMODINIT_FUNC PyInit_Storage(void)
  * 
  *     @staticmethod             # <<<<<<<<<<<<<<
  *     def new():
- * #        print('allocate storage')
+ *         # print('allocate storage')
  */
   __pyx_t_1 = PyTuple_New(1); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 84; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_1);
@@ -18617,7 +18617,7 @@ PyMODINIT_FUNC PyInit_Storage(void)
  * 
  *     @staticmethod
  *     def new():             # <<<<<<<<<<<<<<
- * #        print('allocate storage')
+ *         # print('allocate storage')
  *         return ByteStorage_fromNative(THByteStorage_new(), retain=False)
  */
   __pyx_t_2 = __Pyx_GetNameInClass((PyObject *)__pyx_ptype_7Storage_ByteStorage, __pyx_n_s_new); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 85; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
@@ -18628,7 +18628,7 @@ PyMODINIT_FUNC PyInit_Storage(void)
  * 
  *     @staticmethod             # <<<<<<<<<<<<<<
  *     def new():
- * #        print('allocate storage')
+ *         # print('allocate storage')
  */
   __pyx_t_1 = PyTuple_New(1); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 84; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_1);
@@ -18647,7 +18647,7 @@ PyMODINIT_FUNC PyInit_Storage(void)
  *     @staticmethod
  *     def newWithData(unsigned char [:] data):             # <<<<<<<<<<<<<<
  *         cdef THByteStorage *storageC = THByteStorage_newWithData(&data[0], len(data))
- * #        print('allocate storage')
+ *         # print('allocate storage')
  */
   __pyx_t_2 = PyCFunction_NewEx(&__pyx_mdef_7Storage_11ByteStorage_5newWithData, NULL, __pyx_n_s_Storage); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 90; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_2);
@@ -18676,7 +18676,7 @@ PyMODINIT_FUNC PyInit_Storage(void)
  *     @staticmethod
  *     def newWithData(unsigned char [:] data):             # <<<<<<<<<<<<<<
  *         cdef THByteStorage *storageC = THByteStorage_newWithData(&data[0], len(data))
- * #        print('allocate storage')
+ *         # print('allocate storage')
  */
   __pyx_t_2 = __Pyx_GetNameInClass((PyObject *)__pyx_ptype_7Storage_ByteStorage, __pyx_n_s_newWithData); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 90; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_2);
@@ -18734,7 +18734,7 @@ PyMODINIT_FUNC PyInit_Storage(void)
  *     @staticmethod
  *     def newWithSize(long size):             # <<<<<<<<<<<<<<
  *         cdef THByteStorage *storageC = THByteStorage_newWithSize(size)
- * #        print('allocate storage')
+ *         # print('allocate storage')
  */
   __pyx_t_2 = PyCFunction_NewEx(&__pyx_mdef_7Storage_11ByteStorage_11newWithSize, NULL, __pyx_n_s_Storage); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 105; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_2);
@@ -18763,7 +18763,7 @@ PyMODINIT_FUNC PyInit_Storage(void)
  *     @staticmethod
  *     def newWithSize(long size):             # <<<<<<<<<<<<<<
  *         cdef THByteStorage *storageC = THByteStorage_newWithSize(size)
- * #        print('allocate storage')
+ *         # print('allocate storage')
  */
   __pyx_t_2 = __Pyx_GetNameInClass((PyObject *)__pyx_ptype_7Storage_ByteStorage, __pyx_n_s_newWithSize); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 105; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_2);
@@ -18791,7 +18791,7 @@ PyMODINIT_FUNC PyInit_Storage(void)
  * 
  *     @staticmethod
  *     def new():             # <<<<<<<<<<<<<<
- * #        print('allocate storage')
+ *         # print('allocate storage')
  *         return FloatStorage_fromNative(THFloatStorage_new(), retain=False)
  */
   __pyx_t_2 = PyCFunction_NewEx(&__pyx_mdef_7Storage_12FloatStorage_3new, NULL, __pyx_n_s_Storage); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 137; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
@@ -18802,7 +18802,7 @@ PyMODINIT_FUNC PyInit_Storage(void)
  * 
  *     @staticmethod             # <<<<<<<<<<<<<<
  *     def new():
- * #        print('allocate storage')
+ *         # print('allocate storage')
  */
   __pyx_t_1 = PyTuple_New(1); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 136; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_1);
@@ -18820,7 +18820,7 @@ PyMODINIT_FUNC PyInit_Storage(void)
  * 
  *     @staticmethod
  *     def new():             # <<<<<<<<<<<<<<
- * #        print('allocate storage')
+ *         # print('allocate storage')
  *         return FloatStorage_fromNative(THFloatStorage_new(), retain=False)
  */
   __pyx_t_2 = __Pyx_GetNameInClass((PyObject *)__pyx_ptype_7Storage_FloatStorage, __pyx_n_s_new); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 137; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
@@ -18831,7 +18831,7 @@ PyMODINIT_FUNC PyInit_Storage(void)
  * 
  *     @staticmethod             # <<<<<<<<<<<<<<
  *     def new():
- * #        print('allocate storage')
+ *         # print('allocate storage')
  */
   __pyx_t_1 = PyTuple_New(1); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 136; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_1);
@@ -18850,7 +18850,7 @@ PyMODINIT_FUNC PyInit_Storage(void)
  *     @staticmethod
  *     def newWithData(float [:] data):             # <<<<<<<<<<<<<<
  *         cdef THFloatStorage *storageC = THFloatStorage_newWithData(&data[0], len(data))
- * #        print('allocate storage')
+ *         # print('allocate storage')
  */
   __pyx_t_2 = PyCFunction_NewEx(&__pyx_mdef_7Storage_12FloatStorage_5newWithData, NULL, __pyx_n_s_Storage); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 142; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_2);
@@ -18879,7 +18879,7 @@ PyMODINIT_FUNC PyInit_Storage(void)
  *     @staticmethod
  *     def newWithData(float [:] data):             # <<<<<<<<<<<<<<
  *         cdef THFloatStorage *storageC = THFloatStorage_newWithData(&data[0], len(data))
- * #        print('allocate storage')
+ *         # print('allocate storage')
  */
   __pyx_t_2 = __Pyx_GetNameInClass((PyObject *)__pyx_ptype_7Storage_FloatStorage, __pyx_n_s_newWithData); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 142; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_2);
@@ -18937,7 +18937,7 @@ PyMODINIT_FUNC PyInit_Storage(void)
  *     @staticmethod
  *     def newWithSize(long size):             # <<<<<<<<<<<<<<
  *         cdef THFloatStorage *storageC = THFloatStorage_newWithSize(size)
- * #        print('allocate storage')
+ *         # print('allocate storage')
  */
   __pyx_t_2 = PyCFunction_NewEx(&__pyx_mdef_7Storage_12FloatStorage_11newWithSize, NULL, __pyx_n_s_Storage); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 157; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_2);
@@ -18966,7 +18966,7 @@ PyMODINIT_FUNC PyInit_Storage(void)
  *     @staticmethod
  *     def newWithSize(long size):             # <<<<<<<<<<<<<<
  *         cdef THFloatStorage *storageC = THFloatStorage_newWithSize(size)
- * #        print('allocate storage')
+ *         # print('allocate storage')
  */
   __pyx_t_2 = __Pyx_GetNameInClass((PyObject *)__pyx_ptype_7Storage_FloatStorage, __pyx_n_s_newWithSize); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 157; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_2);
@@ -18994,7 +18994,7 @@ PyMODINIT_FUNC PyInit_Storage(void)
  * 
  *     @staticmethod
  *     def new():             # <<<<<<<<<<<<<<
- * #        print('allocate storage')
+ *         # print('allocate storage')
  *         return LongStorage_fromNative(THLongStorage_new(), retain=False)
  */
   __pyx_t_2 = PyCFunction_NewEx(&__pyx_mdef_7Storage_11LongStorage_3new, NULL, __pyx_n_s_Storage); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 189; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
@@ -19005,7 +19005,7 @@ PyMODINIT_FUNC PyInit_Storage(void)
  * 
  *     @staticmethod             # <<<<<<<<<<<<<<
  *     def new():
- * #        print('allocate storage')
+ *         # print('allocate storage')
  */
   __pyx_t_1 = PyTuple_New(1); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 188; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_1);
@@ -19023,7 +19023,7 @@ PyMODINIT_FUNC PyInit_Storage(void)
  * 
  *     @staticmethod
  *     def new():             # <<<<<<<<<<<<<<
- * #        print('allocate storage')
+ *         # print('allocate storage')
  *         return LongStorage_fromNative(THLongStorage_new(), retain=False)
  */
   __pyx_t_2 = __Pyx_GetNameInClass((PyObject *)__pyx_ptype_7Storage_LongStorage, __pyx_n_s_new); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 189; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
@@ -19034,7 +19034,7 @@ PyMODINIT_FUNC PyInit_Storage(void)
  * 
  *     @staticmethod             # <<<<<<<<<<<<<<
  *     def new():
- * #        print('allocate storage')
+ *         # print('allocate storage')
  */
   __pyx_t_1 = PyTuple_New(1); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 188; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_1);
@@ -19053,7 +19053,7 @@ PyMODINIT_FUNC PyInit_Storage(void)
  *     @staticmethod
  *     def newWithData(long [:] data):             # <<<<<<<<<<<<<<
  *         cdef THLongStorage *storageC = THLongStorage_newWithData(&data[0], len(data))
- * #        print('allocate storage')
+ *         # print('allocate storage')
  */
   __pyx_t_2 = PyCFunction_NewEx(&__pyx_mdef_7Storage_11LongStorage_5newWithData, NULL, __pyx_n_s_Storage); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 194; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_2);
@@ -19082,7 +19082,7 @@ PyMODINIT_FUNC PyInit_Storage(void)
  *     @staticmethod
  *     def newWithData(long [:] data):             # <<<<<<<<<<<<<<
  *         cdef THLongStorage *storageC = THLongStorage_newWithData(&data[0], len(data))
- * #        print('allocate storage')
+ *         # print('allocate storage')
  */
   __pyx_t_2 = __Pyx_GetNameInClass((PyObject *)__pyx_ptype_7Storage_LongStorage, __pyx_n_s_newWithData); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 194; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_2);
@@ -19140,7 +19140,7 @@ PyMODINIT_FUNC PyInit_Storage(void)
  *     @staticmethod
  *     def newWithSize(long size):             # <<<<<<<<<<<<<<
  *         cdef THLongStorage *storageC = THLongStorage_newWithSize(size)
- * #        print('allocate storage')
+ *         # print('allocate storage')
  */
   __pyx_t_2 = PyCFunction_NewEx(&__pyx_mdef_7Storage_11LongStorage_11newWithSize, NULL, __pyx_n_s_Storage); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 209; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_2);
@@ -19169,7 +19169,7 @@ PyMODINIT_FUNC PyInit_Storage(void)
  *     @staticmethod
  *     def newWithSize(long size):             # <<<<<<<<<<<<<<
  *         cdef THLongStorage *storageC = THLongStorage_newWithSize(size)
- * #        print('allocate storage')
+ *         # print('allocate storage')
  */
   __pyx_t_2 = __Pyx_GetNameInClass((PyObject *)__pyx_ptype_7Storage_LongStorage, __pyx_n_s_newWithSize); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 209; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_2);

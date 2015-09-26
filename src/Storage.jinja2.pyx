@@ -29,7 +29,7 @@ cdef class {{Real}}Storage(object):
     # properties in .pxd file of same name
 
     def __init__(self, *args, **kwargs):
-#        print('floatStorage.__cinit__')
+        # print('{{Real}}Storage.__cinit__')
         if len(args) > 0:
             raise Exception('cannot provide arguments to initializer')
         if len(kwargs) > 0:
@@ -37,13 +37,13 @@ cdef class {{Real}}Storage(object):
 
     @staticmethod
     def new():
-#        print('allocate storage')
+        # print('allocate storage')
         return {{Real}}Storage_fromNative(TH{{Real}}Storage_new(), retain=False)
 
     @staticmethod
     def newWithData({{real}} [:] data):
         cdef TH{{Real}}Storage *storageC = TH{{Real}}Storage_newWithData(&data[0], len(data))
-#        print('allocate storage')
+        # print('allocate storage')
         return {{Real}}Storage_fromNative(storageC, retain=False)
 
     @property
@@ -58,15 +58,15 @@ cdef class {{Real}}Storage(object):
     @staticmethod
     def newWithSize(long size):
         cdef TH{{Real}}Storage *storageC = TH{{Real}}Storage_newWithSize(size)
-#        print('allocate storage')
+        # print('allocate storage')
         return {{Real}}Storage_fromNative(storageC, retain=False)
 
     cpdef long size(self):
         return TH{{Real}}Storage_size(self.th{{Real}}Storage)
 
     def __dealloc__(self):
-#        print('THFloatStorage.dealloc, old refcount ', THFloatStorage_getRefCount(self.thFloatStorage))
-#        print('   dealloc storage: ', hex(<long>(self.thFloatStorage)))
+        # print('TH{{Real}}Storage.dealloc, old refcount ', TH{{Real}}Storage_getRefCount(self.th{{Real}}Storage))
+        # print('   dealloc storage: ', hex(<long>(self.th{{Real}}Storage)))
         TH{{Real}}Storage_free(self.th{{Real}}Storage)
 
 cdef {{Real}}Storage_fromNative(TH{{Real}}Storage *storageC, retain=True):

@@ -1,10 +1,7 @@
 ============================= test session starts ==============================
 platform linux2 -- Python 2.7.6 -- py-1.4.30 -- pytest-2.7.2 -- /home/user/envs/bin/python
 rootdir: /data/norep/git/pytorch, inifile: 
-collecting ... initializing PyTorch...
-generator null: False
- ... PyTorch initialized
-collected 9 items
+collecting ... collected 9 items
 
 test/testByteTensor.py::test_byte_tensor test_byte_tensor
 a : 2 2

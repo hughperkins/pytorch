@@ -1,6 +1,3 @@
-initializing PyTorch...
-generator null: False
- ... PyTorch initialized
 D 1.0 1.0 1.0
 1.0 1.0 1.0
 1.0 1.0 1.0
