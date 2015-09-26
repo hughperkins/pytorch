@@ -144,6 +144,35 @@ def test_Pytorch_Double_operator_plusequals():
         assert(abs(res.storage()[i] - (a.storage()[i] + b.storage()[i])) < 0.000001)
 
 
+def test_Pytorch_Double_operator_minus():
+    DoubleTensor = PyTorch.DoubleTensor
+    a = DoubleTensor(3,2,5)
+    b = DoubleTensor(3,2,5)
+    
+    a.uniform()
+    b.uniform()
+    
+    res = a - b
+    for i in range(3*2*5):
+        assert(abs(res.storage()[i] - (a.storage()[i] - b.storage()[i])) < 0.000001)
+
+
+
+def test_Pytorch_Double_operator_minusequals():
+    DoubleTensor = PyTorch.DoubleTensor
+    a = DoubleTensor(3,2,5)
+    b = DoubleTensor(3,2,5)
+    
+    a.uniform()
+    b.uniform()
+    
+    res = a.clone()
+    res -= b
+    for i in range(3*2*5):
+        assert(abs(res.storage()[i] - (a.storage()[i] - b.storage()[i])) < 0.000001)
+
+
+
 
 def test_pytorchByte():
     PyTorch.manualSeed(123)
@@ -252,6 +281,10 @@ def test_Pytorch_Byte_operator_plusequals():
     res += b
     for i in range(3*2*5):
         assert(abs(res.storage()[i] - (a.storage()[i] + b.storage()[i])) < 0.000001)
+
+
+
+
 
 
 
@@ -414,6 +447,35 @@ def test_Pytorch_Float_operator_plusequals():
         assert(abs(res.storage()[i] - (a.storage()[i] + b.storage()[i])) < 0.000001)
 
 
+def test_Pytorch_Float_operator_minus():
+    FloatTensor = PyTorch.FloatTensor
+    a = FloatTensor(3,2,5)
+    b = FloatTensor(3,2,5)
+    
+    a.uniform()
+    b.uniform()
+    
+    res = a - b
+    for i in range(3*2*5):
+        assert(abs(res.storage()[i] - (a.storage()[i] - b.storage()[i])) < 0.000001)
+
+
+
+def test_Pytorch_Float_operator_minusequals():
+    FloatTensor = PyTorch.FloatTensor
+    a = FloatTensor(3,2,5)
+    b = FloatTensor(3,2,5)
+    
+    a.uniform()
+    b.uniform()
+    
+    res = a.clone()
+    res -= b
+    for i in range(3*2*5):
+        assert(abs(res.storage()[i] - (a.storage()[i] - b.storage()[i])) < 0.000001)
+
+
+
 
 def test_pytorchLong():
     PyTorch.manualSeed(123)
@@ -531,6 +593,35 @@ def test_Pytorch_Long_operator_plusequals():
     res += b
     for i in range(3*2*5):
         assert(abs(res.storage()[i] - (a.storage()[i] + b.storage()[i])) < 0.000001)
+
+
+def test_Pytorch_Long_operator_minus():
+    LongTensor = PyTorch.LongTensor
+    a = LongTensor(3,2,5)
+    b = LongTensor(3,2,5)
+    
+    a.geometric(0.9)
+    b.geometric(0.9)
+    
+    res = a - b
+    for i in range(3*2*5):
+        assert(abs(res.storage()[i] - (a.storage()[i] - b.storage()[i])) < 0.000001)
+
+
+
+def test_Pytorch_Long_operator_minusequals():
+    LongTensor = PyTorch.LongTensor
+    a = LongTensor(3,2,5)
+    b = LongTensor(3,2,5)
+    
+    a.geometric(0.9)
+    b.geometric(0.9)
+    
+    res = a.clone()
+    res -= b
+    for i in range(3*2*5):
+        assert(abs(res.storage()[i] - (a.storage()[i] - b.storage()[i])) < 0.000001)
+
 
 
 

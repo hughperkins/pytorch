@@ -190,6 +190,41 @@ def test_Pytorch_{{Real}}_operator_plusequals():
     for i in range(3*2*5):
         assert(abs(res.storage()[i] - (a.storage()[i] + b.storage()[i])) < 0.000001)
 
+{% if Real not in ['Byte'] %}
+def test_Pytorch_{{Real}}_operator_minus():
+    {{Real}}Tensor = PyTorch.{{Real}}Tensor
+    a = {{Real}}Tensor(3,2,5)
+    b = {{Real}}Tensor(3,2,5)
+    {%if Real in ['Float', 'Double'] %}
+    a.uniform()
+    b.uniform()
+    {% else %}
+    a.geometric(0.9)
+    b.geometric(0.9)
+    {% endif %}
+    res = a - b
+    for i in range(3*2*5):
+        assert(abs(res.storage()[i] - (a.storage()[i] - b.storage()[i])) < 0.000001)
+{% endif %}
+
+{% if Real not in ['Byte'] %}
+def test_Pytorch_{{Real}}_operator_minusequals():
+    {{Real}}Tensor = PyTorch.{{Real}}Tensor
+    a = {{Real}}Tensor(3,2,5)
+    b = {{Real}}Tensor(3,2,5)
+    {%if Real in ['Float', 'Double'] %}
+    a.uniform()
+    b.uniform()
+    {% else %}
+    a.geometric(0.9)
+    b.geometric(0.9)
+    {% endif %}
+    res = a.clone()
+    res -= b
+    for i in range(3*2*5):
+        assert(abs(res.storage()[i] - (a.storage()[i] - b.storage()[i])) < 0.000001)
+{% endif %}
+
 {% endfor %}
 
 if __name__ == '__main__':

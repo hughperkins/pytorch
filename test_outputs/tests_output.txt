@@ -1,7 +1,7 @@
 ============================= test session starts ==============================
 platform linux2 -- Python 2.7.6 -- py-1.4.30 -- pytest-2.7.2 -- /home/user/envs/bin/python
 rootdir: /data/norep/git/pytorch, inifile: 
-collecting ... collected 21 items
+collecting ... collected 27 items
 
 test/testByteTensor.py::test_byte_tensor test_byte_tensor
 a : 2 2
@@ -387,6 +387,8 @@ PASSED
 test/test_pytorch.py::test_pytorch_Double_constructors PASSED
 test/test_pytorch.py::test_Pytorch_Double_operator_plus PASSED
 test/test_pytorch.py::test_Pytorch_Double_operator_plusequals PASSED
+test/test_pytorch.py::test_Pytorch_Double_operator_minus PASSED
+test/test_pytorch.py::test_Pytorch_Double_operator_minusequals PASSED
 test/test_pytorch.py::test_pytorchByte D 1 1 1
 1 1 1
 1 1 1
@@ -758,6 +760,8 @@ PASSED
 test/test_pytorch.py::test_pytorch_Float_constructors PASSED
 test/test_pytorch.py::test_Pytorch_Float_operator_plus PASSED
 test/test_pytorch.py::test_Pytorch_Float_operator_plusequals PASSED
+test/test_pytorch.py::test_Pytorch_Float_operator_minus PASSED
+test/test_pytorch.py::test_Pytorch_Float_operator_minusequals PASSED
 test/test_pytorch.py::test_pytorchLong D 1 1 1
 1 1 1
 1 1 1
@@ -915,4 +919,6 @@ PASSED
 test/test_pytorch.py::test_pytorch_Long_constructors PASSED
 test/test_pytorch.py::test_Pytorch_Long_operator_plus PASSED
 test/test_pytorch.py::test_Pytorch_Long_operator_plusequals PASSED
+test/test_pytorch.py::test_Pytorch_Long_operator_minus PASSED
+test/test_pytorch.py::test_Pytorch_Long_operator_minusequals PASSED
 
