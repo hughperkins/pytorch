@@ -91,7 +91,7 @@ cdef extern from "THTensor.h":
 
     void THDoubleTensor_cadd(THDoubleTensor *r_, THDoubleTensor *t, double value, THDoubleTensor *second)
     void THDoubleTensor_cmul(THDoubleTensor *r_, THDoubleTensor *t, THDoubleTensor *src)
-    void THDoubleTensor_cdiv(THDoubleTensor *r_, THDoubleTensor *t, double value, THDoubleTensor *second)
+    void THDoubleTensor_cdiv(THDoubleTensor *r_, THDoubleTensor *t, THDoubleTensor *src)
 
     void THDoubleTensor_geometric(THDoubleTensor *self, THGenerator *_generator, double p)
     void THDoubleTensor_bernoulli(THDoubleTensor *self, THGenerator *_generator, double p)
@@ -151,7 +151,7 @@ cdef extern from "THTensor.h":
 
     void THByteTensor_cadd(THByteTensor *r_, THByteTensor *t, unsigned char value, THByteTensor *second)
     void THByteTensor_cmul(THByteTensor *r_, THByteTensor *t, THByteTensor *src)
-    void THByteTensor_cdiv(THByteTensor *r_, THByteTensor *t, unsigned char value, THByteTensor *second)
+    void THByteTensor_cdiv(THByteTensor *r_, THByteTensor *t, THByteTensor *src)
 
     void THByteTensor_geometric(THByteTensor *self, THGenerator *_generator, double p)
     void THByteTensor_bernoulli(THByteTensor *self, THGenerator *_generator, double p)
@@ -203,7 +203,7 @@ cdef extern from "THTensor.h":
 
     void THFloatTensor_cadd(THFloatTensor *r_, THFloatTensor *t, float value, THFloatTensor *second)
     void THFloatTensor_cmul(THFloatTensor *r_, THFloatTensor *t, THFloatTensor *src)
-    void THFloatTensor_cdiv(THFloatTensor *r_, THFloatTensor *t, float value, THFloatTensor *second)
+    void THFloatTensor_cdiv(THFloatTensor *r_, THFloatTensor *t, THFloatTensor *src)
 
     void THFloatTensor_geometric(THFloatTensor *self, THGenerator *_generator, double p)
     void THFloatTensor_bernoulli(THFloatTensor *self, THGenerator *_generator, double p)
@@ -263,7 +263,7 @@ cdef extern from "THTensor.h":
 
     void THLongTensor_cadd(THLongTensor *r_, THLongTensor *t, long value, THLongTensor *second)
     void THLongTensor_cmul(THLongTensor *r_, THLongTensor *t, THLongTensor *src)
-    void THLongTensor_cdiv(THLongTensor *r_, THLongTensor *t, long value, THLongTensor *second)
+    void THLongTensor_cdiv(THLongTensor *r_, THLongTensor *t, THLongTensor *src)
 
     void THLongTensor_geometric(THLongTensor *self, THGenerator *_generator, double p)
     void THLongTensor_bernoulli(THLongTensor *self, THGenerator *_generator, double p)
@@ -548,11 +548,14 @@ cdef class _DoubleTensor(object):
             THDoubleTensor_cadd(res.native, self.native, -1, secondTensor.native)
         return res
 
-    def __div__(_DoubleTensor self, double value):
-        # assume 2d matrix for now?
+    def __div__(_DoubleTensor self, second):
         cdef _DoubleTensor res = _DoubleTensor.new()
-#        THFloatTensor_resizeAs(cresult, self.thFloatTensor)
-        THDoubleTensor_div(res.native, self.native, value)
+        cdef _DoubleTensor secondTensor
+        if isinstance(second, numbers.Number):
+            THDoubleTensor_div(res.native, self.native, second)
+        else:
+            secondTensor = second
+            THDoubleTensor_cdiv(res.native, self.native, secondTensor.native)
         return res
 
     def __iadd__(_DoubleTensor self, second):
@@ -922,11 +925,14 @@ cdef class _ByteTensor(object):
             THByteTensor_cadd(res.native, self.native, -1, secondTensor.native)
         return res
 
-    def __div__(_ByteTensor self, unsigned char value):
-        # assume 2d matrix for now?
+    def __div__(_ByteTensor self, second):
         cdef _ByteTensor res = _ByteTensor.new()
-#        THFloatTensor_resizeAs(cresult, self.thFloatTensor)
-        THByteTensor_div(res.native, self.native, value)
+        cdef _ByteTensor secondTensor
+        if isinstance(second, numbers.Number):
+            THByteTensor_div(res.native, self.native, second)
+        else:
+            secondTensor = second
+            THByteTensor_cdiv(res.native, self.native, secondTensor.native)
         return res
 
     def __iadd__(_ByteTensor self, second):
@@ -1269,11 +1275,14 @@ cdef class _FloatTensor(object):
             THFloatTensor_cadd(res.native, self.native, -1, secondTensor.native)
         return res
 
-    def __div__(_FloatTensor self, float value):
-        # assume 2d matrix for now?
+    def __div__(_FloatTensor self, second):
         cdef _FloatTensor res = _FloatTensor.new()
-#        THFloatTensor_resizeAs(cresult, self.thFloatTensor)
-        THFloatTensor_div(res.native, self.native, value)
+        cdef _FloatTensor secondTensor
+        if isinstance(second, numbers.Number):
+            THFloatTensor_div(res.native, self.native, second)
+        else:
+            secondTensor = second
+            THFloatTensor_cdiv(res.native, self.native, secondTensor.native)
         return res
 
     def __iadd__(_FloatTensor self, second):
@@ -1643,11 +1652,14 @@ cdef class _LongTensor(object):
             THLongTensor_cadd(res.native, self.native, -1, secondTensor.native)
         return res
 
-    def __div__(_LongTensor self, long value):
-        # assume 2d matrix for now?
+    def __div__(_LongTensor self, second):
         cdef _LongTensor res = _LongTensor.new()
-#        THFloatTensor_resizeAs(cresult, self.thFloatTensor)
-        THLongTensor_div(res.native, self.native, value)
+        cdef _LongTensor secondTensor
+        if isinstance(second, numbers.Number):
+            THLongTensor_div(res.native, self.native, second)
+        else:
+            secondTensor = second
+            THLongTensor_cdiv(res.native, self.native, secondTensor.native)
         return res
 
     def __iadd__(_LongTensor self, second):

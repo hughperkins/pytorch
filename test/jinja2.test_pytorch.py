@@ -264,20 +264,20 @@ def test_Pytorch_{{Real}}_cmul():
         assert(abs(res.storage()[i] - (a.storage()[i] * b.storage()[i])) < 0.000001)
         {% endif %}
 
-#def test_Pytorch_{{Real}}_operator_div():
-#    {{Real}}Tensor = PyTorch.{{Real}}Tensor
-#    a = {{Real}}Tensor(3,2,5)
-#    b = {{Real}}Tensor(3,2,5)
-#    {%if Real in ['Float', 'Double'] %}
-#    a.uniform()
-#    b.uniform()
-#    {% else %}
-#    a.geometric(0.9)
-#    b.geometric(0.9)
-#    {% endif %}
-#    res = a / b
-#    for i in range(3*2*5):
-#        assert(abs(res.storage()[i] - (a.storage()[i] / b.storage()[i])) < 0.000001)
+def test_Pytorch_{{Real}}_operator_div():
+    {{Real}}Tensor = PyTorch.{{Real}}Tensor
+    a = {{Real}}Tensor(3,2,5)
+    b = {{Real}}Tensor(3,2,5)
+    {%if Real in ['Float', 'Double'] %}
+    a.uniform()
+    b.uniform()
+    {% else %}
+    a.geometric(0.9)
+    b.geometric(0.9)
+    {% endif %}
+    res = a / b
+    for i in range(3*2*5):
+        assert(abs(res.storage()[i] - (a.storage()[i] / b.storage()[i])) < 0.000001)
 
 #def test_Pytorch_{{Real}}_operator_divequals():
 #    {{Real}}Tensor = PyTorch.{{Real}}Tensor

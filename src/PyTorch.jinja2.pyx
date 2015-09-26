@@ -97,7 +97,7 @@ cdef extern from "THTensor.h":
 
     void TH{{Real}}Tensor_cadd(TH{{Real}}Tensor *r_, TH{{Real}}Tensor *t, {{real}} value, TH{{Real}}Tensor *second)
     void TH{{Real}}Tensor_cmul(TH{{Real}}Tensor *r_, TH{{Real}}Tensor *t, TH{{Real}}Tensor *src)
-    void TH{{Real}}Tensor_cdiv(TH{{Real}}Tensor *r_, TH{{Real}}Tensor *t, {{real}} value, TH{{Real}}Tensor *second)
+    void TH{{Real}}Tensor_cdiv(TH{{Real}}Tensor *r_, TH{{Real}}Tensor *t, TH{{Real}}Tensor *src)
 
     void TH{{Real}}Tensor_geometric(TH{{Real}}Tensor *self, THGenerator *_generator, double p)
     void TH{{Real}}Tensor_bernoulli(TH{{Real}}Tensor *self, THGenerator *_generator, double p)
@@ -394,11 +394,14 @@ cdef class _{{Real}}Tensor(object):
             TH{{Real}}Tensor_cadd(res.native, self.native, -1, secondTensor.native)
         return res
 
-    def __div__(_{{Real}}Tensor self, {{real}} value):
-        # assume 2d matrix for now?
+    def __div__(_{{Real}}Tensor self, second):
         cdef _{{Real}}Tensor res = _{{Real}}Tensor.new()
-#        THFloatTensor_resizeAs(cresult, self.thFloatTensor)
-        TH{{Real}}Tensor_div(res.native, self.native, value)
+        cdef _{{Real}}Tensor secondTensor
+        if isinstance(second, numbers.Number):
+            TH{{Real}}Tensor_div(res.native, self.native, second)
+        else:
+            secondTensor = second
+            TH{{Real}}Tensor_cdiv(res.native, self.native, secondTensor.native)
         return res
 
     def __iadd__(_{{Real}}Tensor self, second):

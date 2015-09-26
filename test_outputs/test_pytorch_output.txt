@@ -1,7 +1,7 @@
 ============================= test session starts ==============================
 platform linux2 -- Python 2.7.6 -- py-1.4.30 -- pytest-2.7.2 -- /home/user/envs/bin/python
 rootdir: /data/norep/git/pytorch, inifile: 
-collecting ... collected 26 items
+collecting ... collected 30 items
 
 test/test_pytorch.py::test_pytorchDouble D 1.0 1.0 1.0
 1.0 1.0 1.0
@@ -188,6 +188,7 @@ test/test_pytorch.py::test_Pytorch_Double_operator_plusequals PASSED
 test/test_pytorch.py::test_Pytorch_Double_operator_minus PASSED
 test/test_pytorch.py::test_Pytorch_Double_operator_minusequals PASSED
 test/test_pytorch.py::test_Pytorch_Double_cmul PASSED
+test/test_pytorch.py::test_Pytorch_Double_operator_div PASSED
 test/test_pytorch.py::test_pytorchByte D 1 1 1
 1 1 1
 1 1 1
@@ -329,6 +330,7 @@ test/test_pytorch.py::test_pytorch_Byte_constructors PASSED
 test/test_pytorch.py::test_Pytorch_Byte_operator_plus PASSED
 test/test_pytorch.py::test_Pytorch_Byte_operator_plusequals PASSED
 test/test_pytorch.py::test_Pytorch_Byte_cmul PASSED
+test/test_pytorch.py::test_Pytorch_Byte_operator_div PASSED
 test/test_pytorch.py::test_pytorchFloat C [[ 0.78126878  0.68557262  0.46044704  0.29017398]
  [ 0.4116869   0.55729043  0.35089147  0.12185374]
  [ 0.85083026  0.80117935  0.5315783   0.30736649]]
@@ -563,6 +565,7 @@ test/test_pytorch.py::test_Pytorch_Float_operator_plusequals PASSED
 test/test_pytorch.py::test_Pytorch_Float_operator_minus PASSED
 test/test_pytorch.py::test_Pytorch_Float_operator_minusequals PASSED
 test/test_pytorch.py::test_Pytorch_Float_cmul PASSED
+test/test_pytorch.py::test_Pytorch_Float_operator_div PASSED
 test/test_pytorch.py::test_pytorchLong D 1 1 1
 1 1 1
 1 1 1
@@ -723,4 +726,5 @@ test/test_pytorch.py::test_Pytorch_Long_operator_plusequals PASSED
 test/test_pytorch.py::test_Pytorch_Long_operator_minus PASSED
 test/test_pytorch.py::test_Pytorch_Long_operator_minusequals PASSED
 test/test_pytorch.py::test_Pytorch_Long_cmul PASSED
+test/test_pytorch.py::test_Pytorch_Long_operator_div PASSED
 
