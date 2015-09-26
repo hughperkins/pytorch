@@ -70,6 +70,14 @@ cdef class DoubleStorage(object):
         # print('   dealloc storage: ', hex(<long>(self.thDoubleStorage)))
         THDoubleStorage_free(self.thDoubleStorage)
 
+    def __getitem__(DoubleStorage self, int index):
+        cdef double res = THDoubleStorage_get(self.thDoubleStorage, index)
+        return res
+
+    def __setitem__(DoubleStorage self, int index, double value):
+        THDoubleStorage_set(self.thDoubleStorage, index, value)
+
+
 cdef DoubleStorage_fromNative(THDoubleStorage *storageC, retain=True):
     if retain:
         THDoubleStorage_retain(storageC)
@@ -122,6 +130,14 @@ cdef class ByteStorage(object):
         # print('THByteStorage.dealloc, old refcount ', THByteStorage_getRefCount(self.thByteStorage))
         # print('   dealloc storage: ', hex(<long>(self.thByteStorage)))
         THByteStorage_free(self.thByteStorage)
+
+    def __getitem__(ByteStorage self, int index):
+        cdef unsigned char res = THByteStorage_get(self.thByteStorage, index)
+        return res
+
+    def __setitem__(ByteStorage self, int index, unsigned char value):
+        THByteStorage_set(self.thByteStorage, index, value)
+
 
 cdef ByteStorage_fromNative(THByteStorage *storageC, retain=True):
     if retain:
@@ -176,6 +192,14 @@ cdef class FloatStorage(object):
         # print('   dealloc storage: ', hex(<long>(self.thFloatStorage)))
         THFloatStorage_free(self.thFloatStorage)
 
+    def __getitem__(FloatStorage self, int index):
+        cdef float res = THFloatStorage_get(self.thFloatStorage, index)
+        return res
+
+    def __setitem__(FloatStorage self, int index, float value):
+        THFloatStorage_set(self.thFloatStorage, index, value)
+
+
 cdef FloatStorage_fromNative(THFloatStorage *storageC, retain=True):
     if retain:
         THFloatStorage_retain(storageC)
@@ -228,6 +252,14 @@ cdef class LongStorage(object):
         # print('THLongStorage.dealloc, old refcount ', THLongStorage_getRefCount(self.thLongStorage))
         # print('   dealloc storage: ', hex(<long>(self.thLongStorage)))
         THLongStorage_free(self.thLongStorage)
+
+    def __getitem__(LongStorage self, int index):
+        cdef long res = THLongStorage_get(self.thLongStorage, index)
+        return res
+
+    def __setitem__(LongStorage self, int index, long value):
+        THLongStorage_set(self.thLongStorage, index, value)
+
 
 cdef LongStorage_fromNative(THLongStorage *storageC, retain=True):
     if retain:

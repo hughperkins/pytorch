@@ -118,6 +118,18 @@ def test_pytorch_Double_constructors():
     a = DoubleTensor(3,2,5,6)
     assert(a.size().size()[0] == 4)
 
+def test_Pytorch_Double_operator_plus():
+    DoubleTensor = PyTorch.DoubleTensor
+    a = DoubleTensor(3,2,5)
+    b = DoubleTensor(3,2,5)
+    
+    a.uniform()
+    b.uniform()
+    
+    res = a + b
+    for i in range(3*2*5):
+        assert(abs(res.storage()[i] - (a.storage()[i] + b.storage()[i])) < 0.000001)
+
 
 
 def test_pytorchByte():
@@ -202,6 +214,18 @@ def test_pytorch_Byte_constructors():
     assert(a.size().size()[0] == 3)
     a = ByteTensor(3,2,5,6)
     assert(a.size().size()[0] == 4)
+
+def test_Pytorch_Byte_operator_plus():
+    ByteTensor = PyTorch.ByteTensor
+    a = ByteTensor(3,2,5)
+    b = ByteTensor(3,2,5)
+    
+    a.geometric(0.9)
+    b.geometric(0.9)
+    
+    res = a + b
+    for i in range(3*2*5):
+        assert(abs(res.storage()[i] - (a.storage()[i] + b.storage()[i])) < 0.000001)
 
 
 
@@ -338,6 +362,18 @@ def test_pytorch_Float_constructors():
     a = FloatTensor(3,2,5,6)
     assert(a.size().size()[0] == 4)
 
+def test_Pytorch_Float_operator_plus():
+    FloatTensor = PyTorch.FloatTensor
+    a = FloatTensor(3,2,5)
+    b = FloatTensor(3,2,5)
+    
+    a.uniform()
+    b.uniform()
+    
+    res = a + b
+    for i in range(3*2*5):
+        assert(abs(res.storage()[i] - (a.storage()[i] + b.storage()[i])) < 0.000001)
+
 
 
 def test_pytorchLong():
@@ -431,6 +467,18 @@ def test_pytorch_Long_constructors():
     assert(a.size().size()[0] == 3)
     a = LongTensor(3,2,5,6)
     assert(a.size().size()[0] == 4)
+
+def test_Pytorch_Long_operator_plus():
+    LongTensor = PyTorch.LongTensor
+    a = LongTensor(3,2,5)
+    b = LongTensor(3,2,5)
+    
+    a.geometric(0.9)
+    b.geometric(0.9)
+    
+    res = a + b
+    for i in range(3*2*5):
+        assert(abs(res.storage()[i] - (a.storage()[i] + b.storage()[i])) < 0.000001)
 
 
 

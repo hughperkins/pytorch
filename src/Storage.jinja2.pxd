@@ -25,6 +25,9 @@ cdef extern from "THStorage.h":
     long TH{{Real}}Storage_size(TH{{Real}}Storage *self)
     void TH{{Real}}Storage_free(TH{{Real}}Storage *self)
     void TH{{Real}}Storage_retain(TH{{Real}}Storage *self)
+    void TH{{Real}}Storage_set(TH{{Real}}Storage*, long, {{real}})
+    {{real}} TH{{Real}}Storage_get(const TH{{Real}}Storage*, long)
+
 {% endfor %}
 
 {% for Real in types %}

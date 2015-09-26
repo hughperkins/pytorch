@@ -28,6 +28,9 @@ cdef extern from "THStorage.h":
     long THDoubleStorage_size(THDoubleStorage *self)
     void THDoubleStorage_free(THDoubleStorage *self)
     void THDoubleStorage_retain(THDoubleStorage *self)
+    void THDoubleStorage_set(THDoubleStorage*, long, double)
+    double THDoubleStorage_get(const THDoubleStorage*, long)
+
 
 
 cdef extern from "THStorage.h":
@@ -39,6 +42,9 @@ cdef extern from "THStorage.h":
     long THByteStorage_size(THByteStorage *self)
     void THByteStorage_free(THByteStorage *self)
     void THByteStorage_retain(THByteStorage *self)
+    void THByteStorage_set(THByteStorage*, long, unsigned char)
+    unsigned char THByteStorage_get(const THByteStorage*, long)
+
 
 
 cdef extern from "THStorage.h":
@@ -50,6 +56,9 @@ cdef extern from "THStorage.h":
     long THFloatStorage_size(THFloatStorage *self)
     void THFloatStorage_free(THFloatStorage *self)
     void THFloatStorage_retain(THFloatStorage *self)
+    void THFloatStorage_set(THFloatStorage*, long, float)
+    float THFloatStorage_get(const THFloatStorage*, long)
+
 
 
 cdef extern from "THStorage.h":
@@ -61,6 +70,9 @@ cdef extern from "THStorage.h":
     long THLongStorage_size(THLongStorage *self)
     void THLongStorage_free(THLongStorage *self)
     void THLongStorage_retain(THLongStorage *self)
+    void THLongStorage_set(THLongStorage*, long, long)
+    long THLongStorage_get(const THLongStorage*, long)
+
 
 
 

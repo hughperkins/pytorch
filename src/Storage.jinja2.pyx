@@ -76,6 +76,14 @@ cdef class {{Real}}Storage(object):
         # print('   dealloc storage: ', hex(<long>(self.th{{Real}}Storage)))
         TH{{Real}}Storage_free(self.th{{Real}}Storage)
 
+    def __getitem__({{Real}}Storage self, int index):
+        cdef {{real}} res = TH{{Real}}Storage_get(self.th{{Real}}Storage, index)
+        return res
+
+    def __setitem__({{Real}}Storage self, int index, {{real}} value):
+        TH{{Real}}Storage_set(self.th{{Real}}Storage, index, value)
+
+
 cdef {{Real}}Storage_fromNative(TH{{Real}}Storage *storageC, retain=True):
     if retain:
         TH{{Real}}Storage_retain(storageC)
