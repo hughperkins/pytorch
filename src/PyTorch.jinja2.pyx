@@ -17,6 +17,11 @@ from lua cimport *
 from nnWrapper cimport *
 cimport PyTorch
 
+import logging
+logging.basicConfig()
+logger = logging.getLogger(__name__)
+logger.setLevel(logging.DEBUG)
+
 {% set types = {
     'Long': {'real': 'long'},
     'Float': {'real': 'float'}, 
@@ -108,7 +113,7 @@ cdef class _{{Real}}Tensor(object):
 #        self.thFloatTensor = tensorC
 
     def __cinit__(self, *args, _allocate=True):
-        # print('{{Real}}Tensor.__cinit__')
+        logger.debug('{{Real}}Tensor.__cinit__')
 #        cdef TH{{Real}}Storage *storageC
 #        cdef long addr
 #        if len(kwargs) > 0:
@@ -137,6 +142,7 @@ cdef class _{{Real}}Tensor(object):
                 # print('args=2')
                 self.native = TH{{Real}}Tensor_newWithSize2d(args[0], args[1])
             else:
+                logger.error('Raising exception...')
                 raise Exception('Not implemented, len(args)=' + str(len(args)))
 
 #    def __cinit__(self, THFloatTensor *tensorC, Storage storage):
@@ -153,20 +159,24 @@ cdef class _{{Real}}Tensor(object):
 #        cdef int size
 #        cdef int i
 #        cdef THFloatStorage *storage
-        refCount = TH{{Real}}Tensor_getRefCount(self.native)
-        # print('{{Real}}Tensor.dealloc old refcount', refCount)
-#        storage = THFloatTensor_storage(self.thFloatTensor)
-#        if storage == NULL:
-#            # print('   dealloc, storage NULL')
-#        else:
-#            # print('   dealloc, storage ', hex(<long>(storage)))
-#        dims = THFloatTensor_nDimension(self.thFloatTensor)
-#        # print('   dims of dealloc', dims)
-#        for i in range(dims):
-#            # print('   size[', i, ']', THFloatTensor_size(self.thFloatTensor, i))
-        if refCount < 1:
-            raise Exception('Unallocated an already deallocated tensor... :-O')  # Hmmm, seems this exceptoin wont go anywhere useful... :-P
-        TH{{Real}}Tensor_free(self.native)
+        logger.debug('__dealloc__ native %s', <long>(self.native) != 0)
+        if <long>(self.native) != 0:
+            refCount = TH{{Real}}Tensor_getRefCount(self.native)
+            # print('{{Real}}Tensor.dealloc old refcount', refCount)
+   #        storage = THFloatTensor_storage(self.thFloatTensor)
+   #        if storage == NULL:
+   #            # print('   dealloc, storage NULL')
+   #        else:
+   #            # print('   dealloc, storage ', hex(<long>(storage)))
+   #        dims = THFloatTensor_nDimension(self.thFloatTensor)
+   #        # print('   dims of dealloc', dims)
+   #        for i in range(dims):
+   #            # print('   size[', i, ']', THFloatTensor_size(self.thFloatTensor, i))
+            if refCount < 1:
+                raise Exception('Unallocated an already deallocated tensor... :-O')  # Hmmm, seems this exceptoin wont go anywhere useful... :-P
+            TH{{Real}}Tensor_free(self.native)
+        else:
+            logger.debug('__dealloc__ tensor never allocated')
 
     def nElement(_{{Real}}Tensor self):
         return TH{{Real}}Tensor_nElement(self.native)

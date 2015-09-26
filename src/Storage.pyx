@@ -14,6 +14,12 @@ from math import log10, floor
 from Storage cimport *
 from nnWrapper cimport *
 cimport PyTorch
+import logging
+
+
+logger = logging.getLogger(__name__)
+logger.setLevel(logging.DEBUG)
+
 
 
 
@@ -24,6 +30,7 @@ cdef class DoubleStorage(object):
 
     def __init__(self, *args, **kwargs):
         # print('DoubleStorage.__cinit__')
+        logger.debug('DoubleStorage.__cinit__')
         if len(args) > 0:
             raise Exception('cannot provide arguments to initializer')
         if len(kwargs) > 0:
@@ -76,6 +83,7 @@ cdef class ByteStorage(object):
 
     def __init__(self, *args, **kwargs):
         # print('ByteStorage.__cinit__')
+        logger.debug('ByteStorage.__cinit__')
         if len(args) > 0:
             raise Exception('cannot provide arguments to initializer')
         if len(kwargs) > 0:
@@ -128,6 +136,7 @@ cdef class FloatStorage(object):
 
     def __init__(self, *args, **kwargs):
         # print('FloatStorage.__cinit__')
+        logger.debug('FloatStorage.__cinit__')
         if len(args) > 0:
             raise Exception('cannot provide arguments to initializer')
         if len(kwargs) > 0:
@@ -180,6 +189,7 @@ cdef class LongStorage(object):
 
     def __init__(self, *args, **kwargs):
         # print('LongStorage.__cinit__')
+        logger.debug('LongStorage.__cinit__')
         if len(args) > 0:
             raise Exception('cannot provide arguments to initializer')
         if len(kwargs) > 0:

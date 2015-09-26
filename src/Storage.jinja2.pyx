@@ -14,6 +14,12 @@ from math import log10, floor
 from Storage cimport *
 from nnWrapper cimport *
 cimport PyTorch
+import logging
+
+
+logger = logging.getLogger(__name__)
+logger.setLevel(logging.DEBUG)
+
 
 {% set types = {
     'Long': {'real': 'long'},
@@ -30,6 +36,7 @@ cdef class {{Real}}Storage(object):
 
     def __init__(self, *args, **kwargs):
         # print('{{Real}}Storage.__cinit__')
+        logger.debug('{{Real}}Storage.__cinit__')
         if len(args) > 0:
             raise Exception('cannot provide arguments to initializer')
         if len(kwargs) > 0:
