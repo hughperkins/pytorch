@@ -51,6 +51,7 @@ DoubleStorage = Storage.DoubleStorage
 cdef extern from "THTensor.h":
     cdef struct THDoubleTensor
     THDoubleTensor *THDoubleTensor_new()
+    THDoubleTensor *THDoubleTensor_newClone(THDoubleTensor *self)
     THDoubleTensor *THDoubleTensor_newWithSize1d(long size0)
     THDoubleTensor *THDoubleTensor_newWithSize2d(long size0, long size1)
     THDoubleTensor *THDoubleTensor_newWithSize3d(long size0, long size1, long size2)
@@ -106,6 +107,7 @@ ByteStorage = Storage.ByteStorage
 cdef extern from "THTensor.h":
     cdef struct THByteTensor
     THByteTensor *THByteTensor_new()
+    THByteTensor *THByteTensor_newClone(THByteTensor *self)
     THByteTensor *THByteTensor_newWithSize1d(long size0)
     THByteTensor *THByteTensor_newWithSize2d(long size0, long size1)
     THByteTensor *THByteTensor_newWithSize3d(long size0, long size1, long size2)
@@ -153,6 +155,7 @@ FloatStorage = Storage.FloatStorage
 cdef extern from "THTensor.h":
     cdef struct THFloatTensor
     THFloatTensor *THFloatTensor_new()
+    THFloatTensor *THFloatTensor_newClone(THFloatTensor *self)
     THFloatTensor *THFloatTensor_newWithSize1d(long size0)
     THFloatTensor *THFloatTensor_newWithSize2d(long size0, long size1)
     THFloatTensor *THFloatTensor_newWithSize3d(long size0, long size1, long size2)
@@ -208,6 +211,7 @@ LongStorage = Storage.LongStorage
 cdef extern from "THTensor.h":
     cdef struct THLongTensor
     THLongTensor *THLongTensor_new()
+    THLongTensor *THLongTensor_newClone(THLongTensor *self)
     THLongTensor *THLongTensor_newWithSize1d(long size0)
     THLongTensor *THLongTensor_newWithSize2d(long size0, long size1)
     THLongTensor *THLongTensor_newWithSize3d(long size0, long size1, long size2)
@@ -466,6 +470,10 @@ cdef class _DoubleTensor(object):
     def newWithStorage2d(Storage.DoubleStorage storage, offset, size0, stride0, size1, stride1):
 #        # print('allocate tensor')
         cdef THDoubleTensor *newTensorC = THDoubleTensor_newWithStorage2d(storage.thDoubleStorage, offset, size0, stride0, size1, stride1)
+        return _DoubleTensor_fromNative(newTensorC, False)
+
+    def clone(_DoubleTensor self):
+        cdef THDoubleTensor *newTensorC = THDoubleTensor_newClone(self.native)
         return _DoubleTensor_fromNative(newTensorC, False)
 
     def storage(_DoubleTensor self):
@@ -812,6 +820,10 @@ cdef class _ByteTensor(object):
         cdef THByteTensor *newTensorC = THByteTensor_newWithStorage2d(storage.thByteStorage, offset, size0, stride0, size1, stride1)
         return _ByteTensor_fromNative(newTensorC, False)
 
+    def clone(_ByteTensor self):
+        cdef THByteTensor *newTensorC = THByteTensor_newClone(self.native)
+        return _ByteTensor_fromNative(newTensorC, False)
+
     def storage(_ByteTensor self):
         cdef Storage.THByteStorage *storageC = THByteTensor_storage(self.native)
         if storageC == NULL:
@@ -1127,6 +1139,10 @@ cdef class _FloatTensor(object):
     def newWithStorage2d(Storage.FloatStorage storage, offset, size0, stride0, size1, stride1):
 #        # print('allocate tensor')
         cdef THFloatTensor *newTensorC = THFloatTensor_newWithStorage2d(storage.thFloatStorage, offset, size0, stride0, size1, stride1)
+        return _FloatTensor_fromNative(newTensorC, False)
+
+    def clone(_FloatTensor self):
+        cdef THFloatTensor *newTensorC = THFloatTensor_newClone(self.native)
         return _FloatTensor_fromNative(newTensorC, False)
 
     def storage(_FloatTensor self):
@@ -1471,6 +1487,10 @@ cdef class _LongTensor(object):
     def newWithStorage2d(Storage.LongStorage storage, offset, size0, stride0, size1, stride1):
 #        # print('allocate tensor')
         cdef THLongTensor *newTensorC = THLongTensor_newWithStorage2d(storage.thLongStorage, offset, size0, stride0, size1, stride1)
+        return _LongTensor_fromNative(newTensorC, False)
+
+    def clone(_LongTensor self):
+        cdef THLongTensor *newTensorC = THLongTensor_newClone(self.native)
         return _LongTensor_fromNative(newTensorC, False)
 
     def storage(_LongTensor self):

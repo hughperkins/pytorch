@@ -57,6 +57,7 @@ cdef floatToString(float floatValue):
 cdef extern from "THTensor.h":
     cdef struct TH{{Real}}Tensor
     TH{{Real}}Tensor *TH{{Real}}Tensor_new()
+    TH{{Real}}Tensor *TH{{Real}}Tensor_newClone(TH{{Real}}Tensor *self)
     TH{{Real}}Tensor *TH{{Real}}Tensor_newWithSize1d(long size0)
     TH{{Real}}Tensor *TH{{Real}}Tensor_newWithSize2d(long size0, long size1)
     TH{{Real}}Tensor *TH{{Real}}Tensor_newWithSize3d(long size0, long size1, long size2)
@@ -327,6 +328,10 @@ cdef class _{{Real}}Tensor(object):
     def newWithStorage2d(Storage.{{Real}}Storage storage, offset, size0, stride0, size1, stride1):
 #        # print('allocate tensor')
         cdef TH{{Real}}Tensor *newTensorC = TH{{Real}}Tensor_newWithStorage2d(storage.th{{Real}}Storage, offset, size0, stride0, size1, stride1)
+        return _{{Real}}Tensor_fromNative(newTensorC, False)
+
+    def clone(_{{Real}}Tensor self):
+        cdef TH{{Real}}Tensor *newTensorC = TH{{Real}}Tensor_newClone(self.native)
         return _{{Real}}Tensor_fromNative(newTensorC, False)
 
     def storage(_{{Real}}Tensor self):
