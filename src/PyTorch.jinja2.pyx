@@ -90,8 +90,12 @@ cdef extern from "THTensor.h":
     void TH{{Real}}Tensor_add(TH{{Real}}Tensor *r_, TH{{Real}}Tensor *t, {{real}} value)
     void TH{{Real}}Tensor_div(TH{{Real}}Tensor *r_, TH{{Real}}Tensor *t, {{real}} value)
     void TH{{Real}}Tensor_mul(TH{{Real}}Tensor *r_, TH{{Real}}Tensor *t, {{real}} value)
+
     void TH{{Real}}Tensor_add(TH{{Real}}Tensor *tensorSelf, TH{{Real}}Tensor *tensorOne, {{real}} value)
+
     void TH{{Real}}Tensor_cadd(TH{{Real}}Tensor *r_, TH{{Real}}Tensor *t, {{real}} value, TH{{Real}}Tensor *second)
+    void TH{{Real}}Tensor_cmul(TH{{Real}}Tensor *r_, TH{{Real}}Tensor *t, TH{{Real}}Tensor *src)
+    void TH{{Real}}Tensor_cdiv(TH{{Real}}Tensor *r_, TH{{Real}}Tensor *t, {{real}} value, TH{{Real}}Tensor *second)
 
     void TH{{Real}}Tensor_geometric(TH{{Real}}Tensor *self, THGenerator *_generator, double p)
     void TH{{Real}}Tensor_bernoulli(TH{{Real}}Tensor *self, THGenerator *_generator, double p)
@@ -349,6 +353,13 @@ cdef class _{{Real}}Tensor(object):
         else:
             secondTensor = second
             TH{{Real}}Tensor_cadd(res.native, self.native, 1, secondTensor.native)
+        return res
+
+    def cmul(_{{Real}}Tensor self, second):
+        cdef _{{Real}}Tensor res = _{{Real}}Tensor.new()
+        cdef _{{Real}}Tensor secondTensor
+        secondTensor = second
+        TH{{Real}}Tensor_cmul(res.native, self.native, secondTensor.native)
         return res
 
     def __sub__(_{{Real}}Tensor self, second):

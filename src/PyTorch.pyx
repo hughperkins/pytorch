@@ -84,8 +84,12 @@ cdef extern from "THTensor.h":
     void THDoubleTensor_add(THDoubleTensor *r_, THDoubleTensor *t, double value)
     void THDoubleTensor_div(THDoubleTensor *r_, THDoubleTensor *t, double value)
     void THDoubleTensor_mul(THDoubleTensor *r_, THDoubleTensor *t, double value)
+
     void THDoubleTensor_add(THDoubleTensor *tensorSelf, THDoubleTensor *tensorOne, double value)
+
     void THDoubleTensor_cadd(THDoubleTensor *r_, THDoubleTensor *t, double value, THDoubleTensor *second)
+    void THDoubleTensor_cmul(THDoubleTensor *r_, THDoubleTensor *t, THDoubleTensor *src)
+    void THDoubleTensor_cdiv(THDoubleTensor *r_, THDoubleTensor *t, double value, THDoubleTensor *second)
 
     void THDoubleTensor_geometric(THDoubleTensor *self, THGenerator *_generator, double p)
     void THDoubleTensor_bernoulli(THDoubleTensor *self, THGenerator *_generator, double p)
@@ -140,8 +144,12 @@ cdef extern from "THTensor.h":
     void THByteTensor_add(THByteTensor *r_, THByteTensor *t, unsigned char value)
     void THByteTensor_div(THByteTensor *r_, THByteTensor *t, unsigned char value)
     void THByteTensor_mul(THByteTensor *r_, THByteTensor *t, unsigned char value)
+
     void THByteTensor_add(THByteTensor *tensorSelf, THByteTensor *tensorOne, unsigned char value)
+
     void THByteTensor_cadd(THByteTensor *r_, THByteTensor *t, unsigned char value, THByteTensor *second)
+    void THByteTensor_cmul(THByteTensor *r_, THByteTensor *t, THByteTensor *src)
+    void THByteTensor_cdiv(THByteTensor *r_, THByteTensor *t, unsigned char value, THByteTensor *second)
 
     void THByteTensor_geometric(THByteTensor *self, THGenerator *_generator, double p)
     void THByteTensor_bernoulli(THByteTensor *self, THGenerator *_generator, double p)
@@ -188,8 +196,12 @@ cdef extern from "THTensor.h":
     void THFloatTensor_add(THFloatTensor *r_, THFloatTensor *t, float value)
     void THFloatTensor_div(THFloatTensor *r_, THFloatTensor *t, float value)
     void THFloatTensor_mul(THFloatTensor *r_, THFloatTensor *t, float value)
+
     void THFloatTensor_add(THFloatTensor *tensorSelf, THFloatTensor *tensorOne, float value)
+
     void THFloatTensor_cadd(THFloatTensor *r_, THFloatTensor *t, float value, THFloatTensor *second)
+    void THFloatTensor_cmul(THFloatTensor *r_, THFloatTensor *t, THFloatTensor *src)
+    void THFloatTensor_cdiv(THFloatTensor *r_, THFloatTensor *t, float value, THFloatTensor *second)
 
     void THFloatTensor_geometric(THFloatTensor *self, THGenerator *_generator, double p)
     void THFloatTensor_bernoulli(THFloatTensor *self, THGenerator *_generator, double p)
@@ -244,8 +256,12 @@ cdef extern from "THTensor.h":
     void THLongTensor_add(THLongTensor *r_, THLongTensor *t, long value)
     void THLongTensor_div(THLongTensor *r_, THLongTensor *t, long value)
     void THLongTensor_mul(THLongTensor *r_, THLongTensor *t, long value)
+
     void THLongTensor_add(THLongTensor *tensorSelf, THLongTensor *tensorOne, long value)
+
     void THLongTensor_cadd(THLongTensor *r_, THLongTensor *t, long value, THLongTensor *second)
+    void THLongTensor_cmul(THLongTensor *r_, THLongTensor *t, THLongTensor *src)
+    void THLongTensor_cdiv(THLongTensor *r_, THLongTensor *t, long value, THLongTensor *second)
 
     void THLongTensor_geometric(THLongTensor *self, THGenerator *_generator, double p)
     void THLongTensor_bernoulli(THLongTensor *self, THGenerator *_generator, double p)
@@ -491,6 +507,13 @@ cdef class _DoubleTensor(object):
         else:
             secondTensor = second
             THDoubleTensor_cadd(res.native, self.native, 1, secondTensor.native)
+        return res
+
+    def cmul(_DoubleTensor self, second):
+        cdef _DoubleTensor res = _DoubleTensor.new()
+        cdef _DoubleTensor secondTensor
+        secondTensor = second
+        THDoubleTensor_cmul(res.native, self.native, secondTensor.native)
         return res
 
     def __sub__(_DoubleTensor self, second):
@@ -841,6 +864,13 @@ cdef class _ByteTensor(object):
             THByteTensor_cadd(res.native, self.native, 1, secondTensor.native)
         return res
 
+    def cmul(_ByteTensor self, second):
+        cdef _ByteTensor res = _ByteTensor.new()
+        cdef _ByteTensor secondTensor
+        secondTensor = second
+        THByteTensor_cmul(res.native, self.native, secondTensor.native)
+        return res
+
     def __sub__(_ByteTensor self, second):
         # assume 2d matrix for now?
         cdef _ByteTensor res = _ByteTensor.new()
@@ -1160,6 +1190,13 @@ cdef class _FloatTensor(object):
         else:
             secondTensor = second
             THFloatTensor_cadd(res.native, self.native, 1, secondTensor.native)
+        return res
+
+    def cmul(_FloatTensor self, second):
+        cdef _FloatTensor res = _FloatTensor.new()
+        cdef _FloatTensor secondTensor
+        secondTensor = second
+        THFloatTensor_cmul(res.native, self.native, secondTensor.native)
         return res
 
     def __sub__(_FloatTensor self, second):
@@ -1508,6 +1545,13 @@ cdef class _LongTensor(object):
         else:
             secondTensor = second
             THLongTensor_cadd(res.native, self.native, 1, secondTensor.native)
+        return res
+
+    def cmul(_LongTensor self, second):
+        cdef _LongTensor res = _LongTensor.new()
+        cdef _LongTensor secondTensor
+        secondTensor = second
+        THLongTensor_cmul(res.native, self.native, secondTensor.native)
         return res
 
     def __sub__(_LongTensor self, second):

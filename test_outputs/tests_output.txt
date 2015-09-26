@@ -1,7 +1,7 @@
 ============================= test session starts ==============================
 platform linux2 -- Python 2.7.6 -- py-1.4.30 -- pytest-2.7.2 -- /home/user/envs/bin/python
 rootdir: /data/norep/git/pytorch, inifile: 
-collecting ... collected 27 items
+collecting ... collected 43 items
 
 test/testByteTensor.py::test_byte_tensor test_byte_tensor
 a : 2 2
@@ -389,6 +389,10 @@ test/test_pytorch.py::test_Pytorch_Double_operator_plus PASSED
 test/test_pytorch.py::test_Pytorch_Double_operator_plusequals PASSED
 test/test_pytorch.py::test_Pytorch_Double_operator_minus PASSED
 test/test_pytorch.py::test_Pytorch_Double_operator_minusequals PASSED
+test/test_pytorch.py::test_Pytorch_Double_cmul FAILED
+test/test_pytorch.py::test_Pytorch_Double_cmul_inplace FAILED
+test/test_pytorch.py::test_Pytorch_Double_operator_div FAILED
+test/test_pytorch.py::test_Pytorch_Double_operator_divequals FAILED
 test/test_pytorch.py::test_pytorchByte D 1 1 1
 1 1 1
 1 1 1
@@ -529,6 +533,10 @@ PASSED
 test/test_pytorch.py::test_pytorch_Byte_constructors PASSED
 test/test_pytorch.py::test_Pytorch_Byte_operator_plus PASSED
 test/test_pytorch.py::test_Pytorch_Byte_operator_plusequals PASSED
+test/test_pytorch.py::test_Pytorch_Byte_cmul FAILED
+test/test_pytorch.py::test_Pytorch_Byte_cmul_inplace FAILED
+test/test_pytorch.py::test_Pytorch_Byte_operator_div FAILED
+test/test_pytorch.py::test_Pytorch_Byte_operator_divequals FAILED
 test/test_pytorch.py::test_pytorchFloat C [[ 0.78126878  0.68557262  0.46044704  0.29017398]
  [ 0.4116869   0.55729043  0.35089147  0.12185374]
  [ 0.85083026  0.80117935  0.5315783   0.30736649]]
@@ -762,6 +770,10 @@ test/test_pytorch.py::test_Pytorch_Float_operator_plus PASSED
 test/test_pytorch.py::test_Pytorch_Float_operator_plusequals PASSED
 test/test_pytorch.py::test_Pytorch_Float_operator_minus PASSED
 test/test_pytorch.py::test_Pytorch_Float_operator_minusequals PASSED
+test/test_pytorch.py::test_Pytorch_Float_cmul FAILED
+test/test_pytorch.py::test_Pytorch_Float_cmul_inplace FAILED
+test/test_pytorch.py::test_Pytorch_Float_operator_div FAILED
+test/test_pytorch.py::test_Pytorch_Float_operator_divequals FAILED
 test/test_pytorch.py::test_pytorchLong D 1 1 1
 1 1 1
 1 1 1
@@ -921,4 +933,281 @@ test/test_pytorch.py::test_Pytorch_Long_operator_plus PASSED
 test/test_pytorch.py::test_Pytorch_Long_operator_plusequals PASSED
 test/test_pytorch.py::test_Pytorch_Long_operator_minus PASSED
 test/test_pytorch.py::test_Pytorch_Long_operator_minusequals PASSED
+test/test_pytorch.py::test_Pytorch_Long_cmul FAILED
+test/test_pytorch.py::test_Pytorch_Long_cmul_inplace FAILED
+test/test_pytorch.py::test_Pytorch_Long_operator_div FAILED
+test/test_pytorch.py::test_Pytorch_Long_operator_divequals FAILED
 
+=================================== FAILURES ===================================
+___________________________ test_Pytorch_Double_cmul ___________________________
+
+    def test_Pytorch_Double_cmul():
+        DoubleTensor = PyTorch.DoubleTensor
+        a = DoubleTensor(3,2,5)
+        b = DoubleTensor(3,2,5)
+    
+        a.uniform()
+        b.uniform()
+    
+>       res = a.cmul(b)
+E       AttributeError: 'DoubleTensor' object has no attribute 'cmul'
+
+test/test_pytorch.py:183: AttributeError
+_______________________ test_Pytorch_Double_cmul_inplace _______________________
+
+    def test_Pytorch_Double_cmul_inplace():
+        DoubleTensor = PyTorch.DoubleTensor
+        a = DoubleTensor(3,2,5)
+        b = DoubleTensor(3,2,5)
+    
+        a.uniform()
+        b.uniform()
+    
+        res = a.clone()
+>       res.cmul(b)
+E       AttributeError: 'PyTorch._DoubleTensor' object has no attribute 'cmul'
+
+test/test_pytorch.py:196: AttributeError
+_______________________ test_Pytorch_Double_operator_div _______________________
+
+    def test_Pytorch_Double_operator_div():
+        DoubleTensor = PyTorch.DoubleTensor
+        a = DoubleTensor(3,2,5)
+        b = DoubleTensor(3,2,5)
+    
+        a.uniform()
+        b.uniform()
+    
+>       res = a / b
+
+test/test_pytorch.py:208: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+>   ???
+E   TypeError: a float is required
+
+PyTorch.pyx:507: TypeError
+____________________ test_Pytorch_Double_operator_divequals ____________________
+
+    def test_Pytorch_Double_operator_divequals():
+        DoubleTensor = PyTorch.DoubleTensor
+        a = DoubleTensor(3,2,5)
+        b = DoubleTensor(3,2,5)
+    
+        a.uniform()
+        b.uniform()
+    
+        res = a.clone()
+>       res /= b
+
+test/test_pytorch.py:221: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+>   ???
+E   TypeError: a float is required
+
+PyTorch.pyx:532: TypeError
+____________________________ test_Pytorch_Byte_cmul ____________________________
+
+    def test_Pytorch_Byte_cmul():
+        ByteTensor = PyTorch.ByteTensor
+        a = ByteTensor(3,2,5)
+        b = ByteTensor(3,2,5)
+    
+        a.geometric(0.9)
+        b.geometric(0.9)
+    
+>       res = a.cmul(b)
+E       AttributeError: 'ByteTensor' object has no attribute 'cmul'
+
+test/test_pytorch.py:348: AttributeError
+________________________ test_Pytorch_Byte_cmul_inplace ________________________
+
+    def test_Pytorch_Byte_cmul_inplace():
+        ByteTensor = PyTorch.ByteTensor
+        a = ByteTensor(3,2,5)
+        b = ByteTensor(3,2,5)
+    
+        a.geometric(0.9)
+        b.geometric(0.9)
+    
+        res = a.clone()
+>       res.cmul(b)
+E       AttributeError: 'PyTorch._ByteTensor' object has no attribute 'cmul'
+
+test/test_pytorch.py:361: AttributeError
+________________________ test_Pytorch_Byte_operator_div ________________________
+
+    def test_Pytorch_Byte_operator_div():
+        ByteTensor = PyTorch.ByteTensor
+        a = ByteTensor(3,2,5)
+        b = ByteTensor(3,2,5)
+    
+        a.geometric(0.9)
+        b.geometric(0.9)
+    
+>       res = a / b
+
+test/test_pytorch.py:373: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+>   ???
+E   TypeError: an integer is required
+
+PyTorch.pyx:855: TypeError
+_____________________ test_Pytorch_Byte_operator_divequals _____________________
+
+    def test_Pytorch_Byte_operator_divequals():
+        ByteTensor = PyTorch.ByteTensor
+        a = ByteTensor(3,2,5)
+        b = ByteTensor(3,2,5)
+    
+        a.geometric(0.9)
+        b.geometric(0.9)
+    
+        res = a.clone()
+>       res /= b
+
+test/test_pytorch.py:386: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+>   ???
+E   TypeError: an integer is required
+
+PyTorch.pyx:880: TypeError
+___________________________ test_Pytorch_Float_cmul ____________________________
+
+    def test_Pytorch_Float_cmul():
+        FloatTensor = PyTorch.FloatTensor
+        a = FloatTensor(3,2,5)
+        b = FloatTensor(3,2,5)
+    
+        a.uniform()
+        b.uniform()
+    
+>       res = a.cmul(b)
+E       AttributeError: 'FloatTensor' object has no attribute 'cmul'
+
+test/test_pytorch.py:588: AttributeError
+_______________________ test_Pytorch_Float_cmul_inplace ________________________
+
+    def test_Pytorch_Float_cmul_inplace():
+        FloatTensor = PyTorch.FloatTensor
+        a = FloatTensor(3,2,5)
+        b = FloatTensor(3,2,5)
+    
+        a.uniform()
+        b.uniform()
+    
+        res = a.clone()
+>       res.cmul(b)
+E       AttributeError: 'PyTorch._FloatTensor' object has no attribute 'cmul'
+
+test/test_pytorch.py:601: AttributeError
+_______________________ test_Pytorch_Float_operator_div ________________________
+
+    def test_Pytorch_Float_operator_div():
+        FloatTensor = PyTorch.FloatTensor
+        a = FloatTensor(3,2,5)
+        b = FloatTensor(3,2,5)
+    
+        a.uniform()
+        b.uniform()
+    
+>       res = a / b
+
+test/test_pytorch.py:613: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+>   ???
+E   TypeError: a float is required
+
+PyTorch.pyx:1176: TypeError
+____________________ test_Pytorch_Float_operator_divequals _____________________
+
+    def test_Pytorch_Float_operator_divequals():
+        FloatTensor = PyTorch.FloatTensor
+        a = FloatTensor(3,2,5)
+        b = FloatTensor(3,2,5)
+    
+        a.uniform()
+        b.uniform()
+    
+        res = a.clone()
+>       res /= b
+
+test/test_pytorch.py:626: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+>   ???
+E   TypeError: a float is required
+
+PyTorch.pyx:1201: TypeError
+____________________________ test_Pytorch_Long_cmul ____________________________
+
+    def test_Pytorch_Long_cmul():
+        LongTensor = PyTorch.LongTensor
+        a = LongTensor(3,2,5)
+        b = LongTensor(3,2,5)
+    
+        a.geometric(0.9)
+        b.geometric(0.9)
+    
+>       res = a.cmul(b)
+E       AttributeError: 'LongTensor' object has no attribute 'cmul'
+
+test/test_pytorch.py:787: AttributeError
+________________________ test_Pytorch_Long_cmul_inplace ________________________
+
+    def test_Pytorch_Long_cmul_inplace():
+        LongTensor = PyTorch.LongTensor
+        a = LongTensor(3,2,5)
+        b = LongTensor(3,2,5)
+    
+        a.geometric(0.9)
+        b.geometric(0.9)
+    
+        res = a.clone()
+>       res.cmul(b)
+E       AttributeError: 'PyTorch._LongTensor' object has no attribute 'cmul'
+
+test/test_pytorch.py:800: AttributeError
+________________________ test_Pytorch_Long_operator_div ________________________
+
+    def test_Pytorch_Long_operator_div():
+        LongTensor = PyTorch.LongTensor
+        a = LongTensor(3,2,5)
+        b = LongTensor(3,2,5)
+    
+        a.geometric(0.9)
+        b.geometric(0.9)
+    
+>       res = a / b
+
+test/test_pytorch.py:812: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+>   ???
+E   TypeError: an integer is required
+
+PyTorch.pyx:1524: TypeError
+_____________________ test_Pytorch_Long_operator_divequals _____________________
+
+    def test_Pytorch_Long_operator_divequals():
+        LongTensor = PyTorch.LongTensor
+        a = LongTensor(3,2,5)
+        b = LongTensor(3,2,5)
+    
+        a.geometric(0.9)
+        b.geometric(0.9)
+    
+        res = a.clone()
+>       res /= b
+
+test/test_pytorch.py:825: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+>   ???
+E   TypeError: an integer is required
+
+PyTorch.pyx:1549: TypeError

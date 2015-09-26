@@ -1,0 +1,4 @@
+============================= test session starts ==============================
+platform linux2 -- Python 2.7.6 -- py-1.4.30 -- pytest-2.7.2 -- /home/user/envs/bin/python
+rootdir: /data/norep/git/pytorch, inifile: 
+collecting ... 
