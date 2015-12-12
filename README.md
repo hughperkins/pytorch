@@ -15,6 +15,12 @@ Types supported currently:
 
 (fairly easy to add others, since templated)
 
+# Requirements
+
+- python should be in PATH
+- Cython should be installed, ie if you do `pip freeze`, you should see a list of libraries, and one of those should be `Cython`
+- torch should have been activated, ie something like `source ~/torch/install/bin/torch-activate.sh`
+
 # Unit-tests
 
 Run:
