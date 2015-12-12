@@ -1,6 +1,10 @@
 # pytorch
 POC for wrapping torch in python
 
+# What is implemented
+
+See [Implemented.md](doc/Implemented.md)
+
 # Examples
 
 Examples of what is possible currently:
