@@ -39,7 +39,7 @@ cdef class _DoubleStorage(object):
                 if not isinstance(arg, int):
                     raise Exception('cannot provide arguments to initializer')
             if len(args) == 1:
-                self.thDoubleStorage = THDoubleStorage_newWithSize(args[0])
+                self.native = THDoubleStorage_newWithSize(args[0])
             else:
                 raise Exception('cannot provide arguments to initializer')
         if len(kwargs) > 0:
@@ -47,7 +47,7 @@ cdef class _DoubleStorage(object):
 
     def __repr__(_DoubleStorage self):
         cdef int size0
-        size0 = THDoubleStorage_size(self.thDoubleStorage)
+        size0 = THDoubleStorage_size(self.native)
         res = ''
 #        thisline = ''
         for c in range(size0):
@@ -75,10 +75,10 @@ cdef class _DoubleStorage(object):
 
     @property
     def refCount(_DoubleStorage self):
-        return THDoubleStorage_getRefCount(self.thDoubleStorage)
+        return THDoubleStorage_getRefCount(self.native)
 
     def dataAddr(_DoubleStorage self):
-        cdef double *data = THDoubleStorage_data(self.thDoubleStorage)
+        cdef double *data = THDoubleStorage_data(self.native)
         cdef long dataAddr = pointerAsInt(data)
         return dataAddr
 
@@ -89,32 +89,32 @@ cdef class _DoubleStorage(object):
         return _DoubleStorage_fromNative(storageC, retain=False)
 
     cpdef long size(self):
-        return THDoubleStorage_size(self.thDoubleStorage)
+        return THDoubleStorage_size(self.native)
 
     def __dealloc__(self):
         # print('THDoubleStorage.dealloc, old refcount ', THDoubleStorage_getRefCount(self.thDoubleStorage))
         # print('   dealloc storage: ', hex(<long>(self.thDoubleStorage)))
-        THDoubleStorage_free(self.thDoubleStorage)
+        THDoubleStorage_free(self.native)
 
     def __iter__(self):
         cdef int size0
-        size0 = THDoubleStorage_size(self.thDoubleStorage)
+        size0 = THDoubleStorage_size(self.native)
         for c in range(size0):
             yield self[c]
 
     def __getitem__(_DoubleStorage self, int index):
-        cdef double res = THDoubleStorage_get(self.thDoubleStorage, index)
+        cdef double res = THDoubleStorage_get(self.native, index)
         return res
 
     def __setitem__(_DoubleStorage self, int index, double value):
-        THDoubleStorage_set(self.thDoubleStorage, index, value)
+        THDoubleStorage_set(self.native, index, value)
 
 
 cdef _DoubleStorage_fromNative(THDoubleStorage *storageC, retain=True):
     if retain:
         THDoubleStorage_retain(storageC)
     storage = _DoubleStorage()
-    storage.thDoubleStorage = storageC
+    storage.native = storageC
     return storage
 
 
@@ -129,7 +129,7 @@ cdef class _ByteStorage(object):
                 if not isinstance(arg, int):
                     raise Exception('cannot provide arguments to initializer')
             if len(args) == 1:
-                self.thByteStorage = THByteStorage_newWithSize(args[0])
+                self.native = THByteStorage_newWithSize(args[0])
             else:
                 raise Exception('cannot provide arguments to initializer')
         if len(kwargs) > 0:
@@ -137,7 +137,7 @@ cdef class _ByteStorage(object):
 
     def __repr__(_ByteStorage self):
         cdef int size0
-        size0 = THByteStorage_size(self.thByteStorage)
+        size0 = THByteStorage_size(self.native)
         res = ''
 #        thisline = ''
         for c in range(size0):
@@ -165,10 +165,10 @@ cdef class _ByteStorage(object):
 
     @property
     def refCount(_ByteStorage self):
-        return THByteStorage_getRefCount(self.thByteStorage)
+        return THByteStorage_getRefCount(self.native)
 
     def dataAddr(_ByteStorage self):
-        cdef unsigned char *data = THByteStorage_data(self.thByteStorage)
+        cdef unsigned char *data = THByteStorage_data(self.native)
         cdef long dataAddr = pointerAsInt(data)
         return dataAddr
 
@@ -179,32 +179,32 @@ cdef class _ByteStorage(object):
         return _ByteStorage_fromNative(storageC, retain=False)
 
     cpdef long size(self):
-        return THByteStorage_size(self.thByteStorage)
+        return THByteStorage_size(self.native)
 
     def __dealloc__(self):
         # print('THByteStorage.dealloc, old refcount ', THByteStorage_getRefCount(self.thByteStorage))
         # print('   dealloc storage: ', hex(<long>(self.thByteStorage)))
-        THByteStorage_free(self.thByteStorage)
+        THByteStorage_free(self.native)
 
     def __iter__(self):
         cdef int size0
-        size0 = THByteStorage_size(self.thByteStorage)
+        size0 = THByteStorage_size(self.native)
         for c in range(size0):
             yield self[c]
 
     def __getitem__(_ByteStorage self, int index):
-        cdef unsigned char res = THByteStorage_get(self.thByteStorage, index)
+        cdef unsigned char res = THByteStorage_get(self.native, index)
         return res
 
     def __setitem__(_ByteStorage self, int index, unsigned char value):
-        THByteStorage_set(self.thByteStorage, index, value)
+        THByteStorage_set(self.native, index, value)
 
 
 cdef _ByteStorage_fromNative(THByteStorage *storageC, retain=True):
     if retain:
         THByteStorage_retain(storageC)
     storage = _ByteStorage()
-    storage.thByteStorage = storageC
+    storage.native = storageC
     return storage
 
 
@@ -219,7 +219,7 @@ cdef class _FloatStorage(object):
                 if not isinstance(arg, int):
                     raise Exception('cannot provide arguments to initializer')
             if len(args) == 1:
-                self.thFloatStorage = THFloatStorage_newWithSize(args[0])
+                self.native = THFloatStorage_newWithSize(args[0])
             else:
                 raise Exception('cannot provide arguments to initializer')
         if len(kwargs) > 0:
@@ -227,7 +227,7 @@ cdef class _FloatStorage(object):
 
     def __repr__(_FloatStorage self):
         cdef int size0
-        size0 = THFloatStorage_size(self.thFloatStorage)
+        size0 = THFloatStorage_size(self.native)
         res = ''
 #        thisline = ''
         for c in range(size0):
@@ -255,10 +255,10 @@ cdef class _FloatStorage(object):
 
     @property
     def refCount(_FloatStorage self):
-        return THFloatStorage_getRefCount(self.thFloatStorage)
+        return THFloatStorage_getRefCount(self.native)
 
     def dataAddr(_FloatStorage self):
-        cdef float *data = THFloatStorage_data(self.thFloatStorage)
+        cdef float *data = THFloatStorage_data(self.native)
         cdef long dataAddr = pointerAsInt(data)
         return dataAddr
 
@@ -269,32 +269,32 @@ cdef class _FloatStorage(object):
         return _FloatStorage_fromNative(storageC, retain=False)
 
     cpdef long size(self):
-        return THFloatStorage_size(self.thFloatStorage)
+        return THFloatStorage_size(self.native)
 
     def __dealloc__(self):
         # print('THFloatStorage.dealloc, old refcount ', THFloatStorage_getRefCount(self.thFloatStorage))
         # print('   dealloc storage: ', hex(<long>(self.thFloatStorage)))
-        THFloatStorage_free(self.thFloatStorage)
+        THFloatStorage_free(self.native)
 
     def __iter__(self):
         cdef int size0
-        size0 = THFloatStorage_size(self.thFloatStorage)
+        size0 = THFloatStorage_size(self.native)
         for c in range(size0):
             yield self[c]
 
     def __getitem__(_FloatStorage self, int index):
-        cdef float res = THFloatStorage_get(self.thFloatStorage, index)
+        cdef float res = THFloatStorage_get(self.native, index)
         return res
 
     def __setitem__(_FloatStorage self, int index, float value):
-        THFloatStorage_set(self.thFloatStorage, index, value)
+        THFloatStorage_set(self.native, index, value)
 
 
 cdef _FloatStorage_fromNative(THFloatStorage *storageC, retain=True):
     if retain:
         THFloatStorage_retain(storageC)
     storage = _FloatStorage()
-    storage.thFloatStorage = storageC
+    storage.native = storageC
     return storage
 
 
@@ -309,7 +309,7 @@ cdef class _LongStorage(object):
                 if not isinstance(arg, int):
                     raise Exception('cannot provide arguments to initializer')
             if len(args) == 1:
-                self.thLongStorage = THLongStorage_newWithSize(args[0])
+                self.native = THLongStorage_newWithSize(args[0])
             else:
                 raise Exception('cannot provide arguments to initializer')
         if len(kwargs) > 0:
@@ -317,7 +317,7 @@ cdef class _LongStorage(object):
 
     def __repr__(_LongStorage self):
         cdef int size0
-        size0 = THLongStorage_size(self.thLongStorage)
+        size0 = THLongStorage_size(self.native)
         res = ''
 #        thisline = ''
         for c in range(size0):
@@ -345,10 +345,10 @@ cdef class _LongStorage(object):
 
     @property
     def refCount(_LongStorage self):
-        return THLongStorage_getRefCount(self.thLongStorage)
+        return THLongStorage_getRefCount(self.native)
 
     def dataAddr(_LongStorage self):
-        cdef long *data = THLongStorage_data(self.thLongStorage)
+        cdef long *data = THLongStorage_data(self.native)
         cdef long dataAddr = pointerAsInt(data)
         return dataAddr
 
@@ -359,31 +359,31 @@ cdef class _LongStorage(object):
         return _LongStorage_fromNative(storageC, retain=False)
 
     cpdef long size(self):
-        return THLongStorage_size(self.thLongStorage)
+        return THLongStorage_size(self.native)
 
     def __dealloc__(self):
         # print('THLongStorage.dealloc, old refcount ', THLongStorage_getRefCount(self.thLongStorage))
         # print('   dealloc storage: ', hex(<long>(self.thLongStorage)))
-        THLongStorage_free(self.thLongStorage)
+        THLongStorage_free(self.native)
 
     def __iter__(self):
         cdef int size0
-        size0 = THLongStorage_size(self.thLongStorage)
+        size0 = THLongStorage_size(self.native)
         for c in range(size0):
             yield self[c]
 
     def __getitem__(_LongStorage self, int index):
-        cdef long res = THLongStorage_get(self.thLongStorage, index)
+        cdef long res = THLongStorage_get(self.native, index)
         return res
 
     def __setitem__(_LongStorage self, int index, long value):
-        THLongStorage_set(self.thLongStorage, index, value)
+        THLongStorage_set(self.native, index, value)
 
 
 cdef _LongStorage_fromNative(THLongStorage *storageC, retain=True):
     if retain:
         THLongStorage_retain(storageC)
     storage = _LongStorage()
-    storage.thLongStorage = storageC
+    storage.native = storageC
     return storage
 

@@ -571,10 +571,10 @@ typedef volatile __pyx_atomic_int_type __pyx_atomic_int;
 struct arrayobject;
 typedef struct arrayobject arrayobject;
 #endif
-struct __pyx_obj_7Storage_DoubleStorage;
-struct __pyx_obj_7Storage_ByteStorage;
-struct __pyx_obj_7Storage_FloatStorage;
-struct __pyx_obj_7Storage_LongStorage;
+struct __pyx_obj_7Storage__DoubleStorage;
+struct __pyx_obj_7Storage__ByteStorage;
+struct __pyx_obj_7Storage__FloatStorage;
+struct __pyx_obj_7Storage__LongStorage;
 struct __pyx_obj_3lua_LuaState;
 struct __pyx_obj_7PyTorch__DoubleTensor;
 struct __pyx_obj_7PyTorch__ByteTensor;
@@ -586,19 +586,19 @@ struct __pyx_array_obj;
 struct __pyx_MemviewEnum_obj;
 struct __pyx_memoryview_obj;
 struct __pyx_memoryviewslice_obj;
-struct __pyx_opt_args_7Storage_DoubleStorage_fromNative;
-struct __pyx_opt_args_7Storage_ByteStorage_fromNative;
-struct __pyx_opt_args_7Storage_FloatStorage_fromNative;
-struct __pyx_opt_args_7Storage_LongStorage_fromNative;
+struct __pyx_opt_args_7Storage__DoubleStorage_fromNative;
+struct __pyx_opt_args_7Storage__ByteStorage_fromNative;
+struct __pyx_opt_args_7Storage__FloatStorage_fromNative;
+struct __pyx_opt_args_7Storage__LongStorage_fromNative;
 
 /* "Storage.pxd":84
  *     cpdef long size(self)
  * 
- * cdef DoubleStorage_fromNative(THDoubleStorage *storageC, retain=*)             # <<<<<<<<<<<<<<
+ * cdef _DoubleStorage_fromNative(THDoubleStorage *storageC, retain=*)             # <<<<<<<<<<<<<<
  * 
  * 
  */
-struct __pyx_opt_args_7Storage_DoubleStorage_fromNative {
+struct __pyx_opt_args_7Storage__DoubleStorage_fromNative {
   int __pyx_n;
   PyObject *retain;
 };
@@ -606,11 +606,11 @@ struct __pyx_opt_args_7Storage_DoubleStorage_fromNative {
 /* "Storage.pxd":91
  *     cpdef long size(self)
  * 
- * cdef ByteStorage_fromNative(THByteStorage *storageC, retain=*)             # <<<<<<<<<<<<<<
+ * cdef _ByteStorage_fromNative(THByteStorage *storageC, retain=*)             # <<<<<<<<<<<<<<
  * 
  * 
  */
-struct __pyx_opt_args_7Storage_ByteStorage_fromNative {
+struct __pyx_opt_args_7Storage__ByteStorage_fromNative {
   int __pyx_n;
   PyObject *retain;
 };
@@ -618,11 +618,11 @@ struct __pyx_opt_args_7Storage_ByteStorage_fromNative {
 /* "Storage.pxd":98
  *     cpdef long size(self)
  * 
- * cdef FloatStorage_fromNative(THFloatStorage *storageC, retain=*)             # <<<<<<<<<<<<<<
+ * cdef _FloatStorage_fromNative(THFloatStorage *storageC, retain=*)             # <<<<<<<<<<<<<<
  * 
  * 
  */
-struct __pyx_opt_args_7Storage_FloatStorage_fromNative {
+struct __pyx_opt_args_7Storage__FloatStorage_fromNative {
   int __pyx_n;
   PyObject *retain;
 };
@@ -630,10 +630,10 @@ struct __pyx_opt_args_7Storage_FloatStorage_fromNative {
 /* "Storage.pxd":105
  *     cpdef long size(self)
  * 
- * cdef LongStorage_fromNative(THLongStorage *storageC, retain=*)             # <<<<<<<<<<<<<<
+ * cdef _LongStorage_fromNative(THLongStorage *storageC, retain=*)             # <<<<<<<<<<<<<<
  * 
  */
-struct __pyx_opt_args_7Storage_LongStorage_fromNative {
+struct __pyx_opt_args_7Storage__LongStorage_fromNative {
   int __pyx_n;
   PyObject *retain;
 };
@@ -693,56 +693,56 @@ struct __pyx_opt_args_7PyTorch__LongTensor_fromNative {
 /* "Storage.pxd":80
  * 
  * 
- * cdef class DoubleStorage(object):             # <<<<<<<<<<<<<<
- *     cdef THDoubleStorage *thDoubleStorage
+ * cdef class _DoubleStorage(object):             # <<<<<<<<<<<<<<
+ *     cdef THDoubleStorage *native
  *     cpdef long size(self)
  */
-struct __pyx_obj_7Storage_DoubleStorage {
+struct __pyx_obj_7Storage__DoubleStorage {
   PyObject_HEAD
-  struct __pyx_vtabstruct_7Storage_DoubleStorage *__pyx_vtab;
-  struct THDoubleStorage *thDoubleStorage;
+  struct __pyx_vtabstruct_7Storage__DoubleStorage *__pyx_vtab;
+  struct THDoubleStorage *native;
 };
 
 
 /* "Storage.pxd":87
  * 
  * 
- * cdef class ByteStorage(object):             # <<<<<<<<<<<<<<
- *     cdef THByteStorage *thByteStorage
+ * cdef class _ByteStorage(object):             # <<<<<<<<<<<<<<
+ *     cdef THByteStorage *native
  *     cpdef long size(self)
  */
-struct __pyx_obj_7Storage_ByteStorage {
+struct __pyx_obj_7Storage__ByteStorage {
   PyObject_HEAD
-  struct __pyx_vtabstruct_7Storage_ByteStorage *__pyx_vtab;
-  struct THByteStorage *thByteStorage;
+  struct __pyx_vtabstruct_7Storage__ByteStorage *__pyx_vtab;
+  struct THByteStorage *native;
 };
 
 
 /* "Storage.pxd":94
  * 
  * 
- * cdef class FloatStorage(object):             # <<<<<<<<<<<<<<
- *     cdef THFloatStorage *thFloatStorage
+ * cdef class _FloatStorage(object):             # <<<<<<<<<<<<<<
+ *     cdef THFloatStorage *native
  *     cpdef long size(self)
  */
-struct __pyx_obj_7Storage_FloatStorage {
+struct __pyx_obj_7Storage__FloatStorage {
   PyObject_HEAD
-  struct __pyx_vtabstruct_7Storage_FloatStorage *__pyx_vtab;
-  struct THFloatStorage *thFloatStorage;
+  struct __pyx_vtabstruct_7Storage__FloatStorage *__pyx_vtab;
+  struct THFloatStorage *native;
 };
 
 
 /* "Storage.pxd":101
  * 
  * 
- * cdef class LongStorage(object):             # <<<<<<<<<<<<<<
- *     cdef THLongStorage *thLongStorage
+ * cdef class _LongStorage(object):             # <<<<<<<<<<<<<<
+ *     cdef THLongStorage *native
  *     cpdef long size(self)
  */
-struct __pyx_obj_7Storage_LongStorage {
+struct __pyx_obj_7Storage__LongStorage {
   PyObject_HEAD
-  struct __pyx_vtabstruct_7Storage_LongStorage *__pyx_vtab;
-  struct THLongStorage *thLongStorage;
+  struct __pyx_vtabstruct_7Storage__LongStorage *__pyx_vtab;
+  struct THLongStorage *native;
 };
 
 
@@ -921,57 +921,57 @@ struct __pyx_memoryviewslice_obj {
 /* "Storage.pxd":80
  * 
  * 
- * cdef class DoubleStorage(object):             # <<<<<<<<<<<<<<
- *     cdef THDoubleStorage *thDoubleStorage
+ * cdef class _DoubleStorage(object):             # <<<<<<<<<<<<<<
+ *     cdef THDoubleStorage *native
  *     cpdef long size(self)
  */
 
-struct __pyx_vtabstruct_7Storage_DoubleStorage {
-  long (*size)(struct __pyx_obj_7Storage_DoubleStorage *, int __pyx_skip_dispatch);
+struct __pyx_vtabstruct_7Storage__DoubleStorage {
+  long (*size)(struct __pyx_obj_7Storage__DoubleStorage *, int __pyx_skip_dispatch);
 };
-static struct __pyx_vtabstruct_7Storage_DoubleStorage *__pyx_vtabptr_7Storage_DoubleStorage;
+static struct __pyx_vtabstruct_7Storage__DoubleStorage *__pyx_vtabptr_7Storage__DoubleStorage;
 
 
 /* "Storage.pxd":87
  * 
  * 
- * cdef class ByteStorage(object):             # <<<<<<<<<<<<<<
- *     cdef THByteStorage *thByteStorage
+ * cdef class _ByteStorage(object):             # <<<<<<<<<<<<<<
+ *     cdef THByteStorage *native
  *     cpdef long size(self)
  */
 
-struct __pyx_vtabstruct_7Storage_ByteStorage {
-  long (*size)(struct __pyx_obj_7Storage_ByteStorage *, int __pyx_skip_dispatch);
+struct __pyx_vtabstruct_7Storage__ByteStorage {
+  long (*size)(struct __pyx_obj_7Storage__ByteStorage *, int __pyx_skip_dispatch);
 };
-static struct __pyx_vtabstruct_7Storage_ByteStorage *__pyx_vtabptr_7Storage_ByteStorage;
+static struct __pyx_vtabstruct_7Storage__ByteStorage *__pyx_vtabptr_7Storage__ByteStorage;
 
 
 /* "Storage.pxd":94
  * 
  * 
- * cdef class FloatStorage(object):             # <<<<<<<<<<<<<<
- *     cdef THFloatStorage *thFloatStorage
+ * cdef class _FloatStorage(object):             # <<<<<<<<<<<<<<
+ *     cdef THFloatStorage *native
  *     cpdef long size(self)
  */
 
-struct __pyx_vtabstruct_7Storage_FloatStorage {
-  long (*size)(struct __pyx_obj_7Storage_FloatStorage *, int __pyx_skip_dispatch);
+struct __pyx_vtabstruct_7Storage__FloatStorage {
+  long (*size)(struct __pyx_obj_7Storage__FloatStorage *, int __pyx_skip_dispatch);
 };
-static struct __pyx_vtabstruct_7Storage_FloatStorage *__pyx_vtabptr_7Storage_FloatStorage;
+static struct __pyx_vtabstruct_7Storage__FloatStorage *__pyx_vtabptr_7Storage__FloatStorage;
 
 
 /* "Storage.pxd":101
  * 
  * 
- * cdef class LongStorage(object):             # <<<<<<<<<<<<<<
- *     cdef THLongStorage *thLongStorage
+ * cdef class _LongStorage(object):             # <<<<<<<<<<<<<<
+ *     cdef THLongStorage *native
  *     cpdef long size(self)
  */
 
-struct __pyx_vtabstruct_7Storage_LongStorage {
-  long (*size)(struct __pyx_obj_7Storage_LongStorage *, int __pyx_skip_dispatch);
+struct __pyx_vtabstruct_7Storage__LongStorage {
+  long (*size)(struct __pyx_obj_7Storage__LongStorage *, int __pyx_skip_dispatch);
 };
-static struct __pyx_vtabstruct_7Storage_LongStorage *__pyx_vtabptr_7Storage_LongStorage;
+static struct __pyx_vtabstruct_7Storage__LongStorage *__pyx_vtabptr_7Storage__LongStorage;
 
 
 /* "PyTorch.pyx":276
@@ -1652,14 +1652,14 @@ static CYTHON_INLINE int __pyx_f_7cpython_5array_extend_buffer(arrayobject *, ch
 /* Module declarations from 'cpython' */
 
 /* Module declarations from 'Storage' */
-static PyTypeObject *__pyx_ptype_7Storage_DoubleStorage = 0;
-static PyTypeObject *__pyx_ptype_7Storage_ByteStorage = 0;
-static PyTypeObject *__pyx_ptype_7Storage_FloatStorage = 0;
-static PyTypeObject *__pyx_ptype_7Storage_LongStorage = 0;
-static PyObject *(*__pyx_f_7Storage_DoubleStorage_fromNative)(struct THDoubleStorage *, struct __pyx_opt_args_7Storage_DoubleStorage_fromNative *__pyx_optional_args); /*proto*/
-static PyObject *(*__pyx_f_7Storage_ByteStorage_fromNative)(struct THByteStorage *, struct __pyx_opt_args_7Storage_ByteStorage_fromNative *__pyx_optional_args); /*proto*/
-static PyObject *(*__pyx_f_7Storage_FloatStorage_fromNative)(struct THFloatStorage *, struct __pyx_opt_args_7Storage_FloatStorage_fromNative *__pyx_optional_args); /*proto*/
-static PyObject *(*__pyx_f_7Storage_LongStorage_fromNative)(struct THLongStorage *, struct __pyx_opt_args_7Storage_LongStorage_fromNative *__pyx_optional_args); /*proto*/
+static PyTypeObject *__pyx_ptype_7Storage__DoubleStorage = 0;
+static PyTypeObject *__pyx_ptype_7Storage__ByteStorage = 0;
+static PyTypeObject *__pyx_ptype_7Storage__FloatStorage = 0;
+static PyTypeObject *__pyx_ptype_7Storage__LongStorage = 0;
+static PyObject *(*__pyx_f_7Storage__DoubleStorage_fromNative)(struct THDoubleStorage *, struct __pyx_opt_args_7Storage__DoubleStorage_fromNative *__pyx_optional_args); /*proto*/
+static PyObject *(*__pyx_f_7Storage__ByteStorage_fromNative)(struct THByteStorage *, struct __pyx_opt_args_7Storage__ByteStorage_fromNative *__pyx_optional_args); /*proto*/
+static PyObject *(*__pyx_f_7Storage__FloatStorage_fromNative)(struct THFloatStorage *, struct __pyx_opt_args_7Storage__FloatStorage_fromNative *__pyx_optional_args); /*proto*/
+static PyObject *(*__pyx_f_7Storage__LongStorage_fromNative)(struct THLongStorage *, struct __pyx_opt_args_7Storage__LongStorage_fromNative *__pyx_optional_args); /*proto*/
 
 /* Module declarations from 'lua' */
 static PyTypeObject *__pyx_ptype_3lua_LuaState = 0;
@@ -1766,8 +1766,8 @@ static PyObject *__pyx_pf_7PyTorch_13_DoubleTensor_38resize3d(struct __pyx_obj_7
 static PyObject *__pyx_pf_7PyTorch_13_DoubleTensor_40resize4d(struct __pyx_obj_7PyTorch__DoubleTensor *__pyx_v_self, int __pyx_v_size0, int __pyx_v_size1, int __pyx_v_size2, int __pyx_v_size3); /* proto */
 static PyObject *__pyx_pf_7PyTorch_13_DoubleTensor_42resizeAs(struct __pyx_obj_7PyTorch__DoubleTensor *__pyx_v_self, struct __pyx_obj_7PyTorch__DoubleTensor *__pyx_v_model); /* proto */
 static PyObject *__pyx_pf_7PyTorch_13_DoubleTensor_44resize(struct __pyx_obj_7PyTorch__DoubleTensor *__pyx_v_self, struct __pyx_obj_7PyTorch__LongTensor *__pyx_v_size); /* proto */
-static PyObject *__pyx_pf_7PyTorch_13_DoubleTensor_46newWithStorage1d(struct __pyx_obj_7Storage_DoubleStorage *__pyx_v_storage, PyObject *__pyx_v_offset, PyObject *__pyx_v_size0, PyObject *__pyx_v_stride0); /* proto */
-static PyObject *__pyx_pf_7PyTorch_13_DoubleTensor_48newWithStorage2d(struct __pyx_obj_7Storage_DoubleStorage *__pyx_v_storage, PyObject *__pyx_v_offset, PyObject *__pyx_v_size0, PyObject *__pyx_v_stride0, PyObject *__pyx_v_size1, PyObject *__pyx_v_stride1); /* proto */
+static PyObject *__pyx_pf_7PyTorch_13_DoubleTensor_46newWithStorage1d(struct __pyx_obj_7Storage__DoubleStorage *__pyx_v_storage, PyObject *__pyx_v_offset, PyObject *__pyx_v_size0, PyObject *__pyx_v_stride0); /* proto */
+static PyObject *__pyx_pf_7PyTorch_13_DoubleTensor_48newWithStorage2d(struct __pyx_obj_7Storage__DoubleStorage *__pyx_v_storage, PyObject *__pyx_v_offset, PyObject *__pyx_v_size0, PyObject *__pyx_v_stride0, PyObject *__pyx_v_size1, PyObject *__pyx_v_stride1); /* proto */
 static PyObject *__pyx_pf_7PyTorch_13_DoubleTensor_50clone(struct __pyx_obj_7PyTorch__DoubleTensor *__pyx_v_self); /* proto */
 static PyObject *__pyx_pf_7PyTorch_13_DoubleTensor_52storage(struct __pyx_obj_7PyTorch__DoubleTensor *__pyx_v_self); /* proto */
 static PyObject *__pyx_pf_7PyTorch_13_DoubleTensor_54__add__(struct __pyx_obj_7PyTorch__DoubleTensor *__pyx_v_self, PyObject *__pyx_v_second); /* proto */
@@ -1813,8 +1813,8 @@ static PyObject *__pyx_pf_7PyTorch_11_ByteTensor_38resize3d(struct __pyx_obj_7Py
 static PyObject *__pyx_pf_7PyTorch_11_ByteTensor_40resize4d(struct __pyx_obj_7PyTorch__ByteTensor *__pyx_v_self, int __pyx_v_size0, int __pyx_v_size1, int __pyx_v_size2, int __pyx_v_size3); /* proto */
 static PyObject *__pyx_pf_7PyTorch_11_ByteTensor_42resizeAs(struct __pyx_obj_7PyTorch__ByteTensor *__pyx_v_self, struct __pyx_obj_7PyTorch__ByteTensor *__pyx_v_model); /* proto */
 static PyObject *__pyx_pf_7PyTorch_11_ByteTensor_44resize(struct __pyx_obj_7PyTorch__ByteTensor *__pyx_v_self, struct __pyx_obj_7PyTorch__LongTensor *__pyx_v_size); /* proto */
-static PyObject *__pyx_pf_7PyTorch_11_ByteTensor_46newWithStorage1d(struct __pyx_obj_7Storage_ByteStorage *__pyx_v_storage, PyObject *__pyx_v_offset, PyObject *__pyx_v_size0, PyObject *__pyx_v_stride0); /* proto */
-static PyObject *__pyx_pf_7PyTorch_11_ByteTensor_48newWithStorage2d(struct __pyx_obj_7Storage_ByteStorage *__pyx_v_storage, PyObject *__pyx_v_offset, PyObject *__pyx_v_size0, PyObject *__pyx_v_stride0, PyObject *__pyx_v_size1, PyObject *__pyx_v_stride1); /* proto */
+static PyObject *__pyx_pf_7PyTorch_11_ByteTensor_46newWithStorage1d(struct __pyx_obj_7Storage__ByteStorage *__pyx_v_storage, PyObject *__pyx_v_offset, PyObject *__pyx_v_size0, PyObject *__pyx_v_stride0); /* proto */
+static PyObject *__pyx_pf_7PyTorch_11_ByteTensor_48newWithStorage2d(struct __pyx_obj_7Storage__ByteStorage *__pyx_v_storage, PyObject *__pyx_v_offset, PyObject *__pyx_v_size0, PyObject *__pyx_v_stride0, PyObject *__pyx_v_size1, PyObject *__pyx_v_stride1); /* proto */
 static PyObject *__pyx_pf_7PyTorch_11_ByteTensor_50clone(struct __pyx_obj_7PyTorch__ByteTensor *__pyx_v_self); /* proto */
 static PyObject *__pyx_pf_7PyTorch_11_ByteTensor_52storage(struct __pyx_obj_7PyTorch__ByteTensor *__pyx_v_self); /* proto */
 static PyObject *__pyx_pf_7PyTorch_11_ByteTensor_54__add__(struct __pyx_obj_7PyTorch__ByteTensor *__pyx_v_self, PyObject *__pyx_v_second); /* proto */
@@ -1855,8 +1855,8 @@ static PyObject *__pyx_pf_7PyTorch_12_FloatTensor_38resize3d(struct __pyx_obj_7P
 static PyObject *__pyx_pf_7PyTorch_12_FloatTensor_40resize4d(struct __pyx_obj_7PyTorch__FloatTensor *__pyx_v_self, int __pyx_v_size0, int __pyx_v_size1, int __pyx_v_size2, int __pyx_v_size3); /* proto */
 static PyObject *__pyx_pf_7PyTorch_12_FloatTensor_42resizeAs(struct __pyx_obj_7PyTorch__FloatTensor *__pyx_v_self, struct __pyx_obj_7PyTorch__FloatTensor *__pyx_v_model); /* proto */
 static PyObject *__pyx_pf_7PyTorch_12_FloatTensor_44resize(struct __pyx_obj_7PyTorch__FloatTensor *__pyx_v_self, struct __pyx_obj_7PyTorch__LongTensor *__pyx_v_size); /* proto */
-static PyObject *__pyx_pf_7PyTorch_12_FloatTensor_46newWithStorage1d(struct __pyx_obj_7Storage_FloatStorage *__pyx_v_storage, PyObject *__pyx_v_offset, PyObject *__pyx_v_size0, PyObject *__pyx_v_stride0); /* proto */
-static PyObject *__pyx_pf_7PyTorch_12_FloatTensor_48newWithStorage2d(struct __pyx_obj_7Storage_FloatStorage *__pyx_v_storage, PyObject *__pyx_v_offset, PyObject *__pyx_v_size0, PyObject *__pyx_v_stride0, PyObject *__pyx_v_size1, PyObject *__pyx_v_stride1); /* proto */
+static PyObject *__pyx_pf_7PyTorch_12_FloatTensor_46newWithStorage1d(struct __pyx_obj_7Storage__FloatStorage *__pyx_v_storage, PyObject *__pyx_v_offset, PyObject *__pyx_v_size0, PyObject *__pyx_v_stride0); /* proto */
+static PyObject *__pyx_pf_7PyTorch_12_FloatTensor_48newWithStorage2d(struct __pyx_obj_7Storage__FloatStorage *__pyx_v_storage, PyObject *__pyx_v_offset, PyObject *__pyx_v_size0, PyObject *__pyx_v_stride0, PyObject *__pyx_v_size1, PyObject *__pyx_v_stride1); /* proto */
 static PyObject *__pyx_pf_7PyTorch_12_FloatTensor_50clone(struct __pyx_obj_7PyTorch__FloatTensor *__pyx_v_self); /* proto */
 static PyObject *__pyx_pf_7PyTorch_12_FloatTensor_52storage(struct __pyx_obj_7PyTorch__FloatTensor *__pyx_v_self); /* proto */
 static PyObject *__pyx_pf_7PyTorch_12_FloatTensor_54__add__(struct __pyx_obj_7PyTorch__FloatTensor *__pyx_v_self, PyObject *__pyx_v_second); /* proto */
@@ -1902,8 +1902,8 @@ static PyObject *__pyx_pf_7PyTorch_11_LongTensor_38resize3d(struct __pyx_obj_7Py
 static PyObject *__pyx_pf_7PyTorch_11_LongTensor_40resize4d(struct __pyx_obj_7PyTorch__LongTensor *__pyx_v_self, int __pyx_v_size0, int __pyx_v_size1, int __pyx_v_size2, int __pyx_v_size3); /* proto */
 static PyObject *__pyx_pf_7PyTorch_11_LongTensor_42resizeAs(struct __pyx_obj_7PyTorch__LongTensor *__pyx_v_self, struct __pyx_obj_7PyTorch__LongTensor *__pyx_v_model); /* proto */
 static PyObject *__pyx_pf_7PyTorch_11_LongTensor_44resize(struct __pyx_obj_7PyTorch__LongTensor *__pyx_v_self, struct __pyx_obj_7PyTorch__LongTensor *__pyx_v_size); /* proto */
-static PyObject *__pyx_pf_7PyTorch_11_LongTensor_46newWithStorage1d(struct __pyx_obj_7Storage_LongStorage *__pyx_v_storage, PyObject *__pyx_v_offset, PyObject *__pyx_v_size0, PyObject *__pyx_v_stride0); /* proto */
-static PyObject *__pyx_pf_7PyTorch_11_LongTensor_48newWithStorage2d(struct __pyx_obj_7Storage_LongStorage *__pyx_v_storage, PyObject *__pyx_v_offset, PyObject *__pyx_v_size0, PyObject *__pyx_v_stride0, PyObject *__pyx_v_size1, PyObject *__pyx_v_stride1); /* proto */
+static PyObject *__pyx_pf_7PyTorch_11_LongTensor_46newWithStorage1d(struct __pyx_obj_7Storage__LongStorage *__pyx_v_storage, PyObject *__pyx_v_offset, PyObject *__pyx_v_size0, PyObject *__pyx_v_stride0); /* proto */
+static PyObject *__pyx_pf_7PyTorch_11_LongTensor_48newWithStorage2d(struct __pyx_obj_7Storage__LongStorage *__pyx_v_storage, PyObject *__pyx_v_offset, PyObject *__pyx_v_size0, PyObject *__pyx_v_stride0, PyObject *__pyx_v_size1, PyObject *__pyx_v_stride1); /* proto */
 static PyObject *__pyx_pf_7PyTorch_11_LongTensor_50clone(struct __pyx_obj_7PyTorch__LongTensor *__pyx_v_self); /* proto */
 static PyObject *__pyx_pf_7PyTorch_11_LongTensor_52storage(struct __pyx_obj_7PyTorch__LongTensor *__pyx_v_self); /* proto */
 static PyObject *__pyx_pf_7PyTorch_11_LongTensor_54__add__(struct __pyx_obj_7PyTorch__LongTensor *__pyx_v_self, PyObject *__pyx_v_second); /* proto */
@@ -2086,15 +2086,15 @@ static char __pyx_k_firstIndex[] = "firstIndex";
 static char __pyx_k_manualSeed[] = "manualSeed";
 static char __pyx_k_newTensorC[] = "newTensorC";
 static char __pyx_k_pyx_vtable[] = "__pyx_vtable__";
-static char __pyx_k_ByteStorage[] = "ByteStorage";
-static char __pyx_k_LongStorage[] = "LongStorage";
+static char __pyx_k_ByteStorage[] = "_ByteStorage";
+static char __pyx_k_LongStorage[] = "_LongStorage";
 static char __pyx_k_MemoryError[] = "MemoryError";
 static char __pyx_k_basicConfig[] = "basicConfig";
 static char __pyx_k_floattensor[] = "floattensor";
 static char __pyx_k_newWithData[] = "newWithData";
-static char __pyx_k_FloatStorage[] = "FloatStorage";
+static char __pyx_k_FloatStorage[] = "_FloatStorage";
 static char __pyx_k_staticmethod[] = "staticmethod";
-static char __pyx_k_DoubleStorage[] = "DoubleStorage";
+static char __pyx_k_DoubleStorage[] = "_DoubleStorage";
 static char __pyx_k_asFloatTensor[] = "asFloatTensor";
 static char __pyx_k_pyx_getbuffer[] = "__pyx_getbuffer";
 static char __pyx_k_asDoubleTensor[] = "asDoubleTensor";
@@ -5650,7 +5650,7 @@ static PyObject *__pyx_pf_7PyTorch_13_DoubleTensor_28size(struct __pyx_obj_7PyTo
  *         cdef int dims = self.dims()
  * #        cdef LongStorage size
  *         if dims > 0:             # <<<<<<<<<<<<<<
- *             size = LongStorage(dims)
+ *             size = _LongStorage(dims)
  *             for d in range(dims):
  */
   __pyx_t_1 = ((__pyx_v_dims > 0) != 0);
@@ -5659,7 +5659,7 @@ static PyObject *__pyx_pf_7PyTorch_13_DoubleTensor_28size(struct __pyx_obj_7PyTo
     /* "PyTorch.pyx":445
  * #        cdef LongStorage size
  *         if dims > 0:
- *             size = LongStorage(dims)             # <<<<<<<<<<<<<<
+ *             size = _LongStorage(dims)             # <<<<<<<<<<<<<<
  *             for d in range(dims):
  *                 size[d] = THDoubleTensor_size(self.native, d)
  */
@@ -5698,7 +5698,7 @@ static PyObject *__pyx_pf_7PyTorch_13_DoubleTensor_28size(struct __pyx_obj_7PyTo
 
     /* "PyTorch.pyx":446
  *         if dims > 0:
- *             size = LongStorage(dims)
+ *             size = _LongStorage(dims)
  *             for d in range(dims):             # <<<<<<<<<<<<<<
  *                 size[d] = THDoubleTensor_size(self.native, d)
  *             return size
@@ -5708,7 +5708,7 @@ static PyObject *__pyx_pf_7PyTorch_13_DoubleTensor_28size(struct __pyx_obj_7PyTo
       __pyx_v_d = __pyx_t_8;
 
       /* "PyTorch.pyx":447
- *             size = LongStorage(dims)
+ *             size = _LongStorage(dims)
  *             for d in range(dims):
  *                 size[d] = THDoubleTensor_size(self.native, d)             # <<<<<<<<<<<<<<
  *             return size
@@ -6773,16 +6773,16 @@ static PyObject *__pyx_pf_7PyTorch_13_DoubleTensor_44resize(struct __pyx_obj_7Py
 /* "PyTorch.pyx":501
  * 
  *     @staticmethod
- *     def newWithStorage1d(Storage.DoubleStorage storage, offset, size0, stride0):             # <<<<<<<<<<<<<<
+ *     def newWithStorage1d(Storage._DoubleStorage storage, offset, size0, stride0):             # <<<<<<<<<<<<<<
  * #        # print('allocate tensor')
- *         cdef THDoubleTensor *newTensorC = THDoubleTensor_newWithStorage1d(storage.thDoubleStorage, offset, size0, stride0)
+ *         cdef THDoubleTensor *newTensorC = THDoubleTensor_newWithStorage1d(storage.native, offset, size0, stride0)
  */
 
 /* Python wrapper */
 static PyObject *__pyx_pw_7PyTorch_13_DoubleTensor_47newWithStorage1d(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
 static PyMethodDef __pyx_mdef_7PyTorch_13_DoubleTensor_47newWithStorage1d = {"newWithStorage1d", (PyCFunction)__pyx_pw_7PyTorch_13_DoubleTensor_47newWithStorage1d, METH_VARARGS|METH_KEYWORDS, 0};
 static PyObject *__pyx_pw_7PyTorch_13_DoubleTensor_47newWithStorage1d(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds) {
-  struct __pyx_obj_7Storage_DoubleStorage *__pyx_v_storage = 0;
+  struct __pyx_obj_7Storage__DoubleStorage *__pyx_v_storage = 0;
   PyObject *__pyx_v_offset = 0;
   PyObject *__pyx_v_size0 = 0;
   PyObject *__pyx_v_stride0 = 0;
@@ -6838,7 +6838,7 @@ static PyObject *__pyx_pw_7PyTorch_13_DoubleTensor_47newWithStorage1d(CYTHON_UNU
       values[2] = PyTuple_GET_ITEM(__pyx_args, 2);
       values[3] = PyTuple_GET_ITEM(__pyx_args, 3);
     }
-    __pyx_v_storage = ((struct __pyx_obj_7Storage_DoubleStorage *)values[0]);
+    __pyx_v_storage = ((struct __pyx_obj_7Storage__DoubleStorage *)values[0]);
     __pyx_v_offset = values[1];
     __pyx_v_size0 = values[2];
     __pyx_v_stride0 = values[3];
@@ -6851,7 +6851,7 @@ static PyObject *__pyx_pw_7PyTorch_13_DoubleTensor_47newWithStorage1d(CYTHON_UNU
   __Pyx_RefNannyFinishContext();
   return NULL;
   __pyx_L4_argument_unpacking_done:;
-  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_storage), __pyx_ptype_7Storage_DoubleStorage, 1, "storage", 0))) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 501; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_storage), __pyx_ptype_7Storage__DoubleStorage, 1, "storage", 0))) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 501; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __pyx_r = __pyx_pf_7PyTorch_13_DoubleTensor_46newWithStorage1d(__pyx_v_storage, __pyx_v_offset, __pyx_v_size0, __pyx_v_stride0);
 
   /* function exit code */
@@ -6863,7 +6863,7 @@ static PyObject *__pyx_pw_7PyTorch_13_DoubleTensor_47newWithStorage1d(CYTHON_UNU
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_7PyTorch_13_DoubleTensor_46newWithStorage1d(struct __pyx_obj_7Storage_DoubleStorage *__pyx_v_storage, PyObject *__pyx_v_offset, PyObject *__pyx_v_size0, PyObject *__pyx_v_stride0) {
+static PyObject *__pyx_pf_7PyTorch_13_DoubleTensor_46newWithStorage1d(struct __pyx_obj_7Storage__DoubleStorage *__pyx_v_storage, PyObject *__pyx_v_offset, PyObject *__pyx_v_size0, PyObject *__pyx_v_stride0) {
   struct THDoubleTensor *__pyx_v_newTensorC;
   PyObject *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
@@ -6878,20 +6878,20 @@ static PyObject *__pyx_pf_7PyTorch_13_DoubleTensor_46newWithStorage1d(struct __p
   __Pyx_RefNannySetupContext("newWithStorage1d", 0);
 
   /* "PyTorch.pyx":503
- *     def newWithStorage1d(Storage.DoubleStorage storage, offset, size0, stride0):
+ *     def newWithStorage1d(Storage._DoubleStorage storage, offset, size0, stride0):
  * #        # print('allocate tensor')
- *         cdef THDoubleTensor *newTensorC = THDoubleTensor_newWithStorage1d(storage.thDoubleStorage, offset, size0, stride0)             # <<<<<<<<<<<<<<
+ *         cdef THDoubleTensor *newTensorC = THDoubleTensor_newWithStorage1d(storage.native, offset, size0, stride0)             # <<<<<<<<<<<<<<
  *         return _DoubleTensor_fromNative(newTensorC, False)
  * 
  */
   __pyx_t_1 = __Pyx_PyInt_As_long(__pyx_v_offset); if (unlikely((__pyx_t_1 == (long)-1) && PyErr_Occurred())) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 503; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __pyx_t_2 = __Pyx_PyInt_As_long(__pyx_v_size0); if (unlikely((__pyx_t_2 == (long)-1) && PyErr_Occurred())) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 503; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __pyx_t_3 = __Pyx_PyInt_As_long(__pyx_v_stride0); if (unlikely((__pyx_t_3 == (long)-1) && PyErr_Occurred())) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 503; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-  __pyx_v_newTensorC = THDoubleTensor_newWithStorage1d(__pyx_v_storage->thDoubleStorage, __pyx_t_1, __pyx_t_2, __pyx_t_3);
+  __pyx_v_newTensorC = THDoubleTensor_newWithStorage1d(__pyx_v_storage->native, __pyx_t_1, __pyx_t_2, __pyx_t_3);
 
   /* "PyTorch.pyx":504
  * #        # print('allocate tensor')
- *         cdef THDoubleTensor *newTensorC = THDoubleTensor_newWithStorage1d(storage.thDoubleStorage, offset, size0, stride0)
+ *         cdef THDoubleTensor *newTensorC = THDoubleTensor_newWithStorage1d(storage.native, offset, size0, stride0)
  *         return _DoubleTensor_fromNative(newTensorC, False)             # <<<<<<<<<<<<<<
  * 
  *     @staticmethod
@@ -6908,9 +6908,9 @@ static PyObject *__pyx_pf_7PyTorch_13_DoubleTensor_46newWithStorage1d(struct __p
   /* "PyTorch.pyx":501
  * 
  *     @staticmethod
- *     def newWithStorage1d(Storage.DoubleStorage storage, offset, size0, stride0):             # <<<<<<<<<<<<<<
+ *     def newWithStorage1d(Storage._DoubleStorage storage, offset, size0, stride0):             # <<<<<<<<<<<<<<
  * #        # print('allocate tensor')
- *         cdef THDoubleTensor *newTensorC = THDoubleTensor_newWithStorage1d(storage.thDoubleStorage, offset, size0, stride0)
+ *         cdef THDoubleTensor *newTensorC = THDoubleTensor_newWithStorage1d(storage.native, offset, size0, stride0)
  */
 
   /* function exit code */
@@ -6927,16 +6927,16 @@ static PyObject *__pyx_pf_7PyTorch_13_DoubleTensor_46newWithStorage1d(struct __p
 /* "PyTorch.pyx":507
  * 
  *     @staticmethod
- *     def newWithStorage2d(Storage.DoubleStorage storage, offset, size0, stride0, size1, stride1):             # <<<<<<<<<<<<<<
+ *     def newWithStorage2d(Storage._DoubleStorage storage, offset, size0, stride0, size1, stride1):             # <<<<<<<<<<<<<<
  * #        # print('allocate tensor')
- *         cdef THDoubleTensor *newTensorC = THDoubleTensor_newWithStorage2d(storage.thDoubleStorage, offset, size0, stride0, size1, stride1)
+ *         cdef THDoubleTensor *newTensorC = THDoubleTensor_newWithStorage2d(storage.native, offset, size0, stride0, size1, stride1)
  */
 
 /* Python wrapper */
 static PyObject *__pyx_pw_7PyTorch_13_DoubleTensor_49newWithStorage2d(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
 static PyMethodDef __pyx_mdef_7PyTorch_13_DoubleTensor_49newWithStorage2d = {"newWithStorage2d", (PyCFunction)__pyx_pw_7PyTorch_13_DoubleTensor_49newWithStorage2d, METH_VARARGS|METH_KEYWORDS, 0};
 static PyObject *__pyx_pw_7PyTorch_13_DoubleTensor_49newWithStorage2d(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds) {
-  struct __pyx_obj_7Storage_DoubleStorage *__pyx_v_storage = 0;
+  struct __pyx_obj_7Storage__DoubleStorage *__pyx_v_storage = 0;
   PyObject *__pyx_v_offset = 0;
   PyObject *__pyx_v_size0 = 0;
   PyObject *__pyx_v_stride0 = 0;
@@ -7008,7 +7008,7 @@ static PyObject *__pyx_pw_7PyTorch_13_DoubleTensor_49newWithStorage2d(CYTHON_UNU
       values[4] = PyTuple_GET_ITEM(__pyx_args, 4);
       values[5] = PyTuple_GET_ITEM(__pyx_args, 5);
     }
-    __pyx_v_storage = ((struct __pyx_obj_7Storage_DoubleStorage *)values[0]);
+    __pyx_v_storage = ((struct __pyx_obj_7Storage__DoubleStorage *)values[0]);
     __pyx_v_offset = values[1];
     __pyx_v_size0 = values[2];
     __pyx_v_stride0 = values[3];
@@ -7023,7 +7023,7 @@ static PyObject *__pyx_pw_7PyTorch_13_DoubleTensor_49newWithStorage2d(CYTHON_UNU
   __Pyx_RefNannyFinishContext();
   return NULL;
   __pyx_L4_argument_unpacking_done:;
-  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_storage), __pyx_ptype_7Storage_DoubleStorage, 1, "storage", 0))) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 507; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_storage), __pyx_ptype_7Storage__DoubleStorage, 1, "storage", 0))) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 507; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __pyx_r = __pyx_pf_7PyTorch_13_DoubleTensor_48newWithStorage2d(__pyx_v_storage, __pyx_v_offset, __pyx_v_size0, __pyx_v_stride0, __pyx_v_size1, __pyx_v_stride1);
 
   /* function exit code */
@@ -7035,7 +7035,7 @@ static PyObject *__pyx_pw_7PyTorch_13_DoubleTensor_49newWithStorage2d(CYTHON_UNU
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_7PyTorch_13_DoubleTensor_48newWithStorage2d(struct __pyx_obj_7Storage_DoubleStorage *__pyx_v_storage, PyObject *__pyx_v_offset, PyObject *__pyx_v_size0, PyObject *__pyx_v_stride0, PyObject *__pyx_v_size1, PyObject *__pyx_v_stride1) {
+static PyObject *__pyx_pf_7PyTorch_13_DoubleTensor_48newWithStorage2d(struct __pyx_obj_7Storage__DoubleStorage *__pyx_v_storage, PyObject *__pyx_v_offset, PyObject *__pyx_v_size0, PyObject *__pyx_v_stride0, PyObject *__pyx_v_size1, PyObject *__pyx_v_stride1) {
   struct THDoubleTensor *__pyx_v_newTensorC;
   PyObject *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
@@ -7052,9 +7052,9 @@ static PyObject *__pyx_pf_7PyTorch_13_DoubleTensor_48newWithStorage2d(struct __p
   __Pyx_RefNannySetupContext("newWithStorage2d", 0);
 
   /* "PyTorch.pyx":509
- *     def newWithStorage2d(Storage.DoubleStorage storage, offset, size0, stride0, size1, stride1):
+ *     def newWithStorage2d(Storage._DoubleStorage storage, offset, size0, stride0, size1, stride1):
  * #        # print('allocate tensor')
- *         cdef THDoubleTensor *newTensorC = THDoubleTensor_newWithStorage2d(storage.thDoubleStorage, offset, size0, stride0, size1, stride1)             # <<<<<<<<<<<<<<
+ *         cdef THDoubleTensor *newTensorC = THDoubleTensor_newWithStorage2d(storage.native, offset, size0, stride0, size1, stride1)             # <<<<<<<<<<<<<<
  *         return _DoubleTensor_fromNative(newTensorC, False)
  * 
  */
@@ -7063,11 +7063,11 @@ static PyObject *__pyx_pf_7PyTorch_13_DoubleTensor_48newWithStorage2d(struct __p
   __pyx_t_3 = __Pyx_PyInt_As_long(__pyx_v_stride0); if (unlikely((__pyx_t_3 == (long)-1) && PyErr_Occurred())) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 509; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __pyx_t_4 = __Pyx_PyInt_As_long(__pyx_v_size1); if (unlikely((__pyx_t_4 == (long)-1) && PyErr_Occurred())) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 509; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __pyx_t_5 = __Pyx_PyInt_As_long(__pyx_v_stride1); if (unlikely((__pyx_t_5 == (long)-1) && PyErr_Occurred())) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 509; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-  __pyx_v_newTensorC = THDoubleTensor_newWithStorage2d(__pyx_v_storage->thDoubleStorage, __pyx_t_1, __pyx_t_2, __pyx_t_3, __pyx_t_4, __pyx_t_5);
+  __pyx_v_newTensorC = THDoubleTensor_newWithStorage2d(__pyx_v_storage->native, __pyx_t_1, __pyx_t_2, __pyx_t_3, __pyx_t_4, __pyx_t_5);
 
   /* "PyTorch.pyx":510
  * #        # print('allocate tensor')
- *         cdef THDoubleTensor *newTensorC = THDoubleTensor_newWithStorage2d(storage.thDoubleStorage, offset, size0, stride0, size1, stride1)
+ *         cdef THDoubleTensor *newTensorC = THDoubleTensor_newWithStorage2d(storage.native, offset, size0, stride0, size1, stride1)
  *         return _DoubleTensor_fromNative(newTensorC, False)             # <<<<<<<<<<<<<<
  * 
  *     def clone(_DoubleTensor self):
@@ -7084,9 +7084,9 @@ static PyObject *__pyx_pf_7PyTorch_13_DoubleTensor_48newWithStorage2d(struct __p
   /* "PyTorch.pyx":507
  * 
  *     @staticmethod
- *     def newWithStorage2d(Storage.DoubleStorage storage, offset, size0, stride0, size1, stride1):             # <<<<<<<<<<<<<<
+ *     def newWithStorage2d(Storage._DoubleStorage storage, offset, size0, stride0, size1, stride1):             # <<<<<<<<<<<<<<
  * #        # print('allocate tensor')
- *         cdef THDoubleTensor *newTensorC = THDoubleTensor_newWithStorage2d(storage.thDoubleStorage, offset, size0, stride0, size1, stride1)
+ *         cdef THDoubleTensor *newTensorC = THDoubleTensor_newWithStorage2d(storage.native, offset, size0, stride0, size1, stride1)
  */
 
   /* function exit code */
@@ -7222,7 +7222,7 @@ static PyObject *__pyx_pf_7PyTorch_13_DoubleTensor_52storage(struct __pyx_obj_7P
  *         cdef Storage.THDoubleStorage *storageC = THDoubleTensor_storage(self.native)
  *         if storageC == NULL:             # <<<<<<<<<<<<<<
  *             return None
- *         return Storage.DoubleStorage_fromNative(storageC)
+ *         return Storage._DoubleStorage_fromNative(storageC)
  */
   __pyx_t_1 = ((__pyx_v_storageC == NULL) != 0);
   if (__pyx_t_1) {
@@ -7231,7 +7231,7 @@ static PyObject *__pyx_pf_7PyTorch_13_DoubleTensor_52storage(struct __pyx_obj_7P
  *         cdef Storage.THDoubleStorage *storageC = THDoubleTensor_storage(self.native)
  *         if storageC == NULL:
  *             return None             # <<<<<<<<<<<<<<
- *         return Storage.DoubleStorage_fromNative(storageC)
+ *         return Storage._DoubleStorage_fromNative(storageC)
  * 
  */
     __Pyx_XDECREF(__pyx_r);
@@ -7243,12 +7243,12 @@ static PyObject *__pyx_pf_7PyTorch_13_DoubleTensor_52storage(struct __pyx_obj_7P
   /* "PyTorch.pyx":520
  *         if storageC == NULL:
  *             return None
- *         return Storage.DoubleStorage_fromNative(storageC)             # <<<<<<<<<<<<<<
+ *         return Storage._DoubleStorage_fromNative(storageC)             # <<<<<<<<<<<<<<
  * 
  *     def __add__(_DoubleTensor self, second):
  */
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_2 = __pyx_f_7Storage_DoubleStorage_fromNative(__pyx_v_storageC, NULL); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 520; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_2 = __pyx_f_7Storage__DoubleStorage_fromNative(__pyx_v_storageC, NULL); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 520; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_2);
   __pyx_r = __pyx_t_2;
   __pyx_t_2 = 0;
@@ -7274,7 +7274,7 @@ static PyObject *__pyx_pf_7PyTorch_13_DoubleTensor_52storage(struct __pyx_obj_7P
 }
 
 /* "PyTorch.pyx":522
- *         return Storage.DoubleStorage_fromNative(storageC)
+ *         return Storage._DoubleStorage_fromNative(storageC)
  * 
  *     def __add__(_DoubleTensor self, second):             # <<<<<<<<<<<<<<
  *         # assume 2d matrix for now?
@@ -7416,7 +7416,7 @@ static PyObject *__pyx_pf_7PyTorch_13_DoubleTensor_54__add__(struct __pyx_obj_7P
   goto __pyx_L0;
 
   /* "PyTorch.pyx":522
- *         return Storage.DoubleStorage_fromNative(storageC)
+ *         return Storage._DoubleStorage_fromNative(storageC)
  * 
  *     def __add__(_DoubleTensor self, second):             # <<<<<<<<<<<<<<
  *         # assume 2d matrix for now?
@@ -12449,7 +12449,7 @@ static PyObject *__pyx_pf_7PyTorch_11_ByteTensor_28size(struct __pyx_obj_7PyTorc
  *         cdef int dims = self.dims()
  * #        cdef LongStorage size
  *         if dims > 0:             # <<<<<<<<<<<<<<
- *             size = LongStorage(dims)
+ *             size = _LongStorage(dims)
  *             for d in range(dims):
  */
   __pyx_t_1 = ((__pyx_v_dims > 0) != 0);
@@ -12458,7 +12458,7 @@ static PyObject *__pyx_pf_7PyTorch_11_ByteTensor_28size(struct __pyx_obj_7PyTorc
     /* "PyTorch.pyx":827
  * #        cdef LongStorage size
  *         if dims > 0:
- *             size = LongStorage(dims)             # <<<<<<<<<<<<<<
+ *             size = _LongStorage(dims)             # <<<<<<<<<<<<<<
  *             for d in range(dims):
  *                 size[d] = THByteTensor_size(self.native, d)
  */
@@ -12497,7 +12497,7 @@ static PyObject *__pyx_pf_7PyTorch_11_ByteTensor_28size(struct __pyx_obj_7PyTorc
 
     /* "PyTorch.pyx":828
  *         if dims > 0:
- *             size = LongStorage(dims)
+ *             size = _LongStorage(dims)
  *             for d in range(dims):             # <<<<<<<<<<<<<<
  *                 size[d] = THByteTensor_size(self.native, d)
  *             return size
@@ -12507,7 +12507,7 @@ static PyObject *__pyx_pf_7PyTorch_11_ByteTensor_28size(struct __pyx_obj_7PyTorc
       __pyx_v_d = __pyx_t_8;
 
       /* "PyTorch.pyx":829
- *             size = LongStorage(dims)
+ *             size = _LongStorage(dims)
  *             for d in range(dims):
  *                 size[d] = THByteTensor_size(self.native, d)             # <<<<<<<<<<<<<<
  *             return size
@@ -13572,16 +13572,16 @@ static PyObject *__pyx_pf_7PyTorch_11_ByteTensor_44resize(struct __pyx_obj_7PyTo
 /* "PyTorch.pyx":883
  * 
  *     @staticmethod
- *     def newWithStorage1d(Storage.ByteStorage storage, offset, size0, stride0):             # <<<<<<<<<<<<<<
+ *     def newWithStorage1d(Storage._ByteStorage storage, offset, size0, stride0):             # <<<<<<<<<<<<<<
  * #        # print('allocate tensor')
- *         cdef THByteTensor *newTensorC = THByteTensor_newWithStorage1d(storage.thByteStorage, offset, size0, stride0)
+ *         cdef THByteTensor *newTensorC = THByteTensor_newWithStorage1d(storage.native, offset, size0, stride0)
  */
 
 /* Python wrapper */
 static PyObject *__pyx_pw_7PyTorch_11_ByteTensor_47newWithStorage1d(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
 static PyMethodDef __pyx_mdef_7PyTorch_11_ByteTensor_47newWithStorage1d = {"newWithStorage1d", (PyCFunction)__pyx_pw_7PyTorch_11_ByteTensor_47newWithStorage1d, METH_VARARGS|METH_KEYWORDS, 0};
 static PyObject *__pyx_pw_7PyTorch_11_ByteTensor_47newWithStorage1d(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds) {
-  struct __pyx_obj_7Storage_ByteStorage *__pyx_v_storage = 0;
+  struct __pyx_obj_7Storage__ByteStorage *__pyx_v_storage = 0;
   PyObject *__pyx_v_offset = 0;
   PyObject *__pyx_v_size0 = 0;
   PyObject *__pyx_v_stride0 = 0;
@@ -13637,7 +13637,7 @@ static PyObject *__pyx_pw_7PyTorch_11_ByteTensor_47newWithStorage1d(CYTHON_UNUSE
       values[2] = PyTuple_GET_ITEM(__pyx_args, 2);
       values[3] = PyTuple_GET_ITEM(__pyx_args, 3);
     }
-    __pyx_v_storage = ((struct __pyx_obj_7Storage_ByteStorage *)values[0]);
+    __pyx_v_storage = ((struct __pyx_obj_7Storage__ByteStorage *)values[0]);
     __pyx_v_offset = values[1];
     __pyx_v_size0 = values[2];
     __pyx_v_stride0 = values[3];
@@ -13650,7 +13650,7 @@ static PyObject *__pyx_pw_7PyTorch_11_ByteTensor_47newWithStorage1d(CYTHON_UNUSE
   __Pyx_RefNannyFinishContext();
   return NULL;
   __pyx_L4_argument_unpacking_done:;
-  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_storage), __pyx_ptype_7Storage_ByteStorage, 1, "storage", 0))) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 883; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_storage), __pyx_ptype_7Storage__ByteStorage, 1, "storage", 0))) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 883; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __pyx_r = __pyx_pf_7PyTorch_11_ByteTensor_46newWithStorage1d(__pyx_v_storage, __pyx_v_offset, __pyx_v_size0, __pyx_v_stride0);
 
   /* function exit code */
@@ -13662,7 +13662,7 @@ static PyObject *__pyx_pw_7PyTorch_11_ByteTensor_47newWithStorage1d(CYTHON_UNUSE
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_7PyTorch_11_ByteTensor_46newWithStorage1d(struct __pyx_obj_7Storage_ByteStorage *__pyx_v_storage, PyObject *__pyx_v_offset, PyObject *__pyx_v_size0, PyObject *__pyx_v_stride0) {
+static PyObject *__pyx_pf_7PyTorch_11_ByteTensor_46newWithStorage1d(struct __pyx_obj_7Storage__ByteStorage *__pyx_v_storage, PyObject *__pyx_v_offset, PyObject *__pyx_v_size0, PyObject *__pyx_v_stride0) {
   struct THByteTensor *__pyx_v_newTensorC;
   PyObject *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
@@ -13677,20 +13677,20 @@ static PyObject *__pyx_pf_7PyTorch_11_ByteTensor_46newWithStorage1d(struct __pyx
   __Pyx_RefNannySetupContext("newWithStorage1d", 0);
 
   /* "PyTorch.pyx":885
- *     def newWithStorage1d(Storage.ByteStorage storage, offset, size0, stride0):
+ *     def newWithStorage1d(Storage._ByteStorage storage, offset, size0, stride0):
  * #        # print('allocate tensor')
- *         cdef THByteTensor *newTensorC = THByteTensor_newWithStorage1d(storage.thByteStorage, offset, size0, stride0)             # <<<<<<<<<<<<<<
+ *         cdef THByteTensor *newTensorC = THByteTensor_newWithStorage1d(storage.native, offset, size0, stride0)             # <<<<<<<<<<<<<<
  *         return _ByteTensor_fromNative(newTensorC, False)
  * 
  */
   __pyx_t_1 = __Pyx_PyInt_As_long(__pyx_v_offset); if (unlikely((__pyx_t_1 == (long)-1) && PyErr_Occurred())) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 885; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __pyx_t_2 = __Pyx_PyInt_As_long(__pyx_v_size0); if (unlikely((__pyx_t_2 == (long)-1) && PyErr_Occurred())) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 885; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __pyx_t_3 = __Pyx_PyInt_As_long(__pyx_v_stride0); if (unlikely((__pyx_t_3 == (long)-1) && PyErr_Occurred())) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 885; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-  __pyx_v_newTensorC = THByteTensor_newWithStorage1d(__pyx_v_storage->thByteStorage, __pyx_t_1, __pyx_t_2, __pyx_t_3);
+  __pyx_v_newTensorC = THByteTensor_newWithStorage1d(__pyx_v_storage->native, __pyx_t_1, __pyx_t_2, __pyx_t_3);
 
   /* "PyTorch.pyx":886
  * #        # print('allocate tensor')
- *         cdef THByteTensor *newTensorC = THByteTensor_newWithStorage1d(storage.thByteStorage, offset, size0, stride0)
+ *         cdef THByteTensor *newTensorC = THByteTensor_newWithStorage1d(storage.native, offset, size0, stride0)
  *         return _ByteTensor_fromNative(newTensorC, False)             # <<<<<<<<<<<<<<
  * 
  *     @staticmethod
@@ -13707,9 +13707,9 @@ static PyObject *__pyx_pf_7PyTorch_11_ByteTensor_46newWithStorage1d(struct __pyx
   /* "PyTorch.pyx":883
  * 
  *     @staticmethod
- *     def newWithStorage1d(Storage.ByteStorage storage, offset, size0, stride0):             # <<<<<<<<<<<<<<
+ *     def newWithStorage1d(Storage._ByteStorage storage, offset, size0, stride0):             # <<<<<<<<<<<<<<
  * #        # print('allocate tensor')
- *         cdef THByteTensor *newTensorC = THByteTensor_newWithStorage1d(storage.thByteStorage, offset, size0, stride0)
+ *         cdef THByteTensor *newTensorC = THByteTensor_newWithStorage1d(storage.native, offset, size0, stride0)
  */
 
   /* function exit code */
@@ -13726,16 +13726,16 @@ static PyObject *__pyx_pf_7PyTorch_11_ByteTensor_46newWithStorage1d(struct __pyx
 /* "PyTorch.pyx":889
  * 
  *     @staticmethod
- *     def newWithStorage2d(Storage.ByteStorage storage, offset, size0, stride0, size1, stride1):             # <<<<<<<<<<<<<<
+ *     def newWithStorage2d(Storage._ByteStorage storage, offset, size0, stride0, size1, stride1):             # <<<<<<<<<<<<<<
  * #        # print('allocate tensor')
- *         cdef THByteTensor *newTensorC = THByteTensor_newWithStorage2d(storage.thByteStorage, offset, size0, stride0, size1, stride1)
+ *         cdef THByteTensor *newTensorC = THByteTensor_newWithStorage2d(storage.native, offset, size0, stride0, size1, stride1)
  */
 
 /* Python wrapper */
 static PyObject *__pyx_pw_7PyTorch_11_ByteTensor_49newWithStorage2d(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
 static PyMethodDef __pyx_mdef_7PyTorch_11_ByteTensor_49newWithStorage2d = {"newWithStorage2d", (PyCFunction)__pyx_pw_7PyTorch_11_ByteTensor_49newWithStorage2d, METH_VARARGS|METH_KEYWORDS, 0};
 static PyObject *__pyx_pw_7PyTorch_11_ByteTensor_49newWithStorage2d(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds) {
-  struct __pyx_obj_7Storage_ByteStorage *__pyx_v_storage = 0;
+  struct __pyx_obj_7Storage__ByteStorage *__pyx_v_storage = 0;
   PyObject *__pyx_v_offset = 0;
   PyObject *__pyx_v_size0 = 0;
   PyObject *__pyx_v_stride0 = 0;
@@ -13807,7 +13807,7 @@ static PyObject *__pyx_pw_7PyTorch_11_ByteTensor_49newWithStorage2d(CYTHON_UNUSE
       values[4] = PyTuple_GET_ITEM(__pyx_args, 4);
       values[5] = PyTuple_GET_ITEM(__pyx_args, 5);
     }
-    __pyx_v_storage = ((struct __pyx_obj_7Storage_ByteStorage *)values[0]);
+    __pyx_v_storage = ((struct __pyx_obj_7Storage__ByteStorage *)values[0]);
     __pyx_v_offset = values[1];
     __pyx_v_size0 = values[2];
     __pyx_v_stride0 = values[3];
@@ -13822,7 +13822,7 @@ static PyObject *__pyx_pw_7PyTorch_11_ByteTensor_49newWithStorage2d(CYTHON_UNUSE
   __Pyx_RefNannyFinishContext();
   return NULL;
   __pyx_L4_argument_unpacking_done:;
-  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_storage), __pyx_ptype_7Storage_ByteStorage, 1, "storage", 0))) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 889; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_storage), __pyx_ptype_7Storage__ByteStorage, 1, "storage", 0))) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 889; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __pyx_r = __pyx_pf_7PyTorch_11_ByteTensor_48newWithStorage2d(__pyx_v_storage, __pyx_v_offset, __pyx_v_size0, __pyx_v_stride0, __pyx_v_size1, __pyx_v_stride1);
 
   /* function exit code */
@@ -13834,7 +13834,7 @@ static PyObject *__pyx_pw_7PyTorch_11_ByteTensor_49newWithStorage2d(CYTHON_UNUSE
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_7PyTorch_11_ByteTensor_48newWithStorage2d(struct __pyx_obj_7Storage_ByteStorage *__pyx_v_storage, PyObject *__pyx_v_offset, PyObject *__pyx_v_size0, PyObject *__pyx_v_stride0, PyObject *__pyx_v_size1, PyObject *__pyx_v_stride1) {
+static PyObject *__pyx_pf_7PyTorch_11_ByteTensor_48newWithStorage2d(struct __pyx_obj_7Storage__ByteStorage *__pyx_v_storage, PyObject *__pyx_v_offset, PyObject *__pyx_v_size0, PyObject *__pyx_v_stride0, PyObject *__pyx_v_size1, PyObject *__pyx_v_stride1) {
   struct THByteTensor *__pyx_v_newTensorC;
   PyObject *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
@@ -13851,9 +13851,9 @@ static PyObject *__pyx_pf_7PyTorch_11_ByteTensor_48newWithStorage2d(struct __pyx
   __Pyx_RefNannySetupContext("newWithStorage2d", 0);
 
   /* "PyTorch.pyx":891
- *     def newWithStorage2d(Storage.ByteStorage storage, offset, size0, stride0, size1, stride1):
+ *     def newWithStorage2d(Storage._ByteStorage storage, offset, size0, stride0, size1, stride1):
  * #        # print('allocate tensor')
- *         cdef THByteTensor *newTensorC = THByteTensor_newWithStorage2d(storage.thByteStorage, offset, size0, stride0, size1, stride1)             # <<<<<<<<<<<<<<
+ *         cdef THByteTensor *newTensorC = THByteTensor_newWithStorage2d(storage.native, offset, size0, stride0, size1, stride1)             # <<<<<<<<<<<<<<
  *         return _ByteTensor_fromNative(newTensorC, False)
  * 
  */
@@ -13862,11 +13862,11 @@ static PyObject *__pyx_pf_7PyTorch_11_ByteTensor_48newWithStorage2d(struct __pyx
   __pyx_t_3 = __Pyx_PyInt_As_long(__pyx_v_stride0); if (unlikely((__pyx_t_3 == (long)-1) && PyErr_Occurred())) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 891; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __pyx_t_4 = __Pyx_PyInt_As_long(__pyx_v_size1); if (unlikely((__pyx_t_4 == (long)-1) && PyErr_Occurred())) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 891; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __pyx_t_5 = __Pyx_PyInt_As_long(__pyx_v_stride1); if (unlikely((__pyx_t_5 == (long)-1) && PyErr_Occurred())) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 891; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-  __pyx_v_newTensorC = THByteTensor_newWithStorage2d(__pyx_v_storage->thByteStorage, __pyx_t_1, __pyx_t_2, __pyx_t_3, __pyx_t_4, __pyx_t_5);
+  __pyx_v_newTensorC = THByteTensor_newWithStorage2d(__pyx_v_storage->native, __pyx_t_1, __pyx_t_2, __pyx_t_3, __pyx_t_4, __pyx_t_5);
 
   /* "PyTorch.pyx":892
  * #        # print('allocate tensor')
- *         cdef THByteTensor *newTensorC = THByteTensor_newWithStorage2d(storage.thByteStorage, offset, size0, stride0, size1, stride1)
+ *         cdef THByteTensor *newTensorC = THByteTensor_newWithStorage2d(storage.native, offset, size0, stride0, size1, stride1)
  *         return _ByteTensor_fromNative(newTensorC, False)             # <<<<<<<<<<<<<<
  * 
  *     def clone(_ByteTensor self):
@@ -13883,9 +13883,9 @@ static PyObject *__pyx_pf_7PyTorch_11_ByteTensor_48newWithStorage2d(struct __pyx
   /* "PyTorch.pyx":889
  * 
  *     @staticmethod
- *     def newWithStorage2d(Storage.ByteStorage storage, offset, size0, stride0, size1, stride1):             # <<<<<<<<<<<<<<
+ *     def newWithStorage2d(Storage._ByteStorage storage, offset, size0, stride0, size1, stride1):             # <<<<<<<<<<<<<<
  * #        # print('allocate tensor')
- *         cdef THByteTensor *newTensorC = THByteTensor_newWithStorage2d(storage.thByteStorage, offset, size0, stride0, size1, stride1)
+ *         cdef THByteTensor *newTensorC = THByteTensor_newWithStorage2d(storage.native, offset, size0, stride0, size1, stride1)
  */
 
   /* function exit code */
@@ -14021,7 +14021,7 @@ static PyObject *__pyx_pf_7PyTorch_11_ByteTensor_52storage(struct __pyx_obj_7PyT
  *         cdef Storage.THByteStorage *storageC = THByteTensor_storage(self.native)
  *         if storageC == NULL:             # <<<<<<<<<<<<<<
  *             return None
- *         return Storage.ByteStorage_fromNative(storageC)
+ *         return Storage._ByteStorage_fromNative(storageC)
  */
   __pyx_t_1 = ((__pyx_v_storageC == NULL) != 0);
   if (__pyx_t_1) {
@@ -14030,7 +14030,7 @@ static PyObject *__pyx_pf_7PyTorch_11_ByteTensor_52storage(struct __pyx_obj_7PyT
  *         cdef Storage.THByteStorage *storageC = THByteTensor_storage(self.native)
  *         if storageC == NULL:
  *             return None             # <<<<<<<<<<<<<<
- *         return Storage.ByteStorage_fromNative(storageC)
+ *         return Storage._ByteStorage_fromNative(storageC)
  * 
  */
     __Pyx_XDECREF(__pyx_r);
@@ -14042,12 +14042,12 @@ static PyObject *__pyx_pf_7PyTorch_11_ByteTensor_52storage(struct __pyx_obj_7PyT
   /* "PyTorch.pyx":902
  *         if storageC == NULL:
  *             return None
- *         return Storage.ByteStorage_fromNative(storageC)             # <<<<<<<<<<<<<<
+ *         return Storage._ByteStorage_fromNative(storageC)             # <<<<<<<<<<<<<<
  * 
  *     def __add__(_ByteTensor self, second):
  */
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_2 = __pyx_f_7Storage_ByteStorage_fromNative(__pyx_v_storageC, NULL); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 902; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_2 = __pyx_f_7Storage__ByteStorage_fromNative(__pyx_v_storageC, NULL); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 902; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_2);
   __pyx_r = __pyx_t_2;
   __pyx_t_2 = 0;
@@ -14073,7 +14073,7 @@ static PyObject *__pyx_pf_7PyTorch_11_ByteTensor_52storage(struct __pyx_obj_7PyT
 }
 
 /* "PyTorch.pyx":904
- *         return Storage.ByteStorage_fromNative(storageC)
+ *         return Storage._ByteStorage_fromNative(storageC)
  * 
  *     def __add__(_ByteTensor self, second):             # <<<<<<<<<<<<<<
  *         # assume 2d matrix for now?
@@ -14215,7 +14215,7 @@ static PyObject *__pyx_pf_7PyTorch_11_ByteTensor_54__add__(struct __pyx_obj_7PyT
   goto __pyx_L0;
 
   /* "PyTorch.pyx":904
- *         return Storage.ByteStorage_fromNative(storageC)
+ *         return Storage._ByteStorage_fromNative(storageC)
  * 
  *     def __add__(_ByteTensor self, second):             # <<<<<<<<<<<<<<
  *         # assume 2d matrix for now?
@@ -18485,7 +18485,7 @@ static PyObject *__pyx_pf_7PyTorch_12_FloatTensor_28size(struct __pyx_obj_7PyTor
  *         cdef int dims = self.dims()
  * #        cdef LongStorage size
  *         if dims > 0:             # <<<<<<<<<<<<<<
- *             size = LongStorage(dims)
+ *             size = _LongStorage(dims)
  *             for d in range(dims):
  */
   __pyx_t_1 = ((__pyx_v_dims > 0) != 0);
@@ -18494,7 +18494,7 @@ static PyObject *__pyx_pf_7PyTorch_12_FloatTensor_28size(struct __pyx_obj_7PyTor
     /* "PyTorch.pyx":1182
  * #        cdef LongStorage size
  *         if dims > 0:
- *             size = LongStorage(dims)             # <<<<<<<<<<<<<<
+ *             size = _LongStorage(dims)             # <<<<<<<<<<<<<<
  *             for d in range(dims):
  *                 size[d] = THFloatTensor_size(self.native, d)
  */
@@ -18533,7 +18533,7 @@ static PyObject *__pyx_pf_7PyTorch_12_FloatTensor_28size(struct __pyx_obj_7PyTor
 
     /* "PyTorch.pyx":1183
  *         if dims > 0:
- *             size = LongStorage(dims)
+ *             size = _LongStorage(dims)
  *             for d in range(dims):             # <<<<<<<<<<<<<<
  *                 size[d] = THFloatTensor_size(self.native, d)
  *             return size
@@ -18543,7 +18543,7 @@ static PyObject *__pyx_pf_7PyTorch_12_FloatTensor_28size(struct __pyx_obj_7PyTor
       __pyx_v_d = __pyx_t_8;
 
       /* "PyTorch.pyx":1184
- *             size = LongStorage(dims)
+ *             size = _LongStorage(dims)
  *             for d in range(dims):
  *                 size[d] = THFloatTensor_size(self.native, d)             # <<<<<<<<<<<<<<
  *             return size
@@ -19608,16 +19608,16 @@ static PyObject *__pyx_pf_7PyTorch_12_FloatTensor_44resize(struct __pyx_obj_7PyT
 /* "PyTorch.pyx":1238
  * 
  *     @staticmethod
- *     def newWithStorage1d(Storage.FloatStorage storage, offset, size0, stride0):             # <<<<<<<<<<<<<<
+ *     def newWithStorage1d(Storage._FloatStorage storage, offset, size0, stride0):             # <<<<<<<<<<<<<<
  * #        # print('allocate tensor')
- *         cdef THFloatTensor *newTensorC = THFloatTensor_newWithStorage1d(storage.thFloatStorage, offset, size0, stride0)
+ *         cdef THFloatTensor *newTensorC = THFloatTensor_newWithStorage1d(storage.native, offset, size0, stride0)
  */
 
 /* Python wrapper */
 static PyObject *__pyx_pw_7PyTorch_12_FloatTensor_47newWithStorage1d(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
 static PyMethodDef __pyx_mdef_7PyTorch_12_FloatTensor_47newWithStorage1d = {"newWithStorage1d", (PyCFunction)__pyx_pw_7PyTorch_12_FloatTensor_47newWithStorage1d, METH_VARARGS|METH_KEYWORDS, 0};
 static PyObject *__pyx_pw_7PyTorch_12_FloatTensor_47newWithStorage1d(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds) {
-  struct __pyx_obj_7Storage_FloatStorage *__pyx_v_storage = 0;
+  struct __pyx_obj_7Storage__FloatStorage *__pyx_v_storage = 0;
   PyObject *__pyx_v_offset = 0;
   PyObject *__pyx_v_size0 = 0;
   PyObject *__pyx_v_stride0 = 0;
@@ -19673,7 +19673,7 @@ static PyObject *__pyx_pw_7PyTorch_12_FloatTensor_47newWithStorage1d(CYTHON_UNUS
       values[2] = PyTuple_GET_ITEM(__pyx_args, 2);
       values[3] = PyTuple_GET_ITEM(__pyx_args, 3);
     }
-    __pyx_v_storage = ((struct __pyx_obj_7Storage_FloatStorage *)values[0]);
+    __pyx_v_storage = ((struct __pyx_obj_7Storage__FloatStorage *)values[0]);
     __pyx_v_offset = values[1];
     __pyx_v_size0 = values[2];
     __pyx_v_stride0 = values[3];
@@ -19686,7 +19686,7 @@ static PyObject *__pyx_pw_7PyTorch_12_FloatTensor_47newWithStorage1d(CYTHON_UNUS
   __Pyx_RefNannyFinishContext();
   return NULL;
   __pyx_L4_argument_unpacking_done:;
-  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_storage), __pyx_ptype_7Storage_FloatStorage, 1, "storage", 0))) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1238; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_storage), __pyx_ptype_7Storage__FloatStorage, 1, "storage", 0))) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1238; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __pyx_r = __pyx_pf_7PyTorch_12_FloatTensor_46newWithStorage1d(__pyx_v_storage, __pyx_v_offset, __pyx_v_size0, __pyx_v_stride0);
 
   /* function exit code */
@@ -19698,7 +19698,7 @@ static PyObject *__pyx_pw_7PyTorch_12_FloatTensor_47newWithStorage1d(CYTHON_UNUS
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_7PyTorch_12_FloatTensor_46newWithStorage1d(struct __pyx_obj_7Storage_FloatStorage *__pyx_v_storage, PyObject *__pyx_v_offset, PyObject *__pyx_v_size0, PyObject *__pyx_v_stride0) {
+static PyObject *__pyx_pf_7PyTorch_12_FloatTensor_46newWithStorage1d(struct __pyx_obj_7Storage__FloatStorage *__pyx_v_storage, PyObject *__pyx_v_offset, PyObject *__pyx_v_size0, PyObject *__pyx_v_stride0) {
   struct THFloatTensor *__pyx_v_newTensorC;
   PyObject *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
@@ -19713,20 +19713,20 @@ static PyObject *__pyx_pf_7PyTorch_12_FloatTensor_46newWithStorage1d(struct __py
   __Pyx_RefNannySetupContext("newWithStorage1d", 0);
 
   /* "PyTorch.pyx":1240
- *     def newWithStorage1d(Storage.FloatStorage storage, offset, size0, stride0):
+ *     def newWithStorage1d(Storage._FloatStorage storage, offset, size0, stride0):
  * #        # print('allocate tensor')
- *         cdef THFloatTensor *newTensorC = THFloatTensor_newWithStorage1d(storage.thFloatStorage, offset, size0, stride0)             # <<<<<<<<<<<<<<
+ *         cdef THFloatTensor *newTensorC = THFloatTensor_newWithStorage1d(storage.native, offset, size0, stride0)             # <<<<<<<<<<<<<<
  *         return _FloatTensor_fromNative(newTensorC, False)
  * 
  */
   __pyx_t_1 = __Pyx_PyInt_As_long(__pyx_v_offset); if (unlikely((__pyx_t_1 == (long)-1) && PyErr_Occurred())) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1240; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __pyx_t_2 = __Pyx_PyInt_As_long(__pyx_v_size0); if (unlikely((__pyx_t_2 == (long)-1) && PyErr_Occurred())) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1240; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __pyx_t_3 = __Pyx_PyInt_As_long(__pyx_v_stride0); if (unlikely((__pyx_t_3 == (long)-1) && PyErr_Occurred())) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1240; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-  __pyx_v_newTensorC = THFloatTensor_newWithStorage1d(__pyx_v_storage->thFloatStorage, __pyx_t_1, __pyx_t_2, __pyx_t_3);
+  __pyx_v_newTensorC = THFloatTensor_newWithStorage1d(__pyx_v_storage->native, __pyx_t_1, __pyx_t_2, __pyx_t_3);
 
   /* "PyTorch.pyx":1241
  * #        # print('allocate tensor')
- *         cdef THFloatTensor *newTensorC = THFloatTensor_newWithStorage1d(storage.thFloatStorage, offset, size0, stride0)
+ *         cdef THFloatTensor *newTensorC = THFloatTensor_newWithStorage1d(storage.native, offset, size0, stride0)
  *         return _FloatTensor_fromNative(newTensorC, False)             # <<<<<<<<<<<<<<
  * 
  *     @staticmethod
@@ -19743,9 +19743,9 @@ static PyObject *__pyx_pf_7PyTorch_12_FloatTensor_46newWithStorage1d(struct __py
   /* "PyTorch.pyx":1238
  * 
  *     @staticmethod
- *     def newWithStorage1d(Storage.FloatStorage storage, offset, size0, stride0):             # <<<<<<<<<<<<<<
+ *     def newWithStorage1d(Storage._FloatStorage storage, offset, size0, stride0):             # <<<<<<<<<<<<<<
  * #        # print('allocate tensor')
- *         cdef THFloatTensor *newTensorC = THFloatTensor_newWithStorage1d(storage.thFloatStorage, offset, size0, stride0)
+ *         cdef THFloatTensor *newTensorC = THFloatTensor_newWithStorage1d(storage.native, offset, size0, stride0)
  */
 
   /* function exit code */
@@ -19762,16 +19762,16 @@ static PyObject *__pyx_pf_7PyTorch_12_FloatTensor_46newWithStorage1d(struct __py
 /* "PyTorch.pyx":1244
  * 
  *     @staticmethod
- *     def newWithStorage2d(Storage.FloatStorage storage, offset, size0, stride0, size1, stride1):             # <<<<<<<<<<<<<<
+ *     def newWithStorage2d(Storage._FloatStorage storage, offset, size0, stride0, size1, stride1):             # <<<<<<<<<<<<<<
  * #        # print('allocate tensor')
- *         cdef THFloatTensor *newTensorC = THFloatTensor_newWithStorage2d(storage.thFloatStorage, offset, size0, stride0, size1, stride1)
+ *         cdef THFloatTensor *newTensorC = THFloatTensor_newWithStorage2d(storage.native, offset, size0, stride0, size1, stride1)
  */
 
 /* Python wrapper */
 static PyObject *__pyx_pw_7PyTorch_12_FloatTensor_49newWithStorage2d(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
 static PyMethodDef __pyx_mdef_7PyTorch_12_FloatTensor_49newWithStorage2d = {"newWithStorage2d", (PyCFunction)__pyx_pw_7PyTorch_12_FloatTensor_49newWithStorage2d, METH_VARARGS|METH_KEYWORDS, 0};
 static PyObject *__pyx_pw_7PyTorch_12_FloatTensor_49newWithStorage2d(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds) {
-  struct __pyx_obj_7Storage_FloatStorage *__pyx_v_storage = 0;
+  struct __pyx_obj_7Storage__FloatStorage *__pyx_v_storage = 0;
   PyObject *__pyx_v_offset = 0;
   PyObject *__pyx_v_size0 = 0;
   PyObject *__pyx_v_stride0 = 0;
@@ -19843,7 +19843,7 @@ static PyObject *__pyx_pw_7PyTorch_12_FloatTensor_49newWithStorage2d(CYTHON_UNUS
       values[4] = PyTuple_GET_ITEM(__pyx_args, 4);
       values[5] = PyTuple_GET_ITEM(__pyx_args, 5);
     }
-    __pyx_v_storage = ((struct __pyx_obj_7Storage_FloatStorage *)values[0]);
+    __pyx_v_storage = ((struct __pyx_obj_7Storage__FloatStorage *)values[0]);
     __pyx_v_offset = values[1];
     __pyx_v_size0 = values[2];
     __pyx_v_stride0 = values[3];
@@ -19858,7 +19858,7 @@ static PyObject *__pyx_pw_7PyTorch_12_FloatTensor_49newWithStorage2d(CYTHON_UNUS
   __Pyx_RefNannyFinishContext();
   return NULL;
   __pyx_L4_argument_unpacking_done:;
-  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_storage), __pyx_ptype_7Storage_FloatStorage, 1, "storage", 0))) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1244; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_storage), __pyx_ptype_7Storage__FloatStorage, 1, "storage", 0))) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1244; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __pyx_r = __pyx_pf_7PyTorch_12_FloatTensor_48newWithStorage2d(__pyx_v_storage, __pyx_v_offset, __pyx_v_size0, __pyx_v_stride0, __pyx_v_size1, __pyx_v_stride1);
 
   /* function exit code */
@@ -19870,7 +19870,7 @@ static PyObject *__pyx_pw_7PyTorch_12_FloatTensor_49newWithStorage2d(CYTHON_UNUS
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_7PyTorch_12_FloatTensor_48newWithStorage2d(struct __pyx_obj_7Storage_FloatStorage *__pyx_v_storage, PyObject *__pyx_v_offset, PyObject *__pyx_v_size0, PyObject *__pyx_v_stride0, PyObject *__pyx_v_size1, PyObject *__pyx_v_stride1) {
+static PyObject *__pyx_pf_7PyTorch_12_FloatTensor_48newWithStorage2d(struct __pyx_obj_7Storage__FloatStorage *__pyx_v_storage, PyObject *__pyx_v_offset, PyObject *__pyx_v_size0, PyObject *__pyx_v_stride0, PyObject *__pyx_v_size1, PyObject *__pyx_v_stride1) {
   struct THFloatTensor *__pyx_v_newTensorC;
   PyObject *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
@@ -19887,9 +19887,9 @@ static PyObject *__pyx_pf_7PyTorch_12_FloatTensor_48newWithStorage2d(struct __py
   __Pyx_RefNannySetupContext("newWithStorage2d", 0);
 
   /* "PyTorch.pyx":1246
- *     def newWithStorage2d(Storage.FloatStorage storage, offset, size0, stride0, size1, stride1):
+ *     def newWithStorage2d(Storage._FloatStorage storage, offset, size0, stride0, size1, stride1):
  * #        # print('allocate tensor')
- *         cdef THFloatTensor *newTensorC = THFloatTensor_newWithStorage2d(storage.thFloatStorage, offset, size0, stride0, size1, stride1)             # <<<<<<<<<<<<<<
+ *         cdef THFloatTensor *newTensorC = THFloatTensor_newWithStorage2d(storage.native, offset, size0, stride0, size1, stride1)             # <<<<<<<<<<<<<<
  *         return _FloatTensor_fromNative(newTensorC, False)
  * 
  */
@@ -19898,11 +19898,11 @@ static PyObject *__pyx_pf_7PyTorch_12_FloatTensor_48newWithStorage2d(struct __py
   __pyx_t_3 = __Pyx_PyInt_As_long(__pyx_v_stride0); if (unlikely((__pyx_t_3 == (long)-1) && PyErr_Occurred())) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1246; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __pyx_t_4 = __Pyx_PyInt_As_long(__pyx_v_size1); if (unlikely((__pyx_t_4 == (long)-1) && PyErr_Occurred())) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1246; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __pyx_t_5 = __Pyx_PyInt_As_long(__pyx_v_stride1); if (unlikely((__pyx_t_5 == (long)-1) && PyErr_Occurred())) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1246; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-  __pyx_v_newTensorC = THFloatTensor_newWithStorage2d(__pyx_v_storage->thFloatStorage, __pyx_t_1, __pyx_t_2, __pyx_t_3, __pyx_t_4, __pyx_t_5);
+  __pyx_v_newTensorC = THFloatTensor_newWithStorage2d(__pyx_v_storage->native, __pyx_t_1, __pyx_t_2, __pyx_t_3, __pyx_t_4, __pyx_t_5);
 
   /* "PyTorch.pyx":1247
  * #        # print('allocate tensor')
- *         cdef THFloatTensor *newTensorC = THFloatTensor_newWithStorage2d(storage.thFloatStorage, offset, size0, stride0, size1, stride1)
+ *         cdef THFloatTensor *newTensorC = THFloatTensor_newWithStorage2d(storage.native, offset, size0, stride0, size1, stride1)
  *         return _FloatTensor_fromNative(newTensorC, False)             # <<<<<<<<<<<<<<
  * 
  *     def clone(_FloatTensor self):
@@ -19919,9 +19919,9 @@ static PyObject *__pyx_pf_7PyTorch_12_FloatTensor_48newWithStorage2d(struct __py
   /* "PyTorch.pyx":1244
  * 
  *     @staticmethod
- *     def newWithStorage2d(Storage.FloatStorage storage, offset, size0, stride0, size1, stride1):             # <<<<<<<<<<<<<<
+ *     def newWithStorage2d(Storage._FloatStorage storage, offset, size0, stride0, size1, stride1):             # <<<<<<<<<<<<<<
  * #        # print('allocate tensor')
- *         cdef THFloatTensor *newTensorC = THFloatTensor_newWithStorage2d(storage.thFloatStorage, offset, size0, stride0, size1, stride1)
+ *         cdef THFloatTensor *newTensorC = THFloatTensor_newWithStorage2d(storage.native, offset, size0, stride0, size1, stride1)
  */
 
   /* function exit code */
@@ -20057,7 +20057,7 @@ static PyObject *__pyx_pf_7PyTorch_12_FloatTensor_52storage(struct __pyx_obj_7Py
  *         cdef Storage.THFloatStorage *storageC = THFloatTensor_storage(self.native)
  *         if storageC == NULL:             # <<<<<<<<<<<<<<
  *             return None
- *         return Storage.FloatStorage_fromNative(storageC)
+ *         return Storage._FloatStorage_fromNative(storageC)
  */
   __pyx_t_1 = ((__pyx_v_storageC == NULL) != 0);
   if (__pyx_t_1) {
@@ -20066,7 +20066,7 @@ static PyObject *__pyx_pf_7PyTorch_12_FloatTensor_52storage(struct __pyx_obj_7Py
  *         cdef Storage.THFloatStorage *storageC = THFloatTensor_storage(self.native)
  *         if storageC == NULL:
  *             return None             # <<<<<<<<<<<<<<
- *         return Storage.FloatStorage_fromNative(storageC)
+ *         return Storage._FloatStorage_fromNative(storageC)
  * 
  */
     __Pyx_XDECREF(__pyx_r);
@@ -20078,12 +20078,12 @@ static PyObject *__pyx_pf_7PyTorch_12_FloatTensor_52storage(struct __pyx_obj_7Py
   /* "PyTorch.pyx":1257
  *         if storageC == NULL:
  *             return None
- *         return Storage.FloatStorage_fromNative(storageC)             # <<<<<<<<<<<<<<
+ *         return Storage._FloatStorage_fromNative(storageC)             # <<<<<<<<<<<<<<
  * 
  *     def __add__(_FloatTensor self, second):
  */
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_2 = __pyx_f_7Storage_FloatStorage_fromNative(__pyx_v_storageC, NULL); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1257; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_2 = __pyx_f_7Storage__FloatStorage_fromNative(__pyx_v_storageC, NULL); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1257; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_2);
   __pyx_r = __pyx_t_2;
   __pyx_t_2 = 0;
@@ -20109,7 +20109,7 @@ static PyObject *__pyx_pf_7PyTorch_12_FloatTensor_52storage(struct __pyx_obj_7Py
 }
 
 /* "PyTorch.pyx":1259
- *         return Storage.FloatStorage_fromNative(storageC)
+ *         return Storage._FloatStorage_fromNative(storageC)
  * 
  *     def __add__(_FloatTensor self, second):             # <<<<<<<<<<<<<<
  *         # assume 2d matrix for now?
@@ -20251,7 +20251,7 @@ static PyObject *__pyx_pf_7PyTorch_12_FloatTensor_54__add__(struct __pyx_obj_7Py
   goto __pyx_L0;
 
   /* "PyTorch.pyx":1259
- *         return Storage.FloatStorage_fromNative(storageC)
+ *         return Storage._FloatStorage_fromNative(storageC)
  * 
  *     def __add__(_FloatTensor self, second):             # <<<<<<<<<<<<<<
  *         # assume 2d matrix for now?
@@ -25284,7 +25284,7 @@ static PyObject *__pyx_pf_7PyTorch_11_LongTensor_28size(struct __pyx_obj_7PyTorc
  *         cdef int dims = self.dims()
  * #        cdef LongStorage size
  *         if dims > 0:             # <<<<<<<<<<<<<<
- *             size = LongStorage(dims)
+ *             size = _LongStorage(dims)
  *             for d in range(dims):
  */
   __pyx_t_1 = ((__pyx_v_dims > 0) != 0);
@@ -25293,7 +25293,7 @@ static PyObject *__pyx_pf_7PyTorch_11_LongTensor_28size(struct __pyx_obj_7PyTorc
     /* "PyTorch.pyx":1564
  * #        cdef LongStorage size
  *         if dims > 0:
- *             size = LongStorage(dims)             # <<<<<<<<<<<<<<
+ *             size = _LongStorage(dims)             # <<<<<<<<<<<<<<
  *             for d in range(dims):
  *                 size[d] = THLongTensor_size(self.native, d)
  */
@@ -25332,7 +25332,7 @@ static PyObject *__pyx_pf_7PyTorch_11_LongTensor_28size(struct __pyx_obj_7PyTorc
 
     /* "PyTorch.pyx":1565
  *         if dims > 0:
- *             size = LongStorage(dims)
+ *             size = _LongStorage(dims)
  *             for d in range(dims):             # <<<<<<<<<<<<<<
  *                 size[d] = THLongTensor_size(self.native, d)
  *             return size
@@ -25342,7 +25342,7 @@ static PyObject *__pyx_pf_7PyTorch_11_LongTensor_28size(struct __pyx_obj_7PyTorc
       __pyx_v_d = __pyx_t_8;
 
       /* "PyTorch.pyx":1566
- *             size = LongStorage(dims)
+ *             size = _LongStorage(dims)
  *             for d in range(dims):
  *                 size[d] = THLongTensor_size(self.native, d)             # <<<<<<<<<<<<<<
  *             return size
@@ -26407,16 +26407,16 @@ static PyObject *__pyx_pf_7PyTorch_11_LongTensor_44resize(struct __pyx_obj_7PyTo
 /* "PyTorch.pyx":1620
  * 
  *     @staticmethod
- *     def newWithStorage1d(Storage.LongStorage storage, offset, size0, stride0):             # <<<<<<<<<<<<<<
+ *     def newWithStorage1d(Storage._LongStorage storage, offset, size0, stride0):             # <<<<<<<<<<<<<<
  * #        # print('allocate tensor')
- *         cdef THLongTensor *newTensorC = THLongTensor_newWithStorage1d(storage.thLongStorage, offset, size0, stride0)
+ *         cdef THLongTensor *newTensorC = THLongTensor_newWithStorage1d(storage.native, offset, size0, stride0)
  */
 
 /* Python wrapper */
 static PyObject *__pyx_pw_7PyTorch_11_LongTensor_47newWithStorage1d(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
 static PyMethodDef __pyx_mdef_7PyTorch_11_LongTensor_47newWithStorage1d = {"newWithStorage1d", (PyCFunction)__pyx_pw_7PyTorch_11_LongTensor_47newWithStorage1d, METH_VARARGS|METH_KEYWORDS, 0};
 static PyObject *__pyx_pw_7PyTorch_11_LongTensor_47newWithStorage1d(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds) {
-  struct __pyx_obj_7Storage_LongStorage *__pyx_v_storage = 0;
+  struct __pyx_obj_7Storage__LongStorage *__pyx_v_storage = 0;
   PyObject *__pyx_v_offset = 0;
   PyObject *__pyx_v_size0 = 0;
   PyObject *__pyx_v_stride0 = 0;
@@ -26472,7 +26472,7 @@ static PyObject *__pyx_pw_7PyTorch_11_LongTensor_47newWithStorage1d(CYTHON_UNUSE
       values[2] = PyTuple_GET_ITEM(__pyx_args, 2);
       values[3] = PyTuple_GET_ITEM(__pyx_args, 3);
     }
-    __pyx_v_storage = ((struct __pyx_obj_7Storage_LongStorage *)values[0]);
+    __pyx_v_storage = ((struct __pyx_obj_7Storage__LongStorage *)values[0]);
     __pyx_v_offset = values[1];
     __pyx_v_size0 = values[2];
     __pyx_v_stride0 = values[3];
@@ -26485,7 +26485,7 @@ static PyObject *__pyx_pw_7PyTorch_11_LongTensor_47newWithStorage1d(CYTHON_UNUSE
   __Pyx_RefNannyFinishContext();
   return NULL;
   __pyx_L4_argument_unpacking_done:;
-  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_storage), __pyx_ptype_7Storage_LongStorage, 1, "storage", 0))) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1620; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_storage), __pyx_ptype_7Storage__LongStorage, 1, "storage", 0))) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1620; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __pyx_r = __pyx_pf_7PyTorch_11_LongTensor_46newWithStorage1d(__pyx_v_storage, __pyx_v_offset, __pyx_v_size0, __pyx_v_stride0);
 
   /* function exit code */
@@ -26497,7 +26497,7 @@ static PyObject *__pyx_pw_7PyTorch_11_LongTensor_47newWithStorage1d(CYTHON_UNUSE
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_7PyTorch_11_LongTensor_46newWithStorage1d(struct __pyx_obj_7Storage_LongStorage *__pyx_v_storage, PyObject *__pyx_v_offset, PyObject *__pyx_v_size0, PyObject *__pyx_v_stride0) {
+static PyObject *__pyx_pf_7PyTorch_11_LongTensor_46newWithStorage1d(struct __pyx_obj_7Storage__LongStorage *__pyx_v_storage, PyObject *__pyx_v_offset, PyObject *__pyx_v_size0, PyObject *__pyx_v_stride0) {
   struct THLongTensor *__pyx_v_newTensorC;
   PyObject *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
@@ -26512,20 +26512,20 @@ static PyObject *__pyx_pf_7PyTorch_11_LongTensor_46newWithStorage1d(struct __pyx
   __Pyx_RefNannySetupContext("newWithStorage1d", 0);
 
   /* "PyTorch.pyx":1622
- *     def newWithStorage1d(Storage.LongStorage storage, offset, size0, stride0):
+ *     def newWithStorage1d(Storage._LongStorage storage, offset, size0, stride0):
  * #        # print('allocate tensor')
- *         cdef THLongTensor *newTensorC = THLongTensor_newWithStorage1d(storage.thLongStorage, offset, size0, stride0)             # <<<<<<<<<<<<<<
+ *         cdef THLongTensor *newTensorC = THLongTensor_newWithStorage1d(storage.native, offset, size0, stride0)             # <<<<<<<<<<<<<<
  *         return _LongTensor_fromNative(newTensorC, False)
  * 
  */
   __pyx_t_1 = __Pyx_PyInt_As_long(__pyx_v_offset); if (unlikely((__pyx_t_1 == (long)-1) && PyErr_Occurred())) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1622; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __pyx_t_2 = __Pyx_PyInt_As_long(__pyx_v_size0); if (unlikely((__pyx_t_2 == (long)-1) && PyErr_Occurred())) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1622; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __pyx_t_3 = __Pyx_PyInt_As_long(__pyx_v_stride0); if (unlikely((__pyx_t_3 == (long)-1) && PyErr_Occurred())) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1622; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-  __pyx_v_newTensorC = THLongTensor_newWithStorage1d(__pyx_v_storage->thLongStorage, __pyx_t_1, __pyx_t_2, __pyx_t_3);
+  __pyx_v_newTensorC = THLongTensor_newWithStorage1d(__pyx_v_storage->native, __pyx_t_1, __pyx_t_2, __pyx_t_3);
 
   /* "PyTorch.pyx":1623
  * #        # print('allocate tensor')
- *         cdef THLongTensor *newTensorC = THLongTensor_newWithStorage1d(storage.thLongStorage, offset, size0, stride0)
+ *         cdef THLongTensor *newTensorC = THLongTensor_newWithStorage1d(storage.native, offset, size0, stride0)
  *         return _LongTensor_fromNative(newTensorC, False)             # <<<<<<<<<<<<<<
  * 
  *     @staticmethod
@@ -26542,9 +26542,9 @@ static PyObject *__pyx_pf_7PyTorch_11_LongTensor_46newWithStorage1d(struct __pyx
   /* "PyTorch.pyx":1620
  * 
  *     @staticmethod
- *     def newWithStorage1d(Storage.LongStorage storage, offset, size0, stride0):             # <<<<<<<<<<<<<<
+ *     def newWithStorage1d(Storage._LongStorage storage, offset, size0, stride0):             # <<<<<<<<<<<<<<
  * #        # print('allocate tensor')
- *         cdef THLongTensor *newTensorC = THLongTensor_newWithStorage1d(storage.thLongStorage, offset, size0, stride0)
+ *         cdef THLongTensor *newTensorC = THLongTensor_newWithStorage1d(storage.native, offset, size0, stride0)
  */
 
   /* function exit code */
@@ -26561,16 +26561,16 @@ static PyObject *__pyx_pf_7PyTorch_11_LongTensor_46newWithStorage1d(struct __pyx
 /* "PyTorch.pyx":1626
  * 
  *     @staticmethod
- *     def newWithStorage2d(Storage.LongStorage storage, offset, size0, stride0, size1, stride1):             # <<<<<<<<<<<<<<
+ *     def newWithStorage2d(Storage._LongStorage storage, offset, size0, stride0, size1, stride1):             # <<<<<<<<<<<<<<
  * #        # print('allocate tensor')
- *         cdef THLongTensor *newTensorC = THLongTensor_newWithStorage2d(storage.thLongStorage, offset, size0, stride0, size1, stride1)
+ *         cdef THLongTensor *newTensorC = THLongTensor_newWithStorage2d(storage.native, offset, size0, stride0, size1, stride1)
  */
 
 /* Python wrapper */
 static PyObject *__pyx_pw_7PyTorch_11_LongTensor_49newWithStorage2d(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
 static PyMethodDef __pyx_mdef_7PyTorch_11_LongTensor_49newWithStorage2d = {"newWithStorage2d", (PyCFunction)__pyx_pw_7PyTorch_11_LongTensor_49newWithStorage2d, METH_VARARGS|METH_KEYWORDS, 0};
 static PyObject *__pyx_pw_7PyTorch_11_LongTensor_49newWithStorage2d(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds) {
-  struct __pyx_obj_7Storage_LongStorage *__pyx_v_storage = 0;
+  struct __pyx_obj_7Storage__LongStorage *__pyx_v_storage = 0;
   PyObject *__pyx_v_offset = 0;
   PyObject *__pyx_v_size0 = 0;
   PyObject *__pyx_v_stride0 = 0;
@@ -26642,7 +26642,7 @@ static PyObject *__pyx_pw_7PyTorch_11_LongTensor_49newWithStorage2d(CYTHON_UNUSE
       values[4] = PyTuple_GET_ITEM(__pyx_args, 4);
       values[5] = PyTuple_GET_ITEM(__pyx_args, 5);
     }
-    __pyx_v_storage = ((struct __pyx_obj_7Storage_LongStorage *)values[0]);
+    __pyx_v_storage = ((struct __pyx_obj_7Storage__LongStorage *)values[0]);
     __pyx_v_offset = values[1];
     __pyx_v_size0 = values[2];
     __pyx_v_stride0 = values[3];
@@ -26657,7 +26657,7 @@ static PyObject *__pyx_pw_7PyTorch_11_LongTensor_49newWithStorage2d(CYTHON_UNUSE
   __Pyx_RefNannyFinishContext();
   return NULL;
   __pyx_L4_argument_unpacking_done:;
-  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_storage), __pyx_ptype_7Storage_LongStorage, 1, "storage", 0))) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1626; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_storage), __pyx_ptype_7Storage__LongStorage, 1, "storage", 0))) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1626; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __pyx_r = __pyx_pf_7PyTorch_11_LongTensor_48newWithStorage2d(__pyx_v_storage, __pyx_v_offset, __pyx_v_size0, __pyx_v_stride0, __pyx_v_size1, __pyx_v_stride1);
 
   /* function exit code */
@@ -26669,7 +26669,7 @@ static PyObject *__pyx_pw_7PyTorch_11_LongTensor_49newWithStorage2d(CYTHON_UNUSE
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_7PyTorch_11_LongTensor_48newWithStorage2d(struct __pyx_obj_7Storage_LongStorage *__pyx_v_storage, PyObject *__pyx_v_offset, PyObject *__pyx_v_size0, PyObject *__pyx_v_stride0, PyObject *__pyx_v_size1, PyObject *__pyx_v_stride1) {
+static PyObject *__pyx_pf_7PyTorch_11_LongTensor_48newWithStorage2d(struct __pyx_obj_7Storage__LongStorage *__pyx_v_storage, PyObject *__pyx_v_offset, PyObject *__pyx_v_size0, PyObject *__pyx_v_stride0, PyObject *__pyx_v_size1, PyObject *__pyx_v_stride1) {
   struct THLongTensor *__pyx_v_newTensorC;
   PyObject *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
@@ -26686,9 +26686,9 @@ static PyObject *__pyx_pf_7PyTorch_11_LongTensor_48newWithStorage2d(struct __pyx
   __Pyx_RefNannySetupContext("newWithStorage2d", 0);
 
   /* "PyTorch.pyx":1628
- *     def newWithStorage2d(Storage.LongStorage storage, offset, size0, stride0, size1, stride1):
+ *     def newWithStorage2d(Storage._LongStorage storage, offset, size0, stride0, size1, stride1):
  * #        # print('allocate tensor')
- *         cdef THLongTensor *newTensorC = THLongTensor_newWithStorage2d(storage.thLongStorage, offset, size0, stride0, size1, stride1)             # <<<<<<<<<<<<<<
+ *         cdef THLongTensor *newTensorC = THLongTensor_newWithStorage2d(storage.native, offset, size0, stride0, size1, stride1)             # <<<<<<<<<<<<<<
  *         return _LongTensor_fromNative(newTensorC, False)
  * 
  */
@@ -26697,11 +26697,11 @@ static PyObject *__pyx_pf_7PyTorch_11_LongTensor_48newWithStorage2d(struct __pyx
   __pyx_t_3 = __Pyx_PyInt_As_long(__pyx_v_stride0); if (unlikely((__pyx_t_3 == (long)-1) && PyErr_Occurred())) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1628; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __pyx_t_4 = __Pyx_PyInt_As_long(__pyx_v_size1); if (unlikely((__pyx_t_4 == (long)-1) && PyErr_Occurred())) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1628; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __pyx_t_5 = __Pyx_PyInt_As_long(__pyx_v_stride1); if (unlikely((__pyx_t_5 == (long)-1) && PyErr_Occurred())) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1628; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-  __pyx_v_newTensorC = THLongTensor_newWithStorage2d(__pyx_v_storage->thLongStorage, __pyx_t_1, __pyx_t_2, __pyx_t_3, __pyx_t_4, __pyx_t_5);
+  __pyx_v_newTensorC = THLongTensor_newWithStorage2d(__pyx_v_storage->native, __pyx_t_1, __pyx_t_2, __pyx_t_3, __pyx_t_4, __pyx_t_5);
 
   /* "PyTorch.pyx":1629
  * #        # print('allocate tensor')
- *         cdef THLongTensor *newTensorC = THLongTensor_newWithStorage2d(storage.thLongStorage, offset, size0, stride0, size1, stride1)
+ *         cdef THLongTensor *newTensorC = THLongTensor_newWithStorage2d(storage.native, offset, size0, stride0, size1, stride1)
  *         return _LongTensor_fromNative(newTensorC, False)             # <<<<<<<<<<<<<<
  * 
  *     def clone(_LongTensor self):
@@ -26718,9 +26718,9 @@ static PyObject *__pyx_pf_7PyTorch_11_LongTensor_48newWithStorage2d(struct __pyx
   /* "PyTorch.pyx":1626
  * 
  *     @staticmethod
- *     def newWithStorage2d(Storage.LongStorage storage, offset, size0, stride0, size1, stride1):             # <<<<<<<<<<<<<<
+ *     def newWithStorage2d(Storage._LongStorage storage, offset, size0, stride0, size1, stride1):             # <<<<<<<<<<<<<<
  * #        # print('allocate tensor')
- *         cdef THLongTensor *newTensorC = THLongTensor_newWithStorage2d(storage.thLongStorage, offset, size0, stride0, size1, stride1)
+ *         cdef THLongTensor *newTensorC = THLongTensor_newWithStorage2d(storage.native, offset, size0, stride0, size1, stride1)
  */
 
   /* function exit code */
@@ -26856,7 +26856,7 @@ static PyObject *__pyx_pf_7PyTorch_11_LongTensor_52storage(struct __pyx_obj_7PyT
  *         cdef Storage.THLongStorage *storageC = THLongTensor_storage(self.native)
  *         if storageC == NULL:             # <<<<<<<<<<<<<<
  *             return None
- *         return Storage.LongStorage_fromNative(storageC)
+ *         return Storage._LongStorage_fromNative(storageC)
  */
   __pyx_t_1 = ((__pyx_v_storageC == NULL) != 0);
   if (__pyx_t_1) {
@@ -26865,7 +26865,7 @@ static PyObject *__pyx_pf_7PyTorch_11_LongTensor_52storage(struct __pyx_obj_7PyT
  *         cdef Storage.THLongStorage *storageC = THLongTensor_storage(self.native)
  *         if storageC == NULL:
  *             return None             # <<<<<<<<<<<<<<
- *         return Storage.LongStorage_fromNative(storageC)
+ *         return Storage._LongStorage_fromNative(storageC)
  * 
  */
     __Pyx_XDECREF(__pyx_r);
@@ -26877,12 +26877,12 @@ static PyObject *__pyx_pf_7PyTorch_11_LongTensor_52storage(struct __pyx_obj_7PyT
   /* "PyTorch.pyx":1639
  *         if storageC == NULL:
  *             return None
- *         return Storage.LongStorage_fromNative(storageC)             # <<<<<<<<<<<<<<
+ *         return Storage._LongStorage_fromNative(storageC)             # <<<<<<<<<<<<<<
  * 
  *     def __add__(_LongTensor self, second):
  */
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_2 = __pyx_f_7Storage_LongStorage_fromNative(__pyx_v_storageC, NULL); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1639; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_2 = __pyx_f_7Storage__LongStorage_fromNative(__pyx_v_storageC, NULL); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1639; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_2);
   __pyx_r = __pyx_t_2;
   __pyx_t_2 = 0;
@@ -26908,7 +26908,7 @@ static PyObject *__pyx_pf_7PyTorch_11_LongTensor_52storage(struct __pyx_obj_7PyT
 }
 
 /* "PyTorch.pyx":1641
- *         return Storage.LongStorage_fromNative(storageC)
+ *         return Storage._LongStorage_fromNative(storageC)
  * 
  *     def __add__(_LongTensor self, second):             # <<<<<<<<<<<<<<
  *         # assume 2d matrix for now?
@@ -27050,7 +27050,7 @@ static PyObject *__pyx_pf_7PyTorch_11_LongTensor_54__add__(struct __pyx_obj_7PyT
   goto __pyx_L0;
 
   /* "PyTorch.pyx":1641
- *         return Storage.LongStorage_fromNative(storageC)
+ *         return Storage._LongStorage_fromNative(storageC)
  * 
  *     def __add__(_LongTensor self, second):             # <<<<<<<<<<<<<<
  *         # assume 2d matrix for now?
@@ -28440,7 +28440,7 @@ static PyObject *__pyx_f_7PyTorch__LongTensor_fromNative(struct THLongTensor *__
  * 
  * def asFloatTensor(myarray):             # <<<<<<<<<<<<<<
  *     cdef float[:] myarraymv
- *     cdef Storage.FloatStorage storage
+ *     cdef Storage._FloatStorage storage
  */
 
 /* Python wrapper */
@@ -28459,7 +28459,7 @@ static PyObject *__pyx_pw_7PyTorch_5asFloatTensor(PyObject *__pyx_self, PyObject
 
 static PyObject *__pyx_pf_7PyTorch_4asFloatTensor(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_myarray) {
   __Pyx_memviewslice __pyx_v_myarraymv = { 0, 0, { 0 }, { 0 }, { 0 } };
-  struct __pyx_obj_7Storage_FloatStorage *__pyx_v_storage = 0;
+  struct __pyx_obj_7Storage__FloatStorage *__pyx_v_storage = 0;
   CYTHON_UNUSED Py_ssize_t __pyx_v_dims;
   PyObject *__pyx_v_rows = NULL;
   PyObject *__pyx_v_cols = NULL;
@@ -28482,7 +28482,7 @@ static PyObject *__pyx_pf_7PyTorch_4asFloatTensor(CYTHON_UNUSED PyObject *__pyx_
 
   /* "PyTorch.pyx":1753
  *     cdef float[:] myarraymv
- *     cdef Storage.FloatStorage storage
+ *     cdef Storage._FloatStorage storage
  *     if str(type(myarray)) == "<type 'numpy.ndarray'>":             # <<<<<<<<<<<<<<
  *         dims = len(myarray.shape)
  *         rows = myarray.shape[0]
@@ -28500,7 +28500,7 @@ static PyObject *__pyx_pf_7PyTorch_4asFloatTensor(CYTHON_UNUSED PyObject *__pyx_
   if (__pyx_t_3) {
 
     /* "PyTorch.pyx":1754
- *     cdef Storage.FloatStorage storage
+ *     cdef Storage._FloatStorage storage
  *     if str(type(myarray)) == "<type 'numpy.ndarray'>":
  *         dims = len(myarray.shape)             # <<<<<<<<<<<<<<
  *         rows = myarray.shape[0]
@@ -28546,8 +28546,8 @@ static PyObject *__pyx_pf_7PyTorch_4asFloatTensor(CYTHON_UNUSED PyObject *__pyx_
  *         cols = myarray.shape[1]
  * 
  *         myarraymv = myarray.reshape(rows * cols)             # <<<<<<<<<<<<<<
- *         storage = Storage.FloatStorage.newWithData(myarraymv)
- *         Storage.THFloatStorage_retain(storage.thFloatStorage) # since newWithData takes ownership
+ *         storage = Storage._FloatStorage.newWithData(myarraymv)
+ *         Storage.THFloatStorage_retain(storage.native) # since newWithData takes ownership
  */
     __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_myarray, __pyx_n_s_reshape); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1758; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
     __Pyx_GOTREF(__pyx_t_1);
@@ -28589,11 +28589,11 @@ static PyObject *__pyx_pf_7PyTorch_4asFloatTensor(CYTHON_UNUSED PyObject *__pyx_
     /* "PyTorch.pyx":1759
  * 
  *         myarraymv = myarray.reshape(rows * cols)
- *         storage = Storage.FloatStorage.newWithData(myarraymv)             # <<<<<<<<<<<<<<
- *         Storage.THFloatStorage_retain(storage.thFloatStorage) # since newWithData takes ownership
+ *         storage = Storage._FloatStorage.newWithData(myarraymv)             # <<<<<<<<<<<<<<
+ *         Storage.THFloatStorage_retain(storage.native) # since newWithData takes ownership
  *         tensor = _FloatTensor.newWithStorage2d(storage, 0, rows, cols, cols, 1)
  */
-    __pyx_t_1 = __Pyx_PyObject_GetAttrStr(((PyObject *)((PyObject*)__pyx_ptype_7Storage_FloatStorage)), __pyx_n_s_newWithData); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1759; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+    __pyx_t_1 = __Pyx_PyObject_GetAttrStr(((PyObject *)((PyObject*)__pyx_ptype_7Storage__FloatStorage)), __pyx_n_s_newWithData); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1759; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
     __Pyx_GOTREF(__pyx_t_1);
     __pyx_t_7 = __pyx_memoryview_fromslice(__pyx_v_myarraymv, 1, (PyObject *(*)(char *)) __pyx_memview_get_float, (int (*)(char *, PyObject *)) __pyx_memview_set_float, 0);; if (unlikely(!__pyx_t_7)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1759; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
     __Pyx_GOTREF(__pyx_t_7);
@@ -28623,22 +28623,22 @@ static PyObject *__pyx_pf_7PyTorch_4asFloatTensor(CYTHON_UNUSED PyObject *__pyx_
       __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
     }
     __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-    if (!(likely(((__pyx_t_2) == Py_None) || likely(__Pyx_TypeTest(__pyx_t_2, __pyx_ptype_7Storage_FloatStorage))))) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1759; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-    __pyx_v_storage = ((struct __pyx_obj_7Storage_FloatStorage *)__pyx_t_2);
+    if (!(likely(((__pyx_t_2) == Py_None) || likely(__Pyx_TypeTest(__pyx_t_2, __pyx_ptype_7Storage__FloatStorage))))) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1759; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+    __pyx_v_storage = ((struct __pyx_obj_7Storage__FloatStorage *)__pyx_t_2);
     __pyx_t_2 = 0;
 
     /* "PyTorch.pyx":1760
  *         myarraymv = myarray.reshape(rows * cols)
- *         storage = Storage.FloatStorage.newWithData(myarraymv)
- *         Storage.THFloatStorage_retain(storage.thFloatStorage) # since newWithData takes ownership             # <<<<<<<<<<<<<<
+ *         storage = Storage._FloatStorage.newWithData(myarraymv)
+ *         Storage.THFloatStorage_retain(storage.native) # since newWithData takes ownership             # <<<<<<<<<<<<<<
  *         tensor = _FloatTensor.newWithStorage2d(storage, 0, rows, cols, cols, 1)
  *         return tensor
  */
-    THFloatStorage_retain(__pyx_v_storage->thFloatStorage);
+    THFloatStorage_retain(__pyx_v_storage->native);
 
     /* "PyTorch.pyx":1761
- *         storage = Storage.FloatStorage.newWithData(myarraymv)
- *         Storage.THFloatStorage_retain(storage.thFloatStorage) # since newWithData takes ownership
+ *         storage = Storage._FloatStorage.newWithData(myarraymv)
+ *         Storage.THFloatStorage_retain(storage.native) # since newWithData takes ownership
  *         tensor = _FloatTensor.newWithStorage2d(storage, 0, rows, cols, cols, 1)             # <<<<<<<<<<<<<<
  *         return tensor
  *     elif isinstance(myarray, array.array):
@@ -28688,7 +28688,7 @@ static PyObject *__pyx_pf_7PyTorch_4asFloatTensor(CYTHON_UNUSED PyObject *__pyx_
     __pyx_t_2 = 0;
 
     /* "PyTorch.pyx":1762
- *         Storage.THFloatStorage_retain(storage.thFloatStorage) # since newWithData takes ownership
+ *         Storage.THFloatStorage_retain(storage.native) # since newWithData takes ownership
  *         tensor = _FloatTensor.newWithStorage2d(storage, 0, rows, cols, cols, 1)
  *         return tensor             # <<<<<<<<<<<<<<
  *     elif isinstance(myarray, array.array):
@@ -28705,7 +28705,7 @@ static PyObject *__pyx_pf_7PyTorch_4asFloatTensor(CYTHON_UNUSED PyObject *__pyx_
  *         return tensor
  *     elif isinstance(myarray, array.array):             # <<<<<<<<<<<<<<
  *         myarraymv = myarray
- *         storage = Storage.FloatStorage.newWithData(myarraymv)
+ *         storage = Storage._FloatStorage.newWithData(myarraymv)
  */
   __pyx_t_2 = __Pyx_GetModuleGlobalName(__pyx_n_s_array); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1763; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_2);
@@ -28721,8 +28721,8 @@ static PyObject *__pyx_pf_7PyTorch_4asFloatTensor(CYTHON_UNUSED PyObject *__pyx_
  *         return tensor
  *     elif isinstance(myarray, array.array):
  *         myarraymv = myarray             # <<<<<<<<<<<<<<
- *         storage = Storage.FloatStorage.newWithData(myarraymv)
- *         Storage.THFloatStorage_retain(storage.thFloatStorage) # since newWithData takes ownership
+ *         storage = Storage._FloatStorage.newWithData(myarraymv)
+ *         Storage.THFloatStorage_retain(storage.native) # since newWithData takes ownership
  */
     __pyx_t_8 = __Pyx_PyObject_to_MemoryviewSlice_ds_float(__pyx_v_myarray);
     if (unlikely(!__pyx_t_8.memview)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1764; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
@@ -28733,11 +28733,11 @@ static PyObject *__pyx_pf_7PyTorch_4asFloatTensor(CYTHON_UNUSED PyObject *__pyx_
     /* "PyTorch.pyx":1765
  *     elif isinstance(myarray, array.array):
  *         myarraymv = myarray
- *         storage = Storage.FloatStorage.newWithData(myarraymv)             # <<<<<<<<<<<<<<
- *         Storage.THFloatStorage_retain(storage.thFloatStorage) # since newWithData takes ownership
+ *         storage = Storage._FloatStorage.newWithData(myarraymv)             # <<<<<<<<<<<<<<
+ *         Storage.THFloatStorage_retain(storage.native) # since newWithData takes ownership
  *         tensor = _FloatTensor.newWithStorage1d(storage, 0, len(myarray), 1)
  */
-    __pyx_t_2 = __Pyx_PyObject_GetAttrStr(((PyObject *)((PyObject*)__pyx_ptype_7Storage_FloatStorage)), __pyx_n_s_newWithData); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1765; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+    __pyx_t_2 = __Pyx_PyObject_GetAttrStr(((PyObject *)((PyObject*)__pyx_ptype_7Storage__FloatStorage)), __pyx_n_s_newWithData); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1765; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
     __Pyx_GOTREF(__pyx_t_2);
     __pyx_t_7 = __pyx_memoryview_fromslice(__pyx_v_myarraymv, 1, (PyObject *(*)(char *)) __pyx_memview_get_float, (int (*)(char *, PyObject *)) __pyx_memview_set_float, 0);; if (unlikely(!__pyx_t_7)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1765; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
     __Pyx_GOTREF(__pyx_t_7);
@@ -28767,22 +28767,22 @@ static PyObject *__pyx_pf_7PyTorch_4asFloatTensor(CYTHON_UNUSED PyObject *__pyx_
       __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
     }
     __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-    if (!(likely(((__pyx_t_1) == Py_None) || likely(__Pyx_TypeTest(__pyx_t_1, __pyx_ptype_7Storage_FloatStorage))))) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1765; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-    __pyx_v_storage = ((struct __pyx_obj_7Storage_FloatStorage *)__pyx_t_1);
+    if (!(likely(((__pyx_t_1) == Py_None) || likely(__Pyx_TypeTest(__pyx_t_1, __pyx_ptype_7Storage__FloatStorage))))) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1765; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+    __pyx_v_storage = ((struct __pyx_obj_7Storage__FloatStorage *)__pyx_t_1);
     __pyx_t_1 = 0;
 
     /* "PyTorch.pyx":1766
  *         myarraymv = myarray
- *         storage = Storage.FloatStorage.newWithData(myarraymv)
- *         Storage.THFloatStorage_retain(storage.thFloatStorage) # since newWithData takes ownership             # <<<<<<<<<<<<<<
+ *         storage = Storage._FloatStorage.newWithData(myarraymv)
+ *         Storage.THFloatStorage_retain(storage.native) # since newWithData takes ownership             # <<<<<<<<<<<<<<
  *         tensor = _FloatTensor.newWithStorage1d(storage, 0, len(myarray), 1)
  *         return tensor
  */
-    THFloatStorage_retain(__pyx_v_storage->thFloatStorage);
+    THFloatStorage_retain(__pyx_v_storage->native);
 
     /* "PyTorch.pyx":1767
- *         storage = Storage.FloatStorage.newWithData(myarraymv)
- *         Storage.THFloatStorage_retain(storage.thFloatStorage) # since newWithData takes ownership
+ *         storage = Storage._FloatStorage.newWithData(myarraymv)
+ *         Storage.THFloatStorage_retain(storage.native) # since newWithData takes ownership
  *         tensor = _FloatTensor.newWithStorage1d(storage, 0, len(myarray), 1)             # <<<<<<<<<<<<<<
  *         return tensor
  *     else:
@@ -28829,7 +28829,7 @@ static PyObject *__pyx_pf_7PyTorch_4asFloatTensor(CYTHON_UNUSED PyObject *__pyx_
     __pyx_t_1 = 0;
 
     /* "PyTorch.pyx":1768
- *         Storage.THFloatStorage_retain(storage.thFloatStorage) # since newWithData takes ownership
+ *         Storage.THFloatStorage_retain(storage.native) # since newWithData takes ownership
  *         tensor = _FloatTensor.newWithStorage1d(storage, 0, len(myarray), 1)
  *         return tensor             # <<<<<<<<<<<<<<
  *     else:
@@ -28861,7 +28861,7 @@ static PyObject *__pyx_pf_7PyTorch_4asFloatTensor(CYTHON_UNUSED PyObject *__pyx_
  * 
  * def asFloatTensor(myarray):             # <<<<<<<<<<<<<<
  *     cdef float[:] myarraymv
- *     cdef Storage.FloatStorage storage
+ *     cdef Storage._FloatStorage storage
  */
 
   /* function exit code */
@@ -28890,7 +28890,7 @@ static PyObject *__pyx_pf_7PyTorch_4asFloatTensor(CYTHON_UNUSED PyObject *__pyx_
  * 
  * def asDoubleTensor(myarray):             # <<<<<<<<<<<<<<
  *     cdef double[:] myarraymv
- *     cdef Storage.DoubleStorage storage
+ *     cdef Storage._DoubleStorage storage
  */
 
 /* Python wrapper */
@@ -28909,7 +28909,7 @@ static PyObject *__pyx_pw_7PyTorch_7asDoubleTensor(PyObject *__pyx_self, PyObjec
 
 static PyObject *__pyx_pf_7PyTorch_6asDoubleTensor(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_myarray) {
   __Pyx_memviewslice __pyx_v_myarraymv = { 0, 0, { 0 }, { 0 }, { 0 } };
-  struct __pyx_obj_7Storage_DoubleStorage *__pyx_v_storage = 0;
+  struct __pyx_obj_7Storage__DoubleStorage *__pyx_v_storage = 0;
   CYTHON_UNUSED Py_ssize_t __pyx_v_dims;
   PyObject *__pyx_v_rows = NULL;
   PyObject *__pyx_v_cols = NULL;
@@ -28932,7 +28932,7 @@ static PyObject *__pyx_pf_7PyTorch_6asDoubleTensor(CYTHON_UNUSED PyObject *__pyx
 
   /* "PyTorch.pyx":1775
  *     cdef double[:] myarraymv
- *     cdef Storage.DoubleStorage storage
+ *     cdef Storage._DoubleStorage storage
  *     if str(type(myarray)) == "<type 'numpy.ndarray'>":             # <<<<<<<<<<<<<<
  *         dims = len(myarray.shape)
  *         rows = myarray.shape[0]
@@ -28950,7 +28950,7 @@ static PyObject *__pyx_pf_7PyTorch_6asDoubleTensor(CYTHON_UNUSED PyObject *__pyx
   if (__pyx_t_3) {
 
     /* "PyTorch.pyx":1776
- *     cdef Storage.DoubleStorage storage
+ *     cdef Storage._DoubleStorage storage
  *     if str(type(myarray)) == "<type 'numpy.ndarray'>":
  *         dims = len(myarray.shape)             # <<<<<<<<<<<<<<
  *         rows = myarray.shape[0]
@@ -28996,8 +28996,8 @@ static PyObject *__pyx_pf_7PyTorch_6asDoubleTensor(CYTHON_UNUSED PyObject *__pyx
  *         cols = myarray.shape[1]
  * 
  *         myarraymv = myarray.reshape(rows * cols)             # <<<<<<<<<<<<<<
- *         storage = Storage.DoubleStorage.newWithData(myarraymv)
- *         Storage.THDoubleStorage_retain(storage.thDoubleStorage) # since newWithData takes ownership
+ *         storage = Storage._DoubleStorage.newWithData(myarraymv)
+ *         Storage.THDoubleStorage_retain(storage.native) # since newWithData takes ownership
  */
     __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_myarray, __pyx_n_s_reshape); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1780; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
     __Pyx_GOTREF(__pyx_t_1);
@@ -29039,11 +29039,11 @@ static PyObject *__pyx_pf_7PyTorch_6asDoubleTensor(CYTHON_UNUSED PyObject *__pyx
     /* "PyTorch.pyx":1781
  * 
  *         myarraymv = myarray.reshape(rows * cols)
- *         storage = Storage.DoubleStorage.newWithData(myarraymv)             # <<<<<<<<<<<<<<
- *         Storage.THDoubleStorage_retain(storage.thDoubleStorage) # since newWithData takes ownership
+ *         storage = Storage._DoubleStorage.newWithData(myarraymv)             # <<<<<<<<<<<<<<
+ *         Storage.THDoubleStorage_retain(storage.native) # since newWithData takes ownership
  *         tensor = _DoubleTensor.newWithStorage2d(storage, 0, rows, cols, cols, 1)
  */
-    __pyx_t_1 = __Pyx_PyObject_GetAttrStr(((PyObject *)((PyObject*)__pyx_ptype_7Storage_DoubleStorage)), __pyx_n_s_newWithData); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1781; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+    __pyx_t_1 = __Pyx_PyObject_GetAttrStr(((PyObject *)((PyObject*)__pyx_ptype_7Storage__DoubleStorage)), __pyx_n_s_newWithData); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1781; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
     __Pyx_GOTREF(__pyx_t_1);
     __pyx_t_7 = __pyx_memoryview_fromslice(__pyx_v_myarraymv, 1, (PyObject *(*)(char *)) __pyx_memview_get_double, (int (*)(char *, PyObject *)) __pyx_memview_set_double, 0);; if (unlikely(!__pyx_t_7)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1781; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
     __Pyx_GOTREF(__pyx_t_7);
@@ -29073,22 +29073,22 @@ static PyObject *__pyx_pf_7PyTorch_6asDoubleTensor(CYTHON_UNUSED PyObject *__pyx
       __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
     }
     __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-    if (!(likely(((__pyx_t_2) == Py_None) || likely(__Pyx_TypeTest(__pyx_t_2, __pyx_ptype_7Storage_DoubleStorage))))) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1781; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-    __pyx_v_storage = ((struct __pyx_obj_7Storage_DoubleStorage *)__pyx_t_2);
+    if (!(likely(((__pyx_t_2) == Py_None) || likely(__Pyx_TypeTest(__pyx_t_2, __pyx_ptype_7Storage__DoubleStorage))))) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1781; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+    __pyx_v_storage = ((struct __pyx_obj_7Storage__DoubleStorage *)__pyx_t_2);
     __pyx_t_2 = 0;
 
     /* "PyTorch.pyx":1782
  *         myarraymv = myarray.reshape(rows * cols)
- *         storage = Storage.DoubleStorage.newWithData(myarraymv)
- *         Storage.THDoubleStorage_retain(storage.thDoubleStorage) # since newWithData takes ownership             # <<<<<<<<<<<<<<
+ *         storage = Storage._DoubleStorage.newWithData(myarraymv)
+ *         Storage.THDoubleStorage_retain(storage.native) # since newWithData takes ownership             # <<<<<<<<<<<<<<
  *         tensor = _DoubleTensor.newWithStorage2d(storage, 0, rows, cols, cols, 1)
  *         return tensor
  */
-    THDoubleStorage_retain(__pyx_v_storage->thDoubleStorage);
+    THDoubleStorage_retain(__pyx_v_storage->native);
 
     /* "PyTorch.pyx":1783
- *         storage = Storage.DoubleStorage.newWithData(myarraymv)
- *         Storage.THDoubleStorage_retain(storage.thDoubleStorage) # since newWithData takes ownership
+ *         storage = Storage._DoubleStorage.newWithData(myarraymv)
+ *         Storage.THDoubleStorage_retain(storage.native) # since newWithData takes ownership
  *         tensor = _DoubleTensor.newWithStorage2d(storage, 0, rows, cols, cols, 1)             # <<<<<<<<<<<<<<
  *         return tensor
  *     elif isinstance(myarray, array.array):
@@ -29138,7 +29138,7 @@ static PyObject *__pyx_pf_7PyTorch_6asDoubleTensor(CYTHON_UNUSED PyObject *__pyx
     __pyx_t_2 = 0;
 
     /* "PyTorch.pyx":1784
- *         Storage.THDoubleStorage_retain(storage.thDoubleStorage) # since newWithData takes ownership
+ *         Storage.THDoubleStorage_retain(storage.native) # since newWithData takes ownership
  *         tensor = _DoubleTensor.newWithStorage2d(storage, 0, rows, cols, cols, 1)
  *         return tensor             # <<<<<<<<<<<<<<
  *     elif isinstance(myarray, array.array):
@@ -29155,7 +29155,7 @@ static PyObject *__pyx_pf_7PyTorch_6asDoubleTensor(CYTHON_UNUSED PyObject *__pyx
  *         return tensor
  *     elif isinstance(myarray, array.array):             # <<<<<<<<<<<<<<
  *         myarraymv = myarray
- *         storage = Storage.DoubleStorage.newWithData(myarraymv)
+ *         storage = Storage._DoubleStorage.newWithData(myarraymv)
  */
   __pyx_t_2 = __Pyx_GetModuleGlobalName(__pyx_n_s_array); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1785; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_2);
@@ -29171,8 +29171,8 @@ static PyObject *__pyx_pf_7PyTorch_6asDoubleTensor(CYTHON_UNUSED PyObject *__pyx
  *         return tensor
  *     elif isinstance(myarray, array.array):
  *         myarraymv = myarray             # <<<<<<<<<<<<<<
- *         storage = Storage.DoubleStorage.newWithData(myarraymv)
- *         Storage.THDoubleStorage_retain(storage.thDoubleStorage) # since newWithData takes ownership
+ *         storage = Storage._DoubleStorage.newWithData(myarraymv)
+ *         Storage.THDoubleStorage_retain(storage.native) # since newWithData takes ownership
  */
     __pyx_t_8 = __Pyx_PyObject_to_MemoryviewSlice_ds_double(__pyx_v_myarray);
     if (unlikely(!__pyx_t_8.memview)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1786; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
@@ -29183,11 +29183,11 @@ static PyObject *__pyx_pf_7PyTorch_6asDoubleTensor(CYTHON_UNUSED PyObject *__pyx
     /* "PyTorch.pyx":1787
  *     elif isinstance(myarray, array.array):
  *         myarraymv = myarray
- *         storage = Storage.DoubleStorage.newWithData(myarraymv)             # <<<<<<<<<<<<<<
- *         Storage.THDoubleStorage_retain(storage.thDoubleStorage) # since newWithData takes ownership
+ *         storage = Storage._DoubleStorage.newWithData(myarraymv)             # <<<<<<<<<<<<<<
+ *         Storage.THDoubleStorage_retain(storage.native) # since newWithData takes ownership
  *         tensor = _DoubleTensor.newWithStorage1d(storage, 0, len(myarray), 1)
  */
-    __pyx_t_2 = __Pyx_PyObject_GetAttrStr(((PyObject *)((PyObject*)__pyx_ptype_7Storage_DoubleStorage)), __pyx_n_s_newWithData); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1787; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+    __pyx_t_2 = __Pyx_PyObject_GetAttrStr(((PyObject *)((PyObject*)__pyx_ptype_7Storage__DoubleStorage)), __pyx_n_s_newWithData); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1787; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
     __Pyx_GOTREF(__pyx_t_2);
     __pyx_t_7 = __pyx_memoryview_fromslice(__pyx_v_myarraymv, 1, (PyObject *(*)(char *)) __pyx_memview_get_double, (int (*)(char *, PyObject *)) __pyx_memview_set_double, 0);; if (unlikely(!__pyx_t_7)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1787; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
     __Pyx_GOTREF(__pyx_t_7);
@@ -29217,22 +29217,22 @@ static PyObject *__pyx_pf_7PyTorch_6asDoubleTensor(CYTHON_UNUSED PyObject *__pyx
       __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
     }
     __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-    if (!(likely(((__pyx_t_1) == Py_None) || likely(__Pyx_TypeTest(__pyx_t_1, __pyx_ptype_7Storage_DoubleStorage))))) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1787; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-    __pyx_v_storage = ((struct __pyx_obj_7Storage_DoubleStorage *)__pyx_t_1);
+    if (!(likely(((__pyx_t_1) == Py_None) || likely(__Pyx_TypeTest(__pyx_t_1, __pyx_ptype_7Storage__DoubleStorage))))) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1787; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+    __pyx_v_storage = ((struct __pyx_obj_7Storage__DoubleStorage *)__pyx_t_1);
     __pyx_t_1 = 0;
 
     /* "PyTorch.pyx":1788
  *         myarraymv = myarray
- *         storage = Storage.DoubleStorage.newWithData(myarraymv)
- *         Storage.THDoubleStorage_retain(storage.thDoubleStorage) # since newWithData takes ownership             # <<<<<<<<<<<<<<
+ *         storage = Storage._DoubleStorage.newWithData(myarraymv)
+ *         Storage.THDoubleStorage_retain(storage.native) # since newWithData takes ownership             # <<<<<<<<<<<<<<
  *         tensor = _DoubleTensor.newWithStorage1d(storage, 0, len(myarray), 1)
  *         return tensor
  */
-    THDoubleStorage_retain(__pyx_v_storage->thDoubleStorage);
+    THDoubleStorage_retain(__pyx_v_storage->native);
 
     /* "PyTorch.pyx":1789
- *         storage = Storage.DoubleStorage.newWithData(myarraymv)
- *         Storage.THDoubleStorage_retain(storage.thDoubleStorage) # since newWithData takes ownership
+ *         storage = Storage._DoubleStorage.newWithData(myarraymv)
+ *         Storage.THDoubleStorage_retain(storage.native) # since newWithData takes ownership
  *         tensor = _DoubleTensor.newWithStorage1d(storage, 0, len(myarray), 1)             # <<<<<<<<<<<<<<
  *         return tensor
  *     else:
@@ -29279,7 +29279,7 @@ static PyObject *__pyx_pf_7PyTorch_6asDoubleTensor(CYTHON_UNUSED PyObject *__pyx
     __pyx_t_1 = 0;
 
     /* "PyTorch.pyx":1790
- *         Storage.THDoubleStorage_retain(storage.thDoubleStorage) # since newWithData takes ownership
+ *         Storage.THDoubleStorage_retain(storage.native) # since newWithData takes ownership
  *         tensor = _DoubleTensor.newWithStorage1d(storage, 0, len(myarray), 1)
  *         return tensor             # <<<<<<<<<<<<<<
  *     else:
@@ -29311,7 +29311,7 @@ static PyObject *__pyx_pf_7PyTorch_6asDoubleTensor(CYTHON_UNUSED PyObject *__pyx
  * 
  * def asDoubleTensor(myarray):             # <<<<<<<<<<<<<<
  *     cdef double[:] myarraymv
- *     cdef Storage.DoubleStorage storage
+ *     cdef Storage._DoubleStorage storage
  */
 
   /* function exit code */
@@ -44248,9 +44248,9 @@ static int __Pyx_InitCachedConstants(void) {
   /* "PyTorch.pyx":501
  * 
  *     @staticmethod
- *     def newWithStorage1d(Storage.DoubleStorage storage, offset, size0, stride0):             # <<<<<<<<<<<<<<
+ *     def newWithStorage1d(Storage._DoubleStorage storage, offset, size0, stride0):             # <<<<<<<<<<<<<<
  * #        # print('allocate tensor')
- *         cdef THDoubleTensor *newTensorC = THDoubleTensor_newWithStorage1d(storage.thDoubleStorage, offset, size0, stride0)
+ *         cdef THDoubleTensor *newTensorC = THDoubleTensor_newWithStorage1d(storage.native, offset, size0, stride0)
  */
   __pyx_tuple__55 = PyTuple_Pack(5, __pyx_n_s_storage, __pyx_n_s_offset, __pyx_n_s_size0, __pyx_n_s_stride0, __pyx_n_s_newTensorC); if (unlikely(!__pyx_tuple__55)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 501; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_tuple__55);
@@ -44260,9 +44260,9 @@ static int __Pyx_InitCachedConstants(void) {
   /* "PyTorch.pyx":507
  * 
  *     @staticmethod
- *     def newWithStorage2d(Storage.DoubleStorage storage, offset, size0, stride0, size1, stride1):             # <<<<<<<<<<<<<<
+ *     def newWithStorage2d(Storage._DoubleStorage storage, offset, size0, stride0, size1, stride1):             # <<<<<<<<<<<<<<
  * #        # print('allocate tensor')
- *         cdef THDoubleTensor *newTensorC = THDoubleTensor_newWithStorage2d(storage.thDoubleStorage, offset, size0, stride0, size1, stride1)
+ *         cdef THDoubleTensor *newTensorC = THDoubleTensor_newWithStorage2d(storage.native, offset, size0, stride0, size1, stride1)
  */
   __pyx_tuple__57 = PyTuple_Pack(7, __pyx_n_s_storage, __pyx_n_s_offset, __pyx_n_s_size0, __pyx_n_s_stride0, __pyx_n_s_size1, __pyx_n_s_stride1, __pyx_n_s_newTensorC); if (unlikely(!__pyx_tuple__57)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 507; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_tuple__57);
@@ -44281,9 +44281,9 @@ static int __Pyx_InitCachedConstants(void) {
   /* "PyTorch.pyx":883
  * 
  *     @staticmethod
- *     def newWithStorage1d(Storage.ByteStorage storage, offset, size0, stride0):             # <<<<<<<<<<<<<<
+ *     def newWithStorage1d(Storage._ByteStorage storage, offset, size0, stride0):             # <<<<<<<<<<<<<<
  * #        # print('allocate tensor')
- *         cdef THByteTensor *newTensorC = THByteTensor_newWithStorage1d(storage.thByteStorage, offset, size0, stride0)
+ *         cdef THByteTensor *newTensorC = THByteTensor_newWithStorage1d(storage.native, offset, size0, stride0)
  */
   __pyx_tuple__60 = PyTuple_Pack(5, __pyx_n_s_storage, __pyx_n_s_offset, __pyx_n_s_size0, __pyx_n_s_stride0, __pyx_n_s_newTensorC); if (unlikely(!__pyx_tuple__60)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 883; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_tuple__60);
@@ -44293,9 +44293,9 @@ static int __Pyx_InitCachedConstants(void) {
   /* "PyTorch.pyx":889
  * 
  *     @staticmethod
- *     def newWithStorage2d(Storage.ByteStorage storage, offset, size0, stride0, size1, stride1):             # <<<<<<<<<<<<<<
+ *     def newWithStorage2d(Storage._ByteStorage storage, offset, size0, stride0, size1, stride1):             # <<<<<<<<<<<<<<
  * #        # print('allocate tensor')
- *         cdef THByteTensor *newTensorC = THByteTensor_newWithStorage2d(storage.thByteStorage, offset, size0, stride0, size1, stride1)
+ *         cdef THByteTensor *newTensorC = THByteTensor_newWithStorage2d(storage.native, offset, size0, stride0, size1, stride1)
  */
   __pyx_tuple__62 = PyTuple_Pack(7, __pyx_n_s_storage, __pyx_n_s_offset, __pyx_n_s_size0, __pyx_n_s_stride0, __pyx_n_s_size1, __pyx_n_s_stride1, __pyx_n_s_newTensorC); if (unlikely(!__pyx_tuple__62)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 889; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_tuple__62);
@@ -44314,9 +44314,9 @@ static int __Pyx_InitCachedConstants(void) {
   /* "PyTorch.pyx":1238
  * 
  *     @staticmethod
- *     def newWithStorage1d(Storage.FloatStorage storage, offset, size0, stride0):             # <<<<<<<<<<<<<<
+ *     def newWithStorage1d(Storage._FloatStorage storage, offset, size0, stride0):             # <<<<<<<<<<<<<<
  * #        # print('allocate tensor')
- *         cdef THFloatTensor *newTensorC = THFloatTensor_newWithStorage1d(storage.thFloatStorage, offset, size0, stride0)
+ *         cdef THFloatTensor *newTensorC = THFloatTensor_newWithStorage1d(storage.native, offset, size0, stride0)
  */
   __pyx_tuple__65 = PyTuple_Pack(5, __pyx_n_s_storage, __pyx_n_s_offset, __pyx_n_s_size0, __pyx_n_s_stride0, __pyx_n_s_newTensorC); if (unlikely(!__pyx_tuple__65)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1238; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_tuple__65);
@@ -44326,9 +44326,9 @@ static int __Pyx_InitCachedConstants(void) {
   /* "PyTorch.pyx":1244
  * 
  *     @staticmethod
- *     def newWithStorage2d(Storage.FloatStorage storage, offset, size0, stride0, size1, stride1):             # <<<<<<<<<<<<<<
+ *     def newWithStorage2d(Storage._FloatStorage storage, offset, size0, stride0, size1, stride1):             # <<<<<<<<<<<<<<
  * #        # print('allocate tensor')
- *         cdef THFloatTensor *newTensorC = THFloatTensor_newWithStorage2d(storage.thFloatStorage, offset, size0, stride0, size1, stride1)
+ *         cdef THFloatTensor *newTensorC = THFloatTensor_newWithStorage2d(storage.native, offset, size0, stride0, size1, stride1)
  */
   __pyx_tuple__67 = PyTuple_Pack(7, __pyx_n_s_storage, __pyx_n_s_offset, __pyx_n_s_size0, __pyx_n_s_stride0, __pyx_n_s_size1, __pyx_n_s_stride1, __pyx_n_s_newTensorC); if (unlikely(!__pyx_tuple__67)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1244; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_tuple__67);
@@ -44347,9 +44347,9 @@ static int __Pyx_InitCachedConstants(void) {
   /* "PyTorch.pyx":1620
  * 
  *     @staticmethod
- *     def newWithStorage1d(Storage.LongStorage storage, offset, size0, stride0):             # <<<<<<<<<<<<<<
+ *     def newWithStorage1d(Storage._LongStorage storage, offset, size0, stride0):             # <<<<<<<<<<<<<<
  * #        # print('allocate tensor')
- *         cdef THLongTensor *newTensorC = THLongTensor_newWithStorage1d(storage.thLongStorage, offset, size0, stride0)
+ *         cdef THLongTensor *newTensorC = THLongTensor_newWithStorage1d(storage.native, offset, size0, stride0)
  */
   __pyx_tuple__70 = PyTuple_Pack(5, __pyx_n_s_storage, __pyx_n_s_offset, __pyx_n_s_size0, __pyx_n_s_stride0, __pyx_n_s_newTensorC); if (unlikely(!__pyx_tuple__70)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1620; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_tuple__70);
@@ -44359,9 +44359,9 @@ static int __Pyx_InitCachedConstants(void) {
   /* "PyTorch.pyx":1626
  * 
  *     @staticmethod
- *     def newWithStorage2d(Storage.LongStorage storage, offset, size0, stride0, size1, stride1):             # <<<<<<<<<<<<<<
+ *     def newWithStorage2d(Storage._LongStorage storage, offset, size0, stride0, size1, stride1):             # <<<<<<<<<<<<<<
  * #        # print('allocate tensor')
- *         cdef THLongTensor *newTensorC = THLongTensor_newWithStorage2d(storage.thLongStorage, offset, size0, stride0, size1, stride1)
+ *         cdef THLongTensor *newTensorC = THLongTensor_newWithStorage2d(storage.native, offset, size0, stride0, size1, stride1)
  */
   __pyx_tuple__72 = PyTuple_Pack(7, __pyx_n_s_storage, __pyx_n_s_offset, __pyx_n_s_size0, __pyx_n_s_stride0, __pyx_n_s_size1, __pyx_n_s_stride1, __pyx_n_s_newTensorC); if (unlikely(!__pyx_tuple__72)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1626; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_tuple__72);
@@ -44373,7 +44373,7 @@ static int __Pyx_InitCachedConstants(void) {
  * 
  * def asFloatTensor(myarray):             # <<<<<<<<<<<<<<
  *     cdef float[:] myarraymv
- *     cdef Storage.FloatStorage storage
+ *     cdef Storage._FloatStorage storage
  */
   __pyx_tuple__74 = PyTuple_Pack(7, __pyx_n_s_myarray, __pyx_n_s_myarraymv, __pyx_n_s_storage, __pyx_n_s_dims, __pyx_n_s_rows, __pyx_n_s_cols, __pyx_n_s_tensor); if (unlikely(!__pyx_tuple__74)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1750; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_tuple__74);
@@ -44385,7 +44385,7 @@ static int __Pyx_InitCachedConstants(void) {
  * 
  * def asDoubleTensor(myarray):             # <<<<<<<<<<<<<<
  *     cdef double[:] myarraymv
- *     cdef Storage.DoubleStorage storage
+ *     cdef Storage._DoubleStorage storage
  */
   __pyx_tuple__76 = PyTuple_Pack(7, __pyx_n_s_myarray, __pyx_n_s_myarraymv, __pyx_n_s_storage, __pyx_n_s_dims, __pyx_n_s_rows, __pyx_n_s_cols, __pyx_n_s_tensor); if (unlikely(!__pyx_tuple__76)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1772; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_tuple__76);
@@ -44703,22 +44703,22 @@ PyMODINIT_FUNC PyInit_PyTorch(void)
   __pyx_memoryviewslice_type = &__pyx_type___pyx_memoryviewslice;
   /*--- Type import code ---*/
   __pyx_ptype_7cpython_5array_array = __Pyx_ImportType("array", "array", sizeof(arrayobject), 0); if (unlikely(!__pyx_ptype_7cpython_5array_array)) {__pyx_filename = __pyx_f[1]; __pyx_lineno = 58; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-  __pyx_ptype_7Storage_DoubleStorage = __Pyx_ImportType("Storage", "DoubleStorage", sizeof(struct __pyx_obj_7Storage_DoubleStorage), 1); if (unlikely(!__pyx_ptype_7Storage_DoubleStorage)) {__pyx_filename = __pyx_f[3]; __pyx_lineno = 80; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-  __pyx_vtabptr_7Storage_DoubleStorage = (struct __pyx_vtabstruct_7Storage_DoubleStorage*)__Pyx_GetVtable(__pyx_ptype_7Storage_DoubleStorage->tp_dict); if (unlikely(!__pyx_vtabptr_7Storage_DoubleStorage)) {__pyx_filename = __pyx_f[3]; __pyx_lineno = 80; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-  __pyx_ptype_7Storage_ByteStorage = __Pyx_ImportType("Storage", "ByteStorage", sizeof(struct __pyx_obj_7Storage_ByteStorage), 1); if (unlikely(!__pyx_ptype_7Storage_ByteStorage)) {__pyx_filename = __pyx_f[3]; __pyx_lineno = 87; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-  __pyx_vtabptr_7Storage_ByteStorage = (struct __pyx_vtabstruct_7Storage_ByteStorage*)__Pyx_GetVtable(__pyx_ptype_7Storage_ByteStorage->tp_dict); if (unlikely(!__pyx_vtabptr_7Storage_ByteStorage)) {__pyx_filename = __pyx_f[3]; __pyx_lineno = 87; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-  __pyx_ptype_7Storage_FloatStorage = __Pyx_ImportType("Storage", "FloatStorage", sizeof(struct __pyx_obj_7Storage_FloatStorage), 1); if (unlikely(!__pyx_ptype_7Storage_FloatStorage)) {__pyx_filename = __pyx_f[3]; __pyx_lineno = 94; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-  __pyx_vtabptr_7Storage_FloatStorage = (struct __pyx_vtabstruct_7Storage_FloatStorage*)__Pyx_GetVtable(__pyx_ptype_7Storage_FloatStorage->tp_dict); if (unlikely(!__pyx_vtabptr_7Storage_FloatStorage)) {__pyx_filename = __pyx_f[3]; __pyx_lineno = 94; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-  __pyx_ptype_7Storage_LongStorage = __Pyx_ImportType("Storage", "LongStorage", sizeof(struct __pyx_obj_7Storage_LongStorage), 1); if (unlikely(!__pyx_ptype_7Storage_LongStorage)) {__pyx_filename = __pyx_f[3]; __pyx_lineno = 101; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-  __pyx_vtabptr_7Storage_LongStorage = (struct __pyx_vtabstruct_7Storage_LongStorage*)__Pyx_GetVtable(__pyx_ptype_7Storage_LongStorage->tp_dict); if (unlikely(!__pyx_vtabptr_7Storage_LongStorage)) {__pyx_filename = __pyx_f[3]; __pyx_lineno = 101; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_ptype_7Storage__DoubleStorage = __Pyx_ImportType("Storage", "_DoubleStorage", sizeof(struct __pyx_obj_7Storage__DoubleStorage), 1); if (unlikely(!__pyx_ptype_7Storage__DoubleStorage)) {__pyx_filename = __pyx_f[3]; __pyx_lineno = 80; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_vtabptr_7Storage__DoubleStorage = (struct __pyx_vtabstruct_7Storage__DoubleStorage*)__Pyx_GetVtable(__pyx_ptype_7Storage__DoubleStorage->tp_dict); if (unlikely(!__pyx_vtabptr_7Storage__DoubleStorage)) {__pyx_filename = __pyx_f[3]; __pyx_lineno = 80; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_ptype_7Storage__ByteStorage = __Pyx_ImportType("Storage", "_ByteStorage", sizeof(struct __pyx_obj_7Storage__ByteStorage), 1); if (unlikely(!__pyx_ptype_7Storage__ByteStorage)) {__pyx_filename = __pyx_f[3]; __pyx_lineno = 87; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_vtabptr_7Storage__ByteStorage = (struct __pyx_vtabstruct_7Storage__ByteStorage*)__Pyx_GetVtable(__pyx_ptype_7Storage__ByteStorage->tp_dict); if (unlikely(!__pyx_vtabptr_7Storage__ByteStorage)) {__pyx_filename = __pyx_f[3]; __pyx_lineno = 87; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_ptype_7Storage__FloatStorage = __Pyx_ImportType("Storage", "_FloatStorage", sizeof(struct __pyx_obj_7Storage__FloatStorage), 1); if (unlikely(!__pyx_ptype_7Storage__FloatStorage)) {__pyx_filename = __pyx_f[3]; __pyx_lineno = 94; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_vtabptr_7Storage__FloatStorage = (struct __pyx_vtabstruct_7Storage__FloatStorage*)__Pyx_GetVtable(__pyx_ptype_7Storage__FloatStorage->tp_dict); if (unlikely(!__pyx_vtabptr_7Storage__FloatStorage)) {__pyx_filename = __pyx_f[3]; __pyx_lineno = 94; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_ptype_7Storage__LongStorage = __Pyx_ImportType("Storage", "_LongStorage", sizeof(struct __pyx_obj_7Storage__LongStorage), 1); if (unlikely(!__pyx_ptype_7Storage__LongStorage)) {__pyx_filename = __pyx_f[3]; __pyx_lineno = 101; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_vtabptr_7Storage__LongStorage = (struct __pyx_vtabstruct_7Storage__LongStorage*)__Pyx_GetVtable(__pyx_ptype_7Storage__LongStorage->tp_dict); if (unlikely(!__pyx_vtabptr_7Storage__LongStorage)) {__pyx_filename = __pyx_f[3]; __pyx_lineno = 101; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __pyx_ptype_3lua_LuaState = __Pyx_ImportType("lua", "LuaState", sizeof(struct __pyx_obj_3lua_LuaState), 1); if (unlikely(!__pyx_ptype_3lua_LuaState)) {__pyx_filename = __pyx_f[4]; __pyx_lineno = 51; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   /*--- Variable import code ---*/
   /*--- Function import code ---*/
   __pyx_t_1 = __Pyx_ImportModule("Storage"); if (!__pyx_t_1) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-  if (__Pyx_ImportFunction(__pyx_t_1, "DoubleStorage_fromNative", (void (**)(void))&__pyx_f_7Storage_DoubleStorage_fromNative, "PyObject *(struct THDoubleStorage *, struct __pyx_opt_args_7Storage_DoubleStorage_fromNative *__pyx_optional_args)") < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-  if (__Pyx_ImportFunction(__pyx_t_1, "ByteStorage_fromNative", (void (**)(void))&__pyx_f_7Storage_ByteStorage_fromNative, "PyObject *(struct THByteStorage *, struct __pyx_opt_args_7Storage_ByteStorage_fromNative *__pyx_optional_args)") < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-  if (__Pyx_ImportFunction(__pyx_t_1, "FloatStorage_fromNative", (void (**)(void))&__pyx_f_7Storage_FloatStorage_fromNative, "PyObject *(struct THFloatStorage *, struct __pyx_opt_args_7Storage_FloatStorage_fromNative *__pyx_optional_args)") < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-  if (__Pyx_ImportFunction(__pyx_t_1, "LongStorage_fromNative", (void (**)(void))&__pyx_f_7Storage_LongStorage_fromNative, "PyObject *(struct THLongStorage *, struct __pyx_opt_args_7Storage_LongStorage_fromNative *__pyx_optional_args)") < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  if (__Pyx_ImportFunction(__pyx_t_1, "_DoubleStorage_fromNative", (void (**)(void))&__pyx_f_7Storage__DoubleStorage_fromNative, "PyObject *(struct THDoubleStorage *, struct __pyx_opt_args_7Storage__DoubleStorage_fromNative *__pyx_optional_args)") < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  if (__Pyx_ImportFunction(__pyx_t_1, "_ByteStorage_fromNative", (void (**)(void))&__pyx_f_7Storage__ByteStorage_fromNative, "PyObject *(struct THByteStorage *, struct __pyx_opt_args_7Storage__ByteStorage_fromNative *__pyx_optional_args)") < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  if (__Pyx_ImportFunction(__pyx_t_1, "_FloatStorage_fromNative", (void (**)(void))&__pyx_f_7Storage__FloatStorage_fromNative, "PyObject *(struct THFloatStorage *, struct __pyx_opt_args_7Storage__FloatStorage_fromNative *__pyx_optional_args)") < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  if (__Pyx_ImportFunction(__pyx_t_1, "_LongStorage_fromNative", (void (**)(void))&__pyx_f_7Storage__LongStorage_fromNative, "PyObject *(struct THLongStorage *, struct __pyx_opt_args_7Storage__LongStorage_fromNative *__pyx_optional_args)") < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   Py_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   __pyx_t_2 = __Pyx_ImportModule("lua"); if (!__pyx_t_2) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   if (__Pyx_ImportFunction(__pyx_t_2, "LuaState_fromNative", (void (**)(void))&__pyx_f_3lua_LuaState_fromNative, "PyObject *(struct lua_State *)") < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
@@ -44903,38 +44903,38 @@ PyMODINIT_FUNC PyInit_PyTorch(void)
   /* "PyTorch.pyx":51
  * 
  * 
- * DoubleStorage = Storage.DoubleStorage             # <<<<<<<<<<<<<<
+ * _DoubleStorage = Storage._DoubleStorage             # <<<<<<<<<<<<<<
  * 
  * cdef extern from "THTensor.h":
  */
-  if (PyDict_SetItem(__pyx_d, __pyx_n_s_DoubleStorage, ((PyObject *)((PyObject*)__pyx_ptype_7Storage_DoubleStorage))) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 51; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  if (PyDict_SetItem(__pyx_d, __pyx_n_s_DoubleStorage, ((PyObject *)((PyObject*)__pyx_ptype_7Storage__DoubleStorage))) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 51; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
 
   /* "PyTorch.pyx":111
  * 
  * 
- * ByteStorage = Storage.ByteStorage             # <<<<<<<<<<<<<<
+ * _ByteStorage = Storage._ByteStorage             # <<<<<<<<<<<<<<
  * 
  * cdef extern from "THTensor.h":
  */
-  if (PyDict_SetItem(__pyx_d, __pyx_n_s_ByteStorage, ((PyObject *)((PyObject*)__pyx_ptype_7Storage_ByteStorage))) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 111; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  if (PyDict_SetItem(__pyx_d, __pyx_n_s_ByteStorage, ((PyObject *)((PyObject*)__pyx_ptype_7Storage__ByteStorage))) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 111; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
 
   /* "PyTorch.pyx":163
  * 
  * 
- * FloatStorage = Storage.FloatStorage             # <<<<<<<<<<<<<<
+ * _FloatStorage = Storage._FloatStorage             # <<<<<<<<<<<<<<
  * 
  * cdef extern from "THTensor.h":
  */
-  if (PyDict_SetItem(__pyx_d, __pyx_n_s_FloatStorage, ((PyObject *)((PyObject*)__pyx_ptype_7Storage_FloatStorage))) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 163; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  if (PyDict_SetItem(__pyx_d, __pyx_n_s_FloatStorage, ((PyObject *)((PyObject*)__pyx_ptype_7Storage__FloatStorage))) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 163; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
 
   /* "PyTorch.pyx":223
  * 
  * 
- * LongStorage = Storage.LongStorage             # <<<<<<<<<<<<<<
+ * _LongStorage = Storage._LongStorage             # <<<<<<<<<<<<<<
  * 
  * cdef extern from "THTensor.h":
  */
-  if (PyDict_SetItem(__pyx_d, __pyx_n_s_LongStorage, ((PyObject *)((PyObject*)__pyx_ptype_7Storage_LongStorage))) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 223; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  if (PyDict_SetItem(__pyx_d, __pyx_n_s_LongStorage, ((PyObject *)((PyObject*)__pyx_ptype_7Storage__LongStorage))) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 223; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
 
   /* "PyTorch.pyx":350
  * 
@@ -45026,9 +45026,9 @@ PyMODINIT_FUNC PyInit_PyTorch(void)
   /* "PyTorch.pyx":501
  * 
  *     @staticmethod
- *     def newWithStorage1d(Storage.DoubleStorage storage, offset, size0, stride0):             # <<<<<<<<<<<<<<
+ *     def newWithStorage1d(Storage._DoubleStorage storage, offset, size0, stride0):             # <<<<<<<<<<<<<<
  * #        # print('allocate tensor')
- *         cdef THDoubleTensor *newTensorC = THDoubleTensor_newWithStorage1d(storage.thDoubleStorage, offset, size0, stride0)
+ *         cdef THDoubleTensor *newTensorC = THDoubleTensor_newWithStorage1d(storage.native, offset, size0, stride0)
  */
   __pyx_t_4 = PyCFunction_NewEx(&__pyx_mdef_7PyTorch_13_DoubleTensor_47newWithStorage1d, NULL, __pyx_n_s_PyTorch); if (unlikely(!__pyx_t_4)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 501; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_4);
@@ -45037,7 +45037,7 @@ PyMODINIT_FUNC PyInit_PyTorch(void)
  *         return self
  * 
  *     @staticmethod             # <<<<<<<<<<<<<<
- *     def newWithStorage1d(Storage.DoubleStorage storage, offset, size0, stride0):
+ *     def newWithStorage1d(Storage._DoubleStorage storage, offset, size0, stride0):
  * #        # print('allocate tensor')
  */
   __pyx_t_3 = PyTuple_New(1); if (unlikely(!__pyx_t_3)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 500; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
@@ -45055,9 +45055,9 @@ PyMODINIT_FUNC PyInit_PyTorch(void)
   /* "PyTorch.pyx":501
  * 
  *     @staticmethod
- *     def newWithStorage1d(Storage.DoubleStorage storage, offset, size0, stride0):             # <<<<<<<<<<<<<<
+ *     def newWithStorage1d(Storage._DoubleStorage storage, offset, size0, stride0):             # <<<<<<<<<<<<<<
  * #        # print('allocate tensor')
- *         cdef THDoubleTensor *newTensorC = THDoubleTensor_newWithStorage1d(storage.thDoubleStorage, offset, size0, stride0)
+ *         cdef THDoubleTensor *newTensorC = THDoubleTensor_newWithStorage1d(storage.native, offset, size0, stride0)
  */
   __pyx_t_4 = __Pyx_GetNameInClass((PyObject *)__pyx_ptype_7PyTorch__DoubleTensor, __pyx_n_s_newWithStorage1d); if (unlikely(!__pyx_t_4)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 501; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_4);
@@ -45066,7 +45066,7 @@ PyMODINIT_FUNC PyInit_PyTorch(void)
  *         return self
  * 
  *     @staticmethod             # <<<<<<<<<<<<<<
- *     def newWithStorage1d(Storage.DoubleStorage storage, offset, size0, stride0):
+ *     def newWithStorage1d(Storage._DoubleStorage storage, offset, size0, stride0):
  * #        # print('allocate tensor')
  */
   __pyx_t_3 = PyTuple_New(1); if (unlikely(!__pyx_t_3)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 500; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
@@ -45084,9 +45084,9 @@ PyMODINIT_FUNC PyInit_PyTorch(void)
   /* "PyTorch.pyx":507
  * 
  *     @staticmethod
- *     def newWithStorage2d(Storage.DoubleStorage storage, offset, size0, stride0, size1, stride1):             # <<<<<<<<<<<<<<
+ *     def newWithStorage2d(Storage._DoubleStorage storage, offset, size0, stride0, size1, stride1):             # <<<<<<<<<<<<<<
  * #        # print('allocate tensor')
- *         cdef THDoubleTensor *newTensorC = THDoubleTensor_newWithStorage2d(storage.thDoubleStorage, offset, size0, stride0, size1, stride1)
+ *         cdef THDoubleTensor *newTensorC = THDoubleTensor_newWithStorage2d(storage.native, offset, size0, stride0, size1, stride1)
  */
   __pyx_t_4 = PyCFunction_NewEx(&__pyx_mdef_7PyTorch_13_DoubleTensor_49newWithStorage2d, NULL, __pyx_n_s_PyTorch); if (unlikely(!__pyx_t_4)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 507; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_4);
@@ -45095,7 +45095,7 @@ PyMODINIT_FUNC PyInit_PyTorch(void)
  *         return _DoubleTensor_fromNative(newTensorC, False)
  * 
  *     @staticmethod             # <<<<<<<<<<<<<<
- *     def newWithStorage2d(Storage.DoubleStorage storage, offset, size0, stride0, size1, stride1):
+ *     def newWithStorage2d(Storage._DoubleStorage storage, offset, size0, stride0, size1, stride1):
  * #        # print('allocate tensor')
  */
   __pyx_t_3 = PyTuple_New(1); if (unlikely(!__pyx_t_3)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 506; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
@@ -45113,9 +45113,9 @@ PyMODINIT_FUNC PyInit_PyTorch(void)
   /* "PyTorch.pyx":507
  * 
  *     @staticmethod
- *     def newWithStorage2d(Storage.DoubleStorage storage, offset, size0, stride0, size1, stride1):             # <<<<<<<<<<<<<<
+ *     def newWithStorage2d(Storage._DoubleStorage storage, offset, size0, stride0, size1, stride1):             # <<<<<<<<<<<<<<
  * #        # print('allocate tensor')
- *         cdef THDoubleTensor *newTensorC = THDoubleTensor_newWithStorage2d(storage.thDoubleStorage, offset, size0, stride0, size1, stride1)
+ *         cdef THDoubleTensor *newTensorC = THDoubleTensor_newWithStorage2d(storage.native, offset, size0, stride0, size1, stride1)
  */
   __pyx_t_4 = __Pyx_GetNameInClass((PyObject *)__pyx_ptype_7PyTorch__DoubleTensor, __pyx_n_s_newWithStorage2d); if (unlikely(!__pyx_t_4)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 507; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_4);
@@ -45124,7 +45124,7 @@ PyMODINIT_FUNC PyInit_PyTorch(void)
  *         return _DoubleTensor_fromNative(newTensorC, False)
  * 
  *     @staticmethod             # <<<<<<<<<<<<<<
- *     def newWithStorage2d(Storage.DoubleStorage storage, offset, size0, stride0, size1, stride1):
+ *     def newWithStorage2d(Storage._DoubleStorage storage, offset, size0, stride0, size1, stride1):
  * #        # print('allocate tensor')
  */
   __pyx_t_3 = PyTuple_New(1); if (unlikely(!__pyx_t_3)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 506; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
@@ -45229,9 +45229,9 @@ PyMODINIT_FUNC PyInit_PyTorch(void)
   /* "PyTorch.pyx":883
  * 
  *     @staticmethod
- *     def newWithStorage1d(Storage.ByteStorage storage, offset, size0, stride0):             # <<<<<<<<<<<<<<
+ *     def newWithStorage1d(Storage._ByteStorage storage, offset, size0, stride0):             # <<<<<<<<<<<<<<
  * #        # print('allocate tensor')
- *         cdef THByteTensor *newTensorC = THByteTensor_newWithStorage1d(storage.thByteStorage, offset, size0, stride0)
+ *         cdef THByteTensor *newTensorC = THByteTensor_newWithStorage1d(storage.native, offset, size0, stride0)
  */
   __pyx_t_4 = PyCFunction_NewEx(&__pyx_mdef_7PyTorch_11_ByteTensor_47newWithStorage1d, NULL, __pyx_n_s_PyTorch); if (unlikely(!__pyx_t_4)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 883; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_4);
@@ -45240,7 +45240,7 @@ PyMODINIT_FUNC PyInit_PyTorch(void)
  *         return self
  * 
  *     @staticmethod             # <<<<<<<<<<<<<<
- *     def newWithStorage1d(Storage.ByteStorage storage, offset, size0, stride0):
+ *     def newWithStorage1d(Storage._ByteStorage storage, offset, size0, stride0):
  * #        # print('allocate tensor')
  */
   __pyx_t_3 = PyTuple_New(1); if (unlikely(!__pyx_t_3)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 882; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
@@ -45258,9 +45258,9 @@ PyMODINIT_FUNC PyInit_PyTorch(void)
   /* "PyTorch.pyx":883
  * 
  *     @staticmethod
- *     def newWithStorage1d(Storage.ByteStorage storage, offset, size0, stride0):             # <<<<<<<<<<<<<<
+ *     def newWithStorage1d(Storage._ByteStorage storage, offset, size0, stride0):             # <<<<<<<<<<<<<<
  * #        # print('allocate tensor')
- *         cdef THByteTensor *newTensorC = THByteTensor_newWithStorage1d(storage.thByteStorage, offset, size0, stride0)
+ *         cdef THByteTensor *newTensorC = THByteTensor_newWithStorage1d(storage.native, offset, size0, stride0)
  */
   __pyx_t_4 = __Pyx_GetNameInClass((PyObject *)__pyx_ptype_7PyTorch__ByteTensor, __pyx_n_s_newWithStorage1d); if (unlikely(!__pyx_t_4)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 883; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_4);
@@ -45269,7 +45269,7 @@ PyMODINIT_FUNC PyInit_PyTorch(void)
  *         return self
  * 
  *     @staticmethod             # <<<<<<<<<<<<<<
- *     def newWithStorage1d(Storage.ByteStorage storage, offset, size0, stride0):
+ *     def newWithStorage1d(Storage._ByteStorage storage, offset, size0, stride0):
  * #        # print('allocate tensor')
  */
   __pyx_t_3 = PyTuple_New(1); if (unlikely(!__pyx_t_3)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 882; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
@@ -45287,9 +45287,9 @@ PyMODINIT_FUNC PyInit_PyTorch(void)
   /* "PyTorch.pyx":889
  * 
  *     @staticmethod
- *     def newWithStorage2d(Storage.ByteStorage storage, offset, size0, stride0, size1, stride1):             # <<<<<<<<<<<<<<
+ *     def newWithStorage2d(Storage._ByteStorage storage, offset, size0, stride0, size1, stride1):             # <<<<<<<<<<<<<<
  * #        # print('allocate tensor')
- *         cdef THByteTensor *newTensorC = THByteTensor_newWithStorage2d(storage.thByteStorage, offset, size0, stride0, size1, stride1)
+ *         cdef THByteTensor *newTensorC = THByteTensor_newWithStorage2d(storage.native, offset, size0, stride0, size1, stride1)
  */
   __pyx_t_4 = PyCFunction_NewEx(&__pyx_mdef_7PyTorch_11_ByteTensor_49newWithStorage2d, NULL, __pyx_n_s_PyTorch); if (unlikely(!__pyx_t_4)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 889; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_4);
@@ -45298,7 +45298,7 @@ PyMODINIT_FUNC PyInit_PyTorch(void)
  *         return _ByteTensor_fromNative(newTensorC, False)
  * 
  *     @staticmethod             # <<<<<<<<<<<<<<
- *     def newWithStorage2d(Storage.ByteStorage storage, offset, size0, stride0, size1, stride1):
+ *     def newWithStorage2d(Storage._ByteStorage storage, offset, size0, stride0, size1, stride1):
  * #        # print('allocate tensor')
  */
   __pyx_t_3 = PyTuple_New(1); if (unlikely(!__pyx_t_3)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 888; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
@@ -45316,9 +45316,9 @@ PyMODINIT_FUNC PyInit_PyTorch(void)
   /* "PyTorch.pyx":889
  * 
  *     @staticmethod
- *     def newWithStorage2d(Storage.ByteStorage storage, offset, size0, stride0, size1, stride1):             # <<<<<<<<<<<<<<
+ *     def newWithStorage2d(Storage._ByteStorage storage, offset, size0, stride0, size1, stride1):             # <<<<<<<<<<<<<<
  * #        # print('allocate tensor')
- *         cdef THByteTensor *newTensorC = THByteTensor_newWithStorage2d(storage.thByteStorage, offset, size0, stride0, size1, stride1)
+ *         cdef THByteTensor *newTensorC = THByteTensor_newWithStorage2d(storage.native, offset, size0, stride0, size1, stride1)
  */
   __pyx_t_4 = __Pyx_GetNameInClass((PyObject *)__pyx_ptype_7PyTorch__ByteTensor, __pyx_n_s_newWithStorage2d); if (unlikely(!__pyx_t_4)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 889; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_4);
@@ -45327,7 +45327,7 @@ PyMODINIT_FUNC PyInit_PyTorch(void)
  *         return _ByteTensor_fromNative(newTensorC, False)
  * 
  *     @staticmethod             # <<<<<<<<<<<<<<
- *     def newWithStorage2d(Storage.ByteStorage storage, offset, size0, stride0, size1, stride1):
+ *     def newWithStorage2d(Storage._ByteStorage storage, offset, size0, stride0, size1, stride1):
  * #        # print('allocate tensor')
  */
   __pyx_t_3 = PyTuple_New(1); if (unlikely(!__pyx_t_3)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 888; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
@@ -45432,9 +45432,9 @@ PyMODINIT_FUNC PyInit_PyTorch(void)
   /* "PyTorch.pyx":1238
  * 
  *     @staticmethod
- *     def newWithStorage1d(Storage.FloatStorage storage, offset, size0, stride0):             # <<<<<<<<<<<<<<
+ *     def newWithStorage1d(Storage._FloatStorage storage, offset, size0, stride0):             # <<<<<<<<<<<<<<
  * #        # print('allocate tensor')
- *         cdef THFloatTensor *newTensorC = THFloatTensor_newWithStorage1d(storage.thFloatStorage, offset, size0, stride0)
+ *         cdef THFloatTensor *newTensorC = THFloatTensor_newWithStorage1d(storage.native, offset, size0, stride0)
  */
   __pyx_t_4 = PyCFunction_NewEx(&__pyx_mdef_7PyTorch_12_FloatTensor_47newWithStorage1d, NULL, __pyx_n_s_PyTorch); if (unlikely(!__pyx_t_4)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1238; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_4);
@@ -45443,7 +45443,7 @@ PyMODINIT_FUNC PyInit_PyTorch(void)
  *         return self
  * 
  *     @staticmethod             # <<<<<<<<<<<<<<
- *     def newWithStorage1d(Storage.FloatStorage storage, offset, size0, stride0):
+ *     def newWithStorage1d(Storage._FloatStorage storage, offset, size0, stride0):
  * #        # print('allocate tensor')
  */
   __pyx_t_3 = PyTuple_New(1); if (unlikely(!__pyx_t_3)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1237; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
@@ -45461,9 +45461,9 @@ PyMODINIT_FUNC PyInit_PyTorch(void)
   /* "PyTorch.pyx":1238
  * 
  *     @staticmethod
- *     def newWithStorage1d(Storage.FloatStorage storage, offset, size0, stride0):             # <<<<<<<<<<<<<<
+ *     def newWithStorage1d(Storage._FloatStorage storage, offset, size0, stride0):             # <<<<<<<<<<<<<<
  * #        # print('allocate tensor')
- *         cdef THFloatTensor *newTensorC = THFloatTensor_newWithStorage1d(storage.thFloatStorage, offset, size0, stride0)
+ *         cdef THFloatTensor *newTensorC = THFloatTensor_newWithStorage1d(storage.native, offset, size0, stride0)
  */
   __pyx_t_4 = __Pyx_GetNameInClass((PyObject *)__pyx_ptype_7PyTorch__FloatTensor, __pyx_n_s_newWithStorage1d); if (unlikely(!__pyx_t_4)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1238; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_4);
@@ -45472,7 +45472,7 @@ PyMODINIT_FUNC PyInit_PyTorch(void)
  *         return self
  * 
  *     @staticmethod             # <<<<<<<<<<<<<<
- *     def newWithStorage1d(Storage.FloatStorage storage, offset, size0, stride0):
+ *     def newWithStorage1d(Storage._FloatStorage storage, offset, size0, stride0):
  * #        # print('allocate tensor')
  */
   __pyx_t_3 = PyTuple_New(1); if (unlikely(!__pyx_t_3)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1237; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
@@ -45490,9 +45490,9 @@ PyMODINIT_FUNC PyInit_PyTorch(void)
   /* "PyTorch.pyx":1244
  * 
  *     @staticmethod
- *     def newWithStorage2d(Storage.FloatStorage storage, offset, size0, stride0, size1, stride1):             # <<<<<<<<<<<<<<
+ *     def newWithStorage2d(Storage._FloatStorage storage, offset, size0, stride0, size1, stride1):             # <<<<<<<<<<<<<<
  * #        # print('allocate tensor')
- *         cdef THFloatTensor *newTensorC = THFloatTensor_newWithStorage2d(storage.thFloatStorage, offset, size0, stride0, size1, stride1)
+ *         cdef THFloatTensor *newTensorC = THFloatTensor_newWithStorage2d(storage.native, offset, size0, stride0, size1, stride1)
  */
   __pyx_t_4 = PyCFunction_NewEx(&__pyx_mdef_7PyTorch_12_FloatTensor_49newWithStorage2d, NULL, __pyx_n_s_PyTorch); if (unlikely(!__pyx_t_4)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1244; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_4);
@@ -45501,7 +45501,7 @@ PyMODINIT_FUNC PyInit_PyTorch(void)
  *         return _FloatTensor_fromNative(newTensorC, False)
  * 
  *     @staticmethod             # <<<<<<<<<<<<<<
- *     def newWithStorage2d(Storage.FloatStorage storage, offset, size0, stride0, size1, stride1):
+ *     def newWithStorage2d(Storage._FloatStorage storage, offset, size0, stride0, size1, stride1):
  * #        # print('allocate tensor')
  */
   __pyx_t_3 = PyTuple_New(1); if (unlikely(!__pyx_t_3)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1243; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
@@ -45519,9 +45519,9 @@ PyMODINIT_FUNC PyInit_PyTorch(void)
   /* "PyTorch.pyx":1244
  * 
  *     @staticmethod
- *     def newWithStorage2d(Storage.FloatStorage storage, offset, size0, stride0, size1, stride1):             # <<<<<<<<<<<<<<
+ *     def newWithStorage2d(Storage._FloatStorage storage, offset, size0, stride0, size1, stride1):             # <<<<<<<<<<<<<<
  * #        # print('allocate tensor')
- *         cdef THFloatTensor *newTensorC = THFloatTensor_newWithStorage2d(storage.thFloatStorage, offset, size0, stride0, size1, stride1)
+ *         cdef THFloatTensor *newTensorC = THFloatTensor_newWithStorage2d(storage.native, offset, size0, stride0, size1, stride1)
  */
   __pyx_t_4 = __Pyx_GetNameInClass((PyObject *)__pyx_ptype_7PyTorch__FloatTensor, __pyx_n_s_newWithStorage2d); if (unlikely(!__pyx_t_4)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1244; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_4);
@@ -45530,7 +45530,7 @@ PyMODINIT_FUNC PyInit_PyTorch(void)
  *         return _FloatTensor_fromNative(newTensorC, False)
  * 
  *     @staticmethod             # <<<<<<<<<<<<<<
- *     def newWithStorage2d(Storage.FloatStorage storage, offset, size0, stride0, size1, stride1):
+ *     def newWithStorage2d(Storage._FloatStorage storage, offset, size0, stride0, size1, stride1):
  * #        # print('allocate tensor')
  */
   __pyx_t_3 = PyTuple_New(1); if (unlikely(!__pyx_t_3)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1243; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
@@ -45635,9 +45635,9 @@ PyMODINIT_FUNC PyInit_PyTorch(void)
   /* "PyTorch.pyx":1620
  * 
  *     @staticmethod
- *     def newWithStorage1d(Storage.LongStorage storage, offset, size0, stride0):             # <<<<<<<<<<<<<<
+ *     def newWithStorage1d(Storage._LongStorage storage, offset, size0, stride0):             # <<<<<<<<<<<<<<
  * #        # print('allocate tensor')
- *         cdef THLongTensor *newTensorC = THLongTensor_newWithStorage1d(storage.thLongStorage, offset, size0, stride0)
+ *         cdef THLongTensor *newTensorC = THLongTensor_newWithStorage1d(storage.native, offset, size0, stride0)
  */
   __pyx_t_4 = PyCFunction_NewEx(&__pyx_mdef_7PyTorch_11_LongTensor_47newWithStorage1d, NULL, __pyx_n_s_PyTorch); if (unlikely(!__pyx_t_4)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1620; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_4);
@@ -45646,7 +45646,7 @@ PyMODINIT_FUNC PyInit_PyTorch(void)
  *         return self
  * 
  *     @staticmethod             # <<<<<<<<<<<<<<
- *     def newWithStorage1d(Storage.LongStorage storage, offset, size0, stride0):
+ *     def newWithStorage1d(Storage._LongStorage storage, offset, size0, stride0):
  * #        # print('allocate tensor')
  */
   __pyx_t_3 = PyTuple_New(1); if (unlikely(!__pyx_t_3)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1619; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
@@ -45664,9 +45664,9 @@ PyMODINIT_FUNC PyInit_PyTorch(void)
   /* "PyTorch.pyx":1620
  * 
  *     @staticmethod
- *     def newWithStorage1d(Storage.LongStorage storage, offset, size0, stride0):             # <<<<<<<<<<<<<<
+ *     def newWithStorage1d(Storage._LongStorage storage, offset, size0, stride0):             # <<<<<<<<<<<<<<
  * #        # print('allocate tensor')
- *         cdef THLongTensor *newTensorC = THLongTensor_newWithStorage1d(storage.thLongStorage, offset, size0, stride0)
+ *         cdef THLongTensor *newTensorC = THLongTensor_newWithStorage1d(storage.native, offset, size0, stride0)
  */
   __pyx_t_4 = __Pyx_GetNameInClass((PyObject *)__pyx_ptype_7PyTorch__LongTensor, __pyx_n_s_newWithStorage1d); if (unlikely(!__pyx_t_4)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1620; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_4);
@@ -45675,7 +45675,7 @@ PyMODINIT_FUNC PyInit_PyTorch(void)
  *         return self
  * 
  *     @staticmethod             # <<<<<<<<<<<<<<
- *     def newWithStorage1d(Storage.LongStorage storage, offset, size0, stride0):
+ *     def newWithStorage1d(Storage._LongStorage storage, offset, size0, stride0):
  * #        # print('allocate tensor')
  */
   __pyx_t_3 = PyTuple_New(1); if (unlikely(!__pyx_t_3)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1619; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
@@ -45693,9 +45693,9 @@ PyMODINIT_FUNC PyInit_PyTorch(void)
   /* "PyTorch.pyx":1626
  * 
  *     @staticmethod
- *     def newWithStorage2d(Storage.LongStorage storage, offset, size0, stride0, size1, stride1):             # <<<<<<<<<<<<<<
+ *     def newWithStorage2d(Storage._LongStorage storage, offset, size0, stride0, size1, stride1):             # <<<<<<<<<<<<<<
  * #        # print('allocate tensor')
- *         cdef THLongTensor *newTensorC = THLongTensor_newWithStorage2d(storage.thLongStorage, offset, size0, stride0, size1, stride1)
+ *         cdef THLongTensor *newTensorC = THLongTensor_newWithStorage2d(storage.native, offset, size0, stride0, size1, stride1)
  */
   __pyx_t_4 = PyCFunction_NewEx(&__pyx_mdef_7PyTorch_11_LongTensor_49newWithStorage2d, NULL, __pyx_n_s_PyTorch); if (unlikely(!__pyx_t_4)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1626; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_4);
@@ -45704,7 +45704,7 @@ PyMODINIT_FUNC PyInit_PyTorch(void)
  *         return _LongTensor_fromNative(newTensorC, False)
  * 
  *     @staticmethod             # <<<<<<<<<<<<<<
- *     def newWithStorage2d(Storage.LongStorage storage, offset, size0, stride0, size1, stride1):
+ *     def newWithStorage2d(Storage._LongStorage storage, offset, size0, stride0, size1, stride1):
  * #        # print('allocate tensor')
  */
   __pyx_t_3 = PyTuple_New(1); if (unlikely(!__pyx_t_3)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1625; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
@@ -45722,9 +45722,9 @@ PyMODINIT_FUNC PyInit_PyTorch(void)
   /* "PyTorch.pyx":1626
  * 
  *     @staticmethod
- *     def newWithStorage2d(Storage.LongStorage storage, offset, size0, stride0, size1, stride1):             # <<<<<<<<<<<<<<
+ *     def newWithStorage2d(Storage._LongStorage storage, offset, size0, stride0, size1, stride1):             # <<<<<<<<<<<<<<
  * #        # print('allocate tensor')
- *         cdef THLongTensor *newTensorC = THLongTensor_newWithStorage2d(storage.thLongStorage, offset, size0, stride0, size1, stride1)
+ *         cdef THLongTensor *newTensorC = THLongTensor_newWithStorage2d(storage.native, offset, size0, stride0, size1, stride1)
  */
   __pyx_t_4 = __Pyx_GetNameInClass((PyObject *)__pyx_ptype_7PyTorch__LongTensor, __pyx_n_s_newWithStorage2d); if (unlikely(!__pyx_t_4)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1626; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_4);
@@ -45733,7 +45733,7 @@ PyMODINIT_FUNC PyInit_PyTorch(void)
  *         return _LongTensor_fromNative(newTensorC, False)
  * 
  *     @staticmethod             # <<<<<<<<<<<<<<
- *     def newWithStorage2d(Storage.LongStorage storage, offset, size0, stride0, size1, stride1):
+ *     def newWithStorage2d(Storage._LongStorage storage, offset, size0, stride0, size1, stride1):
  * #        # print('allocate tensor')
  */
   __pyx_t_3 = PyTuple_New(1); if (unlikely(!__pyx_t_3)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1625; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
@@ -45753,7 +45753,7 @@ PyMODINIT_FUNC PyInit_PyTorch(void)
  * 
  * def asFloatTensor(myarray):             # <<<<<<<<<<<<<<
  *     cdef float[:] myarraymv
- *     cdef Storage.FloatStorage storage
+ *     cdef Storage._FloatStorage storage
  */
   __pyx_t_4 = PyCFunction_NewEx(&__pyx_mdef_7PyTorch_5asFloatTensor, NULL, __pyx_n_s_PyTorch); if (unlikely(!__pyx_t_4)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1750; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_4);
@@ -45765,7 +45765,7 @@ PyMODINIT_FUNC PyInit_PyTorch(void)
  * 
  * def asDoubleTensor(myarray):             # <<<<<<<<<<<<<<
  *     cdef double[:] myarraymv
- *     cdef Storage.DoubleStorage storage
+ *     cdef Storage._DoubleStorage storage
  */
   __pyx_t_4 = PyCFunction_NewEx(&__pyx_mdef_7PyTorch_7asDoubleTensor, NULL, __pyx_n_s_PyTorch); if (unlikely(!__pyx_t_4)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1772; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_4);

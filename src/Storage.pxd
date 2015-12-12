@@ -78,28 +78,28 @@ cdef extern from "THStorage.h":
 
 
 cdef class _DoubleStorage(object):
-    cdef THDoubleStorage *thDoubleStorage
+    cdef THDoubleStorage *native
     cpdef long size(self)
 
 cdef _DoubleStorage_fromNative(THDoubleStorage *storageC, retain=*)
 
 
 cdef class _ByteStorage(object):
-    cdef THByteStorage *thByteStorage
+    cdef THByteStorage *native
     cpdef long size(self)
 
 cdef _ByteStorage_fromNative(THByteStorage *storageC, retain=*)
 
 
 cdef class _FloatStorage(object):
-    cdef THFloatStorage *thFloatStorage
+    cdef THFloatStorage *native
     cpdef long size(self)
 
 cdef _FloatStorage_fromNative(THFloatStorage *storageC, retain=*)
 
 
 cdef class _LongStorage(object):
-    cdef THLongStorage *thLongStorage
+    cdef THLongStorage *native
     cpdef long size(self)
 
 cdef _LongStorage_fromNative(THLongStorage *storageC, retain=*)

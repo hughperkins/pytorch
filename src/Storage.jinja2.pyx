@@ -45,7 +45,7 @@ cdef class _{{Real}}Storage(object):
                 if not isinstance(arg, int):
                     raise Exception('cannot provide arguments to initializer')
             if len(args) == 1:
-                self.th{{Real}}Storage = TH{{Real}}Storage_newWithSize(args[0])
+                self.native = TH{{Real}}Storage_newWithSize(args[0])
             else:
                 raise Exception('cannot provide arguments to initializer')
         if len(kwargs) > 0:
@@ -53,7 +53,7 @@ cdef class _{{Real}}Storage(object):
 
     def __repr__(_{{Real}}Storage self):
         cdef int size0
-        size0 = TH{{Real}}Storage_size(self.th{{Real}}Storage)
+        size0 = TH{{Real}}Storage_size(self.native)
         res = ''
 #        thisline = ''
         for c in range(size0):
@@ -83,10 +83,10 @@ cdef class _{{Real}}Storage(object):
 
     @property
     def refCount(_{{Real}}Storage self):
-        return TH{{Real}}Storage_getRefCount(self.th{{Real}}Storage)
+        return TH{{Real}}Storage_getRefCount(self.native)
 
     def dataAddr(_{{Real}}Storage self):
-        cdef {{real}} *data = TH{{Real}}Storage_data(self.th{{Real}}Storage)
+        cdef {{real}} *data = TH{{Real}}Storage_data(self.native)
         cdef long dataAddr = pointerAsInt(data)
         return dataAddr
 
@@ -97,32 +97,32 @@ cdef class _{{Real}}Storage(object):
         return _{{Real}}Storage_fromNative(storageC, retain=False)
 
     cpdef long size(self):
-        return TH{{Real}}Storage_size(self.th{{Real}}Storage)
+        return TH{{Real}}Storage_size(self.native)
 
     def __dealloc__(self):
         # print('TH{{Real}}Storage.dealloc, old refcount ', TH{{Real}}Storage_getRefCount(self.th{{Real}}Storage))
         # print('   dealloc storage: ', hex(<long>(self.th{{Real}}Storage)))
-        TH{{Real}}Storage_free(self.th{{Real}}Storage)
+        TH{{Real}}Storage_free(self.native)
 
     def __iter__(self):
         cdef int size0
-        size0 = TH{{Real}}Storage_size(self.th{{Real}}Storage)
+        size0 = TH{{Real}}Storage_size(self.native)
         for c in range(size0):
             yield self[c]
 
     def __getitem__(_{{Real}}Storage self, int index):
-        cdef {{real}} res = TH{{Real}}Storage_get(self.th{{Real}}Storage, index)
+        cdef {{real}} res = TH{{Real}}Storage_get(self.native, index)
         return res
 
     def __setitem__(_{{Real}}Storage self, int index, {{real}} value):
-        TH{{Real}}Storage_set(self.th{{Real}}Storage, index, value)
+        TH{{Real}}Storage_set(self.native, index, value)
 
 
 cdef _{{Real}}Storage_fromNative(TH{{Real}}Storage *storageC, retain=True):
     if retain:
         TH{{Real}}Storage_retain(storageC)
     storage = _{{Real}}Storage()
-    storage.th{{Real}}Storage = storageC
+    storage.native = storageC
     return storage
 {% endfor %}
 

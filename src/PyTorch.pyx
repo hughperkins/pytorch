@@ -48,7 +48,7 @@ cdef floatToString(float floatValue):
 
 
 
-DoubleStorage = Storage.DoubleStorage
+_DoubleStorage = Storage._DoubleStorage
 
 cdef extern from "THTensor.h":
     cdef struct THDoubleTensor
@@ -108,7 +108,7 @@ cdef extern from "THTensor.h":
 
 
 
-ByteStorage = Storage.ByteStorage
+_ByteStorage = Storage._ByteStorage
 
 cdef extern from "THTensor.h":
     cdef struct THByteTensor
@@ -160,7 +160,7 @@ cdef extern from "THTensor.h":
 
 
 
-FloatStorage = Storage.FloatStorage
+_FloatStorage = Storage._FloatStorage
 
 cdef extern from "THTensor.h":
     cdef struct THFloatTensor
@@ -220,7 +220,7 @@ cdef extern from "THTensor.h":
 
 
 
-LongStorage = Storage.LongStorage
+_LongStorage = Storage._LongStorage
 
 cdef extern from "THTensor.h":
     cdef struct THLongTensor
@@ -442,7 +442,7 @@ cdef class _DoubleTensor(object):
         cdef int dims = self.dims()
 #        cdef LongStorage size
         if dims > 0:
-            size = LongStorage(dims)
+            size = _LongStorage(dims)
             for d in range(dims):
                 size[d] = THDoubleTensor_size(self.native, d)
             return size
@@ -498,15 +498,15 @@ cdef class _DoubleTensor(object):
         return self
 
     @staticmethod
-    def newWithStorage1d(Storage.DoubleStorage storage, offset, size0, stride0):
+    def newWithStorage1d(Storage._DoubleStorage storage, offset, size0, stride0):
 #        # print('allocate tensor')
-        cdef THDoubleTensor *newTensorC = THDoubleTensor_newWithStorage1d(storage.thDoubleStorage, offset, size0, stride0)
+        cdef THDoubleTensor *newTensorC = THDoubleTensor_newWithStorage1d(storage.native, offset, size0, stride0)
         return _DoubleTensor_fromNative(newTensorC, False)
 
     @staticmethod
-    def newWithStorage2d(Storage.DoubleStorage storage, offset, size0, stride0, size1, stride1):
+    def newWithStorage2d(Storage._DoubleStorage storage, offset, size0, stride0, size1, stride1):
 #        # print('allocate tensor')
-        cdef THDoubleTensor *newTensorC = THDoubleTensor_newWithStorage2d(storage.thDoubleStorage, offset, size0, stride0, size1, stride1)
+        cdef THDoubleTensor *newTensorC = THDoubleTensor_newWithStorage2d(storage.native, offset, size0, stride0, size1, stride1)
         return _DoubleTensor_fromNative(newTensorC, False)
 
     def clone(_DoubleTensor self):
@@ -517,7 +517,7 @@ cdef class _DoubleTensor(object):
         cdef Storage.THDoubleStorage *storageC = THDoubleTensor_storage(self.native)
         if storageC == NULL:
             return None
-        return Storage.DoubleStorage_fromNative(storageC)
+        return Storage._DoubleStorage_fromNative(storageC)
 
     def __add__(_DoubleTensor self, second):
         # assume 2d matrix for now?
@@ -824,7 +824,7 @@ cdef class _ByteTensor(object):
         cdef int dims = self.dims()
 #        cdef LongStorage size
         if dims > 0:
-            size = LongStorage(dims)
+            size = _LongStorage(dims)
             for d in range(dims):
                 size[d] = THByteTensor_size(self.native, d)
             return size
@@ -880,15 +880,15 @@ cdef class _ByteTensor(object):
         return self
 
     @staticmethod
-    def newWithStorage1d(Storage.ByteStorage storage, offset, size0, stride0):
+    def newWithStorage1d(Storage._ByteStorage storage, offset, size0, stride0):
 #        # print('allocate tensor')
-        cdef THByteTensor *newTensorC = THByteTensor_newWithStorage1d(storage.thByteStorage, offset, size0, stride0)
+        cdef THByteTensor *newTensorC = THByteTensor_newWithStorage1d(storage.native, offset, size0, stride0)
         return _ByteTensor_fromNative(newTensorC, False)
 
     @staticmethod
-    def newWithStorage2d(Storage.ByteStorage storage, offset, size0, stride0, size1, stride1):
+    def newWithStorage2d(Storage._ByteStorage storage, offset, size0, stride0, size1, stride1):
 #        # print('allocate tensor')
-        cdef THByteTensor *newTensorC = THByteTensor_newWithStorage2d(storage.thByteStorage, offset, size0, stride0, size1, stride1)
+        cdef THByteTensor *newTensorC = THByteTensor_newWithStorage2d(storage.native, offset, size0, stride0, size1, stride1)
         return _ByteTensor_fromNative(newTensorC, False)
 
     def clone(_ByteTensor self):
@@ -899,7 +899,7 @@ cdef class _ByteTensor(object):
         cdef Storage.THByteStorage *storageC = THByteTensor_storage(self.native)
         if storageC == NULL:
             return None
-        return Storage.ByteStorage_fromNative(storageC)
+        return Storage._ByteStorage_fromNative(storageC)
 
     def __add__(_ByteTensor self, second):
         # assume 2d matrix for now?
@@ -1179,7 +1179,7 @@ cdef class _FloatTensor(object):
         cdef int dims = self.dims()
 #        cdef LongStorage size
         if dims > 0:
-            size = LongStorage(dims)
+            size = _LongStorage(dims)
             for d in range(dims):
                 size[d] = THFloatTensor_size(self.native, d)
             return size
@@ -1235,15 +1235,15 @@ cdef class _FloatTensor(object):
         return self
 
     @staticmethod
-    def newWithStorage1d(Storage.FloatStorage storage, offset, size0, stride0):
+    def newWithStorage1d(Storage._FloatStorage storage, offset, size0, stride0):
 #        # print('allocate tensor')
-        cdef THFloatTensor *newTensorC = THFloatTensor_newWithStorage1d(storage.thFloatStorage, offset, size0, stride0)
+        cdef THFloatTensor *newTensorC = THFloatTensor_newWithStorage1d(storage.native, offset, size0, stride0)
         return _FloatTensor_fromNative(newTensorC, False)
 
     @staticmethod
-    def newWithStorage2d(Storage.FloatStorage storage, offset, size0, stride0, size1, stride1):
+    def newWithStorage2d(Storage._FloatStorage storage, offset, size0, stride0, size1, stride1):
 #        # print('allocate tensor')
-        cdef THFloatTensor *newTensorC = THFloatTensor_newWithStorage2d(storage.thFloatStorage, offset, size0, stride0, size1, stride1)
+        cdef THFloatTensor *newTensorC = THFloatTensor_newWithStorage2d(storage.native, offset, size0, stride0, size1, stride1)
         return _FloatTensor_fromNative(newTensorC, False)
 
     def clone(_FloatTensor self):
@@ -1254,7 +1254,7 @@ cdef class _FloatTensor(object):
         cdef Storage.THFloatStorage *storageC = THFloatTensor_storage(self.native)
         if storageC == NULL:
             return None
-        return Storage.FloatStorage_fromNative(storageC)
+        return Storage._FloatStorage_fromNative(storageC)
 
     def __add__(_FloatTensor self, second):
         # assume 2d matrix for now?
@@ -1561,7 +1561,7 @@ cdef class _LongTensor(object):
         cdef int dims = self.dims()
 #        cdef LongStorage size
         if dims > 0:
-            size = LongStorage(dims)
+            size = _LongStorage(dims)
             for d in range(dims):
                 size[d] = THLongTensor_size(self.native, d)
             return size
@@ -1617,15 +1617,15 @@ cdef class _LongTensor(object):
         return self
 
     @staticmethod
-    def newWithStorage1d(Storage.LongStorage storage, offset, size0, stride0):
+    def newWithStorage1d(Storage._LongStorage storage, offset, size0, stride0):
 #        # print('allocate tensor')
-        cdef THLongTensor *newTensorC = THLongTensor_newWithStorage1d(storage.thLongStorage, offset, size0, stride0)
+        cdef THLongTensor *newTensorC = THLongTensor_newWithStorage1d(storage.native, offset, size0, stride0)
         return _LongTensor_fromNative(newTensorC, False)
 
     @staticmethod
-    def newWithStorage2d(Storage.LongStorage storage, offset, size0, stride0, size1, stride1):
+    def newWithStorage2d(Storage._LongStorage storage, offset, size0, stride0, size1, stride1):
 #        # print('allocate tensor')
-        cdef THLongTensor *newTensorC = THLongTensor_newWithStorage2d(storage.thLongStorage, offset, size0, stride0, size1, stride1)
+        cdef THLongTensor *newTensorC = THLongTensor_newWithStorage2d(storage.native, offset, size0, stride0, size1, stride1)
         return _LongTensor_fromNative(newTensorC, False)
 
     def clone(_LongTensor self):
@@ -1636,7 +1636,7 @@ cdef class _LongTensor(object):
         cdef Storage.THLongStorage *storageC = THLongTensor_storage(self.native)
         if storageC == NULL:
             return None
-        return Storage.LongStorage_fromNative(storageC)
+        return Storage._LongStorage_fromNative(storageC)
 
     def __add__(_LongTensor self, second):
         # assume 2d matrix for now?
@@ -1749,21 +1749,21 @@ cdef _LongTensor_fromNative(THLongTensor *tensorC, retain=True):
 
 def asFloatTensor(myarray):
     cdef float[:] myarraymv
-    cdef Storage.FloatStorage storage
+    cdef Storage._FloatStorage storage
     if str(type(myarray)) == "<type 'numpy.ndarray'>":
         dims = len(myarray.shape)
         rows = myarray.shape[0]
         cols = myarray.shape[1]
 
         myarraymv = myarray.reshape(rows * cols)
-        storage = Storage.FloatStorage.newWithData(myarraymv)
-        Storage.THFloatStorage_retain(storage.thFloatStorage) # since newWithData takes ownership
+        storage = Storage._FloatStorage.newWithData(myarraymv)
+        Storage.THFloatStorage_retain(storage.native) # since newWithData takes ownership
         tensor = _FloatTensor.newWithStorage2d(storage, 0, rows, cols, cols, 1)
         return tensor
     elif isinstance(myarray, array.array):
         myarraymv = myarray
-        storage = Storage.FloatStorage.newWithData(myarraymv)
-        Storage.THFloatStorage_retain(storage.thFloatStorage) # since newWithData takes ownership
+        storage = Storage._FloatStorage.newWithData(myarraymv)
+        Storage.THFloatStorage_retain(storage.native) # since newWithData takes ownership
         tensor = _FloatTensor.newWithStorage1d(storage, 0, len(myarray), 1)
         return tensor        
     else:
@@ -1771,21 +1771,21 @@ def asFloatTensor(myarray):
 
 def asDoubleTensor(myarray):
     cdef double[:] myarraymv
-    cdef Storage.DoubleStorage storage
+    cdef Storage._DoubleStorage storage
     if str(type(myarray)) == "<type 'numpy.ndarray'>":
         dims = len(myarray.shape)
         rows = myarray.shape[0]
         cols = myarray.shape[1]
 
         myarraymv = myarray.reshape(rows * cols)
-        storage = Storage.DoubleStorage.newWithData(myarraymv)
-        Storage.THDoubleStorage_retain(storage.thDoubleStorage) # since newWithData takes ownership
+        storage = Storage._DoubleStorage.newWithData(myarraymv)
+        Storage.THDoubleStorage_retain(storage.native) # since newWithData takes ownership
         tensor = _DoubleTensor.newWithStorage2d(storage, 0, rows, cols, cols, 1)
         return tensor
     elif isinstance(myarray, array.array):
         myarraymv = myarray
-        storage = Storage.DoubleStorage.newWithData(myarraymv)
-        Storage.THDoubleStorage_retain(storage.thDoubleStorage) # since newWithData takes ownership
+        storage = Storage._DoubleStorage.newWithData(myarraymv)
+        Storage.THDoubleStorage_retain(storage.native) # since newWithData takes ownership
         tensor = _DoubleTensor.newWithStorage1d(storage, 0, len(myarray), 1)
         return tensor        
     else:

@@ -727,13 +727,13 @@ struct __pyx_obj_3lua_LuaState {
  * 
  * 
  * cdef class _DoubleStorage(object):             # <<<<<<<<<<<<<<
- *     cdef THDoubleStorage *thDoubleStorage
+ *     cdef THDoubleStorage *native
  *     cpdef long size(self)
  */
 struct __pyx_obj_7Storage__DoubleStorage {
   PyObject_HEAD
   struct __pyx_vtabstruct_7Storage__DoubleStorage *__pyx_vtab;
-  struct THDoubleStorage *thDoubleStorage;
+  struct THDoubleStorage *native;
 };
 
 
@@ -741,13 +741,13 @@ struct __pyx_obj_7Storage__DoubleStorage {
  * 
  * 
  * cdef class _ByteStorage(object):             # <<<<<<<<<<<<<<
- *     cdef THByteStorage *thByteStorage
+ *     cdef THByteStorage *native
  *     cpdef long size(self)
  */
 struct __pyx_obj_7Storage__ByteStorage {
   PyObject_HEAD
   struct __pyx_vtabstruct_7Storage__ByteStorage *__pyx_vtab;
-  struct THByteStorage *thByteStorage;
+  struct THByteStorage *native;
 };
 
 
@@ -755,13 +755,13 @@ struct __pyx_obj_7Storage__ByteStorage {
  * 
  * 
  * cdef class _FloatStorage(object):             # <<<<<<<<<<<<<<
- *     cdef THFloatStorage *thFloatStorage
+ *     cdef THFloatStorage *native
  *     cpdef long size(self)
  */
 struct __pyx_obj_7Storage__FloatStorage {
   PyObject_HEAD
   struct __pyx_vtabstruct_7Storage__FloatStorage *__pyx_vtab;
-  struct THFloatStorage *thFloatStorage;
+  struct THFloatStorage *native;
 };
 
 
@@ -769,22 +769,22 @@ struct __pyx_obj_7Storage__FloatStorage {
  * 
  * 
  * cdef class _LongStorage(object):             # <<<<<<<<<<<<<<
- *     cdef THLongStorage *thLongStorage
+ *     cdef THLongStorage *native
  *     cpdef long size(self)
  */
 struct __pyx_obj_7Storage__LongStorage {
   PyObject_HEAD
   struct __pyx_vtabstruct_7Storage__LongStorage *__pyx_vtab;
-  struct THLongStorage *thLongStorage;
+  struct THLongStorage *native;
 };
 
 
 /* "Storage.pyx":99
- *         THDoubleStorage_free(self.thDoubleStorage)
+ *         THDoubleStorage_free(self.native)
  * 
  *     def __iter__(self):             # <<<<<<<<<<<<<<
  *         cdef int size0
- *         size0 = THDoubleStorage_size(self.thDoubleStorage)
+ *         size0 = THDoubleStorage_size(self.native)
  */
 struct __pyx_obj_7Storage___pyx_scope_struct____iter__ {
   PyObject_HEAD
@@ -797,11 +797,11 @@ struct __pyx_obj_7Storage___pyx_scope_struct____iter__ {
 
 
 /* "Storage.pyx":189
- *         THByteStorage_free(self.thByteStorage)
+ *         THByteStorage_free(self.native)
  * 
  *     def __iter__(self):             # <<<<<<<<<<<<<<
  *         cdef int size0
- *         size0 = THByteStorage_size(self.thByteStorage)
+ *         size0 = THByteStorage_size(self.native)
  */
 struct __pyx_obj_7Storage___pyx_scope_struct_1___iter__ {
   PyObject_HEAD
@@ -814,11 +814,11 @@ struct __pyx_obj_7Storage___pyx_scope_struct_1___iter__ {
 
 
 /* "Storage.pyx":279
- *         THFloatStorage_free(self.thFloatStorage)
+ *         THFloatStorage_free(self.native)
  * 
  *     def __iter__(self):             # <<<<<<<<<<<<<<
  *         cdef int size0
- *         size0 = THFloatStorage_size(self.thFloatStorage)
+ *         size0 = THFloatStorage_size(self.native)
  */
 struct __pyx_obj_7Storage___pyx_scope_struct_2___iter__ {
   PyObject_HEAD
@@ -831,11 +831,11 @@ struct __pyx_obj_7Storage___pyx_scope_struct_2___iter__ {
 
 
 /* "Storage.pyx":369
- *         THLongStorage_free(self.thLongStorage)
+ *         THLongStorage_free(self.native)
  * 
  *     def __iter__(self):             # <<<<<<<<<<<<<<
  *         cdef int size0
- *         size0 = THLongStorage_size(self.thLongStorage)
+ *         size0 = THLongStorage_size(self.native)
  */
 struct __pyx_obj_7Storage___pyx_scope_struct_3___iter__ {
   PyObject_HEAD
@@ -2283,7 +2283,7 @@ static int __pyx_pf_7Storage_14_DoubleStorage___init__(struct __pyx_obj_7Storage
  *                 if not isinstance(arg, int):
  *                     raise Exception('cannot provide arguments to initializer')             # <<<<<<<<<<<<<<
  *             if len(args) == 1:
- *                 self.thDoubleStorage = THDoubleStorage_newWithSize(args[0])
+ *                 self.native = THDoubleStorage_newWithSize(args[0])
  */
         __pyx_t_2 = __Pyx_PyObject_Call(__pyx_builtin_Exception, __pyx_tuple__2, NULL); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 40; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
         __Pyx_GOTREF(__pyx_t_2);
@@ -2306,7 +2306,7 @@ static int __pyx_pf_7Storage_14_DoubleStorage___init__(struct __pyx_obj_7Storage
  *                 if not isinstance(arg, int):
  *                     raise Exception('cannot provide arguments to initializer')
  *             if len(args) == 1:             # <<<<<<<<<<<<<<
- *                 self.thDoubleStorage = THDoubleStorage_newWithSize(args[0])
+ *                 self.native = THDoubleStorage_newWithSize(args[0])
  *             else:
  */
     __pyx_t_3 = PyTuple_GET_SIZE(__pyx_v_args); if (unlikely(__pyx_t_3 == -1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 41; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
@@ -2316,7 +2316,7 @@ static int __pyx_pf_7Storage_14_DoubleStorage___init__(struct __pyx_obj_7Storage
       /* "Storage.pyx":42
  *                     raise Exception('cannot provide arguments to initializer')
  *             if len(args) == 1:
- *                 self.thDoubleStorage = THDoubleStorage_newWithSize(args[0])             # <<<<<<<<<<<<<<
+ *                 self.native = THDoubleStorage_newWithSize(args[0])             # <<<<<<<<<<<<<<
  *             else:
  *                 raise Exception('cannot provide arguments to initializer')
  */
@@ -2324,13 +2324,13 @@ static int __pyx_pf_7Storage_14_DoubleStorage___init__(struct __pyx_obj_7Storage
       __Pyx_GOTREF(__pyx_t_1);
       __pyx_t_6 = __Pyx_PyInt_As_long(__pyx_t_1); if (unlikely((__pyx_t_6 == (long)-1) && PyErr_Occurred())) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 42; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
       __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-      __pyx_v_self->thDoubleStorage = THDoubleStorage_newWithSize(__pyx_t_6);
+      __pyx_v_self->native = THDoubleStorage_newWithSize(__pyx_t_6);
       goto __pyx_L7;
     }
     /*else*/ {
 
       /* "Storage.pyx":44
- *                 self.thDoubleStorage = THDoubleStorage_newWithSize(args[0])
+ *                 self.native = THDoubleStorage_newWithSize(args[0])
  *             else:
  *                 raise Exception('cannot provide arguments to initializer')             # <<<<<<<<<<<<<<
  *         if len(kwargs) > 0:
@@ -2399,7 +2399,7 @@ static int __pyx_pf_7Storage_14_DoubleStorage___init__(struct __pyx_obj_7Storage
  * 
  *     def __repr__(_DoubleStorage self):             # <<<<<<<<<<<<<<
  *         cdef int size0
- *         size0 = THDoubleStorage_size(self.thDoubleStorage)
+ *         size0 = THDoubleStorage_size(self.native)
  */
 
 /* Python wrapper */
@@ -2434,15 +2434,15 @@ static PyObject *__pyx_pf_7Storage_14_DoubleStorage_2__repr__(struct __pyx_obj_7
   /* "Storage.pyx":50
  *     def __repr__(_DoubleStorage self):
  *         cdef int size0
- *         size0 = THDoubleStorage_size(self.thDoubleStorage)             # <<<<<<<<<<<<<<
+ *         size0 = THDoubleStorage_size(self.native)             # <<<<<<<<<<<<<<
  *         res = ''
  * #        thisline = ''
  */
-  __pyx_v_size0 = THDoubleStorage_size(__pyx_v_self->thDoubleStorage);
+  __pyx_v_size0 = THDoubleStorage_size(__pyx_v_self->native);
 
   /* "Storage.pyx":51
  *         cdef int size0
- *         size0 = THDoubleStorage_size(self.thDoubleStorage)
+ *         size0 = THDoubleStorage_size(self.native)
  *         res = ''             # <<<<<<<<<<<<<<
  * #        thisline = ''
  *         for c in range(size0):
@@ -2551,7 +2551,7 @@ static PyObject *__pyx_pf_7Storage_14_DoubleStorage_2__repr__(struct __pyx_obj_7
  * 
  *     def __repr__(_DoubleStorage self):             # <<<<<<<<<<<<<<
  *         cdef int size0
- *         size0 = THDoubleStorage_size(self.thDoubleStorage)
+ *         size0 = THDoubleStorage_size(self.native)
  */
 
   /* function exit code */
@@ -2775,7 +2775,7 @@ static PyObject *__pyx_pf_7Storage_14_DoubleStorage_6newWithData(__Pyx_memviewsl
  * 
  *     @property
  *     def refCount(_DoubleStorage self):             # <<<<<<<<<<<<<<
- *         return THDoubleStorage_getRefCount(self.thDoubleStorage)
+ *         return THDoubleStorage_getRefCount(self.native)
  * 
  */
 
@@ -2804,12 +2804,12 @@ static PyObject *__pyx_pf_7Storage_14_DoubleStorage_8refCount(struct __pyx_obj_7
   /* "Storage.pyx":78
  *     @property
  *     def refCount(_DoubleStorage self):
- *         return THDoubleStorage_getRefCount(self.thDoubleStorage)             # <<<<<<<<<<<<<<
+ *         return THDoubleStorage_getRefCount(self.native)             # <<<<<<<<<<<<<<
  * 
  *     def dataAddr(_DoubleStorage self):
  */
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_1 = __Pyx_PyInt_From_int(THDoubleStorage_getRefCount(__pyx_v_self->thDoubleStorage)); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 78; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_1 = __Pyx_PyInt_From_int(THDoubleStorage_getRefCount(__pyx_v_self->native)); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 78; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_r = __pyx_t_1;
   __pyx_t_1 = 0;
@@ -2819,7 +2819,7 @@ static PyObject *__pyx_pf_7Storage_14_DoubleStorage_8refCount(struct __pyx_obj_7
  * 
  *     @property
  *     def refCount(_DoubleStorage self):             # <<<<<<<<<<<<<<
- *         return THDoubleStorage_getRefCount(self.thDoubleStorage)
+ *         return THDoubleStorage_getRefCount(self.native)
  * 
  */
 
@@ -2835,10 +2835,10 @@ static PyObject *__pyx_pf_7Storage_14_DoubleStorage_8refCount(struct __pyx_obj_7
 }
 
 /* "Storage.pyx":80
- *         return THDoubleStorage_getRefCount(self.thDoubleStorage)
+ *         return THDoubleStorage_getRefCount(self.native)
  * 
  *     def dataAddr(_DoubleStorage self):             # <<<<<<<<<<<<<<
- *         cdef double *data = THDoubleStorage_data(self.thDoubleStorage)
+ *         cdef double *data = THDoubleStorage_data(self.native)
  *         cdef long dataAddr = pointerAsInt(data)
  */
 
@@ -2869,15 +2869,15 @@ static PyObject *__pyx_pf_7Storage_14_DoubleStorage_10dataAddr(struct __pyx_obj_
   /* "Storage.pyx":81
  * 
  *     def dataAddr(_DoubleStorage self):
- *         cdef double *data = THDoubleStorage_data(self.thDoubleStorage)             # <<<<<<<<<<<<<<
+ *         cdef double *data = THDoubleStorage_data(self.native)             # <<<<<<<<<<<<<<
  *         cdef long dataAddr = pointerAsInt(data)
  *         return dataAddr
  */
-  __pyx_v_data = THDoubleStorage_data(__pyx_v_self->thDoubleStorage);
+  __pyx_v_data = THDoubleStorage_data(__pyx_v_self->native);
 
   /* "Storage.pyx":82
  *     def dataAddr(_DoubleStorage self):
- *         cdef double *data = THDoubleStorage_data(self.thDoubleStorage)
+ *         cdef double *data = THDoubleStorage_data(self.native)
  *         cdef long dataAddr = pointerAsInt(data)             # <<<<<<<<<<<<<<
  *         return dataAddr
  * 
@@ -2885,7 +2885,7 @@ static PyObject *__pyx_pf_7Storage_14_DoubleStorage_10dataAddr(struct __pyx_obj_
   __pyx_v_dataAddr = pointerAsInt(__pyx_v_data);
 
   /* "Storage.pyx":83
- *         cdef double *data = THDoubleStorage_data(self.thDoubleStorage)
+ *         cdef double *data = THDoubleStorage_data(self.native)
  *         cdef long dataAddr = pointerAsInt(data)
  *         return dataAddr             # <<<<<<<<<<<<<<
  * 
@@ -2899,10 +2899,10 @@ static PyObject *__pyx_pf_7Storage_14_DoubleStorage_10dataAddr(struct __pyx_obj_
   goto __pyx_L0;
 
   /* "Storage.pyx":80
- *         return THDoubleStorage_getRefCount(self.thDoubleStorage)
+ *         return THDoubleStorage_getRefCount(self.native)
  * 
  *     def dataAddr(_DoubleStorage self):             # <<<<<<<<<<<<<<
- *         cdef double *data = THDoubleStorage_data(self.thDoubleStorage)
+ *         cdef double *data = THDoubleStorage_data(self.native)
  *         cdef long dataAddr = pointerAsInt(data)
  */
 
@@ -3037,7 +3037,7 @@ static PyObject *__pyx_pf_7Storage_14_DoubleStorage_12newWithSize(long __pyx_v_s
  *         return _DoubleStorage_fromNative(storageC, retain=False)
  * 
  *     cpdef long size(self):             # <<<<<<<<<<<<<<
- *         return THDoubleStorage_size(self.thDoubleStorage)
+ *         return THDoubleStorage_size(self.native)
  * 
  */
 
@@ -3092,18 +3092,18 @@ static long __pyx_f_7Storage_14_DoubleStorage_size(struct __pyx_obj_7Storage__Do
   /* "Storage.pyx":92
  * 
  *     cpdef long size(self):
- *         return THDoubleStorage_size(self.thDoubleStorage)             # <<<<<<<<<<<<<<
+ *         return THDoubleStorage_size(self.native)             # <<<<<<<<<<<<<<
  * 
  *     def __dealloc__(self):
  */
-  __pyx_r = THDoubleStorage_size(__pyx_v_self->thDoubleStorage);
+  __pyx_r = THDoubleStorage_size(__pyx_v_self->native);
   goto __pyx_L0;
 
   /* "Storage.pyx":91
  *         return _DoubleStorage_fromNative(storageC, retain=False)
  * 
  *     cpdef long size(self):             # <<<<<<<<<<<<<<
- *         return THDoubleStorage_size(self.thDoubleStorage)
+ *         return THDoubleStorage_size(self.native)
  * 
  */
 
@@ -3160,7 +3160,7 @@ static PyObject *__pyx_pf_7Storage_14_DoubleStorage_14size(struct __pyx_obj_7Sto
 }
 
 /* "Storage.pyx":94
- *         return THDoubleStorage_size(self.thDoubleStorage)
+ *         return THDoubleStorage_size(self.native)
  * 
  *     def __dealloc__(self):             # <<<<<<<<<<<<<<
  *         # print('THDoubleStorage.dealloc, old refcount ', THDoubleStorage_getRefCount(self.thDoubleStorage))
@@ -3185,14 +3185,14 @@ static void __pyx_pf_7Storage_14_DoubleStorage_16__dealloc__(struct __pyx_obj_7S
   /* "Storage.pyx":97
  *         # print('THDoubleStorage.dealloc, old refcount ', THDoubleStorage_getRefCount(self.thDoubleStorage))
  *         # print('   dealloc storage: ', hex(<long>(self.thDoubleStorage)))
- *         THDoubleStorage_free(self.thDoubleStorage)             # <<<<<<<<<<<<<<
+ *         THDoubleStorage_free(self.native)             # <<<<<<<<<<<<<<
  * 
  *     def __iter__(self):
  */
-  THDoubleStorage_free(__pyx_v_self->thDoubleStorage);
+  THDoubleStorage_free(__pyx_v_self->native);
 
   /* "Storage.pyx":94
- *         return THDoubleStorage_size(self.thDoubleStorage)
+ *         return THDoubleStorage_size(self.native)
  * 
  *     def __dealloc__(self):             # <<<<<<<<<<<<<<
  *         # print('THDoubleStorage.dealloc, old refcount ', THDoubleStorage_getRefCount(self.thDoubleStorage))
@@ -3205,11 +3205,11 @@ static void __pyx_pf_7Storage_14_DoubleStorage_16__dealloc__(struct __pyx_obj_7S
 static PyObject *__pyx_gb_7Storage_14_DoubleStorage_20generator(__pyx_GeneratorObject *__pyx_generator, PyObject *__pyx_sent_value); /* proto */
 
 /* "Storage.pyx":99
- *         THDoubleStorage_free(self.thDoubleStorage)
+ *         THDoubleStorage_free(self.native)
  * 
  *     def __iter__(self):             # <<<<<<<<<<<<<<
  *         cdef int size0
- *         size0 = THDoubleStorage_size(self.thDoubleStorage)
+ *         size0 = THDoubleStorage_size(self.native)
  */
 
 /* Python wrapper */
@@ -3284,15 +3284,15 @@ static PyObject *__pyx_gb_7Storage_14_DoubleStorage_20generator(__pyx_GeneratorO
   /* "Storage.pyx":101
  *     def __iter__(self):
  *         cdef int size0
- *         size0 = THDoubleStorage_size(self.thDoubleStorage)             # <<<<<<<<<<<<<<
+ *         size0 = THDoubleStorage_size(self.native)             # <<<<<<<<<<<<<<
  *         for c in range(size0):
  *             yield self[c]
  */
-  __pyx_cur_scope->__pyx_v_size0 = THDoubleStorage_size(__pyx_cur_scope->__pyx_v_self->thDoubleStorage);
+  __pyx_cur_scope->__pyx_v_size0 = THDoubleStorage_size(__pyx_cur_scope->__pyx_v_self->native);
 
   /* "Storage.pyx":102
  *         cdef int size0
- *         size0 = THDoubleStorage_size(self.thDoubleStorage)
+ *         size0 = THDoubleStorage_size(self.native)
  *         for c in range(size0):             # <<<<<<<<<<<<<<
  *             yield self[c]
  * 
@@ -3302,7 +3302,7 @@ static PyObject *__pyx_gb_7Storage_14_DoubleStorage_20generator(__pyx_GeneratorO
     __pyx_cur_scope->__pyx_v_c = __pyx_t_2;
 
     /* "Storage.pyx":103
- *         size0 = THDoubleStorage_size(self.thDoubleStorage)
+ *         size0 = THDoubleStorage_size(self.native)
  *         for c in range(size0):
  *             yield self[c]             # <<<<<<<<<<<<<<
  * 
@@ -3326,11 +3326,11 @@ static PyObject *__pyx_gb_7Storage_14_DoubleStorage_20generator(__pyx_GeneratorO
   }
 
   /* "Storage.pyx":99
- *         THDoubleStorage_free(self.thDoubleStorage)
+ *         THDoubleStorage_free(self.native)
  * 
  *     def __iter__(self):             # <<<<<<<<<<<<<<
  *         cdef int size0
- *         size0 = THDoubleStorage_size(self.thDoubleStorage)
+ *         size0 = THDoubleStorage_size(self.native)
  */
 
   /* function exit code */
@@ -3351,7 +3351,7 @@ static PyObject *__pyx_gb_7Storage_14_DoubleStorage_20generator(__pyx_GeneratorO
  *             yield self[c]
  * 
  *     def __getitem__(_DoubleStorage self, int index):             # <<<<<<<<<<<<<<
- *         cdef double res = THDoubleStorage_get(self.thDoubleStorage, index)
+ *         cdef double res = THDoubleStorage_get(self.native, index)
  *         return res
  */
 
@@ -3394,15 +3394,15 @@ static PyObject *__pyx_pf_7Storage_14_DoubleStorage_21__getitem__(struct __pyx_o
   /* "Storage.pyx":106
  * 
  *     def __getitem__(_DoubleStorage self, int index):
- *         cdef double res = THDoubleStorage_get(self.thDoubleStorage, index)             # <<<<<<<<<<<<<<
+ *         cdef double res = THDoubleStorage_get(self.native, index)             # <<<<<<<<<<<<<<
  *         return res
  * 
  */
-  __pyx_v_res = THDoubleStorage_get(__pyx_v_self->thDoubleStorage, __pyx_v_index);
+  __pyx_v_res = THDoubleStorage_get(__pyx_v_self->native, __pyx_v_index);
 
   /* "Storage.pyx":107
  *     def __getitem__(_DoubleStorage self, int index):
- *         cdef double res = THDoubleStorage_get(self.thDoubleStorage, index)
+ *         cdef double res = THDoubleStorage_get(self.native, index)
  *         return res             # <<<<<<<<<<<<<<
  * 
  *     def __setitem__(_DoubleStorage self, int index, double value):
@@ -3418,7 +3418,7 @@ static PyObject *__pyx_pf_7Storage_14_DoubleStorage_21__getitem__(struct __pyx_o
  *             yield self[c]
  * 
  *     def __getitem__(_DoubleStorage self, int index):             # <<<<<<<<<<<<<<
- *         cdef double res = THDoubleStorage_get(self.thDoubleStorage, index)
+ *         cdef double res = THDoubleStorage_get(self.native, index)
  *         return res
  */
 
@@ -3437,7 +3437,7 @@ static PyObject *__pyx_pf_7Storage_14_DoubleStorage_21__getitem__(struct __pyx_o
  *         return res
  * 
  *     def __setitem__(_DoubleStorage self, int index, double value):             # <<<<<<<<<<<<<<
- *         THDoubleStorage_set(self.thDoubleStorage, index, value)
+ *         THDoubleStorage_set(self.native, index, value)
  * 
  */
 
@@ -3479,17 +3479,17 @@ static int __pyx_pf_7Storage_14_DoubleStorage_23__setitem__(struct __pyx_obj_7St
   /* "Storage.pyx":110
  * 
  *     def __setitem__(_DoubleStorage self, int index, double value):
- *         THDoubleStorage_set(self.thDoubleStorage, index, value)             # <<<<<<<<<<<<<<
+ *         THDoubleStorage_set(self.native, index, value)             # <<<<<<<<<<<<<<
  * 
  * 
  */
-  THDoubleStorage_set(__pyx_v_self->thDoubleStorage, __pyx_v_index, __pyx_v_value);
+  THDoubleStorage_set(__pyx_v_self->native, __pyx_v_index, __pyx_v_value);
 
   /* "Storage.pyx":109
  *         return res
  * 
  *     def __setitem__(_DoubleStorage self, int index, double value):             # <<<<<<<<<<<<<<
- *         THDoubleStorage_set(self.thDoubleStorage, index, value)
+ *         THDoubleStorage_set(self.native, index, value)
  * 
  */
 
@@ -3539,7 +3539,7 @@ static PyObject *__pyx_f_7Storage__DoubleStorage_fromNative(struct THDoubleStora
  *     if retain:
  *         THDoubleStorage_retain(storageC)             # <<<<<<<<<<<<<<
  *     storage = _DoubleStorage()
- *     storage.thDoubleStorage = storageC
+ *     storage.native = storageC
  */
     THDoubleStorage_retain(__pyx_v_storageC);
     goto __pyx_L3;
@@ -3550,7 +3550,7 @@ static PyObject *__pyx_f_7Storage__DoubleStorage_fromNative(struct THDoubleStora
  *     if retain:
  *         THDoubleStorage_retain(storageC)
  *     storage = _DoubleStorage()             # <<<<<<<<<<<<<<
- *     storage.thDoubleStorage = storageC
+ *     storage.native = storageC
  *     return storage
  */
   __pyx_t_2 = __Pyx_PyObject_Call(((PyObject *)((PyObject*)__pyx_ptype_7Storage__DoubleStorage)), __pyx_empty_tuple, NULL); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 116; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
@@ -3561,15 +3561,15 @@ static PyObject *__pyx_f_7Storage__DoubleStorage_fromNative(struct THDoubleStora
   /* "Storage.pyx":117
  *         THDoubleStorage_retain(storageC)
  *     storage = _DoubleStorage()
- *     storage.thDoubleStorage = storageC             # <<<<<<<<<<<<<<
+ *     storage.native = storageC             # <<<<<<<<<<<<<<
  *     return storage
  * 
  */
-  __pyx_v_storage->thDoubleStorage = __pyx_v_storageC;
+  __pyx_v_storage->native = __pyx_v_storageC;
 
   /* "Storage.pyx":118
  *     storage = _DoubleStorage()
- *     storage.thDoubleStorage = storageC
+ *     storage.native = storageC
  *     return storage             # <<<<<<<<<<<<<<
  * 
  * 
@@ -3707,7 +3707,7 @@ static int __pyx_pf_7Storage_12_ByteStorage___init__(struct __pyx_obj_7Storage__
  *                 if not isinstance(arg, int):
  *                     raise Exception('cannot provide arguments to initializer')             # <<<<<<<<<<<<<<
  *             if len(args) == 1:
- *                 self.thByteStorage = THByteStorage_newWithSize(args[0])
+ *                 self.native = THByteStorage_newWithSize(args[0])
  */
         __pyx_t_2 = __Pyx_PyObject_Call(__pyx_builtin_Exception, __pyx_tuple__10, NULL); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 130; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
         __Pyx_GOTREF(__pyx_t_2);
@@ -3730,7 +3730,7 @@ static int __pyx_pf_7Storage_12_ByteStorage___init__(struct __pyx_obj_7Storage__
  *                 if not isinstance(arg, int):
  *                     raise Exception('cannot provide arguments to initializer')
  *             if len(args) == 1:             # <<<<<<<<<<<<<<
- *                 self.thByteStorage = THByteStorage_newWithSize(args[0])
+ *                 self.native = THByteStorage_newWithSize(args[0])
  *             else:
  */
     __pyx_t_3 = PyTuple_GET_SIZE(__pyx_v_args); if (unlikely(__pyx_t_3 == -1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 131; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
@@ -3740,7 +3740,7 @@ static int __pyx_pf_7Storage_12_ByteStorage___init__(struct __pyx_obj_7Storage__
       /* "Storage.pyx":132
  *                     raise Exception('cannot provide arguments to initializer')
  *             if len(args) == 1:
- *                 self.thByteStorage = THByteStorage_newWithSize(args[0])             # <<<<<<<<<<<<<<
+ *                 self.native = THByteStorage_newWithSize(args[0])             # <<<<<<<<<<<<<<
  *             else:
  *                 raise Exception('cannot provide arguments to initializer')
  */
@@ -3748,13 +3748,13 @@ static int __pyx_pf_7Storage_12_ByteStorage___init__(struct __pyx_obj_7Storage__
       __Pyx_GOTREF(__pyx_t_1);
       __pyx_t_6 = __Pyx_PyInt_As_long(__pyx_t_1); if (unlikely((__pyx_t_6 == (long)-1) && PyErr_Occurred())) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 132; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
       __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-      __pyx_v_self->thByteStorage = THByteStorage_newWithSize(__pyx_t_6);
+      __pyx_v_self->native = THByteStorage_newWithSize(__pyx_t_6);
       goto __pyx_L7;
     }
     /*else*/ {
 
       /* "Storage.pyx":134
- *                 self.thByteStorage = THByteStorage_newWithSize(args[0])
+ *                 self.native = THByteStorage_newWithSize(args[0])
  *             else:
  *                 raise Exception('cannot provide arguments to initializer')             # <<<<<<<<<<<<<<
  *         if len(kwargs) > 0:
@@ -3823,7 +3823,7 @@ static int __pyx_pf_7Storage_12_ByteStorage___init__(struct __pyx_obj_7Storage__
  * 
  *     def __repr__(_ByteStorage self):             # <<<<<<<<<<<<<<
  *         cdef int size0
- *         size0 = THByteStorage_size(self.thByteStorage)
+ *         size0 = THByteStorage_size(self.native)
  */
 
 /* Python wrapper */
@@ -3857,15 +3857,15 @@ static PyObject *__pyx_pf_7Storage_12_ByteStorage_2__repr__(struct __pyx_obj_7St
   /* "Storage.pyx":140
  *     def __repr__(_ByteStorage self):
  *         cdef int size0
- *         size0 = THByteStorage_size(self.thByteStorage)             # <<<<<<<<<<<<<<
+ *         size0 = THByteStorage_size(self.native)             # <<<<<<<<<<<<<<
  *         res = ''
  * #        thisline = ''
  */
-  __pyx_v_size0 = THByteStorage_size(__pyx_v_self->thByteStorage);
+  __pyx_v_size0 = THByteStorage_size(__pyx_v_self->native);
 
   /* "Storage.pyx":141
  *         cdef int size0
- *         size0 = THByteStorage_size(self.thByteStorage)
+ *         size0 = THByteStorage_size(self.native)
  *         res = ''             # <<<<<<<<<<<<<<
  * #        thisline = ''
  *         for c in range(size0):
@@ -3978,7 +3978,7 @@ static PyObject *__pyx_pf_7Storage_12_ByteStorage_2__repr__(struct __pyx_obj_7St
  * 
  *     def __repr__(_ByteStorage self):             # <<<<<<<<<<<<<<
  *         cdef int size0
- *         size0 = THByteStorage_size(self.thByteStorage)
+ *         size0 = THByteStorage_size(self.native)
  */
 
   /* function exit code */
@@ -4202,7 +4202,7 @@ static PyObject *__pyx_pf_7Storage_12_ByteStorage_6newWithData(__Pyx_memviewslic
  * 
  *     @property
  *     def refCount(_ByteStorage self):             # <<<<<<<<<<<<<<
- *         return THByteStorage_getRefCount(self.thByteStorage)
+ *         return THByteStorage_getRefCount(self.native)
  * 
  */
 
@@ -4231,12 +4231,12 @@ static PyObject *__pyx_pf_7Storage_12_ByteStorage_8refCount(struct __pyx_obj_7St
   /* "Storage.pyx":168
  *     @property
  *     def refCount(_ByteStorage self):
- *         return THByteStorage_getRefCount(self.thByteStorage)             # <<<<<<<<<<<<<<
+ *         return THByteStorage_getRefCount(self.native)             # <<<<<<<<<<<<<<
  * 
  *     def dataAddr(_ByteStorage self):
  */
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_1 = __Pyx_PyInt_From_int(THByteStorage_getRefCount(__pyx_v_self->thByteStorage)); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 168; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_1 = __Pyx_PyInt_From_int(THByteStorage_getRefCount(__pyx_v_self->native)); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 168; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_r = __pyx_t_1;
   __pyx_t_1 = 0;
@@ -4246,7 +4246,7 @@ static PyObject *__pyx_pf_7Storage_12_ByteStorage_8refCount(struct __pyx_obj_7St
  * 
  *     @property
  *     def refCount(_ByteStorage self):             # <<<<<<<<<<<<<<
- *         return THByteStorage_getRefCount(self.thByteStorage)
+ *         return THByteStorage_getRefCount(self.native)
  * 
  */
 
@@ -4262,10 +4262,10 @@ static PyObject *__pyx_pf_7Storage_12_ByteStorage_8refCount(struct __pyx_obj_7St
 }
 
 /* "Storage.pyx":170
- *         return THByteStorage_getRefCount(self.thByteStorage)
+ *         return THByteStorage_getRefCount(self.native)
  * 
  *     def dataAddr(_ByteStorage self):             # <<<<<<<<<<<<<<
- *         cdef unsigned char *data = THByteStorage_data(self.thByteStorage)
+ *         cdef unsigned char *data = THByteStorage_data(self.native)
  *         cdef long dataAddr = pointerAsInt(data)
  */
 
@@ -4296,15 +4296,15 @@ static PyObject *__pyx_pf_7Storage_12_ByteStorage_10dataAddr(struct __pyx_obj_7S
   /* "Storage.pyx":171
  * 
  *     def dataAddr(_ByteStorage self):
- *         cdef unsigned char *data = THByteStorage_data(self.thByteStorage)             # <<<<<<<<<<<<<<
+ *         cdef unsigned char *data = THByteStorage_data(self.native)             # <<<<<<<<<<<<<<
  *         cdef long dataAddr = pointerAsInt(data)
  *         return dataAddr
  */
-  __pyx_v_data = THByteStorage_data(__pyx_v_self->thByteStorage);
+  __pyx_v_data = THByteStorage_data(__pyx_v_self->native);
 
   /* "Storage.pyx":172
  *     def dataAddr(_ByteStorage self):
- *         cdef unsigned char *data = THByteStorage_data(self.thByteStorage)
+ *         cdef unsigned char *data = THByteStorage_data(self.native)
  *         cdef long dataAddr = pointerAsInt(data)             # <<<<<<<<<<<<<<
  *         return dataAddr
  * 
@@ -4312,7 +4312,7 @@ static PyObject *__pyx_pf_7Storage_12_ByteStorage_10dataAddr(struct __pyx_obj_7S
   __pyx_v_dataAddr = pointerAsInt(__pyx_v_data);
 
   /* "Storage.pyx":173
- *         cdef unsigned char *data = THByteStorage_data(self.thByteStorage)
+ *         cdef unsigned char *data = THByteStorage_data(self.native)
  *         cdef long dataAddr = pointerAsInt(data)
  *         return dataAddr             # <<<<<<<<<<<<<<
  * 
@@ -4326,10 +4326,10 @@ static PyObject *__pyx_pf_7Storage_12_ByteStorage_10dataAddr(struct __pyx_obj_7S
   goto __pyx_L0;
 
   /* "Storage.pyx":170
- *         return THByteStorage_getRefCount(self.thByteStorage)
+ *         return THByteStorage_getRefCount(self.native)
  * 
  *     def dataAddr(_ByteStorage self):             # <<<<<<<<<<<<<<
- *         cdef unsigned char *data = THByteStorage_data(self.thByteStorage)
+ *         cdef unsigned char *data = THByteStorage_data(self.native)
  *         cdef long dataAddr = pointerAsInt(data)
  */
 
@@ -4464,7 +4464,7 @@ static PyObject *__pyx_pf_7Storage_12_ByteStorage_12newWithSize(long __pyx_v_siz
  *         return _ByteStorage_fromNative(storageC, retain=False)
  * 
  *     cpdef long size(self):             # <<<<<<<<<<<<<<
- *         return THByteStorage_size(self.thByteStorage)
+ *         return THByteStorage_size(self.native)
  * 
  */
 
@@ -4519,18 +4519,18 @@ static long __pyx_f_7Storage_12_ByteStorage_size(struct __pyx_obj_7Storage__Byte
   /* "Storage.pyx":182
  * 
  *     cpdef long size(self):
- *         return THByteStorage_size(self.thByteStorage)             # <<<<<<<<<<<<<<
+ *         return THByteStorage_size(self.native)             # <<<<<<<<<<<<<<
  * 
  *     def __dealloc__(self):
  */
-  __pyx_r = THByteStorage_size(__pyx_v_self->thByteStorage);
+  __pyx_r = THByteStorage_size(__pyx_v_self->native);
   goto __pyx_L0;
 
   /* "Storage.pyx":181
  *         return _ByteStorage_fromNative(storageC, retain=False)
  * 
  *     cpdef long size(self):             # <<<<<<<<<<<<<<
- *         return THByteStorage_size(self.thByteStorage)
+ *         return THByteStorage_size(self.native)
  * 
  */
 
@@ -4587,7 +4587,7 @@ static PyObject *__pyx_pf_7Storage_12_ByteStorage_14size(struct __pyx_obj_7Stora
 }
 
 /* "Storage.pyx":184
- *         return THByteStorage_size(self.thByteStorage)
+ *         return THByteStorage_size(self.native)
  * 
  *     def __dealloc__(self):             # <<<<<<<<<<<<<<
  *         # print('THByteStorage.dealloc, old refcount ', THByteStorage_getRefCount(self.thByteStorage))
@@ -4612,14 +4612,14 @@ static void __pyx_pf_7Storage_12_ByteStorage_16__dealloc__(struct __pyx_obj_7Sto
   /* "Storage.pyx":187
  *         # print('THByteStorage.dealloc, old refcount ', THByteStorage_getRefCount(self.thByteStorage))
  *         # print('   dealloc storage: ', hex(<long>(self.thByteStorage)))
- *         THByteStorage_free(self.thByteStorage)             # <<<<<<<<<<<<<<
+ *         THByteStorage_free(self.native)             # <<<<<<<<<<<<<<
  * 
  *     def __iter__(self):
  */
-  THByteStorage_free(__pyx_v_self->thByteStorage);
+  THByteStorage_free(__pyx_v_self->native);
 
   /* "Storage.pyx":184
- *         return THByteStorage_size(self.thByteStorage)
+ *         return THByteStorage_size(self.native)
  * 
  *     def __dealloc__(self):             # <<<<<<<<<<<<<<
  *         # print('THByteStorage.dealloc, old refcount ', THByteStorage_getRefCount(self.thByteStorage))
@@ -4632,11 +4632,11 @@ static void __pyx_pf_7Storage_12_ByteStorage_16__dealloc__(struct __pyx_obj_7Sto
 static PyObject *__pyx_gb_7Storage_12_ByteStorage_20generator1(__pyx_GeneratorObject *__pyx_generator, PyObject *__pyx_sent_value); /* proto */
 
 /* "Storage.pyx":189
- *         THByteStorage_free(self.thByteStorage)
+ *         THByteStorage_free(self.native)
  * 
  *     def __iter__(self):             # <<<<<<<<<<<<<<
  *         cdef int size0
- *         size0 = THByteStorage_size(self.thByteStorage)
+ *         size0 = THByteStorage_size(self.native)
  */
 
 /* Python wrapper */
@@ -4711,15 +4711,15 @@ static PyObject *__pyx_gb_7Storage_12_ByteStorage_20generator1(__pyx_GeneratorOb
   /* "Storage.pyx":191
  *     def __iter__(self):
  *         cdef int size0
- *         size0 = THByteStorage_size(self.thByteStorage)             # <<<<<<<<<<<<<<
+ *         size0 = THByteStorage_size(self.native)             # <<<<<<<<<<<<<<
  *         for c in range(size0):
  *             yield self[c]
  */
-  __pyx_cur_scope->__pyx_v_size0 = THByteStorage_size(__pyx_cur_scope->__pyx_v_self->thByteStorage);
+  __pyx_cur_scope->__pyx_v_size0 = THByteStorage_size(__pyx_cur_scope->__pyx_v_self->native);
 
   /* "Storage.pyx":192
  *         cdef int size0
- *         size0 = THByteStorage_size(self.thByteStorage)
+ *         size0 = THByteStorage_size(self.native)
  *         for c in range(size0):             # <<<<<<<<<<<<<<
  *             yield self[c]
  * 
@@ -4729,7 +4729,7 @@ static PyObject *__pyx_gb_7Storage_12_ByteStorage_20generator1(__pyx_GeneratorOb
     __pyx_cur_scope->__pyx_v_c = __pyx_t_2;
 
     /* "Storage.pyx":193
- *         size0 = THByteStorage_size(self.thByteStorage)
+ *         size0 = THByteStorage_size(self.native)
  *         for c in range(size0):
  *             yield self[c]             # <<<<<<<<<<<<<<
  * 
@@ -4753,11 +4753,11 @@ static PyObject *__pyx_gb_7Storage_12_ByteStorage_20generator1(__pyx_GeneratorOb
   }
 
   /* "Storage.pyx":189
- *         THByteStorage_free(self.thByteStorage)
+ *         THByteStorage_free(self.native)
  * 
  *     def __iter__(self):             # <<<<<<<<<<<<<<
  *         cdef int size0
- *         size0 = THByteStorage_size(self.thByteStorage)
+ *         size0 = THByteStorage_size(self.native)
  */
 
   /* function exit code */
@@ -4778,7 +4778,7 @@ static PyObject *__pyx_gb_7Storage_12_ByteStorage_20generator1(__pyx_GeneratorOb
  *             yield self[c]
  * 
  *     def __getitem__(_ByteStorage self, int index):             # <<<<<<<<<<<<<<
- *         cdef unsigned char res = THByteStorage_get(self.thByteStorage, index)
+ *         cdef unsigned char res = THByteStorage_get(self.native, index)
  *         return res
  */
 
@@ -4821,15 +4821,15 @@ static PyObject *__pyx_pf_7Storage_12_ByteStorage_21__getitem__(struct __pyx_obj
   /* "Storage.pyx":196
  * 
  *     def __getitem__(_ByteStorage self, int index):
- *         cdef unsigned char res = THByteStorage_get(self.thByteStorage, index)             # <<<<<<<<<<<<<<
+ *         cdef unsigned char res = THByteStorage_get(self.native, index)             # <<<<<<<<<<<<<<
  *         return res
  * 
  */
-  __pyx_v_res = THByteStorage_get(__pyx_v_self->thByteStorage, __pyx_v_index);
+  __pyx_v_res = THByteStorage_get(__pyx_v_self->native, __pyx_v_index);
 
   /* "Storage.pyx":197
  *     def __getitem__(_ByteStorage self, int index):
- *         cdef unsigned char res = THByteStorage_get(self.thByteStorage, index)
+ *         cdef unsigned char res = THByteStorage_get(self.native, index)
  *         return res             # <<<<<<<<<<<<<<
  * 
  *     def __setitem__(_ByteStorage self, int index, unsigned char value):
@@ -4845,7 +4845,7 @@ static PyObject *__pyx_pf_7Storage_12_ByteStorage_21__getitem__(struct __pyx_obj
  *             yield self[c]
  * 
  *     def __getitem__(_ByteStorage self, int index):             # <<<<<<<<<<<<<<
- *         cdef unsigned char res = THByteStorage_get(self.thByteStorage, index)
+ *         cdef unsigned char res = THByteStorage_get(self.native, index)
  *         return res
  */
 
@@ -4864,7 +4864,7 @@ static PyObject *__pyx_pf_7Storage_12_ByteStorage_21__getitem__(struct __pyx_obj
  *         return res
  * 
  *     def __setitem__(_ByteStorage self, int index, unsigned char value):             # <<<<<<<<<<<<<<
- *         THByteStorage_set(self.thByteStorage, index, value)
+ *         THByteStorage_set(self.native, index, value)
  * 
  */
 
@@ -4906,17 +4906,17 @@ static int __pyx_pf_7Storage_12_ByteStorage_23__setitem__(struct __pyx_obj_7Stor
   /* "Storage.pyx":200
  * 
  *     def __setitem__(_ByteStorage self, int index, unsigned char value):
- *         THByteStorage_set(self.thByteStorage, index, value)             # <<<<<<<<<<<<<<
+ *         THByteStorage_set(self.native, index, value)             # <<<<<<<<<<<<<<
  * 
  * 
  */
-  THByteStorage_set(__pyx_v_self->thByteStorage, __pyx_v_index, __pyx_v_value);
+  THByteStorage_set(__pyx_v_self->native, __pyx_v_index, __pyx_v_value);
 
   /* "Storage.pyx":199
  *         return res
  * 
  *     def __setitem__(_ByteStorage self, int index, unsigned char value):             # <<<<<<<<<<<<<<
- *         THByteStorage_set(self.thByteStorage, index, value)
+ *         THByteStorage_set(self.native, index, value)
  * 
  */
 
@@ -4966,7 +4966,7 @@ static PyObject *__pyx_f_7Storage__ByteStorage_fromNative(struct THByteStorage *
  *     if retain:
  *         THByteStorage_retain(storageC)             # <<<<<<<<<<<<<<
  *     storage = _ByteStorage()
- *     storage.thByteStorage = storageC
+ *     storage.native = storageC
  */
     THByteStorage_retain(__pyx_v_storageC);
     goto __pyx_L3;
@@ -4977,7 +4977,7 @@ static PyObject *__pyx_f_7Storage__ByteStorage_fromNative(struct THByteStorage *
  *     if retain:
  *         THByteStorage_retain(storageC)
  *     storage = _ByteStorage()             # <<<<<<<<<<<<<<
- *     storage.thByteStorage = storageC
+ *     storage.native = storageC
  *     return storage
  */
   __pyx_t_2 = __Pyx_PyObject_Call(((PyObject *)((PyObject*)__pyx_ptype_7Storage__ByteStorage)), __pyx_empty_tuple, NULL); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 206; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
@@ -4988,15 +4988,15 @@ static PyObject *__pyx_f_7Storage__ByteStorage_fromNative(struct THByteStorage *
   /* "Storage.pyx":207
  *         THByteStorage_retain(storageC)
  *     storage = _ByteStorage()
- *     storage.thByteStorage = storageC             # <<<<<<<<<<<<<<
+ *     storage.native = storageC             # <<<<<<<<<<<<<<
  *     return storage
  * 
  */
-  __pyx_v_storage->thByteStorage = __pyx_v_storageC;
+  __pyx_v_storage->native = __pyx_v_storageC;
 
   /* "Storage.pyx":208
  *     storage = _ByteStorage()
- *     storage.thByteStorage = storageC
+ *     storage.native = storageC
  *     return storage             # <<<<<<<<<<<<<<
  * 
  * 
@@ -5134,7 +5134,7 @@ static int __pyx_pf_7Storage_13_FloatStorage___init__(struct __pyx_obj_7Storage_
  *                 if not isinstance(arg, int):
  *                     raise Exception('cannot provide arguments to initializer')             # <<<<<<<<<<<<<<
  *             if len(args) == 1:
- *                 self.thFloatStorage = THFloatStorage_newWithSize(args[0])
+ *                 self.native = THFloatStorage_newWithSize(args[0])
  */
         __pyx_t_2 = __Pyx_PyObject_Call(__pyx_builtin_Exception, __pyx_tuple__14, NULL); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 220; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
         __Pyx_GOTREF(__pyx_t_2);
@@ -5157,7 +5157,7 @@ static int __pyx_pf_7Storage_13_FloatStorage___init__(struct __pyx_obj_7Storage_
  *                 if not isinstance(arg, int):
  *                     raise Exception('cannot provide arguments to initializer')
  *             if len(args) == 1:             # <<<<<<<<<<<<<<
- *                 self.thFloatStorage = THFloatStorage_newWithSize(args[0])
+ *                 self.native = THFloatStorage_newWithSize(args[0])
  *             else:
  */
     __pyx_t_3 = PyTuple_GET_SIZE(__pyx_v_args); if (unlikely(__pyx_t_3 == -1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 221; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
@@ -5167,7 +5167,7 @@ static int __pyx_pf_7Storage_13_FloatStorage___init__(struct __pyx_obj_7Storage_
       /* "Storage.pyx":222
  *                     raise Exception('cannot provide arguments to initializer')
  *             if len(args) == 1:
- *                 self.thFloatStorage = THFloatStorage_newWithSize(args[0])             # <<<<<<<<<<<<<<
+ *                 self.native = THFloatStorage_newWithSize(args[0])             # <<<<<<<<<<<<<<
  *             else:
  *                 raise Exception('cannot provide arguments to initializer')
  */
@@ -5175,13 +5175,13 @@ static int __pyx_pf_7Storage_13_FloatStorage___init__(struct __pyx_obj_7Storage_
       __Pyx_GOTREF(__pyx_t_1);
       __pyx_t_6 = __Pyx_PyInt_As_long(__pyx_t_1); if (unlikely((__pyx_t_6 == (long)-1) && PyErr_Occurred())) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 222; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
       __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-      __pyx_v_self->thFloatStorage = THFloatStorage_newWithSize(__pyx_t_6);
+      __pyx_v_self->native = THFloatStorage_newWithSize(__pyx_t_6);
       goto __pyx_L7;
     }
     /*else*/ {
 
       /* "Storage.pyx":224
- *                 self.thFloatStorage = THFloatStorage_newWithSize(args[0])
+ *                 self.native = THFloatStorage_newWithSize(args[0])
  *             else:
  *                 raise Exception('cannot provide arguments to initializer')             # <<<<<<<<<<<<<<
  *         if len(kwargs) > 0:
@@ -5250,7 +5250,7 @@ static int __pyx_pf_7Storage_13_FloatStorage___init__(struct __pyx_obj_7Storage_
  * 
  *     def __repr__(_FloatStorage self):             # <<<<<<<<<<<<<<
  *         cdef int size0
- *         size0 = THFloatStorage_size(self.thFloatStorage)
+ *         size0 = THFloatStorage_size(self.native)
  */
 
 /* Python wrapper */
@@ -5285,15 +5285,15 @@ static PyObject *__pyx_pf_7Storage_13_FloatStorage_2__repr__(struct __pyx_obj_7S
   /* "Storage.pyx":230
  *     def __repr__(_FloatStorage self):
  *         cdef int size0
- *         size0 = THFloatStorage_size(self.thFloatStorage)             # <<<<<<<<<<<<<<
+ *         size0 = THFloatStorage_size(self.native)             # <<<<<<<<<<<<<<
  *         res = ''
  * #        thisline = ''
  */
-  __pyx_v_size0 = THFloatStorage_size(__pyx_v_self->thFloatStorage);
+  __pyx_v_size0 = THFloatStorage_size(__pyx_v_self->native);
 
   /* "Storage.pyx":231
  *         cdef int size0
- *         size0 = THFloatStorage_size(self.thFloatStorage)
+ *         size0 = THFloatStorage_size(self.native)
  *         res = ''             # <<<<<<<<<<<<<<
  * #        thisline = ''
  *         for c in range(size0):
@@ -5402,7 +5402,7 @@ static PyObject *__pyx_pf_7Storage_13_FloatStorage_2__repr__(struct __pyx_obj_7S
  * 
  *     def __repr__(_FloatStorage self):             # <<<<<<<<<<<<<<
  *         cdef int size0
- *         size0 = THFloatStorage_size(self.thFloatStorage)
+ *         size0 = THFloatStorage_size(self.native)
  */
 
   /* function exit code */
@@ -5626,7 +5626,7 @@ static PyObject *__pyx_pf_7Storage_13_FloatStorage_6newWithData(__Pyx_memviewsli
  * 
  *     @property
  *     def refCount(_FloatStorage self):             # <<<<<<<<<<<<<<
- *         return THFloatStorage_getRefCount(self.thFloatStorage)
+ *         return THFloatStorage_getRefCount(self.native)
  * 
  */
 
@@ -5655,12 +5655,12 @@ static PyObject *__pyx_pf_7Storage_13_FloatStorage_8refCount(struct __pyx_obj_7S
   /* "Storage.pyx":258
  *     @property
  *     def refCount(_FloatStorage self):
- *         return THFloatStorage_getRefCount(self.thFloatStorage)             # <<<<<<<<<<<<<<
+ *         return THFloatStorage_getRefCount(self.native)             # <<<<<<<<<<<<<<
  * 
  *     def dataAddr(_FloatStorage self):
  */
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_1 = __Pyx_PyInt_From_int(THFloatStorage_getRefCount(__pyx_v_self->thFloatStorage)); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 258; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_1 = __Pyx_PyInt_From_int(THFloatStorage_getRefCount(__pyx_v_self->native)); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 258; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_r = __pyx_t_1;
   __pyx_t_1 = 0;
@@ -5670,7 +5670,7 @@ static PyObject *__pyx_pf_7Storage_13_FloatStorage_8refCount(struct __pyx_obj_7S
  * 
  *     @property
  *     def refCount(_FloatStorage self):             # <<<<<<<<<<<<<<
- *         return THFloatStorage_getRefCount(self.thFloatStorage)
+ *         return THFloatStorage_getRefCount(self.native)
  * 
  */
 
@@ -5686,10 +5686,10 @@ static PyObject *__pyx_pf_7Storage_13_FloatStorage_8refCount(struct __pyx_obj_7S
 }
 
 /* "Storage.pyx":260
- *         return THFloatStorage_getRefCount(self.thFloatStorage)
+ *         return THFloatStorage_getRefCount(self.native)
  * 
  *     def dataAddr(_FloatStorage self):             # <<<<<<<<<<<<<<
- *         cdef float *data = THFloatStorage_data(self.thFloatStorage)
+ *         cdef float *data = THFloatStorage_data(self.native)
  *         cdef long dataAddr = pointerAsInt(data)
  */
 
@@ -5720,15 +5720,15 @@ static PyObject *__pyx_pf_7Storage_13_FloatStorage_10dataAddr(struct __pyx_obj_7
   /* "Storage.pyx":261
  * 
  *     def dataAddr(_FloatStorage self):
- *         cdef float *data = THFloatStorage_data(self.thFloatStorage)             # <<<<<<<<<<<<<<
+ *         cdef float *data = THFloatStorage_data(self.native)             # <<<<<<<<<<<<<<
  *         cdef long dataAddr = pointerAsInt(data)
  *         return dataAddr
  */
-  __pyx_v_data = THFloatStorage_data(__pyx_v_self->thFloatStorage);
+  __pyx_v_data = THFloatStorage_data(__pyx_v_self->native);
 
   /* "Storage.pyx":262
  *     def dataAddr(_FloatStorage self):
- *         cdef float *data = THFloatStorage_data(self.thFloatStorage)
+ *         cdef float *data = THFloatStorage_data(self.native)
  *         cdef long dataAddr = pointerAsInt(data)             # <<<<<<<<<<<<<<
  *         return dataAddr
  * 
@@ -5736,7 +5736,7 @@ static PyObject *__pyx_pf_7Storage_13_FloatStorage_10dataAddr(struct __pyx_obj_7
   __pyx_v_dataAddr = pointerAsInt(__pyx_v_data);
 
   /* "Storage.pyx":263
- *         cdef float *data = THFloatStorage_data(self.thFloatStorage)
+ *         cdef float *data = THFloatStorage_data(self.native)
  *         cdef long dataAddr = pointerAsInt(data)
  *         return dataAddr             # <<<<<<<<<<<<<<
  * 
@@ -5750,10 +5750,10 @@ static PyObject *__pyx_pf_7Storage_13_FloatStorage_10dataAddr(struct __pyx_obj_7
   goto __pyx_L0;
 
   /* "Storage.pyx":260
- *         return THFloatStorage_getRefCount(self.thFloatStorage)
+ *         return THFloatStorage_getRefCount(self.native)
  * 
  *     def dataAddr(_FloatStorage self):             # <<<<<<<<<<<<<<
- *         cdef float *data = THFloatStorage_data(self.thFloatStorage)
+ *         cdef float *data = THFloatStorage_data(self.native)
  *         cdef long dataAddr = pointerAsInt(data)
  */
 
@@ -5888,7 +5888,7 @@ static PyObject *__pyx_pf_7Storage_13_FloatStorage_12newWithSize(long __pyx_v_si
  *         return _FloatStorage_fromNative(storageC, retain=False)
  * 
  *     cpdef long size(self):             # <<<<<<<<<<<<<<
- *         return THFloatStorage_size(self.thFloatStorage)
+ *         return THFloatStorage_size(self.native)
  * 
  */
 
@@ -5943,18 +5943,18 @@ static long __pyx_f_7Storage_13_FloatStorage_size(struct __pyx_obj_7Storage__Flo
   /* "Storage.pyx":272
  * 
  *     cpdef long size(self):
- *         return THFloatStorage_size(self.thFloatStorage)             # <<<<<<<<<<<<<<
+ *         return THFloatStorage_size(self.native)             # <<<<<<<<<<<<<<
  * 
  *     def __dealloc__(self):
  */
-  __pyx_r = THFloatStorage_size(__pyx_v_self->thFloatStorage);
+  __pyx_r = THFloatStorage_size(__pyx_v_self->native);
   goto __pyx_L0;
 
   /* "Storage.pyx":271
  *         return _FloatStorage_fromNative(storageC, retain=False)
  * 
  *     cpdef long size(self):             # <<<<<<<<<<<<<<
- *         return THFloatStorage_size(self.thFloatStorage)
+ *         return THFloatStorage_size(self.native)
  * 
  */
 
@@ -6011,7 +6011,7 @@ static PyObject *__pyx_pf_7Storage_13_FloatStorage_14size(struct __pyx_obj_7Stor
 }
 
 /* "Storage.pyx":274
- *         return THFloatStorage_size(self.thFloatStorage)
+ *         return THFloatStorage_size(self.native)
  * 
  *     def __dealloc__(self):             # <<<<<<<<<<<<<<
  *         # print('THFloatStorage.dealloc, old refcount ', THFloatStorage_getRefCount(self.thFloatStorage))
@@ -6036,14 +6036,14 @@ static void __pyx_pf_7Storage_13_FloatStorage_16__dealloc__(struct __pyx_obj_7St
   /* "Storage.pyx":277
  *         # print('THFloatStorage.dealloc, old refcount ', THFloatStorage_getRefCount(self.thFloatStorage))
  *         # print('   dealloc storage: ', hex(<long>(self.thFloatStorage)))
- *         THFloatStorage_free(self.thFloatStorage)             # <<<<<<<<<<<<<<
+ *         THFloatStorage_free(self.native)             # <<<<<<<<<<<<<<
  * 
  *     def __iter__(self):
  */
-  THFloatStorage_free(__pyx_v_self->thFloatStorage);
+  THFloatStorage_free(__pyx_v_self->native);
 
   /* "Storage.pyx":274
- *         return THFloatStorage_size(self.thFloatStorage)
+ *         return THFloatStorage_size(self.native)
  * 
  *     def __dealloc__(self):             # <<<<<<<<<<<<<<
  *         # print('THFloatStorage.dealloc, old refcount ', THFloatStorage_getRefCount(self.thFloatStorage))
@@ -6056,11 +6056,11 @@ static void __pyx_pf_7Storage_13_FloatStorage_16__dealloc__(struct __pyx_obj_7St
 static PyObject *__pyx_gb_7Storage_13_FloatStorage_20generator2(__pyx_GeneratorObject *__pyx_generator, PyObject *__pyx_sent_value); /* proto */
 
 /* "Storage.pyx":279
- *         THFloatStorage_free(self.thFloatStorage)
+ *         THFloatStorage_free(self.native)
  * 
  *     def __iter__(self):             # <<<<<<<<<<<<<<
  *         cdef int size0
- *         size0 = THFloatStorage_size(self.thFloatStorage)
+ *         size0 = THFloatStorage_size(self.native)
  */
 
 /* Python wrapper */
@@ -6135,15 +6135,15 @@ static PyObject *__pyx_gb_7Storage_13_FloatStorage_20generator2(__pyx_GeneratorO
   /* "Storage.pyx":281
  *     def __iter__(self):
  *         cdef int size0
- *         size0 = THFloatStorage_size(self.thFloatStorage)             # <<<<<<<<<<<<<<
+ *         size0 = THFloatStorage_size(self.native)             # <<<<<<<<<<<<<<
  *         for c in range(size0):
  *             yield self[c]
  */
-  __pyx_cur_scope->__pyx_v_size0 = THFloatStorage_size(__pyx_cur_scope->__pyx_v_self->thFloatStorage);
+  __pyx_cur_scope->__pyx_v_size0 = THFloatStorage_size(__pyx_cur_scope->__pyx_v_self->native);
 
   /* "Storage.pyx":282
  *         cdef int size0
- *         size0 = THFloatStorage_size(self.thFloatStorage)
+ *         size0 = THFloatStorage_size(self.native)
  *         for c in range(size0):             # <<<<<<<<<<<<<<
  *             yield self[c]
  * 
@@ -6153,7 +6153,7 @@ static PyObject *__pyx_gb_7Storage_13_FloatStorage_20generator2(__pyx_GeneratorO
     __pyx_cur_scope->__pyx_v_c = __pyx_t_2;
 
     /* "Storage.pyx":283
- *         size0 = THFloatStorage_size(self.thFloatStorage)
+ *         size0 = THFloatStorage_size(self.native)
  *         for c in range(size0):
  *             yield self[c]             # <<<<<<<<<<<<<<
  * 
@@ -6177,11 +6177,11 @@ static PyObject *__pyx_gb_7Storage_13_FloatStorage_20generator2(__pyx_GeneratorO
   }
 
   /* "Storage.pyx":279
- *         THFloatStorage_free(self.thFloatStorage)
+ *         THFloatStorage_free(self.native)
  * 
  *     def __iter__(self):             # <<<<<<<<<<<<<<
  *         cdef int size0
- *         size0 = THFloatStorage_size(self.thFloatStorage)
+ *         size0 = THFloatStorage_size(self.native)
  */
 
   /* function exit code */
@@ -6202,7 +6202,7 @@ static PyObject *__pyx_gb_7Storage_13_FloatStorage_20generator2(__pyx_GeneratorO
  *             yield self[c]
  * 
  *     def __getitem__(_FloatStorage self, int index):             # <<<<<<<<<<<<<<
- *         cdef float res = THFloatStorage_get(self.thFloatStorage, index)
+ *         cdef float res = THFloatStorage_get(self.native, index)
  *         return res
  */
 
@@ -6245,15 +6245,15 @@ static PyObject *__pyx_pf_7Storage_13_FloatStorage_21__getitem__(struct __pyx_ob
   /* "Storage.pyx":286
  * 
  *     def __getitem__(_FloatStorage self, int index):
- *         cdef float res = THFloatStorage_get(self.thFloatStorage, index)             # <<<<<<<<<<<<<<
+ *         cdef float res = THFloatStorage_get(self.native, index)             # <<<<<<<<<<<<<<
  *         return res
  * 
  */
-  __pyx_v_res = THFloatStorage_get(__pyx_v_self->thFloatStorage, __pyx_v_index);
+  __pyx_v_res = THFloatStorage_get(__pyx_v_self->native, __pyx_v_index);
 
   /* "Storage.pyx":287
  *     def __getitem__(_FloatStorage self, int index):
- *         cdef float res = THFloatStorage_get(self.thFloatStorage, index)
+ *         cdef float res = THFloatStorage_get(self.native, index)
  *         return res             # <<<<<<<<<<<<<<
  * 
  *     def __setitem__(_FloatStorage self, int index, float value):
@@ -6269,7 +6269,7 @@ static PyObject *__pyx_pf_7Storage_13_FloatStorage_21__getitem__(struct __pyx_ob
  *             yield self[c]
  * 
  *     def __getitem__(_FloatStorage self, int index):             # <<<<<<<<<<<<<<
- *         cdef float res = THFloatStorage_get(self.thFloatStorage, index)
+ *         cdef float res = THFloatStorage_get(self.native, index)
  *         return res
  */
 
@@ -6288,7 +6288,7 @@ static PyObject *__pyx_pf_7Storage_13_FloatStorage_21__getitem__(struct __pyx_ob
  *         return res
  * 
  *     def __setitem__(_FloatStorage self, int index, float value):             # <<<<<<<<<<<<<<
- *         THFloatStorage_set(self.thFloatStorage, index, value)
+ *         THFloatStorage_set(self.native, index, value)
  * 
  */
 
@@ -6330,17 +6330,17 @@ static int __pyx_pf_7Storage_13_FloatStorage_23__setitem__(struct __pyx_obj_7Sto
   /* "Storage.pyx":290
  * 
  *     def __setitem__(_FloatStorage self, int index, float value):
- *         THFloatStorage_set(self.thFloatStorage, index, value)             # <<<<<<<<<<<<<<
+ *         THFloatStorage_set(self.native, index, value)             # <<<<<<<<<<<<<<
  * 
  * 
  */
-  THFloatStorage_set(__pyx_v_self->thFloatStorage, __pyx_v_index, __pyx_v_value);
+  THFloatStorage_set(__pyx_v_self->native, __pyx_v_index, __pyx_v_value);
 
   /* "Storage.pyx":289
  *         return res
  * 
  *     def __setitem__(_FloatStorage self, int index, float value):             # <<<<<<<<<<<<<<
- *         THFloatStorage_set(self.thFloatStorage, index, value)
+ *         THFloatStorage_set(self.native, index, value)
  * 
  */
 
@@ -6390,7 +6390,7 @@ static PyObject *__pyx_f_7Storage__FloatStorage_fromNative(struct THFloatStorage
  *     if retain:
  *         THFloatStorage_retain(storageC)             # <<<<<<<<<<<<<<
  *     storage = _FloatStorage()
- *     storage.thFloatStorage = storageC
+ *     storage.native = storageC
  */
     THFloatStorage_retain(__pyx_v_storageC);
     goto __pyx_L3;
@@ -6401,7 +6401,7 @@ static PyObject *__pyx_f_7Storage__FloatStorage_fromNative(struct THFloatStorage
  *     if retain:
  *         THFloatStorage_retain(storageC)
  *     storage = _FloatStorage()             # <<<<<<<<<<<<<<
- *     storage.thFloatStorage = storageC
+ *     storage.native = storageC
  *     return storage
  */
   __pyx_t_2 = __Pyx_PyObject_Call(((PyObject *)((PyObject*)__pyx_ptype_7Storage__FloatStorage)), __pyx_empty_tuple, NULL); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 296; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
@@ -6412,15 +6412,15 @@ static PyObject *__pyx_f_7Storage__FloatStorage_fromNative(struct THFloatStorage
   /* "Storage.pyx":297
  *         THFloatStorage_retain(storageC)
  *     storage = _FloatStorage()
- *     storage.thFloatStorage = storageC             # <<<<<<<<<<<<<<
+ *     storage.native = storageC             # <<<<<<<<<<<<<<
  *     return storage
  * 
  */
-  __pyx_v_storage->thFloatStorage = __pyx_v_storageC;
+  __pyx_v_storage->native = __pyx_v_storageC;
 
   /* "Storage.pyx":298
  *     storage = _FloatStorage()
- *     storage.thFloatStorage = storageC
+ *     storage.native = storageC
  *     return storage             # <<<<<<<<<<<<<<
  * 
  * 
@@ -6558,7 +6558,7 @@ static int __pyx_pf_7Storage_12_LongStorage___init__(struct __pyx_obj_7Storage__
  *                 if not isinstance(arg, int):
  *                     raise Exception('cannot provide arguments to initializer')             # <<<<<<<<<<<<<<
  *             if len(args) == 1:
- *                 self.thLongStorage = THLongStorage_newWithSize(args[0])
+ *                 self.native = THLongStorage_newWithSize(args[0])
  */
         __pyx_t_2 = __Pyx_PyObject_Call(__pyx_builtin_Exception, __pyx_tuple__18, NULL); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 310; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
         __Pyx_GOTREF(__pyx_t_2);
@@ -6581,7 +6581,7 @@ static int __pyx_pf_7Storage_12_LongStorage___init__(struct __pyx_obj_7Storage__
  *                 if not isinstance(arg, int):
  *                     raise Exception('cannot provide arguments to initializer')
  *             if len(args) == 1:             # <<<<<<<<<<<<<<
- *                 self.thLongStorage = THLongStorage_newWithSize(args[0])
+ *                 self.native = THLongStorage_newWithSize(args[0])
  *             else:
  */
     __pyx_t_3 = PyTuple_GET_SIZE(__pyx_v_args); if (unlikely(__pyx_t_3 == -1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 311; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
@@ -6591,7 +6591,7 @@ static int __pyx_pf_7Storage_12_LongStorage___init__(struct __pyx_obj_7Storage__
       /* "Storage.pyx":312
  *                     raise Exception('cannot provide arguments to initializer')
  *             if len(args) == 1:
- *                 self.thLongStorage = THLongStorage_newWithSize(args[0])             # <<<<<<<<<<<<<<
+ *                 self.native = THLongStorage_newWithSize(args[0])             # <<<<<<<<<<<<<<
  *             else:
  *                 raise Exception('cannot provide arguments to initializer')
  */
@@ -6599,13 +6599,13 @@ static int __pyx_pf_7Storage_12_LongStorage___init__(struct __pyx_obj_7Storage__
       __Pyx_GOTREF(__pyx_t_1);
       __pyx_t_6 = __Pyx_PyInt_As_long(__pyx_t_1); if (unlikely((__pyx_t_6 == (long)-1) && PyErr_Occurred())) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 312; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
       __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-      __pyx_v_self->thLongStorage = THLongStorage_newWithSize(__pyx_t_6);
+      __pyx_v_self->native = THLongStorage_newWithSize(__pyx_t_6);
       goto __pyx_L7;
     }
     /*else*/ {
 
       /* "Storage.pyx":314
- *                 self.thLongStorage = THLongStorage_newWithSize(args[0])
+ *                 self.native = THLongStorage_newWithSize(args[0])
  *             else:
  *                 raise Exception('cannot provide arguments to initializer')             # <<<<<<<<<<<<<<
  *         if len(kwargs) > 0:
@@ -6674,7 +6674,7 @@ static int __pyx_pf_7Storage_12_LongStorage___init__(struct __pyx_obj_7Storage__
  * 
  *     def __repr__(_LongStorage self):             # <<<<<<<<<<<<<<
  *         cdef int size0
- *         size0 = THLongStorage_size(self.thLongStorage)
+ *         size0 = THLongStorage_size(self.native)
  */
 
 /* Python wrapper */
@@ -6708,15 +6708,15 @@ static PyObject *__pyx_pf_7Storage_12_LongStorage_2__repr__(struct __pyx_obj_7St
   /* "Storage.pyx":320
  *     def __repr__(_LongStorage self):
  *         cdef int size0
- *         size0 = THLongStorage_size(self.thLongStorage)             # <<<<<<<<<<<<<<
+ *         size0 = THLongStorage_size(self.native)             # <<<<<<<<<<<<<<
  *         res = ''
  * #        thisline = ''
  */
-  __pyx_v_size0 = THLongStorage_size(__pyx_v_self->thLongStorage);
+  __pyx_v_size0 = THLongStorage_size(__pyx_v_self->native);
 
   /* "Storage.pyx":321
  *         cdef int size0
- *         size0 = THLongStorage_size(self.thLongStorage)
+ *         size0 = THLongStorage_size(self.native)
  *         res = ''             # <<<<<<<<<<<<<<
  * #        thisline = ''
  *         for c in range(size0):
@@ -6829,7 +6829,7 @@ static PyObject *__pyx_pf_7Storage_12_LongStorage_2__repr__(struct __pyx_obj_7St
  * 
  *     def __repr__(_LongStorage self):             # <<<<<<<<<<<<<<
  *         cdef int size0
- *         size0 = THLongStorage_size(self.thLongStorage)
+ *         size0 = THLongStorage_size(self.native)
  */
 
   /* function exit code */
@@ -7053,7 +7053,7 @@ static PyObject *__pyx_pf_7Storage_12_LongStorage_6newWithData(__Pyx_memviewslic
  * 
  *     @property
  *     def refCount(_LongStorage self):             # <<<<<<<<<<<<<<
- *         return THLongStorage_getRefCount(self.thLongStorage)
+ *         return THLongStorage_getRefCount(self.native)
  * 
  */
 
@@ -7082,12 +7082,12 @@ static PyObject *__pyx_pf_7Storage_12_LongStorage_8refCount(struct __pyx_obj_7St
   /* "Storage.pyx":348
  *     @property
  *     def refCount(_LongStorage self):
- *         return THLongStorage_getRefCount(self.thLongStorage)             # <<<<<<<<<<<<<<
+ *         return THLongStorage_getRefCount(self.native)             # <<<<<<<<<<<<<<
  * 
  *     def dataAddr(_LongStorage self):
  */
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_1 = __Pyx_PyInt_From_int(THLongStorage_getRefCount(__pyx_v_self->thLongStorage)); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 348; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_1 = __Pyx_PyInt_From_int(THLongStorage_getRefCount(__pyx_v_self->native)); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 348; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_r = __pyx_t_1;
   __pyx_t_1 = 0;
@@ -7097,7 +7097,7 @@ static PyObject *__pyx_pf_7Storage_12_LongStorage_8refCount(struct __pyx_obj_7St
  * 
  *     @property
  *     def refCount(_LongStorage self):             # <<<<<<<<<<<<<<
- *         return THLongStorage_getRefCount(self.thLongStorage)
+ *         return THLongStorage_getRefCount(self.native)
  * 
  */
 
@@ -7113,10 +7113,10 @@ static PyObject *__pyx_pf_7Storage_12_LongStorage_8refCount(struct __pyx_obj_7St
 }
 
 /* "Storage.pyx":350
- *         return THLongStorage_getRefCount(self.thLongStorage)
+ *         return THLongStorage_getRefCount(self.native)
  * 
  *     def dataAddr(_LongStorage self):             # <<<<<<<<<<<<<<
- *         cdef long *data = THLongStorage_data(self.thLongStorage)
+ *         cdef long *data = THLongStorage_data(self.native)
  *         cdef long dataAddr = pointerAsInt(data)
  */
 
@@ -7147,15 +7147,15 @@ static PyObject *__pyx_pf_7Storage_12_LongStorage_10dataAddr(struct __pyx_obj_7S
   /* "Storage.pyx":351
  * 
  *     def dataAddr(_LongStorage self):
- *         cdef long *data = THLongStorage_data(self.thLongStorage)             # <<<<<<<<<<<<<<
+ *         cdef long *data = THLongStorage_data(self.native)             # <<<<<<<<<<<<<<
  *         cdef long dataAddr = pointerAsInt(data)
  *         return dataAddr
  */
-  __pyx_v_data = THLongStorage_data(__pyx_v_self->thLongStorage);
+  __pyx_v_data = THLongStorage_data(__pyx_v_self->native);
 
   /* "Storage.pyx":352
  *     def dataAddr(_LongStorage self):
- *         cdef long *data = THLongStorage_data(self.thLongStorage)
+ *         cdef long *data = THLongStorage_data(self.native)
  *         cdef long dataAddr = pointerAsInt(data)             # <<<<<<<<<<<<<<
  *         return dataAddr
  * 
@@ -7163,7 +7163,7 @@ static PyObject *__pyx_pf_7Storage_12_LongStorage_10dataAddr(struct __pyx_obj_7S
   __pyx_v_dataAddr = pointerAsInt(__pyx_v_data);
 
   /* "Storage.pyx":353
- *         cdef long *data = THLongStorage_data(self.thLongStorage)
+ *         cdef long *data = THLongStorage_data(self.native)
  *         cdef long dataAddr = pointerAsInt(data)
  *         return dataAddr             # <<<<<<<<<<<<<<
  * 
@@ -7177,10 +7177,10 @@ static PyObject *__pyx_pf_7Storage_12_LongStorage_10dataAddr(struct __pyx_obj_7S
   goto __pyx_L0;
 
   /* "Storage.pyx":350
- *         return THLongStorage_getRefCount(self.thLongStorage)
+ *         return THLongStorage_getRefCount(self.native)
  * 
  *     def dataAddr(_LongStorage self):             # <<<<<<<<<<<<<<
- *         cdef long *data = THLongStorage_data(self.thLongStorage)
+ *         cdef long *data = THLongStorage_data(self.native)
  *         cdef long dataAddr = pointerAsInt(data)
  */
 
@@ -7315,7 +7315,7 @@ static PyObject *__pyx_pf_7Storage_12_LongStorage_12newWithSize(long __pyx_v_siz
  *         return _LongStorage_fromNative(storageC, retain=False)
  * 
  *     cpdef long size(self):             # <<<<<<<<<<<<<<
- *         return THLongStorage_size(self.thLongStorage)
+ *         return THLongStorage_size(self.native)
  * 
  */
 
@@ -7370,18 +7370,18 @@ static long __pyx_f_7Storage_12_LongStorage_size(struct __pyx_obj_7Storage__Long
   /* "Storage.pyx":362
  * 
  *     cpdef long size(self):
- *         return THLongStorage_size(self.thLongStorage)             # <<<<<<<<<<<<<<
+ *         return THLongStorage_size(self.native)             # <<<<<<<<<<<<<<
  * 
  *     def __dealloc__(self):
  */
-  __pyx_r = THLongStorage_size(__pyx_v_self->thLongStorage);
+  __pyx_r = THLongStorage_size(__pyx_v_self->native);
   goto __pyx_L0;
 
   /* "Storage.pyx":361
  *         return _LongStorage_fromNative(storageC, retain=False)
  * 
  *     cpdef long size(self):             # <<<<<<<<<<<<<<
- *         return THLongStorage_size(self.thLongStorage)
+ *         return THLongStorage_size(self.native)
  * 
  */
 
@@ -7438,7 +7438,7 @@ static PyObject *__pyx_pf_7Storage_12_LongStorage_14size(struct __pyx_obj_7Stora
 }
 
 /* "Storage.pyx":364
- *         return THLongStorage_size(self.thLongStorage)
+ *         return THLongStorage_size(self.native)
  * 
  *     def __dealloc__(self):             # <<<<<<<<<<<<<<
  *         # print('THLongStorage.dealloc, old refcount ', THLongStorage_getRefCount(self.thLongStorage))
@@ -7463,14 +7463,14 @@ static void __pyx_pf_7Storage_12_LongStorage_16__dealloc__(struct __pyx_obj_7Sto
   /* "Storage.pyx":367
  *         # print('THLongStorage.dealloc, old refcount ', THLongStorage_getRefCount(self.thLongStorage))
  *         # print('   dealloc storage: ', hex(<long>(self.thLongStorage)))
- *         THLongStorage_free(self.thLongStorage)             # <<<<<<<<<<<<<<
+ *         THLongStorage_free(self.native)             # <<<<<<<<<<<<<<
  * 
  *     def __iter__(self):
  */
-  THLongStorage_free(__pyx_v_self->thLongStorage);
+  THLongStorage_free(__pyx_v_self->native);
 
   /* "Storage.pyx":364
- *         return THLongStorage_size(self.thLongStorage)
+ *         return THLongStorage_size(self.native)
  * 
  *     def __dealloc__(self):             # <<<<<<<<<<<<<<
  *         # print('THLongStorage.dealloc, old refcount ', THLongStorage_getRefCount(self.thLongStorage))
@@ -7483,11 +7483,11 @@ static void __pyx_pf_7Storage_12_LongStorage_16__dealloc__(struct __pyx_obj_7Sto
 static PyObject *__pyx_gb_7Storage_12_LongStorage_20generator3(__pyx_GeneratorObject *__pyx_generator, PyObject *__pyx_sent_value); /* proto */
 
 /* "Storage.pyx":369
- *         THLongStorage_free(self.thLongStorage)
+ *         THLongStorage_free(self.native)
  * 
  *     def __iter__(self):             # <<<<<<<<<<<<<<
  *         cdef int size0
- *         size0 = THLongStorage_size(self.thLongStorage)
+ *         size0 = THLongStorage_size(self.native)
  */
 
 /* Python wrapper */
@@ -7562,15 +7562,15 @@ static PyObject *__pyx_gb_7Storage_12_LongStorage_20generator3(__pyx_GeneratorOb
   /* "Storage.pyx":371
  *     def __iter__(self):
  *         cdef int size0
- *         size0 = THLongStorage_size(self.thLongStorage)             # <<<<<<<<<<<<<<
+ *         size0 = THLongStorage_size(self.native)             # <<<<<<<<<<<<<<
  *         for c in range(size0):
  *             yield self[c]
  */
-  __pyx_cur_scope->__pyx_v_size0 = THLongStorage_size(__pyx_cur_scope->__pyx_v_self->thLongStorage);
+  __pyx_cur_scope->__pyx_v_size0 = THLongStorage_size(__pyx_cur_scope->__pyx_v_self->native);
 
   /* "Storage.pyx":372
  *         cdef int size0
- *         size0 = THLongStorage_size(self.thLongStorage)
+ *         size0 = THLongStorage_size(self.native)
  *         for c in range(size0):             # <<<<<<<<<<<<<<
  *             yield self[c]
  * 
@@ -7580,7 +7580,7 @@ static PyObject *__pyx_gb_7Storage_12_LongStorage_20generator3(__pyx_GeneratorOb
     __pyx_cur_scope->__pyx_v_c = __pyx_t_2;
 
     /* "Storage.pyx":373
- *         size0 = THLongStorage_size(self.thLongStorage)
+ *         size0 = THLongStorage_size(self.native)
  *         for c in range(size0):
  *             yield self[c]             # <<<<<<<<<<<<<<
  * 
@@ -7604,11 +7604,11 @@ static PyObject *__pyx_gb_7Storage_12_LongStorage_20generator3(__pyx_GeneratorOb
   }
 
   /* "Storage.pyx":369
- *         THLongStorage_free(self.thLongStorage)
+ *         THLongStorage_free(self.native)
  * 
  *     def __iter__(self):             # <<<<<<<<<<<<<<
  *         cdef int size0
- *         size0 = THLongStorage_size(self.thLongStorage)
+ *         size0 = THLongStorage_size(self.native)
  */
 
   /* function exit code */
@@ -7629,7 +7629,7 @@ static PyObject *__pyx_gb_7Storage_12_LongStorage_20generator3(__pyx_GeneratorOb
  *             yield self[c]
  * 
  *     def __getitem__(_LongStorage self, int index):             # <<<<<<<<<<<<<<
- *         cdef long res = THLongStorage_get(self.thLongStorage, index)
+ *         cdef long res = THLongStorage_get(self.native, index)
  *         return res
  */
 
@@ -7672,15 +7672,15 @@ static PyObject *__pyx_pf_7Storage_12_LongStorage_21__getitem__(struct __pyx_obj
   /* "Storage.pyx":376
  * 
  *     def __getitem__(_LongStorage self, int index):
- *         cdef long res = THLongStorage_get(self.thLongStorage, index)             # <<<<<<<<<<<<<<
+ *         cdef long res = THLongStorage_get(self.native, index)             # <<<<<<<<<<<<<<
  *         return res
  * 
  */
-  __pyx_v_res = THLongStorage_get(__pyx_v_self->thLongStorage, __pyx_v_index);
+  __pyx_v_res = THLongStorage_get(__pyx_v_self->native, __pyx_v_index);
 
   /* "Storage.pyx":377
  *     def __getitem__(_LongStorage self, int index):
- *         cdef long res = THLongStorage_get(self.thLongStorage, index)
+ *         cdef long res = THLongStorage_get(self.native, index)
  *         return res             # <<<<<<<<<<<<<<
  * 
  *     def __setitem__(_LongStorage self, int index, long value):
@@ -7696,7 +7696,7 @@ static PyObject *__pyx_pf_7Storage_12_LongStorage_21__getitem__(struct __pyx_obj
  *             yield self[c]
  * 
  *     def __getitem__(_LongStorage self, int index):             # <<<<<<<<<<<<<<
- *         cdef long res = THLongStorage_get(self.thLongStorage, index)
+ *         cdef long res = THLongStorage_get(self.native, index)
  *         return res
  */
 
@@ -7715,7 +7715,7 @@ static PyObject *__pyx_pf_7Storage_12_LongStorage_21__getitem__(struct __pyx_obj
  *         return res
  * 
  *     def __setitem__(_LongStorage self, int index, long value):             # <<<<<<<<<<<<<<
- *         THLongStorage_set(self.thLongStorage, index, value)
+ *         THLongStorage_set(self.native, index, value)
  * 
  */
 
@@ -7757,17 +7757,17 @@ static int __pyx_pf_7Storage_12_LongStorage_23__setitem__(struct __pyx_obj_7Stor
   /* "Storage.pyx":380
  * 
  *     def __setitem__(_LongStorage self, int index, long value):
- *         THLongStorage_set(self.thLongStorage, index, value)             # <<<<<<<<<<<<<<
+ *         THLongStorage_set(self.native, index, value)             # <<<<<<<<<<<<<<
  * 
  * 
  */
-  THLongStorage_set(__pyx_v_self->thLongStorage, __pyx_v_index, __pyx_v_value);
+  THLongStorage_set(__pyx_v_self->native, __pyx_v_index, __pyx_v_value);
 
   /* "Storage.pyx":379
  *         return res
  * 
  *     def __setitem__(_LongStorage self, int index, long value):             # <<<<<<<<<<<<<<
- *         THLongStorage_set(self.thLongStorage, index, value)
+ *         THLongStorage_set(self.native, index, value)
  * 
  */
 
@@ -7817,7 +7817,7 @@ static PyObject *__pyx_f_7Storage__LongStorage_fromNative(struct THLongStorage *
  *     if retain:
  *         THLongStorage_retain(storageC)             # <<<<<<<<<<<<<<
  *     storage = _LongStorage()
- *     storage.thLongStorage = storageC
+ *     storage.native = storageC
  */
     THLongStorage_retain(__pyx_v_storageC);
     goto __pyx_L3;
@@ -7828,7 +7828,7 @@ static PyObject *__pyx_f_7Storage__LongStorage_fromNative(struct THLongStorage *
  *     if retain:
  *         THLongStorage_retain(storageC)
  *     storage = _LongStorage()             # <<<<<<<<<<<<<<
- *     storage.thLongStorage = storageC
+ *     storage.native = storageC
  *     return storage
  */
   __pyx_t_2 = __Pyx_PyObject_Call(((PyObject *)((PyObject*)__pyx_ptype_7Storage__LongStorage)), __pyx_empty_tuple, NULL); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 386; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
@@ -7839,15 +7839,15 @@ static PyObject *__pyx_f_7Storage__LongStorage_fromNative(struct THLongStorage *
   /* "Storage.pyx":387
  *         THLongStorage_retain(storageC)
  *     storage = _LongStorage()
- *     storage.thLongStorage = storageC             # <<<<<<<<<<<<<<
+ *     storage.native = storageC             # <<<<<<<<<<<<<<
  *     return storage
  * 
  */
-  __pyx_v_storage->thLongStorage = __pyx_v_storageC;
+  __pyx_v_storage->native = __pyx_v_storageC;
 
   /* "Storage.pyx":388
  *     storage = _LongStorage()
- *     storage.thLongStorage = storageC
+ *     storage.native = storageC
  *     return storage             # <<<<<<<<<<<<<<
  * 
  */
@@ -20911,14 +20911,14 @@ static int __Pyx_InitCachedConstants(void) {
  *                 if not isinstance(arg, int):
  *                     raise Exception('cannot provide arguments to initializer')             # <<<<<<<<<<<<<<
  *             if len(args) == 1:
- *                 self.thDoubleStorage = THDoubleStorage_newWithSize(args[0])
+ *                 self.native = THDoubleStorage_newWithSize(args[0])
  */
   __pyx_tuple__2 = PyTuple_Pack(1, __pyx_kp_s_cannot_provide_arguments_to_init); if (unlikely(!__pyx_tuple__2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 40; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_tuple__2);
   __Pyx_GIVEREF(__pyx_tuple__2);
 
   /* "Storage.pyx":44
- *                 self.thDoubleStorage = THDoubleStorage_newWithSize(args[0])
+ *                 self.native = THDoubleStorage_newWithSize(args[0])
  *             else:
  *                 raise Exception('cannot provide arguments to initializer')             # <<<<<<<<<<<<<<
  *         if len(kwargs) > 0:
@@ -20955,14 +20955,14 @@ static int __Pyx_InitCachedConstants(void) {
  *                 if not isinstance(arg, int):
  *                     raise Exception('cannot provide arguments to initializer')             # <<<<<<<<<<<<<<
  *             if len(args) == 1:
- *                 self.thByteStorage = THByteStorage_newWithSize(args[0])
+ *                 self.native = THByteStorage_newWithSize(args[0])
  */
   __pyx_tuple__10 = PyTuple_Pack(1, __pyx_kp_s_cannot_provide_arguments_to_init); if (unlikely(!__pyx_tuple__10)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 130; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_tuple__10);
   __Pyx_GIVEREF(__pyx_tuple__10);
 
   /* "Storage.pyx":134
- *                 self.thByteStorage = THByteStorage_newWithSize(args[0])
+ *                 self.native = THByteStorage_newWithSize(args[0])
  *             else:
  *                 raise Exception('cannot provide arguments to initializer')             # <<<<<<<<<<<<<<
  *         if len(kwargs) > 0:
@@ -20999,14 +20999,14 @@ static int __Pyx_InitCachedConstants(void) {
  *                 if not isinstance(arg, int):
  *                     raise Exception('cannot provide arguments to initializer')             # <<<<<<<<<<<<<<
  *             if len(args) == 1:
- *                 self.thFloatStorage = THFloatStorage_newWithSize(args[0])
+ *                 self.native = THFloatStorage_newWithSize(args[0])
  */
   __pyx_tuple__14 = PyTuple_Pack(1, __pyx_kp_s_cannot_provide_arguments_to_init); if (unlikely(!__pyx_tuple__14)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 220; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_tuple__14);
   __Pyx_GIVEREF(__pyx_tuple__14);
 
   /* "Storage.pyx":224
- *                 self.thFloatStorage = THFloatStorage_newWithSize(args[0])
+ *                 self.native = THFloatStorage_newWithSize(args[0])
  *             else:
  *                 raise Exception('cannot provide arguments to initializer')             # <<<<<<<<<<<<<<
  *         if len(kwargs) > 0:
@@ -21043,14 +21043,14 @@ static int __Pyx_InitCachedConstants(void) {
  *                 if not isinstance(arg, int):
  *                     raise Exception('cannot provide arguments to initializer')             # <<<<<<<<<<<<<<
  *             if len(args) == 1:
- *                 self.thLongStorage = THLongStorage_newWithSize(args[0])
+ *                 self.native = THLongStorage_newWithSize(args[0])
  */
   __pyx_tuple__18 = PyTuple_Pack(1, __pyx_kp_s_cannot_provide_arguments_to_init); if (unlikely(!__pyx_tuple__18)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 310; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_tuple__18);
   __Pyx_GIVEREF(__pyx_tuple__18);
 
   /* "Storage.pyx":314
- *                 self.thLongStorage = THLongStorage_newWithSize(args[0])
+ *                 self.native = THLongStorage_newWithSize(args[0])
  *             else:
  *                 raise Exception('cannot provide arguments to initializer')             # <<<<<<<<<<<<<<
  *         if len(kwargs) > 0:
@@ -21800,7 +21800,7 @@ PyMODINIT_FUNC PyInit_Storage(void)
  * 
  *     @property
  *     def refCount(_DoubleStorage self):             # <<<<<<<<<<<<<<
- *         return THDoubleStorage_getRefCount(self.thDoubleStorage)
+ *         return THDoubleStorage_getRefCount(self.native)
  * 
  */
   __pyx_t_2 = __Pyx_GetNameInClass((PyObject *)__pyx_ptype_7Storage__DoubleStorage, __pyx_n_s_refCount); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 77; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
@@ -21811,7 +21811,7 @@ PyMODINIT_FUNC PyInit_Storage(void)
  * 
  *     @property             # <<<<<<<<<<<<<<
  *     def refCount(_DoubleStorage self):
- *         return THDoubleStorage_getRefCount(self.thDoubleStorage)
+ *         return THDoubleStorage_getRefCount(self.native)
  */
   __pyx_t_3 = PyTuple_New(1); if (unlikely(!__pyx_t_3)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 76; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_3);
@@ -22003,7 +22003,7 @@ PyMODINIT_FUNC PyInit_Storage(void)
  * 
  *     @property
  *     def refCount(_ByteStorage self):             # <<<<<<<<<<<<<<
- *         return THByteStorage_getRefCount(self.thByteStorage)
+ *         return THByteStorage_getRefCount(self.native)
  * 
  */
   __pyx_t_2 = __Pyx_GetNameInClass((PyObject *)__pyx_ptype_7Storage__ByteStorage, __pyx_n_s_refCount); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 167; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
@@ -22014,7 +22014,7 @@ PyMODINIT_FUNC PyInit_Storage(void)
  * 
  *     @property             # <<<<<<<<<<<<<<
  *     def refCount(_ByteStorage self):
- *         return THByteStorage_getRefCount(self.thByteStorage)
+ *         return THByteStorage_getRefCount(self.native)
  */
   __pyx_t_3 = PyTuple_New(1); if (unlikely(!__pyx_t_3)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 166; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_3);
@@ -22206,7 +22206,7 @@ PyMODINIT_FUNC PyInit_Storage(void)
  * 
  *     @property
  *     def refCount(_FloatStorage self):             # <<<<<<<<<<<<<<
- *         return THFloatStorage_getRefCount(self.thFloatStorage)
+ *         return THFloatStorage_getRefCount(self.native)
  * 
  */
   __pyx_t_2 = __Pyx_GetNameInClass((PyObject *)__pyx_ptype_7Storage__FloatStorage, __pyx_n_s_refCount); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 257; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
@@ -22217,7 +22217,7 @@ PyMODINIT_FUNC PyInit_Storage(void)
  * 
  *     @property             # <<<<<<<<<<<<<<
  *     def refCount(_FloatStorage self):
- *         return THFloatStorage_getRefCount(self.thFloatStorage)
+ *         return THFloatStorage_getRefCount(self.native)
  */
   __pyx_t_3 = PyTuple_New(1); if (unlikely(!__pyx_t_3)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 256; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_3);
@@ -22409,7 +22409,7 @@ PyMODINIT_FUNC PyInit_Storage(void)
  * 
  *     @property
  *     def refCount(_LongStorage self):             # <<<<<<<<<<<<<<
- *         return THLongStorage_getRefCount(self.thLongStorage)
+ *         return THLongStorage_getRefCount(self.native)
  * 
  */
   __pyx_t_2 = __Pyx_GetNameInClass((PyObject *)__pyx_ptype_7Storage__LongStorage, __pyx_n_s_refCount); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 347; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
@@ -22420,7 +22420,7 @@ PyMODINIT_FUNC PyInit_Storage(void)
  * 
  *     @property             # <<<<<<<<<<<<<<
  *     def refCount(_LongStorage self):
- *         return THLongStorage_getRefCount(self.thLongStorage)
+ *         return THLongStorage_getRefCount(self.native)
  */
   __pyx_t_3 = PyTuple_New(1); if (unlikely(!__pyx_t_3)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 346; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_3);

@@ -54,7 +54,7 @@ cdef floatToString(float floatValue):
 {% for Real in types %}
 {% set real = types[Real]['real'] %}
 
-{{Real}}Storage = Storage.{{Real}}Storage
+_{{Real}}Storage = Storage._{{Real}}Storage
 
 cdef extern from "THTensor.h":
     cdef struct TH{{Real}}Tensor
@@ -288,7 +288,7 @@ cdef class _{{Real}}Tensor(object):
         cdef int dims = self.dims()
 #        cdef LongStorage size
         if dims > 0:
-            size = LongStorage(dims)
+            size = _LongStorage(dims)
             for d in range(dims):
                 size[d] = TH{{Real}}Tensor_size(self.native, d)
             return size
@@ -344,15 +344,15 @@ cdef class _{{Real}}Tensor(object):
         return self
 
     @staticmethod
-    def newWithStorage1d(Storage.{{Real}}Storage storage, offset, size0, stride0):
+    def newWithStorage1d(Storage._{{Real}}Storage storage, offset, size0, stride0):
 #        # print('allocate tensor')
-        cdef TH{{Real}}Tensor *newTensorC = TH{{Real}}Tensor_newWithStorage1d(storage.th{{Real}}Storage, offset, size0, stride0)
+        cdef TH{{Real}}Tensor *newTensorC = TH{{Real}}Tensor_newWithStorage1d(storage.native, offset, size0, stride0)
         return _{{Real}}Tensor_fromNative(newTensorC, False)
 
     @staticmethod
-    def newWithStorage2d(Storage.{{Real}}Storage storage, offset, size0, stride0, size1, stride1):
+    def newWithStorage2d(Storage._{{Real}}Storage storage, offset, size0, stride0, size1, stride1):
 #        # print('allocate tensor')
-        cdef TH{{Real}}Tensor *newTensorC = TH{{Real}}Tensor_newWithStorage2d(storage.th{{Real}}Storage, offset, size0, stride0, size1, stride1)
+        cdef TH{{Real}}Tensor *newTensorC = TH{{Real}}Tensor_newWithStorage2d(storage.native, offset, size0, stride0, size1, stride1)
         return _{{Real}}Tensor_fromNative(newTensorC, False)
 
     def clone(_{{Real}}Tensor self):
@@ -363,7 +363,7 @@ cdef class _{{Real}}Tensor(object):
         cdef Storage.TH{{Real}}Storage *storageC = TH{{Real}}Tensor_storage(self.native)
         if storageC == NULL:
             return None
-        return Storage.{{Real}}Storage_fromNative(storageC)
+        return Storage._{{Real}}Storage_fromNative(storageC)
 
     def __add__(_{{Real}}Tensor self, second):
         # assume 2d matrix for now?
@@ -505,21 +505,21 @@ cdef _{{Real}}Tensor_fromNative(TH{{Real}}Tensor *tensorC, retain=True):
 
 def asFloatTensor(myarray):
     cdef float[:] myarraymv
-    cdef Storage.FloatStorage storage
+    cdef Storage._FloatStorage storage
     if str(type(myarray)) == "<type 'numpy.ndarray'>":
         dims = len(myarray.shape)
         rows = myarray.shape[0]
         cols = myarray.shape[1]
 
         myarraymv = myarray.reshape(rows * cols)
-        storage = Storage.FloatStorage.newWithData(myarraymv)
-        Storage.THFloatStorage_retain(storage.thFloatStorage) # since newWithData takes ownership
+        storage = Storage._FloatStorage.newWithData(myarraymv)
+        Storage.THFloatStorage_retain(storage.native) # since newWithData takes ownership
         tensor = _FloatTensor.newWithStorage2d(storage, 0, rows, cols, cols, 1)
         return tensor
     elif isinstance(myarray, array.array):
         myarraymv = myarray
-        storage = Storage.FloatStorage.newWithData(myarraymv)
-        Storage.THFloatStorage_retain(storage.thFloatStorage) # since newWithData takes ownership
+        storage = Storage._FloatStorage.newWithData(myarraymv)
+        Storage.THFloatStorage_retain(storage.native) # since newWithData takes ownership
         tensor = _FloatTensor.newWithStorage1d(storage, 0, len(myarray), 1)
         return tensor        
     else:
@@ -527,21 +527,21 @@ def asFloatTensor(myarray):
 
 def asDoubleTensor(myarray):
     cdef double[:] myarraymv
-    cdef Storage.DoubleStorage storage
+    cdef Storage._DoubleStorage storage
     if str(type(myarray)) == "<type 'numpy.ndarray'>":
         dims = len(myarray.shape)
         rows = myarray.shape[0]
         cols = myarray.shape[1]
 
         myarraymv = myarray.reshape(rows * cols)
-        storage = Storage.DoubleStorage.newWithData(myarraymv)
-        Storage.THDoubleStorage_retain(storage.thDoubleStorage) # since newWithData takes ownership
+        storage = Storage._DoubleStorage.newWithData(myarraymv)
+        Storage.THDoubleStorage_retain(storage.native) # since newWithData takes ownership
         tensor = _DoubleTensor.newWithStorage2d(storage, 0, rows, cols, cols, 1)
         return tensor
     elif isinstance(myarray, array.array):
         myarraymv = myarray
-        storage = Storage.DoubleStorage.newWithData(myarraymv)
-        Storage.THDoubleStorage_retain(storage.thDoubleStorage) # since newWithData takes ownership
+        storage = Storage._DoubleStorage.newWithData(myarraymv)
+        Storage.THDoubleStorage_retain(storage.native) # since newWithData takes ownership
         tensor = _DoubleTensor.newWithStorage1d(storage, 0, len(myarray), 1)
         return tensor        
     else:
