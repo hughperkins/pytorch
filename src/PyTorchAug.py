@@ -225,6 +225,14 @@ class ClassNLLCriterion(LuaClass):
         else:
             self.__dict__['__objectId'] = getNextObjectId()
 
+class MSECriterion(LuaClass):
+    def __init__(self, _fromLua=False):
+        if not _fromLua:
+            name = self.__class__.__name__
+            super(self.__class__, self).__init__(['nn', name])
+        else:
+            self.__dict__['__objectId'] = getNextObjectId()
+
 class Sequential(LuaClass):
     def __init__(self, _fromLua=False):
         if not _fromLua:
@@ -241,11 +249,64 @@ class LogSoftMax(LuaClass):
         else:
             self.__dict__['__objectId'] = getNextObjectId()
 
+class Reshape(LuaClass):
+    def __init__(self, s1, s2=None, s3=None, s4=None, _fromLua=False):
+        if not _fromLua:
+            name = self.__class__.__name__
+            if s4 is not None:   # this is a bit hacky, but gets it working for now...
+                super(self.__class__, self).__init__(['nn', name], s1, s2, s3, s4)
+            elif s3 is not None:
+                super(self.__class__, self).__init__(['nn', name], s1, s2, s3)
+            elif s2 is not None:
+                super(self.__class__, self).__init__(['nn', name], s1, s2)
+            else:
+                super(self.__class__, self).__init__(['nn', name], s1)
+        else:
+            self.__dict__['__objectId'] = getNextObjectId()
+
+class SpatialConvolutionMM(LuaClass):
+    def __init__(self, nInputPlane, nOutputPlane, kW, kH, dW=1, dH=1, padW=0, padH=0, _fromLua=False):
+        if not _fromLua:
+            name = self.__class__.__name__
+            super(self.__class__, self).__init__(['nn', name], nInputPlane, nOutputPlane, kW, kH, dW, dH, padW, padH)
+        else:
+            self.__dict__['__objectId'] = getNextObjectId()
+
+class SpatialMaxPooling(LuaClass):
+    def __init__(self, kW, kH, dW, dH, padW=0, padH=0, _fromLua=False):
+        if not _fromLua:
+            name = self.__class__.__name__
+            super(self.__class__, self).__init__(['nn', name], kW, kH, dW, dH, padW, padH)
+        else:
+            self.__dict__['__objectId'] = getNextObjectId()
+
+class ReLU(LuaClass):
+    def __init__(self, _fromLua=False):
+        if not _fromLua:
+            name = self.__class__.__name__
+            super(self.__class__, self).__init__(['nn', name])
+        else:
+            self.__dict__['__objectId'] = getNextObjectId()
+
+class Tanh(LuaClass):
+    def __init__(self, _fromLua=False):
+        if not _fromLua:
+            name = self.__class__.__name__
+            super(self.__class__, self).__init__(['nn', name])
+        else:
+            self.__dict__['__objectId'] = getNextObjectId()
+
 luaClasses = {}
+luaClasses['nn.Reshape'] = Reshape
 luaClasses['nn.Linear'] = Linear
 luaClasses['nn.ClassNLLCriterion'] = ClassNLLCriterion
+luaClasses['nn.MSECriterion'] = MSECriterion
 luaClasses['nn.Sequential'] = Sequential
 luaClasses['nn.LogSoftMax'] = LogSoftMax
+luaClasses['nn.SpatialConvolutionMM'] = SpatialConvolutionMM
+luaClasses['nn.SpatialMaxPooling'] = SpatialMaxPooling
+luaClasses['nn.ReLU'] = ReLU
+luaClasses['nn.Tanh'] = Tanh
 
 luaClassesReverse = {}
 def populateLuaClassesReverse():

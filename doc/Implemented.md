@@ -102,12 +102,18 @@ import PyTorch
 from PyTorchAug import *
 
 mlp = Sequential()
-mlp.add(Linear(784, 10))
+mlp.add(SpatialConvolutionMM(1, 16, 5, 5, 1, 1, 2, 2))
+mlp.add(ReLU())
+mlp.add(SpatialMaxPooling(3, 3, 3, 3))
+mlp.add(Reshape(32 * 8 * 8))
+mlp.add(Linear(32 * 8 * 8, 150))
+mlp.add(Tanh())
+mlp.add(Linear(150, 10))
 mlp.add(LogSoftMax())
 
 crit = ClassNLLCriterion()
 
-input = PyTorch.FloatTensor(100,784).uniform()
+input = PyTorch.FloatTensor(100, 1, 28, 28).uniform()
 target = PyTorch.FloatTensor(100).fill(1)
 
 output = input.forward(input)

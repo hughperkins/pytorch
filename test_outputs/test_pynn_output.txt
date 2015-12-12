@@ -1,6 +1,3 @@
-initializing PyTorch...
-generator null: False
- ... PyTorch initialized
 Linear.__init__
 linear nn.Linear(3 -> 5)
 linear.weight 0.226863076317 0.245899624292 -0.246945020692
@@ -41,15 +38,24 @@ output 0.144099288489 -0.0875280099966 -0.0519137582956 0.051946816308 0.1672891
 [torch.DoubleTensor of size 4x5]
 
 Linear.__init__
+Linear.__init__
 got criterion
-imagesTensor.size() 128 784
-[torch.LongTensor of size 2]
+imagesTensor.size()  128
+ 784
+[torch.LongStorage of size 2]
 
-labelsTensor.size() 128
-[torch.LongTensor of size 1]
+labelsTensor.size()  128
+[torch.LongStorage of size 1]
 
 type(imagesTensor) <type 'PyTorch._DoubleTensor'>
+imagesTensor.size()  128
+ 1
+ 28
+ 28
+[torch.LongStorage of size 4]
+
 start training...
-epoch 0 accuracy: 44.53125%
-epoch 1 accuracy: 90.625%
-epoch 2 accuracy: 88.28125%
+epoch 0 accuracy: 10.15625%
+epoch 1 accuracy: 26.5625%
+epoch 2 accuracy: 33.59375%
+epoch 3 accuracy: 39.84375%

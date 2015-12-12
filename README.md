@@ -109,6 +109,16 @@ Updates:
 This has been simplified a bunch since before.  We no longer try to wrap C++ classes around the lua, but just directly wrap Python classes around the Lua.  The class methods and attributes are mostly generated dynamically, according to the results of querying hte lua ones.  Mostly all we have to do is create classes with appropriate names, that derive from LuaClass.  We might need to handle inheritance somehow in the future.  At the moment, this is all handled really by PyTorchAug.py.
 
 # Recent news
+
+12th December:
+* created [Implemented.md](doc/Implemented.md) doc
+* Added several network layers:
+  * Reshape
+  * SpatialConvolutionMM
+  * SpatialMaxPooling
+  * Tanh
+  * ReLU
+
 5th September:
 * added DoubleTensor
 * added ByteTensor

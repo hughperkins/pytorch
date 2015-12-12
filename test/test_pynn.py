@@ -40,16 +40,25 @@ def test_pynn():
     numpy.random.seed(123)
 
     mlp = Sequential()
-    linear = Linear(784, 10)
-    mlp.add(linear)
-    logSoftMax = LogSoftMax()
-    mlp.add(logSoftMax)
-    mlp
+
+    mlp.add(SpatialConvolutionMM(1, 16, 5, 5, 1, 1, 2, 2))
+    mlp.add(ReLU())
+    mlp.add(SpatialMaxPooling(3, 3, 3, 3))
+
+    mlp.add(SpatialConvolutionMM(16, 32, 3, 3, 1, 1, 1, 1))
+    mlp.add(ReLU())
+    mlp.add(SpatialMaxPooling(2, 2, 2, 2))
+
+    mlp.add(Reshape(32 * 4 * 4))
+    mlp.add(Linear(32 * 4 * 4, 150))
+    mlp.add(Tanh())
+    mlp.add(Linear(150, 10))
+    mlp.add(LogSoftMax())
 
     criterion = ClassNLLCriterion()
     print('got criterion')
 
-    learningRate = 0.0001
+    learningRate = 0.001
 
     mndata = MNIST('/norep/data/mnist')
     imagesList, labelsB = mndata.load_training()
@@ -90,6 +99,13 @@ def test_pynn():
     print('labelsTensor.size()', labelsTensor.size())
     N = int(imagesTensor.size()[0])
     print('type(imagesTensor)', type(imagesTensor))
+    size = PyTorch.LongTensor(4)
+    size[0] = N
+    size[1] = 1
+    size[2] = 28
+    size[3] = 28
+    imagesTensor.resize(size)
+    print('imagesTensor.size()', imagesTensor.size())
 
     print('start training...')
     for epoch in range(4):
