@@ -576,10 +576,10 @@ struct __pyx_obj_7PyTorch__FloatTensor;
 struct __pyx_obj_7PyTorch__LongTensor;
 struct __pyx_obj_7PyTorch_GlobalState;
 struct __pyx_obj_3lua_LuaState;
-struct __pyx_obj_7Storage_DoubleStorage;
-struct __pyx_obj_7Storage_ByteStorage;
-struct __pyx_obj_7Storage_FloatStorage;
-struct __pyx_obj_7Storage_LongStorage;
+struct __pyx_obj_7Storage__DoubleStorage;
+struct __pyx_obj_7Storage__ByteStorage;
+struct __pyx_obj_7Storage__FloatStorage;
+struct __pyx_obj_7Storage__LongStorage;
 struct __pyx_obj_7Storage___pyx_scope_struct____iter__;
 struct __pyx_obj_7Storage___pyx_scope_struct_1___iter__;
 struct __pyx_obj_7Storage___pyx_scope_struct_2___iter__;
@@ -588,19 +588,19 @@ struct __pyx_array_obj;
 struct __pyx_MemviewEnum_obj;
 struct __pyx_memoryview_obj;
 struct __pyx_memoryviewslice_obj;
-struct __pyx_opt_args_7Storage_DoubleStorage_fromNative;
-struct __pyx_opt_args_7Storage_ByteStorage_fromNative;
-struct __pyx_opt_args_7Storage_FloatStorage_fromNative;
-struct __pyx_opt_args_7Storage_LongStorage_fromNative;
+struct __pyx_opt_args_7Storage__DoubleStorage_fromNative;
+struct __pyx_opt_args_7Storage__ByteStorage_fromNative;
+struct __pyx_opt_args_7Storage__FloatStorage_fromNative;
+struct __pyx_opt_args_7Storage__LongStorage_fromNative;
 
 /* "Storage.pxd":84
  *     cpdef long size(self)
  * 
- * cdef DoubleStorage_fromNative(THDoubleStorage *storageC, retain=*)             # <<<<<<<<<<<<<<
+ * cdef _DoubleStorage_fromNative(THDoubleStorage *storageC, retain=*)             # <<<<<<<<<<<<<<
  * 
  * 
  */
-struct __pyx_opt_args_7Storage_DoubleStorage_fromNative {
+struct __pyx_opt_args_7Storage__DoubleStorage_fromNative {
   int __pyx_n;
   PyObject *retain;
 };
@@ -608,11 +608,11 @@ struct __pyx_opt_args_7Storage_DoubleStorage_fromNative {
 /* "Storage.pxd":91
  *     cpdef long size(self)
  * 
- * cdef ByteStorage_fromNative(THByteStorage *storageC, retain=*)             # <<<<<<<<<<<<<<
+ * cdef _ByteStorage_fromNative(THByteStorage *storageC, retain=*)             # <<<<<<<<<<<<<<
  * 
  * 
  */
-struct __pyx_opt_args_7Storage_ByteStorage_fromNative {
+struct __pyx_opt_args_7Storage__ByteStorage_fromNative {
   int __pyx_n;
   PyObject *retain;
 };
@@ -620,11 +620,11 @@ struct __pyx_opt_args_7Storage_ByteStorage_fromNative {
 /* "Storage.pxd":98
  *     cpdef long size(self)
  * 
- * cdef FloatStorage_fromNative(THFloatStorage *storageC, retain=*)             # <<<<<<<<<<<<<<
+ * cdef _FloatStorage_fromNative(THFloatStorage *storageC, retain=*)             # <<<<<<<<<<<<<<
  * 
  * 
  */
-struct __pyx_opt_args_7Storage_FloatStorage_fromNative {
+struct __pyx_opt_args_7Storage__FloatStorage_fromNative {
   int __pyx_n;
   PyObject *retain;
 };
@@ -632,10 +632,10 @@ struct __pyx_opt_args_7Storage_FloatStorage_fromNative {
 /* "Storage.pxd":105
  *     cpdef long size(self)
  * 
- * cdef LongStorage_fromNative(THLongStorage *storageC, retain=*)             # <<<<<<<<<<<<<<
+ * cdef _LongStorage_fromNative(THLongStorage *storageC, retain=*)             # <<<<<<<<<<<<<<
  * 
  */
-struct __pyx_opt_args_7Storage_LongStorage_fromNative {
+struct __pyx_opt_args_7Storage__LongStorage_fromNative {
   int __pyx_n;
   PyObject *retain;
 };
@@ -726,13 +726,13 @@ struct __pyx_obj_3lua_LuaState {
 /* "Storage.pxd":80
  * 
  * 
- * cdef class DoubleStorage(object):             # <<<<<<<<<<<<<<
+ * cdef class _DoubleStorage(object):             # <<<<<<<<<<<<<<
  *     cdef THDoubleStorage *thDoubleStorage
  *     cpdef long size(self)
  */
-struct __pyx_obj_7Storage_DoubleStorage {
+struct __pyx_obj_7Storage__DoubleStorage {
   PyObject_HEAD
-  struct __pyx_vtabstruct_7Storage_DoubleStorage *__pyx_vtab;
+  struct __pyx_vtabstruct_7Storage__DoubleStorage *__pyx_vtab;
   struct THDoubleStorage *thDoubleStorage;
 };
 
@@ -740,13 +740,13 @@ struct __pyx_obj_7Storage_DoubleStorage {
 /* "Storage.pxd":87
  * 
  * 
- * cdef class ByteStorage(object):             # <<<<<<<<<<<<<<
+ * cdef class _ByteStorage(object):             # <<<<<<<<<<<<<<
  *     cdef THByteStorage *thByteStorage
  *     cpdef long size(self)
  */
-struct __pyx_obj_7Storage_ByteStorage {
+struct __pyx_obj_7Storage__ByteStorage {
   PyObject_HEAD
-  struct __pyx_vtabstruct_7Storage_ByteStorage *__pyx_vtab;
+  struct __pyx_vtabstruct_7Storage__ByteStorage *__pyx_vtab;
   struct THByteStorage *thByteStorage;
 };
 
@@ -754,13 +754,13 @@ struct __pyx_obj_7Storage_ByteStorage {
 /* "Storage.pxd":94
  * 
  * 
- * cdef class FloatStorage(object):             # <<<<<<<<<<<<<<
+ * cdef class _FloatStorage(object):             # <<<<<<<<<<<<<<
  *     cdef THFloatStorage *thFloatStorage
  *     cpdef long size(self)
  */
-struct __pyx_obj_7Storage_FloatStorage {
+struct __pyx_obj_7Storage__FloatStorage {
   PyObject_HEAD
-  struct __pyx_vtabstruct_7Storage_FloatStorage *__pyx_vtab;
+  struct __pyx_vtabstruct_7Storage__FloatStorage *__pyx_vtab;
   struct THFloatStorage *thFloatStorage;
 };
 
@@ -768,13 +768,13 @@ struct __pyx_obj_7Storage_FloatStorage {
 /* "Storage.pxd":101
  * 
  * 
- * cdef class LongStorage(object):             # <<<<<<<<<<<<<<
+ * cdef class _LongStorage(object):             # <<<<<<<<<<<<<<
  *     cdef THLongStorage *thLongStorage
  *     cpdef long size(self)
  */
-struct __pyx_obj_7Storage_LongStorage {
+struct __pyx_obj_7Storage__LongStorage {
   PyObject_HEAD
-  struct __pyx_vtabstruct_7Storage_LongStorage *__pyx_vtab;
+  struct __pyx_vtabstruct_7Storage__LongStorage *__pyx_vtab;
   struct THLongStorage *thLongStorage;
 };
 
@@ -789,7 +789,7 @@ struct __pyx_obj_7Storage_LongStorage {
 struct __pyx_obj_7Storage___pyx_scope_struct____iter__ {
   PyObject_HEAD
   int __pyx_v_c;
-  struct __pyx_obj_7Storage_DoubleStorage *__pyx_v_self;
+  struct __pyx_obj_7Storage__DoubleStorage *__pyx_v_self;
   int __pyx_v_size0;
   int __pyx_t_0;
   int __pyx_t_1;
@@ -806,7 +806,7 @@ struct __pyx_obj_7Storage___pyx_scope_struct____iter__ {
 struct __pyx_obj_7Storage___pyx_scope_struct_1___iter__ {
   PyObject_HEAD
   int __pyx_v_c;
-  struct __pyx_obj_7Storage_ByteStorage *__pyx_v_self;
+  struct __pyx_obj_7Storage__ByteStorage *__pyx_v_self;
   int __pyx_v_size0;
   int __pyx_t_0;
   int __pyx_t_1;
@@ -823,7 +823,7 @@ struct __pyx_obj_7Storage___pyx_scope_struct_1___iter__ {
 struct __pyx_obj_7Storage___pyx_scope_struct_2___iter__ {
   PyObject_HEAD
   int __pyx_v_c;
-  struct __pyx_obj_7Storage_FloatStorage *__pyx_v_self;
+  struct __pyx_obj_7Storage__FloatStorage *__pyx_v_self;
   int __pyx_v_size0;
   int __pyx_t_0;
   int __pyx_t_1;
@@ -840,7 +840,7 @@ struct __pyx_obj_7Storage___pyx_scope_struct_2___iter__ {
 struct __pyx_obj_7Storage___pyx_scope_struct_3___iter__ {
   PyObject_HEAD
   int __pyx_v_c;
-  struct __pyx_obj_7Storage_LongStorage *__pyx_v_self;
+  struct __pyx_obj_7Storage__LongStorage *__pyx_v_self;
   int __pyx_v_size0;
   int __pyx_t_0;
   int __pyx_t_1;
@@ -999,57 +999,57 @@ static struct __pyx_vtabstruct_7PyTorch__LongTensor *__pyx_vtabptr_7PyTorch__Lon
 /* "Storage.pyx":31
  * 
  * 
- * cdef class DoubleStorage(object):             # <<<<<<<<<<<<<<
+ * cdef class _DoubleStorage(object):             # <<<<<<<<<<<<<<
  *     # properties in .pxd file of same name
  * 
  */
 
-struct __pyx_vtabstruct_7Storage_DoubleStorage {
-  long (*size)(struct __pyx_obj_7Storage_DoubleStorage *, int __pyx_skip_dispatch);
+struct __pyx_vtabstruct_7Storage__DoubleStorage {
+  long (*size)(struct __pyx_obj_7Storage__DoubleStorage *, int __pyx_skip_dispatch);
 };
-static struct __pyx_vtabstruct_7Storage_DoubleStorage *__pyx_vtabptr_7Storage_DoubleStorage;
+static struct __pyx_vtabstruct_7Storage__DoubleStorage *__pyx_vtabptr_7Storage__DoubleStorage;
 
 
 /* "Storage.pyx":121
  * 
  * 
- * cdef class ByteStorage(object):             # <<<<<<<<<<<<<<
+ * cdef class _ByteStorage(object):             # <<<<<<<<<<<<<<
  *     # properties in .pxd file of same name
  * 
  */
 
-struct __pyx_vtabstruct_7Storage_ByteStorage {
-  long (*size)(struct __pyx_obj_7Storage_ByteStorage *, int __pyx_skip_dispatch);
+struct __pyx_vtabstruct_7Storage__ByteStorage {
+  long (*size)(struct __pyx_obj_7Storage__ByteStorage *, int __pyx_skip_dispatch);
 };
-static struct __pyx_vtabstruct_7Storage_ByteStorage *__pyx_vtabptr_7Storage_ByteStorage;
+static struct __pyx_vtabstruct_7Storage__ByteStorage *__pyx_vtabptr_7Storage__ByteStorage;
 
 
 /* "Storage.pyx":211
  * 
  * 
- * cdef class FloatStorage(object):             # <<<<<<<<<<<<<<
+ * cdef class _FloatStorage(object):             # <<<<<<<<<<<<<<
  *     # properties in .pxd file of same name
  * 
  */
 
-struct __pyx_vtabstruct_7Storage_FloatStorage {
-  long (*size)(struct __pyx_obj_7Storage_FloatStorage *, int __pyx_skip_dispatch);
+struct __pyx_vtabstruct_7Storage__FloatStorage {
+  long (*size)(struct __pyx_obj_7Storage__FloatStorage *, int __pyx_skip_dispatch);
 };
-static struct __pyx_vtabstruct_7Storage_FloatStorage *__pyx_vtabptr_7Storage_FloatStorage;
+static struct __pyx_vtabstruct_7Storage__FloatStorage *__pyx_vtabptr_7Storage__FloatStorage;
 
 
 /* "Storage.pyx":301
  * 
  * 
- * cdef class LongStorage(object):             # <<<<<<<<<<<<<<
+ * cdef class _LongStorage(object):             # <<<<<<<<<<<<<<
  *     # properties in .pxd file of same name
  * 
  */
 
-struct __pyx_vtabstruct_7Storage_LongStorage {
-  long (*size)(struct __pyx_obj_7Storage_LongStorage *, int __pyx_skip_dispatch);
+struct __pyx_vtabstruct_7Storage__LongStorage {
+  long (*size)(struct __pyx_obj_7Storage__LongStorage *, int __pyx_skip_dispatch);
 };
-static struct __pyx_vtabstruct_7Storage_LongStorage *__pyx_vtabptr_7Storage_LongStorage;
+static struct __pyx_vtabstruct_7Storage__LongStorage *__pyx_vtabptr_7Storage__LongStorage;
 
 
 /* "View.MemoryView":302
@@ -1637,10 +1637,10 @@ static PyTypeObject *__Pyx_ImportType(const char *module_name, const char *class
 
 static int __Pyx_InitStrings(__Pyx_StringTabEntry *t);
 
-static long __pyx_f_7Storage_13DoubleStorage_size(struct __pyx_obj_7Storage_DoubleStorage *__pyx_v_self, int __pyx_skip_dispatch); /* proto*/
-static long __pyx_f_7Storage_11ByteStorage_size(struct __pyx_obj_7Storage_ByteStorage *__pyx_v_self, int __pyx_skip_dispatch); /* proto*/
-static long __pyx_f_7Storage_12FloatStorage_size(struct __pyx_obj_7Storage_FloatStorage *__pyx_v_self, int __pyx_skip_dispatch); /* proto*/
-static long __pyx_f_7Storage_11LongStorage_size(struct __pyx_obj_7Storage_LongStorage *__pyx_v_self, int __pyx_skip_dispatch); /* proto*/
+static long __pyx_f_7Storage_14_DoubleStorage_size(struct __pyx_obj_7Storage__DoubleStorage *__pyx_v_self, int __pyx_skip_dispatch); /* proto*/
+static long __pyx_f_7Storage_12_ByteStorage_size(struct __pyx_obj_7Storage__ByteStorage *__pyx_v_self, int __pyx_skip_dispatch); /* proto*/
+static long __pyx_f_7Storage_13_FloatStorage_size(struct __pyx_obj_7Storage__FloatStorage *__pyx_v_self, int __pyx_skip_dispatch); /* proto*/
+static long __pyx_f_7Storage_12_LongStorage_size(struct __pyx_obj_7Storage__LongStorage *__pyx_v_self, int __pyx_skip_dispatch); /* proto*/
 static char *__pyx_memoryview_get_item_pointer(struct __pyx_memoryview_obj *__pyx_v_self, PyObject *__pyx_v_index); /* proto*/
 static PyObject *__pyx_memoryview_is_slice(struct __pyx_memoryview_obj *__pyx_v_self, PyObject *__pyx_v_obj); /* proto*/
 static PyObject *__pyx_memoryview_setitem_slice_assignment(struct __pyx_memoryview_obj *__pyx_v_self, PyObject *__pyx_v_dst, PyObject *__pyx_v_src); /* proto*/
@@ -1688,10 +1688,10 @@ static PyTypeObject *__pyx_ptype_3lua_LuaState = 0;
 /* Module declarations from 'nnWrapper' */
 
 /* Module declarations from 'Storage' */
-static PyTypeObject *__pyx_ptype_7Storage_DoubleStorage = 0;
-static PyTypeObject *__pyx_ptype_7Storage_ByteStorage = 0;
-static PyTypeObject *__pyx_ptype_7Storage_FloatStorage = 0;
-static PyTypeObject *__pyx_ptype_7Storage_LongStorage = 0;
+static PyTypeObject *__pyx_ptype_7Storage__DoubleStorage = 0;
+static PyTypeObject *__pyx_ptype_7Storage__ByteStorage = 0;
+static PyTypeObject *__pyx_ptype_7Storage__FloatStorage = 0;
+static PyTypeObject *__pyx_ptype_7Storage__LongStorage = 0;
 static PyTypeObject *__pyx_ptype_7Storage___pyx_scope_struct____iter__ = 0;
 static PyTypeObject *__pyx_ptype_7Storage___pyx_scope_struct_1___iter__ = 0;
 static PyTypeObject *__pyx_ptype_7Storage___pyx_scope_struct_2___iter__ = 0;
@@ -1705,10 +1705,10 @@ static PyObject *strided = 0;
 static PyObject *indirect = 0;
 static PyObject *contiguous = 0;
 static PyObject *indirect_contiguous = 0;
-static PyObject *__pyx_f_7Storage_DoubleStorage_fromNative(struct THDoubleStorage *, struct __pyx_opt_args_7Storage_DoubleStorage_fromNative *__pyx_optional_args); /*proto*/
-static PyObject *__pyx_f_7Storage_ByteStorage_fromNative(struct THByteStorage *, struct __pyx_opt_args_7Storage_ByteStorage_fromNative *__pyx_optional_args); /*proto*/
-static PyObject *__pyx_f_7Storage_FloatStorage_fromNative(struct THFloatStorage *, struct __pyx_opt_args_7Storage_FloatStorage_fromNative *__pyx_optional_args); /*proto*/
-static PyObject *__pyx_f_7Storage_LongStorage_fromNative(struct THLongStorage *, struct __pyx_opt_args_7Storage_LongStorage_fromNative *__pyx_optional_args); /*proto*/
+static PyObject *__pyx_f_7Storage__DoubleStorage_fromNative(struct THDoubleStorage *, struct __pyx_opt_args_7Storage__DoubleStorage_fromNative *__pyx_optional_args); /*proto*/
+static PyObject *__pyx_f_7Storage__ByteStorage_fromNative(struct THByteStorage *, struct __pyx_opt_args_7Storage__ByteStorage_fromNative *__pyx_optional_args); /*proto*/
+static PyObject *__pyx_f_7Storage__FloatStorage_fromNative(struct THFloatStorage *, struct __pyx_opt_args_7Storage__FloatStorage_fromNative *__pyx_optional_args); /*proto*/
+static PyObject *__pyx_f_7Storage__LongStorage_fromNative(struct THLongStorage *, struct __pyx_opt_args_7Storage__LongStorage_fromNative *__pyx_optional_args); /*proto*/
 static PyObject *__pyx_f_7Storage_floatToString(float); /*proto*/
 static struct __pyx_array_obj *__pyx_array_new(PyObject *, Py_ssize_t, char *, char *, char *); /*proto*/
 static void *__pyx_align_pointer(void *, size_t); /*proto*/
@@ -1761,54 +1761,54 @@ static PyObject *__pyx_builtin_Ellipsis;
 static PyObject *__pyx_builtin_TypeError;
 static PyObject *__pyx_builtin_id;
 static PyObject *__pyx_builtin_IndexError;
-static int __pyx_pf_7Storage_13DoubleStorage___init__(struct __pyx_obj_7Storage_DoubleStorage *__pyx_v_self, PyObject *__pyx_v_args, PyObject *__pyx_v_kwargs); /* proto */
-static PyObject *__pyx_pf_7Storage_13DoubleStorage_2__repr__(struct __pyx_obj_7Storage_DoubleStorage *__pyx_v_self); /* proto */
-static PyObject *__pyx_pf_7Storage_13DoubleStorage_4new(); /* proto */
-static PyObject *__pyx_pf_7Storage_13DoubleStorage_6newWithData(__Pyx_memviewslice __pyx_v_data); /* proto */
-static PyObject *__pyx_pf_7Storage_13DoubleStorage_8refCount(struct __pyx_obj_7Storage_DoubleStorage *__pyx_v_self); /* proto */
-static PyObject *__pyx_pf_7Storage_13DoubleStorage_10dataAddr(struct __pyx_obj_7Storage_DoubleStorage *__pyx_v_self); /* proto */
-static PyObject *__pyx_pf_7Storage_13DoubleStorage_12newWithSize(long __pyx_v_size); /* proto */
-static PyObject *__pyx_pf_7Storage_13DoubleStorage_14size(struct __pyx_obj_7Storage_DoubleStorage *__pyx_v_self); /* proto */
-static void __pyx_pf_7Storage_13DoubleStorage_16__dealloc__(struct __pyx_obj_7Storage_DoubleStorage *__pyx_v_self); /* proto */
-static PyObject *__pyx_pf_7Storage_13DoubleStorage_18__iter__(struct __pyx_obj_7Storage_DoubleStorage *__pyx_v_self); /* proto */
-static PyObject *__pyx_pf_7Storage_13DoubleStorage_21__getitem__(struct __pyx_obj_7Storage_DoubleStorage *__pyx_v_self, int __pyx_v_index); /* proto */
-static int __pyx_pf_7Storage_13DoubleStorage_23__setitem__(struct __pyx_obj_7Storage_DoubleStorage *__pyx_v_self, int __pyx_v_index, double __pyx_v_value); /* proto */
-static int __pyx_pf_7Storage_11ByteStorage___init__(struct __pyx_obj_7Storage_ByteStorage *__pyx_v_self, PyObject *__pyx_v_args, PyObject *__pyx_v_kwargs); /* proto */
-static PyObject *__pyx_pf_7Storage_11ByteStorage_2__repr__(struct __pyx_obj_7Storage_ByteStorage *__pyx_v_self); /* proto */
-static PyObject *__pyx_pf_7Storage_11ByteStorage_4new(); /* proto */
-static PyObject *__pyx_pf_7Storage_11ByteStorage_6newWithData(__Pyx_memviewslice __pyx_v_data); /* proto */
-static PyObject *__pyx_pf_7Storage_11ByteStorage_8refCount(struct __pyx_obj_7Storage_ByteStorage *__pyx_v_self); /* proto */
-static PyObject *__pyx_pf_7Storage_11ByteStorage_10dataAddr(struct __pyx_obj_7Storage_ByteStorage *__pyx_v_self); /* proto */
-static PyObject *__pyx_pf_7Storage_11ByteStorage_12newWithSize(long __pyx_v_size); /* proto */
-static PyObject *__pyx_pf_7Storage_11ByteStorage_14size(struct __pyx_obj_7Storage_ByteStorage *__pyx_v_self); /* proto */
-static void __pyx_pf_7Storage_11ByteStorage_16__dealloc__(struct __pyx_obj_7Storage_ByteStorage *__pyx_v_self); /* proto */
-static PyObject *__pyx_pf_7Storage_11ByteStorage_18__iter__(struct __pyx_obj_7Storage_ByteStorage *__pyx_v_self); /* proto */
-static PyObject *__pyx_pf_7Storage_11ByteStorage_21__getitem__(struct __pyx_obj_7Storage_ByteStorage *__pyx_v_self, int __pyx_v_index); /* proto */
-static int __pyx_pf_7Storage_11ByteStorage_23__setitem__(struct __pyx_obj_7Storage_ByteStorage *__pyx_v_self, int __pyx_v_index, unsigned char __pyx_v_value); /* proto */
-static int __pyx_pf_7Storage_12FloatStorage___init__(struct __pyx_obj_7Storage_FloatStorage *__pyx_v_self, PyObject *__pyx_v_args, PyObject *__pyx_v_kwargs); /* proto */
-static PyObject *__pyx_pf_7Storage_12FloatStorage_2__repr__(struct __pyx_obj_7Storage_FloatStorage *__pyx_v_self); /* proto */
-static PyObject *__pyx_pf_7Storage_12FloatStorage_4new(); /* proto */
-static PyObject *__pyx_pf_7Storage_12FloatStorage_6newWithData(__Pyx_memviewslice __pyx_v_data); /* proto */
-static PyObject *__pyx_pf_7Storage_12FloatStorage_8refCount(struct __pyx_obj_7Storage_FloatStorage *__pyx_v_self); /* proto */
-static PyObject *__pyx_pf_7Storage_12FloatStorage_10dataAddr(struct __pyx_obj_7Storage_FloatStorage *__pyx_v_self); /* proto */
-static PyObject *__pyx_pf_7Storage_12FloatStorage_12newWithSize(long __pyx_v_size); /* proto */
-static PyObject *__pyx_pf_7Storage_12FloatStorage_14size(struct __pyx_obj_7Storage_FloatStorage *__pyx_v_self); /* proto */
-static void __pyx_pf_7Storage_12FloatStorage_16__dealloc__(struct __pyx_obj_7Storage_FloatStorage *__pyx_v_self); /* proto */
-static PyObject *__pyx_pf_7Storage_12FloatStorage_18__iter__(struct __pyx_obj_7Storage_FloatStorage *__pyx_v_self); /* proto */
-static PyObject *__pyx_pf_7Storage_12FloatStorage_21__getitem__(struct __pyx_obj_7Storage_FloatStorage *__pyx_v_self, int __pyx_v_index); /* proto */
-static int __pyx_pf_7Storage_12FloatStorage_23__setitem__(struct __pyx_obj_7Storage_FloatStorage *__pyx_v_self, int __pyx_v_index, float __pyx_v_value); /* proto */
-static int __pyx_pf_7Storage_11LongStorage___init__(struct __pyx_obj_7Storage_LongStorage *__pyx_v_self, PyObject *__pyx_v_args, PyObject *__pyx_v_kwargs); /* proto */
-static PyObject *__pyx_pf_7Storage_11LongStorage_2__repr__(struct __pyx_obj_7Storage_LongStorage *__pyx_v_self); /* proto */
-static PyObject *__pyx_pf_7Storage_11LongStorage_4new(); /* proto */
-static PyObject *__pyx_pf_7Storage_11LongStorage_6newWithData(__Pyx_memviewslice __pyx_v_data); /* proto */
-static PyObject *__pyx_pf_7Storage_11LongStorage_8refCount(struct __pyx_obj_7Storage_LongStorage *__pyx_v_self); /* proto */
-static PyObject *__pyx_pf_7Storage_11LongStorage_10dataAddr(struct __pyx_obj_7Storage_LongStorage *__pyx_v_self); /* proto */
-static PyObject *__pyx_pf_7Storage_11LongStorage_12newWithSize(long __pyx_v_size); /* proto */
-static PyObject *__pyx_pf_7Storage_11LongStorage_14size(struct __pyx_obj_7Storage_LongStorage *__pyx_v_self); /* proto */
-static void __pyx_pf_7Storage_11LongStorage_16__dealloc__(struct __pyx_obj_7Storage_LongStorage *__pyx_v_self); /* proto */
-static PyObject *__pyx_pf_7Storage_11LongStorage_18__iter__(struct __pyx_obj_7Storage_LongStorage *__pyx_v_self); /* proto */
-static PyObject *__pyx_pf_7Storage_11LongStorage_21__getitem__(struct __pyx_obj_7Storage_LongStorage *__pyx_v_self, int __pyx_v_index); /* proto */
-static int __pyx_pf_7Storage_11LongStorage_23__setitem__(struct __pyx_obj_7Storage_LongStorage *__pyx_v_self, int __pyx_v_index, long __pyx_v_value); /* proto */
+static int __pyx_pf_7Storage_14_DoubleStorage___init__(struct __pyx_obj_7Storage__DoubleStorage *__pyx_v_self, PyObject *__pyx_v_args, PyObject *__pyx_v_kwargs); /* proto */
+static PyObject *__pyx_pf_7Storage_14_DoubleStorage_2__repr__(struct __pyx_obj_7Storage__DoubleStorage *__pyx_v_self); /* proto */
+static PyObject *__pyx_pf_7Storage_14_DoubleStorage_4new(); /* proto */
+static PyObject *__pyx_pf_7Storage_14_DoubleStorage_6newWithData(__Pyx_memviewslice __pyx_v_data); /* proto */
+static PyObject *__pyx_pf_7Storage_14_DoubleStorage_8refCount(struct __pyx_obj_7Storage__DoubleStorage *__pyx_v_self); /* proto */
+static PyObject *__pyx_pf_7Storage_14_DoubleStorage_10dataAddr(struct __pyx_obj_7Storage__DoubleStorage *__pyx_v_self); /* proto */
+static PyObject *__pyx_pf_7Storage_14_DoubleStorage_12newWithSize(long __pyx_v_size); /* proto */
+static PyObject *__pyx_pf_7Storage_14_DoubleStorage_14size(struct __pyx_obj_7Storage__DoubleStorage *__pyx_v_self); /* proto */
+static void __pyx_pf_7Storage_14_DoubleStorage_16__dealloc__(struct __pyx_obj_7Storage__DoubleStorage *__pyx_v_self); /* proto */
+static PyObject *__pyx_pf_7Storage_14_DoubleStorage_18__iter__(struct __pyx_obj_7Storage__DoubleStorage *__pyx_v_self); /* proto */
+static PyObject *__pyx_pf_7Storage_14_DoubleStorage_21__getitem__(struct __pyx_obj_7Storage__DoubleStorage *__pyx_v_self, int __pyx_v_index); /* proto */
+static int __pyx_pf_7Storage_14_DoubleStorage_23__setitem__(struct __pyx_obj_7Storage__DoubleStorage *__pyx_v_self, int __pyx_v_index, double __pyx_v_value); /* proto */
+static int __pyx_pf_7Storage_12_ByteStorage___init__(struct __pyx_obj_7Storage__ByteStorage *__pyx_v_self, PyObject *__pyx_v_args, PyObject *__pyx_v_kwargs); /* proto */
+static PyObject *__pyx_pf_7Storage_12_ByteStorage_2__repr__(struct __pyx_obj_7Storage__ByteStorage *__pyx_v_self); /* proto */
+static PyObject *__pyx_pf_7Storage_12_ByteStorage_4new(); /* proto */
+static PyObject *__pyx_pf_7Storage_12_ByteStorage_6newWithData(__Pyx_memviewslice __pyx_v_data); /* proto */
+static PyObject *__pyx_pf_7Storage_12_ByteStorage_8refCount(struct __pyx_obj_7Storage__ByteStorage *__pyx_v_self); /* proto */
+static PyObject *__pyx_pf_7Storage_12_ByteStorage_10dataAddr(struct __pyx_obj_7Storage__ByteStorage *__pyx_v_self); /* proto */
+static PyObject *__pyx_pf_7Storage_12_ByteStorage_12newWithSize(long __pyx_v_size); /* proto */
+static PyObject *__pyx_pf_7Storage_12_ByteStorage_14size(struct __pyx_obj_7Storage__ByteStorage *__pyx_v_self); /* proto */
+static void __pyx_pf_7Storage_12_ByteStorage_16__dealloc__(struct __pyx_obj_7Storage__ByteStorage *__pyx_v_self); /* proto */
+static PyObject *__pyx_pf_7Storage_12_ByteStorage_18__iter__(struct __pyx_obj_7Storage__ByteStorage *__pyx_v_self); /* proto */
+static PyObject *__pyx_pf_7Storage_12_ByteStorage_21__getitem__(struct __pyx_obj_7Storage__ByteStorage *__pyx_v_self, int __pyx_v_index); /* proto */
+static int __pyx_pf_7Storage_12_ByteStorage_23__setitem__(struct __pyx_obj_7Storage__ByteStorage *__pyx_v_self, int __pyx_v_index, unsigned char __pyx_v_value); /* proto */
+static int __pyx_pf_7Storage_13_FloatStorage___init__(struct __pyx_obj_7Storage__FloatStorage *__pyx_v_self, PyObject *__pyx_v_args, PyObject *__pyx_v_kwargs); /* proto */
+static PyObject *__pyx_pf_7Storage_13_FloatStorage_2__repr__(struct __pyx_obj_7Storage__FloatStorage *__pyx_v_self); /* proto */
+static PyObject *__pyx_pf_7Storage_13_FloatStorage_4new(); /* proto */
+static PyObject *__pyx_pf_7Storage_13_FloatStorage_6newWithData(__Pyx_memviewslice __pyx_v_data); /* proto */
+static PyObject *__pyx_pf_7Storage_13_FloatStorage_8refCount(struct __pyx_obj_7Storage__FloatStorage *__pyx_v_self); /* proto */
+static PyObject *__pyx_pf_7Storage_13_FloatStorage_10dataAddr(struct __pyx_obj_7Storage__FloatStorage *__pyx_v_self); /* proto */
+static PyObject *__pyx_pf_7Storage_13_FloatStorage_12newWithSize(long __pyx_v_size); /* proto */
+static PyObject *__pyx_pf_7Storage_13_FloatStorage_14size(struct __pyx_obj_7Storage__FloatStorage *__pyx_v_self); /* proto */
+static void __pyx_pf_7Storage_13_FloatStorage_16__dealloc__(struct __pyx_obj_7Storage__FloatStorage *__pyx_v_self); /* proto */
+static PyObject *__pyx_pf_7Storage_13_FloatStorage_18__iter__(struct __pyx_obj_7Storage__FloatStorage *__pyx_v_self); /* proto */
+static PyObject *__pyx_pf_7Storage_13_FloatStorage_21__getitem__(struct __pyx_obj_7Storage__FloatStorage *__pyx_v_self, int __pyx_v_index); /* proto */
+static int __pyx_pf_7Storage_13_FloatStorage_23__setitem__(struct __pyx_obj_7Storage__FloatStorage *__pyx_v_self, int __pyx_v_index, float __pyx_v_value); /* proto */
+static int __pyx_pf_7Storage_12_LongStorage___init__(struct __pyx_obj_7Storage__LongStorage *__pyx_v_self, PyObject *__pyx_v_args, PyObject *__pyx_v_kwargs); /* proto */
+static PyObject *__pyx_pf_7Storage_12_LongStorage_2__repr__(struct __pyx_obj_7Storage__LongStorage *__pyx_v_self); /* proto */
+static PyObject *__pyx_pf_7Storage_12_LongStorage_4new(); /* proto */
+static PyObject *__pyx_pf_7Storage_12_LongStorage_6newWithData(__Pyx_memviewslice __pyx_v_data); /* proto */
+static PyObject *__pyx_pf_7Storage_12_LongStorage_8refCount(struct __pyx_obj_7Storage__LongStorage *__pyx_v_self); /* proto */
+static PyObject *__pyx_pf_7Storage_12_LongStorage_10dataAddr(struct __pyx_obj_7Storage__LongStorage *__pyx_v_self); /* proto */
+static PyObject *__pyx_pf_7Storage_12_LongStorage_12newWithSize(long __pyx_v_size); /* proto */
+static PyObject *__pyx_pf_7Storage_12_LongStorage_14size(struct __pyx_obj_7Storage__LongStorage *__pyx_v_self); /* proto */
+static void __pyx_pf_7Storage_12_LongStorage_16__dealloc__(struct __pyx_obj_7Storage__LongStorage *__pyx_v_self); /* proto */
+static PyObject *__pyx_pf_7Storage_12_LongStorage_18__iter__(struct __pyx_obj_7Storage__LongStorage *__pyx_v_self); /* proto */
+static PyObject *__pyx_pf_7Storage_12_LongStorage_21__getitem__(struct __pyx_obj_7Storage__LongStorage *__pyx_v_self, int __pyx_v_index); /* proto */
+static int __pyx_pf_7Storage_12_LongStorage_23__setitem__(struct __pyx_obj_7Storage__LongStorage *__pyx_v_self, int __pyx_v_index, long __pyx_v_value); /* proto */
 static int __pyx_pf_7cpython_5array_5array___getbuffer__(arrayobject *__pyx_v_self, Py_buffer *__pyx_v_info, CYTHON_UNUSED int __pyx_v_flags); /* proto */
 static void __pyx_pf_7cpython_5array_5array_2__releasebuffer__(CYTHON_UNUSED arrayobject *__pyx_v_self, Py_buffer *__pyx_v_info); /* proto */
 static int __pyx_array___pyx_pf_15View_dot_MemoryView_5array___cinit__(struct __pyx_array_obj *__pyx_v_self, PyObject *__pyx_v_shape, Py_ssize_t __pyx_v_itemsize, PyObject *__pyx_v_format, PyObject *__pyx_v_mode, int __pyx_v_allocate_buffer); /* proto */
@@ -1843,10 +1843,10 @@ static PyObject *__pyx_memoryview___pyx_pf_15View_dot_MemoryView_10memoryview_20
 static PyObject *__pyx_memoryview___pyx_pf_15View_dot_MemoryView_10memoryview_22copy_fortran(struct __pyx_memoryview_obj *__pyx_v_self); /* proto */
 static void __pyx_memoryviewslice___pyx_pf_15View_dot_MemoryView_16_memoryviewslice___dealloc__(struct __pyx_memoryviewslice_obj *__pyx_v_self); /* proto */
 static PyObject *__pyx_pf_15View_dot_MemoryView_16_memoryviewslice_4base___get__(struct __pyx_memoryviewslice_obj *__pyx_v_self); /* proto */
-static PyObject *__pyx_tp_new_7Storage_DoubleStorage(PyTypeObject *t, PyObject *a, PyObject *k); /*proto*/
-static PyObject *__pyx_tp_new_7Storage_ByteStorage(PyTypeObject *t, PyObject *a, PyObject *k); /*proto*/
-static PyObject *__pyx_tp_new_7Storage_FloatStorage(PyTypeObject *t, PyObject *a, PyObject *k); /*proto*/
-static PyObject *__pyx_tp_new_7Storage_LongStorage(PyTypeObject *t, PyObject *a, PyObject *k); /*proto*/
+static PyObject *__pyx_tp_new_7Storage__DoubleStorage(PyTypeObject *t, PyObject *a, PyObject *k); /*proto*/
+static PyObject *__pyx_tp_new_7Storage__ByteStorage(PyTypeObject *t, PyObject *a, PyObject *k); /*proto*/
+static PyObject *__pyx_tp_new_7Storage__FloatStorage(PyTypeObject *t, PyObject *a, PyObject *k); /*proto*/
+static PyObject *__pyx_tp_new_7Storage__LongStorage(PyTypeObject *t, PyObject *a, PyObject *k); /*proto*/
 static PyObject *__pyx_tp_new_7Storage___pyx_scope_struct____iter__(PyTypeObject *t, PyObject *a, PyObject *k); /*proto*/
 static PyObject *__pyx_tp_new_7Storage___pyx_scope_struct_1___iter__(PyTypeObject *t, PyObject *a, PyObject *k); /*proto*/
 static PyObject *__pyx_tp_new_7Storage___pyx_scope_struct_2___iter__(PyTypeObject *t, PyObject *a, PyObject *k); /*proto*/
@@ -1921,13 +1921,13 @@ static char __pyx_k_staticmethod[] = "staticmethod";
 static char __pyx_k_pyx_getbuffer[] = "__pyx_getbuffer";
 static char __pyx_k_allocate_buffer[] = "allocate_buffer";
 static char __pyx_k_dtype_is_object[] = "dtype_is_object";
-static char __pyx_k_ByteStorage___iter[] = "ByteStorage.__iter__";
-static char __pyx_k_LongStorage___iter[] = "LongStorage.__iter__";
+static char __pyx_k_ByteStorage___iter[] = "_ByteStorage.__iter__";
+static char __pyx_k_LongStorage___iter[] = "_LongStorage.__iter__";
 static char __pyx_k_strided_and_direct[] = "<strided and direct>";
 static char __pyx_k_ByteStorage___cinit[] = "ByteStorage.__cinit__";
-static char __pyx_k_FloatStorage___iter[] = "FloatStorage.__iter__";
+static char __pyx_k_FloatStorage___iter[] = "_FloatStorage.__iter__";
 static char __pyx_k_LongStorage___cinit[] = "LongStorage.__cinit__";
-static char __pyx_k_DoubleStorage___iter[] = "DoubleStorage.__iter__";
+static char __pyx_k_DoubleStorage___iter[] = "_DoubleStorage.__iter__";
 static char __pyx_k_FloatStorage___cinit[] = "FloatStorage.__cinit__";
 static char __pyx_k_strided_and_indirect[] = "<strided and indirect>";
 static char __pyx_k_DoubleStorage___cinit[] = "DoubleStorage.__cinit__";
@@ -2184,8 +2184,8 @@ static PyObject *__pyx_f_7Storage_floatToString(float __pyx_v_floatValue) {
  */
 
 /* Python wrapper */
-static int __pyx_pw_7Storage_13DoubleStorage_1__init__(PyObject *__pyx_v_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
-static int __pyx_pw_7Storage_13DoubleStorage_1__init__(PyObject *__pyx_v_self, PyObject *__pyx_args, PyObject *__pyx_kwds) {
+static int __pyx_pw_7Storage_14_DoubleStorage_1__init__(PyObject *__pyx_v_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
+static int __pyx_pw_7Storage_14_DoubleStorage_1__init__(PyObject *__pyx_v_self, PyObject *__pyx_args, PyObject *__pyx_kwds) {
   PyObject *__pyx_v_args = 0;
   PyObject *__pyx_v_kwargs = 0;
   int __pyx_r;
@@ -2197,7 +2197,7 @@ static int __pyx_pw_7Storage_13DoubleStorage_1__init__(PyObject *__pyx_v_self, P
   __Pyx_GOTREF(__pyx_v_kwargs);
   __Pyx_INCREF(__pyx_args);
   __pyx_v_args = __pyx_args;
-  __pyx_r = __pyx_pf_7Storage_13DoubleStorage___init__(((struct __pyx_obj_7Storage_DoubleStorage *)__pyx_v_self), __pyx_v_args, __pyx_v_kwargs);
+  __pyx_r = __pyx_pf_7Storage_14_DoubleStorage___init__(((struct __pyx_obj_7Storage__DoubleStorage *)__pyx_v_self), __pyx_v_args, __pyx_v_kwargs);
 
   /* function exit code */
   __Pyx_XDECREF(__pyx_v_args);
@@ -2206,7 +2206,7 @@ static int __pyx_pw_7Storage_13DoubleStorage_1__init__(PyObject *__pyx_v_self, P
   return __pyx_r;
 }
 
-static int __pyx_pf_7Storage_13DoubleStorage___init__(struct __pyx_obj_7Storage_DoubleStorage *__pyx_v_self, PyObject *__pyx_v_args, PyObject *__pyx_v_kwargs) {
+static int __pyx_pf_7Storage_14_DoubleStorage___init__(struct __pyx_obj_7Storage__DoubleStorage *__pyx_v_self, PyObject *__pyx_v_args, PyObject *__pyx_v_kwargs) {
   PyObject *__pyx_v_arg = NULL;
   int __pyx_r;
   __Pyx_RefNannyDeclarations
@@ -2363,7 +2363,7 @@ static int __pyx_pf_7Storage_13DoubleStorage___init__(struct __pyx_obj_7Storage_
  *         if len(kwargs) > 0:
  *             raise Exception('cannot provide arguments to initializer')             # <<<<<<<<<<<<<<
  * 
- *     def __repr__(DoubleStorage self):
+ *     def __repr__(_DoubleStorage self):
  */
     __pyx_t_1 = __Pyx_PyObject_Call(__pyx_builtin_Exception, __pyx_tuple__4, NULL); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 46; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
     __Pyx_GOTREF(__pyx_t_1);
@@ -2386,7 +2386,7 @@ static int __pyx_pf_7Storage_13DoubleStorage___init__(struct __pyx_obj_7Storage_
   __pyx_L1_error:;
   __Pyx_XDECREF(__pyx_t_1);
   __Pyx_XDECREF(__pyx_t_2);
-  __Pyx_AddTraceback("Storage.DoubleStorage.__init__", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("Storage._DoubleStorage.__init__", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = -1;
   __pyx_L0:;
   __Pyx_XDECREF(__pyx_v_arg);
@@ -2397,25 +2397,25 @@ static int __pyx_pf_7Storage_13DoubleStorage___init__(struct __pyx_obj_7Storage_
 /* "Storage.pyx":48
  *             raise Exception('cannot provide arguments to initializer')
  * 
- *     def __repr__(DoubleStorage self):             # <<<<<<<<<<<<<<
+ *     def __repr__(_DoubleStorage self):             # <<<<<<<<<<<<<<
  *         cdef int size0
  *         size0 = THDoubleStorage_size(self.thDoubleStorage)
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_7Storage_13DoubleStorage_3__repr__(PyObject *__pyx_v_self); /*proto*/
-static PyObject *__pyx_pw_7Storage_13DoubleStorage_3__repr__(PyObject *__pyx_v_self) {
+static PyObject *__pyx_pw_7Storage_14_DoubleStorage_3__repr__(PyObject *__pyx_v_self); /*proto*/
+static PyObject *__pyx_pw_7Storage_14_DoubleStorage_3__repr__(PyObject *__pyx_v_self) {
   PyObject *__pyx_r = 0;
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("__repr__ (wrapper)", 0);
-  __pyx_r = __pyx_pf_7Storage_13DoubleStorage_2__repr__(((struct __pyx_obj_7Storage_DoubleStorage *)__pyx_v_self));
+  __pyx_r = __pyx_pf_7Storage_14_DoubleStorage_2__repr__(((struct __pyx_obj_7Storage__DoubleStorage *)__pyx_v_self));
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_7Storage_13DoubleStorage_2__repr__(struct __pyx_obj_7Storage_DoubleStorage *__pyx_v_self) {
+static PyObject *__pyx_pf_7Storage_14_DoubleStorage_2__repr__(struct __pyx_obj_7Storage__DoubleStorage *__pyx_v_self) {
   int __pyx_v_size0;
   PyObject *__pyx_v_res = NULL;
   int __pyx_v_c;
@@ -2432,7 +2432,7 @@ static PyObject *__pyx_pf_7Storage_13DoubleStorage_2__repr__(struct __pyx_obj_7S
   __Pyx_RefNannySetupContext("__repr__", 0);
 
   /* "Storage.pyx":50
- *     def __repr__(DoubleStorage self):
+ *     def __repr__(_DoubleStorage self):
  *         cdef int size0
  *         size0 = THDoubleStorage_size(self.thDoubleStorage)             # <<<<<<<<<<<<<<
  *         res = ''
@@ -2549,7 +2549,7 @@ static PyObject *__pyx_pf_7Storage_13DoubleStorage_2__repr__(struct __pyx_obj_7S
   /* "Storage.pyx":48
  *             raise Exception('cannot provide arguments to initializer')
  * 
- *     def __repr__(DoubleStorage self):             # <<<<<<<<<<<<<<
+ *     def __repr__(_DoubleStorage self):             # <<<<<<<<<<<<<<
  *         cdef int size0
  *         size0 = THDoubleStorage_size(self.thDoubleStorage)
  */
@@ -2558,7 +2558,7 @@ static PyObject *__pyx_pf_7Storage_13DoubleStorage_2__repr__(struct __pyx_obj_7S
   __pyx_L1_error:;
   __Pyx_XDECREF(__pyx_t_3);
   __Pyx_XDECREF(__pyx_t_5);
-  __Pyx_AddTraceback("Storage.DoubleStorage.__repr__", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("Storage._DoubleStorage.__repr__", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = NULL;
   __pyx_L0:;
   __Pyx_XDECREF(__pyx_v_res);
@@ -2572,31 +2572,31 @@ static PyObject *__pyx_pf_7Storage_13DoubleStorage_2__repr__(struct __pyx_obj_7S
  *     @staticmethod
  *     def new():             # <<<<<<<<<<<<<<
  *         # print('allocate storage')
- *         return DoubleStorage_fromNative(THDoubleStorage_new(), retain=False)
+ *         return _DoubleStorage_fromNative(THDoubleStorage_new(), retain=False)
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_7Storage_13DoubleStorage_5new(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
-static PyMethodDef __pyx_mdef_7Storage_13DoubleStorage_5new = {"new", (PyCFunction)__pyx_pw_7Storage_13DoubleStorage_5new, METH_VARARGS|METH_KEYWORDS, 0};
-static PyObject *__pyx_pw_7Storage_13DoubleStorage_5new(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds) {
+static PyObject *__pyx_pw_7Storage_14_DoubleStorage_5new(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
+static PyMethodDef __pyx_mdef_7Storage_14_DoubleStorage_5new = {"new", (PyCFunction)__pyx_pw_7Storage_14_DoubleStorage_5new, METH_VARARGS|METH_KEYWORDS, 0};
+static PyObject *__pyx_pw_7Storage_14_DoubleStorage_5new(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds) {
   PyObject *__pyx_r = 0;
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("new (wrapper)", 0);
   if (unlikely(PyTuple_GET_SIZE(__pyx_args) > 0)) {
     __Pyx_RaiseArgtupleInvalid("new", 1, 0, 0, PyTuple_GET_SIZE(__pyx_args)); return NULL;}
   if (unlikely(__pyx_kwds) && unlikely(PyDict_Size(__pyx_kwds) > 0) && unlikely(!__Pyx_CheckKeywordStrings(__pyx_kwds, "new", 0))) return NULL;
-  __pyx_r = __pyx_pf_7Storage_13DoubleStorage_4new();
+  __pyx_r = __pyx_pf_7Storage_14_DoubleStorage_4new();
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_7Storage_13DoubleStorage_4new() {
+static PyObject *__pyx_pf_7Storage_14_DoubleStorage_4new() {
   PyObject *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
   PyObject *__pyx_t_1 = NULL;
-  struct __pyx_opt_args_7Storage_DoubleStorage_fromNative __pyx_t_2;
+  struct __pyx_opt_args_7Storage__DoubleStorage_fromNative __pyx_t_2;
   int __pyx_lineno = 0;
   const char *__pyx_filename = NULL;
   int __pyx_clineno = 0;
@@ -2605,14 +2605,14 @@ static PyObject *__pyx_pf_7Storage_13DoubleStorage_4new() {
   /* "Storage.pyx":68
  *     def new():
  *         # print('allocate storage')
- *         return DoubleStorage_fromNative(THDoubleStorage_new(), retain=False)             # <<<<<<<<<<<<<<
+ *         return _DoubleStorage_fromNative(THDoubleStorage_new(), retain=False)             # <<<<<<<<<<<<<<
  * 
  *     @staticmethod
  */
   __Pyx_XDECREF(__pyx_r);
   __pyx_t_2.__pyx_n = 1;
   __pyx_t_2.retain = Py_False;
-  __pyx_t_1 = __pyx_f_7Storage_DoubleStorage_fromNative(THDoubleStorage_new(), &__pyx_t_2); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 68; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_1 = __pyx_f_7Storage__DoubleStorage_fromNative(THDoubleStorage_new(), &__pyx_t_2); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 68; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_r = __pyx_t_1;
   __pyx_t_1 = 0;
@@ -2623,13 +2623,13 @@ static PyObject *__pyx_pf_7Storage_13DoubleStorage_4new() {
  *     @staticmethod
  *     def new():             # <<<<<<<<<<<<<<
  *         # print('allocate storage')
- *         return DoubleStorage_fromNative(THDoubleStorage_new(), retain=False)
+ *         return _DoubleStorage_fromNative(THDoubleStorage_new(), retain=False)
  */
 
   /* function exit code */
   __pyx_L1_error:;
   __Pyx_XDECREF(__pyx_t_1);
-  __Pyx_AddTraceback("Storage.DoubleStorage.new", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("Storage._DoubleStorage.new", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = NULL;
   __pyx_L0:;
   __Pyx_XGIVEREF(__pyx_r);
@@ -2646,9 +2646,9 @@ static PyObject *__pyx_pf_7Storage_13DoubleStorage_4new() {
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_7Storage_13DoubleStorage_7newWithData(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
-static PyMethodDef __pyx_mdef_7Storage_13DoubleStorage_7newWithData = {"newWithData", (PyCFunction)__pyx_pw_7Storage_13DoubleStorage_7newWithData, METH_VARARGS|METH_KEYWORDS, 0};
-static PyObject *__pyx_pw_7Storage_13DoubleStorage_7newWithData(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds) {
+static PyObject *__pyx_pw_7Storage_14_DoubleStorage_7newWithData(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
+static PyMethodDef __pyx_mdef_7Storage_14_DoubleStorage_7newWithData = {"newWithData", (PyCFunction)__pyx_pw_7Storage_14_DoubleStorage_7newWithData, METH_VARARGS|METH_KEYWORDS, 0};
+static PyObject *__pyx_pw_7Storage_14_DoubleStorage_7newWithData(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds) {
   __Pyx_memviewslice __pyx_v_data = { 0, 0, { 0 }, { 0 }, { 0 } };
   int __pyx_lineno = 0;
   const char *__pyx_filename = NULL;
@@ -2687,18 +2687,18 @@ static PyObject *__pyx_pw_7Storage_13DoubleStorage_7newWithData(CYTHON_UNUSED Py
   __pyx_L5_argtuple_error:;
   __Pyx_RaiseArgtupleInvalid("newWithData", 1, 1, 1, PyTuple_GET_SIZE(__pyx_args)); {__pyx_filename = __pyx_f[0]; __pyx_lineno = 71; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
   __pyx_L3_error:;
-  __Pyx_AddTraceback("Storage.DoubleStorage.newWithData", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("Storage._DoubleStorage.newWithData", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __Pyx_RefNannyFinishContext();
   return NULL;
   __pyx_L4_argument_unpacking_done:;
-  __pyx_r = __pyx_pf_7Storage_13DoubleStorage_6newWithData(__pyx_v_data);
+  __pyx_r = __pyx_pf_7Storage_14_DoubleStorage_6newWithData(__pyx_v_data);
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_7Storage_13DoubleStorage_6newWithData(__Pyx_memviewslice __pyx_v_data) {
+static PyObject *__pyx_pf_7Storage_14_DoubleStorage_6newWithData(__Pyx_memviewslice __pyx_v_data) {
   struct THDoubleStorage *__pyx_v_storageC;
   PyObject *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
@@ -2706,7 +2706,7 @@ static PyObject *__pyx_pf_7Storage_13DoubleStorage_6newWithData(__Pyx_memviewsli
   int __pyx_t_2;
   PyObject *__pyx_t_3 = NULL;
   Py_ssize_t __pyx_t_4;
-  struct __pyx_opt_args_7Storage_DoubleStorage_fromNative __pyx_t_5;
+  struct __pyx_opt_args_7Storage__DoubleStorage_fromNative __pyx_t_5;
   int __pyx_lineno = 0;
   const char *__pyx_filename = NULL;
   int __pyx_clineno = 0;
@@ -2717,7 +2717,7 @@ static PyObject *__pyx_pf_7Storage_13DoubleStorage_6newWithData(__Pyx_memviewsli
  *     def newWithData(double [:] data):
  *         cdef THDoubleStorage *storageC = THDoubleStorage_newWithData(&data[0], len(data))             # <<<<<<<<<<<<<<
  *         # print('allocate storage')
- *         return DoubleStorage_fromNative(storageC, retain=False)
+ *         return _DoubleStorage_fromNative(storageC, retain=False)
  */
   __pyx_t_1 = 0;
   __pyx_t_2 = -1;
@@ -2738,14 +2738,14 @@ static PyObject *__pyx_pf_7Storage_13DoubleStorage_6newWithData(__Pyx_memviewsli
   /* "Storage.pyx":74
  *         cdef THDoubleStorage *storageC = THDoubleStorage_newWithData(&data[0], len(data))
  *         # print('allocate storage')
- *         return DoubleStorage_fromNative(storageC, retain=False)             # <<<<<<<<<<<<<<
+ *         return _DoubleStorage_fromNative(storageC, retain=False)             # <<<<<<<<<<<<<<
  * 
  *     @property
  */
   __Pyx_XDECREF(__pyx_r);
   __pyx_t_5.__pyx_n = 1;
   __pyx_t_5.retain = Py_False;
-  __pyx_t_3 = __pyx_f_7Storage_DoubleStorage_fromNative(__pyx_v_storageC, &__pyx_t_5); if (unlikely(!__pyx_t_3)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 74; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_3 = __pyx_f_7Storage__DoubleStorage_fromNative(__pyx_v_storageC, &__pyx_t_5); if (unlikely(!__pyx_t_3)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 74; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_3);
   __pyx_r = __pyx_t_3;
   __pyx_t_3 = 0;
@@ -2762,7 +2762,7 @@ static PyObject *__pyx_pf_7Storage_13DoubleStorage_6newWithData(__Pyx_memviewsli
   /* function exit code */
   __pyx_L1_error:;
   __Pyx_XDECREF(__pyx_t_3);
-  __Pyx_AddTraceback("Storage.DoubleStorage.newWithData", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("Storage._DoubleStorage.newWithData", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = NULL;
   __pyx_L0:;
   __PYX_XDEC_MEMVIEW(&__pyx_v_data, 1);
@@ -2774,25 +2774,25 @@ static PyObject *__pyx_pf_7Storage_13DoubleStorage_6newWithData(__Pyx_memviewsli
 /* "Storage.pyx":77
  * 
  *     @property
- *     def refCount(DoubleStorage self):             # <<<<<<<<<<<<<<
+ *     def refCount(_DoubleStorage self):             # <<<<<<<<<<<<<<
  *         return THDoubleStorage_getRefCount(self.thDoubleStorage)
  * 
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_7Storage_13DoubleStorage_9refCount(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused); /*proto*/
-static PyObject *__pyx_pw_7Storage_13DoubleStorage_9refCount(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused) {
+static PyObject *__pyx_pw_7Storage_14_DoubleStorage_9refCount(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused); /*proto*/
+static PyObject *__pyx_pw_7Storage_14_DoubleStorage_9refCount(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused) {
   PyObject *__pyx_r = 0;
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("refCount (wrapper)", 0);
-  __pyx_r = __pyx_pf_7Storage_13DoubleStorage_8refCount(((struct __pyx_obj_7Storage_DoubleStorage *)__pyx_v_self));
+  __pyx_r = __pyx_pf_7Storage_14_DoubleStorage_8refCount(((struct __pyx_obj_7Storage__DoubleStorage *)__pyx_v_self));
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_7Storage_13DoubleStorage_8refCount(struct __pyx_obj_7Storage_DoubleStorage *__pyx_v_self) {
+static PyObject *__pyx_pf_7Storage_14_DoubleStorage_8refCount(struct __pyx_obj_7Storage__DoubleStorage *__pyx_v_self) {
   PyObject *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
   PyObject *__pyx_t_1 = NULL;
@@ -2803,10 +2803,10 @@ static PyObject *__pyx_pf_7Storage_13DoubleStorage_8refCount(struct __pyx_obj_7S
 
   /* "Storage.pyx":78
  *     @property
- *     def refCount(DoubleStorage self):
+ *     def refCount(_DoubleStorage self):
  *         return THDoubleStorage_getRefCount(self.thDoubleStorage)             # <<<<<<<<<<<<<<
  * 
- *     def dataAddr(DoubleStorage self):
+ *     def dataAddr(_DoubleStorage self):
  */
   __Pyx_XDECREF(__pyx_r);
   __pyx_t_1 = __Pyx_PyInt_From_int(THDoubleStorage_getRefCount(__pyx_v_self->thDoubleStorage)); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 78; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
@@ -2818,7 +2818,7 @@ static PyObject *__pyx_pf_7Storage_13DoubleStorage_8refCount(struct __pyx_obj_7S
   /* "Storage.pyx":77
  * 
  *     @property
- *     def refCount(DoubleStorage self):             # <<<<<<<<<<<<<<
+ *     def refCount(_DoubleStorage self):             # <<<<<<<<<<<<<<
  *         return THDoubleStorage_getRefCount(self.thDoubleStorage)
  * 
  */
@@ -2826,7 +2826,7 @@ static PyObject *__pyx_pf_7Storage_13DoubleStorage_8refCount(struct __pyx_obj_7S
   /* function exit code */
   __pyx_L1_error:;
   __Pyx_XDECREF(__pyx_t_1);
-  __Pyx_AddTraceback("Storage.DoubleStorage.refCount", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("Storage._DoubleStorage.refCount", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = NULL;
   __pyx_L0:;
   __Pyx_XGIVEREF(__pyx_r);
@@ -2837,25 +2837,25 @@ static PyObject *__pyx_pf_7Storage_13DoubleStorage_8refCount(struct __pyx_obj_7S
 /* "Storage.pyx":80
  *         return THDoubleStorage_getRefCount(self.thDoubleStorage)
  * 
- *     def dataAddr(DoubleStorage self):             # <<<<<<<<<<<<<<
+ *     def dataAddr(_DoubleStorage self):             # <<<<<<<<<<<<<<
  *         cdef double *data = THDoubleStorage_data(self.thDoubleStorage)
  *         cdef long dataAddr = pointerAsInt(data)
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_7Storage_13DoubleStorage_11dataAddr(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused); /*proto*/
-static PyObject *__pyx_pw_7Storage_13DoubleStorage_11dataAddr(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused) {
+static PyObject *__pyx_pw_7Storage_14_DoubleStorage_11dataAddr(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused); /*proto*/
+static PyObject *__pyx_pw_7Storage_14_DoubleStorage_11dataAddr(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused) {
   PyObject *__pyx_r = 0;
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("dataAddr (wrapper)", 0);
-  __pyx_r = __pyx_pf_7Storage_13DoubleStorage_10dataAddr(((struct __pyx_obj_7Storage_DoubleStorage *)__pyx_v_self));
+  __pyx_r = __pyx_pf_7Storage_14_DoubleStorage_10dataAddr(((struct __pyx_obj_7Storage__DoubleStorage *)__pyx_v_self));
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_7Storage_13DoubleStorage_10dataAddr(struct __pyx_obj_7Storage_DoubleStorage *__pyx_v_self) {
+static PyObject *__pyx_pf_7Storage_14_DoubleStorage_10dataAddr(struct __pyx_obj_7Storage__DoubleStorage *__pyx_v_self) {
   double *__pyx_v_data;
   long __pyx_v_dataAddr;
   PyObject *__pyx_r = NULL;
@@ -2868,7 +2868,7 @@ static PyObject *__pyx_pf_7Storage_13DoubleStorage_10dataAddr(struct __pyx_obj_7
 
   /* "Storage.pyx":81
  * 
- *     def dataAddr(DoubleStorage self):
+ *     def dataAddr(_DoubleStorage self):
  *         cdef double *data = THDoubleStorage_data(self.thDoubleStorage)             # <<<<<<<<<<<<<<
  *         cdef long dataAddr = pointerAsInt(data)
  *         return dataAddr
@@ -2876,7 +2876,7 @@ static PyObject *__pyx_pf_7Storage_13DoubleStorage_10dataAddr(struct __pyx_obj_7
   __pyx_v_data = THDoubleStorage_data(__pyx_v_self->thDoubleStorage);
 
   /* "Storage.pyx":82
- *     def dataAddr(DoubleStorage self):
+ *     def dataAddr(_DoubleStorage self):
  *         cdef double *data = THDoubleStorage_data(self.thDoubleStorage)
  *         cdef long dataAddr = pointerAsInt(data)             # <<<<<<<<<<<<<<
  *         return dataAddr
@@ -2901,7 +2901,7 @@ static PyObject *__pyx_pf_7Storage_13DoubleStorage_10dataAddr(struct __pyx_obj_7
   /* "Storage.pyx":80
  *         return THDoubleStorage_getRefCount(self.thDoubleStorage)
  * 
- *     def dataAddr(DoubleStorage self):             # <<<<<<<<<<<<<<
+ *     def dataAddr(_DoubleStorage self):             # <<<<<<<<<<<<<<
  *         cdef double *data = THDoubleStorage_data(self.thDoubleStorage)
  *         cdef long dataAddr = pointerAsInt(data)
  */
@@ -2909,7 +2909,7 @@ static PyObject *__pyx_pf_7Storage_13DoubleStorage_10dataAddr(struct __pyx_obj_7
   /* function exit code */
   __pyx_L1_error:;
   __Pyx_XDECREF(__pyx_t_1);
-  __Pyx_AddTraceback("Storage.DoubleStorage.dataAddr", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("Storage._DoubleStorage.dataAddr", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = NULL;
   __pyx_L0:;
   __Pyx_XGIVEREF(__pyx_r);
@@ -2926,9 +2926,9 @@ static PyObject *__pyx_pf_7Storage_13DoubleStorage_10dataAddr(struct __pyx_obj_7
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_7Storage_13DoubleStorage_13newWithSize(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
-static PyMethodDef __pyx_mdef_7Storage_13DoubleStorage_13newWithSize = {"newWithSize", (PyCFunction)__pyx_pw_7Storage_13DoubleStorage_13newWithSize, METH_VARARGS|METH_KEYWORDS, 0};
-static PyObject *__pyx_pw_7Storage_13DoubleStorage_13newWithSize(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds) {
+static PyObject *__pyx_pw_7Storage_14_DoubleStorage_13newWithSize(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
+static PyMethodDef __pyx_mdef_7Storage_14_DoubleStorage_13newWithSize = {"newWithSize", (PyCFunction)__pyx_pw_7Storage_14_DoubleStorage_13newWithSize, METH_VARARGS|METH_KEYWORDS, 0};
+static PyObject *__pyx_pw_7Storage_14_DoubleStorage_13newWithSize(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds) {
   long __pyx_v_size;
   int __pyx_lineno = 0;
   const char *__pyx_filename = NULL;
@@ -2967,23 +2967,23 @@ static PyObject *__pyx_pw_7Storage_13DoubleStorage_13newWithSize(CYTHON_UNUSED P
   __pyx_L5_argtuple_error:;
   __Pyx_RaiseArgtupleInvalid("newWithSize", 1, 1, 1, PyTuple_GET_SIZE(__pyx_args)); {__pyx_filename = __pyx_f[0]; __pyx_lineno = 86; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
   __pyx_L3_error:;
-  __Pyx_AddTraceback("Storage.DoubleStorage.newWithSize", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("Storage._DoubleStorage.newWithSize", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __Pyx_RefNannyFinishContext();
   return NULL;
   __pyx_L4_argument_unpacking_done:;
-  __pyx_r = __pyx_pf_7Storage_13DoubleStorage_12newWithSize(__pyx_v_size);
+  __pyx_r = __pyx_pf_7Storage_14_DoubleStorage_12newWithSize(__pyx_v_size);
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_7Storage_13DoubleStorage_12newWithSize(long __pyx_v_size) {
+static PyObject *__pyx_pf_7Storage_14_DoubleStorage_12newWithSize(long __pyx_v_size) {
   struct THDoubleStorage *__pyx_v_storageC;
   PyObject *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
   PyObject *__pyx_t_1 = NULL;
-  struct __pyx_opt_args_7Storage_DoubleStorage_fromNative __pyx_t_2;
+  struct __pyx_opt_args_7Storage__DoubleStorage_fromNative __pyx_t_2;
   int __pyx_lineno = 0;
   const char *__pyx_filename = NULL;
   int __pyx_clineno = 0;
@@ -2994,21 +2994,21 @@ static PyObject *__pyx_pf_7Storage_13DoubleStorage_12newWithSize(long __pyx_v_si
  *     def newWithSize(long size):
  *         cdef THDoubleStorage *storageC = THDoubleStorage_newWithSize(size)             # <<<<<<<<<<<<<<
  *         # print('allocate storage')
- *         return DoubleStorage_fromNative(storageC, retain=False)
+ *         return _DoubleStorage_fromNative(storageC, retain=False)
  */
   __pyx_v_storageC = THDoubleStorage_newWithSize(__pyx_v_size);
 
   /* "Storage.pyx":89
  *         cdef THDoubleStorage *storageC = THDoubleStorage_newWithSize(size)
  *         # print('allocate storage')
- *         return DoubleStorage_fromNative(storageC, retain=False)             # <<<<<<<<<<<<<<
+ *         return _DoubleStorage_fromNative(storageC, retain=False)             # <<<<<<<<<<<<<<
  * 
  *     cpdef long size(self):
  */
   __Pyx_XDECREF(__pyx_r);
   __pyx_t_2.__pyx_n = 1;
   __pyx_t_2.retain = Py_False;
-  __pyx_t_1 = __pyx_f_7Storage_DoubleStorage_fromNative(__pyx_v_storageC, &__pyx_t_2); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 89; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_1 = __pyx_f_7Storage__DoubleStorage_fromNative(__pyx_v_storageC, &__pyx_t_2); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 89; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_r = __pyx_t_1;
   __pyx_t_1 = 0;
@@ -3025,7 +3025,7 @@ static PyObject *__pyx_pf_7Storage_13DoubleStorage_12newWithSize(long __pyx_v_si
   /* function exit code */
   __pyx_L1_error:;
   __Pyx_XDECREF(__pyx_t_1);
-  __Pyx_AddTraceback("Storage.DoubleStorage.newWithSize", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("Storage._DoubleStorage.newWithSize", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = NULL;
   __pyx_L0:;
   __Pyx_XGIVEREF(__pyx_r);
@@ -3034,15 +3034,15 @@ static PyObject *__pyx_pf_7Storage_13DoubleStorage_12newWithSize(long __pyx_v_si
 }
 
 /* "Storage.pyx":91
- *         return DoubleStorage_fromNative(storageC, retain=False)
+ *         return _DoubleStorage_fromNative(storageC, retain=False)
  * 
  *     cpdef long size(self):             # <<<<<<<<<<<<<<
  *         return THDoubleStorage_size(self.thDoubleStorage)
  * 
  */
 
-static PyObject *__pyx_pw_7Storage_13DoubleStorage_15size(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused); /*proto*/
-static long __pyx_f_7Storage_13DoubleStorage_size(struct __pyx_obj_7Storage_DoubleStorage *__pyx_v_self, int __pyx_skip_dispatch) {
+static PyObject *__pyx_pw_7Storage_14_DoubleStorage_15size(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused); /*proto*/
+static long __pyx_f_7Storage_14_DoubleStorage_size(struct __pyx_obj_7Storage__DoubleStorage *__pyx_v_self, int __pyx_skip_dispatch) {
   long __pyx_r;
   __Pyx_RefNannyDeclarations
   PyObject *__pyx_t_1 = NULL;
@@ -3060,7 +3060,7 @@ static long __pyx_f_7Storage_13DoubleStorage_size(struct __pyx_obj_7Storage_Doub
   else if (unlikely(Py_TYPE(((PyObject *)__pyx_v_self))->tp_dictoffset != 0)) {
     __pyx_t_1 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_self), __pyx_n_s_size); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 91; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
     __Pyx_GOTREF(__pyx_t_1);
-    if (!PyCFunction_Check(__pyx_t_1) || (PyCFunction_GET_FUNCTION(__pyx_t_1) != (PyCFunction)__pyx_pw_7Storage_13DoubleStorage_15size)) {
+    if (!PyCFunction_Check(__pyx_t_1) || (PyCFunction_GET_FUNCTION(__pyx_t_1) != (PyCFunction)__pyx_pw_7Storage_14_DoubleStorage_15size)) {
       __Pyx_INCREF(__pyx_t_1);
       __pyx_t_3 = __pyx_t_1; __pyx_t_4 = NULL;
       if (CYTHON_COMPILING_IN_CPYTHON && unlikely(PyMethod_Check(__pyx_t_3))) {
@@ -3100,7 +3100,7 @@ static long __pyx_f_7Storage_13DoubleStorage_size(struct __pyx_obj_7Storage_Doub
   goto __pyx_L0;
 
   /* "Storage.pyx":91
- *         return DoubleStorage_fromNative(storageC, retain=False)
+ *         return _DoubleStorage_fromNative(storageC, retain=False)
  * 
  *     cpdef long size(self):             # <<<<<<<<<<<<<<
  *         return THDoubleStorage_size(self.thDoubleStorage)
@@ -3113,7 +3113,7 @@ static long __pyx_f_7Storage_13DoubleStorage_size(struct __pyx_obj_7Storage_Doub
   __Pyx_XDECREF(__pyx_t_2);
   __Pyx_XDECREF(__pyx_t_3);
   __Pyx_XDECREF(__pyx_t_4);
-  __Pyx_WriteUnraisable("Storage.DoubleStorage.size", __pyx_clineno, __pyx_lineno, __pyx_filename, 0);
+  __Pyx_WriteUnraisable("Storage._DoubleStorage.size", __pyx_clineno, __pyx_lineno, __pyx_filename, 0);
   __pyx_r = 0;
   __pyx_L0:;
   __Pyx_RefNannyFinishContext();
@@ -3121,19 +3121,19 @@ static long __pyx_f_7Storage_13DoubleStorage_size(struct __pyx_obj_7Storage_Doub
 }
 
 /* Python wrapper */
-static PyObject *__pyx_pw_7Storage_13DoubleStorage_15size(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused); /*proto*/
-static PyObject *__pyx_pw_7Storage_13DoubleStorage_15size(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused) {
+static PyObject *__pyx_pw_7Storage_14_DoubleStorage_15size(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused); /*proto*/
+static PyObject *__pyx_pw_7Storage_14_DoubleStorage_15size(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused) {
   PyObject *__pyx_r = 0;
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("size (wrapper)", 0);
-  __pyx_r = __pyx_pf_7Storage_13DoubleStorage_14size(((struct __pyx_obj_7Storage_DoubleStorage *)__pyx_v_self));
+  __pyx_r = __pyx_pf_7Storage_14_DoubleStorage_14size(((struct __pyx_obj_7Storage__DoubleStorage *)__pyx_v_self));
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_7Storage_13DoubleStorage_14size(struct __pyx_obj_7Storage_DoubleStorage *__pyx_v_self) {
+static PyObject *__pyx_pf_7Storage_14_DoubleStorage_14size(struct __pyx_obj_7Storage__DoubleStorage *__pyx_v_self) {
   PyObject *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
   PyObject *__pyx_t_1 = NULL;
@@ -3142,7 +3142,7 @@ static PyObject *__pyx_pf_7Storage_13DoubleStorage_14size(struct __pyx_obj_7Stor
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("size", 0);
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_1 = __Pyx_PyInt_From_long(__pyx_f_7Storage_13DoubleStorage_size(__pyx_v_self, 1)); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 91; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_1 = __Pyx_PyInt_From_long(__pyx_f_7Storage_14_DoubleStorage_size(__pyx_v_self, 1)); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 91; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_r = __pyx_t_1;
   __pyx_t_1 = 0;
@@ -3151,7 +3151,7 @@ static PyObject *__pyx_pf_7Storage_13DoubleStorage_14size(struct __pyx_obj_7Stor
   /* function exit code */
   __pyx_L1_error:;
   __Pyx_XDECREF(__pyx_t_1);
-  __Pyx_AddTraceback("Storage.DoubleStorage.size", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("Storage._DoubleStorage.size", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = NULL;
   __pyx_L0:;
   __Pyx_XGIVEREF(__pyx_r);
@@ -3168,17 +3168,17 @@ static PyObject *__pyx_pf_7Storage_13DoubleStorage_14size(struct __pyx_obj_7Stor
  */
 
 /* Python wrapper */
-static void __pyx_pw_7Storage_13DoubleStorage_17__dealloc__(PyObject *__pyx_v_self); /*proto*/
-static void __pyx_pw_7Storage_13DoubleStorage_17__dealloc__(PyObject *__pyx_v_self) {
+static void __pyx_pw_7Storage_14_DoubleStorage_17__dealloc__(PyObject *__pyx_v_self); /*proto*/
+static void __pyx_pw_7Storage_14_DoubleStorage_17__dealloc__(PyObject *__pyx_v_self) {
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("__dealloc__ (wrapper)", 0);
-  __pyx_pf_7Storage_13DoubleStorage_16__dealloc__(((struct __pyx_obj_7Storage_DoubleStorage *)__pyx_v_self));
+  __pyx_pf_7Storage_14_DoubleStorage_16__dealloc__(((struct __pyx_obj_7Storage__DoubleStorage *)__pyx_v_self));
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
 }
 
-static void __pyx_pf_7Storage_13DoubleStorage_16__dealloc__(struct __pyx_obj_7Storage_DoubleStorage *__pyx_v_self) {
+static void __pyx_pf_7Storage_14_DoubleStorage_16__dealloc__(struct __pyx_obj_7Storage__DoubleStorage *__pyx_v_self) {
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("__dealloc__", 0);
 
@@ -3202,7 +3202,7 @@ static void __pyx_pf_7Storage_13DoubleStorage_16__dealloc__(struct __pyx_obj_7St
   /* function exit code */
   __Pyx_RefNannyFinishContext();
 }
-static PyObject *__pyx_gb_7Storage_13DoubleStorage_20generator(__pyx_GeneratorObject *__pyx_generator, PyObject *__pyx_sent_value); /* proto */
+static PyObject *__pyx_gb_7Storage_14_DoubleStorage_20generator(__pyx_GeneratorObject *__pyx_generator, PyObject *__pyx_sent_value); /* proto */
 
 /* "Storage.pyx":99
  *         THDoubleStorage_free(self.thDoubleStorage)
@@ -3213,19 +3213,19 @@ static PyObject *__pyx_gb_7Storage_13DoubleStorage_20generator(__pyx_GeneratorOb
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_7Storage_13DoubleStorage_19__iter__(PyObject *__pyx_v_self); /*proto*/
-static PyObject *__pyx_pw_7Storage_13DoubleStorage_19__iter__(PyObject *__pyx_v_self) {
+static PyObject *__pyx_pw_7Storage_14_DoubleStorage_19__iter__(PyObject *__pyx_v_self); /*proto*/
+static PyObject *__pyx_pw_7Storage_14_DoubleStorage_19__iter__(PyObject *__pyx_v_self) {
   PyObject *__pyx_r = 0;
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("__iter__ (wrapper)", 0);
-  __pyx_r = __pyx_pf_7Storage_13DoubleStorage_18__iter__(((struct __pyx_obj_7Storage_DoubleStorage *)__pyx_v_self));
+  __pyx_r = __pyx_pf_7Storage_14_DoubleStorage_18__iter__(((struct __pyx_obj_7Storage__DoubleStorage *)__pyx_v_self));
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_7Storage_13DoubleStorage_18__iter__(struct __pyx_obj_7Storage_DoubleStorage *__pyx_v_self) {
+static PyObject *__pyx_pf_7Storage_14_DoubleStorage_18__iter__(struct __pyx_obj_7Storage__DoubleStorage *__pyx_v_self) {
   struct __pyx_obj_7Storage___pyx_scope_struct____iter__ *__pyx_cur_scope;
   PyObject *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
@@ -3243,7 +3243,7 @@ static PyObject *__pyx_pf_7Storage_13DoubleStorage_18__iter__(struct __pyx_obj_7
   __Pyx_INCREF((PyObject *)__pyx_cur_scope->__pyx_v_self);
   __Pyx_GIVEREF((PyObject *)__pyx_cur_scope->__pyx_v_self);
   {
-    __pyx_GeneratorObject *gen = __Pyx_Generator_New((__pyx_generator_body_t) __pyx_gb_7Storage_13DoubleStorage_20generator, (PyObject *) __pyx_cur_scope, __pyx_n_s_iter, __pyx_n_s_DoubleStorage___iter); if (unlikely(!gen)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 99; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+    __pyx_GeneratorObject *gen = __Pyx_Generator_New((__pyx_generator_body_t) __pyx_gb_7Storage_14_DoubleStorage_20generator, (PyObject *) __pyx_cur_scope, __pyx_n_s_iter, __pyx_n_s_DoubleStorage___iter); if (unlikely(!gen)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 99; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
     __Pyx_DECREF(__pyx_cur_scope);
     __Pyx_RefNannyFinishContext();
     return (PyObject *) gen;
@@ -3251,7 +3251,7 @@ static PyObject *__pyx_pf_7Storage_13DoubleStorage_18__iter__(struct __pyx_obj_7
 
   /* function exit code */
   __pyx_L1_error:;
-  __Pyx_AddTraceback("Storage.DoubleStorage.__iter__", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("Storage._DoubleStorage.__iter__", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = NULL;
   __Pyx_DECREF(((PyObject *)__pyx_cur_scope));
   __Pyx_XGIVEREF(__pyx_r);
@@ -3259,7 +3259,7 @@ static PyObject *__pyx_pf_7Storage_13DoubleStorage_18__iter__(struct __pyx_obj_7
   return __pyx_r;
 }
 
-static PyObject *__pyx_gb_7Storage_13DoubleStorage_20generator(__pyx_GeneratorObject *__pyx_generator, PyObject *__pyx_sent_value) /* generator body */
+static PyObject *__pyx_gb_7Storage_14_DoubleStorage_20generator(__pyx_GeneratorObject *__pyx_generator, PyObject *__pyx_sent_value) /* generator body */
 {
   struct __pyx_obj_7Storage___pyx_scope_struct____iter__ *__pyx_cur_scope = ((struct __pyx_obj_7Storage___pyx_scope_struct____iter__ *)__pyx_generator->closure);
   PyObject *__pyx_r = NULL;
@@ -3306,7 +3306,7 @@ static PyObject *__pyx_gb_7Storage_13DoubleStorage_20generator(__pyx_GeneratorOb
  *         for c in range(size0):
  *             yield self[c]             # <<<<<<<<<<<<<<
  * 
- *     def __getitem__(DoubleStorage self, int index):
+ *     def __getitem__(_DoubleStorage self, int index):
  */
     __pyx_t_3 = __Pyx_GetItemInt(((PyObject *)__pyx_cur_scope->__pyx_v_self), __pyx_cur_scope->__pyx_v_c, int, 1, __Pyx_PyInt_From_int, 0, 1, 1); if (unlikely(__pyx_t_3 == NULL)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 103; __pyx_clineno = __LINE__; goto __pyx_L1_error;};
     __Pyx_GOTREF(__pyx_t_3);
@@ -3350,14 +3350,14 @@ static PyObject *__pyx_gb_7Storage_13DoubleStorage_20generator(__pyx_GeneratorOb
 /* "Storage.pyx":105
  *             yield self[c]
  * 
- *     def __getitem__(DoubleStorage self, int index):             # <<<<<<<<<<<<<<
+ *     def __getitem__(_DoubleStorage self, int index):             # <<<<<<<<<<<<<<
  *         cdef double res = THDoubleStorage_get(self.thDoubleStorage, index)
  *         return res
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_7Storage_13DoubleStorage_22__getitem__(PyObject *__pyx_v_self, PyObject *__pyx_arg_index); /*proto*/
-static PyObject *__pyx_pw_7Storage_13DoubleStorage_22__getitem__(PyObject *__pyx_v_self, PyObject *__pyx_arg_index) {
+static PyObject *__pyx_pw_7Storage_14_DoubleStorage_22__getitem__(PyObject *__pyx_v_self, PyObject *__pyx_arg_index); /*proto*/
+static PyObject *__pyx_pw_7Storage_14_DoubleStorage_22__getitem__(PyObject *__pyx_v_self, PyObject *__pyx_arg_index) {
   int __pyx_v_index;
   int __pyx_lineno = 0;
   const char *__pyx_filename = NULL;
@@ -3370,18 +3370,18 @@ static PyObject *__pyx_pw_7Storage_13DoubleStorage_22__getitem__(PyObject *__pyx
   }
   goto __pyx_L4_argument_unpacking_done;
   __pyx_L3_error:;
-  __Pyx_AddTraceback("Storage.DoubleStorage.__getitem__", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("Storage._DoubleStorage.__getitem__", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __Pyx_RefNannyFinishContext();
   return NULL;
   __pyx_L4_argument_unpacking_done:;
-  __pyx_r = __pyx_pf_7Storage_13DoubleStorage_21__getitem__(((struct __pyx_obj_7Storage_DoubleStorage *)__pyx_v_self), ((int)__pyx_v_index));
+  __pyx_r = __pyx_pf_7Storage_14_DoubleStorage_21__getitem__(((struct __pyx_obj_7Storage__DoubleStorage *)__pyx_v_self), ((int)__pyx_v_index));
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_7Storage_13DoubleStorage_21__getitem__(struct __pyx_obj_7Storage_DoubleStorage *__pyx_v_self, int __pyx_v_index) {
+static PyObject *__pyx_pf_7Storage_14_DoubleStorage_21__getitem__(struct __pyx_obj_7Storage__DoubleStorage *__pyx_v_self, int __pyx_v_index) {
   double __pyx_v_res;
   PyObject *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
@@ -3393,7 +3393,7 @@ static PyObject *__pyx_pf_7Storage_13DoubleStorage_21__getitem__(struct __pyx_ob
 
   /* "Storage.pyx":106
  * 
- *     def __getitem__(DoubleStorage self, int index):
+ *     def __getitem__(_DoubleStorage self, int index):
  *         cdef double res = THDoubleStorage_get(self.thDoubleStorage, index)             # <<<<<<<<<<<<<<
  *         return res
  * 
@@ -3401,11 +3401,11 @@ static PyObject *__pyx_pf_7Storage_13DoubleStorage_21__getitem__(struct __pyx_ob
   __pyx_v_res = THDoubleStorage_get(__pyx_v_self->thDoubleStorage, __pyx_v_index);
 
   /* "Storage.pyx":107
- *     def __getitem__(DoubleStorage self, int index):
+ *     def __getitem__(_DoubleStorage self, int index):
  *         cdef double res = THDoubleStorage_get(self.thDoubleStorage, index)
  *         return res             # <<<<<<<<<<<<<<
  * 
- *     def __setitem__(DoubleStorage self, int index, double value):
+ *     def __setitem__(_DoubleStorage self, int index, double value):
  */
   __Pyx_XDECREF(__pyx_r);
   __pyx_t_1 = PyFloat_FromDouble(__pyx_v_res); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 107; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
@@ -3417,7 +3417,7 @@ static PyObject *__pyx_pf_7Storage_13DoubleStorage_21__getitem__(struct __pyx_ob
   /* "Storage.pyx":105
  *             yield self[c]
  * 
- *     def __getitem__(DoubleStorage self, int index):             # <<<<<<<<<<<<<<
+ *     def __getitem__(_DoubleStorage self, int index):             # <<<<<<<<<<<<<<
  *         cdef double res = THDoubleStorage_get(self.thDoubleStorage, index)
  *         return res
  */
@@ -3425,7 +3425,7 @@ static PyObject *__pyx_pf_7Storage_13DoubleStorage_21__getitem__(struct __pyx_ob
   /* function exit code */
   __pyx_L1_error:;
   __Pyx_XDECREF(__pyx_t_1);
-  __Pyx_AddTraceback("Storage.DoubleStorage.__getitem__", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("Storage._DoubleStorage.__getitem__", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = NULL;
   __pyx_L0:;
   __Pyx_XGIVEREF(__pyx_r);
@@ -3436,14 +3436,14 @@ static PyObject *__pyx_pf_7Storage_13DoubleStorage_21__getitem__(struct __pyx_ob
 /* "Storage.pyx":109
  *         return res
  * 
- *     def __setitem__(DoubleStorage self, int index, double value):             # <<<<<<<<<<<<<<
+ *     def __setitem__(_DoubleStorage self, int index, double value):             # <<<<<<<<<<<<<<
  *         THDoubleStorage_set(self.thDoubleStorage, index, value)
  * 
  */
 
 /* Python wrapper */
-static int __pyx_pw_7Storage_13DoubleStorage_24__setitem__(PyObject *__pyx_v_self, PyObject *__pyx_arg_index, PyObject *__pyx_arg_value); /*proto*/
-static int __pyx_pw_7Storage_13DoubleStorage_24__setitem__(PyObject *__pyx_v_self, PyObject *__pyx_arg_index, PyObject *__pyx_arg_value) {
+static int __pyx_pw_7Storage_14_DoubleStorage_24__setitem__(PyObject *__pyx_v_self, PyObject *__pyx_arg_index, PyObject *__pyx_arg_value); /*proto*/
+static int __pyx_pw_7Storage_14_DoubleStorage_24__setitem__(PyObject *__pyx_v_self, PyObject *__pyx_arg_index, PyObject *__pyx_arg_value) {
   int __pyx_v_index;
   double __pyx_v_value;
   int __pyx_lineno = 0;
@@ -3460,25 +3460,25 @@ static int __pyx_pw_7Storage_13DoubleStorage_24__setitem__(PyObject *__pyx_v_sel
   }
   goto __pyx_L4_argument_unpacking_done;
   __pyx_L3_error:;
-  __Pyx_AddTraceback("Storage.DoubleStorage.__setitem__", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("Storage._DoubleStorage.__setitem__", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __Pyx_RefNannyFinishContext();
   return -1;
   __pyx_L4_argument_unpacking_done:;
-  __pyx_r = __pyx_pf_7Storage_13DoubleStorage_23__setitem__(((struct __pyx_obj_7Storage_DoubleStorage *)__pyx_v_self), ((int)__pyx_v_index), ((double)__pyx_v_value));
+  __pyx_r = __pyx_pf_7Storage_14_DoubleStorage_23__setitem__(((struct __pyx_obj_7Storage__DoubleStorage *)__pyx_v_self), ((int)__pyx_v_index), ((double)__pyx_v_value));
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static int __pyx_pf_7Storage_13DoubleStorage_23__setitem__(struct __pyx_obj_7Storage_DoubleStorage *__pyx_v_self, int __pyx_v_index, double __pyx_v_value) {
+static int __pyx_pf_7Storage_14_DoubleStorage_23__setitem__(struct __pyx_obj_7Storage__DoubleStorage *__pyx_v_self, int __pyx_v_index, double __pyx_v_value) {
   int __pyx_r;
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("__setitem__", 0);
 
   /* "Storage.pyx":110
  * 
- *     def __setitem__(DoubleStorage self, int index, double value):
+ *     def __setitem__(_DoubleStorage self, int index, double value):
  *         THDoubleStorage_set(self.thDoubleStorage, index, value)             # <<<<<<<<<<<<<<
  * 
  * 
@@ -3488,7 +3488,7 @@ static int __pyx_pf_7Storage_13DoubleStorage_23__setitem__(struct __pyx_obj_7Sto
   /* "Storage.pyx":109
  *         return res
  * 
- *     def __setitem__(DoubleStorage self, int index, double value):             # <<<<<<<<<<<<<<
+ *     def __setitem__(_DoubleStorage self, int index, double value):             # <<<<<<<<<<<<<<
  *         THDoubleStorage_set(self.thDoubleStorage, index, value)
  * 
  */
@@ -3502,14 +3502,14 @@ static int __pyx_pf_7Storage_13DoubleStorage_23__setitem__(struct __pyx_obj_7Sto
 /* "Storage.pyx":113
  * 
  * 
- * cdef DoubleStorage_fromNative(THDoubleStorage *storageC, retain=True):             # <<<<<<<<<<<<<<
+ * cdef _DoubleStorage_fromNative(THDoubleStorage *storageC, retain=True):             # <<<<<<<<<<<<<<
  *     if retain:
  *         THDoubleStorage_retain(storageC)
  */
 
-static PyObject *__pyx_f_7Storage_DoubleStorage_fromNative(struct THDoubleStorage *__pyx_v_storageC, struct __pyx_opt_args_7Storage_DoubleStorage_fromNative *__pyx_optional_args) {
+static PyObject *__pyx_f_7Storage__DoubleStorage_fromNative(struct THDoubleStorage *__pyx_v_storageC, struct __pyx_opt_args_7Storage__DoubleStorage_fromNative *__pyx_optional_args) {
   PyObject *__pyx_v_retain = ((PyObject *)Py_True);
-  struct __pyx_obj_7Storage_DoubleStorage *__pyx_v_storage = NULL;
+  struct __pyx_obj_7Storage__DoubleStorage *__pyx_v_storage = NULL;
   PyObject *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
   int __pyx_t_1;
@@ -3517,7 +3517,7 @@ static PyObject *__pyx_f_7Storage_DoubleStorage_fromNative(struct THDoubleStorag
   int __pyx_lineno = 0;
   const char *__pyx_filename = NULL;
   int __pyx_clineno = 0;
-  __Pyx_RefNannySetupContext("DoubleStorage_fromNative", 0);
+  __Pyx_RefNannySetupContext("_DoubleStorage_fromNative", 0);
   if (__pyx_optional_args) {
     if (__pyx_optional_args->__pyx_n > 0) {
       __pyx_v_retain = __pyx_optional_args->retain;
@@ -3526,19 +3526,19 @@ static PyObject *__pyx_f_7Storage_DoubleStorage_fromNative(struct THDoubleStorag
 
   /* "Storage.pyx":114
  * 
- * cdef DoubleStorage_fromNative(THDoubleStorage *storageC, retain=True):
+ * cdef _DoubleStorage_fromNative(THDoubleStorage *storageC, retain=True):
  *     if retain:             # <<<<<<<<<<<<<<
  *         THDoubleStorage_retain(storageC)
- *     storage = DoubleStorage()
+ *     storage = _DoubleStorage()
  */
   __pyx_t_1 = __Pyx_PyObject_IsTrue(__pyx_v_retain); if (unlikely(__pyx_t_1 < 0)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 114; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   if (__pyx_t_1) {
 
     /* "Storage.pyx":115
- * cdef DoubleStorage_fromNative(THDoubleStorage *storageC, retain=True):
+ * cdef _DoubleStorage_fromNative(THDoubleStorage *storageC, retain=True):
  *     if retain:
  *         THDoubleStorage_retain(storageC)             # <<<<<<<<<<<<<<
- *     storage = DoubleStorage()
+ *     storage = _DoubleStorage()
  *     storage.thDoubleStorage = storageC
  */
     THDoubleStorage_retain(__pyx_v_storageC);
@@ -3549,18 +3549,18 @@ static PyObject *__pyx_f_7Storage_DoubleStorage_fromNative(struct THDoubleStorag
   /* "Storage.pyx":116
  *     if retain:
  *         THDoubleStorage_retain(storageC)
- *     storage = DoubleStorage()             # <<<<<<<<<<<<<<
+ *     storage = _DoubleStorage()             # <<<<<<<<<<<<<<
  *     storage.thDoubleStorage = storageC
  *     return storage
  */
-  __pyx_t_2 = __Pyx_PyObject_Call(((PyObject *)((PyObject*)__pyx_ptype_7Storage_DoubleStorage)), __pyx_empty_tuple, NULL); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 116; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_2 = __Pyx_PyObject_Call(((PyObject *)((PyObject*)__pyx_ptype_7Storage__DoubleStorage)), __pyx_empty_tuple, NULL); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 116; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_2);
-  __pyx_v_storage = ((struct __pyx_obj_7Storage_DoubleStorage *)__pyx_t_2);
+  __pyx_v_storage = ((struct __pyx_obj_7Storage__DoubleStorage *)__pyx_t_2);
   __pyx_t_2 = 0;
 
   /* "Storage.pyx":117
  *         THDoubleStorage_retain(storageC)
- *     storage = DoubleStorage()
+ *     storage = _DoubleStorage()
  *     storage.thDoubleStorage = storageC             # <<<<<<<<<<<<<<
  *     return storage
  * 
@@ -3568,7 +3568,7 @@ static PyObject *__pyx_f_7Storage_DoubleStorage_fromNative(struct THDoubleStorag
   __pyx_v_storage->thDoubleStorage = __pyx_v_storageC;
 
   /* "Storage.pyx":118
- *     storage = DoubleStorage()
+ *     storage = _DoubleStorage()
  *     storage.thDoubleStorage = storageC
  *     return storage             # <<<<<<<<<<<<<<
  * 
@@ -3582,7 +3582,7 @@ static PyObject *__pyx_f_7Storage_DoubleStorage_fromNative(struct THDoubleStorag
   /* "Storage.pyx":113
  * 
  * 
- * cdef DoubleStorage_fromNative(THDoubleStorage *storageC, retain=True):             # <<<<<<<<<<<<<<
+ * cdef _DoubleStorage_fromNative(THDoubleStorage *storageC, retain=True):             # <<<<<<<<<<<<<<
  *     if retain:
  *         THDoubleStorage_retain(storageC)
  */
@@ -3590,7 +3590,7 @@ static PyObject *__pyx_f_7Storage_DoubleStorage_fromNative(struct THDoubleStorag
   /* function exit code */
   __pyx_L1_error:;
   __Pyx_XDECREF(__pyx_t_2);
-  __Pyx_AddTraceback("Storage.DoubleStorage_fromNative", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("Storage._DoubleStorage_fromNative", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = 0;
   __pyx_L0:;
   __Pyx_XDECREF((PyObject *)__pyx_v_storage);
@@ -3608,8 +3608,8 @@ static PyObject *__pyx_f_7Storage_DoubleStorage_fromNative(struct THDoubleStorag
  */
 
 /* Python wrapper */
-static int __pyx_pw_7Storage_11ByteStorage_1__init__(PyObject *__pyx_v_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
-static int __pyx_pw_7Storage_11ByteStorage_1__init__(PyObject *__pyx_v_self, PyObject *__pyx_args, PyObject *__pyx_kwds) {
+static int __pyx_pw_7Storage_12_ByteStorage_1__init__(PyObject *__pyx_v_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
+static int __pyx_pw_7Storage_12_ByteStorage_1__init__(PyObject *__pyx_v_self, PyObject *__pyx_args, PyObject *__pyx_kwds) {
   PyObject *__pyx_v_args = 0;
   PyObject *__pyx_v_kwargs = 0;
   int __pyx_r;
@@ -3621,7 +3621,7 @@ static int __pyx_pw_7Storage_11ByteStorage_1__init__(PyObject *__pyx_v_self, PyO
   __Pyx_GOTREF(__pyx_v_kwargs);
   __Pyx_INCREF(__pyx_args);
   __pyx_v_args = __pyx_args;
-  __pyx_r = __pyx_pf_7Storage_11ByteStorage___init__(((struct __pyx_obj_7Storage_ByteStorage *)__pyx_v_self), __pyx_v_args, __pyx_v_kwargs);
+  __pyx_r = __pyx_pf_7Storage_12_ByteStorage___init__(((struct __pyx_obj_7Storage__ByteStorage *)__pyx_v_self), __pyx_v_args, __pyx_v_kwargs);
 
   /* function exit code */
   __Pyx_XDECREF(__pyx_v_args);
@@ -3630,7 +3630,7 @@ static int __pyx_pw_7Storage_11ByteStorage_1__init__(PyObject *__pyx_v_self, PyO
   return __pyx_r;
 }
 
-static int __pyx_pf_7Storage_11ByteStorage___init__(struct __pyx_obj_7Storage_ByteStorage *__pyx_v_self, PyObject *__pyx_v_args, PyObject *__pyx_v_kwargs) {
+static int __pyx_pf_7Storage_12_ByteStorage___init__(struct __pyx_obj_7Storage__ByteStorage *__pyx_v_self, PyObject *__pyx_v_args, PyObject *__pyx_v_kwargs) {
   PyObject *__pyx_v_arg = NULL;
   int __pyx_r;
   __Pyx_RefNannyDeclarations
@@ -3787,7 +3787,7 @@ static int __pyx_pf_7Storage_11ByteStorage___init__(struct __pyx_obj_7Storage_By
  *         if len(kwargs) > 0:
  *             raise Exception('cannot provide arguments to initializer')             # <<<<<<<<<<<<<<
  * 
- *     def __repr__(ByteStorage self):
+ *     def __repr__(_ByteStorage self):
  */
     __pyx_t_1 = __Pyx_PyObject_Call(__pyx_builtin_Exception, __pyx_tuple__12, NULL); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 136; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
     __Pyx_GOTREF(__pyx_t_1);
@@ -3810,7 +3810,7 @@ static int __pyx_pf_7Storage_11ByteStorage___init__(struct __pyx_obj_7Storage_By
   __pyx_L1_error:;
   __Pyx_XDECREF(__pyx_t_1);
   __Pyx_XDECREF(__pyx_t_2);
-  __Pyx_AddTraceback("Storage.ByteStorage.__init__", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("Storage._ByteStorage.__init__", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = -1;
   __pyx_L0:;
   __Pyx_XDECREF(__pyx_v_arg);
@@ -3821,25 +3821,25 @@ static int __pyx_pf_7Storage_11ByteStorage___init__(struct __pyx_obj_7Storage_By
 /* "Storage.pyx":138
  *             raise Exception('cannot provide arguments to initializer')
  * 
- *     def __repr__(ByteStorage self):             # <<<<<<<<<<<<<<
+ *     def __repr__(_ByteStorage self):             # <<<<<<<<<<<<<<
  *         cdef int size0
  *         size0 = THByteStorage_size(self.thByteStorage)
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_7Storage_11ByteStorage_3__repr__(PyObject *__pyx_v_self); /*proto*/
-static PyObject *__pyx_pw_7Storage_11ByteStorage_3__repr__(PyObject *__pyx_v_self) {
+static PyObject *__pyx_pw_7Storage_12_ByteStorage_3__repr__(PyObject *__pyx_v_self); /*proto*/
+static PyObject *__pyx_pw_7Storage_12_ByteStorage_3__repr__(PyObject *__pyx_v_self) {
   PyObject *__pyx_r = 0;
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("__repr__ (wrapper)", 0);
-  __pyx_r = __pyx_pf_7Storage_11ByteStorage_2__repr__(((struct __pyx_obj_7Storage_ByteStorage *)__pyx_v_self));
+  __pyx_r = __pyx_pf_7Storage_12_ByteStorage_2__repr__(((struct __pyx_obj_7Storage__ByteStorage *)__pyx_v_self));
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_7Storage_11ByteStorage_2__repr__(struct __pyx_obj_7Storage_ByteStorage *__pyx_v_self) {
+static PyObject *__pyx_pf_7Storage_12_ByteStorage_2__repr__(struct __pyx_obj_7Storage__ByteStorage *__pyx_v_self) {
   int __pyx_v_size0;
   PyObject *__pyx_v_res = NULL;
   int __pyx_v_c;
@@ -3855,7 +3855,7 @@ static PyObject *__pyx_pf_7Storage_11ByteStorage_2__repr__(struct __pyx_obj_7Sto
   __Pyx_RefNannySetupContext("__repr__", 0);
 
   /* "Storage.pyx":140
- *     def __repr__(ByteStorage self):
+ *     def __repr__(_ByteStorage self):
  *         cdef int size0
  *         size0 = THByteStorage_size(self.thByteStorage)             # <<<<<<<<<<<<<<
  *         res = ''
@@ -3976,7 +3976,7 @@ static PyObject *__pyx_pf_7Storage_11ByteStorage_2__repr__(struct __pyx_obj_7Sto
   /* "Storage.pyx":138
  *             raise Exception('cannot provide arguments to initializer')
  * 
- *     def __repr__(ByteStorage self):             # <<<<<<<<<<<<<<
+ *     def __repr__(_ByteStorage self):             # <<<<<<<<<<<<<<
  *         cdef int size0
  *         size0 = THByteStorage_size(self.thByteStorage)
  */
@@ -3985,7 +3985,7 @@ static PyObject *__pyx_pf_7Storage_11ByteStorage_2__repr__(struct __pyx_obj_7Sto
   __pyx_L1_error:;
   __Pyx_XDECREF(__pyx_t_3);
   __Pyx_XDECREF(__pyx_t_4);
-  __Pyx_AddTraceback("Storage.ByteStorage.__repr__", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("Storage._ByteStorage.__repr__", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = NULL;
   __pyx_L0:;
   __Pyx_XDECREF(__pyx_v_res);
@@ -3999,31 +3999,31 @@ static PyObject *__pyx_pf_7Storage_11ByteStorage_2__repr__(struct __pyx_obj_7Sto
  *     @staticmethod
  *     def new():             # <<<<<<<<<<<<<<
  *         # print('allocate storage')
- *         return ByteStorage_fromNative(THByteStorage_new(), retain=False)
+ *         return _ByteStorage_fromNative(THByteStorage_new(), retain=False)
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_7Storage_11ByteStorage_5new(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
-static PyMethodDef __pyx_mdef_7Storage_11ByteStorage_5new = {"new", (PyCFunction)__pyx_pw_7Storage_11ByteStorage_5new, METH_VARARGS|METH_KEYWORDS, 0};
-static PyObject *__pyx_pw_7Storage_11ByteStorage_5new(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds) {
+static PyObject *__pyx_pw_7Storage_12_ByteStorage_5new(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
+static PyMethodDef __pyx_mdef_7Storage_12_ByteStorage_5new = {"new", (PyCFunction)__pyx_pw_7Storage_12_ByteStorage_5new, METH_VARARGS|METH_KEYWORDS, 0};
+static PyObject *__pyx_pw_7Storage_12_ByteStorage_5new(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds) {
   PyObject *__pyx_r = 0;
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("new (wrapper)", 0);
   if (unlikely(PyTuple_GET_SIZE(__pyx_args) > 0)) {
     __Pyx_RaiseArgtupleInvalid("new", 1, 0, 0, PyTuple_GET_SIZE(__pyx_args)); return NULL;}
   if (unlikely(__pyx_kwds) && unlikely(PyDict_Size(__pyx_kwds) > 0) && unlikely(!__Pyx_CheckKeywordStrings(__pyx_kwds, "new", 0))) return NULL;
-  __pyx_r = __pyx_pf_7Storage_11ByteStorage_4new();
+  __pyx_r = __pyx_pf_7Storage_12_ByteStorage_4new();
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_7Storage_11ByteStorage_4new() {
+static PyObject *__pyx_pf_7Storage_12_ByteStorage_4new() {
   PyObject *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
   PyObject *__pyx_t_1 = NULL;
-  struct __pyx_opt_args_7Storage_ByteStorage_fromNative __pyx_t_2;
+  struct __pyx_opt_args_7Storage__ByteStorage_fromNative __pyx_t_2;
   int __pyx_lineno = 0;
   const char *__pyx_filename = NULL;
   int __pyx_clineno = 0;
@@ -4032,14 +4032,14 @@ static PyObject *__pyx_pf_7Storage_11ByteStorage_4new() {
   /* "Storage.pyx":158
  *     def new():
  *         # print('allocate storage')
- *         return ByteStorage_fromNative(THByteStorage_new(), retain=False)             # <<<<<<<<<<<<<<
+ *         return _ByteStorage_fromNative(THByteStorage_new(), retain=False)             # <<<<<<<<<<<<<<
  * 
  *     @staticmethod
  */
   __Pyx_XDECREF(__pyx_r);
   __pyx_t_2.__pyx_n = 1;
   __pyx_t_2.retain = Py_False;
-  __pyx_t_1 = __pyx_f_7Storage_ByteStorage_fromNative(THByteStorage_new(), &__pyx_t_2); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 158; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_1 = __pyx_f_7Storage__ByteStorage_fromNative(THByteStorage_new(), &__pyx_t_2); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 158; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_r = __pyx_t_1;
   __pyx_t_1 = 0;
@@ -4050,13 +4050,13 @@ static PyObject *__pyx_pf_7Storage_11ByteStorage_4new() {
  *     @staticmethod
  *     def new():             # <<<<<<<<<<<<<<
  *         # print('allocate storage')
- *         return ByteStorage_fromNative(THByteStorage_new(), retain=False)
+ *         return _ByteStorage_fromNative(THByteStorage_new(), retain=False)
  */
 
   /* function exit code */
   __pyx_L1_error:;
   __Pyx_XDECREF(__pyx_t_1);
-  __Pyx_AddTraceback("Storage.ByteStorage.new", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("Storage._ByteStorage.new", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = NULL;
   __pyx_L0:;
   __Pyx_XGIVEREF(__pyx_r);
@@ -4073,9 +4073,9 @@ static PyObject *__pyx_pf_7Storage_11ByteStorage_4new() {
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_7Storage_11ByteStorage_7newWithData(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
-static PyMethodDef __pyx_mdef_7Storage_11ByteStorage_7newWithData = {"newWithData", (PyCFunction)__pyx_pw_7Storage_11ByteStorage_7newWithData, METH_VARARGS|METH_KEYWORDS, 0};
-static PyObject *__pyx_pw_7Storage_11ByteStorage_7newWithData(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds) {
+static PyObject *__pyx_pw_7Storage_12_ByteStorage_7newWithData(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
+static PyMethodDef __pyx_mdef_7Storage_12_ByteStorage_7newWithData = {"newWithData", (PyCFunction)__pyx_pw_7Storage_12_ByteStorage_7newWithData, METH_VARARGS|METH_KEYWORDS, 0};
+static PyObject *__pyx_pw_7Storage_12_ByteStorage_7newWithData(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds) {
   __Pyx_memviewslice __pyx_v_data = { 0, 0, { 0 }, { 0 }, { 0 } };
   int __pyx_lineno = 0;
   const char *__pyx_filename = NULL;
@@ -4114,18 +4114,18 @@ static PyObject *__pyx_pw_7Storage_11ByteStorage_7newWithData(CYTHON_UNUSED PyOb
   __pyx_L5_argtuple_error:;
   __Pyx_RaiseArgtupleInvalid("newWithData", 1, 1, 1, PyTuple_GET_SIZE(__pyx_args)); {__pyx_filename = __pyx_f[0]; __pyx_lineno = 161; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
   __pyx_L3_error:;
-  __Pyx_AddTraceback("Storage.ByteStorage.newWithData", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("Storage._ByteStorage.newWithData", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __Pyx_RefNannyFinishContext();
   return NULL;
   __pyx_L4_argument_unpacking_done:;
-  __pyx_r = __pyx_pf_7Storage_11ByteStorage_6newWithData(__pyx_v_data);
+  __pyx_r = __pyx_pf_7Storage_12_ByteStorage_6newWithData(__pyx_v_data);
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_7Storage_11ByteStorage_6newWithData(__Pyx_memviewslice __pyx_v_data) {
+static PyObject *__pyx_pf_7Storage_12_ByteStorage_6newWithData(__Pyx_memviewslice __pyx_v_data) {
   struct THByteStorage *__pyx_v_storageC;
   PyObject *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
@@ -4133,7 +4133,7 @@ static PyObject *__pyx_pf_7Storage_11ByteStorage_6newWithData(__Pyx_memviewslice
   int __pyx_t_2;
   PyObject *__pyx_t_3 = NULL;
   Py_ssize_t __pyx_t_4;
-  struct __pyx_opt_args_7Storage_ByteStorage_fromNative __pyx_t_5;
+  struct __pyx_opt_args_7Storage__ByteStorage_fromNative __pyx_t_5;
   int __pyx_lineno = 0;
   const char *__pyx_filename = NULL;
   int __pyx_clineno = 0;
@@ -4144,7 +4144,7 @@ static PyObject *__pyx_pf_7Storage_11ByteStorage_6newWithData(__Pyx_memviewslice
  *     def newWithData(unsigned char [:] data):
  *         cdef THByteStorage *storageC = THByteStorage_newWithData(&data[0], len(data))             # <<<<<<<<<<<<<<
  *         # print('allocate storage')
- *         return ByteStorage_fromNative(storageC, retain=False)
+ *         return _ByteStorage_fromNative(storageC, retain=False)
  */
   __pyx_t_1 = 0;
   __pyx_t_2 = -1;
@@ -4165,14 +4165,14 @@ static PyObject *__pyx_pf_7Storage_11ByteStorage_6newWithData(__Pyx_memviewslice
   /* "Storage.pyx":164
  *         cdef THByteStorage *storageC = THByteStorage_newWithData(&data[0], len(data))
  *         # print('allocate storage')
- *         return ByteStorage_fromNative(storageC, retain=False)             # <<<<<<<<<<<<<<
+ *         return _ByteStorage_fromNative(storageC, retain=False)             # <<<<<<<<<<<<<<
  * 
  *     @property
  */
   __Pyx_XDECREF(__pyx_r);
   __pyx_t_5.__pyx_n = 1;
   __pyx_t_5.retain = Py_False;
-  __pyx_t_3 = __pyx_f_7Storage_ByteStorage_fromNative(__pyx_v_storageC, &__pyx_t_5); if (unlikely(!__pyx_t_3)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 164; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_3 = __pyx_f_7Storage__ByteStorage_fromNative(__pyx_v_storageC, &__pyx_t_5); if (unlikely(!__pyx_t_3)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 164; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_3);
   __pyx_r = __pyx_t_3;
   __pyx_t_3 = 0;
@@ -4189,7 +4189,7 @@ static PyObject *__pyx_pf_7Storage_11ByteStorage_6newWithData(__Pyx_memviewslice
   /* function exit code */
   __pyx_L1_error:;
   __Pyx_XDECREF(__pyx_t_3);
-  __Pyx_AddTraceback("Storage.ByteStorage.newWithData", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("Storage._ByteStorage.newWithData", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = NULL;
   __pyx_L0:;
   __PYX_XDEC_MEMVIEW(&__pyx_v_data, 1);
@@ -4201,25 +4201,25 @@ static PyObject *__pyx_pf_7Storage_11ByteStorage_6newWithData(__Pyx_memviewslice
 /* "Storage.pyx":167
  * 
  *     @property
- *     def refCount(ByteStorage self):             # <<<<<<<<<<<<<<
+ *     def refCount(_ByteStorage self):             # <<<<<<<<<<<<<<
  *         return THByteStorage_getRefCount(self.thByteStorage)
  * 
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_7Storage_11ByteStorage_9refCount(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused); /*proto*/
-static PyObject *__pyx_pw_7Storage_11ByteStorage_9refCount(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused) {
+static PyObject *__pyx_pw_7Storage_12_ByteStorage_9refCount(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused); /*proto*/
+static PyObject *__pyx_pw_7Storage_12_ByteStorage_9refCount(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused) {
   PyObject *__pyx_r = 0;
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("refCount (wrapper)", 0);
-  __pyx_r = __pyx_pf_7Storage_11ByteStorage_8refCount(((struct __pyx_obj_7Storage_ByteStorage *)__pyx_v_self));
+  __pyx_r = __pyx_pf_7Storage_12_ByteStorage_8refCount(((struct __pyx_obj_7Storage__ByteStorage *)__pyx_v_self));
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_7Storage_11ByteStorage_8refCount(struct __pyx_obj_7Storage_ByteStorage *__pyx_v_self) {
+static PyObject *__pyx_pf_7Storage_12_ByteStorage_8refCount(struct __pyx_obj_7Storage__ByteStorage *__pyx_v_self) {
   PyObject *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
   PyObject *__pyx_t_1 = NULL;
@@ -4230,10 +4230,10 @@ static PyObject *__pyx_pf_7Storage_11ByteStorage_8refCount(struct __pyx_obj_7Sto
 
   /* "Storage.pyx":168
  *     @property
- *     def refCount(ByteStorage self):
+ *     def refCount(_ByteStorage self):
  *         return THByteStorage_getRefCount(self.thByteStorage)             # <<<<<<<<<<<<<<
  * 
- *     def dataAddr(ByteStorage self):
+ *     def dataAddr(_ByteStorage self):
  */
   __Pyx_XDECREF(__pyx_r);
   __pyx_t_1 = __Pyx_PyInt_From_int(THByteStorage_getRefCount(__pyx_v_self->thByteStorage)); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 168; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
@@ -4245,7 +4245,7 @@ static PyObject *__pyx_pf_7Storage_11ByteStorage_8refCount(struct __pyx_obj_7Sto
   /* "Storage.pyx":167
  * 
  *     @property
- *     def refCount(ByteStorage self):             # <<<<<<<<<<<<<<
+ *     def refCount(_ByteStorage self):             # <<<<<<<<<<<<<<
  *         return THByteStorage_getRefCount(self.thByteStorage)
  * 
  */
@@ -4253,7 +4253,7 @@ static PyObject *__pyx_pf_7Storage_11ByteStorage_8refCount(struct __pyx_obj_7Sto
   /* function exit code */
   __pyx_L1_error:;
   __Pyx_XDECREF(__pyx_t_1);
-  __Pyx_AddTraceback("Storage.ByteStorage.refCount", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("Storage._ByteStorage.refCount", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = NULL;
   __pyx_L0:;
   __Pyx_XGIVEREF(__pyx_r);
@@ -4264,25 +4264,25 @@ static PyObject *__pyx_pf_7Storage_11ByteStorage_8refCount(struct __pyx_obj_7Sto
 /* "Storage.pyx":170
  *         return THByteStorage_getRefCount(self.thByteStorage)
  * 
- *     def dataAddr(ByteStorage self):             # <<<<<<<<<<<<<<
+ *     def dataAddr(_ByteStorage self):             # <<<<<<<<<<<<<<
  *         cdef unsigned char *data = THByteStorage_data(self.thByteStorage)
  *         cdef long dataAddr = pointerAsInt(data)
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_7Storage_11ByteStorage_11dataAddr(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused); /*proto*/
-static PyObject *__pyx_pw_7Storage_11ByteStorage_11dataAddr(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused) {
+static PyObject *__pyx_pw_7Storage_12_ByteStorage_11dataAddr(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused); /*proto*/
+static PyObject *__pyx_pw_7Storage_12_ByteStorage_11dataAddr(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused) {
   PyObject *__pyx_r = 0;
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("dataAddr (wrapper)", 0);
-  __pyx_r = __pyx_pf_7Storage_11ByteStorage_10dataAddr(((struct __pyx_obj_7Storage_ByteStorage *)__pyx_v_self));
+  __pyx_r = __pyx_pf_7Storage_12_ByteStorage_10dataAddr(((struct __pyx_obj_7Storage__ByteStorage *)__pyx_v_self));
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_7Storage_11ByteStorage_10dataAddr(struct __pyx_obj_7Storage_ByteStorage *__pyx_v_self) {
+static PyObject *__pyx_pf_7Storage_12_ByteStorage_10dataAddr(struct __pyx_obj_7Storage__ByteStorage *__pyx_v_self) {
   unsigned char *__pyx_v_data;
   long __pyx_v_dataAddr;
   PyObject *__pyx_r = NULL;
@@ -4295,7 +4295,7 @@ static PyObject *__pyx_pf_7Storage_11ByteStorage_10dataAddr(struct __pyx_obj_7St
 
   /* "Storage.pyx":171
  * 
- *     def dataAddr(ByteStorage self):
+ *     def dataAddr(_ByteStorage self):
  *         cdef unsigned char *data = THByteStorage_data(self.thByteStorage)             # <<<<<<<<<<<<<<
  *         cdef long dataAddr = pointerAsInt(data)
  *         return dataAddr
@@ -4303,7 +4303,7 @@ static PyObject *__pyx_pf_7Storage_11ByteStorage_10dataAddr(struct __pyx_obj_7St
   __pyx_v_data = THByteStorage_data(__pyx_v_self->thByteStorage);
 
   /* "Storage.pyx":172
- *     def dataAddr(ByteStorage self):
+ *     def dataAddr(_ByteStorage self):
  *         cdef unsigned char *data = THByteStorage_data(self.thByteStorage)
  *         cdef long dataAddr = pointerAsInt(data)             # <<<<<<<<<<<<<<
  *         return dataAddr
@@ -4328,7 +4328,7 @@ static PyObject *__pyx_pf_7Storage_11ByteStorage_10dataAddr(struct __pyx_obj_7St
   /* "Storage.pyx":170
  *         return THByteStorage_getRefCount(self.thByteStorage)
  * 
- *     def dataAddr(ByteStorage self):             # <<<<<<<<<<<<<<
+ *     def dataAddr(_ByteStorage self):             # <<<<<<<<<<<<<<
  *         cdef unsigned char *data = THByteStorage_data(self.thByteStorage)
  *         cdef long dataAddr = pointerAsInt(data)
  */
@@ -4336,7 +4336,7 @@ static PyObject *__pyx_pf_7Storage_11ByteStorage_10dataAddr(struct __pyx_obj_7St
   /* function exit code */
   __pyx_L1_error:;
   __Pyx_XDECREF(__pyx_t_1);
-  __Pyx_AddTraceback("Storage.ByteStorage.dataAddr", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("Storage._ByteStorage.dataAddr", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = NULL;
   __pyx_L0:;
   __Pyx_XGIVEREF(__pyx_r);
@@ -4353,9 +4353,9 @@ static PyObject *__pyx_pf_7Storage_11ByteStorage_10dataAddr(struct __pyx_obj_7St
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_7Storage_11ByteStorage_13newWithSize(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
-static PyMethodDef __pyx_mdef_7Storage_11ByteStorage_13newWithSize = {"newWithSize", (PyCFunction)__pyx_pw_7Storage_11ByteStorage_13newWithSize, METH_VARARGS|METH_KEYWORDS, 0};
-static PyObject *__pyx_pw_7Storage_11ByteStorage_13newWithSize(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds) {
+static PyObject *__pyx_pw_7Storage_12_ByteStorage_13newWithSize(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
+static PyMethodDef __pyx_mdef_7Storage_12_ByteStorage_13newWithSize = {"newWithSize", (PyCFunction)__pyx_pw_7Storage_12_ByteStorage_13newWithSize, METH_VARARGS|METH_KEYWORDS, 0};
+static PyObject *__pyx_pw_7Storage_12_ByteStorage_13newWithSize(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds) {
   long __pyx_v_size;
   int __pyx_lineno = 0;
   const char *__pyx_filename = NULL;
@@ -4394,23 +4394,23 @@ static PyObject *__pyx_pw_7Storage_11ByteStorage_13newWithSize(CYTHON_UNUSED PyO
   __pyx_L5_argtuple_error:;
   __Pyx_RaiseArgtupleInvalid("newWithSize", 1, 1, 1, PyTuple_GET_SIZE(__pyx_args)); {__pyx_filename = __pyx_f[0]; __pyx_lineno = 176; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
   __pyx_L3_error:;
-  __Pyx_AddTraceback("Storage.ByteStorage.newWithSize", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("Storage._ByteStorage.newWithSize", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __Pyx_RefNannyFinishContext();
   return NULL;
   __pyx_L4_argument_unpacking_done:;
-  __pyx_r = __pyx_pf_7Storage_11ByteStorage_12newWithSize(__pyx_v_size);
+  __pyx_r = __pyx_pf_7Storage_12_ByteStorage_12newWithSize(__pyx_v_size);
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_7Storage_11ByteStorage_12newWithSize(long __pyx_v_size) {
+static PyObject *__pyx_pf_7Storage_12_ByteStorage_12newWithSize(long __pyx_v_size) {
   struct THByteStorage *__pyx_v_storageC;
   PyObject *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
   PyObject *__pyx_t_1 = NULL;
-  struct __pyx_opt_args_7Storage_ByteStorage_fromNative __pyx_t_2;
+  struct __pyx_opt_args_7Storage__ByteStorage_fromNative __pyx_t_2;
   int __pyx_lineno = 0;
   const char *__pyx_filename = NULL;
   int __pyx_clineno = 0;
@@ -4421,21 +4421,21 @@ static PyObject *__pyx_pf_7Storage_11ByteStorage_12newWithSize(long __pyx_v_size
  *     def newWithSize(long size):
  *         cdef THByteStorage *storageC = THByteStorage_newWithSize(size)             # <<<<<<<<<<<<<<
  *         # print('allocate storage')
- *         return ByteStorage_fromNative(storageC, retain=False)
+ *         return _ByteStorage_fromNative(storageC, retain=False)
  */
   __pyx_v_storageC = THByteStorage_newWithSize(__pyx_v_size);
 
   /* "Storage.pyx":179
  *         cdef THByteStorage *storageC = THByteStorage_newWithSize(size)
  *         # print('allocate storage')
- *         return ByteStorage_fromNative(storageC, retain=False)             # <<<<<<<<<<<<<<
+ *         return _ByteStorage_fromNative(storageC, retain=False)             # <<<<<<<<<<<<<<
  * 
  *     cpdef long size(self):
  */
   __Pyx_XDECREF(__pyx_r);
   __pyx_t_2.__pyx_n = 1;
   __pyx_t_2.retain = Py_False;
-  __pyx_t_1 = __pyx_f_7Storage_ByteStorage_fromNative(__pyx_v_storageC, &__pyx_t_2); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 179; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_1 = __pyx_f_7Storage__ByteStorage_fromNative(__pyx_v_storageC, &__pyx_t_2); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 179; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_r = __pyx_t_1;
   __pyx_t_1 = 0;
@@ -4452,7 +4452,7 @@ static PyObject *__pyx_pf_7Storage_11ByteStorage_12newWithSize(long __pyx_v_size
   /* function exit code */
   __pyx_L1_error:;
   __Pyx_XDECREF(__pyx_t_1);
-  __Pyx_AddTraceback("Storage.ByteStorage.newWithSize", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("Storage._ByteStorage.newWithSize", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = NULL;
   __pyx_L0:;
   __Pyx_XGIVEREF(__pyx_r);
@@ -4461,15 +4461,15 @@ static PyObject *__pyx_pf_7Storage_11ByteStorage_12newWithSize(long __pyx_v_size
 }
 
 /* "Storage.pyx":181
- *         return ByteStorage_fromNative(storageC, retain=False)
+ *         return _ByteStorage_fromNative(storageC, retain=False)
  * 
  *     cpdef long size(self):             # <<<<<<<<<<<<<<
  *         return THByteStorage_size(self.thByteStorage)
  * 
  */
 
-static PyObject *__pyx_pw_7Storage_11ByteStorage_15size(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused); /*proto*/
-static long __pyx_f_7Storage_11ByteStorage_size(struct __pyx_obj_7Storage_ByteStorage *__pyx_v_self, int __pyx_skip_dispatch) {
+static PyObject *__pyx_pw_7Storage_12_ByteStorage_15size(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused); /*proto*/
+static long __pyx_f_7Storage_12_ByteStorage_size(struct __pyx_obj_7Storage__ByteStorage *__pyx_v_self, int __pyx_skip_dispatch) {
   long __pyx_r;
   __Pyx_RefNannyDeclarations
   PyObject *__pyx_t_1 = NULL;
@@ -4487,7 +4487,7 @@ static long __pyx_f_7Storage_11ByteStorage_size(struct __pyx_obj_7Storage_ByteSt
   else if (unlikely(Py_TYPE(((PyObject *)__pyx_v_self))->tp_dictoffset != 0)) {
     __pyx_t_1 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_self), __pyx_n_s_size); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 181; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
     __Pyx_GOTREF(__pyx_t_1);
-    if (!PyCFunction_Check(__pyx_t_1) || (PyCFunction_GET_FUNCTION(__pyx_t_1) != (PyCFunction)__pyx_pw_7Storage_11ByteStorage_15size)) {
+    if (!PyCFunction_Check(__pyx_t_1) || (PyCFunction_GET_FUNCTION(__pyx_t_1) != (PyCFunction)__pyx_pw_7Storage_12_ByteStorage_15size)) {
       __Pyx_INCREF(__pyx_t_1);
       __pyx_t_3 = __pyx_t_1; __pyx_t_4 = NULL;
       if (CYTHON_COMPILING_IN_CPYTHON && unlikely(PyMethod_Check(__pyx_t_3))) {
@@ -4527,7 +4527,7 @@ static long __pyx_f_7Storage_11ByteStorage_size(struct __pyx_obj_7Storage_ByteSt
   goto __pyx_L0;
 
   /* "Storage.pyx":181
- *         return ByteStorage_fromNative(storageC, retain=False)
+ *         return _ByteStorage_fromNative(storageC, retain=False)
  * 
  *     cpdef long size(self):             # <<<<<<<<<<<<<<
  *         return THByteStorage_size(self.thByteStorage)
@@ -4540,7 +4540,7 @@ static long __pyx_f_7Storage_11ByteStorage_size(struct __pyx_obj_7Storage_ByteSt
   __Pyx_XDECREF(__pyx_t_2);
   __Pyx_XDECREF(__pyx_t_3);
   __Pyx_XDECREF(__pyx_t_4);
-  __Pyx_WriteUnraisable("Storage.ByteStorage.size", __pyx_clineno, __pyx_lineno, __pyx_filename, 0);
+  __Pyx_WriteUnraisable("Storage._ByteStorage.size", __pyx_clineno, __pyx_lineno, __pyx_filename, 0);
   __pyx_r = 0;
   __pyx_L0:;
   __Pyx_RefNannyFinishContext();
@@ -4548,19 +4548,19 @@ static long __pyx_f_7Storage_11ByteStorage_size(struct __pyx_obj_7Storage_ByteSt
 }
 
 /* Python wrapper */
-static PyObject *__pyx_pw_7Storage_11ByteStorage_15size(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused); /*proto*/
-static PyObject *__pyx_pw_7Storage_11ByteStorage_15size(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused) {
+static PyObject *__pyx_pw_7Storage_12_ByteStorage_15size(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused); /*proto*/
+static PyObject *__pyx_pw_7Storage_12_ByteStorage_15size(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused) {
   PyObject *__pyx_r = 0;
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("size (wrapper)", 0);
-  __pyx_r = __pyx_pf_7Storage_11ByteStorage_14size(((struct __pyx_obj_7Storage_ByteStorage *)__pyx_v_self));
+  __pyx_r = __pyx_pf_7Storage_12_ByteStorage_14size(((struct __pyx_obj_7Storage__ByteStorage *)__pyx_v_self));
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_7Storage_11ByteStorage_14size(struct __pyx_obj_7Storage_ByteStorage *__pyx_v_self) {
+static PyObject *__pyx_pf_7Storage_12_ByteStorage_14size(struct __pyx_obj_7Storage__ByteStorage *__pyx_v_self) {
   PyObject *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
   PyObject *__pyx_t_1 = NULL;
@@ -4569,7 +4569,7 @@ static PyObject *__pyx_pf_7Storage_11ByteStorage_14size(struct __pyx_obj_7Storag
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("size", 0);
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_1 = __Pyx_PyInt_From_long(__pyx_f_7Storage_11ByteStorage_size(__pyx_v_self, 1)); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 181; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_1 = __Pyx_PyInt_From_long(__pyx_f_7Storage_12_ByteStorage_size(__pyx_v_self, 1)); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 181; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_r = __pyx_t_1;
   __pyx_t_1 = 0;
@@ -4578,7 +4578,7 @@ static PyObject *__pyx_pf_7Storage_11ByteStorage_14size(struct __pyx_obj_7Storag
   /* function exit code */
   __pyx_L1_error:;
   __Pyx_XDECREF(__pyx_t_1);
-  __Pyx_AddTraceback("Storage.ByteStorage.size", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("Storage._ByteStorage.size", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = NULL;
   __pyx_L0:;
   __Pyx_XGIVEREF(__pyx_r);
@@ -4595,17 +4595,17 @@ static PyObject *__pyx_pf_7Storage_11ByteStorage_14size(struct __pyx_obj_7Storag
  */
 
 /* Python wrapper */
-static void __pyx_pw_7Storage_11ByteStorage_17__dealloc__(PyObject *__pyx_v_self); /*proto*/
-static void __pyx_pw_7Storage_11ByteStorage_17__dealloc__(PyObject *__pyx_v_self) {
+static void __pyx_pw_7Storage_12_ByteStorage_17__dealloc__(PyObject *__pyx_v_self); /*proto*/
+static void __pyx_pw_7Storage_12_ByteStorage_17__dealloc__(PyObject *__pyx_v_self) {
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("__dealloc__ (wrapper)", 0);
-  __pyx_pf_7Storage_11ByteStorage_16__dealloc__(((struct __pyx_obj_7Storage_ByteStorage *)__pyx_v_self));
+  __pyx_pf_7Storage_12_ByteStorage_16__dealloc__(((struct __pyx_obj_7Storage__ByteStorage *)__pyx_v_self));
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
 }
 
-static void __pyx_pf_7Storage_11ByteStorage_16__dealloc__(struct __pyx_obj_7Storage_ByteStorage *__pyx_v_self) {
+static void __pyx_pf_7Storage_12_ByteStorage_16__dealloc__(struct __pyx_obj_7Storage__ByteStorage *__pyx_v_self) {
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("__dealloc__", 0);
 
@@ -4629,7 +4629,7 @@ static void __pyx_pf_7Storage_11ByteStorage_16__dealloc__(struct __pyx_obj_7Stor
   /* function exit code */
   __Pyx_RefNannyFinishContext();
 }
-static PyObject *__pyx_gb_7Storage_11ByteStorage_20generator1(__pyx_GeneratorObject *__pyx_generator, PyObject *__pyx_sent_value); /* proto */
+static PyObject *__pyx_gb_7Storage_12_ByteStorage_20generator1(__pyx_GeneratorObject *__pyx_generator, PyObject *__pyx_sent_value); /* proto */
 
 /* "Storage.pyx":189
  *         THByteStorage_free(self.thByteStorage)
@@ -4640,19 +4640,19 @@ static PyObject *__pyx_gb_7Storage_11ByteStorage_20generator1(__pyx_GeneratorObj
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_7Storage_11ByteStorage_19__iter__(PyObject *__pyx_v_self); /*proto*/
-static PyObject *__pyx_pw_7Storage_11ByteStorage_19__iter__(PyObject *__pyx_v_self) {
+static PyObject *__pyx_pw_7Storage_12_ByteStorage_19__iter__(PyObject *__pyx_v_self); /*proto*/
+static PyObject *__pyx_pw_7Storage_12_ByteStorage_19__iter__(PyObject *__pyx_v_self) {
   PyObject *__pyx_r = 0;
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("__iter__ (wrapper)", 0);
-  __pyx_r = __pyx_pf_7Storage_11ByteStorage_18__iter__(((struct __pyx_obj_7Storage_ByteStorage *)__pyx_v_self));
+  __pyx_r = __pyx_pf_7Storage_12_ByteStorage_18__iter__(((struct __pyx_obj_7Storage__ByteStorage *)__pyx_v_self));
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_7Storage_11ByteStorage_18__iter__(struct __pyx_obj_7Storage_ByteStorage *__pyx_v_self) {
+static PyObject *__pyx_pf_7Storage_12_ByteStorage_18__iter__(struct __pyx_obj_7Storage__ByteStorage *__pyx_v_self) {
   struct __pyx_obj_7Storage___pyx_scope_struct_1___iter__ *__pyx_cur_scope;
   PyObject *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
@@ -4670,7 +4670,7 @@ static PyObject *__pyx_pf_7Storage_11ByteStorage_18__iter__(struct __pyx_obj_7St
   __Pyx_INCREF((PyObject *)__pyx_cur_scope->__pyx_v_self);
   __Pyx_GIVEREF((PyObject *)__pyx_cur_scope->__pyx_v_self);
   {
-    __pyx_GeneratorObject *gen = __Pyx_Generator_New((__pyx_generator_body_t) __pyx_gb_7Storage_11ByteStorage_20generator1, (PyObject *) __pyx_cur_scope, __pyx_n_s_iter, __pyx_n_s_ByteStorage___iter); if (unlikely(!gen)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 189; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+    __pyx_GeneratorObject *gen = __Pyx_Generator_New((__pyx_generator_body_t) __pyx_gb_7Storage_12_ByteStorage_20generator1, (PyObject *) __pyx_cur_scope, __pyx_n_s_iter, __pyx_n_s_ByteStorage___iter); if (unlikely(!gen)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 189; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
     __Pyx_DECREF(__pyx_cur_scope);
     __Pyx_RefNannyFinishContext();
     return (PyObject *) gen;
@@ -4678,7 +4678,7 @@ static PyObject *__pyx_pf_7Storage_11ByteStorage_18__iter__(struct __pyx_obj_7St
 
   /* function exit code */
   __pyx_L1_error:;
-  __Pyx_AddTraceback("Storage.ByteStorage.__iter__", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("Storage._ByteStorage.__iter__", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = NULL;
   __Pyx_DECREF(((PyObject *)__pyx_cur_scope));
   __Pyx_XGIVEREF(__pyx_r);
@@ -4686,7 +4686,7 @@ static PyObject *__pyx_pf_7Storage_11ByteStorage_18__iter__(struct __pyx_obj_7St
   return __pyx_r;
 }
 
-static PyObject *__pyx_gb_7Storage_11ByteStorage_20generator1(__pyx_GeneratorObject *__pyx_generator, PyObject *__pyx_sent_value) /* generator body */
+static PyObject *__pyx_gb_7Storage_12_ByteStorage_20generator1(__pyx_GeneratorObject *__pyx_generator, PyObject *__pyx_sent_value) /* generator body */
 {
   struct __pyx_obj_7Storage___pyx_scope_struct_1___iter__ *__pyx_cur_scope = ((struct __pyx_obj_7Storage___pyx_scope_struct_1___iter__ *)__pyx_generator->closure);
   PyObject *__pyx_r = NULL;
@@ -4733,7 +4733,7 @@ static PyObject *__pyx_gb_7Storage_11ByteStorage_20generator1(__pyx_GeneratorObj
  *         for c in range(size0):
  *             yield self[c]             # <<<<<<<<<<<<<<
  * 
- *     def __getitem__(ByteStorage self, int index):
+ *     def __getitem__(_ByteStorage self, int index):
  */
     __pyx_t_3 = __Pyx_GetItemInt(((PyObject *)__pyx_cur_scope->__pyx_v_self), __pyx_cur_scope->__pyx_v_c, int, 1, __Pyx_PyInt_From_int, 0, 1, 1); if (unlikely(__pyx_t_3 == NULL)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 193; __pyx_clineno = __LINE__; goto __pyx_L1_error;};
     __Pyx_GOTREF(__pyx_t_3);
@@ -4777,14 +4777,14 @@ static PyObject *__pyx_gb_7Storage_11ByteStorage_20generator1(__pyx_GeneratorObj
 /* "Storage.pyx":195
  *             yield self[c]
  * 
- *     def __getitem__(ByteStorage self, int index):             # <<<<<<<<<<<<<<
+ *     def __getitem__(_ByteStorage self, int index):             # <<<<<<<<<<<<<<
  *         cdef unsigned char res = THByteStorage_get(self.thByteStorage, index)
  *         return res
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_7Storage_11ByteStorage_22__getitem__(PyObject *__pyx_v_self, PyObject *__pyx_arg_index); /*proto*/
-static PyObject *__pyx_pw_7Storage_11ByteStorage_22__getitem__(PyObject *__pyx_v_self, PyObject *__pyx_arg_index) {
+static PyObject *__pyx_pw_7Storage_12_ByteStorage_22__getitem__(PyObject *__pyx_v_self, PyObject *__pyx_arg_index); /*proto*/
+static PyObject *__pyx_pw_7Storage_12_ByteStorage_22__getitem__(PyObject *__pyx_v_self, PyObject *__pyx_arg_index) {
   int __pyx_v_index;
   int __pyx_lineno = 0;
   const char *__pyx_filename = NULL;
@@ -4797,18 +4797,18 @@ static PyObject *__pyx_pw_7Storage_11ByteStorage_22__getitem__(PyObject *__pyx_v
   }
   goto __pyx_L4_argument_unpacking_done;
   __pyx_L3_error:;
-  __Pyx_AddTraceback("Storage.ByteStorage.__getitem__", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("Storage._ByteStorage.__getitem__", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __Pyx_RefNannyFinishContext();
   return NULL;
   __pyx_L4_argument_unpacking_done:;
-  __pyx_r = __pyx_pf_7Storage_11ByteStorage_21__getitem__(((struct __pyx_obj_7Storage_ByteStorage *)__pyx_v_self), ((int)__pyx_v_index));
+  __pyx_r = __pyx_pf_7Storage_12_ByteStorage_21__getitem__(((struct __pyx_obj_7Storage__ByteStorage *)__pyx_v_self), ((int)__pyx_v_index));
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_7Storage_11ByteStorage_21__getitem__(struct __pyx_obj_7Storage_ByteStorage *__pyx_v_self, int __pyx_v_index) {
+static PyObject *__pyx_pf_7Storage_12_ByteStorage_21__getitem__(struct __pyx_obj_7Storage__ByteStorage *__pyx_v_self, int __pyx_v_index) {
   unsigned char __pyx_v_res;
   PyObject *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
@@ -4820,7 +4820,7 @@ static PyObject *__pyx_pf_7Storage_11ByteStorage_21__getitem__(struct __pyx_obj_
 
   /* "Storage.pyx":196
  * 
- *     def __getitem__(ByteStorage self, int index):
+ *     def __getitem__(_ByteStorage self, int index):
  *         cdef unsigned char res = THByteStorage_get(self.thByteStorage, index)             # <<<<<<<<<<<<<<
  *         return res
  * 
@@ -4828,11 +4828,11 @@ static PyObject *__pyx_pf_7Storage_11ByteStorage_21__getitem__(struct __pyx_obj_
   __pyx_v_res = THByteStorage_get(__pyx_v_self->thByteStorage, __pyx_v_index);
 
   /* "Storage.pyx":197
- *     def __getitem__(ByteStorage self, int index):
+ *     def __getitem__(_ByteStorage self, int index):
  *         cdef unsigned char res = THByteStorage_get(self.thByteStorage, index)
  *         return res             # <<<<<<<<<<<<<<
  * 
- *     def __setitem__(ByteStorage self, int index, unsigned char value):
+ *     def __setitem__(_ByteStorage self, int index, unsigned char value):
  */
   __Pyx_XDECREF(__pyx_r);
   __pyx_t_1 = __Pyx_PyInt_From_unsigned_char(__pyx_v_res); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 197; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
@@ -4844,7 +4844,7 @@ static PyObject *__pyx_pf_7Storage_11ByteStorage_21__getitem__(struct __pyx_obj_
   /* "Storage.pyx":195
  *             yield self[c]
  * 
- *     def __getitem__(ByteStorage self, int index):             # <<<<<<<<<<<<<<
+ *     def __getitem__(_ByteStorage self, int index):             # <<<<<<<<<<<<<<
  *         cdef unsigned char res = THByteStorage_get(self.thByteStorage, index)
  *         return res
  */
@@ -4852,7 +4852,7 @@ static PyObject *__pyx_pf_7Storage_11ByteStorage_21__getitem__(struct __pyx_obj_
   /* function exit code */
   __pyx_L1_error:;
   __Pyx_XDECREF(__pyx_t_1);
-  __Pyx_AddTraceback("Storage.ByteStorage.__getitem__", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("Storage._ByteStorage.__getitem__", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = NULL;
   __pyx_L0:;
   __Pyx_XGIVEREF(__pyx_r);
@@ -4863,14 +4863,14 @@ static PyObject *__pyx_pf_7Storage_11ByteStorage_21__getitem__(struct __pyx_obj_
 /* "Storage.pyx":199
  *         return res
  * 
- *     def __setitem__(ByteStorage self, int index, unsigned char value):             # <<<<<<<<<<<<<<
+ *     def __setitem__(_ByteStorage self, int index, unsigned char value):             # <<<<<<<<<<<<<<
  *         THByteStorage_set(self.thByteStorage, index, value)
  * 
  */
 
 /* Python wrapper */
-static int __pyx_pw_7Storage_11ByteStorage_24__setitem__(PyObject *__pyx_v_self, PyObject *__pyx_arg_index, PyObject *__pyx_arg_value); /*proto*/
-static int __pyx_pw_7Storage_11ByteStorage_24__setitem__(PyObject *__pyx_v_self, PyObject *__pyx_arg_index, PyObject *__pyx_arg_value) {
+static int __pyx_pw_7Storage_12_ByteStorage_24__setitem__(PyObject *__pyx_v_self, PyObject *__pyx_arg_index, PyObject *__pyx_arg_value); /*proto*/
+static int __pyx_pw_7Storage_12_ByteStorage_24__setitem__(PyObject *__pyx_v_self, PyObject *__pyx_arg_index, PyObject *__pyx_arg_value) {
   int __pyx_v_index;
   unsigned char __pyx_v_value;
   int __pyx_lineno = 0;
@@ -4887,25 +4887,25 @@ static int __pyx_pw_7Storage_11ByteStorage_24__setitem__(PyObject *__pyx_v_self,
   }
   goto __pyx_L4_argument_unpacking_done;
   __pyx_L3_error:;
-  __Pyx_AddTraceback("Storage.ByteStorage.__setitem__", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("Storage._ByteStorage.__setitem__", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __Pyx_RefNannyFinishContext();
   return -1;
   __pyx_L4_argument_unpacking_done:;
-  __pyx_r = __pyx_pf_7Storage_11ByteStorage_23__setitem__(((struct __pyx_obj_7Storage_ByteStorage *)__pyx_v_self), ((int)__pyx_v_index), ((unsigned char)__pyx_v_value));
+  __pyx_r = __pyx_pf_7Storage_12_ByteStorage_23__setitem__(((struct __pyx_obj_7Storage__ByteStorage *)__pyx_v_self), ((int)__pyx_v_index), ((unsigned char)__pyx_v_value));
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static int __pyx_pf_7Storage_11ByteStorage_23__setitem__(struct __pyx_obj_7Storage_ByteStorage *__pyx_v_self, int __pyx_v_index, unsigned char __pyx_v_value) {
+static int __pyx_pf_7Storage_12_ByteStorage_23__setitem__(struct __pyx_obj_7Storage__ByteStorage *__pyx_v_self, int __pyx_v_index, unsigned char __pyx_v_value) {
   int __pyx_r;
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("__setitem__", 0);
 
   /* "Storage.pyx":200
  * 
- *     def __setitem__(ByteStorage self, int index, unsigned char value):
+ *     def __setitem__(_ByteStorage self, int index, unsigned char value):
  *         THByteStorage_set(self.thByteStorage, index, value)             # <<<<<<<<<<<<<<
  * 
  * 
@@ -4915,7 +4915,7 @@ static int __pyx_pf_7Storage_11ByteStorage_23__setitem__(struct __pyx_obj_7Stora
   /* "Storage.pyx":199
  *         return res
  * 
- *     def __setitem__(ByteStorage self, int index, unsigned char value):             # <<<<<<<<<<<<<<
+ *     def __setitem__(_ByteStorage self, int index, unsigned char value):             # <<<<<<<<<<<<<<
  *         THByteStorage_set(self.thByteStorage, index, value)
  * 
  */
@@ -4929,14 +4929,14 @@ static int __pyx_pf_7Storage_11ByteStorage_23__setitem__(struct __pyx_obj_7Stora
 /* "Storage.pyx":203
  * 
  * 
- * cdef ByteStorage_fromNative(THByteStorage *storageC, retain=True):             # <<<<<<<<<<<<<<
+ * cdef _ByteStorage_fromNative(THByteStorage *storageC, retain=True):             # <<<<<<<<<<<<<<
  *     if retain:
  *         THByteStorage_retain(storageC)
  */
 
-static PyObject *__pyx_f_7Storage_ByteStorage_fromNative(struct THByteStorage *__pyx_v_storageC, struct __pyx_opt_args_7Storage_ByteStorage_fromNative *__pyx_optional_args) {
+static PyObject *__pyx_f_7Storage__ByteStorage_fromNative(struct THByteStorage *__pyx_v_storageC, struct __pyx_opt_args_7Storage__ByteStorage_fromNative *__pyx_optional_args) {
   PyObject *__pyx_v_retain = ((PyObject *)Py_True);
-  struct __pyx_obj_7Storage_ByteStorage *__pyx_v_storage = NULL;
+  struct __pyx_obj_7Storage__ByteStorage *__pyx_v_storage = NULL;
   PyObject *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
   int __pyx_t_1;
@@ -4944,7 +4944,7 @@ static PyObject *__pyx_f_7Storage_ByteStorage_fromNative(struct THByteStorage *_
   int __pyx_lineno = 0;
   const char *__pyx_filename = NULL;
   int __pyx_clineno = 0;
-  __Pyx_RefNannySetupContext("ByteStorage_fromNative", 0);
+  __Pyx_RefNannySetupContext("_ByteStorage_fromNative", 0);
   if (__pyx_optional_args) {
     if (__pyx_optional_args->__pyx_n > 0) {
       __pyx_v_retain = __pyx_optional_args->retain;
@@ -4953,19 +4953,19 @@ static PyObject *__pyx_f_7Storage_ByteStorage_fromNative(struct THByteStorage *_
 
   /* "Storage.pyx":204
  * 
- * cdef ByteStorage_fromNative(THByteStorage *storageC, retain=True):
+ * cdef _ByteStorage_fromNative(THByteStorage *storageC, retain=True):
  *     if retain:             # <<<<<<<<<<<<<<
  *         THByteStorage_retain(storageC)
- *     storage = ByteStorage()
+ *     storage = _ByteStorage()
  */
   __pyx_t_1 = __Pyx_PyObject_IsTrue(__pyx_v_retain); if (unlikely(__pyx_t_1 < 0)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 204; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   if (__pyx_t_1) {
 
     /* "Storage.pyx":205
- * cdef ByteStorage_fromNative(THByteStorage *storageC, retain=True):
+ * cdef _ByteStorage_fromNative(THByteStorage *storageC, retain=True):
  *     if retain:
  *         THByteStorage_retain(storageC)             # <<<<<<<<<<<<<<
- *     storage = ByteStorage()
+ *     storage = _ByteStorage()
  *     storage.thByteStorage = storageC
  */
     THByteStorage_retain(__pyx_v_storageC);
@@ -4976,18 +4976,18 @@ static PyObject *__pyx_f_7Storage_ByteStorage_fromNative(struct THByteStorage *_
   /* "Storage.pyx":206
  *     if retain:
  *         THByteStorage_retain(storageC)
- *     storage = ByteStorage()             # <<<<<<<<<<<<<<
+ *     storage = _ByteStorage()             # <<<<<<<<<<<<<<
  *     storage.thByteStorage = storageC
  *     return storage
  */
-  __pyx_t_2 = __Pyx_PyObject_Call(((PyObject *)((PyObject*)__pyx_ptype_7Storage_ByteStorage)), __pyx_empty_tuple, NULL); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 206; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_2 = __Pyx_PyObject_Call(((PyObject *)((PyObject*)__pyx_ptype_7Storage__ByteStorage)), __pyx_empty_tuple, NULL); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 206; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_2);
-  __pyx_v_storage = ((struct __pyx_obj_7Storage_ByteStorage *)__pyx_t_2);
+  __pyx_v_storage = ((struct __pyx_obj_7Storage__ByteStorage *)__pyx_t_2);
   __pyx_t_2 = 0;
 
   /* "Storage.pyx":207
  *         THByteStorage_retain(storageC)
- *     storage = ByteStorage()
+ *     storage = _ByteStorage()
  *     storage.thByteStorage = storageC             # <<<<<<<<<<<<<<
  *     return storage
  * 
@@ -4995,7 +4995,7 @@ static PyObject *__pyx_f_7Storage_ByteStorage_fromNative(struct THByteStorage *_
   __pyx_v_storage->thByteStorage = __pyx_v_storageC;
 
   /* "Storage.pyx":208
- *     storage = ByteStorage()
+ *     storage = _ByteStorage()
  *     storage.thByteStorage = storageC
  *     return storage             # <<<<<<<<<<<<<<
  * 
@@ -5009,7 +5009,7 @@ static PyObject *__pyx_f_7Storage_ByteStorage_fromNative(struct THByteStorage *_
   /* "Storage.pyx":203
  * 
  * 
- * cdef ByteStorage_fromNative(THByteStorage *storageC, retain=True):             # <<<<<<<<<<<<<<
+ * cdef _ByteStorage_fromNative(THByteStorage *storageC, retain=True):             # <<<<<<<<<<<<<<
  *     if retain:
  *         THByteStorage_retain(storageC)
  */
@@ -5017,7 +5017,7 @@ static PyObject *__pyx_f_7Storage_ByteStorage_fromNative(struct THByteStorage *_
   /* function exit code */
   __pyx_L1_error:;
   __Pyx_XDECREF(__pyx_t_2);
-  __Pyx_AddTraceback("Storage.ByteStorage_fromNative", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("Storage._ByteStorage_fromNative", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = 0;
   __pyx_L0:;
   __Pyx_XDECREF((PyObject *)__pyx_v_storage);
@@ -5035,8 +5035,8 @@ static PyObject *__pyx_f_7Storage_ByteStorage_fromNative(struct THByteStorage *_
  */
 
 /* Python wrapper */
-static int __pyx_pw_7Storage_12FloatStorage_1__init__(PyObject *__pyx_v_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
-static int __pyx_pw_7Storage_12FloatStorage_1__init__(PyObject *__pyx_v_self, PyObject *__pyx_args, PyObject *__pyx_kwds) {
+static int __pyx_pw_7Storage_13_FloatStorage_1__init__(PyObject *__pyx_v_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
+static int __pyx_pw_7Storage_13_FloatStorage_1__init__(PyObject *__pyx_v_self, PyObject *__pyx_args, PyObject *__pyx_kwds) {
   PyObject *__pyx_v_args = 0;
   PyObject *__pyx_v_kwargs = 0;
   int __pyx_r;
@@ -5048,7 +5048,7 @@ static int __pyx_pw_7Storage_12FloatStorage_1__init__(PyObject *__pyx_v_self, Py
   __Pyx_GOTREF(__pyx_v_kwargs);
   __Pyx_INCREF(__pyx_args);
   __pyx_v_args = __pyx_args;
-  __pyx_r = __pyx_pf_7Storage_12FloatStorage___init__(((struct __pyx_obj_7Storage_FloatStorage *)__pyx_v_self), __pyx_v_args, __pyx_v_kwargs);
+  __pyx_r = __pyx_pf_7Storage_13_FloatStorage___init__(((struct __pyx_obj_7Storage__FloatStorage *)__pyx_v_self), __pyx_v_args, __pyx_v_kwargs);
 
   /* function exit code */
   __Pyx_XDECREF(__pyx_v_args);
@@ -5057,7 +5057,7 @@ static int __pyx_pw_7Storage_12FloatStorage_1__init__(PyObject *__pyx_v_self, Py
   return __pyx_r;
 }
 
-static int __pyx_pf_7Storage_12FloatStorage___init__(struct __pyx_obj_7Storage_FloatStorage *__pyx_v_self, PyObject *__pyx_v_args, PyObject *__pyx_v_kwargs) {
+static int __pyx_pf_7Storage_13_FloatStorage___init__(struct __pyx_obj_7Storage__FloatStorage *__pyx_v_self, PyObject *__pyx_v_args, PyObject *__pyx_v_kwargs) {
   PyObject *__pyx_v_arg = NULL;
   int __pyx_r;
   __Pyx_RefNannyDeclarations
@@ -5214,7 +5214,7 @@ static int __pyx_pf_7Storage_12FloatStorage___init__(struct __pyx_obj_7Storage_F
  *         if len(kwargs) > 0:
  *             raise Exception('cannot provide arguments to initializer')             # <<<<<<<<<<<<<<
  * 
- *     def __repr__(FloatStorage self):
+ *     def __repr__(_FloatStorage self):
  */
     __pyx_t_1 = __Pyx_PyObject_Call(__pyx_builtin_Exception, __pyx_tuple__16, NULL); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 226; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
     __Pyx_GOTREF(__pyx_t_1);
@@ -5237,7 +5237,7 @@ static int __pyx_pf_7Storage_12FloatStorage___init__(struct __pyx_obj_7Storage_F
   __pyx_L1_error:;
   __Pyx_XDECREF(__pyx_t_1);
   __Pyx_XDECREF(__pyx_t_2);
-  __Pyx_AddTraceback("Storage.FloatStorage.__init__", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("Storage._FloatStorage.__init__", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = -1;
   __pyx_L0:;
   __Pyx_XDECREF(__pyx_v_arg);
@@ -5248,25 +5248,25 @@ static int __pyx_pf_7Storage_12FloatStorage___init__(struct __pyx_obj_7Storage_F
 /* "Storage.pyx":228
  *             raise Exception('cannot provide arguments to initializer')
  * 
- *     def __repr__(FloatStorage self):             # <<<<<<<<<<<<<<
+ *     def __repr__(_FloatStorage self):             # <<<<<<<<<<<<<<
  *         cdef int size0
  *         size0 = THFloatStorage_size(self.thFloatStorage)
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_7Storage_12FloatStorage_3__repr__(PyObject *__pyx_v_self); /*proto*/
-static PyObject *__pyx_pw_7Storage_12FloatStorage_3__repr__(PyObject *__pyx_v_self) {
+static PyObject *__pyx_pw_7Storage_13_FloatStorage_3__repr__(PyObject *__pyx_v_self); /*proto*/
+static PyObject *__pyx_pw_7Storage_13_FloatStorage_3__repr__(PyObject *__pyx_v_self) {
   PyObject *__pyx_r = 0;
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("__repr__ (wrapper)", 0);
-  __pyx_r = __pyx_pf_7Storage_12FloatStorage_2__repr__(((struct __pyx_obj_7Storage_FloatStorage *)__pyx_v_self));
+  __pyx_r = __pyx_pf_7Storage_13_FloatStorage_2__repr__(((struct __pyx_obj_7Storage__FloatStorage *)__pyx_v_self));
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_7Storage_12FloatStorage_2__repr__(struct __pyx_obj_7Storage_FloatStorage *__pyx_v_self) {
+static PyObject *__pyx_pf_7Storage_13_FloatStorage_2__repr__(struct __pyx_obj_7Storage__FloatStorage *__pyx_v_self) {
   int __pyx_v_size0;
   PyObject *__pyx_v_res = NULL;
   int __pyx_v_c;
@@ -5283,7 +5283,7 @@ static PyObject *__pyx_pf_7Storage_12FloatStorage_2__repr__(struct __pyx_obj_7St
   __Pyx_RefNannySetupContext("__repr__", 0);
 
   /* "Storage.pyx":230
- *     def __repr__(FloatStorage self):
+ *     def __repr__(_FloatStorage self):
  *         cdef int size0
  *         size0 = THFloatStorage_size(self.thFloatStorage)             # <<<<<<<<<<<<<<
  *         res = ''
@@ -5400,7 +5400,7 @@ static PyObject *__pyx_pf_7Storage_12FloatStorage_2__repr__(struct __pyx_obj_7St
   /* "Storage.pyx":228
  *             raise Exception('cannot provide arguments to initializer')
  * 
- *     def __repr__(FloatStorage self):             # <<<<<<<<<<<<<<
+ *     def __repr__(_FloatStorage self):             # <<<<<<<<<<<<<<
  *         cdef int size0
  *         size0 = THFloatStorage_size(self.thFloatStorage)
  */
@@ -5409,7 +5409,7 @@ static PyObject *__pyx_pf_7Storage_12FloatStorage_2__repr__(struct __pyx_obj_7St
   __pyx_L1_error:;
   __Pyx_XDECREF(__pyx_t_3);
   __Pyx_XDECREF(__pyx_t_5);
-  __Pyx_AddTraceback("Storage.FloatStorage.__repr__", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("Storage._FloatStorage.__repr__", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = NULL;
   __pyx_L0:;
   __Pyx_XDECREF(__pyx_v_res);
@@ -5423,31 +5423,31 @@ static PyObject *__pyx_pf_7Storage_12FloatStorage_2__repr__(struct __pyx_obj_7St
  *     @staticmethod
  *     def new():             # <<<<<<<<<<<<<<
  *         # print('allocate storage')
- *         return FloatStorage_fromNative(THFloatStorage_new(), retain=False)
+ *         return _FloatStorage_fromNative(THFloatStorage_new(), retain=False)
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_7Storage_12FloatStorage_5new(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
-static PyMethodDef __pyx_mdef_7Storage_12FloatStorage_5new = {"new", (PyCFunction)__pyx_pw_7Storage_12FloatStorage_5new, METH_VARARGS|METH_KEYWORDS, 0};
-static PyObject *__pyx_pw_7Storage_12FloatStorage_5new(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds) {
+static PyObject *__pyx_pw_7Storage_13_FloatStorage_5new(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
+static PyMethodDef __pyx_mdef_7Storage_13_FloatStorage_5new = {"new", (PyCFunction)__pyx_pw_7Storage_13_FloatStorage_5new, METH_VARARGS|METH_KEYWORDS, 0};
+static PyObject *__pyx_pw_7Storage_13_FloatStorage_5new(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds) {
   PyObject *__pyx_r = 0;
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("new (wrapper)", 0);
   if (unlikely(PyTuple_GET_SIZE(__pyx_args) > 0)) {
     __Pyx_RaiseArgtupleInvalid("new", 1, 0, 0, PyTuple_GET_SIZE(__pyx_args)); return NULL;}
   if (unlikely(__pyx_kwds) && unlikely(PyDict_Size(__pyx_kwds) > 0) && unlikely(!__Pyx_CheckKeywordStrings(__pyx_kwds, "new", 0))) return NULL;
-  __pyx_r = __pyx_pf_7Storage_12FloatStorage_4new();
+  __pyx_r = __pyx_pf_7Storage_13_FloatStorage_4new();
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_7Storage_12FloatStorage_4new() {
+static PyObject *__pyx_pf_7Storage_13_FloatStorage_4new() {
   PyObject *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
   PyObject *__pyx_t_1 = NULL;
-  struct __pyx_opt_args_7Storage_FloatStorage_fromNative __pyx_t_2;
+  struct __pyx_opt_args_7Storage__FloatStorage_fromNative __pyx_t_2;
   int __pyx_lineno = 0;
   const char *__pyx_filename = NULL;
   int __pyx_clineno = 0;
@@ -5456,14 +5456,14 @@ static PyObject *__pyx_pf_7Storage_12FloatStorage_4new() {
   /* "Storage.pyx":248
  *     def new():
  *         # print('allocate storage')
- *         return FloatStorage_fromNative(THFloatStorage_new(), retain=False)             # <<<<<<<<<<<<<<
+ *         return _FloatStorage_fromNative(THFloatStorage_new(), retain=False)             # <<<<<<<<<<<<<<
  * 
  *     @staticmethod
  */
   __Pyx_XDECREF(__pyx_r);
   __pyx_t_2.__pyx_n = 1;
   __pyx_t_2.retain = Py_False;
-  __pyx_t_1 = __pyx_f_7Storage_FloatStorage_fromNative(THFloatStorage_new(), &__pyx_t_2); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 248; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_1 = __pyx_f_7Storage__FloatStorage_fromNative(THFloatStorage_new(), &__pyx_t_2); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 248; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_r = __pyx_t_1;
   __pyx_t_1 = 0;
@@ -5474,13 +5474,13 @@ static PyObject *__pyx_pf_7Storage_12FloatStorage_4new() {
  *     @staticmethod
  *     def new():             # <<<<<<<<<<<<<<
  *         # print('allocate storage')
- *         return FloatStorage_fromNative(THFloatStorage_new(), retain=False)
+ *         return _FloatStorage_fromNative(THFloatStorage_new(), retain=False)
  */
 
   /* function exit code */
   __pyx_L1_error:;
   __Pyx_XDECREF(__pyx_t_1);
-  __Pyx_AddTraceback("Storage.FloatStorage.new", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("Storage._FloatStorage.new", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = NULL;
   __pyx_L0:;
   __Pyx_XGIVEREF(__pyx_r);
@@ -5497,9 +5497,9 @@ static PyObject *__pyx_pf_7Storage_12FloatStorage_4new() {
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_7Storage_12FloatStorage_7newWithData(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
-static PyMethodDef __pyx_mdef_7Storage_12FloatStorage_7newWithData = {"newWithData", (PyCFunction)__pyx_pw_7Storage_12FloatStorage_7newWithData, METH_VARARGS|METH_KEYWORDS, 0};
-static PyObject *__pyx_pw_7Storage_12FloatStorage_7newWithData(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds) {
+static PyObject *__pyx_pw_7Storage_13_FloatStorage_7newWithData(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
+static PyMethodDef __pyx_mdef_7Storage_13_FloatStorage_7newWithData = {"newWithData", (PyCFunction)__pyx_pw_7Storage_13_FloatStorage_7newWithData, METH_VARARGS|METH_KEYWORDS, 0};
+static PyObject *__pyx_pw_7Storage_13_FloatStorage_7newWithData(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds) {
   __Pyx_memviewslice __pyx_v_data = { 0, 0, { 0 }, { 0 }, { 0 } };
   int __pyx_lineno = 0;
   const char *__pyx_filename = NULL;
@@ -5538,18 +5538,18 @@ static PyObject *__pyx_pw_7Storage_12FloatStorage_7newWithData(CYTHON_UNUSED PyO
   __pyx_L5_argtuple_error:;
   __Pyx_RaiseArgtupleInvalid("newWithData", 1, 1, 1, PyTuple_GET_SIZE(__pyx_args)); {__pyx_filename = __pyx_f[0]; __pyx_lineno = 251; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
   __pyx_L3_error:;
-  __Pyx_AddTraceback("Storage.FloatStorage.newWithData", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("Storage._FloatStorage.newWithData", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __Pyx_RefNannyFinishContext();
   return NULL;
   __pyx_L4_argument_unpacking_done:;
-  __pyx_r = __pyx_pf_7Storage_12FloatStorage_6newWithData(__pyx_v_data);
+  __pyx_r = __pyx_pf_7Storage_13_FloatStorage_6newWithData(__pyx_v_data);
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_7Storage_12FloatStorage_6newWithData(__Pyx_memviewslice __pyx_v_data) {
+static PyObject *__pyx_pf_7Storage_13_FloatStorage_6newWithData(__Pyx_memviewslice __pyx_v_data) {
   struct THFloatStorage *__pyx_v_storageC;
   PyObject *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
@@ -5557,7 +5557,7 @@ static PyObject *__pyx_pf_7Storage_12FloatStorage_6newWithData(__Pyx_memviewslic
   int __pyx_t_2;
   PyObject *__pyx_t_3 = NULL;
   Py_ssize_t __pyx_t_4;
-  struct __pyx_opt_args_7Storage_FloatStorage_fromNative __pyx_t_5;
+  struct __pyx_opt_args_7Storage__FloatStorage_fromNative __pyx_t_5;
   int __pyx_lineno = 0;
   const char *__pyx_filename = NULL;
   int __pyx_clineno = 0;
@@ -5568,7 +5568,7 @@ static PyObject *__pyx_pf_7Storage_12FloatStorage_6newWithData(__Pyx_memviewslic
  *     def newWithData(float [:] data):
  *         cdef THFloatStorage *storageC = THFloatStorage_newWithData(&data[0], len(data))             # <<<<<<<<<<<<<<
  *         # print('allocate storage')
- *         return FloatStorage_fromNative(storageC, retain=False)
+ *         return _FloatStorage_fromNative(storageC, retain=False)
  */
   __pyx_t_1 = 0;
   __pyx_t_2 = -1;
@@ -5589,14 +5589,14 @@ static PyObject *__pyx_pf_7Storage_12FloatStorage_6newWithData(__Pyx_memviewslic
   /* "Storage.pyx":254
  *         cdef THFloatStorage *storageC = THFloatStorage_newWithData(&data[0], len(data))
  *         # print('allocate storage')
- *         return FloatStorage_fromNative(storageC, retain=False)             # <<<<<<<<<<<<<<
+ *         return _FloatStorage_fromNative(storageC, retain=False)             # <<<<<<<<<<<<<<
  * 
  *     @property
  */
   __Pyx_XDECREF(__pyx_r);
   __pyx_t_5.__pyx_n = 1;
   __pyx_t_5.retain = Py_False;
-  __pyx_t_3 = __pyx_f_7Storage_FloatStorage_fromNative(__pyx_v_storageC, &__pyx_t_5); if (unlikely(!__pyx_t_3)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 254; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_3 = __pyx_f_7Storage__FloatStorage_fromNative(__pyx_v_storageC, &__pyx_t_5); if (unlikely(!__pyx_t_3)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 254; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_3);
   __pyx_r = __pyx_t_3;
   __pyx_t_3 = 0;
@@ -5613,7 +5613,7 @@ static PyObject *__pyx_pf_7Storage_12FloatStorage_6newWithData(__Pyx_memviewslic
   /* function exit code */
   __pyx_L1_error:;
   __Pyx_XDECREF(__pyx_t_3);
-  __Pyx_AddTraceback("Storage.FloatStorage.newWithData", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("Storage._FloatStorage.newWithData", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = NULL;
   __pyx_L0:;
   __PYX_XDEC_MEMVIEW(&__pyx_v_data, 1);
@@ -5625,25 +5625,25 @@ static PyObject *__pyx_pf_7Storage_12FloatStorage_6newWithData(__Pyx_memviewslic
 /* "Storage.pyx":257
  * 
  *     @property
- *     def refCount(FloatStorage self):             # <<<<<<<<<<<<<<
+ *     def refCount(_FloatStorage self):             # <<<<<<<<<<<<<<
  *         return THFloatStorage_getRefCount(self.thFloatStorage)
  * 
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_7Storage_12FloatStorage_9refCount(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused); /*proto*/
-static PyObject *__pyx_pw_7Storage_12FloatStorage_9refCount(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused) {
+static PyObject *__pyx_pw_7Storage_13_FloatStorage_9refCount(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused); /*proto*/
+static PyObject *__pyx_pw_7Storage_13_FloatStorage_9refCount(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused) {
   PyObject *__pyx_r = 0;
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("refCount (wrapper)", 0);
-  __pyx_r = __pyx_pf_7Storage_12FloatStorage_8refCount(((struct __pyx_obj_7Storage_FloatStorage *)__pyx_v_self));
+  __pyx_r = __pyx_pf_7Storage_13_FloatStorage_8refCount(((struct __pyx_obj_7Storage__FloatStorage *)__pyx_v_self));
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_7Storage_12FloatStorage_8refCount(struct __pyx_obj_7Storage_FloatStorage *__pyx_v_self) {
+static PyObject *__pyx_pf_7Storage_13_FloatStorage_8refCount(struct __pyx_obj_7Storage__FloatStorage *__pyx_v_self) {
   PyObject *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
   PyObject *__pyx_t_1 = NULL;
@@ -5654,10 +5654,10 @@ static PyObject *__pyx_pf_7Storage_12FloatStorage_8refCount(struct __pyx_obj_7St
 
   /* "Storage.pyx":258
  *     @property
- *     def refCount(FloatStorage self):
+ *     def refCount(_FloatStorage self):
  *         return THFloatStorage_getRefCount(self.thFloatStorage)             # <<<<<<<<<<<<<<
  * 
- *     def dataAddr(FloatStorage self):
+ *     def dataAddr(_FloatStorage self):
  */
   __Pyx_XDECREF(__pyx_r);
   __pyx_t_1 = __Pyx_PyInt_From_int(THFloatStorage_getRefCount(__pyx_v_self->thFloatStorage)); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 258; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
@@ -5669,7 +5669,7 @@ static PyObject *__pyx_pf_7Storage_12FloatStorage_8refCount(struct __pyx_obj_7St
   /* "Storage.pyx":257
  * 
  *     @property
- *     def refCount(FloatStorage self):             # <<<<<<<<<<<<<<
+ *     def refCount(_FloatStorage self):             # <<<<<<<<<<<<<<
  *         return THFloatStorage_getRefCount(self.thFloatStorage)
  * 
  */
@@ -5677,7 +5677,7 @@ static PyObject *__pyx_pf_7Storage_12FloatStorage_8refCount(struct __pyx_obj_7St
   /* function exit code */
   __pyx_L1_error:;
   __Pyx_XDECREF(__pyx_t_1);
-  __Pyx_AddTraceback("Storage.FloatStorage.refCount", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("Storage._FloatStorage.refCount", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = NULL;
   __pyx_L0:;
   __Pyx_XGIVEREF(__pyx_r);
@@ -5688,25 +5688,25 @@ static PyObject *__pyx_pf_7Storage_12FloatStorage_8refCount(struct __pyx_obj_7St
 /* "Storage.pyx":260
  *         return THFloatStorage_getRefCount(self.thFloatStorage)
  * 
- *     def dataAddr(FloatStorage self):             # <<<<<<<<<<<<<<
+ *     def dataAddr(_FloatStorage self):             # <<<<<<<<<<<<<<
  *         cdef float *data = THFloatStorage_data(self.thFloatStorage)
  *         cdef long dataAddr = pointerAsInt(data)
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_7Storage_12FloatStorage_11dataAddr(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused); /*proto*/
-static PyObject *__pyx_pw_7Storage_12FloatStorage_11dataAddr(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused) {
+static PyObject *__pyx_pw_7Storage_13_FloatStorage_11dataAddr(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused); /*proto*/
+static PyObject *__pyx_pw_7Storage_13_FloatStorage_11dataAddr(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused) {
   PyObject *__pyx_r = 0;
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("dataAddr (wrapper)", 0);
-  __pyx_r = __pyx_pf_7Storage_12FloatStorage_10dataAddr(((struct __pyx_obj_7Storage_FloatStorage *)__pyx_v_self));
+  __pyx_r = __pyx_pf_7Storage_13_FloatStorage_10dataAddr(((struct __pyx_obj_7Storage__FloatStorage *)__pyx_v_self));
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_7Storage_12FloatStorage_10dataAddr(struct __pyx_obj_7Storage_FloatStorage *__pyx_v_self) {
+static PyObject *__pyx_pf_7Storage_13_FloatStorage_10dataAddr(struct __pyx_obj_7Storage__FloatStorage *__pyx_v_self) {
   float *__pyx_v_data;
   long __pyx_v_dataAddr;
   PyObject *__pyx_r = NULL;
@@ -5719,7 +5719,7 @@ static PyObject *__pyx_pf_7Storage_12FloatStorage_10dataAddr(struct __pyx_obj_7S
 
   /* "Storage.pyx":261
  * 
- *     def dataAddr(FloatStorage self):
+ *     def dataAddr(_FloatStorage self):
  *         cdef float *data = THFloatStorage_data(self.thFloatStorage)             # <<<<<<<<<<<<<<
  *         cdef long dataAddr = pointerAsInt(data)
  *         return dataAddr
@@ -5727,7 +5727,7 @@ static PyObject *__pyx_pf_7Storage_12FloatStorage_10dataAddr(struct __pyx_obj_7S
   __pyx_v_data = THFloatStorage_data(__pyx_v_self->thFloatStorage);
 
   /* "Storage.pyx":262
- *     def dataAddr(FloatStorage self):
+ *     def dataAddr(_FloatStorage self):
  *         cdef float *data = THFloatStorage_data(self.thFloatStorage)
  *         cdef long dataAddr = pointerAsInt(data)             # <<<<<<<<<<<<<<
  *         return dataAddr
@@ -5752,7 +5752,7 @@ static PyObject *__pyx_pf_7Storage_12FloatStorage_10dataAddr(struct __pyx_obj_7S
   /* "Storage.pyx":260
  *         return THFloatStorage_getRefCount(self.thFloatStorage)
  * 
- *     def dataAddr(FloatStorage self):             # <<<<<<<<<<<<<<
+ *     def dataAddr(_FloatStorage self):             # <<<<<<<<<<<<<<
  *         cdef float *data = THFloatStorage_data(self.thFloatStorage)
  *         cdef long dataAddr = pointerAsInt(data)
  */
@@ -5760,7 +5760,7 @@ static PyObject *__pyx_pf_7Storage_12FloatStorage_10dataAddr(struct __pyx_obj_7S
   /* function exit code */
   __pyx_L1_error:;
   __Pyx_XDECREF(__pyx_t_1);
-  __Pyx_AddTraceback("Storage.FloatStorage.dataAddr", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("Storage._FloatStorage.dataAddr", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = NULL;
   __pyx_L0:;
   __Pyx_XGIVEREF(__pyx_r);
@@ -5777,9 +5777,9 @@ static PyObject *__pyx_pf_7Storage_12FloatStorage_10dataAddr(struct __pyx_obj_7S
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_7Storage_12FloatStorage_13newWithSize(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
-static PyMethodDef __pyx_mdef_7Storage_12FloatStorage_13newWithSize = {"newWithSize", (PyCFunction)__pyx_pw_7Storage_12FloatStorage_13newWithSize, METH_VARARGS|METH_KEYWORDS, 0};
-static PyObject *__pyx_pw_7Storage_12FloatStorage_13newWithSize(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds) {
+static PyObject *__pyx_pw_7Storage_13_FloatStorage_13newWithSize(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
+static PyMethodDef __pyx_mdef_7Storage_13_FloatStorage_13newWithSize = {"newWithSize", (PyCFunction)__pyx_pw_7Storage_13_FloatStorage_13newWithSize, METH_VARARGS|METH_KEYWORDS, 0};
+static PyObject *__pyx_pw_7Storage_13_FloatStorage_13newWithSize(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds) {
   long __pyx_v_size;
   int __pyx_lineno = 0;
   const char *__pyx_filename = NULL;
@@ -5818,23 +5818,23 @@ static PyObject *__pyx_pw_7Storage_12FloatStorage_13newWithSize(CYTHON_UNUSED Py
   __pyx_L5_argtuple_error:;
   __Pyx_RaiseArgtupleInvalid("newWithSize", 1, 1, 1, PyTuple_GET_SIZE(__pyx_args)); {__pyx_filename = __pyx_f[0]; __pyx_lineno = 266; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
   __pyx_L3_error:;
-  __Pyx_AddTraceback("Storage.FloatStorage.newWithSize", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("Storage._FloatStorage.newWithSize", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __Pyx_RefNannyFinishContext();
   return NULL;
   __pyx_L4_argument_unpacking_done:;
-  __pyx_r = __pyx_pf_7Storage_12FloatStorage_12newWithSize(__pyx_v_size);
+  __pyx_r = __pyx_pf_7Storage_13_FloatStorage_12newWithSize(__pyx_v_size);
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_7Storage_12FloatStorage_12newWithSize(long __pyx_v_size) {
+static PyObject *__pyx_pf_7Storage_13_FloatStorage_12newWithSize(long __pyx_v_size) {
   struct THFloatStorage *__pyx_v_storageC;
   PyObject *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
   PyObject *__pyx_t_1 = NULL;
-  struct __pyx_opt_args_7Storage_FloatStorage_fromNative __pyx_t_2;
+  struct __pyx_opt_args_7Storage__FloatStorage_fromNative __pyx_t_2;
   int __pyx_lineno = 0;
   const char *__pyx_filename = NULL;
   int __pyx_clineno = 0;
@@ -5845,21 +5845,21 @@ static PyObject *__pyx_pf_7Storage_12FloatStorage_12newWithSize(long __pyx_v_siz
  *     def newWithSize(long size):
  *         cdef THFloatStorage *storageC = THFloatStorage_newWithSize(size)             # <<<<<<<<<<<<<<
  *         # print('allocate storage')
- *         return FloatStorage_fromNative(storageC, retain=False)
+ *         return _FloatStorage_fromNative(storageC, retain=False)
  */
   __pyx_v_storageC = THFloatStorage_newWithSize(__pyx_v_size);
 
   /* "Storage.pyx":269
  *         cdef THFloatStorage *storageC = THFloatStorage_newWithSize(size)
  *         # print('allocate storage')
- *         return FloatStorage_fromNative(storageC, retain=False)             # <<<<<<<<<<<<<<
+ *         return _FloatStorage_fromNative(storageC, retain=False)             # <<<<<<<<<<<<<<
  * 
  *     cpdef long size(self):
  */
   __Pyx_XDECREF(__pyx_r);
   __pyx_t_2.__pyx_n = 1;
   __pyx_t_2.retain = Py_False;
-  __pyx_t_1 = __pyx_f_7Storage_FloatStorage_fromNative(__pyx_v_storageC, &__pyx_t_2); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 269; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_1 = __pyx_f_7Storage__FloatStorage_fromNative(__pyx_v_storageC, &__pyx_t_2); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 269; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_r = __pyx_t_1;
   __pyx_t_1 = 0;
@@ -5876,7 +5876,7 @@ static PyObject *__pyx_pf_7Storage_12FloatStorage_12newWithSize(long __pyx_v_siz
   /* function exit code */
   __pyx_L1_error:;
   __Pyx_XDECREF(__pyx_t_1);
-  __Pyx_AddTraceback("Storage.FloatStorage.newWithSize", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("Storage._FloatStorage.newWithSize", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = NULL;
   __pyx_L0:;
   __Pyx_XGIVEREF(__pyx_r);
@@ -5885,15 +5885,15 @@ static PyObject *__pyx_pf_7Storage_12FloatStorage_12newWithSize(long __pyx_v_siz
 }
 
 /* "Storage.pyx":271
- *         return FloatStorage_fromNative(storageC, retain=False)
+ *         return _FloatStorage_fromNative(storageC, retain=False)
  * 
  *     cpdef long size(self):             # <<<<<<<<<<<<<<
  *         return THFloatStorage_size(self.thFloatStorage)
  * 
  */
 
-static PyObject *__pyx_pw_7Storage_12FloatStorage_15size(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused); /*proto*/
-static long __pyx_f_7Storage_12FloatStorage_size(struct __pyx_obj_7Storage_FloatStorage *__pyx_v_self, int __pyx_skip_dispatch) {
+static PyObject *__pyx_pw_7Storage_13_FloatStorage_15size(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused); /*proto*/
+static long __pyx_f_7Storage_13_FloatStorage_size(struct __pyx_obj_7Storage__FloatStorage *__pyx_v_self, int __pyx_skip_dispatch) {
   long __pyx_r;
   __Pyx_RefNannyDeclarations
   PyObject *__pyx_t_1 = NULL;
@@ -5911,7 +5911,7 @@ static long __pyx_f_7Storage_12FloatStorage_size(struct __pyx_obj_7Storage_Float
   else if (unlikely(Py_TYPE(((PyObject *)__pyx_v_self))->tp_dictoffset != 0)) {
     __pyx_t_1 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_self), __pyx_n_s_size); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 271; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
     __Pyx_GOTREF(__pyx_t_1);
-    if (!PyCFunction_Check(__pyx_t_1) || (PyCFunction_GET_FUNCTION(__pyx_t_1) != (PyCFunction)__pyx_pw_7Storage_12FloatStorage_15size)) {
+    if (!PyCFunction_Check(__pyx_t_1) || (PyCFunction_GET_FUNCTION(__pyx_t_1) != (PyCFunction)__pyx_pw_7Storage_13_FloatStorage_15size)) {
       __Pyx_INCREF(__pyx_t_1);
       __pyx_t_3 = __pyx_t_1; __pyx_t_4 = NULL;
       if (CYTHON_COMPILING_IN_CPYTHON && unlikely(PyMethod_Check(__pyx_t_3))) {
@@ -5951,7 +5951,7 @@ static long __pyx_f_7Storage_12FloatStorage_size(struct __pyx_obj_7Storage_Float
   goto __pyx_L0;
 
   /* "Storage.pyx":271
- *         return FloatStorage_fromNative(storageC, retain=False)
+ *         return _FloatStorage_fromNative(storageC, retain=False)
  * 
  *     cpdef long size(self):             # <<<<<<<<<<<<<<
  *         return THFloatStorage_size(self.thFloatStorage)
@@ -5964,7 +5964,7 @@ static long __pyx_f_7Storage_12FloatStorage_size(struct __pyx_obj_7Storage_Float
   __Pyx_XDECREF(__pyx_t_2);
   __Pyx_XDECREF(__pyx_t_3);
   __Pyx_XDECREF(__pyx_t_4);
-  __Pyx_WriteUnraisable("Storage.FloatStorage.size", __pyx_clineno, __pyx_lineno, __pyx_filename, 0);
+  __Pyx_WriteUnraisable("Storage._FloatStorage.size", __pyx_clineno, __pyx_lineno, __pyx_filename, 0);
   __pyx_r = 0;
   __pyx_L0:;
   __Pyx_RefNannyFinishContext();
@@ -5972,19 +5972,19 @@ static long __pyx_f_7Storage_12FloatStorage_size(struct __pyx_obj_7Storage_Float
 }
 
 /* Python wrapper */
-static PyObject *__pyx_pw_7Storage_12FloatStorage_15size(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused); /*proto*/
-static PyObject *__pyx_pw_7Storage_12FloatStorage_15size(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused) {
+static PyObject *__pyx_pw_7Storage_13_FloatStorage_15size(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused); /*proto*/
+static PyObject *__pyx_pw_7Storage_13_FloatStorage_15size(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused) {
   PyObject *__pyx_r = 0;
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("size (wrapper)", 0);
-  __pyx_r = __pyx_pf_7Storage_12FloatStorage_14size(((struct __pyx_obj_7Storage_FloatStorage *)__pyx_v_self));
+  __pyx_r = __pyx_pf_7Storage_13_FloatStorage_14size(((struct __pyx_obj_7Storage__FloatStorage *)__pyx_v_self));
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_7Storage_12FloatStorage_14size(struct __pyx_obj_7Storage_FloatStorage *__pyx_v_self) {
+static PyObject *__pyx_pf_7Storage_13_FloatStorage_14size(struct __pyx_obj_7Storage__FloatStorage *__pyx_v_self) {
   PyObject *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
   PyObject *__pyx_t_1 = NULL;
@@ -5993,7 +5993,7 @@ static PyObject *__pyx_pf_7Storage_12FloatStorage_14size(struct __pyx_obj_7Stora
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("size", 0);
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_1 = __Pyx_PyInt_From_long(__pyx_f_7Storage_12FloatStorage_size(__pyx_v_self, 1)); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 271; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_1 = __Pyx_PyInt_From_long(__pyx_f_7Storage_13_FloatStorage_size(__pyx_v_self, 1)); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 271; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_r = __pyx_t_1;
   __pyx_t_1 = 0;
@@ -6002,7 +6002,7 @@ static PyObject *__pyx_pf_7Storage_12FloatStorage_14size(struct __pyx_obj_7Stora
   /* function exit code */
   __pyx_L1_error:;
   __Pyx_XDECREF(__pyx_t_1);
-  __Pyx_AddTraceback("Storage.FloatStorage.size", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("Storage._FloatStorage.size", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = NULL;
   __pyx_L0:;
   __Pyx_XGIVEREF(__pyx_r);
@@ -6019,17 +6019,17 @@ static PyObject *__pyx_pf_7Storage_12FloatStorage_14size(struct __pyx_obj_7Stora
  */
 
 /* Python wrapper */
-static void __pyx_pw_7Storage_12FloatStorage_17__dealloc__(PyObject *__pyx_v_self); /*proto*/
-static void __pyx_pw_7Storage_12FloatStorage_17__dealloc__(PyObject *__pyx_v_self) {
+static void __pyx_pw_7Storage_13_FloatStorage_17__dealloc__(PyObject *__pyx_v_self); /*proto*/
+static void __pyx_pw_7Storage_13_FloatStorage_17__dealloc__(PyObject *__pyx_v_self) {
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("__dealloc__ (wrapper)", 0);
-  __pyx_pf_7Storage_12FloatStorage_16__dealloc__(((struct __pyx_obj_7Storage_FloatStorage *)__pyx_v_self));
+  __pyx_pf_7Storage_13_FloatStorage_16__dealloc__(((struct __pyx_obj_7Storage__FloatStorage *)__pyx_v_self));
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
 }
 
-static void __pyx_pf_7Storage_12FloatStorage_16__dealloc__(struct __pyx_obj_7Storage_FloatStorage *__pyx_v_self) {
+static void __pyx_pf_7Storage_13_FloatStorage_16__dealloc__(struct __pyx_obj_7Storage__FloatStorage *__pyx_v_self) {
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("__dealloc__", 0);
 
@@ -6053,7 +6053,7 @@ static void __pyx_pf_7Storage_12FloatStorage_16__dealloc__(struct __pyx_obj_7Sto
   /* function exit code */
   __Pyx_RefNannyFinishContext();
 }
-static PyObject *__pyx_gb_7Storage_12FloatStorage_20generator2(__pyx_GeneratorObject *__pyx_generator, PyObject *__pyx_sent_value); /* proto */
+static PyObject *__pyx_gb_7Storage_13_FloatStorage_20generator2(__pyx_GeneratorObject *__pyx_generator, PyObject *__pyx_sent_value); /* proto */
 
 /* "Storage.pyx":279
  *         THFloatStorage_free(self.thFloatStorage)
@@ -6064,19 +6064,19 @@ static PyObject *__pyx_gb_7Storage_12FloatStorage_20generator2(__pyx_GeneratorOb
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_7Storage_12FloatStorage_19__iter__(PyObject *__pyx_v_self); /*proto*/
-static PyObject *__pyx_pw_7Storage_12FloatStorage_19__iter__(PyObject *__pyx_v_self) {
+static PyObject *__pyx_pw_7Storage_13_FloatStorage_19__iter__(PyObject *__pyx_v_self); /*proto*/
+static PyObject *__pyx_pw_7Storage_13_FloatStorage_19__iter__(PyObject *__pyx_v_self) {
   PyObject *__pyx_r = 0;
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("__iter__ (wrapper)", 0);
-  __pyx_r = __pyx_pf_7Storage_12FloatStorage_18__iter__(((struct __pyx_obj_7Storage_FloatStorage *)__pyx_v_self));
+  __pyx_r = __pyx_pf_7Storage_13_FloatStorage_18__iter__(((struct __pyx_obj_7Storage__FloatStorage *)__pyx_v_self));
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_7Storage_12FloatStorage_18__iter__(struct __pyx_obj_7Storage_FloatStorage *__pyx_v_self) {
+static PyObject *__pyx_pf_7Storage_13_FloatStorage_18__iter__(struct __pyx_obj_7Storage__FloatStorage *__pyx_v_self) {
   struct __pyx_obj_7Storage___pyx_scope_struct_2___iter__ *__pyx_cur_scope;
   PyObject *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
@@ -6094,7 +6094,7 @@ static PyObject *__pyx_pf_7Storage_12FloatStorage_18__iter__(struct __pyx_obj_7S
   __Pyx_INCREF((PyObject *)__pyx_cur_scope->__pyx_v_self);
   __Pyx_GIVEREF((PyObject *)__pyx_cur_scope->__pyx_v_self);
   {
-    __pyx_GeneratorObject *gen = __Pyx_Generator_New((__pyx_generator_body_t) __pyx_gb_7Storage_12FloatStorage_20generator2, (PyObject *) __pyx_cur_scope, __pyx_n_s_iter, __pyx_n_s_FloatStorage___iter); if (unlikely(!gen)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 279; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+    __pyx_GeneratorObject *gen = __Pyx_Generator_New((__pyx_generator_body_t) __pyx_gb_7Storage_13_FloatStorage_20generator2, (PyObject *) __pyx_cur_scope, __pyx_n_s_iter, __pyx_n_s_FloatStorage___iter); if (unlikely(!gen)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 279; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
     __Pyx_DECREF(__pyx_cur_scope);
     __Pyx_RefNannyFinishContext();
     return (PyObject *) gen;
@@ -6102,7 +6102,7 @@ static PyObject *__pyx_pf_7Storage_12FloatStorage_18__iter__(struct __pyx_obj_7S
 
   /* function exit code */
   __pyx_L1_error:;
-  __Pyx_AddTraceback("Storage.FloatStorage.__iter__", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("Storage._FloatStorage.__iter__", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = NULL;
   __Pyx_DECREF(((PyObject *)__pyx_cur_scope));
   __Pyx_XGIVEREF(__pyx_r);
@@ -6110,7 +6110,7 @@ static PyObject *__pyx_pf_7Storage_12FloatStorage_18__iter__(struct __pyx_obj_7S
   return __pyx_r;
 }
 
-static PyObject *__pyx_gb_7Storage_12FloatStorage_20generator2(__pyx_GeneratorObject *__pyx_generator, PyObject *__pyx_sent_value) /* generator body */
+static PyObject *__pyx_gb_7Storage_13_FloatStorage_20generator2(__pyx_GeneratorObject *__pyx_generator, PyObject *__pyx_sent_value) /* generator body */
 {
   struct __pyx_obj_7Storage___pyx_scope_struct_2___iter__ *__pyx_cur_scope = ((struct __pyx_obj_7Storage___pyx_scope_struct_2___iter__ *)__pyx_generator->closure);
   PyObject *__pyx_r = NULL;
@@ -6157,7 +6157,7 @@ static PyObject *__pyx_gb_7Storage_12FloatStorage_20generator2(__pyx_GeneratorOb
  *         for c in range(size0):
  *             yield self[c]             # <<<<<<<<<<<<<<
  * 
- *     def __getitem__(FloatStorage self, int index):
+ *     def __getitem__(_FloatStorage self, int index):
  */
     __pyx_t_3 = __Pyx_GetItemInt(((PyObject *)__pyx_cur_scope->__pyx_v_self), __pyx_cur_scope->__pyx_v_c, int, 1, __Pyx_PyInt_From_int, 0, 1, 1); if (unlikely(__pyx_t_3 == NULL)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 283; __pyx_clineno = __LINE__; goto __pyx_L1_error;};
     __Pyx_GOTREF(__pyx_t_3);
@@ -6201,14 +6201,14 @@ static PyObject *__pyx_gb_7Storage_12FloatStorage_20generator2(__pyx_GeneratorOb
 /* "Storage.pyx":285
  *             yield self[c]
  * 
- *     def __getitem__(FloatStorage self, int index):             # <<<<<<<<<<<<<<
+ *     def __getitem__(_FloatStorage self, int index):             # <<<<<<<<<<<<<<
  *         cdef float res = THFloatStorage_get(self.thFloatStorage, index)
  *         return res
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_7Storage_12FloatStorage_22__getitem__(PyObject *__pyx_v_self, PyObject *__pyx_arg_index); /*proto*/
-static PyObject *__pyx_pw_7Storage_12FloatStorage_22__getitem__(PyObject *__pyx_v_self, PyObject *__pyx_arg_index) {
+static PyObject *__pyx_pw_7Storage_13_FloatStorage_22__getitem__(PyObject *__pyx_v_self, PyObject *__pyx_arg_index); /*proto*/
+static PyObject *__pyx_pw_7Storage_13_FloatStorage_22__getitem__(PyObject *__pyx_v_self, PyObject *__pyx_arg_index) {
   int __pyx_v_index;
   int __pyx_lineno = 0;
   const char *__pyx_filename = NULL;
@@ -6221,18 +6221,18 @@ static PyObject *__pyx_pw_7Storage_12FloatStorage_22__getitem__(PyObject *__pyx_
   }
   goto __pyx_L4_argument_unpacking_done;
   __pyx_L3_error:;
-  __Pyx_AddTraceback("Storage.FloatStorage.__getitem__", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("Storage._FloatStorage.__getitem__", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __Pyx_RefNannyFinishContext();
   return NULL;
   __pyx_L4_argument_unpacking_done:;
-  __pyx_r = __pyx_pf_7Storage_12FloatStorage_21__getitem__(((struct __pyx_obj_7Storage_FloatStorage *)__pyx_v_self), ((int)__pyx_v_index));
+  __pyx_r = __pyx_pf_7Storage_13_FloatStorage_21__getitem__(((struct __pyx_obj_7Storage__FloatStorage *)__pyx_v_self), ((int)__pyx_v_index));
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_7Storage_12FloatStorage_21__getitem__(struct __pyx_obj_7Storage_FloatStorage *__pyx_v_self, int __pyx_v_index) {
+static PyObject *__pyx_pf_7Storage_13_FloatStorage_21__getitem__(struct __pyx_obj_7Storage__FloatStorage *__pyx_v_self, int __pyx_v_index) {
   float __pyx_v_res;
   PyObject *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
@@ -6244,7 +6244,7 @@ static PyObject *__pyx_pf_7Storage_12FloatStorage_21__getitem__(struct __pyx_obj
 
   /* "Storage.pyx":286
  * 
- *     def __getitem__(FloatStorage self, int index):
+ *     def __getitem__(_FloatStorage self, int index):
  *         cdef float res = THFloatStorage_get(self.thFloatStorage, index)             # <<<<<<<<<<<<<<
  *         return res
  * 
@@ -6252,11 +6252,11 @@ static PyObject *__pyx_pf_7Storage_12FloatStorage_21__getitem__(struct __pyx_obj
   __pyx_v_res = THFloatStorage_get(__pyx_v_self->thFloatStorage, __pyx_v_index);
 
   /* "Storage.pyx":287
- *     def __getitem__(FloatStorage self, int index):
+ *     def __getitem__(_FloatStorage self, int index):
  *         cdef float res = THFloatStorage_get(self.thFloatStorage, index)
  *         return res             # <<<<<<<<<<<<<<
  * 
- *     def __setitem__(FloatStorage self, int index, float value):
+ *     def __setitem__(_FloatStorage self, int index, float value):
  */
   __Pyx_XDECREF(__pyx_r);
   __pyx_t_1 = PyFloat_FromDouble(__pyx_v_res); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 287; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
@@ -6268,7 +6268,7 @@ static PyObject *__pyx_pf_7Storage_12FloatStorage_21__getitem__(struct __pyx_obj
   /* "Storage.pyx":285
  *             yield self[c]
  * 
- *     def __getitem__(FloatStorage self, int index):             # <<<<<<<<<<<<<<
+ *     def __getitem__(_FloatStorage self, int index):             # <<<<<<<<<<<<<<
  *         cdef float res = THFloatStorage_get(self.thFloatStorage, index)
  *         return res
  */
@@ -6276,7 +6276,7 @@ static PyObject *__pyx_pf_7Storage_12FloatStorage_21__getitem__(struct __pyx_obj
   /* function exit code */
   __pyx_L1_error:;
   __Pyx_XDECREF(__pyx_t_1);
-  __Pyx_AddTraceback("Storage.FloatStorage.__getitem__", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("Storage._FloatStorage.__getitem__", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = NULL;
   __pyx_L0:;
   __Pyx_XGIVEREF(__pyx_r);
@@ -6287,14 +6287,14 @@ static PyObject *__pyx_pf_7Storage_12FloatStorage_21__getitem__(struct __pyx_obj
 /* "Storage.pyx":289
  *         return res
  * 
- *     def __setitem__(FloatStorage self, int index, float value):             # <<<<<<<<<<<<<<
+ *     def __setitem__(_FloatStorage self, int index, float value):             # <<<<<<<<<<<<<<
  *         THFloatStorage_set(self.thFloatStorage, index, value)
  * 
  */
 
 /* Python wrapper */
-static int __pyx_pw_7Storage_12FloatStorage_24__setitem__(PyObject *__pyx_v_self, PyObject *__pyx_arg_index, PyObject *__pyx_arg_value); /*proto*/
-static int __pyx_pw_7Storage_12FloatStorage_24__setitem__(PyObject *__pyx_v_self, PyObject *__pyx_arg_index, PyObject *__pyx_arg_value) {
+static int __pyx_pw_7Storage_13_FloatStorage_24__setitem__(PyObject *__pyx_v_self, PyObject *__pyx_arg_index, PyObject *__pyx_arg_value); /*proto*/
+static int __pyx_pw_7Storage_13_FloatStorage_24__setitem__(PyObject *__pyx_v_self, PyObject *__pyx_arg_index, PyObject *__pyx_arg_value) {
   int __pyx_v_index;
   float __pyx_v_value;
   int __pyx_lineno = 0;
@@ -6311,25 +6311,25 @@ static int __pyx_pw_7Storage_12FloatStorage_24__setitem__(PyObject *__pyx_v_self
   }
   goto __pyx_L4_argument_unpacking_done;
   __pyx_L3_error:;
-  __Pyx_AddTraceback("Storage.FloatStorage.__setitem__", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("Storage._FloatStorage.__setitem__", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __Pyx_RefNannyFinishContext();
   return -1;
   __pyx_L4_argument_unpacking_done:;
-  __pyx_r = __pyx_pf_7Storage_12FloatStorage_23__setitem__(((struct __pyx_obj_7Storage_FloatStorage *)__pyx_v_self), ((int)__pyx_v_index), ((float)__pyx_v_value));
+  __pyx_r = __pyx_pf_7Storage_13_FloatStorage_23__setitem__(((struct __pyx_obj_7Storage__FloatStorage *)__pyx_v_self), ((int)__pyx_v_index), ((float)__pyx_v_value));
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static int __pyx_pf_7Storage_12FloatStorage_23__setitem__(struct __pyx_obj_7Storage_FloatStorage *__pyx_v_self, int __pyx_v_index, float __pyx_v_value) {
+static int __pyx_pf_7Storage_13_FloatStorage_23__setitem__(struct __pyx_obj_7Storage__FloatStorage *__pyx_v_self, int __pyx_v_index, float __pyx_v_value) {
   int __pyx_r;
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("__setitem__", 0);
 
   /* "Storage.pyx":290
  * 
- *     def __setitem__(FloatStorage self, int index, float value):
+ *     def __setitem__(_FloatStorage self, int index, float value):
  *         THFloatStorage_set(self.thFloatStorage, index, value)             # <<<<<<<<<<<<<<
  * 
  * 
@@ -6339,7 +6339,7 @@ static int __pyx_pf_7Storage_12FloatStorage_23__setitem__(struct __pyx_obj_7Stor
   /* "Storage.pyx":289
  *         return res
  * 
- *     def __setitem__(FloatStorage self, int index, float value):             # <<<<<<<<<<<<<<
+ *     def __setitem__(_FloatStorage self, int index, float value):             # <<<<<<<<<<<<<<
  *         THFloatStorage_set(self.thFloatStorage, index, value)
  * 
  */
@@ -6353,14 +6353,14 @@ static int __pyx_pf_7Storage_12FloatStorage_23__setitem__(struct __pyx_obj_7Stor
 /* "Storage.pyx":293
  * 
  * 
- * cdef FloatStorage_fromNative(THFloatStorage *storageC, retain=True):             # <<<<<<<<<<<<<<
+ * cdef _FloatStorage_fromNative(THFloatStorage *storageC, retain=True):             # <<<<<<<<<<<<<<
  *     if retain:
  *         THFloatStorage_retain(storageC)
  */
 
-static PyObject *__pyx_f_7Storage_FloatStorage_fromNative(struct THFloatStorage *__pyx_v_storageC, struct __pyx_opt_args_7Storage_FloatStorage_fromNative *__pyx_optional_args) {
+static PyObject *__pyx_f_7Storage__FloatStorage_fromNative(struct THFloatStorage *__pyx_v_storageC, struct __pyx_opt_args_7Storage__FloatStorage_fromNative *__pyx_optional_args) {
   PyObject *__pyx_v_retain = ((PyObject *)Py_True);
-  struct __pyx_obj_7Storage_FloatStorage *__pyx_v_storage = NULL;
+  struct __pyx_obj_7Storage__FloatStorage *__pyx_v_storage = NULL;
   PyObject *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
   int __pyx_t_1;
@@ -6368,7 +6368,7 @@ static PyObject *__pyx_f_7Storage_FloatStorage_fromNative(struct THFloatStorage 
   int __pyx_lineno = 0;
   const char *__pyx_filename = NULL;
   int __pyx_clineno = 0;
-  __Pyx_RefNannySetupContext("FloatStorage_fromNative", 0);
+  __Pyx_RefNannySetupContext("_FloatStorage_fromNative", 0);
   if (__pyx_optional_args) {
     if (__pyx_optional_args->__pyx_n > 0) {
       __pyx_v_retain = __pyx_optional_args->retain;
@@ -6377,19 +6377,19 @@ static PyObject *__pyx_f_7Storage_FloatStorage_fromNative(struct THFloatStorage 
 
   /* "Storage.pyx":294
  * 
- * cdef FloatStorage_fromNative(THFloatStorage *storageC, retain=True):
+ * cdef _FloatStorage_fromNative(THFloatStorage *storageC, retain=True):
  *     if retain:             # <<<<<<<<<<<<<<
  *         THFloatStorage_retain(storageC)
- *     storage = FloatStorage()
+ *     storage = _FloatStorage()
  */
   __pyx_t_1 = __Pyx_PyObject_IsTrue(__pyx_v_retain); if (unlikely(__pyx_t_1 < 0)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 294; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   if (__pyx_t_1) {
 
     /* "Storage.pyx":295
- * cdef FloatStorage_fromNative(THFloatStorage *storageC, retain=True):
+ * cdef _FloatStorage_fromNative(THFloatStorage *storageC, retain=True):
  *     if retain:
  *         THFloatStorage_retain(storageC)             # <<<<<<<<<<<<<<
- *     storage = FloatStorage()
+ *     storage = _FloatStorage()
  *     storage.thFloatStorage = storageC
  */
     THFloatStorage_retain(__pyx_v_storageC);
@@ -6400,18 +6400,18 @@ static PyObject *__pyx_f_7Storage_FloatStorage_fromNative(struct THFloatStorage 
   /* "Storage.pyx":296
  *     if retain:
  *         THFloatStorage_retain(storageC)
- *     storage = FloatStorage()             # <<<<<<<<<<<<<<
+ *     storage = _FloatStorage()             # <<<<<<<<<<<<<<
  *     storage.thFloatStorage = storageC
  *     return storage
  */
-  __pyx_t_2 = __Pyx_PyObject_Call(((PyObject *)((PyObject*)__pyx_ptype_7Storage_FloatStorage)), __pyx_empty_tuple, NULL); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 296; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_2 = __Pyx_PyObject_Call(((PyObject *)((PyObject*)__pyx_ptype_7Storage__FloatStorage)), __pyx_empty_tuple, NULL); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 296; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_2);
-  __pyx_v_storage = ((struct __pyx_obj_7Storage_FloatStorage *)__pyx_t_2);
+  __pyx_v_storage = ((struct __pyx_obj_7Storage__FloatStorage *)__pyx_t_2);
   __pyx_t_2 = 0;
 
   /* "Storage.pyx":297
  *         THFloatStorage_retain(storageC)
- *     storage = FloatStorage()
+ *     storage = _FloatStorage()
  *     storage.thFloatStorage = storageC             # <<<<<<<<<<<<<<
  *     return storage
  * 
@@ -6419,7 +6419,7 @@ static PyObject *__pyx_f_7Storage_FloatStorage_fromNative(struct THFloatStorage 
   __pyx_v_storage->thFloatStorage = __pyx_v_storageC;
 
   /* "Storage.pyx":298
- *     storage = FloatStorage()
+ *     storage = _FloatStorage()
  *     storage.thFloatStorage = storageC
  *     return storage             # <<<<<<<<<<<<<<
  * 
@@ -6433,7 +6433,7 @@ static PyObject *__pyx_f_7Storage_FloatStorage_fromNative(struct THFloatStorage 
   /* "Storage.pyx":293
  * 
  * 
- * cdef FloatStorage_fromNative(THFloatStorage *storageC, retain=True):             # <<<<<<<<<<<<<<
+ * cdef _FloatStorage_fromNative(THFloatStorage *storageC, retain=True):             # <<<<<<<<<<<<<<
  *     if retain:
  *         THFloatStorage_retain(storageC)
  */
@@ -6441,7 +6441,7 @@ static PyObject *__pyx_f_7Storage_FloatStorage_fromNative(struct THFloatStorage 
   /* function exit code */
   __pyx_L1_error:;
   __Pyx_XDECREF(__pyx_t_2);
-  __Pyx_AddTraceback("Storage.FloatStorage_fromNative", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("Storage._FloatStorage_fromNative", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = 0;
   __pyx_L0:;
   __Pyx_XDECREF((PyObject *)__pyx_v_storage);
@@ -6459,8 +6459,8 @@ static PyObject *__pyx_f_7Storage_FloatStorage_fromNative(struct THFloatStorage 
  */
 
 /* Python wrapper */
-static int __pyx_pw_7Storage_11LongStorage_1__init__(PyObject *__pyx_v_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
-static int __pyx_pw_7Storage_11LongStorage_1__init__(PyObject *__pyx_v_self, PyObject *__pyx_args, PyObject *__pyx_kwds) {
+static int __pyx_pw_7Storage_12_LongStorage_1__init__(PyObject *__pyx_v_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
+static int __pyx_pw_7Storage_12_LongStorage_1__init__(PyObject *__pyx_v_self, PyObject *__pyx_args, PyObject *__pyx_kwds) {
   PyObject *__pyx_v_args = 0;
   PyObject *__pyx_v_kwargs = 0;
   int __pyx_r;
@@ -6472,7 +6472,7 @@ static int __pyx_pw_7Storage_11LongStorage_1__init__(PyObject *__pyx_v_self, PyO
   __Pyx_GOTREF(__pyx_v_kwargs);
   __Pyx_INCREF(__pyx_args);
   __pyx_v_args = __pyx_args;
-  __pyx_r = __pyx_pf_7Storage_11LongStorage___init__(((struct __pyx_obj_7Storage_LongStorage *)__pyx_v_self), __pyx_v_args, __pyx_v_kwargs);
+  __pyx_r = __pyx_pf_7Storage_12_LongStorage___init__(((struct __pyx_obj_7Storage__LongStorage *)__pyx_v_self), __pyx_v_args, __pyx_v_kwargs);
 
   /* function exit code */
   __Pyx_XDECREF(__pyx_v_args);
@@ -6481,7 +6481,7 @@ static int __pyx_pw_7Storage_11LongStorage_1__init__(PyObject *__pyx_v_self, PyO
   return __pyx_r;
 }
 
-static int __pyx_pf_7Storage_11LongStorage___init__(struct __pyx_obj_7Storage_LongStorage *__pyx_v_self, PyObject *__pyx_v_args, PyObject *__pyx_v_kwargs) {
+static int __pyx_pf_7Storage_12_LongStorage___init__(struct __pyx_obj_7Storage__LongStorage *__pyx_v_self, PyObject *__pyx_v_args, PyObject *__pyx_v_kwargs) {
   PyObject *__pyx_v_arg = NULL;
   int __pyx_r;
   __Pyx_RefNannyDeclarations
@@ -6638,7 +6638,7 @@ static int __pyx_pf_7Storage_11LongStorage___init__(struct __pyx_obj_7Storage_Lo
  *         if len(kwargs) > 0:
  *             raise Exception('cannot provide arguments to initializer')             # <<<<<<<<<<<<<<
  * 
- *     def __repr__(LongStorage self):
+ *     def __repr__(_LongStorage self):
  */
     __pyx_t_1 = __Pyx_PyObject_Call(__pyx_builtin_Exception, __pyx_tuple__20, NULL); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 316; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
     __Pyx_GOTREF(__pyx_t_1);
@@ -6661,7 +6661,7 @@ static int __pyx_pf_7Storage_11LongStorage___init__(struct __pyx_obj_7Storage_Lo
   __pyx_L1_error:;
   __Pyx_XDECREF(__pyx_t_1);
   __Pyx_XDECREF(__pyx_t_2);
-  __Pyx_AddTraceback("Storage.LongStorage.__init__", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("Storage._LongStorage.__init__", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = -1;
   __pyx_L0:;
   __Pyx_XDECREF(__pyx_v_arg);
@@ -6672,25 +6672,25 @@ static int __pyx_pf_7Storage_11LongStorage___init__(struct __pyx_obj_7Storage_Lo
 /* "Storage.pyx":318
  *             raise Exception('cannot provide arguments to initializer')
  * 
- *     def __repr__(LongStorage self):             # <<<<<<<<<<<<<<
+ *     def __repr__(_LongStorage self):             # <<<<<<<<<<<<<<
  *         cdef int size0
  *         size0 = THLongStorage_size(self.thLongStorage)
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_7Storage_11LongStorage_3__repr__(PyObject *__pyx_v_self); /*proto*/
-static PyObject *__pyx_pw_7Storage_11LongStorage_3__repr__(PyObject *__pyx_v_self) {
+static PyObject *__pyx_pw_7Storage_12_LongStorage_3__repr__(PyObject *__pyx_v_self); /*proto*/
+static PyObject *__pyx_pw_7Storage_12_LongStorage_3__repr__(PyObject *__pyx_v_self) {
   PyObject *__pyx_r = 0;
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("__repr__ (wrapper)", 0);
-  __pyx_r = __pyx_pf_7Storage_11LongStorage_2__repr__(((struct __pyx_obj_7Storage_LongStorage *)__pyx_v_self));
+  __pyx_r = __pyx_pf_7Storage_12_LongStorage_2__repr__(((struct __pyx_obj_7Storage__LongStorage *)__pyx_v_self));
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_7Storage_11LongStorage_2__repr__(struct __pyx_obj_7Storage_LongStorage *__pyx_v_self) {
+static PyObject *__pyx_pf_7Storage_12_LongStorage_2__repr__(struct __pyx_obj_7Storage__LongStorage *__pyx_v_self) {
   int __pyx_v_size0;
   PyObject *__pyx_v_res = NULL;
   int __pyx_v_c;
@@ -6706,7 +6706,7 @@ static PyObject *__pyx_pf_7Storage_11LongStorage_2__repr__(struct __pyx_obj_7Sto
   __Pyx_RefNannySetupContext("__repr__", 0);
 
   /* "Storage.pyx":320
- *     def __repr__(LongStorage self):
+ *     def __repr__(_LongStorage self):
  *         cdef int size0
  *         size0 = THLongStorage_size(self.thLongStorage)             # <<<<<<<<<<<<<<
  *         res = ''
@@ -6827,7 +6827,7 @@ static PyObject *__pyx_pf_7Storage_11LongStorage_2__repr__(struct __pyx_obj_7Sto
   /* "Storage.pyx":318
  *             raise Exception('cannot provide arguments to initializer')
  * 
- *     def __repr__(LongStorage self):             # <<<<<<<<<<<<<<
+ *     def __repr__(_LongStorage self):             # <<<<<<<<<<<<<<
  *         cdef int size0
  *         size0 = THLongStorage_size(self.thLongStorage)
  */
@@ -6836,7 +6836,7 @@ static PyObject *__pyx_pf_7Storage_11LongStorage_2__repr__(struct __pyx_obj_7Sto
   __pyx_L1_error:;
   __Pyx_XDECREF(__pyx_t_3);
   __Pyx_XDECREF(__pyx_t_4);
-  __Pyx_AddTraceback("Storage.LongStorage.__repr__", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("Storage._LongStorage.__repr__", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = NULL;
   __pyx_L0:;
   __Pyx_XDECREF(__pyx_v_res);
@@ -6850,31 +6850,31 @@ static PyObject *__pyx_pf_7Storage_11LongStorage_2__repr__(struct __pyx_obj_7Sto
  *     @staticmethod
  *     def new():             # <<<<<<<<<<<<<<
  *         # print('allocate storage')
- *         return LongStorage_fromNative(THLongStorage_new(), retain=False)
+ *         return _LongStorage_fromNative(THLongStorage_new(), retain=False)
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_7Storage_11LongStorage_5new(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
-static PyMethodDef __pyx_mdef_7Storage_11LongStorage_5new = {"new", (PyCFunction)__pyx_pw_7Storage_11LongStorage_5new, METH_VARARGS|METH_KEYWORDS, 0};
-static PyObject *__pyx_pw_7Storage_11LongStorage_5new(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds) {
+static PyObject *__pyx_pw_7Storage_12_LongStorage_5new(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
+static PyMethodDef __pyx_mdef_7Storage_12_LongStorage_5new = {"new", (PyCFunction)__pyx_pw_7Storage_12_LongStorage_5new, METH_VARARGS|METH_KEYWORDS, 0};
+static PyObject *__pyx_pw_7Storage_12_LongStorage_5new(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds) {
   PyObject *__pyx_r = 0;
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("new (wrapper)", 0);
   if (unlikely(PyTuple_GET_SIZE(__pyx_args) > 0)) {
     __Pyx_RaiseArgtupleInvalid("new", 1, 0, 0, PyTuple_GET_SIZE(__pyx_args)); return NULL;}
   if (unlikely(__pyx_kwds) && unlikely(PyDict_Size(__pyx_kwds) > 0) && unlikely(!__Pyx_CheckKeywordStrings(__pyx_kwds, "new", 0))) return NULL;
-  __pyx_r = __pyx_pf_7Storage_11LongStorage_4new();
+  __pyx_r = __pyx_pf_7Storage_12_LongStorage_4new();
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_7Storage_11LongStorage_4new() {
+static PyObject *__pyx_pf_7Storage_12_LongStorage_4new() {
   PyObject *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
   PyObject *__pyx_t_1 = NULL;
-  struct __pyx_opt_args_7Storage_LongStorage_fromNative __pyx_t_2;
+  struct __pyx_opt_args_7Storage__LongStorage_fromNative __pyx_t_2;
   int __pyx_lineno = 0;
   const char *__pyx_filename = NULL;
   int __pyx_clineno = 0;
@@ -6883,14 +6883,14 @@ static PyObject *__pyx_pf_7Storage_11LongStorage_4new() {
   /* "Storage.pyx":338
  *     def new():
  *         # print('allocate storage')
- *         return LongStorage_fromNative(THLongStorage_new(), retain=False)             # <<<<<<<<<<<<<<
+ *         return _LongStorage_fromNative(THLongStorage_new(), retain=False)             # <<<<<<<<<<<<<<
  * 
  *     @staticmethod
  */
   __Pyx_XDECREF(__pyx_r);
   __pyx_t_2.__pyx_n = 1;
   __pyx_t_2.retain = Py_False;
-  __pyx_t_1 = __pyx_f_7Storage_LongStorage_fromNative(THLongStorage_new(), &__pyx_t_2); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 338; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_1 = __pyx_f_7Storage__LongStorage_fromNative(THLongStorage_new(), &__pyx_t_2); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 338; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_r = __pyx_t_1;
   __pyx_t_1 = 0;
@@ -6901,13 +6901,13 @@ static PyObject *__pyx_pf_7Storage_11LongStorage_4new() {
  *     @staticmethod
  *     def new():             # <<<<<<<<<<<<<<
  *         # print('allocate storage')
- *         return LongStorage_fromNative(THLongStorage_new(), retain=False)
+ *         return _LongStorage_fromNative(THLongStorage_new(), retain=False)
  */
 
   /* function exit code */
   __pyx_L1_error:;
   __Pyx_XDECREF(__pyx_t_1);
-  __Pyx_AddTraceback("Storage.LongStorage.new", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("Storage._LongStorage.new", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = NULL;
   __pyx_L0:;
   __Pyx_XGIVEREF(__pyx_r);
@@ -6924,9 +6924,9 @@ static PyObject *__pyx_pf_7Storage_11LongStorage_4new() {
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_7Storage_11LongStorage_7newWithData(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
-static PyMethodDef __pyx_mdef_7Storage_11LongStorage_7newWithData = {"newWithData", (PyCFunction)__pyx_pw_7Storage_11LongStorage_7newWithData, METH_VARARGS|METH_KEYWORDS, 0};
-static PyObject *__pyx_pw_7Storage_11LongStorage_7newWithData(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds) {
+static PyObject *__pyx_pw_7Storage_12_LongStorage_7newWithData(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
+static PyMethodDef __pyx_mdef_7Storage_12_LongStorage_7newWithData = {"newWithData", (PyCFunction)__pyx_pw_7Storage_12_LongStorage_7newWithData, METH_VARARGS|METH_KEYWORDS, 0};
+static PyObject *__pyx_pw_7Storage_12_LongStorage_7newWithData(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds) {
   __Pyx_memviewslice __pyx_v_data = { 0, 0, { 0 }, { 0 }, { 0 } };
   int __pyx_lineno = 0;
   const char *__pyx_filename = NULL;
@@ -6965,18 +6965,18 @@ static PyObject *__pyx_pw_7Storage_11LongStorage_7newWithData(CYTHON_UNUSED PyOb
   __pyx_L5_argtuple_error:;
   __Pyx_RaiseArgtupleInvalid("newWithData", 1, 1, 1, PyTuple_GET_SIZE(__pyx_args)); {__pyx_filename = __pyx_f[0]; __pyx_lineno = 341; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
   __pyx_L3_error:;
-  __Pyx_AddTraceback("Storage.LongStorage.newWithData", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("Storage._LongStorage.newWithData", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __Pyx_RefNannyFinishContext();
   return NULL;
   __pyx_L4_argument_unpacking_done:;
-  __pyx_r = __pyx_pf_7Storage_11LongStorage_6newWithData(__pyx_v_data);
+  __pyx_r = __pyx_pf_7Storage_12_LongStorage_6newWithData(__pyx_v_data);
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_7Storage_11LongStorage_6newWithData(__Pyx_memviewslice __pyx_v_data) {
+static PyObject *__pyx_pf_7Storage_12_LongStorage_6newWithData(__Pyx_memviewslice __pyx_v_data) {
   struct THLongStorage *__pyx_v_storageC;
   PyObject *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
@@ -6984,7 +6984,7 @@ static PyObject *__pyx_pf_7Storage_11LongStorage_6newWithData(__Pyx_memviewslice
   int __pyx_t_2;
   PyObject *__pyx_t_3 = NULL;
   Py_ssize_t __pyx_t_4;
-  struct __pyx_opt_args_7Storage_LongStorage_fromNative __pyx_t_5;
+  struct __pyx_opt_args_7Storage__LongStorage_fromNative __pyx_t_5;
   int __pyx_lineno = 0;
   const char *__pyx_filename = NULL;
   int __pyx_clineno = 0;
@@ -6995,7 +6995,7 @@ static PyObject *__pyx_pf_7Storage_11LongStorage_6newWithData(__Pyx_memviewslice
  *     def newWithData(long [:] data):
  *         cdef THLongStorage *storageC = THLongStorage_newWithData(&data[0], len(data))             # <<<<<<<<<<<<<<
  *         # print('allocate storage')
- *         return LongStorage_fromNative(storageC, retain=False)
+ *         return _LongStorage_fromNative(storageC, retain=False)
  */
   __pyx_t_1 = 0;
   __pyx_t_2 = -1;
@@ -7016,14 +7016,14 @@ static PyObject *__pyx_pf_7Storage_11LongStorage_6newWithData(__Pyx_memviewslice
   /* "Storage.pyx":344
  *         cdef THLongStorage *storageC = THLongStorage_newWithData(&data[0], len(data))
  *         # print('allocate storage')
- *         return LongStorage_fromNative(storageC, retain=False)             # <<<<<<<<<<<<<<
+ *         return _LongStorage_fromNative(storageC, retain=False)             # <<<<<<<<<<<<<<
  * 
  *     @property
  */
   __Pyx_XDECREF(__pyx_r);
   __pyx_t_5.__pyx_n = 1;
   __pyx_t_5.retain = Py_False;
-  __pyx_t_3 = __pyx_f_7Storage_LongStorage_fromNative(__pyx_v_storageC, &__pyx_t_5); if (unlikely(!__pyx_t_3)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 344; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_3 = __pyx_f_7Storage__LongStorage_fromNative(__pyx_v_storageC, &__pyx_t_5); if (unlikely(!__pyx_t_3)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 344; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_3);
   __pyx_r = __pyx_t_3;
   __pyx_t_3 = 0;
@@ -7040,7 +7040,7 @@ static PyObject *__pyx_pf_7Storage_11LongStorage_6newWithData(__Pyx_memviewslice
   /* function exit code */
   __pyx_L1_error:;
   __Pyx_XDECREF(__pyx_t_3);
-  __Pyx_AddTraceback("Storage.LongStorage.newWithData", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("Storage._LongStorage.newWithData", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = NULL;
   __pyx_L0:;
   __PYX_XDEC_MEMVIEW(&__pyx_v_data, 1);
@@ -7052,25 +7052,25 @@ static PyObject *__pyx_pf_7Storage_11LongStorage_6newWithData(__Pyx_memviewslice
 /* "Storage.pyx":347
  * 
  *     @property
- *     def refCount(LongStorage self):             # <<<<<<<<<<<<<<
+ *     def refCount(_LongStorage self):             # <<<<<<<<<<<<<<
  *         return THLongStorage_getRefCount(self.thLongStorage)
  * 
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_7Storage_11LongStorage_9refCount(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused); /*proto*/
-static PyObject *__pyx_pw_7Storage_11LongStorage_9refCount(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused) {
+static PyObject *__pyx_pw_7Storage_12_LongStorage_9refCount(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused); /*proto*/
+static PyObject *__pyx_pw_7Storage_12_LongStorage_9refCount(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused) {
   PyObject *__pyx_r = 0;
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("refCount (wrapper)", 0);
-  __pyx_r = __pyx_pf_7Storage_11LongStorage_8refCount(((struct __pyx_obj_7Storage_LongStorage *)__pyx_v_self));
+  __pyx_r = __pyx_pf_7Storage_12_LongStorage_8refCount(((struct __pyx_obj_7Storage__LongStorage *)__pyx_v_self));
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_7Storage_11LongStorage_8refCount(struct __pyx_obj_7Storage_LongStorage *__pyx_v_self) {
+static PyObject *__pyx_pf_7Storage_12_LongStorage_8refCount(struct __pyx_obj_7Storage__LongStorage *__pyx_v_self) {
   PyObject *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
   PyObject *__pyx_t_1 = NULL;
@@ -7081,10 +7081,10 @@ static PyObject *__pyx_pf_7Storage_11LongStorage_8refCount(struct __pyx_obj_7Sto
 
   /* "Storage.pyx":348
  *     @property
- *     def refCount(LongStorage self):
+ *     def refCount(_LongStorage self):
  *         return THLongStorage_getRefCount(self.thLongStorage)             # <<<<<<<<<<<<<<
  * 
- *     def dataAddr(LongStorage self):
+ *     def dataAddr(_LongStorage self):
  */
   __Pyx_XDECREF(__pyx_r);
   __pyx_t_1 = __Pyx_PyInt_From_int(THLongStorage_getRefCount(__pyx_v_self->thLongStorage)); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 348; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
@@ -7096,7 +7096,7 @@ static PyObject *__pyx_pf_7Storage_11LongStorage_8refCount(struct __pyx_obj_7Sto
   /* "Storage.pyx":347
  * 
  *     @property
- *     def refCount(LongStorage self):             # <<<<<<<<<<<<<<
+ *     def refCount(_LongStorage self):             # <<<<<<<<<<<<<<
  *         return THLongStorage_getRefCount(self.thLongStorage)
  * 
  */
@@ -7104,7 +7104,7 @@ static PyObject *__pyx_pf_7Storage_11LongStorage_8refCount(struct __pyx_obj_7Sto
   /* function exit code */
   __pyx_L1_error:;
   __Pyx_XDECREF(__pyx_t_1);
-  __Pyx_AddTraceback("Storage.LongStorage.refCount", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("Storage._LongStorage.refCount", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = NULL;
   __pyx_L0:;
   __Pyx_XGIVEREF(__pyx_r);
@@ -7115,25 +7115,25 @@ static PyObject *__pyx_pf_7Storage_11LongStorage_8refCount(struct __pyx_obj_7Sto
 /* "Storage.pyx":350
  *         return THLongStorage_getRefCount(self.thLongStorage)
  * 
- *     def dataAddr(LongStorage self):             # <<<<<<<<<<<<<<
+ *     def dataAddr(_LongStorage self):             # <<<<<<<<<<<<<<
  *         cdef long *data = THLongStorage_data(self.thLongStorage)
  *         cdef long dataAddr = pointerAsInt(data)
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_7Storage_11LongStorage_11dataAddr(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused); /*proto*/
-static PyObject *__pyx_pw_7Storage_11LongStorage_11dataAddr(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused) {
+static PyObject *__pyx_pw_7Storage_12_LongStorage_11dataAddr(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused); /*proto*/
+static PyObject *__pyx_pw_7Storage_12_LongStorage_11dataAddr(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused) {
   PyObject *__pyx_r = 0;
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("dataAddr (wrapper)", 0);
-  __pyx_r = __pyx_pf_7Storage_11LongStorage_10dataAddr(((struct __pyx_obj_7Storage_LongStorage *)__pyx_v_self));
+  __pyx_r = __pyx_pf_7Storage_12_LongStorage_10dataAddr(((struct __pyx_obj_7Storage__LongStorage *)__pyx_v_self));
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_7Storage_11LongStorage_10dataAddr(struct __pyx_obj_7Storage_LongStorage *__pyx_v_self) {
+static PyObject *__pyx_pf_7Storage_12_LongStorage_10dataAddr(struct __pyx_obj_7Storage__LongStorage *__pyx_v_self) {
   long *__pyx_v_data;
   long __pyx_v_dataAddr;
   PyObject *__pyx_r = NULL;
@@ -7146,7 +7146,7 @@ static PyObject *__pyx_pf_7Storage_11LongStorage_10dataAddr(struct __pyx_obj_7St
 
   /* "Storage.pyx":351
  * 
- *     def dataAddr(LongStorage self):
+ *     def dataAddr(_LongStorage self):
  *         cdef long *data = THLongStorage_data(self.thLongStorage)             # <<<<<<<<<<<<<<
  *         cdef long dataAddr = pointerAsInt(data)
  *         return dataAddr
@@ -7154,7 +7154,7 @@ static PyObject *__pyx_pf_7Storage_11LongStorage_10dataAddr(struct __pyx_obj_7St
   __pyx_v_data = THLongStorage_data(__pyx_v_self->thLongStorage);
 
   /* "Storage.pyx":352
- *     def dataAddr(LongStorage self):
+ *     def dataAddr(_LongStorage self):
  *         cdef long *data = THLongStorage_data(self.thLongStorage)
  *         cdef long dataAddr = pointerAsInt(data)             # <<<<<<<<<<<<<<
  *         return dataAddr
@@ -7179,7 +7179,7 @@ static PyObject *__pyx_pf_7Storage_11LongStorage_10dataAddr(struct __pyx_obj_7St
   /* "Storage.pyx":350
  *         return THLongStorage_getRefCount(self.thLongStorage)
  * 
- *     def dataAddr(LongStorage self):             # <<<<<<<<<<<<<<
+ *     def dataAddr(_LongStorage self):             # <<<<<<<<<<<<<<
  *         cdef long *data = THLongStorage_data(self.thLongStorage)
  *         cdef long dataAddr = pointerAsInt(data)
  */
@@ -7187,7 +7187,7 @@ static PyObject *__pyx_pf_7Storage_11LongStorage_10dataAddr(struct __pyx_obj_7St
   /* function exit code */
   __pyx_L1_error:;
   __Pyx_XDECREF(__pyx_t_1);
-  __Pyx_AddTraceback("Storage.LongStorage.dataAddr", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("Storage._LongStorage.dataAddr", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = NULL;
   __pyx_L0:;
   __Pyx_XGIVEREF(__pyx_r);
@@ -7204,9 +7204,9 @@ static PyObject *__pyx_pf_7Storage_11LongStorage_10dataAddr(struct __pyx_obj_7St
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_7Storage_11LongStorage_13newWithSize(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
-static PyMethodDef __pyx_mdef_7Storage_11LongStorage_13newWithSize = {"newWithSize", (PyCFunction)__pyx_pw_7Storage_11LongStorage_13newWithSize, METH_VARARGS|METH_KEYWORDS, 0};
-static PyObject *__pyx_pw_7Storage_11LongStorage_13newWithSize(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds) {
+static PyObject *__pyx_pw_7Storage_12_LongStorage_13newWithSize(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
+static PyMethodDef __pyx_mdef_7Storage_12_LongStorage_13newWithSize = {"newWithSize", (PyCFunction)__pyx_pw_7Storage_12_LongStorage_13newWithSize, METH_VARARGS|METH_KEYWORDS, 0};
+static PyObject *__pyx_pw_7Storage_12_LongStorage_13newWithSize(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds) {
   long __pyx_v_size;
   int __pyx_lineno = 0;
   const char *__pyx_filename = NULL;
@@ -7245,23 +7245,23 @@ static PyObject *__pyx_pw_7Storage_11LongStorage_13newWithSize(CYTHON_UNUSED PyO
   __pyx_L5_argtuple_error:;
   __Pyx_RaiseArgtupleInvalid("newWithSize", 1, 1, 1, PyTuple_GET_SIZE(__pyx_args)); {__pyx_filename = __pyx_f[0]; __pyx_lineno = 356; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
   __pyx_L3_error:;
-  __Pyx_AddTraceback("Storage.LongStorage.newWithSize", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("Storage._LongStorage.newWithSize", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __Pyx_RefNannyFinishContext();
   return NULL;
   __pyx_L4_argument_unpacking_done:;
-  __pyx_r = __pyx_pf_7Storage_11LongStorage_12newWithSize(__pyx_v_size);
+  __pyx_r = __pyx_pf_7Storage_12_LongStorage_12newWithSize(__pyx_v_size);
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_7Storage_11LongStorage_12newWithSize(long __pyx_v_size) {
+static PyObject *__pyx_pf_7Storage_12_LongStorage_12newWithSize(long __pyx_v_size) {
   struct THLongStorage *__pyx_v_storageC;
   PyObject *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
   PyObject *__pyx_t_1 = NULL;
-  struct __pyx_opt_args_7Storage_LongStorage_fromNative __pyx_t_2;
+  struct __pyx_opt_args_7Storage__LongStorage_fromNative __pyx_t_2;
   int __pyx_lineno = 0;
   const char *__pyx_filename = NULL;
   int __pyx_clineno = 0;
@@ -7272,21 +7272,21 @@ static PyObject *__pyx_pf_7Storage_11LongStorage_12newWithSize(long __pyx_v_size
  *     def newWithSize(long size):
  *         cdef THLongStorage *storageC = THLongStorage_newWithSize(size)             # <<<<<<<<<<<<<<
  *         # print('allocate storage')
- *         return LongStorage_fromNative(storageC, retain=False)
+ *         return _LongStorage_fromNative(storageC, retain=False)
  */
   __pyx_v_storageC = THLongStorage_newWithSize(__pyx_v_size);
 
   /* "Storage.pyx":359
  *         cdef THLongStorage *storageC = THLongStorage_newWithSize(size)
  *         # print('allocate storage')
- *         return LongStorage_fromNative(storageC, retain=False)             # <<<<<<<<<<<<<<
+ *         return _LongStorage_fromNative(storageC, retain=False)             # <<<<<<<<<<<<<<
  * 
  *     cpdef long size(self):
  */
   __Pyx_XDECREF(__pyx_r);
   __pyx_t_2.__pyx_n = 1;
   __pyx_t_2.retain = Py_False;
-  __pyx_t_1 = __pyx_f_7Storage_LongStorage_fromNative(__pyx_v_storageC, &__pyx_t_2); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 359; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_1 = __pyx_f_7Storage__LongStorage_fromNative(__pyx_v_storageC, &__pyx_t_2); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 359; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_r = __pyx_t_1;
   __pyx_t_1 = 0;
@@ -7303,7 +7303,7 @@ static PyObject *__pyx_pf_7Storage_11LongStorage_12newWithSize(long __pyx_v_size
   /* function exit code */
   __pyx_L1_error:;
   __Pyx_XDECREF(__pyx_t_1);
-  __Pyx_AddTraceback("Storage.LongStorage.newWithSize", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("Storage._LongStorage.newWithSize", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = NULL;
   __pyx_L0:;
   __Pyx_XGIVEREF(__pyx_r);
@@ -7312,15 +7312,15 @@ static PyObject *__pyx_pf_7Storage_11LongStorage_12newWithSize(long __pyx_v_size
 }
 
 /* "Storage.pyx":361
- *         return LongStorage_fromNative(storageC, retain=False)
+ *         return _LongStorage_fromNative(storageC, retain=False)
  * 
  *     cpdef long size(self):             # <<<<<<<<<<<<<<
  *         return THLongStorage_size(self.thLongStorage)
  * 
  */
 
-static PyObject *__pyx_pw_7Storage_11LongStorage_15size(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused); /*proto*/
-static long __pyx_f_7Storage_11LongStorage_size(struct __pyx_obj_7Storage_LongStorage *__pyx_v_self, int __pyx_skip_dispatch) {
+static PyObject *__pyx_pw_7Storage_12_LongStorage_15size(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused); /*proto*/
+static long __pyx_f_7Storage_12_LongStorage_size(struct __pyx_obj_7Storage__LongStorage *__pyx_v_self, int __pyx_skip_dispatch) {
   long __pyx_r;
   __Pyx_RefNannyDeclarations
   PyObject *__pyx_t_1 = NULL;
@@ -7338,7 +7338,7 @@ static long __pyx_f_7Storage_11LongStorage_size(struct __pyx_obj_7Storage_LongSt
   else if (unlikely(Py_TYPE(((PyObject *)__pyx_v_self))->tp_dictoffset != 0)) {
     __pyx_t_1 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_self), __pyx_n_s_size); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 361; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
     __Pyx_GOTREF(__pyx_t_1);
-    if (!PyCFunction_Check(__pyx_t_1) || (PyCFunction_GET_FUNCTION(__pyx_t_1) != (PyCFunction)__pyx_pw_7Storage_11LongStorage_15size)) {
+    if (!PyCFunction_Check(__pyx_t_1) || (PyCFunction_GET_FUNCTION(__pyx_t_1) != (PyCFunction)__pyx_pw_7Storage_12_LongStorage_15size)) {
       __Pyx_INCREF(__pyx_t_1);
       __pyx_t_3 = __pyx_t_1; __pyx_t_4 = NULL;
       if (CYTHON_COMPILING_IN_CPYTHON && unlikely(PyMethod_Check(__pyx_t_3))) {
@@ -7378,7 +7378,7 @@ static long __pyx_f_7Storage_11LongStorage_size(struct __pyx_obj_7Storage_LongSt
   goto __pyx_L0;
 
   /* "Storage.pyx":361
- *         return LongStorage_fromNative(storageC, retain=False)
+ *         return _LongStorage_fromNative(storageC, retain=False)
  * 
  *     cpdef long size(self):             # <<<<<<<<<<<<<<
  *         return THLongStorage_size(self.thLongStorage)
@@ -7391,7 +7391,7 @@ static long __pyx_f_7Storage_11LongStorage_size(struct __pyx_obj_7Storage_LongSt
   __Pyx_XDECREF(__pyx_t_2);
   __Pyx_XDECREF(__pyx_t_3);
   __Pyx_XDECREF(__pyx_t_4);
-  __Pyx_WriteUnraisable("Storage.LongStorage.size", __pyx_clineno, __pyx_lineno, __pyx_filename, 0);
+  __Pyx_WriteUnraisable("Storage._LongStorage.size", __pyx_clineno, __pyx_lineno, __pyx_filename, 0);
   __pyx_r = 0;
   __pyx_L0:;
   __Pyx_RefNannyFinishContext();
@@ -7399,19 +7399,19 @@ static long __pyx_f_7Storage_11LongStorage_size(struct __pyx_obj_7Storage_LongSt
 }
 
 /* Python wrapper */
-static PyObject *__pyx_pw_7Storage_11LongStorage_15size(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused); /*proto*/
-static PyObject *__pyx_pw_7Storage_11LongStorage_15size(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused) {
+static PyObject *__pyx_pw_7Storage_12_LongStorage_15size(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused); /*proto*/
+static PyObject *__pyx_pw_7Storage_12_LongStorage_15size(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused) {
   PyObject *__pyx_r = 0;
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("size (wrapper)", 0);
-  __pyx_r = __pyx_pf_7Storage_11LongStorage_14size(((struct __pyx_obj_7Storage_LongStorage *)__pyx_v_self));
+  __pyx_r = __pyx_pf_7Storage_12_LongStorage_14size(((struct __pyx_obj_7Storage__LongStorage *)__pyx_v_self));
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_7Storage_11LongStorage_14size(struct __pyx_obj_7Storage_LongStorage *__pyx_v_self) {
+static PyObject *__pyx_pf_7Storage_12_LongStorage_14size(struct __pyx_obj_7Storage__LongStorage *__pyx_v_self) {
   PyObject *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
   PyObject *__pyx_t_1 = NULL;
@@ -7420,7 +7420,7 @@ static PyObject *__pyx_pf_7Storage_11LongStorage_14size(struct __pyx_obj_7Storag
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("size", 0);
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_1 = __Pyx_PyInt_From_long(__pyx_f_7Storage_11LongStorage_size(__pyx_v_self, 1)); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 361; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_1 = __Pyx_PyInt_From_long(__pyx_f_7Storage_12_LongStorage_size(__pyx_v_self, 1)); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 361; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_r = __pyx_t_1;
   __pyx_t_1 = 0;
@@ -7429,7 +7429,7 @@ static PyObject *__pyx_pf_7Storage_11LongStorage_14size(struct __pyx_obj_7Storag
   /* function exit code */
   __pyx_L1_error:;
   __Pyx_XDECREF(__pyx_t_1);
-  __Pyx_AddTraceback("Storage.LongStorage.size", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("Storage._LongStorage.size", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = NULL;
   __pyx_L0:;
   __Pyx_XGIVEREF(__pyx_r);
@@ -7446,17 +7446,17 @@ static PyObject *__pyx_pf_7Storage_11LongStorage_14size(struct __pyx_obj_7Storag
  */
 
 /* Python wrapper */
-static void __pyx_pw_7Storage_11LongStorage_17__dealloc__(PyObject *__pyx_v_self); /*proto*/
-static void __pyx_pw_7Storage_11LongStorage_17__dealloc__(PyObject *__pyx_v_self) {
+static void __pyx_pw_7Storage_12_LongStorage_17__dealloc__(PyObject *__pyx_v_self); /*proto*/
+static void __pyx_pw_7Storage_12_LongStorage_17__dealloc__(PyObject *__pyx_v_self) {
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("__dealloc__ (wrapper)", 0);
-  __pyx_pf_7Storage_11LongStorage_16__dealloc__(((struct __pyx_obj_7Storage_LongStorage *)__pyx_v_self));
+  __pyx_pf_7Storage_12_LongStorage_16__dealloc__(((struct __pyx_obj_7Storage__LongStorage *)__pyx_v_self));
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
 }
 
-static void __pyx_pf_7Storage_11LongStorage_16__dealloc__(struct __pyx_obj_7Storage_LongStorage *__pyx_v_self) {
+static void __pyx_pf_7Storage_12_LongStorage_16__dealloc__(struct __pyx_obj_7Storage__LongStorage *__pyx_v_self) {
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("__dealloc__", 0);
 
@@ -7480,7 +7480,7 @@ static void __pyx_pf_7Storage_11LongStorage_16__dealloc__(struct __pyx_obj_7Stor
   /* function exit code */
   __Pyx_RefNannyFinishContext();
 }
-static PyObject *__pyx_gb_7Storage_11LongStorage_20generator3(__pyx_GeneratorObject *__pyx_generator, PyObject *__pyx_sent_value); /* proto */
+static PyObject *__pyx_gb_7Storage_12_LongStorage_20generator3(__pyx_GeneratorObject *__pyx_generator, PyObject *__pyx_sent_value); /* proto */
 
 /* "Storage.pyx":369
  *         THLongStorage_free(self.thLongStorage)
@@ -7491,19 +7491,19 @@ static PyObject *__pyx_gb_7Storage_11LongStorage_20generator3(__pyx_GeneratorObj
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_7Storage_11LongStorage_19__iter__(PyObject *__pyx_v_self); /*proto*/
-static PyObject *__pyx_pw_7Storage_11LongStorage_19__iter__(PyObject *__pyx_v_self) {
+static PyObject *__pyx_pw_7Storage_12_LongStorage_19__iter__(PyObject *__pyx_v_self); /*proto*/
+static PyObject *__pyx_pw_7Storage_12_LongStorage_19__iter__(PyObject *__pyx_v_self) {
   PyObject *__pyx_r = 0;
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("__iter__ (wrapper)", 0);
-  __pyx_r = __pyx_pf_7Storage_11LongStorage_18__iter__(((struct __pyx_obj_7Storage_LongStorage *)__pyx_v_self));
+  __pyx_r = __pyx_pf_7Storage_12_LongStorage_18__iter__(((struct __pyx_obj_7Storage__LongStorage *)__pyx_v_self));
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_7Storage_11LongStorage_18__iter__(struct __pyx_obj_7Storage_LongStorage *__pyx_v_self) {
+static PyObject *__pyx_pf_7Storage_12_LongStorage_18__iter__(struct __pyx_obj_7Storage__LongStorage *__pyx_v_self) {
   struct __pyx_obj_7Storage___pyx_scope_struct_3___iter__ *__pyx_cur_scope;
   PyObject *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
@@ -7521,7 +7521,7 @@ static PyObject *__pyx_pf_7Storage_11LongStorage_18__iter__(struct __pyx_obj_7St
   __Pyx_INCREF((PyObject *)__pyx_cur_scope->__pyx_v_self);
   __Pyx_GIVEREF((PyObject *)__pyx_cur_scope->__pyx_v_self);
   {
-    __pyx_GeneratorObject *gen = __Pyx_Generator_New((__pyx_generator_body_t) __pyx_gb_7Storage_11LongStorage_20generator3, (PyObject *) __pyx_cur_scope, __pyx_n_s_iter, __pyx_n_s_LongStorage___iter); if (unlikely(!gen)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 369; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+    __pyx_GeneratorObject *gen = __Pyx_Generator_New((__pyx_generator_body_t) __pyx_gb_7Storage_12_LongStorage_20generator3, (PyObject *) __pyx_cur_scope, __pyx_n_s_iter, __pyx_n_s_LongStorage___iter); if (unlikely(!gen)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 369; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
     __Pyx_DECREF(__pyx_cur_scope);
     __Pyx_RefNannyFinishContext();
     return (PyObject *) gen;
@@ -7529,7 +7529,7 @@ static PyObject *__pyx_pf_7Storage_11LongStorage_18__iter__(struct __pyx_obj_7St
 
   /* function exit code */
   __pyx_L1_error:;
-  __Pyx_AddTraceback("Storage.LongStorage.__iter__", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("Storage._LongStorage.__iter__", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = NULL;
   __Pyx_DECREF(((PyObject *)__pyx_cur_scope));
   __Pyx_XGIVEREF(__pyx_r);
@@ -7537,7 +7537,7 @@ static PyObject *__pyx_pf_7Storage_11LongStorage_18__iter__(struct __pyx_obj_7St
   return __pyx_r;
 }
 
-static PyObject *__pyx_gb_7Storage_11LongStorage_20generator3(__pyx_GeneratorObject *__pyx_generator, PyObject *__pyx_sent_value) /* generator body */
+static PyObject *__pyx_gb_7Storage_12_LongStorage_20generator3(__pyx_GeneratorObject *__pyx_generator, PyObject *__pyx_sent_value) /* generator body */
 {
   struct __pyx_obj_7Storage___pyx_scope_struct_3___iter__ *__pyx_cur_scope = ((struct __pyx_obj_7Storage___pyx_scope_struct_3___iter__ *)__pyx_generator->closure);
   PyObject *__pyx_r = NULL;
@@ -7584,7 +7584,7 @@ static PyObject *__pyx_gb_7Storage_11LongStorage_20generator3(__pyx_GeneratorObj
  *         for c in range(size0):
  *             yield self[c]             # <<<<<<<<<<<<<<
  * 
- *     def __getitem__(LongStorage self, int index):
+ *     def __getitem__(_LongStorage self, int index):
  */
     __pyx_t_3 = __Pyx_GetItemInt(((PyObject *)__pyx_cur_scope->__pyx_v_self), __pyx_cur_scope->__pyx_v_c, int, 1, __Pyx_PyInt_From_int, 0, 1, 1); if (unlikely(__pyx_t_3 == NULL)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 373; __pyx_clineno = __LINE__; goto __pyx_L1_error;};
     __Pyx_GOTREF(__pyx_t_3);
@@ -7628,14 +7628,14 @@ static PyObject *__pyx_gb_7Storage_11LongStorage_20generator3(__pyx_GeneratorObj
 /* "Storage.pyx":375
  *             yield self[c]
  * 
- *     def __getitem__(LongStorage self, int index):             # <<<<<<<<<<<<<<
+ *     def __getitem__(_LongStorage self, int index):             # <<<<<<<<<<<<<<
  *         cdef long res = THLongStorage_get(self.thLongStorage, index)
  *         return res
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_7Storage_11LongStorage_22__getitem__(PyObject *__pyx_v_self, PyObject *__pyx_arg_index); /*proto*/
-static PyObject *__pyx_pw_7Storage_11LongStorage_22__getitem__(PyObject *__pyx_v_self, PyObject *__pyx_arg_index) {
+static PyObject *__pyx_pw_7Storage_12_LongStorage_22__getitem__(PyObject *__pyx_v_self, PyObject *__pyx_arg_index); /*proto*/
+static PyObject *__pyx_pw_7Storage_12_LongStorage_22__getitem__(PyObject *__pyx_v_self, PyObject *__pyx_arg_index) {
   int __pyx_v_index;
   int __pyx_lineno = 0;
   const char *__pyx_filename = NULL;
@@ -7648,18 +7648,18 @@ static PyObject *__pyx_pw_7Storage_11LongStorage_22__getitem__(PyObject *__pyx_v
   }
   goto __pyx_L4_argument_unpacking_done;
   __pyx_L3_error:;
-  __Pyx_AddTraceback("Storage.LongStorage.__getitem__", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("Storage._LongStorage.__getitem__", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __Pyx_RefNannyFinishContext();
   return NULL;
   __pyx_L4_argument_unpacking_done:;
-  __pyx_r = __pyx_pf_7Storage_11LongStorage_21__getitem__(((struct __pyx_obj_7Storage_LongStorage *)__pyx_v_self), ((int)__pyx_v_index));
+  __pyx_r = __pyx_pf_7Storage_12_LongStorage_21__getitem__(((struct __pyx_obj_7Storage__LongStorage *)__pyx_v_self), ((int)__pyx_v_index));
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_7Storage_11LongStorage_21__getitem__(struct __pyx_obj_7Storage_LongStorage *__pyx_v_self, int __pyx_v_index) {
+static PyObject *__pyx_pf_7Storage_12_LongStorage_21__getitem__(struct __pyx_obj_7Storage__LongStorage *__pyx_v_self, int __pyx_v_index) {
   long __pyx_v_res;
   PyObject *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
@@ -7671,7 +7671,7 @@ static PyObject *__pyx_pf_7Storage_11LongStorage_21__getitem__(struct __pyx_obj_
 
   /* "Storage.pyx":376
  * 
- *     def __getitem__(LongStorage self, int index):
+ *     def __getitem__(_LongStorage self, int index):
  *         cdef long res = THLongStorage_get(self.thLongStorage, index)             # <<<<<<<<<<<<<<
  *         return res
  * 
@@ -7679,11 +7679,11 @@ static PyObject *__pyx_pf_7Storage_11LongStorage_21__getitem__(struct __pyx_obj_
   __pyx_v_res = THLongStorage_get(__pyx_v_self->thLongStorage, __pyx_v_index);
 
   /* "Storage.pyx":377
- *     def __getitem__(LongStorage self, int index):
+ *     def __getitem__(_LongStorage self, int index):
  *         cdef long res = THLongStorage_get(self.thLongStorage, index)
  *         return res             # <<<<<<<<<<<<<<
  * 
- *     def __setitem__(LongStorage self, int index, long value):
+ *     def __setitem__(_LongStorage self, int index, long value):
  */
   __Pyx_XDECREF(__pyx_r);
   __pyx_t_1 = __Pyx_PyInt_From_long(__pyx_v_res); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 377; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
@@ -7695,7 +7695,7 @@ static PyObject *__pyx_pf_7Storage_11LongStorage_21__getitem__(struct __pyx_obj_
   /* "Storage.pyx":375
  *             yield self[c]
  * 
- *     def __getitem__(LongStorage self, int index):             # <<<<<<<<<<<<<<
+ *     def __getitem__(_LongStorage self, int index):             # <<<<<<<<<<<<<<
  *         cdef long res = THLongStorage_get(self.thLongStorage, index)
  *         return res
  */
@@ -7703,7 +7703,7 @@ static PyObject *__pyx_pf_7Storage_11LongStorage_21__getitem__(struct __pyx_obj_
   /* function exit code */
   __pyx_L1_error:;
   __Pyx_XDECREF(__pyx_t_1);
-  __Pyx_AddTraceback("Storage.LongStorage.__getitem__", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("Storage._LongStorage.__getitem__", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = NULL;
   __pyx_L0:;
   __Pyx_XGIVEREF(__pyx_r);
@@ -7714,14 +7714,14 @@ static PyObject *__pyx_pf_7Storage_11LongStorage_21__getitem__(struct __pyx_obj_
 /* "Storage.pyx":379
  *         return res
  * 
- *     def __setitem__(LongStorage self, int index, long value):             # <<<<<<<<<<<<<<
+ *     def __setitem__(_LongStorage self, int index, long value):             # <<<<<<<<<<<<<<
  *         THLongStorage_set(self.thLongStorage, index, value)
  * 
  */
 
 /* Python wrapper */
-static int __pyx_pw_7Storage_11LongStorage_24__setitem__(PyObject *__pyx_v_self, PyObject *__pyx_arg_index, PyObject *__pyx_arg_value); /*proto*/
-static int __pyx_pw_7Storage_11LongStorage_24__setitem__(PyObject *__pyx_v_self, PyObject *__pyx_arg_index, PyObject *__pyx_arg_value) {
+static int __pyx_pw_7Storage_12_LongStorage_24__setitem__(PyObject *__pyx_v_self, PyObject *__pyx_arg_index, PyObject *__pyx_arg_value); /*proto*/
+static int __pyx_pw_7Storage_12_LongStorage_24__setitem__(PyObject *__pyx_v_self, PyObject *__pyx_arg_index, PyObject *__pyx_arg_value) {
   int __pyx_v_index;
   long __pyx_v_value;
   int __pyx_lineno = 0;
@@ -7738,25 +7738,25 @@ static int __pyx_pw_7Storage_11LongStorage_24__setitem__(PyObject *__pyx_v_self,
   }
   goto __pyx_L4_argument_unpacking_done;
   __pyx_L3_error:;
-  __Pyx_AddTraceback("Storage.LongStorage.__setitem__", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("Storage._LongStorage.__setitem__", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __Pyx_RefNannyFinishContext();
   return -1;
   __pyx_L4_argument_unpacking_done:;
-  __pyx_r = __pyx_pf_7Storage_11LongStorage_23__setitem__(((struct __pyx_obj_7Storage_LongStorage *)__pyx_v_self), ((int)__pyx_v_index), ((long)__pyx_v_value));
+  __pyx_r = __pyx_pf_7Storage_12_LongStorage_23__setitem__(((struct __pyx_obj_7Storage__LongStorage *)__pyx_v_self), ((int)__pyx_v_index), ((long)__pyx_v_value));
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static int __pyx_pf_7Storage_11LongStorage_23__setitem__(struct __pyx_obj_7Storage_LongStorage *__pyx_v_self, int __pyx_v_index, long __pyx_v_value) {
+static int __pyx_pf_7Storage_12_LongStorage_23__setitem__(struct __pyx_obj_7Storage__LongStorage *__pyx_v_self, int __pyx_v_index, long __pyx_v_value) {
   int __pyx_r;
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("__setitem__", 0);
 
   /* "Storage.pyx":380
  * 
- *     def __setitem__(LongStorage self, int index, long value):
+ *     def __setitem__(_LongStorage self, int index, long value):
  *         THLongStorage_set(self.thLongStorage, index, value)             # <<<<<<<<<<<<<<
  * 
  * 
@@ -7766,7 +7766,7 @@ static int __pyx_pf_7Storage_11LongStorage_23__setitem__(struct __pyx_obj_7Stora
   /* "Storage.pyx":379
  *         return res
  * 
- *     def __setitem__(LongStorage self, int index, long value):             # <<<<<<<<<<<<<<
+ *     def __setitem__(_LongStorage self, int index, long value):             # <<<<<<<<<<<<<<
  *         THLongStorage_set(self.thLongStorage, index, value)
  * 
  */
@@ -7780,14 +7780,14 @@ static int __pyx_pf_7Storage_11LongStorage_23__setitem__(struct __pyx_obj_7Stora
 /* "Storage.pyx":383
  * 
  * 
- * cdef LongStorage_fromNative(THLongStorage *storageC, retain=True):             # <<<<<<<<<<<<<<
+ * cdef _LongStorage_fromNative(THLongStorage *storageC, retain=True):             # <<<<<<<<<<<<<<
  *     if retain:
  *         THLongStorage_retain(storageC)
  */
 
-static PyObject *__pyx_f_7Storage_LongStorage_fromNative(struct THLongStorage *__pyx_v_storageC, struct __pyx_opt_args_7Storage_LongStorage_fromNative *__pyx_optional_args) {
+static PyObject *__pyx_f_7Storage__LongStorage_fromNative(struct THLongStorage *__pyx_v_storageC, struct __pyx_opt_args_7Storage__LongStorage_fromNative *__pyx_optional_args) {
   PyObject *__pyx_v_retain = ((PyObject *)Py_True);
-  struct __pyx_obj_7Storage_LongStorage *__pyx_v_storage = NULL;
+  struct __pyx_obj_7Storage__LongStorage *__pyx_v_storage = NULL;
   PyObject *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
   int __pyx_t_1;
@@ -7795,7 +7795,7 @@ static PyObject *__pyx_f_7Storage_LongStorage_fromNative(struct THLongStorage *_
   int __pyx_lineno = 0;
   const char *__pyx_filename = NULL;
   int __pyx_clineno = 0;
-  __Pyx_RefNannySetupContext("LongStorage_fromNative", 0);
+  __Pyx_RefNannySetupContext("_LongStorage_fromNative", 0);
   if (__pyx_optional_args) {
     if (__pyx_optional_args->__pyx_n > 0) {
       __pyx_v_retain = __pyx_optional_args->retain;
@@ -7804,19 +7804,19 @@ static PyObject *__pyx_f_7Storage_LongStorage_fromNative(struct THLongStorage *_
 
   /* "Storage.pyx":384
  * 
- * cdef LongStorage_fromNative(THLongStorage *storageC, retain=True):
+ * cdef _LongStorage_fromNative(THLongStorage *storageC, retain=True):
  *     if retain:             # <<<<<<<<<<<<<<
  *         THLongStorage_retain(storageC)
- *     storage = LongStorage()
+ *     storage = _LongStorage()
  */
   __pyx_t_1 = __Pyx_PyObject_IsTrue(__pyx_v_retain); if (unlikely(__pyx_t_1 < 0)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 384; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   if (__pyx_t_1) {
 
     /* "Storage.pyx":385
- * cdef LongStorage_fromNative(THLongStorage *storageC, retain=True):
+ * cdef _LongStorage_fromNative(THLongStorage *storageC, retain=True):
  *     if retain:
  *         THLongStorage_retain(storageC)             # <<<<<<<<<<<<<<
- *     storage = LongStorage()
+ *     storage = _LongStorage()
  *     storage.thLongStorage = storageC
  */
     THLongStorage_retain(__pyx_v_storageC);
@@ -7827,18 +7827,18 @@ static PyObject *__pyx_f_7Storage_LongStorage_fromNative(struct THLongStorage *_
   /* "Storage.pyx":386
  *     if retain:
  *         THLongStorage_retain(storageC)
- *     storage = LongStorage()             # <<<<<<<<<<<<<<
+ *     storage = _LongStorage()             # <<<<<<<<<<<<<<
  *     storage.thLongStorage = storageC
  *     return storage
  */
-  __pyx_t_2 = __Pyx_PyObject_Call(((PyObject *)((PyObject*)__pyx_ptype_7Storage_LongStorage)), __pyx_empty_tuple, NULL); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 386; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_2 = __Pyx_PyObject_Call(((PyObject *)((PyObject*)__pyx_ptype_7Storage__LongStorage)), __pyx_empty_tuple, NULL); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 386; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_2);
-  __pyx_v_storage = ((struct __pyx_obj_7Storage_LongStorage *)__pyx_t_2);
+  __pyx_v_storage = ((struct __pyx_obj_7Storage__LongStorage *)__pyx_t_2);
   __pyx_t_2 = 0;
 
   /* "Storage.pyx":387
  *         THLongStorage_retain(storageC)
- *     storage = LongStorage()
+ *     storage = _LongStorage()
  *     storage.thLongStorage = storageC             # <<<<<<<<<<<<<<
  *     return storage
  * 
@@ -7846,7 +7846,7 @@ static PyObject *__pyx_f_7Storage_LongStorage_fromNative(struct THLongStorage *_
   __pyx_v_storage->thLongStorage = __pyx_v_storageC;
 
   /* "Storage.pyx":388
- *     storage = LongStorage()
+ *     storage = _LongStorage()
  *     storage.thLongStorage = storageC
  *     return storage             # <<<<<<<<<<<<<<
  * 
@@ -7859,7 +7859,7 @@ static PyObject *__pyx_f_7Storage_LongStorage_fromNative(struct THLongStorage *_
   /* "Storage.pyx":383
  * 
  * 
- * cdef LongStorage_fromNative(THLongStorage *storageC, retain=True):             # <<<<<<<<<<<<<<
+ * cdef _LongStorage_fromNative(THLongStorage *storageC, retain=True):             # <<<<<<<<<<<<<<
  *     if retain:
  *         THLongStorage_retain(storageC)
  */
@@ -7867,7 +7867,7 @@ static PyObject *__pyx_f_7Storage_LongStorage_fromNative(struct THLongStorage *_
   /* function exit code */
   __pyx_L1_error:;
   __Pyx_XDECREF(__pyx_t_2);
-  __Pyx_AddTraceback("Storage.LongStorage_fromNative", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("Storage._LongStorage_fromNative", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = 0;
   __pyx_L0:;
   __Pyx_XDECREF((PyObject *)__pyx_v_storage);
@@ -19135,10 +19135,10 @@ static void __pyx_memoryview__slice_assign_scalar(char *__pyx_v_data, Py_ssize_t
 
   /* function exit code */
 }
-static struct __pyx_vtabstruct_7Storage_DoubleStorage __pyx_vtable_7Storage_DoubleStorage;
+static struct __pyx_vtabstruct_7Storage__DoubleStorage __pyx_vtable_7Storage__DoubleStorage;
 
-static PyObject *__pyx_tp_new_7Storage_DoubleStorage(PyTypeObject *t, CYTHON_UNUSED PyObject *a, CYTHON_UNUSED PyObject *k) {
-  struct __pyx_obj_7Storage_DoubleStorage *p;
+static PyObject *__pyx_tp_new_7Storage__DoubleStorage(PyTypeObject *t, CYTHON_UNUSED PyObject *a, CYTHON_UNUSED PyObject *k) {
+  struct __pyx_obj_7Storage__DoubleStorage *p;
   PyObject *o;
   if (likely((t->tp_flags & Py_TPFLAGS_IS_ABSTRACT) == 0)) {
     o = (*t->tp_alloc)(t, 0);
@@ -19146,12 +19146,12 @@ static PyObject *__pyx_tp_new_7Storage_DoubleStorage(PyTypeObject *t, CYTHON_UNU
     o = (PyObject *) PyBaseObject_Type.tp_new(t, __pyx_empty_tuple, 0);
   }
   if (unlikely(!o)) return 0;
-  p = ((struct __pyx_obj_7Storage_DoubleStorage *)o);
-  p->__pyx_vtab = __pyx_vtabptr_7Storage_DoubleStorage;
+  p = ((struct __pyx_obj_7Storage__DoubleStorage *)o);
+  p->__pyx_vtab = __pyx_vtabptr_7Storage__DoubleStorage;
   return o;
 }
 
-static void __pyx_tp_dealloc_7Storage_DoubleStorage(PyObject *o) {
+static void __pyx_tp_dealloc_7Storage__DoubleStorage(PyObject *o) {
   #if PY_VERSION_HEX >= 0x030400a1
   if (unlikely(Py_TYPE(o)->tp_finalize) && (!PyType_IS_GC(Py_TYPE(o)) || !_PyGC_FINALIZED(o))) {
     if (PyObject_CallFinalizerFromDealloc(o)) return;
@@ -19161,13 +19161,13 @@ static void __pyx_tp_dealloc_7Storage_DoubleStorage(PyObject *o) {
     PyObject *etype, *eval, *etb;
     PyErr_Fetch(&etype, &eval, &etb);
     ++Py_REFCNT(o);
-    __pyx_pw_7Storage_13DoubleStorage_17__dealloc__(o);
+    __pyx_pw_7Storage_14_DoubleStorage_17__dealloc__(o);
     --Py_REFCNT(o);
     PyErr_Restore(etype, eval, etb);
   }
   (*Py_TYPE(o)->tp_free)(o);
 }
-static PyObject *__pyx_sq_item_7Storage_DoubleStorage(PyObject *o, Py_ssize_t i) {
+static PyObject *__pyx_sq_item_7Storage__DoubleStorage(PyObject *o, Py_ssize_t i) {
   PyObject *r;
   PyObject *x = PyInt_FromSsize_t(i); if(!x) return 0;
   r = Py_TYPE(o)->tp_as_mapping->mp_subscript(o, x);
@@ -19175,9 +19175,9 @@ static PyObject *__pyx_sq_item_7Storage_DoubleStorage(PyObject *o, Py_ssize_t i)
   return r;
 }
 
-static int __pyx_mp_ass_subscript_7Storage_DoubleStorage(PyObject *o, PyObject *i, PyObject *v) {
+static int __pyx_mp_ass_subscript_7Storage__DoubleStorage(PyObject *o, PyObject *i, PyObject *v) {
   if (v) {
-    return __pyx_pw_7Storage_13DoubleStorage_24__setitem__(o, i, v);
+    return __pyx_pw_7Storage_14_DoubleStorage_24__setitem__(o, i, v);
   }
   else {
     PyErr_Format(PyExc_NotImplementedError,
@@ -19186,21 +19186,21 @@ static int __pyx_mp_ass_subscript_7Storage_DoubleStorage(PyObject *o, PyObject *
   }
 }
 
-static PyMethodDef __pyx_methods_7Storage_DoubleStorage[] = {
-  {"new", (PyCFunction)__pyx_pw_7Storage_13DoubleStorage_5new, METH_VARARGS|METH_KEYWORDS, 0},
-  {"newWithData", (PyCFunction)__pyx_pw_7Storage_13DoubleStorage_7newWithData, METH_VARARGS|METH_KEYWORDS, 0},
-  {"refCount", (PyCFunction)__pyx_pw_7Storage_13DoubleStorage_9refCount, METH_NOARGS, 0},
-  {"dataAddr", (PyCFunction)__pyx_pw_7Storage_13DoubleStorage_11dataAddr, METH_NOARGS, 0},
-  {"newWithSize", (PyCFunction)__pyx_pw_7Storage_13DoubleStorage_13newWithSize, METH_VARARGS|METH_KEYWORDS, 0},
-  {"size", (PyCFunction)__pyx_pw_7Storage_13DoubleStorage_15size, METH_NOARGS, 0},
+static PyMethodDef __pyx_methods_7Storage__DoubleStorage[] = {
+  {"new", (PyCFunction)__pyx_pw_7Storage_14_DoubleStorage_5new, METH_VARARGS|METH_KEYWORDS, 0},
+  {"newWithData", (PyCFunction)__pyx_pw_7Storage_14_DoubleStorage_7newWithData, METH_VARARGS|METH_KEYWORDS, 0},
+  {"refCount", (PyCFunction)__pyx_pw_7Storage_14_DoubleStorage_9refCount, METH_NOARGS, 0},
+  {"dataAddr", (PyCFunction)__pyx_pw_7Storage_14_DoubleStorage_11dataAddr, METH_NOARGS, 0},
+  {"newWithSize", (PyCFunction)__pyx_pw_7Storage_14_DoubleStorage_13newWithSize, METH_VARARGS|METH_KEYWORDS, 0},
+  {"size", (PyCFunction)__pyx_pw_7Storage_14_DoubleStorage_15size, METH_NOARGS, 0},
   {0, 0, 0, 0}
 };
 
-static PySequenceMethods __pyx_tp_as_sequence_DoubleStorage = {
+static PySequenceMethods __pyx_tp_as_sequence__DoubleStorage = {
   0, /*sq_length*/
   0, /*sq_concat*/
   0, /*sq_repeat*/
-  __pyx_sq_item_7Storage_DoubleStorage, /*sq_item*/
+  __pyx_sq_item_7Storage__DoubleStorage, /*sq_item*/
   0, /*sq_slice*/
   0, /*sq_ass_item*/
   0, /*sq_ass_slice*/
@@ -19209,18 +19209,18 @@ static PySequenceMethods __pyx_tp_as_sequence_DoubleStorage = {
   0, /*sq_inplace_repeat*/
 };
 
-static PyMappingMethods __pyx_tp_as_mapping_DoubleStorage = {
+static PyMappingMethods __pyx_tp_as_mapping__DoubleStorage = {
   0, /*mp_length*/
-  __pyx_pw_7Storage_13DoubleStorage_22__getitem__, /*mp_subscript*/
-  __pyx_mp_ass_subscript_7Storage_DoubleStorage, /*mp_ass_subscript*/
+  __pyx_pw_7Storage_14_DoubleStorage_22__getitem__, /*mp_subscript*/
+  __pyx_mp_ass_subscript_7Storage__DoubleStorage, /*mp_ass_subscript*/
 };
 
-static PyTypeObject __pyx_type_7Storage_DoubleStorage = {
+static PyTypeObject __pyx_type_7Storage__DoubleStorage = {
   PyVarObject_HEAD_INIT(0, 0)
-  "Storage.DoubleStorage", /*tp_name*/
-  sizeof(struct __pyx_obj_7Storage_DoubleStorage), /*tp_basicsize*/
+  "Storage._DoubleStorage", /*tp_name*/
+  sizeof(struct __pyx_obj_7Storage__DoubleStorage), /*tp_basicsize*/
   0, /*tp_itemsize*/
-  __pyx_tp_dealloc_7Storage_DoubleStorage, /*tp_dealloc*/
+  __pyx_tp_dealloc_7Storage__DoubleStorage, /*tp_dealloc*/
   0, /*tp_print*/
   0, /*tp_getattr*/
   0, /*tp_setattr*/
@@ -19229,10 +19229,10 @@ static PyTypeObject __pyx_type_7Storage_DoubleStorage = {
   #else
   0, /*reserved*/
   #endif
-  __pyx_pw_7Storage_13DoubleStorage_3__repr__, /*tp_repr*/
+  __pyx_pw_7Storage_14_DoubleStorage_3__repr__, /*tp_repr*/
   0, /*tp_as_number*/
-  &__pyx_tp_as_sequence_DoubleStorage, /*tp_as_sequence*/
-  &__pyx_tp_as_mapping_DoubleStorage, /*tp_as_mapping*/
+  &__pyx_tp_as_sequence__DoubleStorage, /*tp_as_sequence*/
+  &__pyx_tp_as_mapping__DoubleStorage, /*tp_as_mapping*/
   0, /*tp_hash*/
   0, /*tp_call*/
   0, /*tp_str*/
@@ -19245,9 +19245,9 @@ static PyTypeObject __pyx_type_7Storage_DoubleStorage = {
   0, /*tp_clear*/
   0, /*tp_richcompare*/
   0, /*tp_weaklistoffset*/
-  __pyx_pw_7Storage_13DoubleStorage_19__iter__, /*tp_iter*/
+  __pyx_pw_7Storage_14_DoubleStorage_19__iter__, /*tp_iter*/
   0, /*tp_iternext*/
-  __pyx_methods_7Storage_DoubleStorage, /*tp_methods*/
+  __pyx_methods_7Storage__DoubleStorage, /*tp_methods*/
   0, /*tp_members*/
   0, /*tp_getset*/
   0, /*tp_base*/
@@ -19255,9 +19255,9 @@ static PyTypeObject __pyx_type_7Storage_DoubleStorage = {
   0, /*tp_descr_get*/
   0, /*tp_descr_set*/
   0, /*tp_dictoffset*/
-  __pyx_pw_7Storage_13DoubleStorage_1__init__, /*tp_init*/
+  __pyx_pw_7Storage_14_DoubleStorage_1__init__, /*tp_init*/
   0, /*tp_alloc*/
-  __pyx_tp_new_7Storage_DoubleStorage, /*tp_new*/
+  __pyx_tp_new_7Storage__DoubleStorage, /*tp_new*/
   0, /*tp_free*/
   0, /*tp_is_gc*/
   0, /*tp_bases*/
@@ -19271,10 +19271,10 @@ static PyTypeObject __pyx_type_7Storage_DoubleStorage = {
   0, /*tp_finalize*/
   #endif
 };
-static struct __pyx_vtabstruct_7Storage_ByteStorage __pyx_vtable_7Storage_ByteStorage;
+static struct __pyx_vtabstruct_7Storage__ByteStorage __pyx_vtable_7Storage__ByteStorage;
 
-static PyObject *__pyx_tp_new_7Storage_ByteStorage(PyTypeObject *t, CYTHON_UNUSED PyObject *a, CYTHON_UNUSED PyObject *k) {
-  struct __pyx_obj_7Storage_ByteStorage *p;
+static PyObject *__pyx_tp_new_7Storage__ByteStorage(PyTypeObject *t, CYTHON_UNUSED PyObject *a, CYTHON_UNUSED PyObject *k) {
+  struct __pyx_obj_7Storage__ByteStorage *p;
   PyObject *o;
   if (likely((t->tp_flags & Py_TPFLAGS_IS_ABSTRACT) == 0)) {
     o = (*t->tp_alloc)(t, 0);
@@ -19282,12 +19282,12 @@ static PyObject *__pyx_tp_new_7Storage_ByteStorage(PyTypeObject *t, CYTHON_UNUSE
     o = (PyObject *) PyBaseObject_Type.tp_new(t, __pyx_empty_tuple, 0);
   }
   if (unlikely(!o)) return 0;
-  p = ((struct __pyx_obj_7Storage_ByteStorage *)o);
-  p->__pyx_vtab = __pyx_vtabptr_7Storage_ByteStorage;
+  p = ((struct __pyx_obj_7Storage__ByteStorage *)o);
+  p->__pyx_vtab = __pyx_vtabptr_7Storage__ByteStorage;
   return o;
 }
 
-static void __pyx_tp_dealloc_7Storage_ByteStorage(PyObject *o) {
+static void __pyx_tp_dealloc_7Storage__ByteStorage(PyObject *o) {
   #if PY_VERSION_HEX >= 0x030400a1
   if (unlikely(Py_TYPE(o)->tp_finalize) && (!PyType_IS_GC(Py_TYPE(o)) || !_PyGC_FINALIZED(o))) {
     if (PyObject_CallFinalizerFromDealloc(o)) return;
@@ -19297,13 +19297,13 @@ static void __pyx_tp_dealloc_7Storage_ByteStorage(PyObject *o) {
     PyObject *etype, *eval, *etb;
     PyErr_Fetch(&etype, &eval, &etb);
     ++Py_REFCNT(o);
-    __pyx_pw_7Storage_11ByteStorage_17__dealloc__(o);
+    __pyx_pw_7Storage_12_ByteStorage_17__dealloc__(o);
     --Py_REFCNT(o);
     PyErr_Restore(etype, eval, etb);
   }
   (*Py_TYPE(o)->tp_free)(o);
 }
-static PyObject *__pyx_sq_item_7Storage_ByteStorage(PyObject *o, Py_ssize_t i) {
+static PyObject *__pyx_sq_item_7Storage__ByteStorage(PyObject *o, Py_ssize_t i) {
   PyObject *r;
   PyObject *x = PyInt_FromSsize_t(i); if(!x) return 0;
   r = Py_TYPE(o)->tp_as_mapping->mp_subscript(o, x);
@@ -19311,9 +19311,9 @@ static PyObject *__pyx_sq_item_7Storage_ByteStorage(PyObject *o, Py_ssize_t i) {
   return r;
 }
 
-static int __pyx_mp_ass_subscript_7Storage_ByteStorage(PyObject *o, PyObject *i, PyObject *v) {
+static int __pyx_mp_ass_subscript_7Storage__ByteStorage(PyObject *o, PyObject *i, PyObject *v) {
   if (v) {
-    return __pyx_pw_7Storage_11ByteStorage_24__setitem__(o, i, v);
+    return __pyx_pw_7Storage_12_ByteStorage_24__setitem__(o, i, v);
   }
   else {
     PyErr_Format(PyExc_NotImplementedError,
@@ -19322,21 +19322,21 @@ static int __pyx_mp_ass_subscript_7Storage_ByteStorage(PyObject *o, PyObject *i,
   }
 }
 
-static PyMethodDef __pyx_methods_7Storage_ByteStorage[] = {
-  {"new", (PyCFunction)__pyx_pw_7Storage_11ByteStorage_5new, METH_VARARGS|METH_KEYWORDS, 0},
-  {"newWithData", (PyCFunction)__pyx_pw_7Storage_11ByteStorage_7newWithData, METH_VARARGS|METH_KEYWORDS, 0},
-  {"refCount", (PyCFunction)__pyx_pw_7Storage_11ByteStorage_9refCount, METH_NOARGS, 0},
-  {"dataAddr", (PyCFunction)__pyx_pw_7Storage_11ByteStorage_11dataAddr, METH_NOARGS, 0},
-  {"newWithSize", (PyCFunction)__pyx_pw_7Storage_11ByteStorage_13newWithSize, METH_VARARGS|METH_KEYWORDS, 0},
-  {"size", (PyCFunction)__pyx_pw_7Storage_11ByteStorage_15size, METH_NOARGS, 0},
+static PyMethodDef __pyx_methods_7Storage__ByteStorage[] = {
+  {"new", (PyCFunction)__pyx_pw_7Storage_12_ByteStorage_5new, METH_VARARGS|METH_KEYWORDS, 0},
+  {"newWithData", (PyCFunction)__pyx_pw_7Storage_12_ByteStorage_7newWithData, METH_VARARGS|METH_KEYWORDS, 0},
+  {"refCount", (PyCFunction)__pyx_pw_7Storage_12_ByteStorage_9refCount, METH_NOARGS, 0},
+  {"dataAddr", (PyCFunction)__pyx_pw_7Storage_12_ByteStorage_11dataAddr, METH_NOARGS, 0},
+  {"newWithSize", (PyCFunction)__pyx_pw_7Storage_12_ByteStorage_13newWithSize, METH_VARARGS|METH_KEYWORDS, 0},
+  {"size", (PyCFunction)__pyx_pw_7Storage_12_ByteStorage_15size, METH_NOARGS, 0},
   {0, 0, 0, 0}
 };
 
-static PySequenceMethods __pyx_tp_as_sequence_ByteStorage = {
+static PySequenceMethods __pyx_tp_as_sequence__ByteStorage = {
   0, /*sq_length*/
   0, /*sq_concat*/
   0, /*sq_repeat*/
-  __pyx_sq_item_7Storage_ByteStorage, /*sq_item*/
+  __pyx_sq_item_7Storage__ByteStorage, /*sq_item*/
   0, /*sq_slice*/
   0, /*sq_ass_item*/
   0, /*sq_ass_slice*/
@@ -19345,18 +19345,18 @@ static PySequenceMethods __pyx_tp_as_sequence_ByteStorage = {
   0, /*sq_inplace_repeat*/
 };
 
-static PyMappingMethods __pyx_tp_as_mapping_ByteStorage = {
+static PyMappingMethods __pyx_tp_as_mapping__ByteStorage = {
   0, /*mp_length*/
-  __pyx_pw_7Storage_11ByteStorage_22__getitem__, /*mp_subscript*/
-  __pyx_mp_ass_subscript_7Storage_ByteStorage, /*mp_ass_subscript*/
+  __pyx_pw_7Storage_12_ByteStorage_22__getitem__, /*mp_subscript*/
+  __pyx_mp_ass_subscript_7Storage__ByteStorage, /*mp_ass_subscript*/
 };
 
-static PyTypeObject __pyx_type_7Storage_ByteStorage = {
+static PyTypeObject __pyx_type_7Storage__ByteStorage = {
   PyVarObject_HEAD_INIT(0, 0)
-  "Storage.ByteStorage", /*tp_name*/
-  sizeof(struct __pyx_obj_7Storage_ByteStorage), /*tp_basicsize*/
+  "Storage._ByteStorage", /*tp_name*/
+  sizeof(struct __pyx_obj_7Storage__ByteStorage), /*tp_basicsize*/
   0, /*tp_itemsize*/
-  __pyx_tp_dealloc_7Storage_ByteStorage, /*tp_dealloc*/
+  __pyx_tp_dealloc_7Storage__ByteStorage, /*tp_dealloc*/
   0, /*tp_print*/
   0, /*tp_getattr*/
   0, /*tp_setattr*/
@@ -19365,10 +19365,10 @@ static PyTypeObject __pyx_type_7Storage_ByteStorage = {
   #else
   0, /*reserved*/
   #endif
-  __pyx_pw_7Storage_11ByteStorage_3__repr__, /*tp_repr*/
+  __pyx_pw_7Storage_12_ByteStorage_3__repr__, /*tp_repr*/
   0, /*tp_as_number*/
-  &__pyx_tp_as_sequence_ByteStorage, /*tp_as_sequence*/
-  &__pyx_tp_as_mapping_ByteStorage, /*tp_as_mapping*/
+  &__pyx_tp_as_sequence__ByteStorage, /*tp_as_sequence*/
+  &__pyx_tp_as_mapping__ByteStorage, /*tp_as_mapping*/
   0, /*tp_hash*/
   0, /*tp_call*/
   0, /*tp_str*/
@@ -19381,9 +19381,9 @@ static PyTypeObject __pyx_type_7Storage_ByteStorage = {
   0, /*tp_clear*/
   0, /*tp_richcompare*/
   0, /*tp_weaklistoffset*/
-  __pyx_pw_7Storage_11ByteStorage_19__iter__, /*tp_iter*/
+  __pyx_pw_7Storage_12_ByteStorage_19__iter__, /*tp_iter*/
   0, /*tp_iternext*/
-  __pyx_methods_7Storage_ByteStorage, /*tp_methods*/
+  __pyx_methods_7Storage__ByteStorage, /*tp_methods*/
   0, /*tp_members*/
   0, /*tp_getset*/
   0, /*tp_base*/
@@ -19391,9 +19391,9 @@ static PyTypeObject __pyx_type_7Storage_ByteStorage = {
   0, /*tp_descr_get*/
   0, /*tp_descr_set*/
   0, /*tp_dictoffset*/
-  __pyx_pw_7Storage_11ByteStorage_1__init__, /*tp_init*/
+  __pyx_pw_7Storage_12_ByteStorage_1__init__, /*tp_init*/
   0, /*tp_alloc*/
-  __pyx_tp_new_7Storage_ByteStorage, /*tp_new*/
+  __pyx_tp_new_7Storage__ByteStorage, /*tp_new*/
   0, /*tp_free*/
   0, /*tp_is_gc*/
   0, /*tp_bases*/
@@ -19407,10 +19407,10 @@ static PyTypeObject __pyx_type_7Storage_ByteStorage = {
   0, /*tp_finalize*/
   #endif
 };
-static struct __pyx_vtabstruct_7Storage_FloatStorage __pyx_vtable_7Storage_FloatStorage;
+static struct __pyx_vtabstruct_7Storage__FloatStorage __pyx_vtable_7Storage__FloatStorage;
 
-static PyObject *__pyx_tp_new_7Storage_FloatStorage(PyTypeObject *t, CYTHON_UNUSED PyObject *a, CYTHON_UNUSED PyObject *k) {
-  struct __pyx_obj_7Storage_FloatStorage *p;
+static PyObject *__pyx_tp_new_7Storage__FloatStorage(PyTypeObject *t, CYTHON_UNUSED PyObject *a, CYTHON_UNUSED PyObject *k) {
+  struct __pyx_obj_7Storage__FloatStorage *p;
   PyObject *o;
   if (likely((t->tp_flags & Py_TPFLAGS_IS_ABSTRACT) == 0)) {
     o = (*t->tp_alloc)(t, 0);
@@ -19418,12 +19418,12 @@ static PyObject *__pyx_tp_new_7Storage_FloatStorage(PyTypeObject *t, CYTHON_UNUS
     o = (PyObject *) PyBaseObject_Type.tp_new(t, __pyx_empty_tuple, 0);
   }
   if (unlikely(!o)) return 0;
-  p = ((struct __pyx_obj_7Storage_FloatStorage *)o);
-  p->__pyx_vtab = __pyx_vtabptr_7Storage_FloatStorage;
+  p = ((struct __pyx_obj_7Storage__FloatStorage *)o);
+  p->__pyx_vtab = __pyx_vtabptr_7Storage__FloatStorage;
   return o;
 }
 
-static void __pyx_tp_dealloc_7Storage_FloatStorage(PyObject *o) {
+static void __pyx_tp_dealloc_7Storage__FloatStorage(PyObject *o) {
   #if PY_VERSION_HEX >= 0x030400a1
   if (unlikely(Py_TYPE(o)->tp_finalize) && (!PyType_IS_GC(Py_TYPE(o)) || !_PyGC_FINALIZED(o))) {
     if (PyObject_CallFinalizerFromDealloc(o)) return;
@@ -19433,13 +19433,13 @@ static void __pyx_tp_dealloc_7Storage_FloatStorage(PyObject *o) {
     PyObject *etype, *eval, *etb;
     PyErr_Fetch(&etype, &eval, &etb);
     ++Py_REFCNT(o);
-    __pyx_pw_7Storage_12FloatStorage_17__dealloc__(o);
+    __pyx_pw_7Storage_13_FloatStorage_17__dealloc__(o);
     --Py_REFCNT(o);
     PyErr_Restore(etype, eval, etb);
   }
   (*Py_TYPE(o)->tp_free)(o);
 }
-static PyObject *__pyx_sq_item_7Storage_FloatStorage(PyObject *o, Py_ssize_t i) {
+static PyObject *__pyx_sq_item_7Storage__FloatStorage(PyObject *o, Py_ssize_t i) {
   PyObject *r;
   PyObject *x = PyInt_FromSsize_t(i); if(!x) return 0;
   r = Py_TYPE(o)->tp_as_mapping->mp_subscript(o, x);
@@ -19447,9 +19447,9 @@ static PyObject *__pyx_sq_item_7Storage_FloatStorage(PyObject *o, Py_ssize_t i) 
   return r;
 }
 
-static int __pyx_mp_ass_subscript_7Storage_FloatStorage(PyObject *o, PyObject *i, PyObject *v) {
+static int __pyx_mp_ass_subscript_7Storage__FloatStorage(PyObject *o, PyObject *i, PyObject *v) {
   if (v) {
-    return __pyx_pw_7Storage_12FloatStorage_24__setitem__(o, i, v);
+    return __pyx_pw_7Storage_13_FloatStorage_24__setitem__(o, i, v);
   }
   else {
     PyErr_Format(PyExc_NotImplementedError,
@@ -19458,21 +19458,21 @@ static int __pyx_mp_ass_subscript_7Storage_FloatStorage(PyObject *o, PyObject *i
   }
 }
 
-static PyMethodDef __pyx_methods_7Storage_FloatStorage[] = {
-  {"new", (PyCFunction)__pyx_pw_7Storage_12FloatStorage_5new, METH_VARARGS|METH_KEYWORDS, 0},
-  {"newWithData", (PyCFunction)__pyx_pw_7Storage_12FloatStorage_7newWithData, METH_VARARGS|METH_KEYWORDS, 0},
-  {"refCount", (PyCFunction)__pyx_pw_7Storage_12FloatStorage_9refCount, METH_NOARGS, 0},
-  {"dataAddr", (PyCFunction)__pyx_pw_7Storage_12FloatStorage_11dataAddr, METH_NOARGS, 0},
-  {"newWithSize", (PyCFunction)__pyx_pw_7Storage_12FloatStorage_13newWithSize, METH_VARARGS|METH_KEYWORDS, 0},
-  {"size", (PyCFunction)__pyx_pw_7Storage_12FloatStorage_15size, METH_NOARGS, 0},
+static PyMethodDef __pyx_methods_7Storage__FloatStorage[] = {
+  {"new", (PyCFunction)__pyx_pw_7Storage_13_FloatStorage_5new, METH_VARARGS|METH_KEYWORDS, 0},
+  {"newWithData", (PyCFunction)__pyx_pw_7Storage_13_FloatStorage_7newWithData, METH_VARARGS|METH_KEYWORDS, 0},
+  {"refCount", (PyCFunction)__pyx_pw_7Storage_13_FloatStorage_9refCount, METH_NOARGS, 0},
+  {"dataAddr", (PyCFunction)__pyx_pw_7Storage_13_FloatStorage_11dataAddr, METH_NOARGS, 0},
+  {"newWithSize", (PyCFunction)__pyx_pw_7Storage_13_FloatStorage_13newWithSize, METH_VARARGS|METH_KEYWORDS, 0},
+  {"size", (PyCFunction)__pyx_pw_7Storage_13_FloatStorage_15size, METH_NOARGS, 0},
   {0, 0, 0, 0}
 };
 
-static PySequenceMethods __pyx_tp_as_sequence_FloatStorage = {
+static PySequenceMethods __pyx_tp_as_sequence__FloatStorage = {
   0, /*sq_length*/
   0, /*sq_concat*/
   0, /*sq_repeat*/
-  __pyx_sq_item_7Storage_FloatStorage, /*sq_item*/
+  __pyx_sq_item_7Storage__FloatStorage, /*sq_item*/
   0, /*sq_slice*/
   0, /*sq_ass_item*/
   0, /*sq_ass_slice*/
@@ -19481,18 +19481,18 @@ static PySequenceMethods __pyx_tp_as_sequence_FloatStorage = {
   0, /*sq_inplace_repeat*/
 };
 
-static PyMappingMethods __pyx_tp_as_mapping_FloatStorage = {
+static PyMappingMethods __pyx_tp_as_mapping__FloatStorage = {
   0, /*mp_length*/
-  __pyx_pw_7Storage_12FloatStorage_22__getitem__, /*mp_subscript*/
-  __pyx_mp_ass_subscript_7Storage_FloatStorage, /*mp_ass_subscript*/
+  __pyx_pw_7Storage_13_FloatStorage_22__getitem__, /*mp_subscript*/
+  __pyx_mp_ass_subscript_7Storage__FloatStorage, /*mp_ass_subscript*/
 };
 
-static PyTypeObject __pyx_type_7Storage_FloatStorage = {
+static PyTypeObject __pyx_type_7Storage__FloatStorage = {
   PyVarObject_HEAD_INIT(0, 0)
-  "Storage.FloatStorage", /*tp_name*/
-  sizeof(struct __pyx_obj_7Storage_FloatStorage), /*tp_basicsize*/
+  "Storage._FloatStorage", /*tp_name*/
+  sizeof(struct __pyx_obj_7Storage__FloatStorage), /*tp_basicsize*/
   0, /*tp_itemsize*/
-  __pyx_tp_dealloc_7Storage_FloatStorage, /*tp_dealloc*/
+  __pyx_tp_dealloc_7Storage__FloatStorage, /*tp_dealloc*/
   0, /*tp_print*/
   0, /*tp_getattr*/
   0, /*tp_setattr*/
@@ -19501,10 +19501,10 @@ static PyTypeObject __pyx_type_7Storage_FloatStorage = {
   #else
   0, /*reserved*/
   #endif
-  __pyx_pw_7Storage_12FloatStorage_3__repr__, /*tp_repr*/
+  __pyx_pw_7Storage_13_FloatStorage_3__repr__, /*tp_repr*/
   0, /*tp_as_number*/
-  &__pyx_tp_as_sequence_FloatStorage, /*tp_as_sequence*/
-  &__pyx_tp_as_mapping_FloatStorage, /*tp_as_mapping*/
+  &__pyx_tp_as_sequence__FloatStorage, /*tp_as_sequence*/
+  &__pyx_tp_as_mapping__FloatStorage, /*tp_as_mapping*/
   0, /*tp_hash*/
   0, /*tp_call*/
   0, /*tp_str*/
@@ -19517,9 +19517,9 @@ static PyTypeObject __pyx_type_7Storage_FloatStorage = {
   0, /*tp_clear*/
   0, /*tp_richcompare*/
   0, /*tp_weaklistoffset*/
-  __pyx_pw_7Storage_12FloatStorage_19__iter__, /*tp_iter*/
+  __pyx_pw_7Storage_13_FloatStorage_19__iter__, /*tp_iter*/
   0, /*tp_iternext*/
-  __pyx_methods_7Storage_FloatStorage, /*tp_methods*/
+  __pyx_methods_7Storage__FloatStorage, /*tp_methods*/
   0, /*tp_members*/
   0, /*tp_getset*/
   0, /*tp_base*/
@@ -19527,9 +19527,9 @@ static PyTypeObject __pyx_type_7Storage_FloatStorage = {
   0, /*tp_descr_get*/
   0, /*tp_descr_set*/
   0, /*tp_dictoffset*/
-  __pyx_pw_7Storage_12FloatStorage_1__init__, /*tp_init*/
+  __pyx_pw_7Storage_13_FloatStorage_1__init__, /*tp_init*/
   0, /*tp_alloc*/
-  __pyx_tp_new_7Storage_FloatStorage, /*tp_new*/
+  __pyx_tp_new_7Storage__FloatStorage, /*tp_new*/
   0, /*tp_free*/
   0, /*tp_is_gc*/
   0, /*tp_bases*/
@@ -19543,10 +19543,10 @@ static PyTypeObject __pyx_type_7Storage_FloatStorage = {
   0, /*tp_finalize*/
   #endif
 };
-static struct __pyx_vtabstruct_7Storage_LongStorage __pyx_vtable_7Storage_LongStorage;
+static struct __pyx_vtabstruct_7Storage__LongStorage __pyx_vtable_7Storage__LongStorage;
 
-static PyObject *__pyx_tp_new_7Storage_LongStorage(PyTypeObject *t, CYTHON_UNUSED PyObject *a, CYTHON_UNUSED PyObject *k) {
-  struct __pyx_obj_7Storage_LongStorage *p;
+static PyObject *__pyx_tp_new_7Storage__LongStorage(PyTypeObject *t, CYTHON_UNUSED PyObject *a, CYTHON_UNUSED PyObject *k) {
+  struct __pyx_obj_7Storage__LongStorage *p;
   PyObject *o;
   if (likely((t->tp_flags & Py_TPFLAGS_IS_ABSTRACT) == 0)) {
     o = (*t->tp_alloc)(t, 0);
@@ -19554,12 +19554,12 @@ static PyObject *__pyx_tp_new_7Storage_LongStorage(PyTypeObject *t, CYTHON_UNUSE
     o = (PyObject *) PyBaseObject_Type.tp_new(t, __pyx_empty_tuple, 0);
   }
   if (unlikely(!o)) return 0;
-  p = ((struct __pyx_obj_7Storage_LongStorage *)o);
-  p->__pyx_vtab = __pyx_vtabptr_7Storage_LongStorage;
+  p = ((struct __pyx_obj_7Storage__LongStorage *)o);
+  p->__pyx_vtab = __pyx_vtabptr_7Storage__LongStorage;
   return o;
 }
 
-static void __pyx_tp_dealloc_7Storage_LongStorage(PyObject *o) {
+static void __pyx_tp_dealloc_7Storage__LongStorage(PyObject *o) {
   #if PY_VERSION_HEX >= 0x030400a1
   if (unlikely(Py_TYPE(o)->tp_finalize) && (!PyType_IS_GC(Py_TYPE(o)) || !_PyGC_FINALIZED(o))) {
     if (PyObject_CallFinalizerFromDealloc(o)) return;
@@ -19569,13 +19569,13 @@ static void __pyx_tp_dealloc_7Storage_LongStorage(PyObject *o) {
     PyObject *etype, *eval, *etb;
     PyErr_Fetch(&etype, &eval, &etb);
     ++Py_REFCNT(o);
-    __pyx_pw_7Storage_11LongStorage_17__dealloc__(o);
+    __pyx_pw_7Storage_12_LongStorage_17__dealloc__(o);
     --Py_REFCNT(o);
     PyErr_Restore(etype, eval, etb);
   }
   (*Py_TYPE(o)->tp_free)(o);
 }
-static PyObject *__pyx_sq_item_7Storage_LongStorage(PyObject *o, Py_ssize_t i) {
+static PyObject *__pyx_sq_item_7Storage__LongStorage(PyObject *o, Py_ssize_t i) {
   PyObject *r;
   PyObject *x = PyInt_FromSsize_t(i); if(!x) return 0;
   r = Py_TYPE(o)->tp_as_mapping->mp_subscript(o, x);
@@ -19583,9 +19583,9 @@ static PyObject *__pyx_sq_item_7Storage_LongStorage(PyObject *o, Py_ssize_t i) {
   return r;
 }
 
-static int __pyx_mp_ass_subscript_7Storage_LongStorage(PyObject *o, PyObject *i, PyObject *v) {
+static int __pyx_mp_ass_subscript_7Storage__LongStorage(PyObject *o, PyObject *i, PyObject *v) {
   if (v) {
-    return __pyx_pw_7Storage_11LongStorage_24__setitem__(o, i, v);
+    return __pyx_pw_7Storage_12_LongStorage_24__setitem__(o, i, v);
   }
   else {
     PyErr_Format(PyExc_NotImplementedError,
@@ -19594,21 +19594,21 @@ static int __pyx_mp_ass_subscript_7Storage_LongStorage(PyObject *o, PyObject *i,
   }
 }
 
-static PyMethodDef __pyx_methods_7Storage_LongStorage[] = {
-  {"new", (PyCFunction)__pyx_pw_7Storage_11LongStorage_5new, METH_VARARGS|METH_KEYWORDS, 0},
-  {"newWithData", (PyCFunction)__pyx_pw_7Storage_11LongStorage_7newWithData, METH_VARARGS|METH_KEYWORDS, 0},
-  {"refCount", (PyCFunction)__pyx_pw_7Storage_11LongStorage_9refCount, METH_NOARGS, 0},
-  {"dataAddr", (PyCFunction)__pyx_pw_7Storage_11LongStorage_11dataAddr, METH_NOARGS, 0},
-  {"newWithSize", (PyCFunction)__pyx_pw_7Storage_11LongStorage_13newWithSize, METH_VARARGS|METH_KEYWORDS, 0},
-  {"size", (PyCFunction)__pyx_pw_7Storage_11LongStorage_15size, METH_NOARGS, 0},
+static PyMethodDef __pyx_methods_7Storage__LongStorage[] = {
+  {"new", (PyCFunction)__pyx_pw_7Storage_12_LongStorage_5new, METH_VARARGS|METH_KEYWORDS, 0},
+  {"newWithData", (PyCFunction)__pyx_pw_7Storage_12_LongStorage_7newWithData, METH_VARARGS|METH_KEYWORDS, 0},
+  {"refCount", (PyCFunction)__pyx_pw_7Storage_12_LongStorage_9refCount, METH_NOARGS, 0},
+  {"dataAddr", (PyCFunction)__pyx_pw_7Storage_12_LongStorage_11dataAddr, METH_NOARGS, 0},
+  {"newWithSize", (PyCFunction)__pyx_pw_7Storage_12_LongStorage_13newWithSize, METH_VARARGS|METH_KEYWORDS, 0},
+  {"size", (PyCFunction)__pyx_pw_7Storage_12_LongStorage_15size, METH_NOARGS, 0},
   {0, 0, 0, 0}
 };
 
-static PySequenceMethods __pyx_tp_as_sequence_LongStorage = {
+static PySequenceMethods __pyx_tp_as_sequence__LongStorage = {
   0, /*sq_length*/
   0, /*sq_concat*/
   0, /*sq_repeat*/
-  __pyx_sq_item_7Storage_LongStorage, /*sq_item*/
+  __pyx_sq_item_7Storage__LongStorage, /*sq_item*/
   0, /*sq_slice*/
   0, /*sq_ass_item*/
   0, /*sq_ass_slice*/
@@ -19617,18 +19617,18 @@ static PySequenceMethods __pyx_tp_as_sequence_LongStorage = {
   0, /*sq_inplace_repeat*/
 };
 
-static PyMappingMethods __pyx_tp_as_mapping_LongStorage = {
+static PyMappingMethods __pyx_tp_as_mapping__LongStorage = {
   0, /*mp_length*/
-  __pyx_pw_7Storage_11LongStorage_22__getitem__, /*mp_subscript*/
-  __pyx_mp_ass_subscript_7Storage_LongStorage, /*mp_ass_subscript*/
+  __pyx_pw_7Storage_12_LongStorage_22__getitem__, /*mp_subscript*/
+  __pyx_mp_ass_subscript_7Storage__LongStorage, /*mp_ass_subscript*/
 };
 
-static PyTypeObject __pyx_type_7Storage_LongStorage = {
+static PyTypeObject __pyx_type_7Storage__LongStorage = {
   PyVarObject_HEAD_INIT(0, 0)
-  "Storage.LongStorage", /*tp_name*/
-  sizeof(struct __pyx_obj_7Storage_LongStorage), /*tp_basicsize*/
+  "Storage._LongStorage", /*tp_name*/
+  sizeof(struct __pyx_obj_7Storage__LongStorage), /*tp_basicsize*/
   0, /*tp_itemsize*/
-  __pyx_tp_dealloc_7Storage_LongStorage, /*tp_dealloc*/
+  __pyx_tp_dealloc_7Storage__LongStorage, /*tp_dealloc*/
   0, /*tp_print*/
   0, /*tp_getattr*/
   0, /*tp_setattr*/
@@ -19637,10 +19637,10 @@ static PyTypeObject __pyx_type_7Storage_LongStorage = {
   #else
   0, /*reserved*/
   #endif
-  __pyx_pw_7Storage_11LongStorage_3__repr__, /*tp_repr*/
+  __pyx_pw_7Storage_12_LongStorage_3__repr__, /*tp_repr*/
   0, /*tp_as_number*/
-  &__pyx_tp_as_sequence_LongStorage, /*tp_as_sequence*/
-  &__pyx_tp_as_mapping_LongStorage, /*tp_as_mapping*/
+  &__pyx_tp_as_sequence__LongStorage, /*tp_as_sequence*/
+  &__pyx_tp_as_mapping__LongStorage, /*tp_as_mapping*/
   0, /*tp_hash*/
   0, /*tp_call*/
   0, /*tp_str*/
@@ -19653,9 +19653,9 @@ static PyTypeObject __pyx_type_7Storage_LongStorage = {
   0, /*tp_clear*/
   0, /*tp_richcompare*/
   0, /*tp_weaklistoffset*/
-  __pyx_pw_7Storage_11LongStorage_19__iter__, /*tp_iter*/
+  __pyx_pw_7Storage_12_LongStorage_19__iter__, /*tp_iter*/
   0, /*tp_iternext*/
-  __pyx_methods_7Storage_LongStorage, /*tp_methods*/
+  __pyx_methods_7Storage__LongStorage, /*tp_methods*/
   0, /*tp_members*/
   0, /*tp_getset*/
   0, /*tp_base*/
@@ -19663,9 +19663,9 @@ static PyTypeObject __pyx_type_7Storage_LongStorage = {
   0, /*tp_descr_get*/
   0, /*tp_descr_set*/
   0, /*tp_dictoffset*/
-  __pyx_pw_7Storage_11LongStorage_1__init__, /*tp_init*/
+  __pyx_pw_7Storage_12_LongStorage_1__init__, /*tp_init*/
   0, /*tp_alloc*/
-  __pyx_tp_new_7Storage_LongStorage, /*tp_new*/
+  __pyx_tp_new_7Storage__LongStorage, /*tp_new*/
   0, /*tp_free*/
   0, /*tp_is_gc*/
   0, /*tp_bases*/
@@ -19721,7 +19721,7 @@ static int __pyx_tp_clear_7Storage___pyx_scope_struct____iter__(PyObject *o) {
   PyObject* tmp;
   struct __pyx_obj_7Storage___pyx_scope_struct____iter__ *p = (struct __pyx_obj_7Storage___pyx_scope_struct____iter__ *)o;
   tmp = ((PyObject*)p->__pyx_v_self);
-  p->__pyx_v_self = ((struct __pyx_obj_7Storage_DoubleStorage *)Py_None); Py_INCREF(Py_None);
+  p->__pyx_v_self = ((struct __pyx_obj_7Storage__DoubleStorage *)Py_None); Py_INCREF(Py_None);
   Py_XDECREF(tmp);
   return 0;
 }
@@ -19824,7 +19824,7 @@ static int __pyx_tp_clear_7Storage___pyx_scope_struct_1___iter__(PyObject *o) {
   PyObject* tmp;
   struct __pyx_obj_7Storage___pyx_scope_struct_1___iter__ *p = (struct __pyx_obj_7Storage___pyx_scope_struct_1___iter__ *)o;
   tmp = ((PyObject*)p->__pyx_v_self);
-  p->__pyx_v_self = ((struct __pyx_obj_7Storage_ByteStorage *)Py_None); Py_INCREF(Py_None);
+  p->__pyx_v_self = ((struct __pyx_obj_7Storage__ByteStorage *)Py_None); Py_INCREF(Py_None);
   Py_XDECREF(tmp);
   return 0;
 }
@@ -19927,7 +19927,7 @@ static int __pyx_tp_clear_7Storage___pyx_scope_struct_2___iter__(PyObject *o) {
   PyObject* tmp;
   struct __pyx_obj_7Storage___pyx_scope_struct_2___iter__ *p = (struct __pyx_obj_7Storage___pyx_scope_struct_2___iter__ *)o;
   tmp = ((PyObject*)p->__pyx_v_self);
-  p->__pyx_v_self = ((struct __pyx_obj_7Storage_FloatStorage *)Py_None); Py_INCREF(Py_None);
+  p->__pyx_v_self = ((struct __pyx_obj_7Storage__FloatStorage *)Py_None); Py_INCREF(Py_None);
   Py_XDECREF(tmp);
   return 0;
 }
@@ -20030,7 +20030,7 @@ static int __pyx_tp_clear_7Storage___pyx_scope_struct_3___iter__(PyObject *o) {
   PyObject* tmp;
   struct __pyx_obj_7Storage___pyx_scope_struct_3___iter__ *p = (struct __pyx_obj_7Storage___pyx_scope_struct_3___iter__ *)o;
   tmp = ((PyObject*)p->__pyx_v_self);
-  p->__pyx_v_self = ((struct __pyx_obj_7Storage_LongStorage *)Py_None); Py_INCREF(Py_None);
+  p->__pyx_v_self = ((struct __pyx_obj_7Storage__LongStorage *)Py_None); Py_INCREF(Py_None);
   Py_XDECREF(tmp);
   return 0;
 }
@@ -20933,7 +20933,7 @@ static int __Pyx_InitCachedConstants(void) {
  *         if len(kwargs) > 0:
  *             raise Exception('cannot provide arguments to initializer')             # <<<<<<<<<<<<<<
  * 
- *     def __repr__(DoubleStorage self):
+ *     def __repr__(_DoubleStorage self):
  */
   __pyx_tuple__4 = PyTuple_Pack(1, __pyx_kp_s_cannot_provide_arguments_to_init); if (unlikely(!__pyx_tuple__4)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 46; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_tuple__4);
@@ -20977,7 +20977,7 @@ static int __Pyx_InitCachedConstants(void) {
  *         if len(kwargs) > 0:
  *             raise Exception('cannot provide arguments to initializer')             # <<<<<<<<<<<<<<
  * 
- *     def __repr__(ByteStorage self):
+ *     def __repr__(_ByteStorage self):
  */
   __pyx_tuple__12 = PyTuple_Pack(1, __pyx_kp_s_cannot_provide_arguments_to_init); if (unlikely(!__pyx_tuple__12)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 136; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_tuple__12);
@@ -21021,7 +21021,7 @@ static int __Pyx_InitCachedConstants(void) {
  *         if len(kwargs) > 0:
  *             raise Exception('cannot provide arguments to initializer')             # <<<<<<<<<<<<<<
  * 
- *     def __repr__(FloatStorage self):
+ *     def __repr__(_FloatStorage self):
  */
   __pyx_tuple__16 = PyTuple_Pack(1, __pyx_kp_s_cannot_provide_arguments_to_init); if (unlikely(!__pyx_tuple__16)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 226; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_tuple__16);
@@ -21065,7 +21065,7 @@ static int __Pyx_InitCachedConstants(void) {
  *         if len(kwargs) > 0:
  *             raise Exception('cannot provide arguments to initializer')             # <<<<<<<<<<<<<<
  * 
- *     def __repr__(LongStorage self):
+ *     def __repr__(_LongStorage self):
  */
   __pyx_tuple__20 = PyTuple_Pack(1, __pyx_kp_s_cannot_provide_arguments_to_init); if (unlikely(!__pyx_tuple__20)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 316; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_tuple__20);
@@ -21211,7 +21211,7 @@ static int __Pyx_InitCachedConstants(void) {
  *     @staticmethod
  *     def new():             # <<<<<<<<<<<<<<
  *         # print('allocate storage')
- *         return DoubleStorage_fromNative(THDoubleStorage_new(), retain=False)
+ *         return _DoubleStorage_fromNative(THDoubleStorage_new(), retain=False)
  */
   __pyx_codeobj__33 = (PyObject*)__Pyx_PyCode_New(0, 0, 0, 0, 0, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_data_norep_git_pytorch_src_Stor, __pyx_n_s_new, 66, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__33)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 66; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
 
@@ -21244,7 +21244,7 @@ static int __Pyx_InitCachedConstants(void) {
  *     @staticmethod
  *     def new():             # <<<<<<<<<<<<<<
  *         # print('allocate storage')
- *         return ByteStorage_fromNative(THByteStorage_new(), retain=False)
+ *         return _ByteStorage_fromNative(THByteStorage_new(), retain=False)
  */
   __pyx_codeobj__38 = (PyObject*)__Pyx_PyCode_New(0, 0, 0, 0, 0, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_data_norep_git_pytorch_src_Stor, __pyx_n_s_new, 156, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__38)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 156; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
 
@@ -21277,7 +21277,7 @@ static int __Pyx_InitCachedConstants(void) {
  *     @staticmethod
  *     def new():             # <<<<<<<<<<<<<<
  *         # print('allocate storage')
- *         return FloatStorage_fromNative(THFloatStorage_new(), retain=False)
+ *         return _FloatStorage_fromNative(THFloatStorage_new(), retain=False)
  */
   __pyx_codeobj__43 = (PyObject*)__Pyx_PyCode_New(0, 0, 0, 0, 0, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_data_norep_git_pytorch_src_Stor, __pyx_n_s_new, 246, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__43)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 246; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
 
@@ -21310,7 +21310,7 @@ static int __Pyx_InitCachedConstants(void) {
  *     @staticmethod
  *     def new():             # <<<<<<<<<<<<<<
  *         # print('allocate storage')
- *         return LongStorage_fromNative(THLongStorage_new(), retain=False)
+ *         return _LongStorage_fromNative(THLongStorage_new(), retain=False)
  */
   __pyx_codeobj__48 = (PyObject*)__Pyx_PyCode_New(0, 0, 0, 0, 0, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_data_norep_git_pytorch_src_Stor, __pyx_n_s_new, 336, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__48)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 336; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
 
@@ -21497,39 +21497,39 @@ PyMODINIT_FUNC PyInit_Storage(void)
   indirect_contiguous = Py_None; Py_INCREF(Py_None);
   /*--- Variable export code ---*/
   /*--- Function export code ---*/
-  if (__Pyx_ExportFunction("DoubleStorage_fromNative", (void (*)(void))__pyx_f_7Storage_DoubleStorage_fromNative, "PyObject *(struct THDoubleStorage *, struct __pyx_opt_args_7Storage_DoubleStorage_fromNative *__pyx_optional_args)") < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-  if (__Pyx_ExportFunction("ByteStorage_fromNative", (void (*)(void))__pyx_f_7Storage_ByteStorage_fromNative, "PyObject *(struct THByteStorage *, struct __pyx_opt_args_7Storage_ByteStorage_fromNative *__pyx_optional_args)") < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-  if (__Pyx_ExportFunction("FloatStorage_fromNative", (void (*)(void))__pyx_f_7Storage_FloatStorage_fromNative, "PyObject *(struct THFloatStorage *, struct __pyx_opt_args_7Storage_FloatStorage_fromNative *__pyx_optional_args)") < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-  if (__Pyx_ExportFunction("LongStorage_fromNative", (void (*)(void))__pyx_f_7Storage_LongStorage_fromNative, "PyObject *(struct THLongStorage *, struct __pyx_opt_args_7Storage_LongStorage_fromNative *__pyx_optional_args)") < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  if (__Pyx_ExportFunction("_DoubleStorage_fromNative", (void (*)(void))__pyx_f_7Storage__DoubleStorage_fromNative, "PyObject *(struct THDoubleStorage *, struct __pyx_opt_args_7Storage__DoubleStorage_fromNative *__pyx_optional_args)") < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  if (__Pyx_ExportFunction("_ByteStorage_fromNative", (void (*)(void))__pyx_f_7Storage__ByteStorage_fromNative, "PyObject *(struct THByteStorage *, struct __pyx_opt_args_7Storage__ByteStorage_fromNative *__pyx_optional_args)") < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  if (__Pyx_ExportFunction("_FloatStorage_fromNative", (void (*)(void))__pyx_f_7Storage__FloatStorage_fromNative, "PyObject *(struct THFloatStorage *, struct __pyx_opt_args_7Storage__FloatStorage_fromNative *__pyx_optional_args)") < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  if (__Pyx_ExportFunction("_LongStorage_fromNative", (void (*)(void))__pyx_f_7Storage__LongStorage_fromNative, "PyObject *(struct THLongStorage *, struct __pyx_opt_args_7Storage__LongStorage_fromNative *__pyx_optional_args)") < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   /*--- Type init code ---*/
-  __pyx_vtabptr_7Storage_DoubleStorage = &__pyx_vtable_7Storage_DoubleStorage;
-  __pyx_vtable_7Storage_DoubleStorage.size = (long (*)(struct __pyx_obj_7Storage_DoubleStorage *, int __pyx_skip_dispatch))__pyx_f_7Storage_13DoubleStorage_size;
-  if (PyType_Ready(&__pyx_type_7Storage_DoubleStorage) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 31; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-  __pyx_type_7Storage_DoubleStorage.tp_print = 0;
-  if (__Pyx_SetVtable(__pyx_type_7Storage_DoubleStorage.tp_dict, __pyx_vtabptr_7Storage_DoubleStorage) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 31; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-  if (PyObject_SetAttrString(__pyx_m, "DoubleStorage", (PyObject *)&__pyx_type_7Storage_DoubleStorage) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 31; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-  __pyx_ptype_7Storage_DoubleStorage = &__pyx_type_7Storage_DoubleStorage;
-  __pyx_vtabptr_7Storage_ByteStorage = &__pyx_vtable_7Storage_ByteStorage;
-  __pyx_vtable_7Storage_ByteStorage.size = (long (*)(struct __pyx_obj_7Storage_ByteStorage *, int __pyx_skip_dispatch))__pyx_f_7Storage_11ByteStorage_size;
-  if (PyType_Ready(&__pyx_type_7Storage_ByteStorage) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 121; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-  __pyx_type_7Storage_ByteStorage.tp_print = 0;
-  if (__Pyx_SetVtable(__pyx_type_7Storage_ByteStorage.tp_dict, __pyx_vtabptr_7Storage_ByteStorage) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 121; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-  if (PyObject_SetAttrString(__pyx_m, "ByteStorage", (PyObject *)&__pyx_type_7Storage_ByteStorage) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 121; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-  __pyx_ptype_7Storage_ByteStorage = &__pyx_type_7Storage_ByteStorage;
-  __pyx_vtabptr_7Storage_FloatStorage = &__pyx_vtable_7Storage_FloatStorage;
-  __pyx_vtable_7Storage_FloatStorage.size = (long (*)(struct __pyx_obj_7Storage_FloatStorage *, int __pyx_skip_dispatch))__pyx_f_7Storage_12FloatStorage_size;
-  if (PyType_Ready(&__pyx_type_7Storage_FloatStorage) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 211; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-  __pyx_type_7Storage_FloatStorage.tp_print = 0;
-  if (__Pyx_SetVtable(__pyx_type_7Storage_FloatStorage.tp_dict, __pyx_vtabptr_7Storage_FloatStorage) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 211; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-  if (PyObject_SetAttrString(__pyx_m, "FloatStorage", (PyObject *)&__pyx_type_7Storage_FloatStorage) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 211; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-  __pyx_ptype_7Storage_FloatStorage = &__pyx_type_7Storage_FloatStorage;
-  __pyx_vtabptr_7Storage_LongStorage = &__pyx_vtable_7Storage_LongStorage;
-  __pyx_vtable_7Storage_LongStorage.size = (long (*)(struct __pyx_obj_7Storage_LongStorage *, int __pyx_skip_dispatch))__pyx_f_7Storage_11LongStorage_size;
-  if (PyType_Ready(&__pyx_type_7Storage_LongStorage) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 301; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-  __pyx_type_7Storage_LongStorage.tp_print = 0;
-  if (__Pyx_SetVtable(__pyx_type_7Storage_LongStorage.tp_dict, __pyx_vtabptr_7Storage_LongStorage) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 301; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-  if (PyObject_SetAttrString(__pyx_m, "LongStorage", (PyObject *)&__pyx_type_7Storage_LongStorage) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 301; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-  __pyx_ptype_7Storage_LongStorage = &__pyx_type_7Storage_LongStorage;
+  __pyx_vtabptr_7Storage__DoubleStorage = &__pyx_vtable_7Storage__DoubleStorage;
+  __pyx_vtable_7Storage__DoubleStorage.size = (long (*)(struct __pyx_obj_7Storage__DoubleStorage *, int __pyx_skip_dispatch))__pyx_f_7Storage_14_DoubleStorage_size;
+  if (PyType_Ready(&__pyx_type_7Storage__DoubleStorage) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 31; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_type_7Storage__DoubleStorage.tp_print = 0;
+  if (__Pyx_SetVtable(__pyx_type_7Storage__DoubleStorage.tp_dict, __pyx_vtabptr_7Storage__DoubleStorage) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 31; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  if (PyObject_SetAttrString(__pyx_m, "_DoubleStorage", (PyObject *)&__pyx_type_7Storage__DoubleStorage) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 31; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_ptype_7Storage__DoubleStorage = &__pyx_type_7Storage__DoubleStorage;
+  __pyx_vtabptr_7Storage__ByteStorage = &__pyx_vtable_7Storage__ByteStorage;
+  __pyx_vtable_7Storage__ByteStorage.size = (long (*)(struct __pyx_obj_7Storage__ByteStorage *, int __pyx_skip_dispatch))__pyx_f_7Storage_12_ByteStorage_size;
+  if (PyType_Ready(&__pyx_type_7Storage__ByteStorage) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 121; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_type_7Storage__ByteStorage.tp_print = 0;
+  if (__Pyx_SetVtable(__pyx_type_7Storage__ByteStorage.tp_dict, __pyx_vtabptr_7Storage__ByteStorage) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 121; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  if (PyObject_SetAttrString(__pyx_m, "_ByteStorage", (PyObject *)&__pyx_type_7Storage__ByteStorage) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 121; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_ptype_7Storage__ByteStorage = &__pyx_type_7Storage__ByteStorage;
+  __pyx_vtabptr_7Storage__FloatStorage = &__pyx_vtable_7Storage__FloatStorage;
+  __pyx_vtable_7Storage__FloatStorage.size = (long (*)(struct __pyx_obj_7Storage__FloatStorage *, int __pyx_skip_dispatch))__pyx_f_7Storage_13_FloatStorage_size;
+  if (PyType_Ready(&__pyx_type_7Storage__FloatStorage) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 211; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_type_7Storage__FloatStorage.tp_print = 0;
+  if (__Pyx_SetVtable(__pyx_type_7Storage__FloatStorage.tp_dict, __pyx_vtabptr_7Storage__FloatStorage) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 211; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  if (PyObject_SetAttrString(__pyx_m, "_FloatStorage", (PyObject *)&__pyx_type_7Storage__FloatStorage) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 211; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_ptype_7Storage__FloatStorage = &__pyx_type_7Storage__FloatStorage;
+  __pyx_vtabptr_7Storage__LongStorage = &__pyx_vtable_7Storage__LongStorage;
+  __pyx_vtable_7Storage__LongStorage.size = (long (*)(struct __pyx_obj_7Storage__LongStorage *, int __pyx_skip_dispatch))__pyx_f_7Storage_12_LongStorage_size;
+  if (PyType_Ready(&__pyx_type_7Storage__LongStorage) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 301; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_type_7Storage__LongStorage.tp_print = 0;
+  if (__Pyx_SetVtable(__pyx_type_7Storage__LongStorage.tp_dict, __pyx_vtabptr_7Storage__LongStorage) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 301; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  if (PyObject_SetAttrString(__pyx_m, "_LongStorage", (PyObject *)&__pyx_type_7Storage__LongStorage) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 301; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_ptype_7Storage__LongStorage = &__pyx_type_7Storage__LongStorage;
   if (PyType_Ready(&__pyx_type_7Storage___pyx_scope_struct____iter__) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 99; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __pyx_type_7Storage___pyx_scope_struct____iter__.tp_print = 0;
   __pyx_ptype_7Storage___pyx_scope_struct____iter__ = &__pyx_type_7Storage___pyx_scope_struct____iter__;
@@ -21685,9 +21685,9 @@ PyMODINIT_FUNC PyInit_Storage(void)
  *     @staticmethod
  *     def new():             # <<<<<<<<<<<<<<
  *         # print('allocate storage')
- *         return DoubleStorage_fromNative(THDoubleStorage_new(), retain=False)
+ *         return _DoubleStorage_fromNative(THDoubleStorage_new(), retain=False)
  */
-  __pyx_t_2 = PyCFunction_NewEx(&__pyx_mdef_7Storage_13DoubleStorage_5new, NULL, __pyx_n_s_Storage); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 66; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_2 = PyCFunction_NewEx(&__pyx_mdef_7Storage_14_DoubleStorage_5new, NULL, __pyx_n_s_Storage); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 66; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_2);
 
   /* "Storage.pyx":65
@@ -21705,18 +21705,18 @@ PyMODINIT_FUNC PyInit_Storage(void)
   __pyx_t_2 = __Pyx_PyObject_Call(__pyx_builtin_staticmethod, __pyx_t_3, NULL); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 65; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_2);
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-  if (PyDict_SetItem((PyObject *)__pyx_ptype_7Storage_DoubleStorage->tp_dict, __pyx_n_s_new, __pyx_t_2) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 66; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  if (PyDict_SetItem((PyObject *)__pyx_ptype_7Storage__DoubleStorage->tp_dict, __pyx_n_s_new, __pyx_t_2) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 66; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-  PyType_Modified(__pyx_ptype_7Storage_DoubleStorage);
+  PyType_Modified(__pyx_ptype_7Storage__DoubleStorage);
 
   /* "Storage.pyx":66
  * 
  *     @staticmethod
  *     def new():             # <<<<<<<<<<<<<<
  *         # print('allocate storage')
- *         return DoubleStorage_fromNative(THDoubleStorage_new(), retain=False)
+ *         return _DoubleStorage_fromNative(THDoubleStorage_new(), retain=False)
  */
-  __pyx_t_2 = __Pyx_GetNameInClass((PyObject *)__pyx_ptype_7Storage_DoubleStorage, __pyx_n_s_new); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 66; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_2 = __Pyx_GetNameInClass((PyObject *)__pyx_ptype_7Storage__DoubleStorage, __pyx_n_s_new); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 66; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_2);
 
   /* "Storage.pyx":65
@@ -21734,9 +21734,9 @@ PyMODINIT_FUNC PyInit_Storage(void)
   __pyx_t_2 = __Pyx_PyObject_Call(__pyx_builtin_staticmethod, __pyx_t_3, NULL); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 65; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_2);
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-  if (PyDict_SetItem((PyObject *)__pyx_ptype_7Storage_DoubleStorage->tp_dict, __pyx_n_s_new, __pyx_t_2) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 66; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  if (PyDict_SetItem((PyObject *)__pyx_ptype_7Storage__DoubleStorage->tp_dict, __pyx_n_s_new, __pyx_t_2) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 66; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-  PyType_Modified(__pyx_ptype_7Storage_DoubleStorage);
+  PyType_Modified(__pyx_ptype_7Storage__DoubleStorage);
 
   /* "Storage.pyx":71
  * 
@@ -21745,11 +21745,11 @@ PyMODINIT_FUNC PyInit_Storage(void)
  *         cdef THDoubleStorage *storageC = THDoubleStorage_newWithData(&data[0], len(data))
  *         # print('allocate storage')
  */
-  __pyx_t_2 = PyCFunction_NewEx(&__pyx_mdef_7Storage_13DoubleStorage_7newWithData, NULL, __pyx_n_s_Storage); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 71; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_2 = PyCFunction_NewEx(&__pyx_mdef_7Storage_14_DoubleStorage_7newWithData, NULL, __pyx_n_s_Storage); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 71; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_2);
 
   /* "Storage.pyx":70
- *         return DoubleStorage_fromNative(THDoubleStorage_new(), retain=False)
+ *         return _DoubleStorage_fromNative(THDoubleStorage_new(), retain=False)
  * 
  *     @staticmethod             # <<<<<<<<<<<<<<
  *     def newWithData(double [:] data):
@@ -21763,9 +21763,9 @@ PyMODINIT_FUNC PyInit_Storage(void)
   __pyx_t_2 = __Pyx_PyObject_Call(__pyx_builtin_staticmethod, __pyx_t_3, NULL); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 70; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_2);
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-  if (PyDict_SetItem((PyObject *)__pyx_ptype_7Storage_DoubleStorage->tp_dict, __pyx_n_s_newWithData, __pyx_t_2) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 71; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  if (PyDict_SetItem((PyObject *)__pyx_ptype_7Storage__DoubleStorage->tp_dict, __pyx_n_s_newWithData, __pyx_t_2) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 71; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-  PyType_Modified(__pyx_ptype_7Storage_DoubleStorage);
+  PyType_Modified(__pyx_ptype_7Storage__DoubleStorage);
 
   /* "Storage.pyx":71
  * 
@@ -21774,11 +21774,11 @@ PyMODINIT_FUNC PyInit_Storage(void)
  *         cdef THDoubleStorage *storageC = THDoubleStorage_newWithData(&data[0], len(data))
  *         # print('allocate storage')
  */
-  __pyx_t_2 = __Pyx_GetNameInClass((PyObject *)__pyx_ptype_7Storage_DoubleStorage, __pyx_n_s_newWithData); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 71; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_2 = __Pyx_GetNameInClass((PyObject *)__pyx_ptype_7Storage__DoubleStorage, __pyx_n_s_newWithData); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 71; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_2);
 
   /* "Storage.pyx":70
- *         return DoubleStorage_fromNative(THDoubleStorage_new(), retain=False)
+ *         return _DoubleStorage_fromNative(THDoubleStorage_new(), retain=False)
  * 
  *     @staticmethod             # <<<<<<<<<<<<<<
  *     def newWithData(double [:] data):
@@ -21792,25 +21792,25 @@ PyMODINIT_FUNC PyInit_Storage(void)
   __pyx_t_2 = __Pyx_PyObject_Call(__pyx_builtin_staticmethod, __pyx_t_3, NULL); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 70; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_2);
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-  if (PyDict_SetItem((PyObject *)__pyx_ptype_7Storage_DoubleStorage->tp_dict, __pyx_n_s_newWithData, __pyx_t_2) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 71; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  if (PyDict_SetItem((PyObject *)__pyx_ptype_7Storage__DoubleStorage->tp_dict, __pyx_n_s_newWithData, __pyx_t_2) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 71; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-  PyType_Modified(__pyx_ptype_7Storage_DoubleStorage);
+  PyType_Modified(__pyx_ptype_7Storage__DoubleStorage);
 
   /* "Storage.pyx":77
  * 
  *     @property
- *     def refCount(DoubleStorage self):             # <<<<<<<<<<<<<<
+ *     def refCount(_DoubleStorage self):             # <<<<<<<<<<<<<<
  *         return THDoubleStorage_getRefCount(self.thDoubleStorage)
  * 
  */
-  __pyx_t_2 = __Pyx_GetNameInClass((PyObject *)__pyx_ptype_7Storage_DoubleStorage, __pyx_n_s_refCount); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 77; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_2 = __Pyx_GetNameInClass((PyObject *)__pyx_ptype_7Storage__DoubleStorage, __pyx_n_s_refCount); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 77; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_2);
 
   /* "Storage.pyx":76
- *         return DoubleStorage_fromNative(storageC, retain=False)
+ *         return _DoubleStorage_fromNative(storageC, retain=False)
  * 
  *     @property             # <<<<<<<<<<<<<<
- *     def refCount(DoubleStorage self):
+ *     def refCount(_DoubleStorage self):
  *         return THDoubleStorage_getRefCount(self.thDoubleStorage)
  */
   __pyx_t_3 = PyTuple_New(1); if (unlikely(!__pyx_t_3)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 76; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
@@ -21821,9 +21821,9 @@ PyMODINIT_FUNC PyInit_Storage(void)
   __pyx_t_2 = __Pyx_PyObject_Call(__pyx_builtin_property, __pyx_t_3, NULL); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 76; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_2);
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-  if (PyDict_SetItem((PyObject *)__pyx_ptype_7Storage_DoubleStorage->tp_dict, __pyx_n_s_refCount, __pyx_t_2) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 77; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  if (PyDict_SetItem((PyObject *)__pyx_ptype_7Storage__DoubleStorage->tp_dict, __pyx_n_s_refCount, __pyx_t_2) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 77; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-  PyType_Modified(__pyx_ptype_7Storage_DoubleStorage);
+  PyType_Modified(__pyx_ptype_7Storage__DoubleStorage);
 
   /* "Storage.pyx":86
  * 
@@ -21832,7 +21832,7 @@ PyMODINIT_FUNC PyInit_Storage(void)
  *         cdef THDoubleStorage *storageC = THDoubleStorage_newWithSize(size)
  *         # print('allocate storage')
  */
-  __pyx_t_2 = PyCFunction_NewEx(&__pyx_mdef_7Storage_13DoubleStorage_13newWithSize, NULL, __pyx_n_s_Storage); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 86; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_2 = PyCFunction_NewEx(&__pyx_mdef_7Storage_14_DoubleStorage_13newWithSize, NULL, __pyx_n_s_Storage); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 86; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_2);
 
   /* "Storage.pyx":85
@@ -21850,9 +21850,9 @@ PyMODINIT_FUNC PyInit_Storage(void)
   __pyx_t_2 = __Pyx_PyObject_Call(__pyx_builtin_staticmethod, __pyx_t_3, NULL); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 85; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_2);
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-  if (PyDict_SetItem((PyObject *)__pyx_ptype_7Storage_DoubleStorage->tp_dict, __pyx_n_s_newWithSize, __pyx_t_2) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 86; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  if (PyDict_SetItem((PyObject *)__pyx_ptype_7Storage__DoubleStorage->tp_dict, __pyx_n_s_newWithSize, __pyx_t_2) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 86; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-  PyType_Modified(__pyx_ptype_7Storage_DoubleStorage);
+  PyType_Modified(__pyx_ptype_7Storage__DoubleStorage);
 
   /* "Storage.pyx":86
  * 
@@ -21861,7 +21861,7 @@ PyMODINIT_FUNC PyInit_Storage(void)
  *         cdef THDoubleStorage *storageC = THDoubleStorage_newWithSize(size)
  *         # print('allocate storage')
  */
-  __pyx_t_2 = __Pyx_GetNameInClass((PyObject *)__pyx_ptype_7Storage_DoubleStorage, __pyx_n_s_newWithSize); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 86; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_2 = __Pyx_GetNameInClass((PyObject *)__pyx_ptype_7Storage__DoubleStorage, __pyx_n_s_newWithSize); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 86; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_2);
 
   /* "Storage.pyx":85
@@ -21879,18 +21879,18 @@ PyMODINIT_FUNC PyInit_Storage(void)
   __pyx_t_2 = __Pyx_PyObject_Call(__pyx_builtin_staticmethod, __pyx_t_3, NULL); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 85; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_2);
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-  if (PyDict_SetItem((PyObject *)__pyx_ptype_7Storage_DoubleStorage->tp_dict, __pyx_n_s_newWithSize, __pyx_t_2) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 86; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  if (PyDict_SetItem((PyObject *)__pyx_ptype_7Storage__DoubleStorage->tp_dict, __pyx_n_s_newWithSize, __pyx_t_2) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 86; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-  PyType_Modified(__pyx_ptype_7Storage_DoubleStorage);
+  PyType_Modified(__pyx_ptype_7Storage__DoubleStorage);
 
   /* "Storage.pyx":156
  * 
  *     @staticmethod
  *     def new():             # <<<<<<<<<<<<<<
  *         # print('allocate storage')
- *         return ByteStorage_fromNative(THByteStorage_new(), retain=False)
+ *         return _ByteStorage_fromNative(THByteStorage_new(), retain=False)
  */
-  __pyx_t_2 = PyCFunction_NewEx(&__pyx_mdef_7Storage_11ByteStorage_5new, NULL, __pyx_n_s_Storage); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 156; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_2 = PyCFunction_NewEx(&__pyx_mdef_7Storage_12_ByteStorage_5new, NULL, __pyx_n_s_Storage); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 156; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_2);
 
   /* "Storage.pyx":155
@@ -21908,18 +21908,18 @@ PyMODINIT_FUNC PyInit_Storage(void)
   __pyx_t_2 = __Pyx_PyObject_Call(__pyx_builtin_staticmethod, __pyx_t_3, NULL); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 155; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_2);
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-  if (PyDict_SetItem((PyObject *)__pyx_ptype_7Storage_ByteStorage->tp_dict, __pyx_n_s_new, __pyx_t_2) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 156; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  if (PyDict_SetItem((PyObject *)__pyx_ptype_7Storage__ByteStorage->tp_dict, __pyx_n_s_new, __pyx_t_2) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 156; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-  PyType_Modified(__pyx_ptype_7Storage_ByteStorage);
+  PyType_Modified(__pyx_ptype_7Storage__ByteStorage);
 
   /* "Storage.pyx":156
  * 
  *     @staticmethod
  *     def new():             # <<<<<<<<<<<<<<
  *         # print('allocate storage')
- *         return ByteStorage_fromNative(THByteStorage_new(), retain=False)
+ *         return _ByteStorage_fromNative(THByteStorage_new(), retain=False)
  */
-  __pyx_t_2 = __Pyx_GetNameInClass((PyObject *)__pyx_ptype_7Storage_ByteStorage, __pyx_n_s_new); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 156; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_2 = __Pyx_GetNameInClass((PyObject *)__pyx_ptype_7Storage__ByteStorage, __pyx_n_s_new); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 156; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_2);
 
   /* "Storage.pyx":155
@@ -21937,9 +21937,9 @@ PyMODINIT_FUNC PyInit_Storage(void)
   __pyx_t_2 = __Pyx_PyObject_Call(__pyx_builtin_staticmethod, __pyx_t_3, NULL); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 155; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_2);
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-  if (PyDict_SetItem((PyObject *)__pyx_ptype_7Storage_ByteStorage->tp_dict, __pyx_n_s_new, __pyx_t_2) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 156; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  if (PyDict_SetItem((PyObject *)__pyx_ptype_7Storage__ByteStorage->tp_dict, __pyx_n_s_new, __pyx_t_2) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 156; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-  PyType_Modified(__pyx_ptype_7Storage_ByteStorage);
+  PyType_Modified(__pyx_ptype_7Storage__ByteStorage);
 
   /* "Storage.pyx":161
  * 
@@ -21948,11 +21948,11 @@ PyMODINIT_FUNC PyInit_Storage(void)
  *         cdef THByteStorage *storageC = THByteStorage_newWithData(&data[0], len(data))
  *         # print('allocate storage')
  */
-  __pyx_t_2 = PyCFunction_NewEx(&__pyx_mdef_7Storage_11ByteStorage_7newWithData, NULL, __pyx_n_s_Storage); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 161; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_2 = PyCFunction_NewEx(&__pyx_mdef_7Storage_12_ByteStorage_7newWithData, NULL, __pyx_n_s_Storage); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 161; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_2);
 
   /* "Storage.pyx":160
- *         return ByteStorage_fromNative(THByteStorage_new(), retain=False)
+ *         return _ByteStorage_fromNative(THByteStorage_new(), retain=False)
  * 
  *     @staticmethod             # <<<<<<<<<<<<<<
  *     def newWithData(unsigned char [:] data):
@@ -21966,9 +21966,9 @@ PyMODINIT_FUNC PyInit_Storage(void)
   __pyx_t_2 = __Pyx_PyObject_Call(__pyx_builtin_staticmethod, __pyx_t_3, NULL); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 160; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_2);
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-  if (PyDict_SetItem((PyObject *)__pyx_ptype_7Storage_ByteStorage->tp_dict, __pyx_n_s_newWithData, __pyx_t_2) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 161; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  if (PyDict_SetItem((PyObject *)__pyx_ptype_7Storage__ByteStorage->tp_dict, __pyx_n_s_newWithData, __pyx_t_2) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 161; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-  PyType_Modified(__pyx_ptype_7Storage_ByteStorage);
+  PyType_Modified(__pyx_ptype_7Storage__ByteStorage);
 
   /* "Storage.pyx":161
  * 
@@ -21977,11 +21977,11 @@ PyMODINIT_FUNC PyInit_Storage(void)
  *         cdef THByteStorage *storageC = THByteStorage_newWithData(&data[0], len(data))
  *         # print('allocate storage')
  */
-  __pyx_t_2 = __Pyx_GetNameInClass((PyObject *)__pyx_ptype_7Storage_ByteStorage, __pyx_n_s_newWithData); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 161; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_2 = __Pyx_GetNameInClass((PyObject *)__pyx_ptype_7Storage__ByteStorage, __pyx_n_s_newWithData); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 161; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_2);
 
   /* "Storage.pyx":160
- *         return ByteStorage_fromNative(THByteStorage_new(), retain=False)
+ *         return _ByteStorage_fromNative(THByteStorage_new(), retain=False)
  * 
  *     @staticmethod             # <<<<<<<<<<<<<<
  *     def newWithData(unsigned char [:] data):
@@ -21995,25 +21995,25 @@ PyMODINIT_FUNC PyInit_Storage(void)
   __pyx_t_2 = __Pyx_PyObject_Call(__pyx_builtin_staticmethod, __pyx_t_3, NULL); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 160; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_2);
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-  if (PyDict_SetItem((PyObject *)__pyx_ptype_7Storage_ByteStorage->tp_dict, __pyx_n_s_newWithData, __pyx_t_2) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 161; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  if (PyDict_SetItem((PyObject *)__pyx_ptype_7Storage__ByteStorage->tp_dict, __pyx_n_s_newWithData, __pyx_t_2) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 161; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-  PyType_Modified(__pyx_ptype_7Storage_ByteStorage);
+  PyType_Modified(__pyx_ptype_7Storage__ByteStorage);
 
   /* "Storage.pyx":167
  * 
  *     @property
- *     def refCount(ByteStorage self):             # <<<<<<<<<<<<<<
+ *     def refCount(_ByteStorage self):             # <<<<<<<<<<<<<<
  *         return THByteStorage_getRefCount(self.thByteStorage)
  * 
  */
-  __pyx_t_2 = __Pyx_GetNameInClass((PyObject *)__pyx_ptype_7Storage_ByteStorage, __pyx_n_s_refCount); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 167; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_2 = __Pyx_GetNameInClass((PyObject *)__pyx_ptype_7Storage__ByteStorage, __pyx_n_s_refCount); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 167; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_2);
 
   /* "Storage.pyx":166
- *         return ByteStorage_fromNative(storageC, retain=False)
+ *         return _ByteStorage_fromNative(storageC, retain=False)
  * 
  *     @property             # <<<<<<<<<<<<<<
- *     def refCount(ByteStorage self):
+ *     def refCount(_ByteStorage self):
  *         return THByteStorage_getRefCount(self.thByteStorage)
  */
   __pyx_t_3 = PyTuple_New(1); if (unlikely(!__pyx_t_3)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 166; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
@@ -22024,9 +22024,9 @@ PyMODINIT_FUNC PyInit_Storage(void)
   __pyx_t_2 = __Pyx_PyObject_Call(__pyx_builtin_property, __pyx_t_3, NULL); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 166; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_2);
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-  if (PyDict_SetItem((PyObject *)__pyx_ptype_7Storage_ByteStorage->tp_dict, __pyx_n_s_refCount, __pyx_t_2) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 167; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  if (PyDict_SetItem((PyObject *)__pyx_ptype_7Storage__ByteStorage->tp_dict, __pyx_n_s_refCount, __pyx_t_2) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 167; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-  PyType_Modified(__pyx_ptype_7Storage_ByteStorage);
+  PyType_Modified(__pyx_ptype_7Storage__ByteStorage);
 
   /* "Storage.pyx":176
  * 
@@ -22035,7 +22035,7 @@ PyMODINIT_FUNC PyInit_Storage(void)
  *         cdef THByteStorage *storageC = THByteStorage_newWithSize(size)
  *         # print('allocate storage')
  */
-  __pyx_t_2 = PyCFunction_NewEx(&__pyx_mdef_7Storage_11ByteStorage_13newWithSize, NULL, __pyx_n_s_Storage); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 176; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_2 = PyCFunction_NewEx(&__pyx_mdef_7Storage_12_ByteStorage_13newWithSize, NULL, __pyx_n_s_Storage); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 176; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_2);
 
   /* "Storage.pyx":175
@@ -22053,9 +22053,9 @@ PyMODINIT_FUNC PyInit_Storage(void)
   __pyx_t_2 = __Pyx_PyObject_Call(__pyx_builtin_staticmethod, __pyx_t_3, NULL); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 175; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_2);
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-  if (PyDict_SetItem((PyObject *)__pyx_ptype_7Storage_ByteStorage->tp_dict, __pyx_n_s_newWithSize, __pyx_t_2) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 176; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  if (PyDict_SetItem((PyObject *)__pyx_ptype_7Storage__ByteStorage->tp_dict, __pyx_n_s_newWithSize, __pyx_t_2) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 176; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-  PyType_Modified(__pyx_ptype_7Storage_ByteStorage);
+  PyType_Modified(__pyx_ptype_7Storage__ByteStorage);
 
   /* "Storage.pyx":176
  * 
@@ -22064,7 +22064,7 @@ PyMODINIT_FUNC PyInit_Storage(void)
  *         cdef THByteStorage *storageC = THByteStorage_newWithSize(size)
  *         # print('allocate storage')
  */
-  __pyx_t_2 = __Pyx_GetNameInClass((PyObject *)__pyx_ptype_7Storage_ByteStorage, __pyx_n_s_newWithSize); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 176; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_2 = __Pyx_GetNameInClass((PyObject *)__pyx_ptype_7Storage__ByteStorage, __pyx_n_s_newWithSize); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 176; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_2);
 
   /* "Storage.pyx":175
@@ -22082,18 +22082,18 @@ PyMODINIT_FUNC PyInit_Storage(void)
   __pyx_t_2 = __Pyx_PyObject_Call(__pyx_builtin_staticmethod, __pyx_t_3, NULL); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 175; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_2);
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-  if (PyDict_SetItem((PyObject *)__pyx_ptype_7Storage_ByteStorage->tp_dict, __pyx_n_s_newWithSize, __pyx_t_2) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 176; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  if (PyDict_SetItem((PyObject *)__pyx_ptype_7Storage__ByteStorage->tp_dict, __pyx_n_s_newWithSize, __pyx_t_2) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 176; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-  PyType_Modified(__pyx_ptype_7Storage_ByteStorage);
+  PyType_Modified(__pyx_ptype_7Storage__ByteStorage);
 
   /* "Storage.pyx":246
  * 
  *     @staticmethod
  *     def new():             # <<<<<<<<<<<<<<
  *         # print('allocate storage')
- *         return FloatStorage_fromNative(THFloatStorage_new(), retain=False)
+ *         return _FloatStorage_fromNative(THFloatStorage_new(), retain=False)
  */
-  __pyx_t_2 = PyCFunction_NewEx(&__pyx_mdef_7Storage_12FloatStorage_5new, NULL, __pyx_n_s_Storage); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 246; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_2 = PyCFunction_NewEx(&__pyx_mdef_7Storage_13_FloatStorage_5new, NULL, __pyx_n_s_Storage); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 246; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_2);
 
   /* "Storage.pyx":245
@@ -22111,18 +22111,18 @@ PyMODINIT_FUNC PyInit_Storage(void)
   __pyx_t_2 = __Pyx_PyObject_Call(__pyx_builtin_staticmethod, __pyx_t_3, NULL); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 245; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_2);
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-  if (PyDict_SetItem((PyObject *)__pyx_ptype_7Storage_FloatStorage->tp_dict, __pyx_n_s_new, __pyx_t_2) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 246; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  if (PyDict_SetItem((PyObject *)__pyx_ptype_7Storage__FloatStorage->tp_dict, __pyx_n_s_new, __pyx_t_2) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 246; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-  PyType_Modified(__pyx_ptype_7Storage_FloatStorage);
+  PyType_Modified(__pyx_ptype_7Storage__FloatStorage);
 
   /* "Storage.pyx":246
  * 
  *     @staticmethod
  *     def new():             # <<<<<<<<<<<<<<
  *         # print('allocate storage')
- *         return FloatStorage_fromNative(THFloatStorage_new(), retain=False)
+ *         return _FloatStorage_fromNative(THFloatStorage_new(), retain=False)
  */
-  __pyx_t_2 = __Pyx_GetNameInClass((PyObject *)__pyx_ptype_7Storage_FloatStorage, __pyx_n_s_new); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 246; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_2 = __Pyx_GetNameInClass((PyObject *)__pyx_ptype_7Storage__FloatStorage, __pyx_n_s_new); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 246; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_2);
 
   /* "Storage.pyx":245
@@ -22140,9 +22140,9 @@ PyMODINIT_FUNC PyInit_Storage(void)
   __pyx_t_2 = __Pyx_PyObject_Call(__pyx_builtin_staticmethod, __pyx_t_3, NULL); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 245; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_2);
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-  if (PyDict_SetItem((PyObject *)__pyx_ptype_7Storage_FloatStorage->tp_dict, __pyx_n_s_new, __pyx_t_2) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 246; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  if (PyDict_SetItem((PyObject *)__pyx_ptype_7Storage__FloatStorage->tp_dict, __pyx_n_s_new, __pyx_t_2) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 246; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-  PyType_Modified(__pyx_ptype_7Storage_FloatStorage);
+  PyType_Modified(__pyx_ptype_7Storage__FloatStorage);
 
   /* "Storage.pyx":251
  * 
@@ -22151,11 +22151,11 @@ PyMODINIT_FUNC PyInit_Storage(void)
  *         cdef THFloatStorage *storageC = THFloatStorage_newWithData(&data[0], len(data))
  *         # print('allocate storage')
  */
-  __pyx_t_2 = PyCFunction_NewEx(&__pyx_mdef_7Storage_12FloatStorage_7newWithData, NULL, __pyx_n_s_Storage); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 251; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_2 = PyCFunction_NewEx(&__pyx_mdef_7Storage_13_FloatStorage_7newWithData, NULL, __pyx_n_s_Storage); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 251; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_2);
 
   /* "Storage.pyx":250
- *         return FloatStorage_fromNative(THFloatStorage_new(), retain=False)
+ *         return _FloatStorage_fromNative(THFloatStorage_new(), retain=False)
  * 
  *     @staticmethod             # <<<<<<<<<<<<<<
  *     def newWithData(float [:] data):
@@ -22169,9 +22169,9 @@ PyMODINIT_FUNC PyInit_Storage(void)
   __pyx_t_2 = __Pyx_PyObject_Call(__pyx_builtin_staticmethod, __pyx_t_3, NULL); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 250; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_2);
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-  if (PyDict_SetItem((PyObject *)__pyx_ptype_7Storage_FloatStorage->tp_dict, __pyx_n_s_newWithData, __pyx_t_2) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 251; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  if (PyDict_SetItem((PyObject *)__pyx_ptype_7Storage__FloatStorage->tp_dict, __pyx_n_s_newWithData, __pyx_t_2) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 251; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-  PyType_Modified(__pyx_ptype_7Storage_FloatStorage);
+  PyType_Modified(__pyx_ptype_7Storage__FloatStorage);
 
   /* "Storage.pyx":251
  * 
@@ -22180,11 +22180,11 @@ PyMODINIT_FUNC PyInit_Storage(void)
  *         cdef THFloatStorage *storageC = THFloatStorage_newWithData(&data[0], len(data))
  *         # print('allocate storage')
  */
-  __pyx_t_2 = __Pyx_GetNameInClass((PyObject *)__pyx_ptype_7Storage_FloatStorage, __pyx_n_s_newWithData); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 251; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_2 = __Pyx_GetNameInClass((PyObject *)__pyx_ptype_7Storage__FloatStorage, __pyx_n_s_newWithData); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 251; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_2);
 
   /* "Storage.pyx":250
- *         return FloatStorage_fromNative(THFloatStorage_new(), retain=False)
+ *         return _FloatStorage_fromNative(THFloatStorage_new(), retain=False)
  * 
  *     @staticmethod             # <<<<<<<<<<<<<<
  *     def newWithData(float [:] data):
@@ -22198,25 +22198,25 @@ PyMODINIT_FUNC PyInit_Storage(void)
   __pyx_t_2 = __Pyx_PyObject_Call(__pyx_builtin_staticmethod, __pyx_t_3, NULL); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 250; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_2);
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-  if (PyDict_SetItem((PyObject *)__pyx_ptype_7Storage_FloatStorage->tp_dict, __pyx_n_s_newWithData, __pyx_t_2) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 251; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  if (PyDict_SetItem((PyObject *)__pyx_ptype_7Storage__FloatStorage->tp_dict, __pyx_n_s_newWithData, __pyx_t_2) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 251; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-  PyType_Modified(__pyx_ptype_7Storage_FloatStorage);
+  PyType_Modified(__pyx_ptype_7Storage__FloatStorage);
 
   /* "Storage.pyx":257
  * 
  *     @property
- *     def refCount(FloatStorage self):             # <<<<<<<<<<<<<<
+ *     def refCount(_FloatStorage self):             # <<<<<<<<<<<<<<
  *         return THFloatStorage_getRefCount(self.thFloatStorage)
  * 
  */
-  __pyx_t_2 = __Pyx_GetNameInClass((PyObject *)__pyx_ptype_7Storage_FloatStorage, __pyx_n_s_refCount); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 257; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_2 = __Pyx_GetNameInClass((PyObject *)__pyx_ptype_7Storage__FloatStorage, __pyx_n_s_refCount); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 257; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_2);
 
   /* "Storage.pyx":256
- *         return FloatStorage_fromNative(storageC, retain=False)
+ *         return _FloatStorage_fromNative(storageC, retain=False)
  * 
  *     @property             # <<<<<<<<<<<<<<
- *     def refCount(FloatStorage self):
+ *     def refCount(_FloatStorage self):
  *         return THFloatStorage_getRefCount(self.thFloatStorage)
  */
   __pyx_t_3 = PyTuple_New(1); if (unlikely(!__pyx_t_3)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 256; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
@@ -22227,9 +22227,9 @@ PyMODINIT_FUNC PyInit_Storage(void)
   __pyx_t_2 = __Pyx_PyObject_Call(__pyx_builtin_property, __pyx_t_3, NULL); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 256; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_2);
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-  if (PyDict_SetItem((PyObject *)__pyx_ptype_7Storage_FloatStorage->tp_dict, __pyx_n_s_refCount, __pyx_t_2) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 257; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  if (PyDict_SetItem((PyObject *)__pyx_ptype_7Storage__FloatStorage->tp_dict, __pyx_n_s_refCount, __pyx_t_2) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 257; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-  PyType_Modified(__pyx_ptype_7Storage_FloatStorage);
+  PyType_Modified(__pyx_ptype_7Storage__FloatStorage);
 
   /* "Storage.pyx":266
  * 
@@ -22238,7 +22238,7 @@ PyMODINIT_FUNC PyInit_Storage(void)
  *         cdef THFloatStorage *storageC = THFloatStorage_newWithSize(size)
  *         # print('allocate storage')
  */
-  __pyx_t_2 = PyCFunction_NewEx(&__pyx_mdef_7Storage_12FloatStorage_13newWithSize, NULL, __pyx_n_s_Storage); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 266; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_2 = PyCFunction_NewEx(&__pyx_mdef_7Storage_13_FloatStorage_13newWithSize, NULL, __pyx_n_s_Storage); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 266; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_2);
 
   /* "Storage.pyx":265
@@ -22256,9 +22256,9 @@ PyMODINIT_FUNC PyInit_Storage(void)
   __pyx_t_2 = __Pyx_PyObject_Call(__pyx_builtin_staticmethod, __pyx_t_3, NULL); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 265; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_2);
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-  if (PyDict_SetItem((PyObject *)__pyx_ptype_7Storage_FloatStorage->tp_dict, __pyx_n_s_newWithSize, __pyx_t_2) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 266; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  if (PyDict_SetItem((PyObject *)__pyx_ptype_7Storage__FloatStorage->tp_dict, __pyx_n_s_newWithSize, __pyx_t_2) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 266; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-  PyType_Modified(__pyx_ptype_7Storage_FloatStorage);
+  PyType_Modified(__pyx_ptype_7Storage__FloatStorage);
 
   /* "Storage.pyx":266
  * 
@@ -22267,7 +22267,7 @@ PyMODINIT_FUNC PyInit_Storage(void)
  *         cdef THFloatStorage *storageC = THFloatStorage_newWithSize(size)
  *         # print('allocate storage')
  */
-  __pyx_t_2 = __Pyx_GetNameInClass((PyObject *)__pyx_ptype_7Storage_FloatStorage, __pyx_n_s_newWithSize); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 266; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_2 = __Pyx_GetNameInClass((PyObject *)__pyx_ptype_7Storage__FloatStorage, __pyx_n_s_newWithSize); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 266; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_2);
 
   /* "Storage.pyx":265
@@ -22285,18 +22285,18 @@ PyMODINIT_FUNC PyInit_Storage(void)
   __pyx_t_2 = __Pyx_PyObject_Call(__pyx_builtin_staticmethod, __pyx_t_3, NULL); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 265; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_2);
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-  if (PyDict_SetItem((PyObject *)__pyx_ptype_7Storage_FloatStorage->tp_dict, __pyx_n_s_newWithSize, __pyx_t_2) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 266; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  if (PyDict_SetItem((PyObject *)__pyx_ptype_7Storage__FloatStorage->tp_dict, __pyx_n_s_newWithSize, __pyx_t_2) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 266; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-  PyType_Modified(__pyx_ptype_7Storage_FloatStorage);
+  PyType_Modified(__pyx_ptype_7Storage__FloatStorage);
 
   /* "Storage.pyx":336
  * 
  *     @staticmethod
  *     def new():             # <<<<<<<<<<<<<<
  *         # print('allocate storage')
- *         return LongStorage_fromNative(THLongStorage_new(), retain=False)
+ *         return _LongStorage_fromNative(THLongStorage_new(), retain=False)
  */
-  __pyx_t_2 = PyCFunction_NewEx(&__pyx_mdef_7Storage_11LongStorage_5new, NULL, __pyx_n_s_Storage); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 336; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_2 = PyCFunction_NewEx(&__pyx_mdef_7Storage_12_LongStorage_5new, NULL, __pyx_n_s_Storage); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 336; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_2);
 
   /* "Storage.pyx":335
@@ -22314,18 +22314,18 @@ PyMODINIT_FUNC PyInit_Storage(void)
   __pyx_t_2 = __Pyx_PyObject_Call(__pyx_builtin_staticmethod, __pyx_t_3, NULL); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 335; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_2);
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-  if (PyDict_SetItem((PyObject *)__pyx_ptype_7Storage_LongStorage->tp_dict, __pyx_n_s_new, __pyx_t_2) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 336; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  if (PyDict_SetItem((PyObject *)__pyx_ptype_7Storage__LongStorage->tp_dict, __pyx_n_s_new, __pyx_t_2) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 336; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-  PyType_Modified(__pyx_ptype_7Storage_LongStorage);
+  PyType_Modified(__pyx_ptype_7Storage__LongStorage);
 
   /* "Storage.pyx":336
  * 
  *     @staticmethod
  *     def new():             # <<<<<<<<<<<<<<
  *         # print('allocate storage')
- *         return LongStorage_fromNative(THLongStorage_new(), retain=False)
+ *         return _LongStorage_fromNative(THLongStorage_new(), retain=False)
  */
-  __pyx_t_2 = __Pyx_GetNameInClass((PyObject *)__pyx_ptype_7Storage_LongStorage, __pyx_n_s_new); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 336; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_2 = __Pyx_GetNameInClass((PyObject *)__pyx_ptype_7Storage__LongStorage, __pyx_n_s_new); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 336; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_2);
 
   /* "Storage.pyx":335
@@ -22343,9 +22343,9 @@ PyMODINIT_FUNC PyInit_Storage(void)
   __pyx_t_2 = __Pyx_PyObject_Call(__pyx_builtin_staticmethod, __pyx_t_3, NULL); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 335; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_2);
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-  if (PyDict_SetItem((PyObject *)__pyx_ptype_7Storage_LongStorage->tp_dict, __pyx_n_s_new, __pyx_t_2) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 336; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  if (PyDict_SetItem((PyObject *)__pyx_ptype_7Storage__LongStorage->tp_dict, __pyx_n_s_new, __pyx_t_2) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 336; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-  PyType_Modified(__pyx_ptype_7Storage_LongStorage);
+  PyType_Modified(__pyx_ptype_7Storage__LongStorage);
 
   /* "Storage.pyx":341
  * 
@@ -22354,11 +22354,11 @@ PyMODINIT_FUNC PyInit_Storage(void)
  *         cdef THLongStorage *storageC = THLongStorage_newWithData(&data[0], len(data))
  *         # print('allocate storage')
  */
-  __pyx_t_2 = PyCFunction_NewEx(&__pyx_mdef_7Storage_11LongStorage_7newWithData, NULL, __pyx_n_s_Storage); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 341; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_2 = PyCFunction_NewEx(&__pyx_mdef_7Storage_12_LongStorage_7newWithData, NULL, __pyx_n_s_Storage); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 341; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_2);
 
   /* "Storage.pyx":340
- *         return LongStorage_fromNative(THLongStorage_new(), retain=False)
+ *         return _LongStorage_fromNative(THLongStorage_new(), retain=False)
  * 
  *     @staticmethod             # <<<<<<<<<<<<<<
  *     def newWithData(long [:] data):
@@ -22372,9 +22372,9 @@ PyMODINIT_FUNC PyInit_Storage(void)
   __pyx_t_2 = __Pyx_PyObject_Call(__pyx_builtin_staticmethod, __pyx_t_3, NULL); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 340; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_2);
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-  if (PyDict_SetItem((PyObject *)__pyx_ptype_7Storage_LongStorage->tp_dict, __pyx_n_s_newWithData, __pyx_t_2) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 341; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  if (PyDict_SetItem((PyObject *)__pyx_ptype_7Storage__LongStorage->tp_dict, __pyx_n_s_newWithData, __pyx_t_2) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 341; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-  PyType_Modified(__pyx_ptype_7Storage_LongStorage);
+  PyType_Modified(__pyx_ptype_7Storage__LongStorage);
 
   /* "Storage.pyx":341
  * 
@@ -22383,11 +22383,11 @@ PyMODINIT_FUNC PyInit_Storage(void)
  *         cdef THLongStorage *storageC = THLongStorage_newWithData(&data[0], len(data))
  *         # print('allocate storage')
  */
-  __pyx_t_2 = __Pyx_GetNameInClass((PyObject *)__pyx_ptype_7Storage_LongStorage, __pyx_n_s_newWithData); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 341; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_2 = __Pyx_GetNameInClass((PyObject *)__pyx_ptype_7Storage__LongStorage, __pyx_n_s_newWithData); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 341; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_2);
 
   /* "Storage.pyx":340
- *         return LongStorage_fromNative(THLongStorage_new(), retain=False)
+ *         return _LongStorage_fromNative(THLongStorage_new(), retain=False)
  * 
  *     @staticmethod             # <<<<<<<<<<<<<<
  *     def newWithData(long [:] data):
@@ -22401,25 +22401,25 @@ PyMODINIT_FUNC PyInit_Storage(void)
   __pyx_t_2 = __Pyx_PyObject_Call(__pyx_builtin_staticmethod, __pyx_t_3, NULL); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 340; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_2);
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-  if (PyDict_SetItem((PyObject *)__pyx_ptype_7Storage_LongStorage->tp_dict, __pyx_n_s_newWithData, __pyx_t_2) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 341; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  if (PyDict_SetItem((PyObject *)__pyx_ptype_7Storage__LongStorage->tp_dict, __pyx_n_s_newWithData, __pyx_t_2) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 341; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-  PyType_Modified(__pyx_ptype_7Storage_LongStorage);
+  PyType_Modified(__pyx_ptype_7Storage__LongStorage);
 
   /* "Storage.pyx":347
  * 
  *     @property
- *     def refCount(LongStorage self):             # <<<<<<<<<<<<<<
+ *     def refCount(_LongStorage self):             # <<<<<<<<<<<<<<
  *         return THLongStorage_getRefCount(self.thLongStorage)
  * 
  */
-  __pyx_t_2 = __Pyx_GetNameInClass((PyObject *)__pyx_ptype_7Storage_LongStorage, __pyx_n_s_refCount); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 347; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_2 = __Pyx_GetNameInClass((PyObject *)__pyx_ptype_7Storage__LongStorage, __pyx_n_s_refCount); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 347; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_2);
 
   /* "Storage.pyx":346
- *         return LongStorage_fromNative(storageC, retain=False)
+ *         return _LongStorage_fromNative(storageC, retain=False)
  * 
  *     @property             # <<<<<<<<<<<<<<
- *     def refCount(LongStorage self):
+ *     def refCount(_LongStorage self):
  *         return THLongStorage_getRefCount(self.thLongStorage)
  */
   __pyx_t_3 = PyTuple_New(1); if (unlikely(!__pyx_t_3)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 346; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
@@ -22430,9 +22430,9 @@ PyMODINIT_FUNC PyInit_Storage(void)
   __pyx_t_2 = __Pyx_PyObject_Call(__pyx_builtin_property, __pyx_t_3, NULL); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 346; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_2);
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-  if (PyDict_SetItem((PyObject *)__pyx_ptype_7Storage_LongStorage->tp_dict, __pyx_n_s_refCount, __pyx_t_2) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 347; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  if (PyDict_SetItem((PyObject *)__pyx_ptype_7Storage__LongStorage->tp_dict, __pyx_n_s_refCount, __pyx_t_2) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 347; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-  PyType_Modified(__pyx_ptype_7Storage_LongStorage);
+  PyType_Modified(__pyx_ptype_7Storage__LongStorage);
 
   /* "Storage.pyx":356
  * 
@@ -22441,7 +22441,7 @@ PyMODINIT_FUNC PyInit_Storage(void)
  *         cdef THLongStorage *storageC = THLongStorage_newWithSize(size)
  *         # print('allocate storage')
  */
-  __pyx_t_2 = PyCFunction_NewEx(&__pyx_mdef_7Storage_11LongStorage_13newWithSize, NULL, __pyx_n_s_Storage); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 356; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_2 = PyCFunction_NewEx(&__pyx_mdef_7Storage_12_LongStorage_13newWithSize, NULL, __pyx_n_s_Storage); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 356; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_2);
 
   /* "Storage.pyx":355
@@ -22459,9 +22459,9 @@ PyMODINIT_FUNC PyInit_Storage(void)
   __pyx_t_2 = __Pyx_PyObject_Call(__pyx_builtin_staticmethod, __pyx_t_3, NULL); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 355; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_2);
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-  if (PyDict_SetItem((PyObject *)__pyx_ptype_7Storage_LongStorage->tp_dict, __pyx_n_s_newWithSize, __pyx_t_2) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 356; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  if (PyDict_SetItem((PyObject *)__pyx_ptype_7Storage__LongStorage->tp_dict, __pyx_n_s_newWithSize, __pyx_t_2) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 356; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-  PyType_Modified(__pyx_ptype_7Storage_LongStorage);
+  PyType_Modified(__pyx_ptype_7Storage__LongStorage);
 
   /* "Storage.pyx":356
  * 
@@ -22470,7 +22470,7 @@ PyMODINIT_FUNC PyInit_Storage(void)
  *         cdef THLongStorage *storageC = THLongStorage_newWithSize(size)
  *         # print('allocate storage')
  */
-  __pyx_t_2 = __Pyx_GetNameInClass((PyObject *)__pyx_ptype_7Storage_LongStorage, __pyx_n_s_newWithSize); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 356; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_2 = __Pyx_GetNameInClass((PyObject *)__pyx_ptype_7Storage__LongStorage, __pyx_n_s_newWithSize); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 356; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_2);
 
   /* "Storage.pyx":355
@@ -22488,9 +22488,9 @@ PyMODINIT_FUNC PyInit_Storage(void)
   __pyx_t_2 = __Pyx_PyObject_Call(__pyx_builtin_staticmethod, __pyx_t_3, NULL); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 355; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_2);
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-  if (PyDict_SetItem((PyObject *)__pyx_ptype_7Storage_LongStorage->tp_dict, __pyx_n_s_newWithSize, __pyx_t_2) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 356; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  if (PyDict_SetItem((PyObject *)__pyx_ptype_7Storage__LongStorage->tp_dict, __pyx_n_s_newWithSize, __pyx_t_2) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 356; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-  PyType_Modified(__pyx_ptype_7Storage_LongStorage);
+  PyType_Modified(__pyx_ptype_7Storage__LongStorage);
 
   /* "Storage.pyx":1
  * # GENERATED FILE, do not edit by hand             # <<<<<<<<<<<<<<

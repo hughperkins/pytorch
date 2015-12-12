@@ -195,6 +195,7 @@ output 0.144099288489 -0.0875280099966 -0.0519137582956 0.051946816308 0.1672891
 [torch.DoubleTensor of size 4x5]
 
 Linear.__init__
+Linear.__init__
 got criterion
 imagesTensor.size()  128
  784
@@ -204,11 +205,17 @@ labelsTensor.size()  128
 [torch.LongStorage of size 1]
 
 type(imagesTensor) <type 'PyTorch._DoubleTensor'>
+imagesTensor.size()  128
+ 1
+ 28
+ 28
+[torch.LongStorage of size 4]
+
 start training...
-epoch 0 accuracy: 44.53125%
-epoch 1 accuracy: 90.625%
-epoch 2 accuracy: 88.28125%
-epoch 3 accuracy: 94.53125%
+epoch 0 accuracy: 10.15625%
+epoch 1 accuracy: 26.5625%
+epoch 2 accuracy: 33.59375%
+epoch 3 accuracy: 39.84375%
 PASSED
 test/test_pytorch.py::test_pytorchDouble D 1.0 1.0 1.0
 1.0 1.0 1.0

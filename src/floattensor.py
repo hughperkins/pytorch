@@ -15,4 +15,15 @@ class ByteTensor(PyTorch._ByteTensor):
 #class Linear(PyTorch.CyLinear):
 #    pass
 
+class FloatStorage(PyTorch._FloatStorage):
+    pass
+
+class DoubleStorage(PyTorch._DoubleStorage):
+    pass
+
+class LongStorage(PyTorch._LongStorage):
+    pass
+
+class ByteStorage(PyTorch._ByteStorage):
+    pass
 

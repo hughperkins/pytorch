@@ -34,7 +34,7 @@ cdef floatToString(float floatValue):
 
 {% for Real in types %}
 {% set real = types[Real]['real'] %}
-cdef class {{Real}}Storage(object):
+cdef class _{{Real}}Storage(object):
     # properties in .pxd file of same name
 
     def __init__(self, *args, **kwargs):
@@ -51,7 +51,7 @@ cdef class {{Real}}Storage(object):
         if len(kwargs) > 0:
             raise Exception('cannot provide arguments to initializer')
 
-    def __repr__({{Real}}Storage self):
+    def __repr__(_{{Real}}Storage self):
         cdef int size0
         size0 = TH{{Real}}Storage_size(self.th{{Real}}Storage)
         res = ''
@@ -73,19 +73,19 @@ cdef class {{Real}}Storage(object):
     @staticmethod
     def new():
         # print('allocate storage')
-        return {{Real}}Storage_fromNative(TH{{Real}}Storage_new(), retain=False)
+        return _{{Real}}Storage_fromNative(TH{{Real}}Storage_new(), retain=False)
 
     @staticmethod
     def newWithData({{real}} [:] data):
         cdef TH{{Real}}Storage *storageC = TH{{Real}}Storage_newWithData(&data[0], len(data))
         # print('allocate storage')
-        return {{Real}}Storage_fromNative(storageC, retain=False)
+        return _{{Real}}Storage_fromNative(storageC, retain=False)
 
     @property
-    def refCount({{Real}}Storage self):
+    def refCount(_{{Real}}Storage self):
         return TH{{Real}}Storage_getRefCount(self.th{{Real}}Storage)
 
-    def dataAddr({{Real}}Storage self):
+    def dataAddr(_{{Real}}Storage self):
         cdef {{real}} *data = TH{{Real}}Storage_data(self.th{{Real}}Storage)
         cdef long dataAddr = pointerAsInt(data)
         return dataAddr
@@ -94,7 +94,7 @@ cdef class {{Real}}Storage(object):
     def newWithSize(long size):
         cdef TH{{Real}}Storage *storageC = TH{{Real}}Storage_newWithSize(size)
         # print('allocate storage')
-        return {{Real}}Storage_fromNative(storageC, retain=False)
+        return _{{Real}}Storage_fromNative(storageC, retain=False)
 
     cpdef long size(self):
         return TH{{Real}}Storage_size(self.th{{Real}}Storage)
@@ -110,18 +110,18 @@ cdef class {{Real}}Storage(object):
         for c in range(size0):
             yield self[c]
 
-    def __getitem__({{Real}}Storage self, int index):
+    def __getitem__(_{{Real}}Storage self, int index):
         cdef {{real}} res = TH{{Real}}Storage_get(self.th{{Real}}Storage, index)
         return res
 
-    def __setitem__({{Real}}Storage self, int index, {{real}} value):
+    def __setitem__(_{{Real}}Storage self, int index, {{real}} value):
         TH{{Real}}Storage_set(self.th{{Real}}Storage, index, value)
 
 
-cdef {{Real}}Storage_fromNative(TH{{Real}}Storage *storageC, retain=True):
+cdef _{{Real}}Storage_fromNative(TH{{Real}}Storage *storageC, retain=True):
     if retain:
         TH{{Real}}Storage_retain(storageC)
-    storage = {{Real}}Storage()
+    storage = _{{Real}}Storage()
     storage.th{{Real}}Storage = storageC
     return storage
 {% endfor %}

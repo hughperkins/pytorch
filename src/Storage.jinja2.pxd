@@ -32,10 +32,10 @@ cdef extern from "THStorage.h":
 
 {% for Real in types %}
 {% set real = types[Real]['real'] %}
-cdef class {{Real}}Storage(object):
+cdef class _{{Real}}Storage(object):
     cdef TH{{Real}}Storage *th{{Real}}Storage
     cpdef long size(self)
 
-cdef {{Real}}Storage_fromNative(TH{{Real}}Storage *storageC, retain=*)
+cdef _{{Real}}Storage_fromNative(TH{{Real}}Storage *storageC, retain=*)
 {% endfor %}
 
