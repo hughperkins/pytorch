@@ -108,6 +108,8 @@ def test_pytorch{{Real}}():
     print('resize2d', PyTorch.{{Real}}Tensor().resize2d(2, 3).fill(1))
     print('resize', PyTorch.{{Real}}Tensor().resize(size).fill(1))
 
+    D = PyTorch.{{Real}}Tensor(size).geometric()
+
 #    def myeval(expr):
 #        print(expr, ':', eval(expr))
 

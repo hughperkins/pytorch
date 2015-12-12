@@ -130,8 +130,10 @@ cdef class _{{Real}}Tensor(object):
 #        if len(kwargs) > 0:
 #            raise Exception('cannot provide arguments to initializer')
         if _allocate:
-#            if len(args) == 1 and isinstance(args[0], _LongTensor):  # it's a size tensor
-#                self.thFloatTensor = THFloatTensor_new()
+            if len(args) == 1 and isinstance(args[0], _LongStorage):  # it's a size tensor
+               self.native = TH{{Real}}Tensor_new()
+               self.resize(args[0])
+               return
             for arg in args:
                 if not isinstance(arg, int):
                     raise Exception('cannot provide arguments to initializer')

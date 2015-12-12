@@ -67,6 +67,8 @@ def test_pytorchDouble():
     print('resize2d', PyTorch.DoubleTensor().resize2d(2, 3).fill(1))
     print('resize', PyTorch.DoubleTensor().resize(size).fill(1))
 
+    D = PyTorch.DoubleTensor(size).geometric()
+
 #    def myeval(expr):
 #        print(expr, ':', eval(expr))
 
@@ -269,6 +271,8 @@ def test_pytorchByte():
     print('resize1d', PyTorch.ByteTensor().resize1d(3).fill(1))
     print('resize2d', PyTorch.ByteTensor().resize2d(2, 3).fill(1))
     print('resize', PyTorch.ByteTensor().resize(size).fill(1))
+
+    D = PyTorch.ByteTensor(size).geometric()
 
 #    def myeval(expr):
 #        print(expr, ':', eval(expr))
@@ -480,6 +484,8 @@ def test_pytorchFloat():
     print('resize2d', PyTorch.FloatTensor().resize2d(2, 3).fill(1))
     print('resize', PyTorch.FloatTensor().resize(size).fill(1))
 
+    D = PyTorch.FloatTensor(size).geometric()
+
 #    def myeval(expr):
 #        print(expr, ':', eval(expr))
 
@@ -682,6 +688,8 @@ def test_pytorchLong():
     print('resize1d', PyTorch.LongTensor().resize1d(3).fill(1))
     print('resize2d', PyTorch.LongTensor().resize2d(2, 3).fill(1))
     print('resize', PyTorch.LongTensor().resize(size).fill(1))
+
+    D = PyTorch.LongTensor(size).geometric()
 
 #    def myeval(expr):
 #        print(expr, ':', eval(expr))

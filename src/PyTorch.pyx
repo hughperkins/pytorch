@@ -288,8 +288,10 @@ cdef class _DoubleTensor(object):
 #        if len(kwargs) > 0:
 #            raise Exception('cannot provide arguments to initializer')
         if _allocate:
-#            if len(args) == 1 and isinstance(args[0], _LongTensor):  # it's a size tensor
-#                self.thFloatTensor = THFloatTensor_new()
+            if len(args) == 1 and isinstance(args[0], _LongStorage):  # it's a size tensor
+               self.native = THDoubleTensor_new()
+               self.resize(args[0])
+               return
             for arg in args:
                 if not isinstance(arg, int):
                     raise Exception('cannot provide arguments to initializer')
@@ -670,8 +672,10 @@ cdef class _ByteTensor(object):
 #        if len(kwargs) > 0:
 #            raise Exception('cannot provide arguments to initializer')
         if _allocate:
-#            if len(args) == 1 and isinstance(args[0], _LongTensor):  # it's a size tensor
-#                self.thFloatTensor = THFloatTensor_new()
+            if len(args) == 1 and isinstance(args[0], _LongStorage):  # it's a size tensor
+               self.native = THByteTensor_new()
+               self.resize(args[0])
+               return
             for arg in args:
                 if not isinstance(arg, int):
                     raise Exception('cannot provide arguments to initializer')
@@ -1025,8 +1029,10 @@ cdef class _FloatTensor(object):
 #        if len(kwargs) > 0:
 #            raise Exception('cannot provide arguments to initializer')
         if _allocate:
-#            if len(args) == 1 and isinstance(args[0], _LongTensor):  # it's a size tensor
-#                self.thFloatTensor = THFloatTensor_new()
+            if len(args) == 1 and isinstance(args[0], _LongStorage):  # it's a size tensor
+               self.native = THFloatTensor_new()
+               self.resize(args[0])
+               return
             for arg in args:
                 if not isinstance(arg, int):
                     raise Exception('cannot provide arguments to initializer')
@@ -1407,8 +1413,10 @@ cdef class _LongTensor(object):
 #        if len(kwargs) > 0:
 #            raise Exception('cannot provide arguments to initializer')
         if _allocate:
-#            if len(args) == 1 and isinstance(args[0], _LongTensor):  # it's a size tensor
-#                self.thFloatTensor = THFloatTensor_new()
+            if len(args) == 1 and isinstance(args[0], _LongStorage):  # it's a size tensor
+               self.native = THLongTensor_new()
+               self.resize(args[0])
+               return
             for arg in args:
                 if not isinstance(arg, int):
                     raise Exception('cannot provide arguments to initializer')
