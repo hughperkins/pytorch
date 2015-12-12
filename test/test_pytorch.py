@@ -57,7 +57,7 @@ def test_pytorchDouble():
 
     print(type(PyTorch.DoubleTensor(2,3)))
 
-    size = PyTorch.LongTensor(2)
+    size = PyTorch.LongStorage(2)
     size[0] = 4
     size[1] = 3
     D.resize(size)
@@ -114,9 +114,9 @@ def test_pytorchDouble():
 def test_pytorch_Double_constructors():
     DoubleTensor = PyTorch.DoubleTensor
     a = DoubleTensor(3,2,5)
-    assert(a.size().size() == 3)
+    assert(len(a.size()) == 3)
     a = DoubleTensor(3,2,5,6)
-    assert(a.size().size() == 4)
+    assert(len(a.size()) == 4)
 
 def test_Pytorch_Double_operator_plus():
     DoubleTensor = PyTorch.DoubleTensor
@@ -260,7 +260,7 @@ def test_pytorchByte():
 
     print(type(PyTorch.ByteTensor(2,3)))
 
-    size = PyTorch.LongTensor(2)
+    size = PyTorch.LongStorage(2)
     size[0] = 4
     size[1] = 3
     D.resize(size)
@@ -308,9 +308,9 @@ def test_pytorchByte():
 def test_pytorch_Byte_constructors():
     ByteTensor = PyTorch.ByteTensor
     a = ByteTensor(3,2,5)
-    assert(a.size().size() == 3)
+    assert(len(a.size()) == 3)
     a = ByteTensor(3,2,5,6)
-    assert(a.size().size() == 4)
+    assert(len(a.size()) == 4)
 
 def test_Pytorch_Byte_operator_plus():
     ByteTensor = PyTorch.ByteTensor
@@ -470,7 +470,7 @@ def test_pytorchFloat():
 
     print(type(PyTorch.FloatTensor(2,3)))
 
-    size = PyTorch.LongTensor(2)
+    size = PyTorch.LongStorage(2)
     size[0] = 4
     size[1] = 3
     D.resize(size)
@@ -527,9 +527,9 @@ def test_pytorchFloat():
 def test_pytorch_Float_constructors():
     FloatTensor = PyTorch.FloatTensor
     a = FloatTensor(3,2,5)
-    assert(a.size().size() == 3)
+    assert(len(a.size()) == 3)
     a = FloatTensor(3,2,5,6)
-    assert(a.size().size() == 4)
+    assert(len(a.size()) == 4)
 
 def test_Pytorch_Float_operator_plus():
     FloatTensor = PyTorch.FloatTensor
@@ -673,7 +673,7 @@ def test_pytorchLong():
 
     print(type(PyTorch.LongTensor(2,3)))
 
-    size = PyTorch.LongTensor(2)
+    size = PyTorch.LongStorage(2)
     size[0] = 4
     size[1] = 3
     D.resize(size)
@@ -730,9 +730,9 @@ def test_pytorchLong():
 def test_pytorch_Long_constructors():
     LongTensor = PyTorch.LongTensor
     a = LongTensor(3,2,5)
-    assert(a.size().size() == 3)
+    assert(len(a.size()) == 3)
     a = LongTensor(3,2,5,6)
-    assert(a.size().size() == 4)
+    assert(len(a.size()) == 4)
 
 def test_Pytorch_Long_operator_plus():
     LongTensor = PyTorch.LongTensor

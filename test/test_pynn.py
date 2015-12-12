@@ -99,7 +99,7 @@ def test_pynn():
     print('labelsTensor.size()', labelsTensor.size())
     N = int(imagesTensor.size()[0])
     print('type(imagesTensor)', type(imagesTensor))
-    size = PyTorch.LongTensor(4)
+    size = PyTorch.LongStorage(4)
     size[0] = N
     size[1] = 1
     size[2] = 28

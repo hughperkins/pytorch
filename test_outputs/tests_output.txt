@@ -31,7 +31,7 @@ a : 1 1 1
 [torch.ByteTensor of size 3x3]
 
 PASSED
-test/testDoubleTensor.py::test_double_tensor dir(G) ['DoubleTensor', 'LongTensor']
+test/testDoubleTensor.py::test_double_tensor dir(G) ['DoubleTensor', 'LongStorage', 'LongTensor']
 test_double_tensor
 got double a
 a.dims() : 2
@@ -61,7 +61,7 @@ a : 1.0 1.0 1.0
 1.0 1.0 1.0
 [torch.DoubleTensor of size 3x3]
 
-size = LongTensor(2)
+size = LongStorage(2)
 size[0] = 4
 size[1] = 2
 a.resize(size)

@@ -99,6 +99,9 @@ cdef class _{{Real}}Storage(object):
     cpdef long size(self):
         return TH{{Real}}Storage_size(self.native)
 
+    def __len__(self):
+        return self.size()
+
     def __dealloc__(self):
         # print('TH{{Real}}Storage.dealloc, old refcount ', TH{{Real}}Storage_getRefCount(self.th{{Real}}Storage))
         # print('   dealloc storage: ', hex(<long>(self.th{{Real}}Storage)))

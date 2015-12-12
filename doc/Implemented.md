@@ -73,7 +73,7 @@ A /= B
 ```
 print('resize1d', PyTorch.DoubleTensor().resize1d(3).fill(1))
 print('resize2d', PyTorch.DoubleTensor().resize2d(2, 3).fill(1))
-size = PyTorch.LongTensor(2)
+size = PyTorch.LongStorage(2)
 size[0] = 4
 size[1] = 3
 print('resize', PyTorch.DoubleTensor().resize(size).fill(1))

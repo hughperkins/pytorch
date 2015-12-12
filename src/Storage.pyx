@@ -91,6 +91,9 @@ cdef class _DoubleStorage(object):
     cpdef long size(self):
         return THDoubleStorage_size(self.native)
 
+    def __len__(self):
+        return self.size()
+
     def __dealloc__(self):
         # print('THDoubleStorage.dealloc, old refcount ', THDoubleStorage_getRefCount(self.thDoubleStorage))
         # print('   dealloc storage: ', hex(<long>(self.thDoubleStorage)))
@@ -180,6 +183,9 @@ cdef class _ByteStorage(object):
 
     cpdef long size(self):
         return THByteStorage_size(self.native)
+
+    def __len__(self):
+        return self.size()
 
     def __dealloc__(self):
         # print('THByteStorage.dealloc, old refcount ', THByteStorage_getRefCount(self.thByteStorage))
@@ -271,6 +277,9 @@ cdef class _FloatStorage(object):
     cpdef long size(self):
         return THFloatStorage_size(self.native)
 
+    def __len__(self):
+        return self.size()
+
     def __dealloc__(self):
         # print('THFloatStorage.dealloc, old refcount ', THFloatStorage_getRefCount(self.thFloatStorage))
         # print('   dealloc storage: ', hex(<long>(self.thFloatStorage)))
@@ -360,6 +369,9 @@ cdef class _LongStorage(object):
 
     cpdef long size(self):
         return THLongStorage_size(self.native)
+
+    def __len__(self):
+        return self.size()
 
     def __dealloc__(self):
         # print('THLongStorage.dealloc, old refcount ', THLongStorage_getRefCount(self.thLongStorage))

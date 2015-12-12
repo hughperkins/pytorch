@@ -52,9 +52,11 @@ cdef floatToString(float floatValue):
     return '%.6g'% floatValue
 
 {% for Real in types %}
-{% set real = types[Real]['real'] %}
-
 _{{Real}}Storage = Storage._{{Real}}Storage
+{% endfor %}
+
+{% for Real in types %}
+{% set real = types[Real]['real'] %}
 
 cdef extern from "THTensor.h":
     cdef struct TH{{Real}}Tensor
@@ -325,11 +327,11 @@ cdef class _{{Real}}Tensor(object):
         TH{{Real}}Tensor_resizeAs(self.native, model.native)
         return self
     
-    def resize(_{{Real}}Tensor self, _LongTensor size):
+    def resize(_{{Real}}Tensor self, Storage._LongStorage size):
 #        # print('_FloatTensor.resize size:', size)
-        if size.dims() == 0:
+        if len(size) == 0:
             return self
-        cdef int dims = size.size()[0]
+        cdef int dims = len(size)
 #        # print('_FloatTensor.resize dims:', dims)
         if dims == 1:
             TH{{Real}}Tensor_resize1d(self.native, size[0])

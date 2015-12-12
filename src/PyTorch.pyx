@@ -46,9 +46,17 @@ cdef floatToString(float floatValue):
     return '%.6g'% floatValue
 
 
-
-
 _DoubleStorage = Storage._DoubleStorage
+
+_ByteStorage = Storage._ByteStorage
+
+_FloatStorage = Storage._FloatStorage
+
+_LongStorage = Storage._LongStorage
+
+
+
+
 
 cdef extern from "THTensor.h":
     cdef struct THDoubleTensor
@@ -108,8 +116,6 @@ cdef extern from "THTensor.h":
 
 
 
-_ByteStorage = Storage._ByteStorage
-
 cdef extern from "THTensor.h":
     cdef struct THByteTensor
     THByteTensor *THByteTensor_new()
@@ -159,8 +165,6 @@ cdef extern from "THTensor.h":
     
 
 
-
-_FloatStorage = Storage._FloatStorage
 
 cdef extern from "THTensor.h":
     cdef struct THFloatTensor
@@ -219,8 +223,6 @@ cdef extern from "THTensor.h":
     
 
 
-
-_LongStorage = Storage._LongStorage
 
 cdef extern from "THTensor.h":
     cdef struct THLongTensor
@@ -479,11 +481,11 @@ cdef class _DoubleTensor(object):
         THDoubleTensor_resizeAs(self.native, model.native)
         return self
     
-    def resize(_DoubleTensor self, _LongTensor size):
+    def resize(_DoubleTensor self, Storage._LongStorage size):
 #        # print('_FloatTensor.resize size:', size)
-        if size.dims() == 0:
+        if len(size) == 0:
             return self
-        cdef int dims = size.size()[0]
+        cdef int dims = len(size)
 #        # print('_FloatTensor.resize dims:', dims)
         if dims == 1:
             THDoubleTensor_resize1d(self.native, size[0])
@@ -861,11 +863,11 @@ cdef class _ByteTensor(object):
         THByteTensor_resizeAs(self.native, model.native)
         return self
     
-    def resize(_ByteTensor self, _LongTensor size):
+    def resize(_ByteTensor self, Storage._LongStorage size):
 #        # print('_FloatTensor.resize size:', size)
-        if size.dims() == 0:
+        if len(size) == 0:
             return self
-        cdef int dims = size.size()[0]
+        cdef int dims = len(size)
 #        # print('_FloatTensor.resize dims:', dims)
         if dims == 1:
             THByteTensor_resize1d(self.native, size[0])
@@ -1216,11 +1218,11 @@ cdef class _FloatTensor(object):
         THFloatTensor_resizeAs(self.native, model.native)
         return self
     
-    def resize(_FloatTensor self, _LongTensor size):
+    def resize(_FloatTensor self, Storage._LongStorage size):
 #        # print('_FloatTensor.resize size:', size)
-        if size.dims() == 0:
+        if len(size) == 0:
             return self
-        cdef int dims = size.size()[0]
+        cdef int dims = len(size)
 #        # print('_FloatTensor.resize dims:', dims)
         if dims == 1:
             THFloatTensor_resize1d(self.native, size[0])
@@ -1598,11 +1600,11 @@ cdef class _LongTensor(object):
         THLongTensor_resizeAs(self.native, model.native)
         return self
     
-    def resize(_LongTensor self, _LongTensor size):
+    def resize(_LongTensor self, Storage._LongStorage size):
 #        # print('_FloatTensor.resize size:', size)
-        if size.dims() == 0:
+        if len(size) == 0:
             return self
-        cdef int dims = size.size()[0]
+        cdef int dims = len(size)
 #        # print('_FloatTensor.resize dims:', dims)
         if dims == 1:
             THLongTensor_resize1d(self.native, size[0])

@@ -98,7 +98,7 @@ def test_pytorch{{Real}}():
 
     print(type(PyTorch.{{Real}}Tensor(2,3)))
 
-    size = PyTorch.LongTensor(2)
+    size = PyTorch.LongStorage(2)
     size[0] = 4
     size[1] = 3
     D.resize(size)
@@ -155,9 +155,9 @@ def test_pytorch{{Real}}():
 def test_pytorch_{{Real}}_constructors():
     {{Real}}Tensor = PyTorch.{{Real}}Tensor
     a = {{Real}}Tensor(3,2,5)
-    assert(a.size().size() == 3)
+    assert(len(a.size()) == 3)
     a = {{Real}}Tensor(3,2,5,6)
-    assert(a.size().size() == 4)
+    assert(len(a.size()) == 4)
 
 def test_Pytorch_{{Real}}_operator_plus():
     {{Real}}Tensor = PyTorch.{{Real}}Tensor

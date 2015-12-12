@@ -15,6 +15,7 @@ def test_double_tensor():
     PyTorch.manualSeed(123)
     LongTensor = PyTorch.LongTensor
     DoubleTensor = PyTorch.DoubleTensor
+    LongStorage = PyTorch.LongStorage
     print('dir(G)', dir())
     print('test_double_tensor')
     a = PyTorch.DoubleTensor(3, 2)
@@ -28,7 +29,7 @@ def test_double_tensor():
     myeval('a + 2')
     myexec('a.resize2d(3,3).fill(1)')
     myeval('a')
-    myexec('size = LongTensor(2)')
+    myexec('size = LongStorage(2)')
     myexec('size[0] = 4')
     myexec('size[1] = 2')
     myexec('a.resize(size)')
