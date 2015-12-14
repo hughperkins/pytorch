@@ -58,7 +58,7 @@ def test_pynn():
     criterion = ClassNLLCriterion()
     print('got criterion')
 
-    learningRate = 0.001
+    learningRate = 0.02
 
     mndata = MNIST('/norep/data/mnist')
     imagesList, labelsB = mndata.load_training()
@@ -105,6 +105,8 @@ def test_pynn():
     size[2] = 28
     size[3] = 28
     imagesTensor.resize(size)
+    imagesTensor /= 255.0
+    imagesTensor -= 0.2
     print('imagesTensor.size()', imagesTensor.size())
 
     print('start training...')

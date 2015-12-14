@@ -212,10 +212,10 @@ imagesTensor.size()  128
 [torch.LongStorage of size 4]
 
 start training...
-epoch 0 accuracy: 10.15625%
-epoch 1 accuracy: 26.5625%
-epoch 2 accuracy: 33.59375%
-epoch 3 accuracy: 39.84375%
+epoch 0 accuracy: 18.75%
+epoch 1 accuracy: 30.46875%
+epoch 2 accuracy: 53.125%
+epoch 3 accuracy: 72.65625%
 PASSED
 test/test_pytorch.py::test_pytorchDouble D 1.0 1.0 1.0
 1.0 1.0 1.0
