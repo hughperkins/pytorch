@@ -124,6 +124,9 @@ cdef class _{{Real}}Tensor(object):
 #        self.thFloatTensor = tensorC
 
     def __cinit__(self, *args, _allocate=True):
+#        cdef _{{Real}}Tensor childobject
+        cdef TH{{Real}}Tensor *newTensorC
+        cdef _{{Real}}Tensor templateObject
         logger.debug('{{Real}}Tensor.__cinit__')
 #        cdef TH{{Real}}Storage *storageC
 #        cdef long addr
@@ -133,6 +136,11 @@ cdef class _{{Real}}Tensor(object):
             if len(args) == 1 and isinstance(args[0], _LongStorage):  # it's a size tensor
                self.native = TH{{Real}}Tensor_new()
                self.resize(args[0])
+               return
+            if len(args) == 1 and isinstance(args[0], _{{Real}}Tensor):
+               templateObject = args[0]
+               newTensorC = TH{{Real}}Tensor_newClone(templateObject.native)
+               self.native = newTensorC
                return
             for arg in args:
                 if not isinstance(arg, int):
@@ -155,6 +163,15 @@ cdef class _{{Real}}Tensor(object):
             else:
                 logger.error('Raising exception...')
                 raise Exception('Not implemented, len(args)=' + str(len(args)))
+#        else:
+#            if len(args) > 0:
+#                if len(args) > 1:
+#                    raise Exception('args for allocate=false must be lenght 1 or 0')
+#                if isinstance(args[0], _{{Real}}Tensor):
+#                    childobject = args[0]
+#                    self.native = childobject.native
+#                else:
+#                    raise Exception('arg for allocate=0 must be tensor, but was ' + type(args[0]))
 
 #    def __cinit__(self, THFloatTensor *tensorC, Storage storage):
 #        self.thFloatTensor = tensorC
@@ -507,7 +524,7 @@ cdef _{{Real}}Tensor_fromNative(TH{{Real}}Tensor *tensorC, retain=True):
 
 {% endfor %}
 
-def asFloatTensor(myarray):
+def _asFloatTensor(myarray):
     cdef float[:] myarraymv
     cdef Storage._FloatStorage storage
     if str(type(myarray)) == "<type 'numpy.ndarray'>":
@@ -529,7 +546,7 @@ def asFloatTensor(myarray):
     else:
         raise Exception("not implemented")
 
-def asDoubleTensor(myarray):
+def _asDoubleTensor(myarray):
     cdef double[:] myarraymv
     cdef Storage._DoubleStorage storage
     if str(type(myarray)) == "<type 'numpy.ndarray'>":

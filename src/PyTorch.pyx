@@ -282,6 +282,9 @@ cdef class _DoubleTensor(object):
 #        self.thFloatTensor = tensorC
 
     def __cinit__(self, *args, _allocate=True):
+#        cdef _DoubleTensor childobject
+        cdef THDoubleTensor *newTensorC
+        cdef _DoubleTensor templateObject
         logger.debug('DoubleTensor.__cinit__')
 #        cdef THDoubleStorage *storageC
 #        cdef long addr
@@ -291,6 +294,11 @@ cdef class _DoubleTensor(object):
             if len(args) == 1 and isinstance(args[0], _LongStorage):  # it's a size tensor
                self.native = THDoubleTensor_new()
                self.resize(args[0])
+               return
+            if len(args) == 1 and isinstance(args[0], _DoubleTensor):
+               templateObject = args[0]
+               newTensorC = THDoubleTensor_newClone(templateObject.native)
+               self.native = newTensorC
                return
             for arg in args:
                 if not isinstance(arg, int):
@@ -313,6 +321,15 @@ cdef class _DoubleTensor(object):
             else:
                 logger.error('Raising exception...')
                 raise Exception('Not implemented, len(args)=' + str(len(args)))
+#        else:
+#            if len(args) > 0:
+#                if len(args) > 1:
+#                    raise Exception('args for allocate=false must be lenght 1 or 0')
+#                if isinstance(args[0], _DoubleTensor):
+#                    childobject = args[0]
+#                    self.native = childobject.native
+#                else:
+#                    raise Exception('arg for allocate=0 must be tensor, but was ' + type(args[0]))
 
 #    def __cinit__(self, THFloatTensor *tensorC, Storage storage):
 #        self.thFloatTensor = tensorC
@@ -666,6 +683,9 @@ cdef class _ByteTensor(object):
 #        self.thFloatTensor = tensorC
 
     def __cinit__(self, *args, _allocate=True):
+#        cdef _ByteTensor childobject
+        cdef THByteTensor *newTensorC
+        cdef _ByteTensor templateObject
         logger.debug('ByteTensor.__cinit__')
 #        cdef THByteStorage *storageC
 #        cdef long addr
@@ -675,6 +695,11 @@ cdef class _ByteTensor(object):
             if len(args) == 1 and isinstance(args[0], _LongStorage):  # it's a size tensor
                self.native = THByteTensor_new()
                self.resize(args[0])
+               return
+            if len(args) == 1 and isinstance(args[0], _ByteTensor):
+               templateObject = args[0]
+               newTensorC = THByteTensor_newClone(templateObject.native)
+               self.native = newTensorC
                return
             for arg in args:
                 if not isinstance(arg, int):
@@ -697,6 +722,15 @@ cdef class _ByteTensor(object):
             else:
                 logger.error('Raising exception...')
                 raise Exception('Not implemented, len(args)=' + str(len(args)))
+#        else:
+#            if len(args) > 0:
+#                if len(args) > 1:
+#                    raise Exception('args for allocate=false must be lenght 1 or 0')
+#                if isinstance(args[0], _ByteTensor):
+#                    childobject = args[0]
+#                    self.native = childobject.native
+#                else:
+#                    raise Exception('arg for allocate=0 must be tensor, but was ' + type(args[0]))
 
 #    def __cinit__(self, THFloatTensor *tensorC, Storage storage):
 #        self.thFloatTensor = tensorC
@@ -1023,6 +1057,9 @@ cdef class _FloatTensor(object):
 #        self.thFloatTensor = tensorC
 
     def __cinit__(self, *args, _allocate=True):
+#        cdef _FloatTensor childobject
+        cdef THFloatTensor *newTensorC
+        cdef _FloatTensor templateObject
         logger.debug('FloatTensor.__cinit__')
 #        cdef THFloatStorage *storageC
 #        cdef long addr
@@ -1032,6 +1069,11 @@ cdef class _FloatTensor(object):
             if len(args) == 1 and isinstance(args[0], _LongStorage):  # it's a size tensor
                self.native = THFloatTensor_new()
                self.resize(args[0])
+               return
+            if len(args) == 1 and isinstance(args[0], _FloatTensor):
+               templateObject = args[0]
+               newTensorC = THFloatTensor_newClone(templateObject.native)
+               self.native = newTensorC
                return
             for arg in args:
                 if not isinstance(arg, int):
@@ -1054,6 +1096,15 @@ cdef class _FloatTensor(object):
             else:
                 logger.error('Raising exception...')
                 raise Exception('Not implemented, len(args)=' + str(len(args)))
+#        else:
+#            if len(args) > 0:
+#                if len(args) > 1:
+#                    raise Exception('args for allocate=false must be lenght 1 or 0')
+#                if isinstance(args[0], _FloatTensor):
+#                    childobject = args[0]
+#                    self.native = childobject.native
+#                else:
+#                    raise Exception('arg for allocate=0 must be tensor, but was ' + type(args[0]))
 
 #    def __cinit__(self, THFloatTensor *tensorC, Storage storage):
 #        self.thFloatTensor = tensorC
@@ -1407,6 +1458,9 @@ cdef class _LongTensor(object):
 #        self.thFloatTensor = tensorC
 
     def __cinit__(self, *args, _allocate=True):
+#        cdef _LongTensor childobject
+        cdef THLongTensor *newTensorC
+        cdef _LongTensor templateObject
         logger.debug('LongTensor.__cinit__')
 #        cdef THLongStorage *storageC
 #        cdef long addr
@@ -1416,6 +1470,11 @@ cdef class _LongTensor(object):
             if len(args) == 1 and isinstance(args[0], _LongStorage):  # it's a size tensor
                self.native = THLongTensor_new()
                self.resize(args[0])
+               return
+            if len(args) == 1 and isinstance(args[0], _LongTensor):
+               templateObject = args[0]
+               newTensorC = THLongTensor_newClone(templateObject.native)
+               self.native = newTensorC
                return
             for arg in args:
                 if not isinstance(arg, int):
@@ -1438,6 +1497,15 @@ cdef class _LongTensor(object):
             else:
                 logger.error('Raising exception...')
                 raise Exception('Not implemented, len(args)=' + str(len(args)))
+#        else:
+#            if len(args) > 0:
+#                if len(args) > 1:
+#                    raise Exception('args for allocate=false must be lenght 1 or 0')
+#                if isinstance(args[0], _LongTensor):
+#                    childobject = args[0]
+#                    self.native = childobject.native
+#                else:
+#                    raise Exception('arg for allocate=0 must be tensor, but was ' + type(args[0]))
 
 #    def __cinit__(self, THFloatTensor *tensorC, Storage storage):
 #        self.thFloatTensor = tensorC
@@ -1757,7 +1825,7 @@ cdef _LongTensor_fromNative(THLongTensor *tensorC, retain=True):
 
 
 
-def asFloatTensor(myarray):
+def _asFloatTensor(myarray):
     cdef float[:] myarraymv
     cdef Storage._FloatStorage storage
     if str(type(myarray)) == "<type 'numpy.ndarray'>":
@@ -1779,7 +1847,7 @@ def asFloatTensor(myarray):
     else:
         raise Exception("not implemented")
 
-def asDoubleTensor(myarray):
+def _asDoubleTensor(myarray):
     cdef double[:] myarraymv
     cdef Storage._DoubleStorage storage
     if str(type(myarray)) == "<type 'numpy.ndarray'>":
