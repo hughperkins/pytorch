@@ -19,6 +19,8 @@ Types supported currently:
 
 (fairly easy to add others, since templated)
 
+* (New!) you can also import your own lua class, and call methods on those :-)
+
 # Requirements
 
 - python should be in PATH
@@ -57,6 +59,82 @@ Run example script by doing:
 
 * [test_pynn.py](test/test_pynn.py)
 * [test_pynn_output.txt](test_outputs/test_pynn_output.txt)
+
+# import your own class, and call methods on it
+
+Create a lua class, like say:
+
+```
+require 'torch'
+
+print('foo.lua')
+
+function func()
+  print('func()')
+end
+
+local Foo = torch.class('Foo')
+
+function Foo:__init()
+  print('Foo:__init()')
+  self.color = color
+end
+
+function Foo:teststuff()
+  print('Foo:teststuff()')
+end
+
+function Foo:teststuff2(text)
+  print('Foo:teststuff2(', text, ')')
+end
+
+function Foo:setColor(color)
+  print('setColor:', color)
+  self.color = color
+end
+
+function Foo:printColor()
+  print('color:', self.color)
+end
+```
+
+Create a python script, like say:
+```
+import PyTorch
+import sys
+import os
+import PyTorchAug
+
+PyTorch.require('foo')
+
+class Foo(PyTorchAug.LuaClass):
+    def __init__(self, _fromLua=False):
+        self.luaclass = 'Foo'
+        if not _fromLua:
+            name = self.__class__.__name__
+            super(self.__class__, self).__init__([name])
+        else:
+            self.__dict__['__objectId'] = getNextObjectId()
+
+
+foo = Foo()
+foo.teststuff()
+foo.teststuff2('hello')
+foo.setColor('green')
+foo.printColor()
+```
+Sorry about the magical incandation for the class definition.  But basically it `require`s foo, then
+creates a `Foo` object, then calls methods on that object :-)
+
+When we run it we get:
+```
+foo.lua
+Foo:__init()
+Foo:teststuff()
+Foo:teststuff2(	hello	)
+setColor:	green
+color:	green
+```
 
 # Installation
 
@@ -114,6 +192,11 @@ This has been simplified a bunch since before.  We no longer try to wrap C++ cla
 * [pycudatorch](https://github.com/hughperkins/pycudatorch) python wrappers for [cutorch](https://github.com/torch/cutorch) and [cunn](https://github.com/torch/cunn)
 
 # Recent news
+
+24th February:
+* added support for passing strings to methods
+* added `require`
+* created prototype for importing your own classes, and calling methods on those
 
 12th December:
 * created [Implemented.md](doc/Implemented.md) doc
