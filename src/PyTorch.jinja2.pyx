@@ -1,7 +1,7 @@
 # {{header1}}
 # {{header2}}
 
-from __future__ import print_function
+from __future__ import print_function, division
 import numbers
 import cython
 cimport cython
@@ -437,7 +437,8 @@ cdef class _{{Real}}Tensor(object):
             TH{{Real}}Tensor_cadd(res.native, self.native, -1, secondTensor.native)
         return res
 
-    def __div__(_{{Real}}Tensor self, second):
+    def __truediv__(_{{Real}}Tensor self, second):
+        # print('__div__')
         cdef _{{Real}}Tensor res = _{{Real}}Tensor.new()
         cdef _{{Real}}Tensor secondTensor
         if isinstance(second, numbers.Number):
@@ -465,7 +466,8 @@ cdef class _{{Real}}Tensor(object):
             TH{{Real}}Tensor_cadd(self.native, self.native, -1, secondTensor.native)
         return self
 
-    def __idiv__(_{{Real}}Tensor self, second):
+    def __itruediv__(_{{Real}}Tensor self, second):
+        # print('__idiv__')
         cdef _{{Real}}Tensor secondTensor
         if isinstance(second, numbers.Number):
             TH{{Real}}Tensor_div(self.native, self.native, second)

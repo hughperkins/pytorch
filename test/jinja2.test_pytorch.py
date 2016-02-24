@@ -1,7 +1,7 @@
 # {{header1}}
 # {{header2}}
 
-from __future__ import print_function
+from __future__ import print_function, division
 import PyTorch
 import array
 import numpy
@@ -279,8 +279,13 @@ def test_Pytorch_{{Real}}_operator_div():
     b.geometric(0.9)
     {% endif %}
     res = a / b
+    {% if Real in ['Float', 'Double'] %}
     for i in range(3*2*5):
         assert(abs(res.storage()[i] - (a.storage()[i] / b.storage()[i])) < 0.00001)
+    {% else %}
+    for i in range(3*2*5):
+        assert(abs(res.storage()[i] - (a.storage()[i] // b.storage()[i])) < 0.00001)
+    {% endif %}
 
 def test_Pytorch_{{Real}}_operator_divequals():
     {{Real}}Tensor = PyTorch.{{Real}}Tensor
@@ -295,8 +300,13 @@ def test_Pytorch_{{Real}}_operator_divequals():
     {% endif %}
     res = a.clone()
     res /= b
+    {% if Real in ['Float', 'Double'] %}
     for i in range(3*2*5):
         assert(abs(res.storage()[i] - (a.storage()[i] / b.storage()[i])) < 0.00001)
+    {% else %}
+    for i in range(3*2*5):
+        assert(abs(res.storage()[i] - (a.storage()[i] // b.storage()[i])) < 0.00001)
+    {% endif %}
 
 
 {% endfor %}

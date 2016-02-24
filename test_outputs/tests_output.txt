@@ -1,6 +1,7 @@
 ============================= test session starts ==============================
-platform linux2 -- Python 2.7.6 -- py-1.4.30 -- pytest-2.7.2 -- /home/user/envs/bin/python
-rootdir: /data/norep/git/pytorch, inifile: 
+platform linux -- Python 3.4.3+, pytest-2.8.7, py-1.4.31, pluggy-0.3.1 -- /media/ubuntu/data/norep/git/asapp/py/env/bin/python3
+cachedir: .cache
+rootdir: /media/ubuntu/data/norep/git/pytorch, inifile: 
 collecting ... collected 39 items
 
 test/testByteTensor.py::test_byte_tensor test_byte_tensor
@@ -35,24 +36,24 @@ test/testDoubleTensor.py::test_double_tensor dir(G) ['DoubleTensor', 'LongStorag
 test_double_tensor
 got double a
 a.dims() : 2
-a : 0.696469187271 0.712955321418
-0.286139338743 0.428470924962
-0.226851454936 0.690884851385
+a : 0.6964691872708499 0.7129553214181215
+0.2861393387429416 0.428470924962312
+0.22685145493596792 0.690884851384908
 [torch.DoubleTensor of size 3x2]
 
 a[1][1] = 9
-a : 0.696469187271 0.712955321418
-0.286139338743 9.0
-0.226851454936 0.690884851385
+a : 0.6964691872708499 0.7129553214181215
+0.2861393387429416 9.0
+0.22685145493596792 0.690884851384908
 [torch.DoubleTensor of size 3x2]
 
 a.size() :  3
  2
 [torch.LongStorage of size 2]
 
-a + 2 : 2.69646918727 2.71295532142
-2.28613933874 11.0
-2.22685145494 2.69088485138
+a + 2 : 2.69646918727085 2.7129553214181215
+2.2861393387429416 11.0
+2.226851454935968 2.690884851384908
 [torch.DoubleTensor of size 3x2]
 
 a.resize2d(3,3).fill(1)
@@ -71,9 +72,9 @@ a : 1.0 1.0
 1.0 1.0
 [torch.DoubleTensor of size 4x2]
 
-DoubleTensor(3,4).uniform() : 0.551314765122 0.719150308752 0.71946897055 0.491118932609
-0.423106460599 0.780027760426 0.980764200445 0.410924367839
-0.684829734266 0.579694297398 0.480931907427 0.139950763201
+DoubleTensor(3,4).uniform() : 0.5513147651217878 0.7191503087524325 0.7194689705502242 0.491118932608515
+0.42310646059922874 0.7800277604255825 0.9807642004452646 0.4109243678394705
+0.6848297342658043 0.5796942973975092 0.4809319074265659 0.13995076320134103
 [torch.DoubleTensor of size 3x4]
 
 DoubleTensor(3,4).bernoulli() : 1.0 1.0 1.0 0.0
@@ -81,24 +82,24 @@ DoubleTensor(3,4).bernoulli() : 1.0 1.0 1.0 0.0
 1.0 0.0 1.0 0.0
 [torch.DoubleTensor of size 3x4]
 
-DoubleTensor(3,4).normal() : -0.106521355378 -1.40956300931 0.443371677948 0.981823429942
-0.18879472094 0.373145115669 -1.54765247261 -0.310894900395
--1.03570595999 -0.209924956886 -0.558430082465 -0.628628928147
+DoubleTensor(3,4).normal() : -0.10652135537833851 -1.4095630093144307 0.44337167794820986 0.981823429941567
+0.18879472094049432 0.3731451156688744 -1.5476524726126164 -0.3108949003949106
+-1.0357059599856526 -0.2099249568859453 -0.5584300824645934 -0.6286289281470452
 [torch.DoubleTensor of size 3x4]
 
-DoubleTensor(3,4).cauchy() : 1.95397985232 -0.024871545476 0.851125632279 0.940816270039
-0.363658616721 -0.479308461518 0.840284323529 -0.266120721056
--0.621655949879 0.528352285075 -0.463718804029 -0.418631929264
+DoubleTensor(3,4).cauchy() : 1.953979852318537 -0.02487154547603159 0.8511256322785645 0.9408162700388873
+0.36365861672141614 -0.4793084615178774 0.8402843235292623 -0.2661207210558887
+-0.6216559498789821 0.5283522850749189 -0.4637188040286064 -0.4186319292638308
 [torch.DoubleTensor of size 3x4]
 
-DoubleTensor(3,4).exponential() : 0.259111765625 0.267242881086 0.347735079957 4.42245575717
-0.996893921616 1.45241685696 0.0966264758747 1.50060340379
-0.568633376271 0.0283809092557 0.563633683251 0.191047338272
+DoubleTensor(3,4).exponential() : 0.2591117656246435 0.26724288108603866 0.3477350799565482 4.422455757169841
+0.9968939216155579 1.4524168569590326 0.09662647587468434 1.5006034037854548
+0.5686333762707482 0.028380909255667733 0.5636336832514888 0.19104733827165557
 [torch.DoubleTensor of size 3x4]
 
-DoubleTensor(3,4).logNormal() : 0.214799163778 0.460424347317 0.284028093204 0.561924150738
-0.161898011838 5.25267607531 0.0674745401952 1.14889334788
-2.06369073334 0.133202254671 1.862418385 0.265312722662
+DoubleTensor(3,4).logNormal() : 0.2147991637775316 0.4604243473172981 0.2840280932040261 0.5619241507378747
+0.1618980118384045 5.252676075313983 0.06747454019521314 1.148893347875571
+2.0636907333399694 0.1332022546710927 1.862418384997682 0.2653127226624873
 [torch.DoubleTensor of size 3x4]
 
 DoubleTensor(3,4).geometric() : 2.0 1.0 2.0 2.0
@@ -155,68 +156,445 @@ a : 1 1 1
 [torch.LongTensor of size 3x3]
 
 PASSED
-test/test_pynn.py::test_pynn Linear.__init__
-linear nn.Linear(3 -> 5)
-linear.weight 0.226863076317 0.245899624292 -0.246945020692
--0.0825946614558 -0.315404772043 0.220414840663
-0.0592531869129 0.253052979502 0.253420938452
--0.0102549732983 -0.088789011344 0.323348205725
-0.555138681088 -0.102855680412 0.213422993665
+test/test_pynn.py::test_pynn linear nn.Linear(3 -> 5)
+linear.weight 0.22686307631658442 0.24589962429223144 -0.24694502069166807
+-0.08259466145578825 -0.31540477204294715 0.22041484066259664
+0.05925318691293324 0.253052979502413 0.25342093845188396
+-0.010254973298330139 -0.08878901134395678 0.32334820572455625
+0.5551386810876174 -0.10285568041223558 0.21342299366521822
 [torch.DoubleTensor of size 5x3]
 
 linear.output [torch.DoubleTensor with no dimension]
 
 linear.gradInput [torch.DoubleTensor with no dimension]
 
-input 0.343178014737 0.627317003906 0.729049708461
-0.324150895933 0.43857224728 0.244759279769
-0.0596778981853 0.694755175151 0.398044250906
-0.593902397901 0.737995401956 0.631792020286
+input 0.34317801473662257 0.6273170039057732 0.729049708461389
+0.3241508959326893 0.4385722472798079 0.24475927976891398
+0.05967789818532765 0.6947551751509309 0.39804425090551376
+0.5939023979008198 0.737995401956141 0.6317920202855021
 [torch.DoubleTensor of size 4x3]
 
-output 0.144099288489 -0.0875280099966 -0.0519137582956 0.051946816308 0.167289160953
-0.212963582977 -0.133170272297 -0.223532933675 -0.0876940419269 0.0727812285874
-0.17810675045 -0.158341250062 -0.135530327212 -0.0581636869042 -0.0676732944977
-0.252212471678 -0.164582038292 -0.0336971757723 0.00810051994876 0.274335035433
+output 0.1440992884893341 -0.087528009996586 -0.0519137582956114 0.05194681630796916 0.16728916095301904
+0.21296358297681917 -0.13317027229725445 -0.2235329336746859 -0.08769404192686509 0.0727812285873517
+0.17810675044972718 -0.1583412500615556 -0.1355303272121876 -0.058163686904153813 -0.06767329449773041
+0.25221247167841154 -0.16458203829239967 -0.0336971757723476 0.00810051994876354 0.27433503543343507
 [torch.DoubleTensor of size 4x5]
 
-gradInput 0.129180069569 0.0280848347889 -0.0155328441158
-0.087370663738 0.0381048340313 -0.151413450003
-0.00848178705623 0.0715664947938 -0.14647972019
-0.221025549021 0.0764655876795 -0.0459298145705
+gradInput 0.12918006956918715 0.02808483478891307 -0.015532844115782249
+0.08737066373796926 0.03810483403129682 -0.1514134500029586
+0.008481787056231607 0.07156649479381824 -0.14647972019024785
+0.2210255490212261 0.07646558767946186 -0.045929814570547046
 [torch.DoubleTensor of size 4x3]
 
 criterion nn.ClassNLLCriterion
-dir(linear) ['addBuffer', 'bias', 'gradBias', 'gradInput', 'gradWeight', 'output', 'weight']
-output 0.144099288489 -0.0875280099966 -0.0519137582956 0.051946816308 0.167289160953
-0.212963582977 -0.133170272297 -0.223532933675 -0.0876940419269 0.0727812285874
-0.17810675045 -0.158341250062 -0.135530327212 -0.0581636869042 -0.0676732944977
-0.252212471678 -0.164582038292 -0.0336971757723 0.00810051994876 0.274335035433
+dir(linear) [b'addBuffer', b'bias', b'gradBias', b'gradInput', b'gradWeight', b'output', b'weight']
+output 0.1440992884893341 -0.087528009996586 -0.0519137582956114 0.05194681630796916 0.16728916095301904
+0.21296358297681917 -0.13317027229725445 -0.2235329336746859 -0.08769404192686509 0.0727812285873517
+0.17810675044972718 -0.1583412500615556 -0.1355303272121876 -0.058163686904153813 -0.06767329449773041
+0.25221247167841154 -0.16458203829239967 -0.0336971757723476 0.00810051994876354 0.27433503543343507
 [torch.DoubleTensor of size 4x5]
 
-Linear.__init__
-Linear.__init__
-got criterion
-imagesTensor.size()  128
- 784
-[torch.LongStorage of size 2]
+FAILED
+test/test_pytorch.py::test_pytorchLong D 1 1 1
+1 1 1
+1 1 1
+1 1 1
+1 1 1
+[torch.LongTensor of size 5x3]
 
-labelsTensor.size()  128
-[torch.LongStorage of size 1]
+D 1 1 1
+1 1 1
+1 1 4
+1 1 1
+1 1 1
+[torch.LongTensor of size 5x3]
 
-type(imagesTensor) <type 'PyTorch._DoubleTensor'>
-imagesTensor.size()  128
- 1
- 28
- 28
-[torch.LongStorage of size 4]
+D 1 1 1
+1 1 1
+1 1 4
+9 9 9
+1 1 1
+[torch.LongTensor of size 5x3]
 
-start training...
-epoch 0 accuracy: 18.75%
-epoch 1 accuracy: 30.46875%
-epoch 2 accuracy: 53.125%
-epoch 3 accuracy: 72.65625%
+D 1 1 0
+1 1 0
+1 1 0
+9 9 0
+1 1 0
+[torch.LongTensor of size 5x3]
+
+0 0 1 1
+1 0 0 0
+0 1 1 0
+[torch.LongTensor of size 3x4]
+
+6 1 2 2
+1 1 1 1
+1 2 2 1
+[torch.LongTensor of size 3x4]
+
+1 1 1 2
+1 2 2 2
+1 1 1 1
+[torch.LongTensor of size 3x4]
+
+2 1 2 3
+1 1 2 2
+4 1 4 1
+[torch.LongTensor of size 3x4]
+
+2 1 2 3
+1 1 2 2
+4 1 4 1
+[torch.LongTensor of size 3x4]
+
+<class 'floattensor.LongTensor'>
+D after resize:
+ 1 1 0
+1 1 0
+1 1 0
+9 9 0
+[torch.LongTensor of size 4x3]
+
+resize1d 1 1 1
+[torch.LongTensor of size 3]
+
+resize2d 1 1 1
+1 1 1
+[torch.LongTensor of size 2x3]
+
+resize 1 1 1
+1 1 1
+1 1 1
+1 1 1
+[torch.LongTensor of size 4x3]
+
+LongTensor(3,2).nElement() : 6
+LongTensor().nElement() : 0
+LongTensor(1).nElement() : 1
+A : 10 3 4 5
+11 7 9 24
+1 14 8 35
+[torch.LongTensor of size 3x4]
+
+A += 3
+A : 13 6 7 8
+14 10 12 27
+4 17 11 38
+[torch.LongTensor of size 3x4]
+
+A *= 3
+A : 39 18 21 24
+42 30 36 81
+12 51 33 114
+[torch.LongTensor of size 3x4]
+
+A -= 3
+A : 36 15 18 21
+39 27 33 78
+9 48 30 111
+[torch.LongTensor of size 3x4]
+
+A /= 3
+A : 12 5 6 7
+13 9 11 26
+3 16 10 37
+[torch.LongTensor of size 3x4]
+
+A + 5 : 17 10 11 12
+18 14 16 31
+8 21 15 42
+[torch.LongTensor of size 3x4]
+
+A - 5 : 7 0 1 2
+8 4 6 21
+-2 11 5 32
+[torch.LongTensor of size 3x4]
+
+A * 5 : 60 25 30 35
+65 45 55 130
+15 80 50 185
+[torch.LongTensor of size 3x4]
+
+A / 2 : 6 2 3 3
+6 4 5 13
+1 8 5 18
+[torch.LongTensor of size 3x4]
+
+B : 3 5 6 8
+4 4 12 9
+6 4 2 6
+[torch.LongTensor of size 3x4]
+
+A + B : 15 10 12 15
+17 13 23 35
+9 20 12 43
+[torch.LongTensor of size 3x4]
+
+A - B : 9 0 0 -1
+9 5 -1 17
+-3 12 8 31
+[torch.LongTensor of size 3x4]
+
+A += B
+A : 15 10 12 15
+17 13 23 35
+9 20 12 43
+[torch.LongTensor of size 3x4]
+
+A -= B
+A : 12 5 6 7
+13 9 11 26
+3 16 10 37
+[torch.LongTensor of size 3x4]
+
 PASSED
+test/test_pytorch.py::test_pytorch_Long_constructors PASSED
+test/test_pytorch.py::test_Pytorch_Long_operator_plus PASSED
+test/test_pytorch.py::test_Pytorch_Long_operator_plusequals PASSED
+test/test_pytorch.py::test_Pytorch_Long_operator_minus PASSED
+test/test_pytorch.py::test_Pytorch_Long_operator_minusequals PASSED
+test/test_pytorch.py::test_Pytorch_Long_cmul PASSED
+test/test_pytorch.py::test_Pytorch_Long_operator_div PASSED
+test/test_pytorch.py::test_Pytorch_Long_operator_divequals PASSED
+test/test_pytorch.py::test_pytorchFloat C [[ 0.78126878  0.68557262  0.46044704  0.29017398]
+ [ 0.4116869   0.55729043  0.35089147  0.12185374]
+ [ 0.85083026  0.80117935  0.5315783   0.30736649]]
+calling .asTensor...
+type(f1) <class 'PyTorch._FloatTensor'>
+type(f1) <class 'PyTorch._FloatTensor'>
+ ... asTensor called
+tensorA 0.696469 0.286139
+0.226851 0.551315
+0.719469 0.423106
+[torch.FloatTensor of size 3x2]
+
+tensorA 0.696469 0.286139
+0.226851 56.4
+76.5 0.423106
+[torch.FloatTensor of size 3x2]
+
+A [[ 0.69646919  0.28613934]
+ [ 0.22685145  0.55131477]
+ [ 0.71946895  0.42310646]]
+add 5 to tensorA
+tensorA 5.69647 5.28614
+5.22685 61.4
+81.5 5.42311
+[torch.FloatTensor of size 3x2]
+
+A [[ 0.69646919  0.28613934]
+ [ 0.22685145  0.55131477]
+ [ 0.71946895  0.42310646]]
+add 7 to tensorA
+tensorA2 12.6965 12.2861
+12.2269 68.4
+88.5 12.4231
+[torch.FloatTensor of size 3x2]
+
+tensorA 5.69647 5.28614
+5.22685 61.4
+81.5 5.42311
+[torch.FloatTensor of size 3x2]
+
+tensorAB 7.40098 7.75497 5.05797 2.54915
+26.1974 48.3432 29.4421 5.71376
+81.7934 59.7673 41.5744 32.2812
+[torch.FloatTensor of size 3x4]
+
+A.dot(B) [[ 0.78126878  0.68557262  0.46044704  0.29017398]
+ [ 0.4116869   0.55729043  0.35089147  0.12185374]
+ [ 0.85083026  0.80117935  0.5315783   0.30736649]]
+tensorA[2] 81.5 5.42311
+[torch.FloatTensor of size 2]
+
+D 1 1 1
+1 1 1
+1 1 1
+1 1 1
+1 1 1
+[torch.FloatTensor of size 5x3]
+
+D 1 1 1
+1 1 1
+1 1 4
+1 1 1
+1 1 1
+[torch.FloatTensor of size 5x3]
+
+D 1 1 1
+1 1 1
+1 1 4
+9 9 9
+1 1 1
+[torch.FloatTensor of size 5x3]
+
+D 1 1 0
+1 1 0
+1 1 0
+9 9 0
+1 1 0
+[torch.FloatTensor of size 5x3]
+
+0.696469 0.712955 0.286139 0.428471
+0.226851 0.690885 0.551315 0.71915
+0.719469 0.491119 0.423106 0.780028
+[torch.FloatTensor of size 3x4]
+
+1.02128 -0.124039 -0.524194 -1.20779
+-0.545182 0.0656317 -0.78862 0.634921
+-0.776378 1.17102 -0.116186 -0.877537
+[torch.FloatTensor of size 3x4]
+
+-0.195413 -1.03348 -5.27116 0.701663
+-0.331726 0.30387 0.927281 0.439439
+-1.54881 -0.189923 -1.62667 -3.7137
+[torch.FloatTensor of size 3x4]
+
+0.758329 1.24594 0.758919 0.558378
+1.00622 0.353509 1.89334 0.677441
+1.28901 1.34821 0.944236 0.442745
+[torch.FloatTensor of size 3x4]
+
+0.356351 0.12205 0.197217 2.34994
+0.202356 1.14136 0.507408 1.12089
+0.160729 16.8919 0.102781 0.0916343
+[torch.FloatTensor of size 3x4]
+
+1 0 1 1
+1 1 1 1
+1 1 1 0
+[torch.FloatTensor of size 3x4]
+
+1 3 4 2
+5 2 2 1
+2 2 1 1
+[torch.FloatTensor of size 3x4]
+
+1 1 1 2
+3 4 1 1
+1 1 7 1
+[torch.FloatTensor of size 3x4]
+
+2 1 2 3
+1 1 2 2
+4 1 4 1
+[torch.FloatTensor of size 3x4]
+
+2 1 2 3
+1 1 2 2
+4 1 4 1
+[torch.FloatTensor of size 3x4]
+
+<class 'floattensor.FloatTensor'>
+D after resize:
+ 1 1 0
+1 1 0
+1 1 0
+9 9 0
+[torch.FloatTensor of size 4x3]
+
+resize1d 1 1 1
+[torch.FloatTensor of size 3]
+
+resize2d 1 1 1
+1 1 1
+[torch.FloatTensor of size 2x3]
+
+resize 1 1 1
+1 1 1
+1 1 1
+1 1 1
+[torch.FloatTensor of size 4x3]
+
+FloatTensor(3,2).nElement() : 6
+FloatTensor().nElement() : 0
+FloatTensor(1).nElement() : 1
+A : 10 3 4 5
+11 7 9 24
+1 14 8 35
+[torch.FloatTensor of size 3x4]
+
+A += 3
+A : 13 6 7 8
+14 10 12 27
+4 17 11 38
+[torch.FloatTensor of size 3x4]
+
+A *= 3
+A : 39 18 21 24
+42 30 36 81
+12 51 33 114
+[torch.FloatTensor of size 3x4]
+
+A -= 3
+A : 36 15 18 21
+39 27 33 78
+9 48 30 111
+[torch.FloatTensor of size 3x4]
+
+A /= 3
+A : 12 5 6 7
+13 9 11 26
+3 16 10 37
+[torch.FloatTensor of size 3x4]
+
+A + 5 : 17 10 11 12
+18 14 16 31
+8 21 15 42
+[torch.FloatTensor of size 3x4]
+
+A - 5 : 7 0 1 2
+8 4 6 21
+-2 11 5 32
+[torch.FloatTensor of size 3x4]
+
+A * 5 : 60 25 30 35
+65 45 55 130
+15 80 50 185
+[torch.FloatTensor of size 3x4]
+
+A / 2 : 6 2.5 3 3.5
+6.5 4.5 5.5 13
+1.5 8 5 18.5
+[torch.FloatTensor of size 3x4]
+
+B : 3 5 6 8
+4 4 12 9
+6 4 2 6
+[torch.FloatTensor of size 3x4]
+
+A + B : 15 10 12 15
+17 13 23 35
+9 20 12 43
+[torch.FloatTensor of size 3x4]
+
+A - B : 9 0 0 -1
+9 5 -1 17
+-3 12 8 31
+[torch.FloatTensor of size 3x4]
+
+A += B
+A : 15 10 12 15
+17 13 23 35
+9 20 12 43
+[torch.FloatTensor of size 3x4]
+
+A -= B
+A : 12 5 6 7
+13 9 11 26
+3 16 10 37
+[torch.FloatTensor of size 3x4]
+
+PASSED
+test/test_pytorch.py::test_pytorch_Float_constructors PASSED
+test/test_pytorch.py::test_Pytorch_Float_operator_plus PASSED
+test/test_pytorch.py::test_Pytorch_Float_operator_plusequals PASSED
+test/test_pytorch.py::test_Pytorch_Float_operator_minus PASSED
+test/test_pytorch.py::test_Pytorch_Float_operator_minusequals PASSED
+test/test_pytorch.py::test_Pytorch_Float_cmul PASSED
+test/test_pytorch.py::test_Pytorch_Float_operator_div PASSED
+test/test_pytorch.py::test_Pytorch_Float_operator_divequals PASSED
 test/test_pytorch.py::test_pytorchDouble D 1.0 1.0 1.0
 1.0 1.0 1.0
 1.0 1.0 1.0
@@ -245,29 +623,29 @@ D 1.0 1.0 0.0
 1.0 1.0 0.0
 [torch.DoubleTensor of size 5x3]
 
-0.696469187271 0.712955321418 0.286139338743 0.428470924962
-0.226851454936 0.690884851385 0.551314765122 0.719150308752
-0.71946897055 0.491118932609 0.423106460599 0.780027760426
+0.6964691872708499 0.7129553214181215 0.2861393387429416 0.428470924962312
+0.22685145493596792 0.690884851384908 0.5513147651217878 0.7191503087524325
+0.7194689705502242 0.491118932608515 0.42310646059922874 0.7800277604255825
 [torch.DoubleTensor of size 3x4]
 
-1.02128143748 -0.124038772681 -0.524193971499 -1.20779411263
--0.545182313618 0.0656317261876 -0.78861971618 0.634921189764
--0.776378451589 1.17102121848 -0.116186091932 -0.87753728435
+1.0212814374766537 -0.12403877268092005 -0.5241939714994596 -1.2077941126295695
+-0.5451823136177024 0.06563172618761025 -0.788619716179707 0.6349211897641774
+-0.7763784515887878 1.17102121848011 -0.11618609193227018 -0.8775372843501266
 [torch.DoubleTensor of size 3x4]
 
--0.195412853764 -1.03348270807 -5.27115705267 0.701663339505
--0.331726194065 0.303869587949 0.927280902103 0.439439085943
--1.5488147215 -0.189922983524 -1.62666512929 -3.71369722963
+-0.19541285376404915 -1.033482708073315 -5.27115705267452 0.701663339504767
+-0.33172619406462084 0.3038695879493795 0.9272809021034661 0.4394390859425326
+-1.5488147214952006 -0.18992298352389006 -1.6266651292885788 -3.71369722963019
 [torch.DoubleTensor of size 3x4]
 
-0.758328831478 1.24594190754 0.758918650407 0.558377661537
-1.00621807048 0.353509243152 1.89333910235 0.677440721362
-1.28900549091 1.34821424774 0.944236385858 0.442744821336
+0.7583288314784893 1.2459419075377534 0.75891865040654 0.5583776615366842
+1.0062180704795065 0.3535092431523577 1.8933391023505246 0.6774407213615766
+1.2890054909078659 1.3482142477448318 0.944236385858016 0.44274482133639714
 [torch.DoubleTensor of size 3x4]
 
-0.356351337978 0.122049876311 0.197217357975 2.34994214246
-0.202356118104 1.14136018966 0.507407633405 1.12089296391
-0.16072887931 16.8918513001 0.102780625187 0.0916342699456
+0.3563513379778767 0.12204987631133647 0.197217357974964 2.349942142463862
+0.20235611810358634 1.1413601896634313 0.5074076334050943 1.1208929639123917
+0.16072887930956453 16.89185130005255 0.10278062518727146 0.09163426994563528
 [torch.DoubleTensor of size 3x4]
 
 1.0 0.0 1.0 1.0
@@ -547,404 +925,46 @@ test/test_pytorch.py::test_Pytorch_Byte_operator_plusequals PASSED
 test/test_pytorch.py::test_Pytorch_Byte_cmul PASSED
 test/test_pytorch.py::test_Pytorch_Byte_operator_div PASSED
 test/test_pytorch.py::test_Pytorch_Byte_operator_divequals PASSED
-test/test_pytorch.py::test_pytorchFloat C [[ 0.78126878  0.68557262  0.46044704  0.29017398]
- [ 0.4116869   0.55729043  0.35089147  0.12185374]
- [ 0.85083026  0.80117935  0.5315783   0.30736649]]
-calling .asTensor...
-type(f1) <type 'PyTorch._FloatTensor'>
-type(f1) <type 'PyTorch._FloatTensor'>
- ... asTensor called
-tensorA 0.696469 0.286139
-0.226851 0.551315
-0.719469 0.423106
-[torch.FloatTensor of size 3x2]
 
-tensorA 0.696469 0.286139
-0.226851 56.4
-76.5 0.423106
-[torch.FloatTensor of size 3x2]
-
-A [[ 0.69646919  0.28613934]
- [ 0.22685145  0.55131477]
- [ 0.71946895  0.42310646]]
-add 5 to tensorA
-tensorA 5.69647 5.28614
-5.22685 61.4
-81.5 5.42311
-[torch.FloatTensor of size 3x2]
-
-A [[ 0.69646919  0.28613934]
- [ 0.22685145  0.55131477]
- [ 0.71946895  0.42310646]]
-add 7 to tensorA
-tensorA2 12.6965 12.2861
-12.2269 68.4
-88.5 12.4231
-[torch.FloatTensor of size 3x2]
-
-tensorA 5.69647 5.28614
-5.22685 61.4
-81.5 5.42311
-[torch.FloatTensor of size 3x2]
-
-tensorAB 7.40098 7.75497 5.05797 2.54915
-26.1974 48.3432 29.4421 5.71376
-81.7934 59.7673 41.5744 32.2812
-[torch.FloatTensor of size 3x4]
-
-A.dot(B) [[ 0.78126878  0.68557262  0.46044704  0.29017398]
- [ 0.4116869   0.55729043  0.35089147  0.12185374]
- [ 0.85083026  0.80117935  0.5315783   0.30736649]]
-tensorA[2] 81.5 5.42311
-[torch.FloatTensor of size 2]
-
-D 1 1 1
-1 1 1
-1 1 1
-1 1 1
-1 1 1
-[torch.FloatTensor of size 5x3]
-
-D 1 1 1
-1 1 1
-1 1 4
-1 1 1
-1 1 1
-[torch.FloatTensor of size 5x3]
-
-D 1 1 1
-1 1 1
-1 1 4
-9 9 9
-1 1 1
-[torch.FloatTensor of size 5x3]
-
-D 1 1 0
-1 1 0
-1 1 0
-9 9 0
-1 1 0
-[torch.FloatTensor of size 5x3]
-
-0.696469 0.712955 0.286139 0.428471
-0.226851 0.690885 0.551315 0.71915
-0.719469 0.491119 0.423106 0.780028
-[torch.FloatTensor of size 3x4]
-
-1.02128 -0.124039 -0.524194 -1.20779
--0.545182 0.0656317 -0.78862 0.634921
--0.776378 1.17102 -0.116186 -0.877537
-[torch.FloatTensor of size 3x4]
-
--0.195413 -1.03348 -5.27116 0.701663
--0.331726 0.30387 0.927281 0.439439
--1.54881 -0.189923 -1.62667 -3.7137
-[torch.FloatTensor of size 3x4]
-
-0.758329 1.24594 0.758919 0.558378
-1.00622 0.353509 1.89334 0.677441
-1.28901 1.34821 0.944236 0.442745
-[torch.FloatTensor of size 3x4]
-
-0.356351 0.12205 0.197217 2.34994
-0.202356 1.14136 0.507408 1.12089
-0.160729 16.8919 0.102781 0.0916343
-[torch.FloatTensor of size 3x4]
-
-1 0 1 1
-1 1 1 1
-1 1 1 0
-[torch.FloatTensor of size 3x4]
-
-1 3 4 2
-5 2 2 1
-2 2 1 1
-[torch.FloatTensor of size 3x4]
-
-1 1 1 2
-3 4 1 1
-1 1 7 1
-[torch.FloatTensor of size 3x4]
-
-2 1 2 3
-1 1 2 2
-4 1 4 1
-[torch.FloatTensor of size 3x4]
-
-2 1 2 3
-1 1 2 2
-4 1 4 1
-[torch.FloatTensor of size 3x4]
-
-<class 'floattensor.FloatTensor'>
-D after resize:
- 1 1 0
-1 1 0
-1 1 0
-9 9 0
-[torch.FloatTensor of size 4x3]
-
-resize1d 1 1 1
-[torch.FloatTensor of size 3]
-
-resize2d 1 1 1
-1 1 1
-[torch.FloatTensor of size 2x3]
-
-resize 1 1 1
-1 1 1
-1 1 1
-1 1 1
-[torch.FloatTensor of size 4x3]
-
-FloatTensor(3,2).nElement() : 6
-FloatTensor().nElement() : 0
-FloatTensor(1).nElement() : 1
-A : 10 3 4 5
-11 7 9 24
-1 14 8 35
-[torch.FloatTensor of size 3x4]
-
-A += 3
-A : 13 6 7 8
-14 10 12 27
-4 17 11 38
-[torch.FloatTensor of size 3x4]
-
-A *= 3
-A : 39 18 21 24
-42 30 36 81
-12 51 33 114
-[torch.FloatTensor of size 3x4]
-
-A -= 3
-A : 36 15 18 21
-39 27 33 78
-9 48 30 111
-[torch.FloatTensor of size 3x4]
-
-A /= 3
-A : 12 5 6 7
-13 9 11 26
-3 16 10 37
-[torch.FloatTensor of size 3x4]
-
-A + 5 : 17 10 11 12
-18 14 16 31
-8 21 15 42
-[torch.FloatTensor of size 3x4]
-
-A - 5 : 7 0 1 2
-8 4 6 21
--2 11 5 32
-[torch.FloatTensor of size 3x4]
-
-A * 5 : 60 25 30 35
-65 45 55 130
-15 80 50 185
-[torch.FloatTensor of size 3x4]
-
-A / 2 : 6 2.5 3 3.5
-6.5 4.5 5.5 13
-1.5 8 5 18.5
-[torch.FloatTensor of size 3x4]
-
-B : 3 5 6 8
-4 4 12 9
-6 4 2 6
-[torch.FloatTensor of size 3x4]
-
-A + B : 15 10 12 15
-17 13 23 35
-9 20 12 43
-[torch.FloatTensor of size 3x4]
-
-A - B : 9 0 0 -1
-9 5 -1 17
--3 12 8 31
-[torch.FloatTensor of size 3x4]
-
-A += B
-A : 15 10 12 15
-17 13 23 35
-9 20 12 43
-[torch.FloatTensor of size 3x4]
-
-A -= B
-A : 12 5 6 7
-13 9 11 26
-3 16 10 37
-[torch.FloatTensor of size 3x4]
-
-PASSED
-test/test_pytorch.py::test_pytorch_Float_constructors PASSED
-test/test_pytorch.py::test_Pytorch_Float_operator_plus PASSED
-test/test_pytorch.py::test_Pytorch_Float_operator_plusequals PASSED
-test/test_pytorch.py::test_Pytorch_Float_operator_minus PASSED
-test/test_pytorch.py::test_Pytorch_Float_operator_minusequals PASSED
-test/test_pytorch.py::test_Pytorch_Float_cmul PASSED
-test/test_pytorch.py::test_Pytorch_Float_operator_div PASSED
-test/test_pytorch.py::test_Pytorch_Float_operator_divequals PASSED
-test/test_pytorch.py::test_pytorchLong D 1 1 1
-1 1 1
-1 1 1
-1 1 1
-1 1 1
-[torch.LongTensor of size 5x3]
-
-D 1 1 1
-1 1 1
-1 1 4
-1 1 1
-1 1 1
-[torch.LongTensor of size 5x3]
-
-D 1 1 1
-1 1 1
-1 1 4
-9 9 9
-1 1 1
-[torch.LongTensor of size 5x3]
-
-D 1 1 0
-1 1 0
-1 1 0
-9 9 0
-1 1 0
-[torch.LongTensor of size 5x3]
-
-0 0 1 1
-1 0 0 0
-0 1 1 0
-[torch.LongTensor of size 3x4]
-
-6 1 2 2
-1 1 1 1
-1 2 2 1
-[torch.LongTensor of size 3x4]
-
-1 1 1 2
-1 2 2 2
-1 1 1 1
-[torch.LongTensor of size 3x4]
-
-2 1 2 3
-1 1 2 2
-4 1 4 1
-[torch.LongTensor of size 3x4]
-
-2 1 2 3
-1 1 2 2
-4 1 4 1
-[torch.LongTensor of size 3x4]
-
-<class 'floattensor.LongTensor'>
-D after resize:
- 1 1 0
-1 1 0
-1 1 0
-9 9 0
-[torch.LongTensor of size 4x3]
-
-resize1d 1 1 1
-[torch.LongTensor of size 3]
-
-resize2d 1 1 1
-1 1 1
-[torch.LongTensor of size 2x3]
-
-resize 1 1 1
-1 1 1
-1 1 1
-1 1 1
-[torch.LongTensor of size 4x3]
-
-LongTensor(3,2).nElement() : 6
-LongTensor().nElement() : 0
-LongTensor(1).nElement() : 1
-A : 10 3 4 5
-11 7 9 24
-1 14 8 35
-[torch.LongTensor of size 3x4]
-
-A += 3
-A : 13 6 7 8
-14 10 12 27
-4 17 11 38
-[torch.LongTensor of size 3x4]
-
-A *= 3
-A : 39 18 21 24
-42 30 36 81
-12 51 33 114
-[torch.LongTensor of size 3x4]
-
-A -= 3
-A : 36 15 18 21
-39 27 33 78
-9 48 30 111
-[torch.LongTensor of size 3x4]
-
-A /= 3
-A : 12 5 6 7
-13 9 11 26
-3 16 10 37
-[torch.LongTensor of size 3x4]
-
-A + 5 : 17 10 11 12
-18 14 16 31
-8 21 15 42
-[torch.LongTensor of size 3x4]
-
-A - 5 : 7 0 1 2
-8 4 6 21
--2 11 5 32
-[torch.LongTensor of size 3x4]
-
-A * 5 : 60 25 30 35
-65 45 55 130
-15 80 50 185
-[torch.LongTensor of size 3x4]
-
-A / 2 : 6 2 3 3
-6 4 5 13
-1 8 5 18
-[torch.LongTensor of size 3x4]
-
-B : 3 5 6 8
-4 4 12 9
-6 4 2 6
-[torch.LongTensor of size 3x4]
-
-A + B : 15 10 12 15
-17 13 23 35
-9 20 12 43
-[torch.LongTensor of size 3x4]
-
-A - B : 9 0 0 -1
-9 5 -1 17
--3 12 8 31
-[torch.LongTensor of size 3x4]
-
-A += B
-A : 15 10 12 15
-17 13 23 35
-9 20 12 43
-[torch.LongTensor of size 3x4]
-
-A -= B
-A : 12 5 6 7
-13 9 11 26
-3 16 10 37
-[torch.LongTensor of size 3x4]
-
-PASSED
-test/test_pytorch.py::test_pytorch_Long_constructors PASSED
-test/test_pytorch.py::test_Pytorch_Long_operator_plus PASSED
-test/test_pytorch.py::test_Pytorch_Long_operator_plusequals PASSED
-test/test_pytorch.py::test_Pytorch_Long_operator_minus PASSED
-test/test_pytorch.py::test_Pytorch_Long_operator_minusequals PASSED
-test/test_pytorch.py::test_Pytorch_Long_cmul PASSED
-test/test_pytorch.py::test_Pytorch_Long_operator_div PASSED
-test/test_pytorch.py::test_Pytorch_Long_operator_divequals PASSED
-
+=================================== FAILURES ===================================
+__________________________________ test_pynn ___________________________________
+
+    def test_pynn():
+        PyTorch.manualSeed(123)
+        linear = Linear(3, 5)
+        linear
+        print('linear', linear)
+        print('linear.weight', linear.weight)
+        print('linear.output', linear.output)
+        print('linear.gradInput', linear.gradInput)
+    
+        input = PyTorch.DoubleTensor(4, 3).uniform()
+        print('input', input)
+        output = linear.updateOutput(input)
+        print('output', output)
+    
+        gradInput = linear.updateGradInput(input, output)
+        print('gradInput', gradInput)
+    
+        criterion = ClassNLLCriterion()
+        print('criterion', criterion)
+    
+        print('dir(linear)', dir(linear))
+    
+        mlp = Sequential()
+        mlp.add(linear)
+    
+        output = mlp.forward(input)
+        print('output', output)
+    
+        import sys
+        sys.path.append('thirdparty/python-mnist')
+>       from mnist import MNIST
+
+test/test_pynn.py:36: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+>   from loader import MNIST
+E   ImportError: No module named 'loader'
+
+thirdparty/python-mnist/mnist/__init__.py:1: ImportError

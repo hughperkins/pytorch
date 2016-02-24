@@ -1,7 +1,7 @@
 # GENERATED FILE, do not edit by hand
 # Source: src/PyTorch.jinja2.pyx
 
-from __future__ import print_function
+from __future__ import print_function, division
 import numbers
 import cython
 cimport cython
@@ -609,7 +609,8 @@ cdef class _FloatTensor(object):
             THFloatTensor_cadd(res.native, self.native, -1, secondTensor.native)
         return res
 
-    def __div__(_FloatTensor self, second):
+    def __truediv__(_FloatTensor self, second):
+        # print('__div__')
         cdef _FloatTensor res = _FloatTensor.new()
         cdef _FloatTensor secondTensor
         if isinstance(second, numbers.Number):
@@ -637,7 +638,8 @@ cdef class _FloatTensor(object):
             THFloatTensor_cadd(self.native, self.native, -1, secondTensor.native)
         return self
 
-    def __idiv__(_FloatTensor self, second):
+    def __itruediv__(_FloatTensor self, second):
+        # print('__idiv__')
         cdef _FloatTensor secondTensor
         if isinstance(second, numbers.Number):
             THFloatTensor_div(self.native, self.native, second)
@@ -1026,7 +1028,8 @@ cdef class _DoubleTensor(object):
             THDoubleTensor_cadd(res.native, self.native, -1, secondTensor.native)
         return res
 
-    def __div__(_DoubleTensor self, second):
+    def __truediv__(_DoubleTensor self, second):
+        # print('__div__')
         cdef _DoubleTensor res = _DoubleTensor.new()
         cdef _DoubleTensor secondTensor
         if isinstance(second, numbers.Number):
@@ -1054,7 +1057,8 @@ cdef class _DoubleTensor(object):
             THDoubleTensor_cadd(self.native, self.native, -1, secondTensor.native)
         return self
 
-    def __idiv__(_DoubleTensor self, second):
+    def __itruediv__(_DoubleTensor self, second):
+        # print('__idiv__')
         cdef _DoubleTensor secondTensor
         if isinstance(second, numbers.Number):
             THDoubleTensor_div(self.native, self.native, second)
@@ -1443,7 +1447,8 @@ cdef class _LongTensor(object):
             THLongTensor_cadd(res.native, self.native, -1, secondTensor.native)
         return res
 
-    def __div__(_LongTensor self, second):
+    def __truediv__(_LongTensor self, second):
+        # print('__div__')
         cdef _LongTensor res = _LongTensor.new()
         cdef _LongTensor secondTensor
         if isinstance(second, numbers.Number):
@@ -1471,7 +1476,8 @@ cdef class _LongTensor(object):
             THLongTensor_cadd(self.native, self.native, -1, secondTensor.native)
         return self
 
-    def __idiv__(_LongTensor self, second):
+    def __itruediv__(_LongTensor self, second):
+        # print('__idiv__')
         cdef _LongTensor secondTensor
         if isinstance(second, numbers.Number):
             THLongTensor_div(self.native, self.native, second)
@@ -1833,7 +1839,8 @@ cdef class _ByteTensor(object):
             THByteTensor_cadd(res.native, self.native, -1, secondTensor.native)
         return res
 
-    def __div__(_ByteTensor self, second):
+    def __truediv__(_ByteTensor self, second):
+        # print('__div__')
         cdef _ByteTensor res = _ByteTensor.new()
         cdef _ByteTensor secondTensor
         if isinstance(second, numbers.Number):
@@ -1861,7 +1868,8 @@ cdef class _ByteTensor(object):
             THByteTensor_cadd(self.native, self.native, -1, secondTensor.native)
         return self
 
-    def __idiv__(_ByteTensor self, second):
+    def __itruediv__(_ByteTensor self, second):
+        # print('__idiv__')
         cdef _ByteTensor secondTensor
         if isinstance(second, numbers.Number):
             THByteTensor_div(self.native, self.native, second)

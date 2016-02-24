@@ -1,7 +1,7 @@
 # GENERATED FILE, do not edit by hand
 # Source: test/jinja2.test_pytorch.py
 
-from __future__ import print_function
+from __future__ import print_function, division
 import PyTorch
 import array
 import numpy
@@ -207,8 +207,10 @@ def test_Pytorch_Long_operator_div():
     b.geometric(0.9)
     
     res = a / b
+    
     for i in range(3*2*5):
-        assert(abs(res.storage()[i] - (a.storage()[i] / b.storage()[i])) < 0.00001)
+        assert(abs(res.storage()[i] - (a.storage()[i] // b.storage()[i])) < 0.00001)
+    
 
 def test_Pytorch_Long_operator_divequals():
     LongTensor = PyTorch.LongTensor
@@ -220,8 +222,10 @@ def test_Pytorch_Long_operator_divequals():
     
     res = a.clone()
     res /= b
+    
     for i in range(3*2*5):
-        assert(abs(res.storage()[i] - (a.storage()[i] / b.storage()[i])) < 0.00001)
+        assert(abs(res.storage()[i] - (a.storage()[i] // b.storage()[i])) < 0.00001)
+    
 
 
 
@@ -454,8 +458,10 @@ def test_Pytorch_Float_operator_div():
     b.uniform()
     
     res = a / b
+    
     for i in range(3*2*5):
         assert(abs(res.storage()[i] - (a.storage()[i] / b.storage()[i])) < 0.00001)
+    
 
 def test_Pytorch_Float_operator_divequals():
     FloatTensor = PyTorch.FloatTensor
@@ -467,8 +473,10 @@ def test_Pytorch_Float_operator_divequals():
     
     res = a.clone()
     res /= b
+    
     for i in range(3*2*5):
         assert(abs(res.storage()[i] - (a.storage()[i] / b.storage()[i])) < 0.00001)
+    
 
 
 
@@ -666,8 +674,10 @@ def test_Pytorch_Double_operator_div():
     b.uniform()
     
     res = a / b
+    
     for i in range(3*2*5):
         assert(abs(res.storage()[i] - (a.storage()[i] / b.storage()[i])) < 0.00001)
+    
 
 def test_Pytorch_Double_operator_divequals():
     DoubleTensor = PyTorch.DoubleTensor
@@ -679,8 +689,10 @@ def test_Pytorch_Double_operator_divequals():
     
     res = a.clone()
     res /= b
+    
     for i in range(3*2*5):
         assert(abs(res.storage()[i] - (a.storage()[i] / b.storage()[i])) < 0.00001)
+    
 
 
 
@@ -838,8 +850,10 @@ def test_Pytorch_Byte_operator_div():
     b.geometric(0.9)
     
     res = a / b
+    
     for i in range(3*2*5):
-        assert(abs(res.storage()[i] - (a.storage()[i] / b.storage()[i])) < 0.00001)
+        assert(abs(res.storage()[i] - (a.storage()[i] // b.storage()[i])) < 0.00001)
+    
 
 def test_Pytorch_Byte_operator_divequals():
     ByteTensor = PyTorch.ByteTensor
@@ -851,8 +865,10 @@ def test_Pytorch_Byte_operator_divequals():
     
     res = a.clone()
     res /= b
+    
     for i in range(3*2*5):
-        assert(abs(res.storage()[i] - (a.storage()[i] / b.storage()[i])) < 0.00001)
+        assert(abs(res.storage()[i] - (a.storage()[i] // b.storage()[i])) < 0.00001)
+    
 
 
 
