@@ -145,7 +145,7 @@ color:	green
 ```
 luarocks install nn
 ```
-* Have installed python (tested with 2.7, for now, no theoretical reason why wont work on 3.4 too)
+* Have installed python (tested with 2.7 and 3.4)
 * Have installed the following python libraries, ie do:
 ```
 pip install numpy
@@ -197,6 +197,7 @@ This has been simplified a bunch since before.  We no longer try to wrap C++ cla
 * added support for passing strings to methods
 * added `require`
 * created prototype for importing your own classes, and calling methods on those
+* works with Python 3 now :-)
 
 12th December:
 * created [Implemented.md](doc/Implemented.md) doc
