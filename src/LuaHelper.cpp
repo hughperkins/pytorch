@@ -81,7 +81,16 @@ void pushGlobal(lua_State *L, const char *name1, const char *name2, const char *
     lua_remove(L, -2);
 }
 
-void *getGlobal(lua_State *L, const char *name1, const char *name2) {
+void *getGlobal1(lua_State *L, const char *name1) {
+    pushGlobal(L, name1);
+    void **pres = (void **)lua_touserdata(L, -1);
+    void *res = *pres;
+//    void *res = lua_touserdata(L, -1);
+    lua_remove(L, -1);
+    return res;
+}
+
+void *getGlobal2(lua_State *L, const char *name1, const char *name2) {
     pushGlobal(L, name1, name2);
     void **pres = (void **)lua_touserdata(L, -1);
     void *res = *pres;
@@ -90,7 +99,7 @@ void *getGlobal(lua_State *L, const char *name1, const char *name2) {
     return res;
 }
 
-void require(lua_State *L, const char *name) {
+void luaRequire(lua_State *L, const char *name) {
     lua_getglobal(L, "require");
     lua_pushstring(L, name);
     lua_call(L, 1, 0);

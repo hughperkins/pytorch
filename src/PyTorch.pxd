@@ -78,3 +78,6 @@ cdef class GlobalState:
 #    cdef PyTorchState *state
     cdef lua_State *L
     cdef THGenerator *generator
+
+cdef extern from "LuaHelper.h":
+    void require(lua_State *L, const char *libName)

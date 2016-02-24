@@ -6,8 +6,9 @@
 from PyTorch cimport *
 
 cdef extern from "LuaHelper.h":
-    void *getGlobal(lua_State *L, const char *name1, const char *name2);
-    void require(lua_State *L, const char *name)
+    void *getGlobal2(lua_State *L, const char *name1, const char *name2);
+    void luaRequire(lua_State *L, const char *name)
+    void *getGlobal1(lua_State *L, const char *name1);
     int getLuaRegistryIndex()
 
 

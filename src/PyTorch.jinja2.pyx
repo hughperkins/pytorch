@@ -619,12 +619,24 @@ def getGlobalState():
     global globalState
     return globalState
 
+def require(libName):
+    global globalState
+    cdef lua_State *L
+    L = globalState.L
+    luaRequire(L, libName.encode('utf-8'))
+
+def getGlobal(name):
+    global globalState
+    cdef lua_State *L
+    L = globalState.L
+        
+
 def init():
     global globalState
     # print('initializing PyTorch...')
     globalState = GlobalState()
     globalState.L = luaInit()
-    globalState.generator = <THGenerator *>(getGlobal(globalState.L, 'torch', '_gen'))
+    globalState.generator = <THGenerator *>(getGlobal2(globalState.L, 'torch', '_gen'))
     # print('generator null:', globalState.generator == NULL)
     # print(' ... PyTorch initialized')
 

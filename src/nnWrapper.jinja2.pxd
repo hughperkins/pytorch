@@ -24,4 +24,5 @@ cdef extern from "nnWrapper.h":
     cdef struct lua_State
     lua_State *luaInit()
     void luaClose(lua_State *L)
+    # void luaRequire(lua_State *L, const char *libName)
 

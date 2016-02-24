@@ -42,7 +42,7 @@ cdef class LuaState(object):
         lua_pushnumber(self.L, number)
 
     def pushString(self, mystring):
-        lua_pushstring(self.L, mystring)
+        lua_pushstring(self.L, mystring.encode('utf-8'))
 
     def toString(self, int index):
         cdef bytes py_string = lua_tostring(self.L, index)
@@ -52,10 +52,10 @@ cdef class LuaState(object):
         return lua_tonumber(self.L, index)
 
     def getGlobal(self, name):
-        lua_getglobal(self.L, name)
+        lua_getglobal(self.L, name.encode('utf-8'))
 
     def setGlobal(self, name):
-        lua_setglobal(self.L, name)
+        lua_setglobal(self.L, name.encode('utf-8'))
 
     def pushNil(self):
         lua_pushnil(self.L)
@@ -67,7 +67,7 @@ cdef class LuaState(object):
         lua_call(self.L, numIn, numOut)
 
     def getField(self, int index, name):
-        lua_getfield(self.L, index, name)
+        lua_getfield(self.L, index, name.encode('utf-8'))
 
     def setRegistry(self):
         lua_settable(self.L, LUA_REGISTRYINDEX)

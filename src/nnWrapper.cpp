@@ -50,6 +50,12 @@ lua_State *luaInit() {
 
     return L;
 }
+//void luaRequire(lua_State *L, const char *libName) {
+//    lua_getglobal(L, "require");
+//    lua_pushstring(L, libName);
+//    lua_call(L, 1, 1);
+//    lua_setglobal(L, libName);
+//}
 void luaClose(lua_State *L) {
     lua_close(L);
 }

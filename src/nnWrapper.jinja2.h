@@ -25,6 +25,7 @@ int TH{{Real}}Tensor_getRefCount(TH{{Real}}Tensor *self);
 struct lua_State;
 lua_State *luaInit(void);
 void luaClose(lua_State *L);
+//void luaRequire(lua_State *L, const char *libName);
 
 long pointerAsInt(void *ptr); // mostly for debugging
 void collectGarbage(lua_State *L);

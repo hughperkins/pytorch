@@ -6,7 +6,8 @@ struct THDoubleTensor;
 
 void dumpStack(lua_State *L);
 
-void *getGlobal(lua_State *L, const char *name1, const char *name2);
+void *getGlobal1(lua_State *L, const char *name1);
+void *getGlobal2(lua_State *L, const char *name1, const char *name2);
 
 void pushGlobal(lua_State *L, const char *name1);
 void pushGlobal(lua_State *L, const char *name1, const char *name2);
@@ -25,7 +26,7 @@ THFloatTensor *popFloatTensor(lua_State *L);
 void pushDoubleTensor(lua_State *L, THDoubleTensor *tensor);
 THDoubleTensor *popDoubleTensor(lua_State *L);
 
-void require(lua_State *L, const char *name);
+void luaRequire(lua_State *L, const char *name);
 
 int getLuaRegistryIndex();
 

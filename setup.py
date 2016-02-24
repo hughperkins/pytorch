@@ -50,7 +50,7 @@ for templateName in templateNames:
     if isUpdate:
         print(outFilename + ' (changed)')
         f = open(outFilename, 'wb')
-        f.write(pyx)
+        f.write(pyx.encode('utf-8'))
         f.close()
 
 building_dist = False

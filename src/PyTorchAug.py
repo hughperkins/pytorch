@@ -37,7 +37,7 @@ def pushGlobalFromList(lua, nameList):
 def popString(lua):
     res = lua.toString(-1)
     lua.remove(-1)
-    return res
+    return res.decode('utf-8')
 
 def registerObject(lua, myobject):
     lua.pushNumber(myobject.__objectId)
@@ -70,7 +70,9 @@ def torchType(lua, pos):
 
 class LuaClass(object):
     def __init__(self, nameList, *args):
+        # print('LuaClass.__init__()')
         lua = PyTorch.getGlobalState().getLua()
+#        self.luaclass = luaclass
         self.__dict__['__objectId'] = getNextObjectId()
         topStart = lua.getTop()
         pushGlobalFromList(lua, nameList)
@@ -97,8 +99,18 @@ class LuaClass(object):
 
     def __repr__(self):
         topStart = lua.getTop()
-        name = self.__class__.__name__
-        pushGlobal(lua, 'nn', name, '__tostring')
+#        name = self.__class__.__name__
+        luaClass = self.luaclass
+        if luaClass == 'table':
+            return 'table'
+        splitLuaClass = luaClass.split('.')
+        if len(splitLuaClass) == 1:
+            pushGlobal(lua, splitLuaClass[0], '__tostring')
+        elif len(splitLuaClass) == 2:
+            pushGlobal(lua, splitLuaClass[0], splitLuaClass[1], '__tostring')
+        else:
+            raise Exception('not implemented: luaclass with more than 2 parts ' + luaClass)
+#        pushGlobal(lua, 'nn', name, '__tostring')
         pushObject(lua, self)
         lua.call(1, 1)
         res = popString(lua)
@@ -208,9 +220,20 @@ class LuaClass(object):
         else:
             raise Exception('handling type ' + typename + ' not implemented')
 
+class Table(LuaClass):
+    def __init__(self, _fromLua=False):
+        # print('Table.__init__')
+        if not _fromLua:
+            name = self.__class__.__name__
+            super(self.__class__, self).__init__(['nn', name])
+        else:
+            self.__dict__['__objectId'] = getNextObjectId()
+            self.luaclass = 'table'
+
 class Linear(LuaClass):
     def __init__(self, numIn=1, numOut=1, _fromLua=False):
-        print('Linear.__init__')
+        # print('Linear.__init__')
+        self.luaclass = 'nn.Linear'
         if not _fromLua:
             name = self.__class__.__name__
             super(self.__class__, self).__init__(['nn', name], numIn, numOut)
@@ -219,6 +242,7 @@ class Linear(LuaClass):
 
 class ClassNLLCriterion(LuaClass):
     def __init__(self, _fromLua=False):
+        self.luaclass = 'nn.ClassNLLCriterion'
         if not _fromLua:
             name = self.__class__.__name__
             super(self.__class__, self).__init__(['nn', name])
@@ -227,6 +251,7 @@ class ClassNLLCriterion(LuaClass):
 
 class MSECriterion(LuaClass):
     def __init__(self, _fromLua=False):
+        self.luaclass = 'nn.MSECriterion'
         if not _fromLua:
             name = self.__class__.__name__
             super(self.__class__, self).__init__(['nn', name])
@@ -235,6 +260,7 @@ class MSECriterion(LuaClass):
 
 class Sequential(LuaClass):
     def __init__(self, _fromLua=False):
+        self.luaclass = 'nn.Sequential'
         if not _fromLua:
             name = self.__class__.__name__
             super(self.__class__, self).__init__(['nn', name])
@@ -243,6 +269,7 @@ class Sequential(LuaClass):
 
 class LogSoftMax(LuaClass):
     def __init__(self, _fromLua=False):
+        self.luaclass = 'nn.LogSoftMax'
         if not _fromLua:
             name = self.__class__.__name__
             super(self.__class__, self).__init__(['nn', name])
@@ -251,6 +278,7 @@ class LogSoftMax(LuaClass):
 
 class Reshape(LuaClass):
     def __init__(self, s1, s2=None, s3=None, s4=None, _fromLua=False):
+        self.luaclass = 'nn.Reshape'
         if not _fromLua:
             name = self.__class__.__name__
             if s4 is not None:   # this is a bit hacky, but gets it working for now...
@@ -266,6 +294,7 @@ class Reshape(LuaClass):
 
 class SpatialConvolutionMM(LuaClass):
     def __init__(self, nInputPlane, nOutputPlane, kW, kH, dW=1, dH=1, padW=0, padH=0, _fromLua=False):
+        self.luaclass = 'nn.SpatialConvolutionMM'
         if not _fromLua:
             name = self.__class__.__name__
             super(self.__class__, self).__init__(['nn', name], nInputPlane, nOutputPlane, kW, kH, dW, dH, padW, padH)
@@ -274,6 +303,7 @@ class SpatialConvolutionMM(LuaClass):
 
 class SpatialMaxPooling(LuaClass):
     def __init__(self, kW, kH, dW, dH, padW=0, padH=0, _fromLua=False):
+        self.luaclass = 'nn.SpatialMaxPooling'
         if not _fromLua:
             name = self.__class__.__name__
             super(self.__class__, self).__init__(['nn', name], kW, kH, dW, dH, padW, padH)
@@ -282,6 +312,7 @@ class SpatialMaxPooling(LuaClass):
 
 class ReLU(LuaClass):
     def __init__(self, _fromLua=False):
+        self.luaclass = 'nn.ReLU'
         if not _fromLua:
             name = self.__class__.__name__
             super(self.__class__, self).__init__(['nn', name])
@@ -290,6 +321,7 @@ class ReLU(LuaClass):
 
 class Tanh(LuaClass):
     def __init__(self, _fromLua=False):
+        self.luaclass = 'nn.Tanh'
         if not _fromLua:
             name = self.__class__.__name__
             super(self.__class__, self).__init__(['nn', name])
@@ -307,6 +339,7 @@ luaClasses['nn.SpatialConvolutionMM'] = SpatialConvolutionMM
 luaClasses['nn.SpatialMaxPooling'] = SpatialMaxPooling
 luaClasses['nn.ReLU'] = ReLU
 luaClasses['nn.Tanh'] = Tanh
+luaClasses['table'] = Table
 
 luaClassesReverse = {}
 def populateLuaClassesReverse():
