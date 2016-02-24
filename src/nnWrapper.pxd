@@ -11,16 +11,16 @@ cdef extern from "nnWrapper.h":
 
 
 cdef extern from "nnWrapper.h":
-    int THDoubleTensor_getRefCount(THDoubleTensor *self)
+    int THFloatTensor_getRefCount(THFloatTensor *self)
 
 cdef extern from "nnWrapper.h":
     int THByteTensor_getRefCount(THByteTensor *self)
 
 cdef extern from "nnWrapper.h":
-    int THFloatTensor_getRefCount(THFloatTensor *self)
+    int THLongTensor_getRefCount(THLongTensor *self)
 
 cdef extern from "nnWrapper.h":
-    int THLongTensor_getRefCount(THLongTensor *self)
+    int THDoubleTensor_getRefCount(THDoubleTensor *self)
 
 
 cdef extern from "nnWrapper.h":

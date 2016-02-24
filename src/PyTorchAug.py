@@ -173,6 +173,9 @@ class LuaClass(object):
                     if not pushedArg and isinstance(arg, float):
                         lua.pushNumber(arg)
                         pushedArg = True
+                    if not pushedArg and isinstance(arg, str):
+                        lua.pushString(arg)
+                        pushedArg = True
                     if not pushedArg:
                         raise Exception('arg type ' + str(type(arg)) + ' not implemented')
                 lua.call(len(args) + 1, 1)   # +1 for self
