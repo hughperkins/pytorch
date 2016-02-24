@@ -3,18 +3,20 @@
 
 #pragma once
 
-{% set types = {
-    'Long': 'long',
-    'Float': 'float',
-    'Double': 'double',
-    'Byte': 'unsigned char'
-}
+{% set types = [
+    {'Real': 'Long','real': 'long'},
+    {'Real': 'Float', 'real': 'float'},
+    {'Real': 'Double', 'real': 'double'},
+    {'Real': 'Byte', 'real': 'unsigned char'}
+]
 %}
 
 #include <iostream>
 #include <string>
 
-{% for Real in types %}
+{% for typedict in types %}
+{% set Real = typedict['Real'] %}
+{% set real = typedict['real'] %}
 class TH{{Real}}Tensor;
 class TH{{Real}}Storage;
 

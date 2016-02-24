@@ -3,12 +3,12 @@ from lua cimport *
 # {{header1}}
 # {{header2}}
 
-{% set types = {
-    'Long': {'real': 'long'},
-    'Float': {'real': 'float'}, 
-    'Double': {'real': 'double'},
-    'Byte': {'real': 'unsigned char'}
-}
+{% set types = [
+    {'Real': 'Long','real': 'long'},
+    {'Real': 'Float', 'real': 'float'},
+    {'Real': 'Double', 'real': 'double'},
+    {'Real': 'Byte', 'real': 'unsigned char'}
+]
 %}
 
 #import PyTorch

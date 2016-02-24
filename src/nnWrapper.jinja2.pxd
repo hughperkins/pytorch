@@ -1,12 +1,12 @@
 # {{header1}}
 # {{header2}}
 
-{% set types = {
-    'Long': {'real': 'long'},
-    'Float': {'real': 'float'}, 
-    'Double': {'real': 'double'},
-    'Byte': {'real': 'unsigned char'}
-}
+{% set types = [
+    {'Real': 'Long','real': 'long'},
+    {'Real': 'Float', 'real': 'float'},
+    {'Real': 'Double', 'real': 'double'},
+    {'Real': 'Byte', 'real': 'unsigned char'}
+]
 %}
 
 from lua cimport *
@@ -15,7 +15,9 @@ cdef extern from "nnWrapper.h":
     long pointerAsInt(void *ptr)
     void collectGarbage(lua_State *L)
 
-{% for Real in types %}
+{% for typedict in types %}
+{% set Real = typedict['Real'] %}
+{% set real = typedict['real'] %}
 cdef extern from "nnWrapper.h":
     int TH{{Real}}Tensor_getRefCount(TH{{Real}}Tensor *self)
 {% endfor %}

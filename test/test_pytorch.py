@@ -20,6 +20,213 @@ def myexec(expr):
 
 
 
+
+def test_pytorchLong():
+    PyTorch.manualSeed(123)
+    numpy.random.seed(123)
+
+    LongTensor = PyTorch.LongTensor
+
+    
+
+    D = PyTorch.LongTensor(5,3).fill(1)
+    print('D', D)
+
+    D[2][2] = 4
+    print('D', D)
+
+    D[3].fill(9)
+    print('D', D)
+
+    D.narrow(1,2,1).fill(0)
+    print('D', D)
+
+    
+    print(PyTorch.LongTensor(3,4).bernoulli())
+    print(PyTorch.LongTensor(3,4).geometric())
+    print(PyTorch.LongTensor(3,4).geometric())
+    PyTorch.manualSeed(3)
+    print(PyTorch.LongTensor(3,4).geometric())
+    PyTorch.manualSeed(3)
+    print(PyTorch.LongTensor(3,4).geometric())
+
+    print(type(PyTorch.LongTensor(2,3)))
+
+    size = PyTorch.LongStorage(2)
+    size[0] = 4
+    size[1] = 3
+    D.resize(size)
+    print('D after resize:\n', D)
+
+    print('resize1d', PyTorch.LongTensor().resize1d(3).fill(1))
+    print('resize2d', PyTorch.LongTensor().resize2d(2, 3).fill(1))
+    print('resize', PyTorch.LongTensor().resize(size).fill(1))
+
+    D = PyTorch.LongTensor(size).geometric()
+
+#    def myeval(expr):
+#        print(expr, ':', eval(expr))
+
+#    def myexec(expr):
+#        print(expr)
+#        exec(expr)
+
+    myeval('LongTensor(3,2).nElement()')
+    myeval('LongTensor().nElement()')
+    myeval('LongTensor(1).nElement()')
+
+    A = LongTensor(3,4).geometric(0.9)
+    myeval('A')
+    myexec('A += 3')
+    myeval('A')
+    myexec('A *= 3')
+    myeval('A')
+    
+    myexec('A -= 3')
+    
+    myeval('A')
+    myexec('A /= 3')
+    myeval('A')
+
+    myeval('A + 5')
+    
+    myeval('A - 5')
+    
+    myeval('A * 5')
+    myeval('A / 2')
+
+    B = LongTensor().resizeAs(A).geometric(0.9)
+    myeval('B')
+    myeval('A + B')
+    
+    myeval('A - B')
+    
+    myexec('A += B')
+    myeval('A')
+    
+    myexec('A -= B')
+    myeval('A')
+    
+
+def test_pytorch_Long_constructors():
+    LongTensor = PyTorch.LongTensor
+    a = LongTensor(3,2,5)
+    assert(len(a.size()) == 3)
+    a = LongTensor(3,2,5,6)
+    assert(len(a.size()) == 4)
+
+def test_Pytorch_Long_operator_plus():
+    LongTensor = PyTorch.LongTensor
+    a = LongTensor(3,2,5)
+    b = LongTensor(3,2,5)
+    
+    a.geometric(0.9)
+    b.geometric(0.9)
+    
+    res = a + b
+    for i in range(3*2*5):
+        assert(abs(res.storage()[i] - (a.storage()[i] + b.storage()[i])) < 0.000001)
+
+def test_Pytorch_Long_operator_plusequals():
+    LongTensor = PyTorch.LongTensor
+    a = LongTensor(3,2,5)
+    b = LongTensor(3,2,5)
+    
+    a.geometric(0.9)
+    b.geometric(0.9)
+    
+    res = a.clone()
+    res += b
+    for i in range(3*2*5):
+        assert(abs(res.storage()[i] - (a.storage()[i] + b.storage()[i])) < 0.000001)
+
+
+def test_Pytorch_Long_operator_minus():
+    LongTensor = PyTorch.LongTensor
+    a = LongTensor(3,2,5)
+    b = LongTensor(3,2,5)
+    
+    a.geometric(0.9)
+    b.geometric(0.9)
+    
+    res = a - b
+    for i in range(3*2*5):
+        assert(abs(res.storage()[i] - (a.storage()[i] - b.storage()[i])) < 0.000001)
+
+
+
+def test_Pytorch_Long_operator_minusequals():
+    LongTensor = PyTorch.LongTensor
+    a = LongTensor(3,2,5)
+    b = LongTensor(3,2,5)
+    
+    a.geometric(0.9)
+    b.geometric(0.9)
+    
+    res = a.clone()
+    res -= b
+    for i in range(3*2*5):
+        assert(abs(res.storage()[i] - (a.storage()[i] - b.storage()[i])) < 0.000001)
+
+
+#def test_Pytorch_Long_cmul():
+#    LongTensor = PyTorch.LongTensor
+#    a = LongTensor(3,2,5)
+#    b = LongTensor(3,2,5)
+#    
+#    a.geometric(0.9)
+#    b.geometric(0.9)
+#    
+#    res = a.cmul(b)
+#    for i in range(3*2*5):
+#        
+#        assert(abs(res.storage()[i] - (a.storage()[i] * b.storage()[i])) < 0.000001)
+#        
+
+def test_Pytorch_Long_cmul():
+    LongTensor = PyTorch.LongTensor
+    a = LongTensor(3,2,5)
+    b = LongTensor(3,2,5)
+    
+    a.geometric(0.9)
+    b.geometric(0.9)
+    
+    res = a.clone() #.cmul(b)
+    res.cmul(b)
+    for i in range(3*2*5):
+        
+        assert(abs(res.storage()[i] - (a.storage()[i] * b.storage()[i])) < 0.000001)
+        
+
+def test_Pytorch_Long_operator_div():
+    LongTensor = PyTorch.LongTensor
+    a = LongTensor(3,2,5)
+    b = LongTensor(3,2,5)
+    
+    a.geometric(0.9)
+    b.geometric(0.9)
+    
+    res = a / b
+    for i in range(3*2*5):
+        assert(abs(res.storage()[i] - (a.storage()[i] / b.storage()[i])) < 0.00001)
+
+def test_Pytorch_Long_operator_divequals():
+    LongTensor = PyTorch.LongTensor
+    a = LongTensor(3,2,5)
+    b = LongTensor(3,2,5)
+    
+    a.geometric(0.9)
+    b.geometric(0.9)
+    
+    res = a.clone()
+    res /= b
+    for i in range(3*2*5):
+        assert(abs(res.storage()[i] - (a.storage()[i] / b.storage()[i])) < 0.00001)
+
+
+
+
+
 def test_pytorchFloat():
     PyTorch.manualSeed(123)
     numpy.random.seed(123)
@@ -266,381 +473,6 @@ def test_Pytorch_Float_operator_divequals():
 
 
 
-def test_pytorchByte():
-    PyTorch.manualSeed(123)
-    numpy.random.seed(123)
-
-    ByteTensor = PyTorch.ByteTensor
-
-    
-
-    D = PyTorch.ByteTensor(5,3).fill(1)
-    print('D', D)
-
-    D[2][2] = 4
-    print('D', D)
-
-    D[3].fill(9)
-    print('D', D)
-
-    D.narrow(1,2,1).fill(0)
-    print('D', D)
-
-    
-    print(PyTorch.ByteTensor(3,4).bernoulli())
-    print(PyTorch.ByteTensor(3,4).geometric())
-    print(PyTorch.ByteTensor(3,4).geometric())
-    PyTorch.manualSeed(3)
-    print(PyTorch.ByteTensor(3,4).geometric())
-    PyTorch.manualSeed(3)
-    print(PyTorch.ByteTensor(3,4).geometric())
-
-    print(type(PyTorch.ByteTensor(2,3)))
-
-    size = PyTorch.LongStorage(2)
-    size[0] = 4
-    size[1] = 3
-    D.resize(size)
-    print('D after resize:\n', D)
-
-    print('resize1d', PyTorch.ByteTensor().resize1d(3).fill(1))
-    print('resize2d', PyTorch.ByteTensor().resize2d(2, 3).fill(1))
-    print('resize', PyTorch.ByteTensor().resize(size).fill(1))
-
-    D = PyTorch.ByteTensor(size).geometric()
-
-#    def myeval(expr):
-#        print(expr, ':', eval(expr))
-
-#    def myexec(expr):
-#        print(expr)
-#        exec(expr)
-
-    myeval('ByteTensor(3,2).nElement()')
-    myeval('ByteTensor().nElement()')
-    myeval('ByteTensor(1).nElement()')
-
-    A = ByteTensor(3,4).geometric(0.9)
-    myeval('A')
-    myexec('A += 3')
-    myeval('A')
-    myexec('A *= 3')
-    myeval('A')
-    
-    myeval('A')
-    myexec('A /= 3')
-    myeval('A')
-
-    myeval('A + 5')
-    
-    myeval('A * 5')
-    myeval('A / 2')
-
-    B = ByteTensor().resizeAs(A).geometric(0.9)
-    myeval('B')
-    myeval('A + B')
-    
-    myexec('A += B')
-    myeval('A')
-    
-
-def test_pytorch_Byte_constructors():
-    ByteTensor = PyTorch.ByteTensor
-    a = ByteTensor(3,2,5)
-    assert(len(a.size()) == 3)
-    a = ByteTensor(3,2,5,6)
-    assert(len(a.size()) == 4)
-
-def test_Pytorch_Byte_operator_plus():
-    ByteTensor = PyTorch.ByteTensor
-    a = ByteTensor(3,2,5)
-    b = ByteTensor(3,2,5)
-    
-    a.geometric(0.9)
-    b.geometric(0.9)
-    
-    res = a + b
-    for i in range(3*2*5):
-        assert(abs(res.storage()[i] - (a.storage()[i] + b.storage()[i])) < 0.000001)
-
-def test_Pytorch_Byte_operator_plusequals():
-    ByteTensor = PyTorch.ByteTensor
-    a = ByteTensor(3,2,5)
-    b = ByteTensor(3,2,5)
-    
-    a.geometric(0.9)
-    b.geometric(0.9)
-    
-    res = a.clone()
-    res += b
-    for i in range(3*2*5):
-        assert(abs(res.storage()[i] - (a.storage()[i] + b.storage()[i])) < 0.000001)
-
-
-
-
-
-#def test_Pytorch_Byte_cmul():
-#    ByteTensor = PyTorch.ByteTensor
-#    a = ByteTensor(3,2,5)
-#    b = ByteTensor(3,2,5)
-#    
-#    a.geometric(0.9)
-#    b.geometric(0.9)
-#    
-#    res = a.cmul(b)
-#    for i in range(3*2*5):
-#        
-#        assert(abs(res.storage()[i] - ((a.storage()[i] * b.storage()[i])) % 256) < 0.000001)
-#        
-
-def test_Pytorch_Byte_cmul():
-    ByteTensor = PyTorch.ByteTensor
-    a = ByteTensor(3,2,5)
-    b = ByteTensor(3,2,5)
-    
-    a.geometric(0.9)
-    b.geometric(0.9)
-    
-    res = a.clone() #.cmul(b)
-    res.cmul(b)
-    for i in range(3*2*5):
-        
-        assert(abs(res.storage()[i] - ((a.storage()[i] * b.storage()[i])) % 256) < 0.000001)
-        
-
-def test_Pytorch_Byte_operator_div():
-    ByteTensor = PyTorch.ByteTensor
-    a = ByteTensor(3,2,5)
-    b = ByteTensor(3,2,5)
-    
-    a.geometric(0.9)
-    b.geometric(0.9)
-    
-    res = a / b
-    for i in range(3*2*5):
-        assert(abs(res.storage()[i] - (a.storage()[i] / b.storage()[i])) < 0.00001)
-
-def test_Pytorch_Byte_operator_divequals():
-    ByteTensor = PyTorch.ByteTensor
-    a = ByteTensor(3,2,5)
-    b = ByteTensor(3,2,5)
-    
-    a.geometric(0.9)
-    b.geometric(0.9)
-    
-    res = a.clone()
-    res /= b
-    for i in range(3*2*5):
-        assert(abs(res.storage()[i] - (a.storage()[i] / b.storage()[i])) < 0.00001)
-
-
-
-
-def test_pytorchLong():
-    PyTorch.manualSeed(123)
-    numpy.random.seed(123)
-
-    LongTensor = PyTorch.LongTensor
-
-    
-
-    D = PyTorch.LongTensor(5,3).fill(1)
-    print('D', D)
-
-    D[2][2] = 4
-    print('D', D)
-
-    D[3].fill(9)
-    print('D', D)
-
-    D.narrow(1,2,1).fill(0)
-    print('D', D)
-
-    
-    print(PyTorch.LongTensor(3,4).bernoulli())
-    print(PyTorch.LongTensor(3,4).geometric())
-    print(PyTorch.LongTensor(3,4).geometric())
-    PyTorch.manualSeed(3)
-    print(PyTorch.LongTensor(3,4).geometric())
-    PyTorch.manualSeed(3)
-    print(PyTorch.LongTensor(3,4).geometric())
-
-    print(type(PyTorch.LongTensor(2,3)))
-
-    size = PyTorch.LongStorage(2)
-    size[0] = 4
-    size[1] = 3
-    D.resize(size)
-    print('D after resize:\n', D)
-
-    print('resize1d', PyTorch.LongTensor().resize1d(3).fill(1))
-    print('resize2d', PyTorch.LongTensor().resize2d(2, 3).fill(1))
-    print('resize', PyTorch.LongTensor().resize(size).fill(1))
-
-    D = PyTorch.LongTensor(size).geometric()
-
-#    def myeval(expr):
-#        print(expr, ':', eval(expr))
-
-#    def myexec(expr):
-#        print(expr)
-#        exec(expr)
-
-    myeval('LongTensor(3,2).nElement()')
-    myeval('LongTensor().nElement()')
-    myeval('LongTensor(1).nElement()')
-
-    A = LongTensor(3,4).geometric(0.9)
-    myeval('A')
-    myexec('A += 3')
-    myeval('A')
-    myexec('A *= 3')
-    myeval('A')
-    
-    myexec('A -= 3')
-    
-    myeval('A')
-    myexec('A /= 3')
-    myeval('A')
-
-    myeval('A + 5')
-    
-    myeval('A - 5')
-    
-    myeval('A * 5')
-    myeval('A / 2')
-
-    B = LongTensor().resizeAs(A).geometric(0.9)
-    myeval('B')
-    myeval('A + B')
-    
-    myeval('A - B')
-    
-    myexec('A += B')
-    myeval('A')
-    
-    myexec('A -= B')
-    myeval('A')
-    
-
-def test_pytorch_Long_constructors():
-    LongTensor = PyTorch.LongTensor
-    a = LongTensor(3,2,5)
-    assert(len(a.size()) == 3)
-    a = LongTensor(3,2,5,6)
-    assert(len(a.size()) == 4)
-
-def test_Pytorch_Long_operator_plus():
-    LongTensor = PyTorch.LongTensor
-    a = LongTensor(3,2,5)
-    b = LongTensor(3,2,5)
-    
-    a.geometric(0.9)
-    b.geometric(0.9)
-    
-    res = a + b
-    for i in range(3*2*5):
-        assert(abs(res.storage()[i] - (a.storage()[i] + b.storage()[i])) < 0.000001)
-
-def test_Pytorch_Long_operator_plusequals():
-    LongTensor = PyTorch.LongTensor
-    a = LongTensor(3,2,5)
-    b = LongTensor(3,2,5)
-    
-    a.geometric(0.9)
-    b.geometric(0.9)
-    
-    res = a.clone()
-    res += b
-    for i in range(3*2*5):
-        assert(abs(res.storage()[i] - (a.storage()[i] + b.storage()[i])) < 0.000001)
-
-
-def test_Pytorch_Long_operator_minus():
-    LongTensor = PyTorch.LongTensor
-    a = LongTensor(3,2,5)
-    b = LongTensor(3,2,5)
-    
-    a.geometric(0.9)
-    b.geometric(0.9)
-    
-    res = a - b
-    for i in range(3*2*5):
-        assert(abs(res.storage()[i] - (a.storage()[i] - b.storage()[i])) < 0.000001)
-
-
-
-def test_Pytorch_Long_operator_minusequals():
-    LongTensor = PyTorch.LongTensor
-    a = LongTensor(3,2,5)
-    b = LongTensor(3,2,5)
-    
-    a.geometric(0.9)
-    b.geometric(0.9)
-    
-    res = a.clone()
-    res -= b
-    for i in range(3*2*5):
-        assert(abs(res.storage()[i] - (a.storage()[i] - b.storage()[i])) < 0.000001)
-
-
-#def test_Pytorch_Long_cmul():
-#    LongTensor = PyTorch.LongTensor
-#    a = LongTensor(3,2,5)
-#    b = LongTensor(3,2,5)
-#    
-#    a.geometric(0.9)
-#    b.geometric(0.9)
-#    
-#    res = a.cmul(b)
-#    for i in range(3*2*5):
-#        
-#        assert(abs(res.storage()[i] - (a.storage()[i] * b.storage()[i])) < 0.000001)
-#        
-
-def test_Pytorch_Long_cmul():
-    LongTensor = PyTorch.LongTensor
-    a = LongTensor(3,2,5)
-    b = LongTensor(3,2,5)
-    
-    a.geometric(0.9)
-    b.geometric(0.9)
-    
-    res = a.clone() #.cmul(b)
-    res.cmul(b)
-    for i in range(3*2*5):
-        
-        assert(abs(res.storage()[i] - (a.storage()[i] * b.storage()[i])) < 0.000001)
-        
-
-def test_Pytorch_Long_operator_div():
-    LongTensor = PyTorch.LongTensor
-    a = LongTensor(3,2,5)
-    b = LongTensor(3,2,5)
-    
-    a.geometric(0.9)
-    b.geometric(0.9)
-    
-    res = a / b
-    for i in range(3*2*5):
-        assert(abs(res.storage()[i] - (a.storage()[i] / b.storage()[i])) < 0.00001)
-
-def test_Pytorch_Long_operator_divequals():
-    LongTensor = PyTorch.LongTensor
-    a = LongTensor(3,2,5)
-    b = LongTensor(3,2,5)
-    
-    a.geometric(0.9)
-    b.geometric(0.9)
-    
-    res = a.clone()
-    res /= b
-    for i in range(3*2*5):
-        assert(abs(res.storage()[i] - (a.storage()[i] / b.storage()[i])) < 0.00001)
-
-
-
 
 def test_pytorchDouble():
     PyTorch.manualSeed(123)
@@ -853,13 +685,185 @@ def test_Pytorch_Double_operator_divequals():
 
 
 
+
+def test_pytorchByte():
+    PyTorch.manualSeed(123)
+    numpy.random.seed(123)
+
+    ByteTensor = PyTorch.ByteTensor
+
+    
+
+    D = PyTorch.ByteTensor(5,3).fill(1)
+    print('D', D)
+
+    D[2][2] = 4
+    print('D', D)
+
+    D[3].fill(9)
+    print('D', D)
+
+    D.narrow(1,2,1).fill(0)
+    print('D', D)
+
+    
+    print(PyTorch.ByteTensor(3,4).bernoulli())
+    print(PyTorch.ByteTensor(3,4).geometric())
+    print(PyTorch.ByteTensor(3,4).geometric())
+    PyTorch.manualSeed(3)
+    print(PyTorch.ByteTensor(3,4).geometric())
+    PyTorch.manualSeed(3)
+    print(PyTorch.ByteTensor(3,4).geometric())
+
+    print(type(PyTorch.ByteTensor(2,3)))
+
+    size = PyTorch.LongStorage(2)
+    size[0] = 4
+    size[1] = 3
+    D.resize(size)
+    print('D after resize:\n', D)
+
+    print('resize1d', PyTorch.ByteTensor().resize1d(3).fill(1))
+    print('resize2d', PyTorch.ByteTensor().resize2d(2, 3).fill(1))
+    print('resize', PyTorch.ByteTensor().resize(size).fill(1))
+
+    D = PyTorch.ByteTensor(size).geometric()
+
+#    def myeval(expr):
+#        print(expr, ':', eval(expr))
+
+#    def myexec(expr):
+#        print(expr)
+#        exec(expr)
+
+    myeval('ByteTensor(3,2).nElement()')
+    myeval('ByteTensor().nElement()')
+    myeval('ByteTensor(1).nElement()')
+
+    A = ByteTensor(3,4).geometric(0.9)
+    myeval('A')
+    myexec('A += 3')
+    myeval('A')
+    myexec('A *= 3')
+    myeval('A')
+    
+    myeval('A')
+    myexec('A /= 3')
+    myeval('A')
+
+    myeval('A + 5')
+    
+    myeval('A * 5')
+    myeval('A / 2')
+
+    B = ByteTensor().resizeAs(A).geometric(0.9)
+    myeval('B')
+    myeval('A + B')
+    
+    myexec('A += B')
+    myeval('A')
+    
+
+def test_pytorch_Byte_constructors():
+    ByteTensor = PyTorch.ByteTensor
+    a = ByteTensor(3,2,5)
+    assert(len(a.size()) == 3)
+    a = ByteTensor(3,2,5,6)
+    assert(len(a.size()) == 4)
+
+def test_Pytorch_Byte_operator_plus():
+    ByteTensor = PyTorch.ByteTensor
+    a = ByteTensor(3,2,5)
+    b = ByteTensor(3,2,5)
+    
+    a.geometric(0.9)
+    b.geometric(0.9)
+    
+    res = a + b
+    for i in range(3*2*5):
+        assert(abs(res.storage()[i] - (a.storage()[i] + b.storage()[i])) < 0.000001)
+
+def test_Pytorch_Byte_operator_plusequals():
+    ByteTensor = PyTorch.ByteTensor
+    a = ByteTensor(3,2,5)
+    b = ByteTensor(3,2,5)
+    
+    a.geometric(0.9)
+    b.geometric(0.9)
+    
+    res = a.clone()
+    res += b
+    for i in range(3*2*5):
+        assert(abs(res.storage()[i] - (a.storage()[i] + b.storage()[i])) < 0.000001)
+
+
+
+
+
+#def test_Pytorch_Byte_cmul():
+#    ByteTensor = PyTorch.ByteTensor
+#    a = ByteTensor(3,2,5)
+#    b = ByteTensor(3,2,5)
+#    
+#    a.geometric(0.9)
+#    b.geometric(0.9)
+#    
+#    res = a.cmul(b)
+#    for i in range(3*2*5):
+#        
+#        assert(abs(res.storage()[i] - ((a.storage()[i] * b.storage()[i])) % 256) < 0.000001)
+#        
+
+def test_Pytorch_Byte_cmul():
+    ByteTensor = PyTorch.ByteTensor
+    a = ByteTensor(3,2,5)
+    b = ByteTensor(3,2,5)
+    
+    a.geometric(0.9)
+    b.geometric(0.9)
+    
+    res = a.clone() #.cmul(b)
+    res.cmul(b)
+    for i in range(3*2*5):
+        
+        assert(abs(res.storage()[i] - ((a.storage()[i] * b.storage()[i])) % 256) < 0.000001)
+        
+
+def test_Pytorch_Byte_operator_div():
+    ByteTensor = PyTorch.ByteTensor
+    a = ByteTensor(3,2,5)
+    b = ByteTensor(3,2,5)
+    
+    a.geometric(0.9)
+    b.geometric(0.9)
+    
+    res = a / b
+    for i in range(3*2*5):
+        assert(abs(res.storage()[i] - (a.storage()[i] / b.storage()[i])) < 0.00001)
+
+def test_Pytorch_Byte_operator_divequals():
+    ByteTensor = PyTorch.ByteTensor
+    a = ByteTensor(3,2,5)
+    b = ByteTensor(3,2,5)
+    
+    a.geometric(0.9)
+    b.geometric(0.9)
+    
+    res = a.clone()
+    res /= b
+    for i in range(3*2*5):
+        assert(abs(res.storage()[i] - (a.storage()[i] / b.storage()[i])) < 0.00001)
+
+
+
+
 if __name__ == '__main__':
     
-    test_pytorchFloat()
+    test_pytorch{'Real': 'Long', 'real': 'long'}()
     
-    test_pytorchByte()
+    test_pytorch{'Real': 'Float', 'real': 'float'}()
     
-    test_pytorchLong()
+    test_pytorch{'Real': 'Double', 'real': 'double'}()
     
-    test_pytorchDouble()
+    test_pytorch{'Real': 'Byte', 'real': 'unsigned char'}()
     

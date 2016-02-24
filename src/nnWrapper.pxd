@@ -10,17 +10,25 @@ cdef extern from "nnWrapper.h":
     void collectGarbage(lua_State *L)
 
 
-cdef extern from "nnWrapper.h":
-    int THFloatTensor_getRefCount(THFloatTensor *self)
 
-cdef extern from "nnWrapper.h":
-    int THByteTensor_getRefCount(THByteTensor *self)
 
 cdef extern from "nnWrapper.h":
     int THLongTensor_getRefCount(THLongTensor *self)
 
+
+
+cdef extern from "nnWrapper.h":
+    int THFloatTensor_getRefCount(THFloatTensor *self)
+
+
+
 cdef extern from "nnWrapper.h":
     int THDoubleTensor_getRefCount(THDoubleTensor *self)
+
+
+
+cdef extern from "nnWrapper.h":
+    int THByteTensor_getRefCount(THByteTensor *self)
 
 
 cdef extern from "nnWrapper.h":

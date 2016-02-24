@@ -1,12 +1,12 @@
 # {{header1}}
 # {{header2}}
 
-{% set types = {
-    'Long': {'real': 'long'},
-    'Float': {'real': 'float'}, 
-    'Double': {'real': 'double'},
-    'Byte': {'real': 'unsigned char'}
-}
+{% set types = [
+    {'Real': 'Long','real': 'long'},
+    {'Real': 'Float', 'real': 'float'},
+    {'Real': 'Double', 'real': 'double'},
+    {'Real': 'Byte', 'real': 'unsigned char'}
+]
 %}
 
 from PyTorch cimport *
@@ -17,7 +17,9 @@ cdef extern from "LuaHelper.h":
     void *getGlobal1(lua_State *L, const char *name1);
     int getLuaRegistryIndex()
 
-{% for Real in types %}
+{% for typedict in types %}
+{% set Real = typedict['Real'] %}
+{% set real = typedict['real'] %}
 {% if Real in ['Double', 'Float'] %}
 cdef extern from "LuaHelper.h":
     TH{{Real}}Tensor *pop{{Real}}Tensor(lua_State *L)

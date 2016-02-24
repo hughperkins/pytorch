@@ -1,7 +1,13 @@
 # {{header1}}
 # {{header2}}
 
-{% set types = {'Long': 'long', 'Float': 'float', 'Double': 'double', 'Byte': 'unsigned char'} %}
+{% set types = [
+    {'Real': 'Long','real': 'long'},
+    {'Real': 'Float', 'real': 'float'},
+    {'Real': 'Double', 'real': 'double'},
+    {'Real': 'Byte', 'real': 'unsigned char'}
+]
+%}
 
 cdef extern from "THRandom.h":
     cdef struct THGenerator
@@ -12,8 +18,9 @@ cdef extern from "nnWrapper.h":
 #cdef struct lua_State
 #cdef struct THGenerator
 
-{% for Real in types %}
-{% set real = types[Real] %}
+{% for typedict in types %}
+{% set Real = typedict['Real'] %}
+{% set real = typedict['real'] %}
 
 cdef extern from "THTensor.h":
     cdef struct TH{{Real}}Tensor

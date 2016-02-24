@@ -1,21 +1,24 @@
 # {{header1}}
 # {{header2}}
 
-{% set types = {
-    'Long': {'real': 'long'},
-    'Float': {'real': 'float'}, 
-    'Double': {'real': 'double'},
-    'Byte': {'real': 'unsigned char'}
-}
+{% set types = [
+    {'Real': 'Long','real': 'long'},
+    {'Real': 'Float', 'real': 'float'},
+    {'Real': 'Double', 'real': 'double'},
+    {'Real': 'Byte', 'real': 'unsigned char'}
+]
 %}
 
-{% for Real in types %}
+{% for typedict in types %}
+{% set Real = typedict['Real'] %}
+{% set real = typedict['real'] %}
 cdef extern from "nnWrapper.h":
     int TH{{Real}}Storage_getRefCount(TH{{Real}}Storage *self)
 {% endfor %}
 
-{% for Real in types %}
-{% set real = types[Real]['real'] %}
+{% for typedict in types %}
+{% set Real = typedict['Real'] %}
+{% set real = typedict['real'] %}
 cdef extern from "THStorage.h":
     cdef struct TH{{Real}}Storage
     TH{{Real}}Storage* TH{{Real}}Storage_newWithData({{real}} *data, long size)
@@ -30,8 +33,9 @@ cdef extern from "THStorage.h":
 
 {% endfor %}
 
-{% for Real in types %}
-{% set real = types[Real]['real'] %}
+{% for typedict in types %}
+{% set Real = typedict['Real'] %}
+{% set real = typedict['real'] %}
 cdef class _{{Real}}Storage(object):
     cdef TH{{Real}}Storage *native
     cpdef long size(self)

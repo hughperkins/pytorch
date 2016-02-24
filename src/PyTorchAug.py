@@ -173,6 +173,9 @@ class LuaClass(object):
                     if not pushedArg and isinstance(arg, float):
                         lua.pushNumber(arg)
                         pushedArg = True
+                    if not pushedArg and isinstance(arg, int):
+                        lua.pushNumber(arg)
+                        pushedArg = True
                     if not pushedArg and isinstance(arg, str):
                         lua.pushString(arg)
                         pushedArg = True

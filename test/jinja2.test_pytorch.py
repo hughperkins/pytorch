@@ -7,12 +7,12 @@ import array
 import numpy
 import inspect
 
-{% set types = {
-    'Long': {'real': 'long'},
-    'Float': {'real': 'float'}, 
-    'Double': {'real': 'double'},
-    'Byte': {'real': 'unsigned char'}
-}
+{% set types = [
+    {'Real': 'Long','real': 'long'},
+    {'Real': 'Float', 'real': 'float'}, 
+    {'Real': 'Double', 'real': 'double'},
+    {'Real': 'Byte', 'real': 'unsigned char'}
+]
 %}
 
 def myeval(expr):
@@ -24,8 +24,9 @@ def myexec(expr):
     print(expr)
     exec(expr, parent_vars)
 
-{% for Real in types %}
-{% set real = types[Real]['real'] %}
+{% for typedict in types %}
+{% set Real = typedict['Real'] %}
+{% set real = typedict['real'] %}
 def test_pytorch{{Real}}():
     PyTorch.manualSeed(123)
     numpy.random.seed(123)

@@ -21,19 +21,20 @@ logger = logging.getLogger(__name__)
 #logger.setLevel(logging.DEBUG)
 
 
-{% set types = {
-    'Long': {'real': 'long'},
-    'Float': {'real': 'float'}, 
-    'Double': {'real': 'double'},
-    'Byte': {'real': 'unsigned char'}
-}
+{% set types = [
+    {'Real': 'Long','real': 'long'},
+    {'Real': 'Float', 'real': 'float'},
+    {'Real': 'Double', 'real': 'double'},
+    {'Real': 'Byte', 'real': 'unsigned char'}
+]
 %}
 
 cdef floatToString(float floatValue):
     return '%.6g'% floatValue
 
-{% for Real in types %}
-{% set real = types[Real]['real'] %}
+{% for typedict in types %}
+{% set Real = typedict['Real'] %}
+{% set real = typedict['real'] %}
 cdef class _{{Real}}Storage(object):
     # properties in .pxd file of same name
 

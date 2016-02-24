@@ -22,12 +22,12 @@ extern "C" {
 
 using namespace std;
 
-{% set types = {
-    'Long': 'long',
-    'Float': 'float',
-    'Double': 'double',
-    'Byte': 'unsigned char'
-}
+{% set types = [
+    {'Real': 'Long','real': 'long'},
+    {'Real': 'Float', 'real': 'float'},
+    {'Real': 'Double', 'real': 'double'},
+    {'Real': 'Byte', 'real': 'unsigned char'}
+]
 %}
 
 lua_State *luaInit() {
@@ -70,7 +70,9 @@ void collectGarbage(lua_State *L) {
     lua_call(L, 0, 0);
 }
 
-{% for Real in types %}
+{% for typedict in types %}
+{% set Real = typedict['Real'] %}
+{% set real = typedict['real'] %}
 int TH{{Real}}Storage_getRefCount(TH{{Real}}Storage *self) {
     return self->refcount;
 }

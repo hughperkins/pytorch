@@ -13,6 +13,12 @@ cdef extern from "LuaHelper.h":
 
 
 
+
+
+
+
+
+
 cdef extern from "LuaHelper.h":
     THFloatTensor *popFloatTensor(lua_State *L)
     void pushFloatTensor(lua_State *L, THFloatTensor *tensor)
@@ -21,11 +27,13 @@ cdef extern from "LuaHelper.h":
 
 
 
-
-
 cdef extern from "LuaHelper.h":
     THDoubleTensor *popDoubleTensor(lua_State *L)
     void pushDoubleTensor(lua_State *L, THDoubleTensor *tensor)
+
+
+
+
 
 
 

@@ -9,17 +9,7 @@
 #include <string>
 
 
-class THFloatTensor;
-class THFloatStorage;
 
-int THFloatStorage_getRefCount(THFloatStorage *self);
-int THFloatTensor_getRefCount(THFloatTensor *self);
-
-class THByteTensor;
-class THByteStorage;
-
-int THByteStorage_getRefCount(THByteStorage *self);
-int THByteTensor_getRefCount(THByteTensor *self);
 
 class THLongTensor;
 class THLongStorage;
@@ -27,11 +17,29 @@ class THLongStorage;
 int THLongStorage_getRefCount(THLongStorage *self);
 int THLongTensor_getRefCount(THLongTensor *self);
 
+
+
+class THFloatTensor;
+class THFloatStorage;
+
+int THFloatStorage_getRefCount(THFloatStorage *self);
+int THFloatTensor_getRefCount(THFloatTensor *self);
+
+
+
 class THDoubleTensor;
 class THDoubleStorage;
 
 int THDoubleStorage_getRefCount(THDoubleStorage *self);
 int THDoubleTensor_getRefCount(THDoubleTensor *self);
+
+
+
+class THByteTensor;
+class THByteStorage;
+
+int THByteStorage_getRefCount(THByteStorage *self);
+int THByteTensor_getRefCount(THByteTensor *self);
 
 
 struct lua_State;

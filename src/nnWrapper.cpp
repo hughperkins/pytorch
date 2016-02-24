@@ -65,19 +65,7 @@ void collectGarbage(lua_State *L) {
 }
 
 
-int THFloatStorage_getRefCount(THFloatStorage *self) {
-    return self->refcount;
-}
-int THFloatTensor_getRefCount(THFloatTensor *self) {
-    return self->refcount;
-}
 
-int THByteStorage_getRefCount(THByteStorage *self) {
-    return self->refcount;
-}
-int THByteTensor_getRefCount(THByteTensor *self) {
-    return self->refcount;
-}
 
 int THLongStorage_getRefCount(THLongStorage *self) {
     return self->refcount;
@@ -86,10 +74,30 @@ int THLongTensor_getRefCount(THLongTensor *self) {
     return self->refcount;
 }
 
+
+
+int THFloatStorage_getRefCount(THFloatStorage *self) {
+    return self->refcount;
+}
+int THFloatTensor_getRefCount(THFloatTensor *self) {
+    return self->refcount;
+}
+
+
+
 int THDoubleStorage_getRefCount(THDoubleStorage *self) {
     return self->refcount;
 }
 int THDoubleTensor_getRefCount(THDoubleTensor *self) {
+    return self->refcount;
+}
+
+
+
+int THByteStorage_getRefCount(THByteStorage *self) {
+    return self->refcount;
+}
+int THByteTensor_getRefCount(THByteTensor *self) {
     return self->refcount;
 }
 

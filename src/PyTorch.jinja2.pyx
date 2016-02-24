@@ -24,12 +24,12 @@ logging.basicConfig()
 logger = logging.getLogger(__name__)
 # logger.setLevel(logging.DEBUG)
 
-{% set types = {
-    'Long': {'real': 'long'},
-    'Float': {'real': 'float'}, 
-    'Double': {'real': 'double'},
-    'Byte': {'real': 'unsigned char'}
-}
+{% set types = [
+    {'Real': 'Long','real': 'long'},
+    {'Real': 'Float', 'real': 'float'},
+    {'Real': 'Double', 'real': 'double'},
+    {'Real': 'Byte', 'real': 'unsigned char'}
+]
 %}
 
 #define real unsigned char
@@ -51,13 +51,15 @@ def manualSeed(long seed):
 cdef floatToString(float floatValue):
     return '%.6g'% floatValue
 
-{% for Real in types %}
+{% for typedict in types %}
+{% set Real = typedict['Real'] %}
+{% set real = typedict['real'] %}
 _{{Real}}Storage = Storage._{{Real}}Storage
 {% endfor %}
 
-{% for Real in types %}
-{% set real = types[Real]['real'] %}
-
+{% for typedict in types %}
+{% set Real = typedict['Real'] %}
+{% set real = typedict['real'] %}
 cdef extern from "THTensor.h":
     cdef struct TH{{Real}}Tensor
     TH{{Real}}Tensor *TH{{Real}}Tensor_new()
@@ -68,6 +70,10 @@ cdef extern from "THTensor.h":
     TH{{Real}}Tensor *TH{{Real}}Tensor_newWithSize4d(long size0, long size1, long size2, long size3)
     TH{{Real}}Tensor* TH{{Real}}Tensor_newWithStorage1d(Storage.TH{{Real}}Storage *storage, long storageOffset, long size0, long stride0)
     TH{{Real}}Tensor* TH{{Real}}Tensor_newWithStorage2d(Storage.TH{{Real}}Storage *storage, long storageOffset, long size0, long stride0, long size1, long stride1)
+    TH{{Real}}Tensor* TH{{Real}}Tensor_newWithStorage3d(Storage.TH{{Real}}Storage *storage, long storageOffset, long size0, long stride0, long size1, long stride1,
+        long size2, long stride2)
+    TH{{Real}}Tensor* TH{{Real}}Tensor_newWithStorage4d(Storage.TH{{Real}}Storage *storage, long storageOffset, long size0, long stride0, long size1, long stride1,
+        long size2, long stride2, long size3, long stride3)
     void TH{{Real}}Tensor_retain(TH{{Real}}Tensor *self)
     void TH{{Real}}Tensor_free(TH{{Real}}Tensor *self)
 
@@ -115,8 +121,9 @@ cdef extern from "THTensor.h":
     {% endif %}
 {% endfor %}
 
-{% for Real in types %}
-{% set real = types[Real]['real'] %}
+{% for typedict in types %}
+{% set Real = typedict['Real'] %}
+{% set real = typedict['real'] %}
 cdef class _{{Real}}Tensor(object):
     # properties are in the PyTorch.pxd file
 
@@ -376,6 +383,21 @@ cdef class _{{Real}}Tensor(object):
         cdef TH{{Real}}Tensor *newTensorC = TH{{Real}}Tensor_newWithStorage2d(storage.native, offset, size0, stride0, size1, stride1)
         return _{{Real}}Tensor_fromNative(newTensorC, False)
 
+    @staticmethod
+    def newWithStorage3d(Storage._{{Real}}Storage storage, offset, size0, stride0, size1, stride1, size2, stride2):
+#        # print('allocate tensor')
+        cdef TH{{Real}}Tensor *newTensorC = TH{{Real}}Tensor_newWithStorage3d(storage.native, offset, size0, stride0, size1, stride1,
+            size2, stride2)
+        return _{{Real}}Tensor_fromNative(newTensorC, False)
+
+    @staticmethod
+    def newWithStorage4d(Storage._{{Real}}Storage storage, offset, size0, stride0, size1, stride1, size2, stride2,
+            size3, stride3):
+#        # print('allocate tensor')
+        cdef TH{{Real}}Tensor *newTensorC = TH{{Real}}Tensor_newWithStorage4d(storage.native, offset, size0, stride0, size1, stride1,
+            size2, stride2, size3, stride3)
+        return _{{Real}}Tensor_fromNative(newTensorC, False)
+
     def clone(_{{Real}}Tensor self):
         cdef TH{{Real}}Tensor *newTensorC = TH{{Real}}Tensor_newClone(self.native)
         return _{{Real}}Tensor_fromNative(newTensorC, False)
@@ -527,16 +549,56 @@ cdef _{{Real}}Tensor_fromNative(TH{{Real}}Tensor *tensorC, retain=True):
 def _asFloatTensor(myarray):
     cdef float[:] myarraymv
     cdef Storage._FloatStorage storage
-    if str(type(myarray)) == "<type 'numpy.ndarray'>":
+    if str(type(myarray)) in ["<type 'numpy.ndarray'>", "<class 'numpy.ndarray'>"]:
         dims = len(myarray.shape)
-        rows = myarray.shape[0]
-        cols = myarray.shape[1]
+        if dims == 1:
+            x1 = myarray.shape[0]
 
-        myarraymv = myarray.reshape(rows * cols)
-        storage = Storage._FloatStorage.newWithData(myarraymv)
-        Storage.THFloatStorage_retain(storage.native) # since newWithData takes ownership
-        tensor = _FloatTensor.newWithStorage2d(storage, 0, rows, cols, cols, 1)
-        return tensor
+            myarraymv = myarray.reshape(x1)
+            storage = Storage._FloatStorage.newWithData(myarraymv)
+            Storage.THFloatStorage_retain(storage.native) # since newWithData takes ownership
+            tensor = _FloatTensor.newWithStorage1d(storage, 0,
+                x1, 1)
+            return tensor
+        elif dims == 2:
+            rows = myarray.shape[0]
+            cols = myarray.shape[1]
+
+            myarraymv = myarray.reshape(rows * cols)
+            storage = Storage._FloatStorage.newWithData(myarraymv)
+            Storage.THFloatStorage_retain(storage.native) # since newWithData takes ownership
+            tensor = _FloatTensor.newWithStorage2d(storage, 0, rows, cols, cols, 1)
+            return tensor
+        elif dims == 3:
+            x1 = myarray.shape[0]
+            x2 = myarray.shape[1]
+            x3 = myarray.shape[2]
+
+            myarraymv = myarray.reshape(x1 * x2 * x3)
+            storage = Storage._FloatStorage.newWithData(myarraymv)
+            Storage.THFloatStorage_retain(storage.native) # since newWithData takes ownership
+            tensor = _FloatTensor.newWithStorage3d(storage, 0,
+                x1, x2 * x3,
+                x2, x3,
+                x3, 1)
+            return tensor
+        elif dims == 4:
+            x1 = myarray.shape[0]
+            x2 = myarray.shape[1]
+            x3 = myarray.shape[2]
+            x4 = myarray.shape[3]
+
+            myarraymv = myarray.reshape(x1 * x2 * x3 * x4)
+            storage = Storage._FloatStorage.newWithData(myarraymv)
+            Storage.THFloatStorage_retain(storage.native) # since newWithData takes ownership
+            tensor = _FloatTensor.newWithStorage4d(storage, 0,
+                x1, x2 * x3 * x4,
+                x2, x3 * x4,
+                x3, x4,
+                x4, 1)
+            return tensor
+        else:
+            raise Exception('dims > 4 not implemented; please raise an issue')
     elif isinstance(myarray, array.array):
         myarraymv = myarray
         storage = Storage._FloatStorage.newWithData(myarraymv)
@@ -549,7 +611,7 @@ def _asFloatTensor(myarray):
 def _asDoubleTensor(myarray):
     cdef double[:] myarraymv
     cdef Storage._DoubleStorage storage
-    if str(type(myarray)) == "<type 'numpy.ndarray'>":
+    if str(type(myarray)) in ["<type 'numpy.ndarray'>", "<class 'numpy.ndarray'>"]:
         dims = len(myarray.shape)
         rows = myarray.shape[0]
         cols = myarray.shape[1]
@@ -582,7 +644,9 @@ cdef class GlobalState(object):
     def getLua(self):
         return LuaState_fromNative(self.L)
 
-{% for Real in types %}
+{% for typedict in types %}
+{% set Real = typedict['Real'] %}
+{% set real = typedict['real'] %}
 {% if Real in ['Double', 'Float'] %}
 def _pop{{Real}}Tensor():
     global globalState
@@ -596,8 +660,9 @@ def _push{{Real}}Tensor(_{{Real}}Tensor tensor):
 {% endfor %}
 
 # there's probably an official Torch way of doing this
-{% for Real in types %}
-{% set real = types[Real]['real'] %}
+{% for typedict in types %}
+{% set Real = typedict['Real'] %}
+{% set real = typedict['real'] %}
 {% if Real in ['Double', 'Float'] %}
 cpdef int get{{Real}}Prediction(_{{Real}}Tensor output):
     cdef int prediction = 0
