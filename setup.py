@@ -77,7 +77,7 @@ libraries = []
 #libraries.append('lua5.1')
 #libraries.append('luaT')
 #libraries.append('mylib')
-libraries.append('TorchLanguageIndependence')
+libraries.append('PyTorchNative')
 #libraries.append('TH')
 library_dirs = []
 library_dirs.append('cbuild')
@@ -120,7 +120,7 @@ ext_modules = cythonize(ext_modules)
 
 setup(
     name='PyTorch',
-    version='',
+    version='1.0.0',
     author='Hugh Perkins',
     author_email='hughperkins@gmail.com',
     description=(

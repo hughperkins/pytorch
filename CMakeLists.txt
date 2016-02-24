@@ -16,13 +16,13 @@ include_directories(${HOME}/torch/install/include)
 #endforeach()
 
 #SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wl,-export-dynamic")
-add_library(TorchLanguageIndependence SHARED src/nnWrapper.cpp src/LuaHelper.cpp)
+add_library(PyTorchNative SHARED src/nnWrapper.cpp src/LuaHelper.cpp)
 #add_library(nnWrapper SHARED nnWrapper.cpp ${lua_src})
-target_link_libraries(TorchLanguageIndependence ${LUA_LIBRARIES})
-target_link_libraries(TorchLanguageIndependence ${HOME}/torch/install/lib/libluaT.so)
-target_link_libraries(TorchLanguageIndependence ${HOME}/torch/install/lib/libTH.so)
+target_link_libraries(PyTorchNative ${LUA_LIBRARIES})
+target_link_libraries(PyTorchNative ${HOME}/torch/install/lib/libluaT.so)
+target_link_libraries(PyTorchNative ${HOME}/torch/install/lib/libTH.so)
 
-install(TARGETS TorchLanguageIndependence
+install(TARGETS PyTorchNative
     RUNTIME DESTINATION bin
     ARCHIVE DESTINATION lib
     LIBRARY DESTINATION lib)

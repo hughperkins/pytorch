@@ -201,6 +201,11 @@ class LuaClass(object):
                     topEnd = lua.getTop()
                     assert topStart == topEnd
                     return res
+                elif returntype == 'string':
+                    res = popString(lua)
+                    topEnd = lua.getTop()
+                    assert topStart == topEnd
+                    return res
                 elif returntype in luaClasses:
                     returnobject = luaClasses[returntype](_fromLua=True)
                     registerObject(lua, returnobject)

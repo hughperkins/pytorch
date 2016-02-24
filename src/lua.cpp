@@ -15,7 +15,7 @@
         ],
         "language": "c++",
         "libraries": [
-            "TorchLanguageIndependence"
+            "PyTorchNative"
         ],
         "library_dirs": [
             "cbuild",

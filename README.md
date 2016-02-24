@@ -1,5 +1,5 @@
 # pytorch
-POC for wrapping torch in python
+Wrappers to use torch and lua from python
 
 # What is implemented
 
