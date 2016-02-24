@@ -25,9 +25,9 @@ logger = logging.getLogger(__name__)
 # logger.setLevel(logging.DEBUG)
 
 {% set types = [
-    {'Real': 'Long','real': 'long'},
     {'Real': 'Float', 'real': 'float'},
     {'Real': 'Double', 'real': 'double'},
+    {'Real': 'Long','real': 'long'},
     {'Real': 'Byte', 'real': 'unsigned char'}
 ]
 %}
