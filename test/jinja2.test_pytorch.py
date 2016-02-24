@@ -302,7 +302,9 @@ def test_Pytorch_{{Real}}_operator_divequals():
 {% endfor %}
 
 if __name__ == '__main__':
-    {% for Real in types %}
+    {% for typedict in types %}
+    {% set Real = typedict['Real'] %}
+    {% set real = typedict['real'] %}
     test_pytorch{{Real}}()
     {% endfor %}
 

@@ -859,11 +859,19 @@ def test_Pytorch_Byte_operator_divequals():
 
 if __name__ == '__main__':
     
-    test_pytorch{'Real': 'Long', 'real': 'long'}()
     
-    test_pytorch{'Real': 'Float', 'real': 'float'}()
     
-    test_pytorch{'Real': 'Double', 'real': 'double'}()
+    test_pytorchLong()
     
-    test_pytorch{'Real': 'Byte', 'real': 'unsigned char'}()
+    
+    
+    test_pytorchFloat()
+    
+    
+    
+    test_pytorchDouble()
+    
+    
+    
+    test_pytorchByte()
     
