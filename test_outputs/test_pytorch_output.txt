@@ -1,8 +1,409 @@
 ============================= test session starts ==============================
-platform linux2 -- Python 2.7.6 -- py-1.4.30 -- pytest-2.7.2 -- /home/user/envs/bin/python
-rootdir: /data/norep/git/pytorch, inifile: 
+platform linux -- Python 3.4.3+, pytest-2.8.7, py-1.4.31, pluggy-0.3.1 -- /media/ubuntu/data/norep/git/asapp/py/env/bin/python3
+cachedir: .cache
+rootdir: /media/ubuntu/data/norep/git/pytorch, inifile: 
 collecting ... collected 34 items
 
+test/test_pytorch.py::test_pytorchLong D 1 1 1
+1 1 1
+1 1 1
+1 1 1
+1 1 1
+[torch.LongTensor of size 5x3]
+
+D 1 1 1
+1 1 1
+1 1 4
+1 1 1
+1 1 1
+[torch.LongTensor of size 5x3]
+
+D 1 1 1
+1 1 1
+1 1 4
+9 9 9
+1 1 1
+[torch.LongTensor of size 5x3]
+
+D 1 1 0
+1 1 0
+1 1 0
+9 9 0
+1 1 0
+[torch.LongTensor of size 5x3]
+
+0 0 1 1
+1 0 0 0
+0 1 1 0
+[torch.LongTensor of size 3x4]
+
+6 1 2 2
+1 1 1 1
+1 2 2 1
+[torch.LongTensor of size 3x4]
+
+1 1 1 2
+1 2 2 2
+1 1 1 1
+[torch.LongTensor of size 3x4]
+
+2 1 2 3
+1 1 2 2
+4 1 4 1
+[torch.LongTensor of size 3x4]
+
+2 1 2 3
+1 1 2 2
+4 1 4 1
+[torch.LongTensor of size 3x4]
+
+<class 'floattensor.LongTensor'>
+D after resize:
+ 1 1 0
+1 1 0
+1 1 0
+9 9 0
+[torch.LongTensor of size 4x3]
+
+resize1d 1 1 1
+[torch.LongTensor of size 3]
+
+resize2d 1 1 1
+1 1 1
+[torch.LongTensor of size 2x3]
+
+resize 1 1 1
+1 1 1
+1 1 1
+1 1 1
+[torch.LongTensor of size 4x3]
+
+LongTensor(3,2).nElement() : 6
+LongTensor().nElement() : 0
+LongTensor(1).nElement() : 1
+A : 10 3 4 5
+11 7 9 24
+1 14 8 35
+[torch.LongTensor of size 3x4]
+
+A += 3
+A : 13 6 7 8
+14 10 12 27
+4 17 11 38
+[torch.LongTensor of size 3x4]
+
+A *= 3
+A : 39 18 21 24
+42 30 36 81
+12 51 33 114
+[torch.LongTensor of size 3x4]
+
+A -= 3
+A : 36 15 18 21
+39 27 33 78
+9 48 30 111
+[torch.LongTensor of size 3x4]
+
+A /= 3
+A : 12 5 6 7
+13 9 11 26
+3 16 10 37
+[torch.LongTensor of size 3x4]
+
+A + 5 : 17 10 11 12
+18 14 16 31
+8 21 15 42
+[torch.LongTensor of size 3x4]
+
+A - 5 : 7 0 1 2
+8 4 6 21
+-2 11 5 32
+[torch.LongTensor of size 3x4]
+
+A * 5 : 60 25 30 35
+65 45 55 130
+15 80 50 185
+[torch.LongTensor of size 3x4]
+
+A / 2 : 6 2 3 3
+6 4 5 13
+1 8 5 18
+[torch.LongTensor of size 3x4]
+
+B : 3 5 6 8
+4 4 12 9
+6 4 2 6
+[torch.LongTensor of size 3x4]
+
+A + B : 15 10 12 15
+17 13 23 35
+9 20 12 43
+[torch.LongTensor of size 3x4]
+
+A - B : 9 0 0 -1
+9 5 -1 17
+-3 12 8 31
+[torch.LongTensor of size 3x4]
+
+A += B
+A : 15 10 12 15
+17 13 23 35
+9 20 12 43
+[torch.LongTensor of size 3x4]
+
+A -= B
+A : 12 5 6 7
+13 9 11 26
+3 16 10 37
+[torch.LongTensor of size 3x4]
+
+PASSED
+test/test_pytorch.py::test_pytorch_Long_constructors PASSED
+test/test_pytorch.py::test_Pytorch_Long_operator_plus PASSED
+test/test_pytorch.py::test_Pytorch_Long_operator_plusequals PASSED
+test/test_pytorch.py::test_Pytorch_Long_operator_minus PASSED
+test/test_pytorch.py::test_Pytorch_Long_operator_minusequals PASSED
+test/test_pytorch.py::test_Pytorch_Long_cmul PASSED
+test/test_pytorch.py::test_Pytorch_Long_operator_div PASSED
+test/test_pytorch.py::test_Pytorch_Long_operator_divequals PASSED
+test/test_pytorch.py::test_pytorchFloat C [[ 0.78126878  0.68557262  0.46044704  0.29017398]
+ [ 0.4116869   0.55729043  0.35089147  0.12185374]
+ [ 0.85083026  0.80117935  0.5315783   0.30736649]]
+calling .asTensor...
+type(f1) <class 'PyTorch._FloatTensor'>
+type(f1) <class 'PyTorch._FloatTensor'>
+ ... asTensor called
+tensorA 0.696469 0.286139
+0.226851 0.551315
+0.719469 0.423106
+[torch.FloatTensor of size 3x2]
+
+tensorA 0.696469 0.286139
+0.226851 56.4
+76.5 0.423106
+[torch.FloatTensor of size 3x2]
+
+A [[ 0.69646919  0.28613934]
+ [ 0.22685145  0.55131477]
+ [ 0.71946895  0.42310646]]
+add 5 to tensorA
+tensorA 5.69647 5.28614
+5.22685 61.4
+81.5 5.42311
+[torch.FloatTensor of size 3x2]
+
+A [[ 0.69646919  0.28613934]
+ [ 0.22685145  0.55131477]
+ [ 0.71946895  0.42310646]]
+add 7 to tensorA
+tensorA2 12.6965 12.2861
+12.2269 68.4
+88.5 12.4231
+[torch.FloatTensor of size 3x2]
+
+tensorA 5.69647 5.28614
+5.22685 61.4
+81.5 5.42311
+[torch.FloatTensor of size 3x2]
+
+tensorAB 7.40098 7.75497 5.05797 2.54915
+26.1974 48.3432 29.4421 5.71376
+81.7934 59.7673 41.5744 32.2812
+[torch.FloatTensor of size 3x4]
+
+A.dot(B) [[ 0.78126878  0.68557262  0.46044704  0.29017398]
+ [ 0.4116869   0.55729043  0.35089147  0.12185374]
+ [ 0.85083026  0.80117935  0.5315783   0.30736649]]
+tensorA[2] 81.5 5.42311
+[torch.FloatTensor of size 2]
+
+D 1 1 1
+1 1 1
+1 1 1
+1 1 1
+1 1 1
+[torch.FloatTensor of size 5x3]
+
+D 1 1 1
+1 1 1
+1 1 4
+1 1 1
+1 1 1
+[torch.FloatTensor of size 5x3]
+
+D 1 1 1
+1 1 1
+1 1 4
+9 9 9
+1 1 1
+[torch.FloatTensor of size 5x3]
+
+D 1 1 0
+1 1 0
+1 1 0
+9 9 0
+1 1 0
+[torch.FloatTensor of size 5x3]
+
+0.696469 0.712955 0.286139 0.428471
+0.226851 0.690885 0.551315 0.71915
+0.719469 0.491119 0.423106 0.780028
+[torch.FloatTensor of size 3x4]
+
+1.02128 -0.124039 -0.524194 -1.20779
+-0.545182 0.0656317 -0.78862 0.634921
+-0.776378 1.17102 -0.116186 -0.877537
+[torch.FloatTensor of size 3x4]
+
+-0.195413 -1.03348 -5.27116 0.701663
+-0.331726 0.30387 0.927281 0.439439
+-1.54881 -0.189923 -1.62667 -3.7137
+[torch.FloatTensor of size 3x4]
+
+0.758329 1.24594 0.758919 0.558378
+1.00622 0.353509 1.89334 0.677441
+1.28901 1.34821 0.944236 0.442745
+[torch.FloatTensor of size 3x4]
+
+0.356351 0.12205 0.197217 2.34994
+0.202356 1.14136 0.507408 1.12089
+0.160729 16.8919 0.102781 0.0916343
+[torch.FloatTensor of size 3x4]
+
+1 0 1 1
+1 1 1 1
+1 1 1 0
+[torch.FloatTensor of size 3x4]
+
+1 3 4 2
+5 2 2 1
+2 2 1 1
+[torch.FloatTensor of size 3x4]
+
+1 1 1 2
+3 4 1 1
+1 1 7 1
+[torch.FloatTensor of size 3x4]
+
+2 1 2 3
+1 1 2 2
+4 1 4 1
+[torch.FloatTensor of size 3x4]
+
+2 1 2 3
+1 1 2 2
+4 1 4 1
+[torch.FloatTensor of size 3x4]
+
+<class 'floattensor.FloatTensor'>
+D after resize:
+ 1 1 0
+1 1 0
+1 1 0
+9 9 0
+[torch.FloatTensor of size 4x3]
+
+resize1d 1 1 1
+[torch.FloatTensor of size 3]
+
+resize2d 1 1 1
+1 1 1
+[torch.FloatTensor of size 2x3]
+
+resize 1 1 1
+1 1 1
+1 1 1
+1 1 1
+[torch.FloatTensor of size 4x3]
+
+FloatTensor(3,2).nElement() : 6
+FloatTensor().nElement() : 0
+FloatTensor(1).nElement() : 1
+A : 10 3 4 5
+11 7 9 24
+1 14 8 35
+[torch.FloatTensor of size 3x4]
+
+A += 3
+A : 13 6 7 8
+14 10 12 27
+4 17 11 38
+[torch.FloatTensor of size 3x4]
+
+A *= 3
+A : 39 18 21 24
+42 30 36 81
+12 51 33 114
+[torch.FloatTensor of size 3x4]
+
+A -= 3
+A : 36 15 18 21
+39 27 33 78
+9 48 30 111
+[torch.FloatTensor of size 3x4]
+
+A /= 3
+A : 12 5 6 7
+13 9 11 26
+3 16 10 37
+[torch.FloatTensor of size 3x4]
+
+A + 5 : 17 10 11 12
+18 14 16 31
+8 21 15 42
+[torch.FloatTensor of size 3x4]
+
+A - 5 : 7 0 1 2
+8 4 6 21
+-2 11 5 32
+[torch.FloatTensor of size 3x4]
+
+A * 5 : 60 25 30 35
+65 45 55 130
+15 80 50 185
+[torch.FloatTensor of size 3x4]
+
+A / 2 : 6 2.5 3 3.5
+6.5 4.5 5.5 13
+1.5 8 5 18.5
+[torch.FloatTensor of size 3x4]
+
+B : 3 5 6 8
+4 4 12 9
+6 4 2 6
+[torch.FloatTensor of size 3x4]
+
+A + B : 15 10 12 15
+17 13 23 35
+9 20 12 43
+[torch.FloatTensor of size 3x4]
+
+A - B : 9 0 0 -1
+9 5 -1 17
+-3 12 8 31
+[torch.FloatTensor of size 3x4]
+
+A += B
+A : 15 10 12 15
+17 13 23 35
+9 20 12 43
+[torch.FloatTensor of size 3x4]
+
+A -= B
+A : 12 5 6 7
+13 9 11 26
+3 16 10 37
+[torch.FloatTensor of size 3x4]
+
+PASSED
+test/test_pytorch.py::test_pytorch_Float_constructors PASSED
+test/test_pytorch.py::test_Pytorch_Float_operator_plus PASSED
+test/test_pytorch.py::test_Pytorch_Float_operator_plusequals PASSED
+test/test_pytorch.py::test_Pytorch_Float_operator_minus PASSED
+test/test_pytorch.py::test_Pytorch_Float_operator_minusequals PASSED
+test/test_pytorch.py::test_Pytorch_Float_cmul PASSED
+test/test_pytorch.py::test_Pytorch_Float_operator_div PASSED
+test/test_pytorch.py::test_Pytorch_Float_operator_divequals PASSED
 test/test_pytorch.py::test_pytorchDouble D 1.0 1.0 1.0
 1.0 1.0 1.0
 1.0 1.0 1.0
@@ -31,29 +432,29 @@ D 1.0 1.0 0.0
 1.0 1.0 0.0
 [torch.DoubleTensor of size 5x3]
 
-0.696469187271 0.712955321418 0.286139338743 0.428470924962
-0.226851454936 0.690884851385 0.551314765122 0.719150308752
-0.71946897055 0.491118932609 0.423106460599 0.780027760426
+0.6964691872708499 0.7129553214181215 0.2861393387429416 0.428470924962312
+0.22685145493596792 0.690884851384908 0.5513147651217878 0.7191503087524325
+0.7194689705502242 0.491118932608515 0.42310646059922874 0.7800277604255825
 [torch.DoubleTensor of size 3x4]
 
-1.02128143748 -0.124038772681 -0.524193971499 -1.20779411263
--0.545182313618 0.0656317261876 -0.78861971618 0.634921189764
--0.776378451589 1.17102121848 -0.116186091932 -0.87753728435
+1.0212814374766537 -0.12403877268092005 -0.5241939714994596 -1.2077941126295695
+-0.5451823136177024 0.06563172618761025 -0.788619716179707 0.6349211897641774
+-0.7763784515887878 1.17102121848011 -0.11618609193227018 -0.8775372843501266
 [torch.DoubleTensor of size 3x4]
 
--0.195412853764 -1.03348270807 -5.27115705267 0.701663339505
--0.331726194065 0.303869587949 0.927280902103 0.439439085943
--1.5488147215 -0.189922983524 -1.62666512929 -3.71369722963
+-0.19541285376404915 -1.033482708073315 -5.27115705267452 0.701663339504767
+-0.33172619406462084 0.3038695879493795 0.9272809021034661 0.4394390859425326
+-1.5488147214952006 -0.18992298352389006 -1.6266651292885788 -3.71369722963019
 [torch.DoubleTensor of size 3x4]
 
-0.758328831478 1.24594190754 0.758918650407 0.558377661537
-1.00621807048 0.353509243152 1.89333910235 0.677440721362
-1.28900549091 1.34821424774 0.944236385858 0.442744821336
+0.7583288314784893 1.2459419075377534 0.75891865040654 0.5583776615366842
+1.0062180704795065 0.3535092431523577 1.8933391023505246 0.6774407213615766
+1.2890054909078659 1.3482142477448318 0.944236385858016 0.44274482133639714
 [torch.DoubleTensor of size 3x4]
 
-0.356351337978 0.122049876311 0.197217357975 2.34994214246
-0.202356118104 1.14136018966 0.507407633405 1.12089296391
-0.16072887931 16.8918513001 0.102780625187 0.0916342699456
+0.3563513379778767 0.12204987631133647 0.197217357974964 2.349942142463862
+0.20235611810358634 1.1413601896634313 0.5074076334050943 1.1208929639123917
+0.16072887930956453 16.89185130005255 0.10278062518727146 0.09163426994563528
 [torch.DoubleTensor of size 3x4]
 
 1.0 0.0 1.0 1.0
@@ -333,404 +734,4 @@ test/test_pytorch.py::test_Pytorch_Byte_operator_plusequals PASSED
 test/test_pytorch.py::test_Pytorch_Byte_cmul PASSED
 test/test_pytorch.py::test_Pytorch_Byte_operator_div PASSED
 test/test_pytorch.py::test_Pytorch_Byte_operator_divequals PASSED
-test/test_pytorch.py::test_pytorchFloat C [[ 0.78126878  0.68557262  0.46044704  0.29017398]
- [ 0.4116869   0.55729043  0.35089147  0.12185374]
- [ 0.85083026  0.80117935  0.5315783   0.30736649]]
-calling .asTensor...
-type(f1) <type 'PyTorch._FloatTensor'>
-type(f1) <type 'PyTorch._FloatTensor'>
- ... asTensor called
-tensorA 0.696469 0.286139
-0.226851 0.551315
-0.719469 0.423106
-[torch.FloatTensor of size 3x2]
-
-tensorA 0.696469 0.286139
-0.226851 56.4
-76.5 0.423106
-[torch.FloatTensor of size 3x2]
-
-A [[ 0.69646919  0.28613934]
- [ 0.22685145  0.55131477]
- [ 0.71946895  0.42310646]]
-add 5 to tensorA
-tensorA 5.69647 5.28614
-5.22685 61.4
-81.5 5.42311
-[torch.FloatTensor of size 3x2]
-
-A [[ 0.69646919  0.28613934]
- [ 0.22685145  0.55131477]
- [ 0.71946895  0.42310646]]
-add 7 to tensorA
-tensorA2 12.6965 12.2861
-12.2269 68.4
-88.5 12.4231
-[torch.FloatTensor of size 3x2]
-
-tensorA 5.69647 5.28614
-5.22685 61.4
-81.5 5.42311
-[torch.FloatTensor of size 3x2]
-
-tensorAB 7.40098 7.75497 5.05797 2.54915
-26.1974 48.3432 29.4421 5.71376
-81.7934 59.7673 41.5744 32.2812
-[torch.FloatTensor of size 3x4]
-
-A.dot(B) [[ 0.78126878  0.68557262  0.46044704  0.29017398]
- [ 0.4116869   0.55729043  0.35089147  0.12185374]
- [ 0.85083026  0.80117935  0.5315783   0.30736649]]
-tensorA[2] 81.5 5.42311
-[torch.FloatTensor of size 2]
-
-D 1 1 1
-1 1 1
-1 1 1
-1 1 1
-1 1 1
-[torch.FloatTensor of size 5x3]
-
-D 1 1 1
-1 1 1
-1 1 4
-1 1 1
-1 1 1
-[torch.FloatTensor of size 5x3]
-
-D 1 1 1
-1 1 1
-1 1 4
-9 9 9
-1 1 1
-[torch.FloatTensor of size 5x3]
-
-D 1 1 0
-1 1 0
-1 1 0
-9 9 0
-1 1 0
-[torch.FloatTensor of size 5x3]
-
-0.696469 0.712955 0.286139 0.428471
-0.226851 0.690885 0.551315 0.71915
-0.719469 0.491119 0.423106 0.780028
-[torch.FloatTensor of size 3x4]
-
-1.02128 -0.124039 -0.524194 -1.20779
--0.545182 0.0656317 -0.78862 0.634921
--0.776378 1.17102 -0.116186 -0.877537
-[torch.FloatTensor of size 3x4]
-
--0.195413 -1.03348 -5.27116 0.701663
--0.331726 0.30387 0.927281 0.439439
--1.54881 -0.189923 -1.62667 -3.7137
-[torch.FloatTensor of size 3x4]
-
-0.758329 1.24594 0.758919 0.558378
-1.00622 0.353509 1.89334 0.677441
-1.28901 1.34821 0.944236 0.442745
-[torch.FloatTensor of size 3x4]
-
-0.356351 0.12205 0.197217 2.34994
-0.202356 1.14136 0.507408 1.12089
-0.160729 16.8919 0.102781 0.0916343
-[torch.FloatTensor of size 3x4]
-
-1 0 1 1
-1 1 1 1
-1 1 1 0
-[torch.FloatTensor of size 3x4]
-
-1 3 4 2
-5 2 2 1
-2 2 1 1
-[torch.FloatTensor of size 3x4]
-
-1 1 1 2
-3 4 1 1
-1 1 7 1
-[torch.FloatTensor of size 3x4]
-
-2 1 2 3
-1 1 2 2
-4 1 4 1
-[torch.FloatTensor of size 3x4]
-
-2 1 2 3
-1 1 2 2
-4 1 4 1
-[torch.FloatTensor of size 3x4]
-
-<class 'floattensor.FloatTensor'>
-D after resize:
- 1 1 0
-1 1 0
-1 1 0
-9 9 0
-[torch.FloatTensor of size 4x3]
-
-resize1d 1 1 1
-[torch.FloatTensor of size 3]
-
-resize2d 1 1 1
-1 1 1
-[torch.FloatTensor of size 2x3]
-
-resize 1 1 1
-1 1 1
-1 1 1
-1 1 1
-[torch.FloatTensor of size 4x3]
-
-FloatTensor(3,2).nElement() : 6
-FloatTensor().nElement() : 0
-FloatTensor(1).nElement() : 1
-A : 10 3 4 5
-11 7 9 24
-1 14 8 35
-[torch.FloatTensor of size 3x4]
-
-A += 3
-A : 13 6 7 8
-14 10 12 27
-4 17 11 38
-[torch.FloatTensor of size 3x4]
-
-A *= 3
-A : 39 18 21 24
-42 30 36 81
-12 51 33 114
-[torch.FloatTensor of size 3x4]
-
-A -= 3
-A : 36 15 18 21
-39 27 33 78
-9 48 30 111
-[torch.FloatTensor of size 3x4]
-
-A /= 3
-A : 12 5 6 7
-13 9 11 26
-3 16 10 37
-[torch.FloatTensor of size 3x4]
-
-A + 5 : 17 10 11 12
-18 14 16 31
-8 21 15 42
-[torch.FloatTensor of size 3x4]
-
-A - 5 : 7 0 1 2
-8 4 6 21
--2 11 5 32
-[torch.FloatTensor of size 3x4]
-
-A * 5 : 60 25 30 35
-65 45 55 130
-15 80 50 185
-[torch.FloatTensor of size 3x4]
-
-A / 2 : 6 2.5 3 3.5
-6.5 4.5 5.5 13
-1.5 8 5 18.5
-[torch.FloatTensor of size 3x4]
-
-B : 3 5 6 8
-4 4 12 9
-6 4 2 6
-[torch.FloatTensor of size 3x4]
-
-A + B : 15 10 12 15
-17 13 23 35
-9 20 12 43
-[torch.FloatTensor of size 3x4]
-
-A - B : 9 0 0 -1
-9 5 -1 17
--3 12 8 31
-[torch.FloatTensor of size 3x4]
-
-A += B
-A : 15 10 12 15
-17 13 23 35
-9 20 12 43
-[torch.FloatTensor of size 3x4]
-
-A -= B
-A : 12 5 6 7
-13 9 11 26
-3 16 10 37
-[torch.FloatTensor of size 3x4]
-
-PASSED
-test/test_pytorch.py::test_pytorch_Float_constructors PASSED
-test/test_pytorch.py::test_Pytorch_Float_operator_plus PASSED
-test/test_pytorch.py::test_Pytorch_Float_operator_plusequals PASSED
-test/test_pytorch.py::test_Pytorch_Float_operator_minus PASSED
-test/test_pytorch.py::test_Pytorch_Float_operator_minusequals PASSED
-test/test_pytorch.py::test_Pytorch_Float_cmul PASSED
-test/test_pytorch.py::test_Pytorch_Float_operator_div PASSED
-test/test_pytorch.py::test_Pytorch_Float_operator_divequals PASSED
-test/test_pytorch.py::test_pytorchLong D 1 1 1
-1 1 1
-1 1 1
-1 1 1
-1 1 1
-[torch.LongTensor of size 5x3]
-
-D 1 1 1
-1 1 1
-1 1 4
-1 1 1
-1 1 1
-[torch.LongTensor of size 5x3]
-
-D 1 1 1
-1 1 1
-1 1 4
-9 9 9
-1 1 1
-[torch.LongTensor of size 5x3]
-
-D 1 1 0
-1 1 0
-1 1 0
-9 9 0
-1 1 0
-[torch.LongTensor of size 5x3]
-
-0 0 1 1
-1 0 0 0
-0 1 1 0
-[torch.LongTensor of size 3x4]
-
-6 1 2 2
-1 1 1 1
-1 2 2 1
-[torch.LongTensor of size 3x4]
-
-1 1 1 2
-1 2 2 2
-1 1 1 1
-[torch.LongTensor of size 3x4]
-
-2 1 2 3
-1 1 2 2
-4 1 4 1
-[torch.LongTensor of size 3x4]
-
-2 1 2 3
-1 1 2 2
-4 1 4 1
-[torch.LongTensor of size 3x4]
-
-<class 'floattensor.LongTensor'>
-D after resize:
- 1 1 0
-1 1 0
-1 1 0
-9 9 0
-[torch.LongTensor of size 4x3]
-
-resize1d 1 1 1
-[torch.LongTensor of size 3]
-
-resize2d 1 1 1
-1 1 1
-[torch.LongTensor of size 2x3]
-
-resize 1 1 1
-1 1 1
-1 1 1
-1 1 1
-[torch.LongTensor of size 4x3]
-
-LongTensor(3,2).nElement() : 6
-LongTensor().nElement() : 0
-LongTensor(1).nElement() : 1
-A : 10 3 4 5
-11 7 9 24
-1 14 8 35
-[torch.LongTensor of size 3x4]
-
-A += 3
-A : 13 6 7 8
-14 10 12 27
-4 17 11 38
-[torch.LongTensor of size 3x4]
-
-A *= 3
-A : 39 18 21 24
-42 30 36 81
-12 51 33 114
-[torch.LongTensor of size 3x4]
-
-A -= 3
-A : 36 15 18 21
-39 27 33 78
-9 48 30 111
-[torch.LongTensor of size 3x4]
-
-A /= 3
-A : 12 5 6 7
-13 9 11 26
-3 16 10 37
-[torch.LongTensor of size 3x4]
-
-A + 5 : 17 10 11 12
-18 14 16 31
-8 21 15 42
-[torch.LongTensor of size 3x4]
-
-A - 5 : 7 0 1 2
-8 4 6 21
--2 11 5 32
-[torch.LongTensor of size 3x4]
-
-A * 5 : 60 25 30 35
-65 45 55 130
-15 80 50 185
-[torch.LongTensor of size 3x4]
-
-A / 2 : 6 2 3 3
-6 4 5 13
-1 8 5 18
-[torch.LongTensor of size 3x4]
-
-B : 3 5 6 8
-4 4 12 9
-6 4 2 6
-[torch.LongTensor of size 3x4]
-
-A + B : 15 10 12 15
-17 13 23 35
-9 20 12 43
-[torch.LongTensor of size 3x4]
-
-A - B : 9 0 0 -1
-9 5 -1 17
--3 12 8 31
-[torch.LongTensor of size 3x4]
-
-A += B
-A : 15 10 12 15
-17 13 23 35
-9 20 12 43
-[torch.LongTensor of size 3x4]
-
-A -= B
-A : 12 5 6 7
-13 9 11 26
-3 16 10 37
-[torch.LongTensor of size 3x4]
-
-PASSED
-test/test_pytorch.py::test_pytorch_Long_constructors PASSED
-test/test_pytorch.py::test_Pytorch_Long_operator_plus PASSED
-test/test_pytorch.py::test_Pytorch_Long_operator_plusequals PASSED
-test/test_pytorch.py::test_Pytorch_Long_operator_minus PASSED
-test/test_pytorch.py::test_Pytorch_Long_operator_minusequals PASSED
-test/test_pytorch.py::test_Pytorch_Long_cmul PASSED
-test/test_pytorch.py::test_Pytorch_Long_operator_div PASSED
-test/test_pytorch.py::test_Pytorch_Long_operator_divequals PASSED
 

@@ -5,11 +5,13 @@
 #    ... or similar
 # - torch is expected to be at $HOME/torch
 
-export PYTHONPATH=.:src
+# export PYTHONPATH=.:src
+
+source ~/torch/install/bin/torch-activate
 
 if [[ x$RUNGDB == x ]]; then {
-    LD_LIBRARY_PATH=$HOME/torch/install/lib:$PWD/cbuild stdbuf --output=L py.test -sv test/test* $* | grep --line-buffered -v 'seconds =============' | tee test_outputs/tests_output.txt
+    stdbuf --output=L py.test -sv test/test* $* | grep --line-buffered -v 'seconds =============' | tee test_outputs/tests_output.txt
 } else {
-    LD_LIBRARY_PATH=$HOME/torch/install/lib:$PWD/cbuild rungdb.sh python $(which py.test) test/test* $*
+    rungdb.sh python $(which py.test) test/test* $*
 } fi
 
