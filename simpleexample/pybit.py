@@ -3,8 +3,6 @@ import os
 import PyTorchAug
 import PyTorch
 import numpy as np
-import theano
-from theano import tensor as T
 
 PyTorch.require('luabit')
 
