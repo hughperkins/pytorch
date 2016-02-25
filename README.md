@@ -26,7 +26,7 @@ Types supported currently:
 - python should be in PATH
 - Cython should be installed, ie if you do `pip freeze`, you should see a list of libraries, and one of those should be `Cython`
 - torch should have been activated, ie something like `source ~/torch/install/bin/torch-activate.sh`
-- lua51 headers should be installed, ie something like `sudo apt-get install liblua5.1.0-dev`
+- lua51 headers should be installed, ie something like `sudo apt-get install lua5.1 liblua5.1-dev`
 
 # Unit-tests
 
