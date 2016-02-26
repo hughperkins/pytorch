@@ -120,7 +120,7 @@ ext_modules = cythonize(ext_modules)
 
 setup(
     name='PyTorch',
-    version='2.0.0',
+    version='2.1.0-SNAPSHOT',
     author='Hugh Perkins',
     author_email='hughperkins@gmail.com',
     description=(
