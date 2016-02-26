@@ -1,7 +1,7 @@
 language: objective-c
 matrix:
   include:
-    - env: OSX=10.11
+    - env: OSX=10.11 TOXENV=py33
       os: osx
       osx_image: osx10.11
       rvm: system
