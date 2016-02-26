@@ -63,69 +63,19 @@ Run example script by doing:
 
 # import your own class, and call methods on it
 
-Create a lua class, like say:
+- Create a lua class, like say [luabit.lua](simpleexample/luabit.lua)
+  - it contains some methods, that we will call from Python
+- Create a python script, like say [pybit.py](simpleexample/pybit.py)
+  - it `require`s foo, then
+  - creates a `Foo` object, then
+  - calls methods on that object
 
+Run like:
 ```
-require 'torch'
-
-print('foo.lua')
-
-function func()
-  print('func()')
-end
-
-local Foo = torch.class('Foo')
-
-function Foo:__init()
-  print('Foo:__init()')
-  self.color = color
-end
-
-function Foo:teststuff()
-  print('Foo:teststuff()')
-end
-
-function Foo:teststuff2(text)
-  print('Foo:teststuff2(', text, ')')
-end
-
-function Foo:setColor(color)
-  print('setColor:', color)
-  self.color = color
-end
-
-function Foo:printColor()
-  print('color:', self.color)
-end
+source ~/torch/install/bin/torch-activate
+cd simpleexample
+python pybit.py
 ```
-
-Create a python script, like say:
-```
-import PyTorch
-import sys
-import os
-import PyTorchAug
-
-PyTorch.require('foo')
-
-class Foo(PyTorchAug.LuaClass):
-    def __init__(self, _fromLua=False):
-        self.luaclass = 'Foo'
-        if not _fromLua:
-            name = self.__class__.__name__
-            super(self.__class__, self).__init__([name])
-        else:
-            self.__dict__['__objectId'] = getNextObjectId()
-
-
-foo = Foo()
-foo.teststuff()
-foo.teststuff2('hello')
-foo.setColor('green')
-foo.printColor()
-```
-Sorry about the magical incandation for the class definition.  But basically it `require`s foo, then
-creates a `Foo` object, then calls methods on that object :-)
 
 When we run it we get:
 ```
