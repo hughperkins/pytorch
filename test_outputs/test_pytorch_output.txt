@@ -170,8 +170,6 @@ test/test_pytorch.py::test_pytorchFloat C [[ 0.78126878  0.68557262  0.46044704 
  [ 0.4116869   0.55729043  0.35089147  0.12185374]
  [ 0.85083026  0.80117935  0.5315783   0.30736649]]
 calling .asTensor...
-type(f1) <class 'PyTorch._FloatTensor'>
-type(f1) <class 'PyTorch._FloatTensor'>
  ... asTensor called
 tensorA 0.696469 0.286139
 0.226851 0.551315

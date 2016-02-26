@@ -78,6 +78,7 @@ pip install numpy
 pip install Cython
 pip install Jinja2
 pip install pytest
+pip install numpy
 ```
 - lua51 headers should be installed, ie something like `sudo apt-get install lua5.1 liblua5.1-dev`
 
@@ -130,6 +131,8 @@ from __future__ import print_function, division
 * modified `/` to be the div operation for float and double tensors, and `//` for int-type tensors, such as
 byte, long, int
 * since the div change is incompatible with 1.0.0 div operators, jumping radically from `1.0.0` to `2.0.0-SNAPSHOT` ...
+* added dependency on `numpy`
+* added `.asNumpyTensor()` to convert a torch tensor to a numpy tensor
 
 24th February:
 * added support for passing strings to methods

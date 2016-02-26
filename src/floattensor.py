@@ -48,6 +48,6 @@ def asDoubleTensor(myarray):
 
 def asFloatTensor(myarray):
     f1 = PyTorch._asFloatTensor(myarray)
-    print('type(f1)', type(f1))
+#    print('type(f1)', type(f1))
     return FloatTensor(f1)
 

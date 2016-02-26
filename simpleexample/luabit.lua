@@ -10,6 +10,8 @@ function Luabit:getOut(inTensor, outSize, kernelSize)
   local inSize = inTensor:size(3)
   local m = nn.TemporalConvolution(inSize, outSize, kernelSize)
   m:float()
-  return m:forward(inTensor)
+  local out = m:forward(inTensor)
+  print('out from lua', out)
+  return out
 end
 

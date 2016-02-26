@@ -27,6 +27,8 @@ cdef extern from "THTensor.h":
 
 cdef class _{{Real}}Tensor(object):
     cdef TH{{Real}}Tensor *native
+    cdef {{real}} *data(self)
+    # cpdef _{{Real}}Tensor contiguous(self)
     cpdef int dims(self)
     cpdef set1d(self, int x0, {{real}} value)
     cpdef set2d(self, int x0, int x1, {{real}} value)

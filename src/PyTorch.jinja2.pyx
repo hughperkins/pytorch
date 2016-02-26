@@ -6,6 +6,8 @@ import numbers
 import cython
 cimport cython
 
+import numpy as np
+
 cimport cpython.array
 import array
 
@@ -64,6 +66,8 @@ cdef extern from "THTensor.h":
     cdef struct TH{{Real}}Tensor
     TH{{Real}}Tensor *TH{{Real}}Tensor_new()
     TH{{Real}}Tensor *TH{{Real}}Tensor_newClone(TH{{Real}}Tensor *self)
+    {{real}} *TH{{Real}}Tensor_data(TH{{Real}}Tensor *self)
+    TH{{Real}}Tensor *TH{{Real}}Tensor_newContiguous(TH{{Real}}Tensor *self)
     TH{{Real}}Tensor *TH{{Real}}Tensor_newWithSize1d(long size0)
     TH{{Real}}Tensor *TH{{Real}}Tensor_newWithSize2d(long size0, long size1)
     TH{{Real}}Tensor *TH{{Real}}Tensor_newWithSize3d(long size0, long size1, long size2)
@@ -217,9 +221,34 @@ cdef class _{{Real}}Tensor(object):
     def nElement(_{{Real}}Tensor self):
         return TH{{Real}}Tensor_nElement(self.native)
 
+    def asNumpyTensor(_{{Real}}Tensor self):
+        cdef Storage._{{Real}}Storage storage
+        cdef {{real}} *data
+        cdef _{{Real}}Tensor contig
+        size = self.size()
+        dims = len(size)
+        if dims >= 1:
+            totalSize = 1
+            for d in range(dims - 1, -1, -1):
+                totalSize *= size[d]
+            myarray = np.zeros(totalSize, dtype=np.float32)
+            contig = self.contiguous()
+            data = contig.data()
+            for i in range(totalSize):
+                myarray[i] = data[i]
+            shape = []
+            for d in range(dims):
+                shape.append(size[d])
+            return myarray.reshape(shape)
+        else:
+            raise Exception('Not implemented for dims = {dims}'.format(dims=dims))
+
     @property
     def refCount(_{{Real}}Tensor self):
         return TH{{Real}}Tensor_getRefCount(self.native)
+
+    cdef {{real}} *data(_{{Real}}Tensor self):
+        return TH{{Real}}Tensor_data(self.native)
 
     cpdef int dims(self):
         return TH{{Real}}Tensor_nDimension(self.native)
@@ -333,6 +362,11 @@ cdef class _{{Real}}Tensor(object):
     def narrow(_{{Real}}Tensor self, int dimension, long firstIndex, long size):
         cdef TH{{Real}}Tensor *narrowedC = TH{{Real}}Tensor_newNarrow(self.native, dimension, firstIndex, size)
         return _{{Real}}Tensor_fromNative(narrowedC, retain=False)
+
+
+    def contiguous(_{{Real}}Tensor self):
+        cdef TH{{Real}}Tensor *newTensorC = TH{{Real}}Tensor_newContiguous(self.native)
+        return _{{Real}}Tensor_fromNative(newTensorC)
 
     def resize1d(_{{Real}}Tensor self, int size0):
         TH{{Real}}Tensor_resize1d(self.native, size0)
@@ -457,7 +491,6 @@ cdef class _{{Real}}Tensor(object):
         return res
 
     def __itruediv__(_{{Real}}Tensor self, second):
-        # print('__idiv__')
         cdef _{{Real}}Tensor secondTensor
         if isinstance(second, numbers.Number):
             TH{{Real}}Tensor_div(self.native, self.native, second)
@@ -467,7 +500,6 @@ cdef class _{{Real}}Tensor(object):
         return self
     {% else %}
     def __floordiv__(_{{Real}}Tensor self, second):
-        # print('__div__')
         cdef _{{Real}}Tensor res = _{{Real}}Tensor.new()
         cdef _{{Real}}Tensor secondTensor
         if isinstance(second, numbers.Number):
@@ -478,7 +510,6 @@ cdef class _{{Real}}Tensor(object):
         return res
 
     def __ifloordiv__(_{{Real}}Tensor self, second):
-        # print('__idiv__')
         cdef _{{Real}}Tensor secondTensor
         if isinstance(second, numbers.Number):
             TH{{Real}}Tensor_div(self.native, self.native, second)
@@ -614,15 +645,11 @@ def _as{{Real}}Tensor(myarray):
 {% endfor %}
 
 cdef class GlobalState(object):
-    # properties are in the PyTorch.pxd file
-
     def __cinit__(GlobalState self):
         pass
-#        # print('GlobalState.__cinit__')
 
     def __dealloc__(self):
         pass
-#        # print('GlobalState.__dealloc__')
 
     def getLua(self):
         return LuaState_fromNative(self.L)

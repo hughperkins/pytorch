@@ -24,10 +24,10 @@ class Luabit(PyTorchAug.LuaClass):
 luabit = Luabit()
 
 inTensor = np.random.randn(batchSize, numFrames, inSize).astype('float32')
+luain = PyTorch.asFloatTensor(inTensor)
 
-luaout = luabit.getOut(PyTorch.asFloatTensor(inTensor), outSize, kernelSize)
+luaout = luabit.getOut(luain, outSize, kernelSize)
 
-print('luaout.size()', luaout.size())
-for b in range(batchSize):
-  print('luaout[' + str(b) + ']', luaout[b])
+outTensor = luaout.asNumpyTensor()
+print('outTensor', outTensor)
 

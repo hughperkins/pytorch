@@ -6,6 +6,8 @@ import numbers
 import cython
 cimport cython
 
+import numpy as np
+
 cimport cpython.array
 import array
 
@@ -70,6 +72,8 @@ cdef extern from "THTensor.h":
     cdef struct THFloatTensor
     THFloatTensor *THFloatTensor_new()
     THFloatTensor *THFloatTensor_newClone(THFloatTensor *self)
+    float *THFloatTensor_data(THFloatTensor *self)
+    THFloatTensor *THFloatTensor_newContiguous(THFloatTensor *self)
     THFloatTensor *THFloatTensor_newWithSize1d(long size0)
     THFloatTensor *THFloatTensor_newWithSize2d(long size0, long size1)
     THFloatTensor *THFloatTensor_newWithSize3d(long size0, long size1, long size2)
@@ -133,6 +137,8 @@ cdef extern from "THTensor.h":
     cdef struct THDoubleTensor
     THDoubleTensor *THDoubleTensor_new()
     THDoubleTensor *THDoubleTensor_newClone(THDoubleTensor *self)
+    double *THDoubleTensor_data(THDoubleTensor *self)
+    THDoubleTensor *THDoubleTensor_newContiguous(THDoubleTensor *self)
     THDoubleTensor *THDoubleTensor_newWithSize1d(long size0)
     THDoubleTensor *THDoubleTensor_newWithSize2d(long size0, long size1)
     THDoubleTensor *THDoubleTensor_newWithSize3d(long size0, long size1, long size2)
@@ -196,6 +202,8 @@ cdef extern from "THTensor.h":
     cdef struct THLongTensor
     THLongTensor *THLongTensor_new()
     THLongTensor *THLongTensor_newClone(THLongTensor *self)
+    long *THLongTensor_data(THLongTensor *self)
+    THLongTensor *THLongTensor_newContiguous(THLongTensor *self)
     THLongTensor *THLongTensor_newWithSize1d(long size0)
     THLongTensor *THLongTensor_newWithSize2d(long size0, long size1)
     THLongTensor *THLongTensor_newWithSize3d(long size0, long size1, long size2)
@@ -251,6 +259,8 @@ cdef extern from "THTensor.h":
     cdef struct THByteTensor
     THByteTensor *THByteTensor_new()
     THByteTensor *THByteTensor_newClone(THByteTensor *self)
+    unsigned char *THByteTensor_data(THByteTensor *self)
+    THByteTensor *THByteTensor_newContiguous(THByteTensor *self)
     THByteTensor *THByteTensor_newWithSize1d(long size0)
     THByteTensor *THByteTensor_newWithSize2d(long size0, long size1)
     THByteTensor *THByteTensor_newWithSize3d(long size0, long size1, long size2)
@@ -396,9 +406,34 @@ cdef class _FloatTensor(object):
     def nElement(_FloatTensor self):
         return THFloatTensor_nElement(self.native)
 
+    def asNumpyTensor(_FloatTensor self):
+        cdef Storage._FloatStorage storage
+        cdef float *data
+        cdef _FloatTensor contig
+        size = self.size()
+        dims = len(size)
+        if dims >= 1:
+            totalSize = 1
+            for d in range(dims - 1, -1, -1):
+                totalSize *= size[d]
+            myarray = np.zeros(totalSize, dtype=np.float32)
+            contig = self.contiguous()
+            data = contig.data()
+            for i in range(totalSize):
+                myarray[i] = data[i]
+            shape = []
+            for d in range(dims):
+                shape.append(size[d])
+            return myarray.reshape(shape)
+        else:
+            raise Exception('Not implemented for dims = {dims}'.format(dims=dims))
+
     @property
     def refCount(_FloatTensor self):
         return THFloatTensor_getRefCount(self.native)
+
+    cdef float *data(_FloatTensor self):
+        return THFloatTensor_data(self.native)
 
     cpdef int dims(self):
         return THFloatTensor_nDimension(self.native)
@@ -508,6 +543,11 @@ cdef class _FloatTensor(object):
     def narrow(_FloatTensor self, int dimension, long firstIndex, long size):
         cdef THFloatTensor *narrowedC = THFloatTensor_newNarrow(self.native, dimension, firstIndex, size)
         return _FloatTensor_fromNative(narrowedC, retain=False)
+
+
+    def contiguous(_FloatTensor self):
+        cdef THFloatTensor *newTensorC = THFloatTensor_newContiguous(self.native)
+        return _FloatTensor_fromNative(newTensorC)
 
     def resize1d(_FloatTensor self, int size0):
         THFloatTensor_resize1d(self.native, size0)
@@ -632,7 +672,6 @@ cdef class _FloatTensor(object):
         return res
 
     def __itruediv__(_FloatTensor self, second):
-        # print('__idiv__')
         cdef _FloatTensor secondTensor
         if isinstance(second, numbers.Number):
             THFloatTensor_div(self.native, self.native, second)
@@ -747,7 +786,7 @@ def _asFloatTensor(myarray):
             myarraymv = myarray.reshape(totalSize)
             storage = Storage._FloatStorage.newWithData(myarraymv)
             Storage.THFloatStorage_retain(storage.native) # since newWithData takes ownership
-            
+
             tensor = _FloatTensor.newWithStorage(storage, 0, size, stride)
             return tensor
         else:
@@ -858,9 +897,34 @@ cdef class _DoubleTensor(object):
     def nElement(_DoubleTensor self):
         return THDoubleTensor_nElement(self.native)
 
+    def asNumpyTensor(_DoubleTensor self):
+        cdef Storage._DoubleStorage storage
+        cdef double *data
+        cdef _DoubleTensor contig
+        size = self.size()
+        dims = len(size)
+        if dims >= 1:
+            totalSize = 1
+            for d in range(dims - 1, -1, -1):
+                totalSize *= size[d]
+            myarray = np.zeros(totalSize, dtype=np.float32)
+            contig = self.contiguous()
+            data = contig.data()
+            for i in range(totalSize):
+                myarray[i] = data[i]
+            shape = []
+            for d in range(dims):
+                shape.append(size[d])
+            return myarray.reshape(shape)
+        else:
+            raise Exception('Not implemented for dims = {dims}'.format(dims=dims))
+
     @property
     def refCount(_DoubleTensor self):
         return THDoubleTensor_getRefCount(self.native)
+
+    cdef double *data(_DoubleTensor self):
+        return THDoubleTensor_data(self.native)
 
     cpdef int dims(self):
         return THDoubleTensor_nDimension(self.native)
@@ -970,6 +1034,11 @@ cdef class _DoubleTensor(object):
     def narrow(_DoubleTensor self, int dimension, long firstIndex, long size):
         cdef THDoubleTensor *narrowedC = THDoubleTensor_newNarrow(self.native, dimension, firstIndex, size)
         return _DoubleTensor_fromNative(narrowedC, retain=False)
+
+
+    def contiguous(_DoubleTensor self):
+        cdef THDoubleTensor *newTensorC = THDoubleTensor_newContiguous(self.native)
+        return _DoubleTensor_fromNative(newTensorC)
 
     def resize1d(_DoubleTensor self, int size0):
         THDoubleTensor_resize1d(self.native, size0)
@@ -1094,7 +1163,6 @@ cdef class _DoubleTensor(object):
         return res
 
     def __itruediv__(_DoubleTensor self, second):
-        # print('__idiv__')
         cdef _DoubleTensor secondTensor
         if isinstance(second, numbers.Number):
             THDoubleTensor_div(self.native, self.native, second)
@@ -1209,7 +1277,7 @@ def _asDoubleTensor(myarray):
             myarraymv = myarray.reshape(totalSize)
             storage = Storage._DoubleStorage.newWithData(myarraymv)
             Storage.THDoubleStorage_retain(storage.native) # since newWithData takes ownership
-            
+
             tensor = _DoubleTensor.newWithStorage(storage, 0, size, stride)
             return tensor
         else:
@@ -1320,9 +1388,34 @@ cdef class _LongTensor(object):
     def nElement(_LongTensor self):
         return THLongTensor_nElement(self.native)
 
+    def asNumpyTensor(_LongTensor self):
+        cdef Storage._LongStorage storage
+        cdef long *data
+        cdef _LongTensor contig
+        size = self.size()
+        dims = len(size)
+        if dims >= 1:
+            totalSize = 1
+            for d in range(dims - 1, -1, -1):
+                totalSize *= size[d]
+            myarray = np.zeros(totalSize, dtype=np.float32)
+            contig = self.contiguous()
+            data = contig.data()
+            for i in range(totalSize):
+                myarray[i] = data[i]
+            shape = []
+            for d in range(dims):
+                shape.append(size[d])
+            return myarray.reshape(shape)
+        else:
+            raise Exception('Not implemented for dims = {dims}'.format(dims=dims))
+
     @property
     def refCount(_LongTensor self):
         return THLongTensor_getRefCount(self.native)
+
+    cdef long *data(_LongTensor self):
+        return THLongTensor_data(self.native)
 
     cpdef int dims(self):
         return THLongTensor_nDimension(self.native)
@@ -1432,6 +1525,11 @@ cdef class _LongTensor(object):
     def narrow(_LongTensor self, int dimension, long firstIndex, long size):
         cdef THLongTensor *narrowedC = THLongTensor_newNarrow(self.native, dimension, firstIndex, size)
         return _LongTensor_fromNative(narrowedC, retain=False)
+
+
+    def contiguous(_LongTensor self):
+        cdef THLongTensor *newTensorC = THLongTensor_newContiguous(self.native)
+        return _LongTensor_fromNative(newTensorC)
 
     def resize1d(_LongTensor self, int size0):
         THLongTensor_resize1d(self.native, size0)
@@ -1545,7 +1643,6 @@ cdef class _LongTensor(object):
 
     
     def __floordiv__(_LongTensor self, second):
-        # print('__div__')
         cdef _LongTensor res = _LongTensor.new()
         cdef _LongTensor secondTensor
         if isinstance(second, numbers.Number):
@@ -1556,7 +1653,6 @@ cdef class _LongTensor(object):
         return res
 
     def __ifloordiv__(_LongTensor self, second):
-        # print('__idiv__')
         cdef _LongTensor secondTensor
         if isinstance(second, numbers.Number):
             THLongTensor_div(self.native, self.native, second)
@@ -1722,9 +1818,34 @@ cdef class _ByteTensor(object):
     def nElement(_ByteTensor self):
         return THByteTensor_nElement(self.native)
 
+    def asNumpyTensor(_ByteTensor self):
+        cdef Storage._ByteStorage storage
+        cdef unsigned char *data
+        cdef _ByteTensor contig
+        size = self.size()
+        dims = len(size)
+        if dims >= 1:
+            totalSize = 1
+            for d in range(dims - 1, -1, -1):
+                totalSize *= size[d]
+            myarray = np.zeros(totalSize, dtype=np.float32)
+            contig = self.contiguous()
+            data = contig.data()
+            for i in range(totalSize):
+                myarray[i] = data[i]
+            shape = []
+            for d in range(dims):
+                shape.append(size[d])
+            return myarray.reshape(shape)
+        else:
+            raise Exception('Not implemented for dims = {dims}'.format(dims=dims))
+
     @property
     def refCount(_ByteTensor self):
         return THByteTensor_getRefCount(self.native)
+
+    cdef unsigned char *data(_ByteTensor self):
+        return THByteTensor_data(self.native)
 
     cpdef int dims(self):
         return THByteTensor_nDimension(self.native)
@@ -1834,6 +1955,11 @@ cdef class _ByteTensor(object):
     def narrow(_ByteTensor self, int dimension, long firstIndex, long size):
         cdef THByteTensor *narrowedC = THByteTensor_newNarrow(self.native, dimension, firstIndex, size)
         return _ByteTensor_fromNative(narrowedC, retain=False)
+
+
+    def contiguous(_ByteTensor self):
+        cdef THByteTensor *newTensorC = THByteTensor_newContiguous(self.native)
+        return _ByteTensor_fromNative(newTensorC)
 
     def resize1d(_ByteTensor self, int size0):
         THByteTensor_resize1d(self.native, size0)
@@ -1947,7 +2073,6 @@ cdef class _ByteTensor(object):
 
     
     def __floordiv__(_ByteTensor self, second):
-        # print('__div__')
         cdef _ByteTensor res = _ByteTensor.new()
         cdef _ByteTensor secondTensor
         if isinstance(second, numbers.Number):
@@ -1958,7 +2083,6 @@ cdef class _ByteTensor(object):
         return res
 
     def __ifloordiv__(_ByteTensor self, second):
-        # print('__idiv__')
         cdef _ByteTensor secondTensor
         if isinstance(second, numbers.Number):
             THByteTensor_div(self.native, self.native, second)
@@ -2032,15 +2156,11 @@ cdef _ByteTensor_fromNative(THByteTensor *tensorC, retain=True):
 
 
 cdef class GlobalState(object):
-    # properties are in the PyTorch.pxd file
-
     def __cinit__(GlobalState self):
         pass
-#        # print('GlobalState.__cinit__')
 
     def __dealloc__(self):
         pass
-#        # print('GlobalState.__dealloc__')
 
     def getLua(self):
         return LuaState_fromNative(self.L)
