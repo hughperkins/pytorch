@@ -1,0 +1,47 @@
+language: objective-c
+matrix:
+  include:
+    - env: OSX=10.11
+      os: osx
+      osx_image: osx10.11
+      rvm: system
+
+before_install:
+  - if [ -f ".git/shallow" ]; then travis_retry git fetch --unshallow; fi
+  - whoami
+  - pwd
+  - python -V
+  - python3 -V
+  - virtualenv -p python3 ~/env
+  - source ~/env/bin/activate
+  - pip install Jinja2
+  - pip install Cython
+  - pip install numpy
+  - echo $HOME
+  - git clone https://github.com/torch/distro.git ~/torch
+  - cd ~/torch
+  - 'for pkg in cudnn cunn cunnx cutorch qttorch trepl graph optim sdl2 threads submodule graphicsmagick audio fftw3 signal nnx qtlua gnuplot dok iTorch argcheck image xlua; do { sed -i -e "s/\(.*$pkg.*\)/echo skipping $pkg # \1/" install.sh; } done'
+  - 'awk ''NR==2{print "set -x"}1'' install.sh > ~install.sh'
+  - mv ~install.sh install.sh
+  - chmod +x install.sh
+  - cat install.sh
+  - for pkg in exe/luajit-rocks extra/nn pkg/cwrap pkg/paths pkg/sundown pkg/sys pkg/torch pkg/paths extra/lua-cjson extra/luafilesystem extra/penlight; do { git submodule update --quiet --init $pkg; } done
+  - sed -i -e 's/$(MAKE)/$(MAKE) -j 4/' pkg/torch/rocks/torch-scm-1.rockspec
+  - ./install.sh -b >/dev/null
+  - source ~/torch/install/bin/torch-activate
+  - luarocks install torch
+  - mkdir ~/git
+  - cd ~/git
+  - cd ~/build/hughperkins/pytorch
+
+script:
+  - cat ~/torch/install/bin/torch-activate
+  - source ~/torch/install/bin/torch-activate
+  - build.sh
+  - run_tests.sh
+
+notifications:
+  email:
+    on_success: never
+    on_failure: never
+
