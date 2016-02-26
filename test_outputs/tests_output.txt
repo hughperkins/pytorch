@@ -295,7 +295,7 @@ A : 36 15 18 21
 9 48 30 111
 [torch.LongTensor of size 3x4]
 
-A /= 3
+A //= 3
 A : 12 5 6 7
 13 9 11 26
 3 16 10 37
@@ -316,7 +316,7 @@ A * 5 : 60 25 30 35
 15 80 50 185
 [torch.LongTensor of size 3x4]
 
-A / 2 : 6 2 3 3
+A // 2 : 6 2 3 3
 6 4 5 13
 1 8 5 18
 [torch.LongTensor of size 3x4]
@@ -881,7 +881,7 @@ A : 39 18 21 24
 12 51 33 114
 [torch.ByteTensor of size 3x4]
 
-A /= 3
+A //= 3
 A : 13 6 7 8
 14 10 12 27
 4 17 11 38
@@ -897,7 +897,7 @@ A * 5 : 65 30 35 40
 20 85 55 190
 [torch.ByteTensor of size 3x4]
 
-A / 2 : 6 3 3 4
+A // 2 : 6 3 3 4
 7 5 6 13
 2 8 5 19
 [torch.ByteTensor of size 3x4]

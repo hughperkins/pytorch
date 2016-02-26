@@ -437,6 +437,7 @@ cdef class _{{Real}}Tensor(object):
             TH{{Real}}Tensor_cadd(res.native, self.native, -1, secondTensor.native)
         return res
 
+    {% if Real in ['Float', 'Double'] %}
     def __truediv__(_{{Real}}Tensor self, second):
         # print('__div__')
         cdef _{{Real}}Tensor res = _{{Real}}Tensor.new()
@@ -447,6 +448,38 @@ cdef class _{{Real}}Tensor(object):
             secondTensor = second
             TH{{Real}}Tensor_cdiv(res.native, self.native, secondTensor.native)
         return res
+
+    def __itruediv__(_{{Real}}Tensor self, second):
+        # print('__idiv__')
+        cdef _{{Real}}Tensor secondTensor
+        if isinstance(second, numbers.Number):
+            TH{{Real}}Tensor_div(self.native, self.native, second)
+        else:
+            secondTensor = second
+            TH{{Real}}Tensor_cdiv(self.native, self.native, secondTensor.native)
+        return self
+    {% else %}
+    def __floordiv__(_{{Real}}Tensor self, second):
+        # print('__div__')
+        cdef _{{Real}}Tensor res = _{{Real}}Tensor.new()
+        cdef _{{Real}}Tensor secondTensor
+        if isinstance(second, numbers.Number):
+            TH{{Real}}Tensor_div(res.native, self.native, second)
+        else:
+            secondTensor = second
+            TH{{Real}}Tensor_cdiv(res.native, self.native, secondTensor.native)
+        return res
+
+    def __ifloordiv__(_{{Real}}Tensor self, second):
+        # print('__idiv__')
+        cdef _{{Real}}Tensor secondTensor
+        if isinstance(second, numbers.Number):
+            TH{{Real}}Tensor_div(self.native, self.native, second)
+        else:
+            secondTensor = second
+            TH{{Real}}Tensor_cdiv(self.native, self.native, secondTensor.native)
+        return self
+    {% endif %}
 
     def __iadd__(_{{Real}}Tensor self, second):
         cdef _{{Real}}Tensor secondTensor
@@ -464,16 +497,6 @@ cdef class _{{Real}}Tensor(object):
         else:
             secondTensor = second
             TH{{Real}}Tensor_cadd(self.native, self.native, -1, secondTensor.native)
-        return self
-
-    def __itruediv__(_{{Real}}Tensor self, second):
-        # print('__idiv__')
-        cdef _{{Real}}Tensor secondTensor
-        if isinstance(second, numbers.Number):
-            TH{{Real}}Tensor_div(self.native, self.native, second)
-        else:
-            secondTensor = second
-            TH{{Real}}Tensor_cdiv(self.native, self.native, secondTensor.native)
         return self
 
     def __imul__(_{{Real}}Tensor self, {{real}} value):

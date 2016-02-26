@@ -132,7 +132,11 @@ def test_pytorch{{Real}}():
     myexec('A -= 3')
     {% endif %}
     myeval('A')
+    {% if Real in ['Float', 'Double'] %}
     myexec('A /= 3')
+    {% else %}
+    myexec('A //= 3')
+    {% endif %}
     myeval('A')
 
     myeval('A + 5')
@@ -140,7 +144,11 @@ def test_pytorch{{Real}}():
     myeval('A - 5')
     {% endif %}
     myeval('A * 5')
+    {% if Real in ['Float', 'Double'] %}
     myeval('A / 2')
+    {% else %}
+    myeval('A // 2')
+    {% endif %}
 
     B = {{Real}}Tensor().resizeAs(A).geometric(0.9)
     myeval('B')
@@ -278,11 +286,15 @@ def test_Pytorch_{{Real}}_operator_div():
     a.geometric(0.9)
     b.geometric(0.9)
     {% endif %}
-    res = a / b
     {% if Real in ['Float', 'Double'] %}
+    res = a / b
     for i in range(3*2*5):
         assert(abs(res.storage()[i] - (a.storage()[i] / b.storage()[i])) < 0.00001)
     {% else %}
+    # res = a / b  # whilst this should proably be allowed/implemented, it's not yet...
+    # for i in range(3*2*5):
+    #     assert(abs(res.storage()[i] - (a.storage()[i] / b.storage()[i])) < 0.00001)
+    res = a // b
     for i in range(3*2*5):
         assert(abs(res.storage()[i] - (a.storage()[i] // b.storage()[i])) < 0.00001)
     {% endif %}
@@ -299,11 +311,12 @@ def test_Pytorch_{{Real}}_operator_divequals():
     b.geometric(0.9)
     {% endif %}
     res = a.clone()
-    res /= b
     {% if Real in ['Float', 'Double'] %}
+    res /= b
     for i in range(3*2*5):
         assert(abs(res.storage()[i] - (a.storage()[i] / b.storage()[i])) < 0.00001)
     {% else %}
+    res //= b
     for i in range(3*2*5):
         assert(abs(res.storage()[i] - (a.storage()[i] // b.storage()[i])) < 0.00001)
     {% endif %}

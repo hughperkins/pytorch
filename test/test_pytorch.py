@@ -85,7 +85,9 @@ def test_pytorchLong():
     myexec('A -= 3')
     
     myeval('A')
-    myexec('A /= 3')
+    
+    myexec('A //= 3')
+    
     myeval('A')
 
     myeval('A + 5')
@@ -93,7 +95,9 @@ def test_pytorchLong():
     myeval('A - 5')
     
     myeval('A * 5')
-    myeval('A / 2')
+    
+    myeval('A // 2')
+    
 
     B = LongTensor().resizeAs(A).geometric(0.9)
     myeval('B')
@@ -206,8 +210,11 @@ def test_Pytorch_Long_operator_div():
     a.geometric(0.9)
     b.geometric(0.9)
     
-    res = a / b
     
+    # res = a / b  # whilst this should proably be allowed/implemented, it's not yet...
+    # for i in range(3*2*5):
+    #     assert(abs(res.storage()[i] - (a.storage()[i] / b.storage()[i])) < 0.00001)
+    res = a // b
     for i in range(3*2*5):
         assert(abs(res.storage()[i] - (a.storage()[i] // b.storage()[i])) < 0.00001)
     
@@ -221,8 +228,8 @@ def test_Pytorch_Long_operator_divequals():
     b.geometric(0.9)
     
     res = a.clone()
-    res /= b
     
+    res //= b
     for i in range(3*2*5):
         assert(abs(res.storage()[i] - (a.storage()[i] // b.storage()[i])) < 0.00001)
     
@@ -336,7 +343,9 @@ def test_pytorchFloat():
     myexec('A -= 3')
     
     myeval('A')
+    
     myexec('A /= 3')
+    
     myeval('A')
 
     myeval('A + 5')
@@ -344,7 +353,9 @@ def test_pytorchFloat():
     myeval('A - 5')
     
     myeval('A * 5')
+    
     myeval('A / 2')
+    
 
     B = FloatTensor().resizeAs(A).geometric(0.9)
     myeval('B')
@@ -457,8 +468,8 @@ def test_Pytorch_Float_operator_div():
     a.uniform()
     b.uniform()
     
-    res = a / b
     
+    res = a / b
     for i in range(3*2*5):
         assert(abs(res.storage()[i] - (a.storage()[i] / b.storage()[i])) < 0.00001)
     
@@ -472,8 +483,8 @@ def test_Pytorch_Float_operator_divequals():
     b.uniform()
     
     res = a.clone()
-    res /= b
     
+    res /= b
     for i in range(3*2*5):
         assert(abs(res.storage()[i] - (a.storage()[i] / b.storage()[i])) < 0.00001)
     
@@ -552,7 +563,9 @@ def test_pytorchDouble():
     myexec('A -= 3')
     
     myeval('A')
+    
     myexec('A /= 3')
+    
     myeval('A')
 
     myeval('A + 5')
@@ -560,7 +573,9 @@ def test_pytorchDouble():
     myeval('A - 5')
     
     myeval('A * 5')
+    
     myeval('A / 2')
+    
 
     B = DoubleTensor().resizeAs(A).geometric(0.9)
     myeval('B')
@@ -673,8 +688,8 @@ def test_Pytorch_Double_operator_div():
     a.uniform()
     b.uniform()
     
-    res = a / b
     
+    res = a / b
     for i in range(3*2*5):
         assert(abs(res.storage()[i] - (a.storage()[i] / b.storage()[i])) < 0.00001)
     
@@ -688,8 +703,8 @@ def test_Pytorch_Double_operator_divequals():
     b.uniform()
     
     res = a.clone()
-    res /= b
     
+    res /= b
     for i in range(3*2*5):
         assert(abs(res.storage()[i] - (a.storage()[i] / b.storage()[i])) < 0.00001)
     
@@ -760,13 +775,17 @@ def test_pytorchByte():
     myeval('A')
     
     myeval('A')
-    myexec('A /= 3')
+    
+    myexec('A //= 3')
+    
     myeval('A')
 
     myeval('A + 5')
     
     myeval('A * 5')
-    myeval('A / 2')
+    
+    myeval('A // 2')
+    
 
     B = ByteTensor().resizeAs(A).geometric(0.9)
     myeval('B')
@@ -849,8 +868,11 @@ def test_Pytorch_Byte_operator_div():
     a.geometric(0.9)
     b.geometric(0.9)
     
-    res = a / b
     
+    # res = a / b  # whilst this should proably be allowed/implemented, it's not yet...
+    # for i in range(3*2*5):
+    #     assert(abs(res.storage()[i] - (a.storage()[i] / b.storage()[i])) < 0.00001)
+    res = a // b
     for i in range(3*2*5):
         assert(abs(res.storage()[i] - (a.storage()[i] // b.storage()[i])) < 0.00001)
     
@@ -864,8 +886,8 @@ def test_Pytorch_Byte_operator_divequals():
     b.geometric(0.9)
     
     res = a.clone()
-    res /= b
     
+    res //= b
     for i in range(3*2*5):
         assert(abs(res.storage()[i] - (a.storage()[i] // b.storage()[i])) < 0.00001)
     

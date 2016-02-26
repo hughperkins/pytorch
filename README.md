@@ -1,67 +1,42 @@
 # pytorch
 Wrappers to use torch and lua from python
 
-# What is implemented
+# What is python?
 
-See [Implemented.md](doc/Implemented.md)
+- create torch tensors, call operations on those, add them together, multiply them, and so on
+- create `nn` network modules, pass tensors into those, get the output, and so on
+- create your own lua class, call methods on that, pass in tensors
+- wrap numpy tensors in torch tensors
+  
+More info: [Implemented.md](doc/Implemented.md)
 
 # Examples
 
-Examples of what is possible currently:
-* pytorch
-* pynn
-
-Types supported currently:
-* FloatTensor
-* DoubleTensor
-* LongTensor
-* ByteTensor
-
-(fairly easy to add others, since templated)
-
-* (New!) you can also import your own lua class, and call methods on those :-)
-
-# Requirements
-
-- python should be in PATH
-- Cython should be installed, ie if you do `pip freeze`, you should see a list of libraries, and one of those should be `Cython`
-- torch should have been activated, ie something like `source ~/torch/install/bin/torch-activate.sh`
-- lua51 headers should be installed, ie something like `sudo apt-get install lua5.1 liblua5.1-dev`
-
-# Unit-tests
-
-Run:
-```
-./build.sh
-./run_tests.sh
-```
-
-* [test](test) folder, containing test scripts
-* [tests_output.txt](test_outputs/tests_output.txt)
-
-# pytorch, example using FloatTensor
+## pytorch, using FloatTensor
 
 Run example script by doing:
 ```
-./build.sh
+source ~/torch/install/bin/torch-activate
+cd pytorch
 ./run.sh
 ```
 
-* [test_pytorch.py](test/test_pytorch.py)
-* [test_pytorch_output.txt](test_outputs/test_pytorch_output.txt)
+* Script is here: [test_pytorch.py](test/test_pytorch.py)
+* Output: [test_pytorch_output.txt](test_outputs/test_pytorch_output.txt)
 
-# pynn
+## pynn
 
 Run example script by doing:
 ```
-./build.sh
+source ~/torch/install/bin/torch-activate
+cd pytorch
 ./nn_run.sh
 ```
 
-* [test_pynn.py](test/test_pynn.py)
-* [test_pynn_output.txt](test_outputs/test_pynn_output.txt)
+* Script is here: [test_pynn.py](test/test_pynn.py)
+* Script output: [test_pynn_output.txt](test_outputs/test_pynn_output.txt)
 
-# import your own class, and call methods on it
+## import your own lua class, call methods on it
 
 - Create a lua class, like say [luabit.lua](simpleexample/luabit.lua)
   - it contains some methods, that we will call from Python
@@ -92,50 +67,57 @@ color:	green
 ## Pre-requisites
 
 * Have installed torch, following instructions at [https://github.com/torch/distro](https://github.com/torch/distro)
-* Have installed 'nn', ie:
+* Have installed 'nn' torch module:
 ```
 luarocks install nn
 ```
 * Have installed python (tested with 2.7 and 3.4)
-* Have installed the following python libraries, ie do:
+* Have installed the following python libraries:
 ```
 pip install numpy
 pip install Cython
 pip install Jinja2
 pip install pytest
 ```
+- lua51 headers should be installed, ie something like `sudo apt-get install lua5.1 liblua5.1-dev`
 
 ## Procedure
 
+Run:
 ```
 git clone https://github.com/hughperkins/pytorch.git
 cd pytorch
+source ~/torch/install/bin/torch-activate
 ./build.sh
 ```
 
-# How to add new methods
+# Unit-tests
 
-## pytorch
+Run:
+```
+source ~/torch/install/bin/torch-activate
+cd pytorch
+./run_tests.sh
+```
 
-* the C library methods are defined in the torch library in torch7 repo, in two files:
-  * lib/TH/generic/THTensor.h
-  * lib/TH/generic/THStorage.h
-* simply copy the appropriate declaration into [PyTorch.jinja2.pyx](src/PyTorch.jinja2.pyx), in the blocks that start `cdef extern from "THStorage.h":` or `cdef extern from "THTensor.h":`, as appropriate
-  * note that this is a template file.  The generated Cython .pyx file is [PyTorch.pyx](src/PyTorch.pyx)
-* and add an appropriate method into {{Real}}Storage class, or {{Real}}Tensor class
-* that's it :-)
+* The test scripts: [test](test)
+* The test output: [tests_output.txt](test_outputs/tests_output.txt)
 
-You can have a look eg at the `narrow` method as an example
+# Python 2 vs Python 3?
 
-Updates:
-* the cython class is now called eg `_{{Real}}Tensor` instead of `{{Real}}Tensor`.  Then we create a pure Python class called `{{Real}}Tensor` around this, by inheriting from `_{{Real}}Tensor`, and providing no additional methods or properties.  The pure Python class is monkey-patchable, eg by [PyClTorch](https://github.com/hughperkins/pycltorch)
-* the `cdef` properties and methods are now declared in [PyTorch.jinja2.pxd](src/PyTorch.jinja2.pxd).  This means we can call these methods and properties from [PyClTorch](https://github.com/hughperkins/pycltorch)
-  * note that [PyTorch.jinja2.pxd](src/PyTorch.jinja2.pxd) is a template file.  The generated Cython .pxd file is [PyTorch.pxd](src/PyTorch.pxd)
-* the `THGenerator *` object is now available, at `globalState.generator`, and used by the various random methods, eg `_FloatTensor.bernoulli()`
+- pytorch is developed and maintained on python 3
+- you should be able to use it with python 2, as long as you include the following at the top of your scripts:
+```
+from __future__ import print_function, division
+```
 
-## pynn
+# Maintainer guidelines
 
-This has been simplified a bunch since before.  We no longer try to wrap C++ classes around the lua, but just directly wrap Python classes around the Lua.  The class methods and attributes are mostly generated dynamically, according to the results of querying hte lua ones.  Mostly all we have to do is create classes with appropriate names, that derive from LuaClass.  We might need to handle inheritance somehow in the future.  At the moment, this is all handled really by PyTorchAug.py.
+[Maintainer guidelines](doc/Maintainer_guidelines.md)
+
+# Versioning
+
+[semantic versioning](http://semver.org/)
 
 # Related projects
 
@@ -143,6 +125,11 @@ This has been simplified a bunch since before.  We no longer try to wrap C++ cla
 * [pycudatorch](https://github.com/hughperkins/pycudatorch) python wrappers for [cutorch](https://github.com/torch/cutorch) and [cunn](https://github.com/torch/cunn)
 
 # Recent news
+
+26th February:
+* modified `/` to be the div operation for float and double tensors, and `//` for int-type tensors, such as
+byte, long, int
+* since the div change is incompatible with 1.0.0 div operators, jumping radically from `1.0.0` to `2.0.0-SNAPSHOT` ...
 
 24th February:
 * added support for passing strings to methods
