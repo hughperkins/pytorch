@@ -16,6 +16,17 @@ A = numpy.random.rand(6).reshape(3,2).astype(numpy.float32)
 tensorA = PyTorch.asFloatTensor(A)
 ```
 
+This is a view, so, in theory, modifying the contents of the torch tensor, will also modify the contents
+of the numpy tensor, as long as methods causing reallocation are not called on the torch tensor.  For 
+example, calling `.uniform(0,1)` wont cause reallocation, but calling `.resize()` could.
+
+### Convert into numpy array
+
+```
+A = PyTorch.DoubleTensor(5,3)
+Anp = A.asNumpyTensor()
+```
+
 ### Basic functions
 
 ```
@@ -49,23 +60,23 @@ A = PyTorch.DoubleTensor(5,3).geometric(0.9)
 A += 3
 A *= 3
 A -= 3
-A /= 3
+A /= 3   # note: for integer types, use //=
 
 C = A + 5
 C = A - 5
 C = A * 5
-C = A / 2
+C = A / 2   # note: for integer types, use //
 
 B = PyTorch.DoubleTensor(5,3).geometric(0.9)
 C = A + B
 C = A - B
 C = A.clone().cmul(B)
-C = A / B
+C = A / B   # for integer types, use /
 
 A += B
 A -= B
 A.cmul(B)
-A /= B
+A /= B   # Note: for integer types, use //=
 ```
 
 ### Resize

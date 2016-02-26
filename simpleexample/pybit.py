@@ -5,13 +5,6 @@ import PyTorch
 import numpy as np
 
 PyTorch.require('luabit')
-
-batchSize = 2
-numFrames = 4
-inSize = 3
-outSize = 3
-kernelSize = 3
-
 class Luabit(PyTorchAug.LuaClass):
     def __init__(self, _fromLua=False):
         self.luaclass = 'Luabit'
@@ -20,6 +13,12 @@ class Luabit(PyTorchAug.LuaClass):
             super(self.__class__, self).__init__([name])
         else:
             self.__dict__['__objectId'] = getNextObjectId()
+
+batchSize = 2
+numFrames = 4
+inSize = 3
+outSize = 3
+kernelSize = 3
 
 luabit = Luabit()
 

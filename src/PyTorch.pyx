@@ -108,6 +108,12 @@ cdef extern from "THTensor.h":
     THFloatTensor *THFloatTensor_newNarrow(THFloatTensor *self, int dimension, long firstIndex, long size)
     Storage.THFloatStorage *THFloatTensor_storage(THFloatTensor *self)
 
+    void THFloatTensor_tanh(THFloatTensor *r_, THFloatTensor *t)
+    void THFloatTensor_sigmoid(THFloatTensor *r_, THFloatTensor *t)
+    void THFloatTensor_cinv(THFloatTensor *r_, THFloatTensor *t)
+    void THFloatTensor_neg(THFloatTensor *r_, THFloatTensor *t)
+    void THFloatTensor_abs(THFloatTensor *r_, THFloatTensor *t)
+
     void THFloatTensor_add(THFloatTensor *r_, THFloatTensor *t, float value)
     void THFloatTensor_div(THFloatTensor *r_, THFloatTensor *t, float value)
     void THFloatTensor_mul(THFloatTensor *r_, THFloatTensor *t, float value)
@@ -172,6 +178,12 @@ cdef extern from "THTensor.h":
     THDoubleTensor *THDoubleTensor_newSelect(THDoubleTensor *self, int dimension, int sliceIndex)
     THDoubleTensor *THDoubleTensor_newNarrow(THDoubleTensor *self, int dimension, long firstIndex, long size)
     Storage.THDoubleStorage *THDoubleTensor_storage(THDoubleTensor *self)
+
+    void THDoubleTensor_tanh(THDoubleTensor *r_, THDoubleTensor *t)
+    void THDoubleTensor_sigmoid(THDoubleTensor *r_, THDoubleTensor *t)
+    void THDoubleTensor_cinv(THDoubleTensor *r_, THDoubleTensor *t)
+    void THDoubleTensor_neg(THDoubleTensor *r_, THDoubleTensor *t)
+    void THDoubleTensor_abs(THDoubleTensor *r_, THDoubleTensor *t)
 
     void THDoubleTensor_add(THDoubleTensor *r_, THDoubleTensor *t, double value)
     void THDoubleTensor_div(THDoubleTensor *r_, THDoubleTensor *t, double value)
@@ -238,6 +250,12 @@ cdef extern from "THTensor.h":
     THLongTensor *THLongTensor_newNarrow(THLongTensor *self, int dimension, long firstIndex, long size)
     Storage.THLongStorage *THLongTensor_storage(THLongTensor *self)
 
+    void THLongTensor_tanh(THLongTensor *r_, THLongTensor *t)
+    void THLongTensor_sigmoid(THLongTensor *r_, THLongTensor *t)
+    void THLongTensor_cinv(THLongTensor *r_, THLongTensor *t)
+    void THLongTensor_neg(THLongTensor *r_, THLongTensor *t)
+    void THLongTensor_abs(THLongTensor *r_, THLongTensor *t)
+
     void THLongTensor_add(THLongTensor *r_, THLongTensor *t, long value)
     void THLongTensor_div(THLongTensor *r_, THLongTensor *t, long value)
     void THLongTensor_mul(THLongTensor *r_, THLongTensor *t, long value)
@@ -294,6 +312,12 @@ cdef extern from "THTensor.h":
     THByteTensor *THByteTensor_newSelect(THByteTensor *self, int dimension, int sliceIndex)
     THByteTensor *THByteTensor_newNarrow(THByteTensor *self, int dimension, long firstIndex, long size)
     Storage.THByteStorage *THByteTensor_storage(THByteTensor *self)
+
+    void THByteTensor_tanh(THByteTensor *r_, THByteTensor *t)
+    void THByteTensor_sigmoid(THByteTensor *r_, THByteTensor *t)
+    void THByteTensor_cinv(THByteTensor *r_, THByteTensor *t)
+    void THByteTensor_neg(THByteTensor *r_, THByteTensor *t)
+    void THByteTensor_abs(THByteTensor *r_, THByteTensor *t)
 
     void THByteTensor_add(THByteTensor *r_, THByteTensor *t, unsigned char value)
     void THByteTensor_div(THByteTensor *r_, THByteTensor *t, unsigned char value)
@@ -522,6 +546,59 @@ cdef class _FloatTensor(object):
     def fill(_FloatTensor self, float value):
         THFloatTensor_fill(self.native, value)
         return self
+
+    
+
+    def itanh(_FloatTensor self):
+        THFloatTensor_tanh(self.native, self.native)
+        return self
+
+    def isigmoid(_FloatTensor self):
+        THFloatTensor_sigmoid(self.native, self.native)
+        return self
+
+    def icinv(_FloatTensor self):
+        THFloatTensor_cinv(self.native, self.native)
+        return self
+
+
+    def tanh(_FloatTensor self):
+        cdef _FloatTensor res = _FloatTensor.new()
+        THFloatTensor_tanh(res.native, self.native)
+        return res
+
+    def sigmoid(_FloatTensor self):
+        cdef _FloatTensor res = _FloatTensor.new()
+        THFloatTensor_sigmoid(res.native, self.native)
+        return res
+
+    def cinv(_FloatTensor self):
+        cdef _FloatTensor res = _FloatTensor.new()
+        THFloatTensor_cinv(res.native, self.native)
+        return res
+
+    def neg(_FloatTensor self):
+        cdef _FloatTensor res = _FloatTensor.new()
+        THFloatTensor_neg(res.native, self.native)
+        return res
+
+    def ineg(_FloatTensor self):
+        THFloatTensor_neg(self.native, self.native)
+        return self
+
+    
+
+    
+    def abs(_FloatTensor self):
+        cdef _FloatTensor res = _FloatTensor.new()
+        THFloatTensor_abs(res.native, self.native)
+        return res
+
+    def iabs(_FloatTensor self):
+        THFloatTensor_abs(self.native, self.native)
+        return self
+
+    
 
     def size(_FloatTensor self):
         cdef int dims = self.dims()
@@ -1014,6 +1091,59 @@ cdef class _DoubleTensor(object):
         THDoubleTensor_fill(self.native, value)
         return self
 
+    
+
+    def itanh(_DoubleTensor self):
+        THDoubleTensor_tanh(self.native, self.native)
+        return self
+
+    def isigmoid(_DoubleTensor self):
+        THDoubleTensor_sigmoid(self.native, self.native)
+        return self
+
+    def icinv(_DoubleTensor self):
+        THDoubleTensor_cinv(self.native, self.native)
+        return self
+
+
+    def tanh(_DoubleTensor self):
+        cdef _DoubleTensor res = _DoubleTensor.new()
+        THDoubleTensor_tanh(res.native, self.native)
+        return res
+
+    def sigmoid(_DoubleTensor self):
+        cdef _DoubleTensor res = _DoubleTensor.new()
+        THDoubleTensor_sigmoid(res.native, self.native)
+        return res
+
+    def cinv(_DoubleTensor self):
+        cdef _DoubleTensor res = _DoubleTensor.new()
+        THDoubleTensor_cinv(res.native, self.native)
+        return res
+
+    def neg(_DoubleTensor self):
+        cdef _DoubleTensor res = _DoubleTensor.new()
+        THDoubleTensor_neg(res.native, self.native)
+        return res
+
+    def ineg(_DoubleTensor self):
+        THDoubleTensor_neg(self.native, self.native)
+        return self
+
+    
+
+    
+    def abs(_DoubleTensor self):
+        cdef _DoubleTensor res = _DoubleTensor.new()
+        THDoubleTensor_abs(res.native, self.native)
+        return res
+
+    def iabs(_DoubleTensor self):
+        THDoubleTensor_abs(self.native, self.native)
+        return self
+
+    
+
     def size(_DoubleTensor self):
         cdef int dims = self.dims()
 #        cdef LongStorage size
@@ -1505,6 +1635,20 @@ cdef class _LongTensor(object):
         THLongTensor_fill(self.native, value)
         return self
 
+    
+
+    
+    def abs(_LongTensor self):
+        cdef _LongTensor res = _LongTensor.new()
+        THLongTensor_abs(res.native, self.native)
+        return res
+
+    def iabs(_LongTensor self):
+        THLongTensor_abs(self.native, self.native)
+        return self
+
+    
+
     def size(_LongTensor self):
         cdef int dims = self.dims()
 #        cdef LongStorage size
@@ -1934,6 +2078,10 @@ cdef class _ByteTensor(object):
     def fill(_ByteTensor self, unsigned char value):
         THByteTensor_fill(self.native, value)
         return self
+
+    
+
+    
 
     def size(_ByteTensor self):
         cdef int dims = self.dims()

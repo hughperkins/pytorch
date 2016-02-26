@@ -202,6 +202,18 @@ def test_Pytorch_Long_cmul():
         assert(abs(res.storage()[i] - (a.storage()[i] * b.storage()[i])) < 0.000001)
         
 
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+
 def test_Pytorch_Long_operator_div():
     LongTensor = PyTorch.LongTensor
     a = LongTensor(3,2,5)
@@ -460,6 +472,83 @@ def test_Pytorch_Float_cmul():
         assert(abs(res.storage()[i] - (a.storage()[i] * b.storage()[i])) < 0.000001)
         
 
+#
+#
+#def test_Pytorch_Float_abs():
+#    FloatTensor = PyTorch.FloatTensor
+#    a = FloatTensor(3,2,5)
+#    
+#    a.uniform()
+#    
+#    res = a.clone()
+#    res.abs()
+#    for i in range(3*2*5):
+#        
+#        assert(abs(res.storage()[i] - (torch.abs(a.storage()[i]))) < 0.000001)
+#        
+#
+#
+#
+#def test_Pytorch_Float_tanh():
+#    FloatTensor = PyTorch.FloatTensor
+#    a = FloatTensor(3,2,5)
+#    
+#    a.uniform()
+#    
+#    res = a.clone()
+#    res.tanh()
+#    for i in range(3*2*5):
+#        
+#        assert(abs(res.storage()[i] - (torch.tanh(a.storage()[i]))) < 0.000001)
+#        
+#
+#
+#
+#def test_Pytorch_Float_sigmoid():
+#    FloatTensor = PyTorch.FloatTensor
+#    a = FloatTensor(3,2,5)
+#    
+#    a.uniform()
+#    
+#    res = a.clone()
+#    res.sigmoid()
+#    for i in range(3*2*5):
+#        
+#        assert(abs(res.storage()[i] - (torch.sigmoid(a.storage()[i]))) < 0.000001)
+#        
+#
+#
+#
+#def test_Pytorch_Float_neg():
+#    FloatTensor = PyTorch.FloatTensor
+#    a = FloatTensor(3,2,5)
+#    
+#    a.uniform()
+#    
+#    res = a.clone()
+#    res.neg()
+#    for i in range(3*2*5):
+#        
+#        assert(abs(res.storage()[i] - (torch.neg(a.storage()[i]))) < 0.000001)
+#        
+#
+#
+#
+#def test_Pytorch_Float_cinv():
+#    FloatTensor = PyTorch.FloatTensor
+#    a = FloatTensor(3,2,5)
+#    
+#    a.uniform()
+#    
+#    res = a.clone()
+#    res.cinv()
+#    for i in range(3*2*5):
+#        
+#        assert(abs(res.storage()[i] - (torch.cinv(a.storage()[i]))) < 0.000001)
+#        
+#
+#
+
 def test_Pytorch_Float_operator_div():
     FloatTensor = PyTorch.FloatTensor
     a = FloatTensor(3,2,5)
@@ -680,6 +769,83 @@ def test_Pytorch_Double_cmul():
         assert(abs(res.storage()[i] - (a.storage()[i] * b.storage()[i])) < 0.000001)
         
 
+#
+#
+#def test_Pytorch_Double_abs():
+#    DoubleTensor = PyTorch.DoubleTensor
+#    a = DoubleTensor(3,2,5)
+#    
+#    a.uniform()
+#    
+#    res = a.clone()
+#    res.abs()
+#    for i in range(3*2*5):
+#        
+#        assert(abs(res.storage()[i] - (torch.abs(a.storage()[i]))) < 0.000001)
+#        
+#
+#
+#
+#def test_Pytorch_Double_tanh():
+#    DoubleTensor = PyTorch.DoubleTensor
+#    a = DoubleTensor(3,2,5)
+#    
+#    a.uniform()
+#    
+#    res = a.clone()
+#    res.tanh()
+#    for i in range(3*2*5):
+#        
+#        assert(abs(res.storage()[i] - (torch.tanh(a.storage()[i]))) < 0.000001)
+#        
+#
+#
+#
+#def test_Pytorch_Double_sigmoid():
+#    DoubleTensor = PyTorch.DoubleTensor
+#    a = DoubleTensor(3,2,5)
+#    
+#    a.uniform()
+#    
+#    res = a.clone()
+#    res.sigmoid()
+#    for i in range(3*2*5):
+#        
+#        assert(abs(res.storage()[i] - (torch.sigmoid(a.storage()[i]))) < 0.000001)
+#        
+#
+#
+#
+#def test_Pytorch_Double_neg():
+#    DoubleTensor = PyTorch.DoubleTensor
+#    a = DoubleTensor(3,2,5)
+#    
+#    a.uniform()
+#    
+#    res = a.clone()
+#    res.neg()
+#    for i in range(3*2*5):
+#        
+#        assert(abs(res.storage()[i] - (torch.neg(a.storage()[i]))) < 0.000001)
+#        
+#
+#
+#
+#def test_Pytorch_Double_cinv():
+#    DoubleTensor = PyTorch.DoubleTensor
+#    a = DoubleTensor(3,2,5)
+#    
+#    a.uniform()
+#    
+#    res = a.clone()
+#    res.cinv()
+#    for i in range(3*2*5):
+#        
+#        assert(abs(res.storage()[i] - (torch.cinv(a.storage()[i]))) < 0.000001)
+#        
+#
+#
+
 def test_Pytorch_Double_operator_div():
     DoubleTensor = PyTorch.DoubleTensor
     a = DoubleTensor(3,2,5)
@@ -859,6 +1025,18 @@ def test_Pytorch_Byte_cmul():
         
         assert(abs(res.storage()[i] - ((a.storage()[i] * b.storage()[i])) % 256) < 0.000001)
         
+
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
 
 def test_Pytorch_Byte_operator_div():
     ByteTensor = PyTorch.ByteTensor

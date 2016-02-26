@@ -102,6 +102,12 @@ cdef extern from "THTensor.h":
     TH{{Real}}Tensor *TH{{Real}}Tensor_newNarrow(TH{{Real}}Tensor *self, int dimension, long firstIndex, long size)
     Storage.TH{{Real}}Storage *TH{{Real}}Tensor_storage(TH{{Real}}Tensor *self)
 
+    void TH{{Real}}Tensor_tanh(TH{{Real}}Tensor *r_, TH{{Real}}Tensor *t)
+    void TH{{Real}}Tensor_sigmoid(TH{{Real}}Tensor *r_, TH{{Real}}Tensor *t)
+    void TH{{Real}}Tensor_cinv(TH{{Real}}Tensor *r_, TH{{Real}}Tensor *t)
+    void TH{{Real}}Tensor_neg(TH{{Real}}Tensor *r_, TH{{Real}}Tensor *t)
+    void TH{{Real}}Tensor_abs(TH{{Real}}Tensor *r_, TH{{Real}}Tensor *t)
+
     void TH{{Real}}Tensor_add(TH{{Real}}Tensor *r_, TH{{Real}}Tensor *t, {{real}} value)
     void TH{{Real}}Tensor_div(TH{{Real}}Tensor *r_, TH{{Real}}Tensor *t, {{real}} value)
     void TH{{Real}}Tensor_mul(TH{{Real}}Tensor *r_, TH{{Real}}Tensor *t, {{real}} value)
@@ -341,6 +347,59 @@ cdef class _{{Real}}Tensor(object):
     def fill(_{{Real}}Tensor self, {{real}} value):
         TH{{Real}}Tensor_fill(self.native, value)
         return self
+
+    {% if Real in ['Float', 'Double'] %}
+
+    def itanh(_{{Real}}Tensor self):
+        TH{{Real}}Tensor_tanh(self.native, self.native)
+        return self
+
+    def isigmoid(_{{Real}}Tensor self):
+        TH{{Real}}Tensor_sigmoid(self.native, self.native)
+        return self
+
+    def icinv(_{{Real}}Tensor self):
+        TH{{Real}}Tensor_cinv(self.native, self.native)
+        return self
+
+
+    def tanh(_{{Real}}Tensor self):
+        cdef _{{Real}}Tensor res = _{{Real}}Tensor.new()
+        TH{{Real}}Tensor_tanh(res.native, self.native)
+        return res
+
+    def sigmoid(_{{Real}}Tensor self):
+        cdef _{{Real}}Tensor res = _{{Real}}Tensor.new()
+        TH{{Real}}Tensor_sigmoid(res.native, self.native)
+        return res
+
+    def cinv(_{{Real}}Tensor self):
+        cdef _{{Real}}Tensor res = _{{Real}}Tensor.new()
+        TH{{Real}}Tensor_cinv(res.native, self.native)
+        return res
+
+    def neg(_{{Real}}Tensor self):
+        cdef _{{Real}}Tensor res = _{{Real}}Tensor.new()
+        TH{{Real}}Tensor_neg(res.native, self.native)
+        return res
+
+    def ineg(_{{Real}}Tensor self):
+        TH{{Real}}Tensor_neg(self.native, self.native)
+        return self
+
+    {% endif %}
+
+    {% if Real != 'Byte' %}
+    def abs(_{{Real}}Tensor self):
+        cdef _{{Real}}Tensor res = _{{Real}}Tensor.new()
+        TH{{Real}}Tensor_abs(res.native, self.native)
+        return res
+
+    def iabs(_{{Real}}Tensor self):
+        TH{{Real}}Tensor_abs(self.native, self.native)
+        return self
+
+    {% endif %}
 
     def size(_{{Real}}Tensor self):
         cdef int dims = self.dims()

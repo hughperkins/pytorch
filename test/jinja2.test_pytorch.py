@@ -275,6 +275,27 @@ def test_Pytorch_{{Real}}_cmul():
         assert(abs(res.storage()[i] - (a.storage()[i] * b.storage()[i])) < 0.000001)
         {% endif %}
 
+#{% for func in ['abs', 'tanh', 'sigmoid', 'neg', 'cinv'] %}
+#{% if Real in ['Double', 'Float'] %}
+#def test_Pytorch_{{Real}}_{{func}}():
+#    {{Real}}Tensor = PyTorch.{{Real}}Tensor
+#    a = {{Real}}Tensor(3,2,5)
+#    {%if Real in ['Float', 'Double'] %}
+#    a.uniform()
+#    {% else %}
+#    a.geometric(0.9)
+#    {% endif %}
+#    res = a.clone()
+#    res.{{func}}()
+#    for i in range(3*2*5):
+#        {% if Real == 'Byte' %}
+#        assert(abs(res.storage()[i] - ((torch.{{func}}(a.storage()[i]) ) % 256) < 0.000001)
+#        {% else %}
+#        assert(abs(res.storage()[i] - (torch.{{func}}(a.storage()[i]))) < 0.000001)
+#        {% endif %}
+#{% endif %}
+#{% endfor %}
+
 def test_Pytorch_{{Real}}_operator_div():
     {{Real}}Tensor = PyTorch.{{Real}}Tensor
     a = {{Real}}Tensor(3,2,5)
