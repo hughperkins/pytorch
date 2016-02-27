@@ -38,8 +38,8 @@ before_install:
 script:
   - cat ~/torch/install/bin/torch-activate
   - source ~/torch/install/bin/torch-activate
-  - build.sh
-  - run_tests.sh
+  - ./build.sh
+  - ./run_tests.sh
 
 notifications:
   email:
