@@ -128,6 +128,9 @@ from __future__ import print_function, division
 
 # Recent news
 
+28th Februrary:
+* builds ok on Mac OS X now :-)  See https://travis-ci.org/hughperkins/pytorch/builds/112292866
+
 26th February:
 * modified `/` to be the div operation for float and double tensors, and `//` for int-type tensors, such as
 byte, long, int
