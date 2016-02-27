@@ -34,10 +34,13 @@ lua_State *luaInit() {
     #ifndef _WIN32
     void *hdl = dlopen("liblua5.1.so", RTLD_NOW | RTLD_GLOBAL);
     if(hdl == 0) {
+        hdl = dlopen("liblua.dylib", RTLD_NOW | RTLD_GLOBAL);
+    }
+    if(hdl == 0) {
         cout << dlerror() << endl;
-        throw runtime_error(string("Couldnt load liblua5.1.so ") + dlerror());
+        throw runtime_error(string("Couldnt load liblua5.1.so or liblua.dylib") + dlerror());
     } else {
-//        cout << "loaded lua library" << endl;
+////        cout << "loaded lua library" << endl;
     }
     #endif
 

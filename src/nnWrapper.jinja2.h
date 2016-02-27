@@ -17,8 +17,8 @@
 {% for typedict in types %}
 {% set Real = typedict['Real'] %}
 {% set real = typedict['real'] %}
-class TH{{Real}}Tensor;
-class TH{{Real}}Storage;
+struct TH{{Real}}Tensor;
+struct TH{{Real}}Storage;
 
 int TH{{Real}}Storage_getRefCount(TH{{Real}}Storage *self);
 int TH{{Real}}Tensor_getRefCount(TH{{Real}}Tensor *self);
