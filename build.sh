@@ -12,7 +12,8 @@
 rm -Rf build PyBuild.so dist *.egg-info cbuild
 # python setup.py build_ext -i || exit 1
 mkdir cbuild
-(cd cbuild; cmake .. -DCMAKE_BUILD_TYPE=Debug -DCMAKE_INSTALL_PREFIX=$HOME/torch/install && make -j 4 install) || exit 1
+TORCH_INSTALL=$(dirname $(dirname $(which luajit)))
+(cd cbuild; cmake .. -DCMAKE_BUILD_TYPE=Debug -DCMAKE_INSTALL_PREFIX=${TORCH_INSTALL} && make -j 4 install) || exit 1
 pip uninstall -y PyTorch
 python setup.py install || exit 1
 

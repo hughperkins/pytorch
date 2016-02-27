@@ -30,6 +30,7 @@ before_install:
   - pip install Jinja2
   - pip install Cython
   - pip install numpy
+  - pip install pytest
   - echo $HOME
   - git clone https://github.com/torch/distro.git ~/torch
   - cd ~/torch
