@@ -32,7 +32,7 @@ using namespace std;
 
 lua_State *luaInit() {
     #ifndef _WIN32
-    cout << "luaInit" << endl;
+//    cout << "luaInit" << endl;
     void *hdl = dlopen("libPyTorchLua.so", RTLD_NOW | RTLD_GLOBAL);
     if(hdl == 0) {
         cout << "Failed to load libPyTorchLua.so, trying dylib..." << endl;
@@ -46,7 +46,7 @@ lua_State *luaInit() {
 ////        cout << "loaded lua library" << endl;
     }
     void *err = dlopen("/home/ubuntu/torch/install/lib/lua/5.1/libpaths.so", RTLD_NOW | RTLD_GLOBAL);
-    cout << "err " << (long)err << endl;
+//    cout << "err " << (long)err << endl;
 
     #endif
 

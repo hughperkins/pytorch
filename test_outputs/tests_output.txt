@@ -194,7 +194,27 @@ output 0.1440992884893341 -0.087528009996586 -0.0519137582956114 0.0519468163079
 0.25221247167841154 -0.16458203829239967 -0.0336971757723476 0.00810051994876354 0.27433503543343507
 [torch.DoubleTensor of size 4x5]
 
-FAILED
+got criterion
+imagesTensor.size()  128
+ 784
+[torch.LongStorage of size 2]
+
+labelsTensor.size()  128
+[torch.LongStorage of size 1]
+
+type(imagesTensor) <class 'PyTorch._DoubleTensor'>
+imagesTensor.size()  128
+ 1
+ 28
+ 28
+[torch.LongStorage of size 4]
+
+start training...
+epoch 0 accuracy: 18.75%
+epoch 1 accuracy: 30.46875%
+epoch 2 accuracy: 53.125%
+epoch 3 accuracy: 72.65625%
+PASSED
 test/test_pytorch.py::test_pytorchLong D 1 1 1
 1 1 1
 1 1 1
@@ -924,45 +944,3 @@ test/test_pytorch.py::test_Pytorch_Byte_cmul PASSED
 test/test_pytorch.py::test_Pytorch_Byte_operator_div PASSED
 test/test_pytorch.py::test_Pytorch_Byte_operator_divequals PASSED
 
-=================================== FAILURES ===================================
-__________________________________ test_pynn ___________________________________
-
-    def test_pynn():
-        PyTorch.manualSeed(123)
-        linear = Linear(3, 5)
-        linear
-        print('linear', linear)
-        print('linear.weight', linear.weight)
-        print('linear.output', linear.output)
-        print('linear.gradInput', linear.gradInput)
-    
-        input = PyTorch.DoubleTensor(4, 3).uniform()
-        print('input', input)
-        output = linear.updateOutput(input)
-        print('output', output)
-    
-        gradInput = linear.updateGradInput(input, output)
-        print('gradInput', gradInput)
-    
-        criterion = ClassNLLCriterion()
-        print('criterion', criterion)
-    
-        print('dir(linear)', dir(linear))
-    
-        mlp = Sequential()
-        mlp.add(linear)
-    
-        output = mlp.forward(input)
-        print('output', output)
-    
-        import sys
-        sys.path.append('thirdparty/python-mnist')
->       from mnist import MNIST
-
-test/test_pynn.py:36: 
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
-
->   from loader import MNIST
-E   ImportError: No module named 'loader'
-
-thirdparty/python-mnist/mnist/__init__.py:1: ImportError

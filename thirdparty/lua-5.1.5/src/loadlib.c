@@ -408,7 +408,7 @@ static int loader_C (lua_State *L) {
   const char *filename = findfile(L, name, "cpath");
   if (filename == NULL) return 1;  /* library not found in this path */
   funcname = mkfuncname(L, name);
-  printf("loading %s\n", filename);
+  // printf("loading %s\n", filename);
   if (ll_loadfunc(L, filename, funcname) != 0)
     loaderror(L, filename);
   return 1;  /* library loaded successfully */
@@ -454,7 +454,7 @@ static const int sentinel_ = 0;
 
 static int ll_require (lua_State *L) {
   const char *name = luaL_checkstring(L, 1);
-  printf("require %s\n", name);
+  //printf("require %s\n", name);
   int i;
   lua_settop(L, 1);  /* _LOADED table will be at index 2 */
   lua_getfield(L, LUA_REGISTRYINDEX, "_LOADED");
