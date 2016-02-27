@@ -79,6 +79,7 @@ pip install Cython
 pip install Jinja2
 pip install pytest
 pip install numpy
+pip install python-mnist  # used for unit tests
 ```
 - lua51 headers should be installed, ie something like `sudo apt-get install lua5.1 liblua5.1-dev`
 
