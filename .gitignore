@@ -1,4 +1,5 @@
 cbuild/
+data/mnist/
 share
 gedit.sh
 *.o

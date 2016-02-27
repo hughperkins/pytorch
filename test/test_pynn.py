@@ -31,8 +31,8 @@ def test_pynn():
     output = mlp.forward(input)
     print('output', output)
 
-    import sys
-    sys.path.append('thirdparty/python-mnist')
+#    import sys
+#    sys.path.append('thirdparty/python-mnist')
     from mnist import MNIST
     import numpy
     import array
@@ -60,7 +60,7 @@ def test_pynn():
 
     learningRate = 0.02
 
-    mndata = MNIST('/norep/data/mnist')
+    mndata = MNIST('data/mnist')
     imagesList, labelsB = mndata.load_training()
     images = numpy.array(imagesList).astype(numpy.float64)
     #print('imagesArray', images.shape)
