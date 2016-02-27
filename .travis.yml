@@ -9,7 +9,14 @@ matrix:
 before_install:
   - if [ -f ".git/shallow" ]; then travis_retry git fetch --unshallow; fi
   - whoami
-  - pwd
+  - BASEDIR=$(pwd)
+  - echo BASEDIR $BASEDIR
+  - wget wget http://www.lua.org/ftp/lua-5.1.4.tar.gz
+  - tar -xf lua-5.1.4.tar.gz
+  - cd lua-5.1.4
+  - make macosx
+  - sudo make install
+  - cd $BASEDIR
   - wget https://www.python.org/ftp/python/3.4.4/python-3.4.4-macosx10.6.pkg
   - sudo installer -pkg python-3.4.4-macosx10.6.pkg -target /
   - python3 -V
