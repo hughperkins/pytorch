@@ -2,6 +2,10 @@ cmake_minimum_required(VERSION 2.8)
 
 find_package(Lua51 REQUIRED)
 include_directories(${LUA_INCLUDE_DIR})
+FIND_PACKAGE(Torch REQUIRED)
+
+SET(CMAKE_C_FLAGS "-std=c99 -Werror=implicit-function-declaration")
+SET(CMAKE_CXX_FLAGS "-std=c++0x -Wall")
 
 set(HOME $ENV{HOME})
 #include_directories(${CMAKE_CURRENT_SOURCE_DIR}/thirdparty/lua-5.1.5/src)
@@ -19,8 +23,8 @@ include_directories(${HOME}/torch/install/include)
 add_library(PyTorchNative SHARED src/nnWrapper.cpp src/LuaHelper.cpp)
 #add_library(nnWrapper SHARED nnWrapper.cpp ${lua_src})
 target_link_libraries(PyTorchNative ${LUA_LIBRARIES})
-target_link_libraries(PyTorchNative ${HOME}/torch/install/lib/libluaT.so)
-target_link_libraries(PyTorchNative ${HOME}/torch/install/lib/libTH.so)
+target_link_libraries(PyTorchNative luaT)
+target_link_libraries(PyTorchNative TH)
 
 install(TARGETS PyTorchNative
     RUNTIME DESTINATION bin
