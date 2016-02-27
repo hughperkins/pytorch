@@ -11,9 +11,9 @@ before_install:
   - whoami
   - BASEDIR=$(pwd)
   - echo BASEDIR $BASEDIR
-  - wget wget http://www.lua.org/ftp/lua-5.1.4.tar.gz
-  - tar -xf lua-5.1.4.tar.gz
-  - cd lua-5.1.4
+  - wget wget http://www.lua.org/ftp/lua-5.1.5.tar.gz
+  - tar -xf lua-5.1.5.tar.gz
+  - cd lua-5.1.5
   - make macosx
   - sudo make install
   - cd $BASEDIR
