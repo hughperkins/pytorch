@@ -10,7 +10,8 @@ before_install:
   - if [ -f ".git/shallow" ]; then travis_retry git fetch --unshallow; fi
   - whoami
   - pwd
-  - python -V
+  - wget https://www.python.org/ftp/python/3.4.4/python-3.4.4-macosx10.6.pkg
+  - sudo installer -pkg python-3.4.4-macosx10.6.pkg -target /
   - python3 -V
   - virtualenv -p python3 ~/env
   - source ~/env/bin/activate
