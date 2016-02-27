@@ -53,6 +53,11 @@ for templateName in templateNames:
         f.write(pyx.encode('utf-8'))
         f.close()
 
+for arg in sys.argv:
+    if arg in ('cython_only'):
+        print('cython finished, exiting')
+        sys.exit(0)
+
 building_dist = False
 for arg in sys.argv:
     if arg in ('sdist', 'bdist', 'bdist_egg', 'build_ext'):

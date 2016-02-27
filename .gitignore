@@ -1,6 +1,10 @@
 cbuild/
 share
 gedit.sh
+*.o
+thirdparty/lua-5.1.5/src/lua
+thirdparty/lua-5.1.5/src/luac
+thirdparty/lua-5.1.5/src/liblua.a
 
 # Byte-compiled / optimized / DLL files
 __pycache__/

@@ -53772,21 +53772,21 @@ static int __pyx_import_star_set(PyObject *o, PyObject* py_name, char *name) {
     PyErr_Format(PyExc_TypeError, "Cannot convert Python object Py_None to PyObject *");
     {__pyx_filename = __pyx_f[2]; __pyx_lineno = 55; __pyx_clineno = __LINE__; goto __pyx_L2_error;}
   }
-  else if (__Pyx_StrEq(name, "strided")) {
+  else if (__Pyx_StrEq(name, "globalState")) {
+    if (!(likely(((o) == Py_None) || likely(__Pyx_TypeTest(o, __pyx_ptype_7PyTorch_GlobalState))))) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 2395; __pyx_clineno = __LINE__; goto __pyx_L2_error;};
     Py_INCREF(o);
-    Py_DECREF(strided);
-    strided = o;
+    Py_DECREF(((PyObject *)__pyx_v_7PyTorch_globalState));
+    __pyx_v_7PyTorch_globalState = ((struct __pyx_obj_7PyTorch_GlobalState *)o);
   }
   else if (__Pyx_StrEq(name, "generic")) {
     Py_INCREF(o);
     Py_DECREF(generic);
     generic = o;
   }
-  else if (__Pyx_StrEq(name, "globalState")) {
-    if (!(likely(((o) == Py_None) || likely(__Pyx_TypeTest(o, __pyx_ptype_7PyTorch_GlobalState))))) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 2395; __pyx_clineno = __LINE__; goto __pyx_L2_error;};
+  else if (__Pyx_StrEq(name, "strided")) {
     Py_INCREF(o);
-    Py_DECREF(((PyObject *)__pyx_v_7PyTorch_globalState));
-    __pyx_v_7PyTorch_globalState = ((struct __pyx_obj_7PyTorch_GlobalState *)o);
+    Py_DECREF(strided);
+    strided = o;
   }
   else if (__Pyx_StrEq(name, "indirect_contiguous")) {
     Py_INCREF(o);
