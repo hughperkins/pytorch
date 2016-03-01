@@ -17,46 +17,52 @@ home_dir = os.getenv('HOME')
 print('home_dir:', home_dir)
 
 cython_present = False
-from Cython.Build import cythonize
-cython_present = True
+#from Cython.Build import cythonize
+#cython_present = True
 
 jinja_present = False
-import jinja2
-jinja_present = True
+#jinja_present = True
 
-# first generate cython pyx from jinja template...
-from jinja2 import Environment, PackageLoader, Template
-env = Environment(loader=jinja2.FileSystemLoader('.'))
-templateNames = [
-    'src/PyTorch.jinja2.pyx', 'src/Storage.jinja2.pyx', 'src/PyTorch.jinja2.pxd', 'src/nnWrapper.jinja2.cpp', 'src/nnWrapper.jinja2.h',
-    'test/jinja2.test_pytorch.py', 'src/Storage.jinja2.pxd', 'src/nnWrapper.jinja2.pxd', 'src/lua.jinja2.pxd', 'src/lua.jinja2.pyx']
-for templateName in templateNames:
-    template = env.get_template(templateName)
-    pyx = template.render(
-        header='GENERATED FILE, do not edit by hand, ' +
-        'Source: ' + templateName,
-        header1='GENERATED FILE, do not edit by hand',
-        header2='Source: ' + templateName)
-    outFilename = templateName.replace('.jinja2', '').replace('jinja2.', '')
-    print('outfilename', outFilename)
-    isUpdate = True
-    if os.path.isfile(outFilename):
-        # read existing file, see if anything changed
-        f = open(outFilename, 'rb')  # binary, so get linux line endings, even on Windows
-        pyx_current = f.read()
-        f.close()
-        if pyx_current == pyx:
-            isUpdate = False
-    if isUpdate:
-        print(outFilename + ' (changed)')
-        f = open(outFilename, 'wb')
-        f.write(pyx.encode('utf-8'))
-        f.close()
-
+running_cython = False
 for arg in sys.argv:
     if arg in ('cython_only'):
-        print('cython finished, exiting')
-        sys.exit(0)
+        running_cython=True
+        break
+
+if running_cython:
+    print('Cythonizing...')
+    from Cython.Build import cythonize
+    import jinja2
+    # first generate cython pyx from jinja template...
+    from jinja2 import Environment, PackageLoader, Template
+    env = Environment(loader=jinja2.FileSystemLoader('.'))
+    templateNames = [
+        'src/PyTorch.jinja2.pyx', 'src/Storage.jinja2.pyx', 'src/PyTorch.jinja2.pxd', 'src/nnWrapper.jinja2.cpp', 'src/nnWrapper.jinja2.h',
+        'test/jinja2.test_pytorch.py', 'src/Storage.jinja2.pxd', 'src/nnWrapper.jinja2.pxd', 'src/lua.jinja2.pxd', 'src/lua.jinja2.pyx']
+    for templateName in templateNames:
+        template = env.get_template(templateName)
+        pyx = template.render(
+            header='GENERATED FILE, do not edit by hand, ' +
+            'Source: ' + templateName,
+            header1='GENERATED FILE, do not edit by hand',
+            header2='Source: ' + templateName)
+        outFilename = templateName.replace('.jinja2', '').replace('jinja2.', '')
+        print('outfilename', outFilename)
+        isUpdate = True
+        if os.path.isfile(outFilename):
+            # read existing file, see if anything changed
+            f = open(outFilename, 'rb')  # binary, so get linux line endings, even on Windows
+            pyx_current = f.read()
+            f.close()
+            if pyx_current == pyx:
+                isUpdate = False
+        if isUpdate:
+            print(outFilename + ' (changed)')
+            f = open(outFilename, 'wb')
+            f.write(pyx.encode('utf-8'))
+            f.close()
+    print('cython finished, exiting')
+    sys.exit(0)
 
 building_dist = False
 for arg in sys.argv:
@@ -121,11 +127,11 @@ for cython_source in cython_sources:
                   language="c++")
     )
 
-ext_modules = cythonize(ext_modules)
+#ext_modules = cythonize(ext_modules)
 
 setup(
     name='PyTorch',
-    version='2.2.0-SNAPSHOT',
+    version='',
     author='Hugh Perkins',
     author_email='hughperkins@gmail.com',
     description=(
@@ -135,7 +141,7 @@ setup(
     long_description='Python wrappers for torch and nn',
     classifiers=[
     ],
-    install_requires=['Cython', 'numpy', 'Jinja2'],
+    install_requires=['numpy'],
     scripts=[],
     ext_modules=ext_modules,
     py_modules=['floattensor', 'PyTorchAug'],

@@ -75,10 +75,7 @@ luarocks install nn
 * Have installed the following python libraries:
 ```
 pip install numpy
-pip install Cython
-pip install Jinja2
 pip install pytest
-pip install numpy
 pip install python-mnist  # used for unit tests
 ```
 - lua51 headers should be installed, ie something like `sudo apt-get install lua5.1 liblua5.1-dev`
@@ -127,6 +124,9 @@ from __future__ import print_function, division
 * [pycudatorch](https://github.com/hughperkins/pycudatorch) python wrappers for [cutorch](https://github.com/torch/cutorch) and [cunn](https://github.com/torch/cunn)
 
 # Recent news
+
+2 March:
+* removed requirements on Cython, Jinja2 for installation
 
 28th Februrary:
 * builds ok on Mac OS X now :-)  See https://travis-ci.org/hughperkins/pytorch/builds/112292866
