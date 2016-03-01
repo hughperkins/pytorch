@@ -9,9 +9,11 @@
 
 source ~/torch/install/bin/torch-activate
 
-if [[ x$RUNGDB == x ]]; then {
+if [[ x$RUNGDB != x ]]; then {
+    rungdb.sh python $(which py.test) test/test_pytorch.py $*
+} elif [[ x$STDBUF != x ]]; {
     stdbuf --output=L py.test -sv test/test_pytorch.py $* | grep --line-buffered -v 'seconds =============' | tee test_outputs/test_pytorch_output.txt
 } else {
-    rungdb.sh python $(which py.test) test/test_pytorch.py $*
+    py.test -sv test/test_pytorch.py $*
 } fi
 

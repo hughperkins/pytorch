@@ -23,12 +23,10 @@ if [[ ! -f data/mnist/train-labels-idx1-ubyte ]]; then {
    echo ...downloaded mnist data
 } fi
 
-if [[ $(uname) == Linux ]]; then {
-  if [[ x$RUNGDB == x ]]; then {
-      stdbuf --output=L py.test -sv test/test* $* | grep --line-buffered -v 'seconds =============' | tee test_outputs/tests_output.txt
-  } else {
-      rungdb.sh python $(which py.test) test/test* $*
-  } fi
+if [[ x$RUNGDB != x ]]; then {
+  rungdb.sh python $(which py.test) test/test* $*
+} elif [[ x$STDBUF != x ]]; {
+  stdbuf --output=L py.test -sv test/test* $* | grep --line-buffered -v 'seconds =============' | tee test_outputs/tests_output.txt
 } else {
    py.test -sv test/test*
 } fi
