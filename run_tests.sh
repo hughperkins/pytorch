@@ -25,7 +25,7 @@ if [[ ! -f data/mnist/train-labels-idx1-ubyte ]]; then {
 
 if [[ x$RUNGDB != x ]]; then {
   rungdb.sh python $(which py.test) test/test* $*
-} elif [[ x$STDBUF != x ]]; {
+} elif [[ x$STDBUF != x ]]; then {
   stdbuf --output=L py.test -sv test/test* $* | grep --line-buffered -v 'seconds =============' | tee test_outputs/tests_output.txt
 } else {
    py.test -sv test/test*
