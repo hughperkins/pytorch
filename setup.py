@@ -91,11 +91,12 @@ libraries = []
 libraries.append('PyTorchNative')
 #libraries.append('TH')
 library_dirs = []
-library_dirs.append('cbuild')
+# library_dirs.append('cbuild')
 library_dirs.append(home_dir + '/torch/install/lib')
 
-if osfamily == 'Linux':
-    runtime_library_dirs = ['.']
+runtime_library_dirs = []
+if osfamily != 'Windows':
+    runtime_library_dirs = [home_dir + '/torch/install/lib']
 
 if osfamily == 'Windows':
     libraries.append('winmm')
@@ -131,7 +132,7 @@ for cython_source in cython_sources:
 
 setup(
     name='PyTorch',
-    version='2.3.0',
+    version='2.4.0-SNAPSHOT',
     author='Hugh Perkins',
     author_email='hughperkins@gmail.com',
     description=(

@@ -39,7 +39,7 @@ lua_State *luaInit() {
     } else {
 ////        cout << "loaded lua library" << endl;
     }
-    void *err = dlopen("/home/ubuntu/torch/install/lib/lua/5.1/libpaths.so", RTLD_NOW | RTLD_GLOBAL);
+    dlopen("/home/ubuntu/torch/install/lib/lua/5.1/libpaths.so", RTLD_NOW | RTLD_GLOBAL);
 //    cout << "err " << (long)err << endl;
 
     #endif
