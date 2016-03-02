@@ -8,10 +8,8 @@ FIND_PACKAGE(Torch REQUIRED)  # you need to run source ~/torch/install/bin/torch
 SET(CMAKE_C_FLAGS "-std=c99 ")
 SET(CMAKE_CXX_FLAGS "-std=c++0x -Wall")
 
-set(HOME $ENV{HOME})
-#include_directories(${CMAKE_CURRENT_SOURCE_DIR}/thirdparty/lua-5.1.5/src)
-include_directories(${HOME}/torch/install/include/TH)
-include_directories(${HOME}/torch/install/include)
+include_directories(${TORCH_INSTALL}/include)
+include_directories(${TORCH_INSTALL}/include/TH)
 
 ADD_DEFINITIONS(-DLUA_USE_LINUX)
 

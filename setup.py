@@ -13,8 +13,8 @@ import platform
 from setuptools import setup
 from setuptools import Extension
 
-home_dir = os.getenv('HOME')
-print('home_dir:', home_dir)
+torch_dir = os.getenv('TORCH_INSTALL')
+print('torch_install:', torch_dir)
 
 cython_present = False
 #from Cython.Build import cythonize
@@ -92,11 +92,11 @@ libraries.append('PyTorchNative')
 #libraries.append('TH')
 library_dirs = []
 # library_dirs.append('cbuild')
-library_dirs.append(home_dir + '/torch/install/lib')
+library_dirs.append(torch_dir + '/lib')
 
 runtime_library_dirs = []
 if osfamily != 'Windows':
-    runtime_library_dirs = [home_dir + '/torch/install/lib']
+    runtime_library_dirs = [torch_dir + '/lib']
 
 if osfamily == 'Windows':
     libraries.append('winmm')
@@ -120,7 +120,7 @@ for cython_source in cython_sources:
     ext_modules.append(
         Extension(basename,
                   sources=[source_name],
-                  include_dirs=[home_dir + '/torch/install/include/TH', 'thirdparty/lua-5.1.5/src', home_dir + '/torch/install/include'],
+                  include_dirs=[torch_dir + '/include/TH', 'thirdparty/lua-5.1.5/src', torch_dir + '/include'],
                   library_dirs=library_dirs,
                   libraries=libraries,
                   extra_compile_args=compile_options,
