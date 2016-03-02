@@ -35,7 +35,7 @@ script:
   - cat ~/torch/install/bin/torch-activate
   - source ~/torch/install/bin/torch-activate
   - ./build.sh
-  - PYTORCHSOPATH=$(find ~/git/asapp/py/env/lib -name "PyTorch.cpython*" | grep -v pycache)
+  - PYTORCHSOPATH=$(find ~/env/lib -name "PyTorch.cpython*" | grep -v pycache)
   - echo PYTORCHSOPATH=${PYTORCHSOPATH}
   - otool -L ${PYTORCHSOPATH}
   - ./run_tests.sh
