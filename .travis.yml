@@ -27,7 +27,7 @@ before_install:
   - pip install python-mnist
   - pip install pytest
   - echo $HOME
-  - bash src/travis/install-torch.sh
+  - bash travis/install-torch.sh
   - source ~/torch/install/bin/torch-activate
   - cd ~/build/hughperkins/pytorch
 
