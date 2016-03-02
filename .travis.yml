@@ -11,16 +11,6 @@ before_install:
   - whoami
   - BASEDIR=$(pwd)
   - echo BASEDIR $BASEDIR
-  - # wget http://www.lua.org/ftp/lua-5.1.5.tar.gz
-  - # tar -xf lua-5.1.5.tar.gz
-  - # cd lua-5.1.5
-  - # echo 'liblua.dylib: $(CORE_O) $(LIB_O)' >> Makefile
-  - # echo '  $(CC) -dynamiclib -o $@ $^ $(LIBS)' >> Makefile
-  - # make macosx
-  - # make -C src liblua.dylib
-  - # sudo make install
-  - # sudo cp src/liblua.dylib /usr/local/lib
-  - cd $BASEDIR
   - wget https://www.python.org/ftp/python/3.4.4/python-3.4.4-macosx10.6.pkg
   - sudo installer -pkg python-3.4.4-macosx10.6.pkg -target /
   - python3 -V
@@ -37,22 +27,8 @@ before_install:
   - pip install python-mnist
   - pip install pytest
   - echo $HOME
-  - git clone https://github.com/torch/distro.git ~/torch
-  - cd ~/torch
-  - 'for pkg in cudnn cunn cunnx cutorch qttorch trepl graph optim sdl2 threads submodule graphicsmagick audio fftw3 signal nnx qtlua gnuplot dok iTorch argcheck image xlua; do { sed -i -e "s/\(.*$pkg.*\)/echo skipping $pkg # \1/" install.sh; } done'
-  - 'awk ''NR==2{print "set -x"}1'' install.sh > ~install.sh'
-  - mv ~install.sh install.sh
-  - chmod +x install.sh
-  - cat install.sh
-  - for pkg in exe/luajit-rocks extra/nn pkg/cwrap pkg/paths pkg/sundown pkg/sys pkg/torch pkg/paths extra/penlight extra/lua-cjson extra/luaffifb extra/luafilesystem; do { git submodule update --init $pkg; } done
-  - sed -i -e 's/$(MAKE)/$(MAKE) -j 4/' pkg/torch/rocks/torch-scm-1.rockspec
-  - ./install.sh -b >/dev/null
-  - sed -i -e 's/^export LD_LIBRARY_PATH/# export LD_LIBRARY_PATH/ ~/torch/install/bin/torch-activate
-  - sed -i -e 's/^export DYLD_LIBRARY_PATH/# export LD_LIBRARY_PATH/ ~/torch/install/bin/torch-activate
+  - bash src/travis/install-torch.sh
   - source ~/torch/install/bin/torch-activate
-  - # luarocks install torch
-  - # mkdir ~/git
-  - # cd ~/git
   - cd ~/build/hughperkins/pytorch
 
 script:
@@ -60,8 +36,8 @@ script:
   - source ~/torch/install/bin/torch-activate
   - ./build.sh
   - PYTORCHSOPATH=$(find ~/git/asapp/py/env/lib -name "PyTorch.cpython*" | grep -v pycache)
-  - echo PYTORCHSOPATH=${PYTORCHSOPATH$
-  - otool -L ${PYTORCHSOPATH$
+  - echo PYTORCHSOPATH=${PYTORCHSOPATH}
+  - otool -L ${PYTORCHSOPATH}
   - ./run_tests.sh
   - cd simpleexample
   - python pybit.py
