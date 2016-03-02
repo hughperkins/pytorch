@@ -31,8 +31,8 @@ before_install:
   - pip install -U pip
   - pip install -U setuptools
   - pip install wheel
-  - pip install Jinja2
-  - pip install Cython
+  - # pip install Jinja2
+  - # pip install Cython
   - pip install numpy
   - pip install python-mnist
   - pip install pytest
@@ -47,6 +47,8 @@ before_install:
   - for pkg in exe/luajit-rocks extra/nn pkg/cwrap pkg/paths pkg/sundown pkg/sys pkg/torch pkg/paths extra/penlight extra/lua-cjson extra/luaffifb extra/luafilesystem; do { git submodule update --init $pkg; } done
   - sed -i -e 's/$(MAKE)/$(MAKE) -j 4/' pkg/torch/rocks/torch-scm-1.rockspec
   - ./install.sh -b >/dev/null
+  - sed -i -e 's/^export LD_LIBRARY_PATH/# export LD_LIBRARY_PATH/ ~/torch/install/bin/torch-activate
+  - sed -i -e 's/^export DYLD_LIBRARY_PATH/# export LD_LIBRARY_PATH/ ~/torch/install/bin/torch-activate
   - source ~/torch/install/bin/torch-activate
   - # luarocks install torch
   - # mkdir ~/git
@@ -57,7 +59,12 @@ script:
   - cat ~/torch/install/bin/torch-activate
   - source ~/torch/install/bin/torch-activate
   - ./build.sh
+  - PYTORCHSOPATH=$(find ~/git/asapp/py/env/lib -name "PyTorch.cpython*" | grep -v pycache)
+  - echo PYTORCHSOPATH=${PYTORCHSOPATH$
+  - otool -L ${PYTORCHSOPATH$
   - ./run_tests.sh
+  - cd simpleexample
+  - python pybit.py
 
 notifications:
   email:
