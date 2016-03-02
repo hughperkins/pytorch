@@ -94,7 +94,6 @@ library_dirs = []
 # library_dirs.append('cbuild')
 library_dirs.append(torch_dir + '/lib')
 
-runtime_library_dirs = []
 if osfamily != 'Windows':
     runtime_library_dirs = [torch_dir + '/lib']
 
