@@ -88,6 +88,7 @@ else:
 
 runtime_library_dirs = []
 libraries = []
+extra_link_args = []
 #libraries.append('lua5.1')
 #libraries.append('luaT')
 #libraries.append('mylib')
@@ -102,6 +103,9 @@ if osfamily != 'Windows':
 
 if osfamily == 'Windows':
     libraries.append('winmm')
+
+if osfamily == 'Darwin':  # Mac OS X
+    extra_link_args.append('-Wl,-rpath,' + torch_install_dir + '/lib')
 
 #sources = ["PyTorch.cxx"]
 #if cython_present:
@@ -126,6 +130,7 @@ for cython_source in cython_sources:
                   library_dirs=library_dirs,
                   libraries=libraries,
                   extra_compile_args=compile_options,
+                  extra_link_args=extra_link_args,
                   runtime_library_dirs=runtime_library_dirs,
                   language="c++")
     )
