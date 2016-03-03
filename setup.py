@@ -14,7 +14,9 @@ from setuptools import setup
 from setuptools import Extension
 
 torch_install_dir = os.getenv('TORCH_INSTALL')
+osfamily = platform.uname()[0]
 print('torch_install:', torch_install_dir)
+print('os family', osfamily)
 
 cython_present = False
 #from Cython.Build import cythonize
@@ -71,12 +73,13 @@ for arg in sys.argv:
         break
 
 compile_options = []
-osfamily = platform.uname()[0]
 if osfamily == 'Windows':
     compile_options.append('/EHsc')
-elif osfamily == 'Linux':
+elif osfamily != 'Linux':
     compile_options.append('-std=c++0x')
     compile_options.append('-g')
+    compile_options.append('-Wno-unused-function')
+    compile_options.append('-Wno-unreachable-code')
     if 'DEBUG' in os.environ:
         compile_options.append('-O0')
 else:
