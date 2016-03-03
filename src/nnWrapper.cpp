@@ -29,17 +29,17 @@ lua_State *luaInit() {
 //    cout << "luaInit" << endl;
     void *hdl = dlopen("libPyTorchLua.so", RTLD_NOW | RTLD_GLOBAL);
     if(hdl == 0) {
-        cout << "Failed to load libPyTorchLua.so, trying dylib..." << endl;
+        //cout << "Failed to load libPyTorchLua.so, trying dylib..." << endl;
         hdl = dlopen("libPyTorchLua.dylib", RTLD_NOW | RTLD_GLOBAL);
     }
     if(hdl == 0) {
-        cout << "Failed to load libPyTorchLua.dylib, fatal" << endl;
+        cout << "Failed to load both libPyTorchLua.so and libPyTorchLua.dylib, fatal" << endl;
         cout << dlerror() << endl;
         throw runtime_error(string("Couldnt load liblua5.1.so or liblua.dylib") + dlerror());
     } else {
 ////        cout << "loaded lua library" << endl;
     }
-    dlopen("/home/ubuntu/torch/install/lib/lua/5.1/libpaths.so", RTLD_NOW | RTLD_GLOBAL);
+    void *err = dlopen("/home/ubuntu/torch/install/lib/lua/5.1/libpaths.so", RTLD_NOW | RTLD_GLOBAL);
 //    cout << "err " << (long)err << endl;
 
     #endif
