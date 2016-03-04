@@ -72,6 +72,12 @@ cdef class LuaState(object):
     def call(self, int numIn, int numOut):
         lua_call(self.L, numIn, numOut)
 
+    def newTable(self):
+        lua_newtable(self.L)
+
+    def setTable(self, index):
+        lua_settable(self.L, index)
+
     def getField(self, int index, name):
         lua_getfield(self.L, index, name.encode('utf-8'))
 

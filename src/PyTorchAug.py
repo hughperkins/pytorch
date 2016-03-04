@@ -68,21 +68,50 @@ def torchType(lua, pos):
     lua.call(1, 1)
     return popString(lua)
 
+def pushSomething(lua, something):
+    if isinstance(something, int):
+        lua.pushNumber(something)
+        return
+
+    if isinstance(something, float):
+        lua.pushNumber(something)
+        return
+
+    if isinstance(something, str):
+        lua.pushString(something)
+        return
+
+    if isinstance(something, dict):
+        pushTable(lua, something)
+        return
+
+    for pythonClass in pushFunctionByPythonClass:
+        if isinstance(something, pythonClass):
+            pushFunctionByPythonClass[pythonClass](something)
+            return
+
+    if type(something) in luaClassesReverse:
+        pushObject(lua, something)
+        return
+
+    raise Exception('pushing type ' + str(type(something)) + ' not implemented, value ', something)
+
+def pushTable(lua, table):
+    lua.newTable()
+    for k, v in table.items():
+        pushSomething(lua, k)
+        pushSomething(lua, v)
+        lua.setTable(3)
+
 class LuaClass(object):
     def __init__(self, *args, nameList):
-        # print('LuaClass.__init__()')
         lua = PyTorch.getGlobalState().getLua()
 #        self.luaclass = luaclass
         self.__dict__['__objectId'] = getNextObjectId()
         topStart = lua.getTop()
         pushGlobalFromList(lua, nameList)
         for arg in args:
-            if isinstance(arg, int):
-                lua.pushNumber(arg)
-            elif isinstance(arg, str):
-                lua.pushString(arg)
-            else:
-                raise Exception('arg type ' + str(type(arg)) + ' not implemented')
+            pushSomething(lua, arg)
         lua.call(len(args), 1)
         registerObject(lua, self)
 
@@ -160,29 +189,8 @@ class LuaClass(object):
                 pushObject(lua, self)
                 lua.getField(-1, name)
                 lua.insert(-2)
-#                pushObject(lua, self)
                 for arg in args:
-#                    print('arg', arg, type(arg))
-                    pushedArg = False
-                    for pythonClass in pushFunctionByPythonClass:
-                        if isinstance(arg, pythonClass):
-                            pushFunctionByPythonClass[pythonClass](arg)
-                            pushedArg = True
-                            break
-                    if not pushedArg and type(arg) in luaClassesReverse:
-                        pushObject(lua, arg)
-                        pushedArg = True
-                    if not pushedArg and isinstance(arg, float):
-                        lua.pushNumber(arg)
-                        pushedArg = True
-                    if not pushedArg and isinstance(arg, int):
-                        lua.pushNumber(arg)
-                        pushedArg = True
-                    if not pushedArg and isinstance(arg, str):
-                        lua.pushString(arg)
-                        pushedArg = True
-                    if not pushedArg:
-                        raise Exception('arg type ' + str(type(arg)) + ' not implemented')
+                    pushSomething(lua, arg)
                 lua.call(len(args) + 1, 1)   # +1 for self
                 lua.pushValue(-1)
                 pushGlobal(lua, 'torch', 'type')

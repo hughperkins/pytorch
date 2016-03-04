@@ -23,3 +23,5 @@ luaout = luabit.getOut(luain, outSize, kernelSize)
 outTensor = luaout.asNumpyTensor()
 print('outTensor', outTensor)
 
+luabit.printTable({'color': 'red', 'weather': 'sunny', 'anumber': 10, 'afloat': 1.234})
+

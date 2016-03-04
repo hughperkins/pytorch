@@ -38,6 +38,7 @@ cdef extern from "lua_externc.h":
     void lua_insert(lua_State *L, int index)
     void lua_getglobal(lua_State *L, const char *name)
     void lua_setglobal(lua_State *L, const char *name)
+    void lua_newtable(lua_State *L)
     void lua_settable(lua_State *L, int index)
     void lua_gettable(lua_State *L, int index)
     void lua_getfield(lua_State *L, int index, const char *name)
