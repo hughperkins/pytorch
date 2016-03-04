@@ -101,7 +101,7 @@ def pushTable(lua, table):
     for k, v in table.items():
         pushSomething(lua, k)
         pushSomething(lua, v)
-        lua.setTable(3)
+        lua.setTable(-3)
 
 class LuaClass(object):
     def __init__(self, *args, nameList):
