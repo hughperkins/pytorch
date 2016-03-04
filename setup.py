@@ -139,7 +139,7 @@ for cython_source in cython_sources:
 
 setup(
     name='PyTorch',
-    version='2.5.0',
+    version='2.6.0',
     author='Hugh Perkins',
     author_email='hughperkins@gmail.com',
     description=(
@@ -152,7 +152,7 @@ setup(
     install_requires=['numpy'],
     scripts=[],
     ext_modules=ext_modules,
-    py_modules=['floattensor', 'PyTorchAug'],
+    py_modules=['floattensor', 'PyTorchAug', 'PyTorchHelpers'],
     package_dir={'': 'src'}
 )
 

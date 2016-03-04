@@ -1,18 +1,10 @@
 import sys
 import os
-import PyTorchAug
 import PyTorch
+import PyTorchHelpers
 import numpy as np
 
-PyTorch.require('luabit')
-class Luabit(PyTorchAug.LuaClass):
-    def __init__(self, _fromLua=False):
-        self.luaclass = 'Luabit'
-        if not _fromLua:
-            name = self.__class__.__name__
-            super(self.__class__, self).__init__([name])
-        else:
-            self.__dict__['__objectId'] = getNextObjectId()
+Luabit = PyTorchHelpers.load_lua_class('luabit.lua', 'Luabit')
 
 batchSize = 2
 numFrames = 4
