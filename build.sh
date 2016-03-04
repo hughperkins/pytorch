@@ -9,12 +9,16 @@
 #    ... or similar
 # - torch is expected to be at $HOME/torch
 
-rm -Rf build PyBuild.so dist *.egg-info cbuild
+if [[ x${INCREMENTAL} == x ]]; then {
+  rm -Rf build PyBuild.so dist *.egg-info cbuild
+  pip uninstall -y PyTorch
+} fi
 # python setup.py build_ext -i || exit 1
+
 if [[ x${CYTHON} != x ]]; then { python setup.py cython_only || exit 1; } fi
-mkdir cbuild
+
+mkdir -p cbuild
 export TORCH_INSTALL=$(dirname $(dirname $(which luajit)))
 (cd cbuild; cmake .. -DCMAKE_BUILD_TYPE=Debug -DCMAKE_INSTALL_PREFIX=${TORCH_INSTALL} && make -j 4 install) || exit 1
-pip uninstall -y PyTorch
 python setup.py install || exit 1
 
