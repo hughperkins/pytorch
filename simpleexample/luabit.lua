@@ -21,9 +21,13 @@ function Luabit:getOut(inTensor, outSize, kernelSize)
   return out
 end
 
-function Luabit:printTable(sometable)
+function Luabit:printTable(sometable, somestring, table2)
   for k, v in pairs(sometable) do
     print('Luabit:printTable ', k, v)
+  end
+  print('somestring', somestring)
+  for k, v in pairs(table2) do
+    print('Luabit table2 ', k, v)
   end
 end
 
