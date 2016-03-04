@@ -69,7 +69,7 @@ def torchType(lua, pos):
     return popString(lua)
 
 class LuaClass(object):
-    def __init__(self, nameList, *args):
+    def __init__(self, *args, nameList):
         # print('LuaClass.__init__()')
         lua = PyTorch.getGlobalState().getLua()
 #        self.luaclass = luaclass
@@ -79,6 +79,8 @@ class LuaClass(object):
         for arg in args:
             if isinstance(arg, int):
                 lua.pushNumber(arg)
+            elif isinstance(arg, str):
+                lua.pushString(arg)
             else:
                 raise Exception('arg type ' + str(type(arg)) + ' not implemented')
         lua.call(len(args), 1)
@@ -236,7 +238,7 @@ class Table(LuaClass):
         # print('Table.__init__')
         if not _fromLua:
             name = self.__class__.__name__
-            super(self.__class__, self).__init__(['nn', name])
+            super(self.__class__, self).__init__(nameList=['nn', name])
         else:
             self.__dict__['__objectId'] = getNextObjectId()
             self.luaclass = 'table'
@@ -247,7 +249,7 @@ class Linear(LuaClass):
         self.luaclass = 'nn.Linear'
         if not _fromLua:
             name = self.__class__.__name__
-            super(self.__class__, self).__init__(['nn', name], numIn, numOut)
+            super(self.__class__, self).__init__(numIn, numOut, nameList=['nn', name])
         else:
             self.__dict__['__objectId'] = getNextObjectId()
 
@@ -256,7 +258,7 @@ class ClassNLLCriterion(LuaClass):
         self.luaclass = 'nn.ClassNLLCriterion'
         if not _fromLua:
             name = self.__class__.__name__
-            super(self.__class__, self).__init__(['nn', name])
+            super(self.__class__, self).__init__(nameList=['nn', name])
         else:
             self.__dict__['__objectId'] = getNextObjectId()
 
@@ -265,7 +267,7 @@ class MSECriterion(LuaClass):
         self.luaclass = 'nn.MSECriterion'
         if not _fromLua:
             name = self.__class__.__name__
-            super(self.__class__, self).__init__(['nn', name])
+            super(self.__class__, self).__init__(nameList=['nn', name])
         else:
             self.__dict__['__objectId'] = getNextObjectId()
 
@@ -274,7 +276,7 @@ class Sequential(LuaClass):
         self.luaclass = 'nn.Sequential'
         if not _fromLua:
             name = self.__class__.__name__
-            super(self.__class__, self).__init__(['nn', name])
+            super(self.__class__, self).__init__(nameList=['nn', name])
         else:
             self.__dict__['__objectId'] = getNextObjectId()
 
@@ -283,7 +285,7 @@ class LogSoftMax(LuaClass):
         self.luaclass = 'nn.LogSoftMax'
         if not _fromLua:
             name = self.__class__.__name__
-            super(self.__class__, self).__init__(['nn', name])
+            super(self.__class__, self).__init__(nameList=['nn', name])
         else:
             self.__dict__['__objectId'] = getNextObjectId()
 
@@ -293,13 +295,13 @@ class Reshape(LuaClass):
         if not _fromLua:
             name = self.__class__.__name__
             if s4 is not None:   # this is a bit hacky, but gets it working for now...
-                super(self.__class__, self).__init__(['nn', name], s1, s2, s3, s4)
+                super(self.__class__, self).__init__(s1, s2, s3, s4, nameList=['nn', name])
             elif s3 is not None:
-                super(self.__class__, self).__init__(['nn', name], s1, s2, s3)
+                super(self.__class__, self).__init__(s1, s2, s3, nameList=['nn', name])
             elif s2 is not None:
-                super(self.__class__, self).__init__(['nn', name], s1, s2)
+                super(self.__class__, self).__init__(s1, s2, nameList=['nn', name])
             else:
-                super(self.__class__, self).__init__(['nn', name], s1)
+                super(self.__class__, self).__init__(s1, nameList=['nn', name])
         else:
             self.__dict__['__objectId'] = getNextObjectId()
 
@@ -308,7 +310,7 @@ class SpatialConvolutionMM(LuaClass):
         self.luaclass = 'nn.SpatialConvolutionMM'
         if not _fromLua:
             name = self.__class__.__name__
-            super(self.__class__, self).__init__(['nn', name], nInputPlane, nOutputPlane, kW, kH, dW, dH, padW, padH)
+            super(self.__class__, self).__init__(nInputPlane, nOutputPlane, kW, kH, dW, dH, padW, padH, nameList=['nn', name])
         else:
             self.__dict__['__objectId'] = getNextObjectId()
 
@@ -317,7 +319,7 @@ class SpatialMaxPooling(LuaClass):
         self.luaclass = 'nn.SpatialMaxPooling'
         if not _fromLua:
             name = self.__class__.__name__
-            super(self.__class__, self).__init__(['nn', name], kW, kH, dW, dH, padW, padH)
+            super(self.__class__, self).__init__(kW, kH, dW, dH, padW, padH, nameList=['nn', name])
         else:
             self.__dict__['__objectId'] = getNextObjectId()
 
@@ -326,7 +328,7 @@ class ReLU(LuaClass):
         self.luaclass = 'nn.ReLU'
         if not _fromLua:
             name = self.__class__.__name__
-            super(self.__class__, self).__init__(['nn', name])
+            super(self.__class__, self).__init__(nameList=['nn', name])
         else:
             self.__dict__['__objectId'] = getNextObjectId()
 
@@ -335,7 +337,7 @@ class Tanh(LuaClass):
         self.luaclass = 'nn.Tanh'
         if not _fromLua:
             name = self.__class__.__name__
-            super(self.__class__, self).__init__(['nn', name])
+            super(self.__class__, self).__init__(nameList=['nn', name])
         else:
             self.__dict__['__objectId'] = getNextObjectId()
 

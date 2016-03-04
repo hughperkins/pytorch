@@ -3,7 +3,13 @@ require 'nn'
 
 local Luabit = torch.class('Luabit')
 
-function Luabit:__init()
+function Luabit:__init(someName)
+  print('Luabit:__init(', someName, ')')
+  self.someName = someName
+end
+
+function Luabit:getName()
+  return self.someName
 end
 
 function Luabit:getOut(inTensor, outSize, kernelSize)
