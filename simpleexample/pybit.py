@@ -14,6 +14,7 @@ kernelSize = 3
 
 luabit = Luabit('green')
 print(luabit.getName())
+print('type(luabit)', type(luabit))
 
 inTensor = np.random.randn(batchSize, numFrames, inSize).astype('float32')
 luain = PyTorch.asFloatTensor(inTensor)

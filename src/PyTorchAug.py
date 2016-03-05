@@ -1,5 +1,7 @@
 from __future__ import print_function
 import PyTorch
+import PyTorchLua
+import PyTorchHelpers
 
 lua = PyTorch.getGlobalState().getLua()
 
@@ -44,15 +46,7 @@ def registerObject(lua, myobject):
     lua.insert(-2)
     lua.setRegistry()
 
-#    pushObject(lua, myobject)
-#    lua.pushNumber(id(myobject))
-#    lua.setRegistry()
-
 def unregisterObject(lua, myobject):
-#    pushObject(lua, myobject)
-#    lua.pushNil()
-#    lua.setRegistry()
-
     lua.pushNumber(myobject.__objectId)
     lua.pushNil()
     lua.setRegistry()
@@ -102,7 +96,6 @@ def popSomething(lua, self=None, name=None):
     lua.insert(-2)
     lua.call(1, 1)
     typestring = popString(lua)
-#    print('typestring', typestring)
 
     if typestring in cythonClasses:
         popFunction = cythonClasses[typestring]['popFunction']
@@ -146,8 +139,8 @@ def popSomething(lua, self=None, name=None):
         lua.remove(-1)
         return None
 
-    # raise Exception('pop type ' + str(typestring) + ' not implemented')
-    print('pop type ' + str(typestring) + ' not implemented')
+    raise Exception('pop type ' + str(typestring) + ' not implemented')
+    # print('pop type ' + str(typestring) + ' not implemented')
 
 def pushTable(lua, table):
     lua.newTable()
@@ -231,116 +224,27 @@ class LuaClass(object):
         assert topStart == topEnd
         return res
 
-class Linear(LuaClass):
-    def __init__(self, numIn=1, numOut=1, _fromLua=False):
-        # print('Linear.__init__')
-        self.luaclass = 'nn.Linear'
-        if not _fromLua:
-            name = self.__class__.__name__
-            super(self.__class__, self).__init__(numIn, numOut, nameList=['nn', name])
-        else:
-            self.__dict__['__objectId'] = getNextObjectId()
-
-class ClassNLLCriterion(LuaClass):
-    def __init__(self, _fromLua=False):
-        self.luaclass = 'nn.ClassNLLCriterion'
-        if not _fromLua:
-            name = self.__class__.__name__
-            super(self.__class__, self).__init__(nameList=['nn', name])
-        else:
-            self.__dict__['__objectId'] = getNextObjectId()
-
-class MSECriterion(LuaClass):
-    def __init__(self, _fromLua=False):
-        self.luaclass = 'nn.MSECriterion'
-        if not _fromLua:
-            name = self.__class__.__name__
-            super(self.__class__, self).__init__(nameList=['nn', name])
-        else:
-            self.__dict__['__objectId'] = getNextObjectId()
-
-class Sequential(LuaClass):
-    def __init__(self, _fromLua=False):
-        self.luaclass = 'nn.Sequential'
-        if not _fromLua:
-            name = self.__class__.__name__
-            super(self.__class__, self).__init__(nameList=['nn', name])
-        else:
-            self.__dict__['__objectId'] = getNextObjectId()
-
-class LogSoftMax(LuaClass):
-    def __init__(self, _fromLua=False):
-        self.luaclass = 'nn.LogSoftMax'
-        if not _fromLua:
-            name = self.__class__.__name__
-            super(self.__class__, self).__init__(nameList=['nn', name])
-        else:
-            self.__dict__['__objectId'] = getNextObjectId()
-
-class Reshape(LuaClass):
-    def __init__(self, s1, s2=None, s3=None, s4=None, _fromLua=False):
-        self.luaclass = 'nn.Reshape'
-        if not _fromLua:
-            name = self.__class__.__name__
-            if s4 is not None:   # this is a bit hacky, but gets it working for now...
-                super(self.__class__, self).__init__(s1, s2, s3, s4, nameList=['nn', name])
-            elif s3 is not None:
-                super(self.__class__, self).__init__(s1, s2, s3, nameList=['nn', name])
-            elif s2 is not None:
-                super(self.__class__, self).__init__(s1, s2, nameList=['nn', name])
+def loadNnClass(nnClassName):
+    class AnNnClass(LuaClass):
+        def __init__(self, *args, _fromLua=False, **kwargs):
+            self.luaclass = 'nn.' + nnClassName
+            if not _fromLua:
+                LuaClass.__init__(self, *args, nameList=['nn', nnClassName], **kwargs)
             else:
-                super(self.__class__, self).__init__(s1, nameList=['nn', name])
-        else:
-            self.__dict__['__objectId'] = getNextObjectId()
+                self.__dict__['__objectId'] = getNextObjectId()
+    renamedClass = type(AnNnClass)(nnClassName, (AnNnClass,), {})
+    return renamedClass
 
-class SpatialConvolutionMM(LuaClass):
-    def __init__(self, nInputPlane, nOutputPlane, kW, kH, dW=1, dH=1, padW=0, padH=0, _fromLua=False):
-        self.luaclass = 'nn.SpatialConvolutionMM'
-        if not _fromLua:
-            name = self.__class__.__name__
-            super(self.__class__, self).__init__(nInputPlane, nOutputPlane, kW, kH, dW, dH, padW, padH, nameList=['nn', name])
-        else:
-            self.__dict__['__objectId'] = getNextObjectId()
-
-class SpatialMaxPooling(LuaClass):
-    def __init__(self, kW, kH, dW, dH, padW=0, padH=0, _fromLua=False):
-        self.luaclass = 'nn.SpatialMaxPooling'
-        if not _fromLua:
-            name = self.__class__.__name__
-            super(self.__class__, self).__init__(kW, kH, dW, dH, padW, padH, nameList=['nn', name])
-        else:
-            self.__dict__['__objectId'] = getNextObjectId()
-
-class ReLU(LuaClass):
-    def __init__(self, _fromLua=False):
-        self.luaclass = 'nn.ReLU'
-        if not _fromLua:
-            name = self.__class__.__name__
-            super(self.__class__, self).__init__(nameList=['nn', name])
-        else:
-            self.__dict__['__objectId'] = getNextObjectId()
-
-class Tanh(LuaClass):
-    def __init__(self, _fromLua=False):
-        self.luaclass = 'nn.Tanh'
-        if not _fromLua:
-            name = self.__class__.__name__
-            super(self.__class__, self).__init__(nameList=['nn', name])
-        else:
-            self.__dict__['__objectId'] = getNextObjectId()
 
 luaClasses = {}
-luaClasses['nn.Reshape'] = Reshape
-luaClasses['nn.Linear'] = Linear
-luaClasses['nn.ClassNLLCriterion'] = ClassNLLCriterion
-luaClasses['nn.MSECriterion'] = MSECriterion
-luaClasses['nn.Sequential'] = Sequential
-luaClasses['nn.LogSoftMax'] = LogSoftMax
-luaClasses['nn.SpatialConvolutionMM'] = SpatialConvolutionMM
-luaClasses['nn.SpatialMaxPooling'] = SpatialMaxPooling
-luaClasses['nn.ReLU'] = ReLU
-luaClasses['nn.Tanh'] = Tanh
-# luaClasses['table'] = Table
+nnClasses = [
+    'Linear', 'ClassNLLCriterion', 'MSECriterion', 'Sequential', 'LogSoftMax',
+    'Reshape', 'SpatialConvolutionMM', 'SpatialMaxPooling', 'ReLU', 'Tanh']
+for nnClassName in nnClasses:
+    nnClass = loadNnClass(nnClassName)
+    globals()[nnClassName] = nnClass
+    luaClasses['nn.' + nnClassName] = nnClass
+
 
 luaClassesReverse = {}
 def populateLuaClassesReverse():

@@ -1,5 +1,7 @@
 import PyTorch
 import PyTorchAug
+import types
+import PyTorchLua
 
 def load_lua_class(lua_filename, lua_classname):
     module = lua_filename.replace('.lua', '')
@@ -11,9 +13,13 @@ def load_lua_class(lua_filename, lua_classname):
             self.luaclass = lua_classname
             if not _fromLua:
                 name = lua_classname
-                super(self.__class__, self).__init__(*args, nameList=[name])
+                PyTorchAug.LuaClass.__init__(self, *args, nameList=[name])
             else:
                 self.__dict__['__objectId'] = getNextObjectId()
                 # self.__getattr__('__init')(*args)
-    return LuaWrapper
+    renamedClass = PyTorchLua.renameClass(LuaWrapper, module, lua_classname)
+    #renamedClass = types.new_class(lua_classname, (LuaWrapper,))
+    #print('renamedClass', renamedClass)
+    return renamedClass
+#    return LuaWrapper
 
