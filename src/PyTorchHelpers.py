@@ -12,7 +12,8 @@ def load_lua_class(lua_filename, lua_classname):
             if len(args) >= 1:
                 if args[0] == '__FROMLUA__':
                    _fromLua = True
-            print('LuaWrapper.__init__', lua_classname, 'fromLua', _fromLua, 'args', args)
+                   args = args[1:]
+#            print('LuaWrapper.__init__', lua_classname, 'fromLua', _fromLua, 'args', args)
             self.luaclass = lua_classname
             if not _fromLua:
                 name = lua_classname

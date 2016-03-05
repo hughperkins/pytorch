@@ -108,7 +108,7 @@ def popSomething(lua, self=None, name=None):
         return popTable(lua)
 
     if typestring in luaClasses:
-        returnobject = luaClasses[typestring](True)
+        returnobject = luaClasses[typestring]('__FROMLUA__')
         registerObject(lua, returnobject)
         return returnobject
 
@@ -223,7 +223,8 @@ def loadNnClass(nnClassName):
             if len(args) >= 1:
                 if args[0] == '__FROMLUA__':
                    _fromLua = True
-            print('annnclass.__init__', nnClassName, 'fromLua', _fromLua, 'args', args)
+                   args = args[1:]
+#            print('annnclass.__init__', nnClassName, 'fromLua', _fromLua, 'args', args)
             self.luaclass = 'nn.' + nnClassName
             if not _fromLua:
                 LuaClass.__init__(self, ['nn', nnClassName], *args, **kwargs)

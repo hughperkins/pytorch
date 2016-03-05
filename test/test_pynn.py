@@ -42,7 +42,8 @@ def test_pynn():
     mlp = nn.Sequential()
 
     mlp.add(nn.SpatialConvolutionMM(1, 16, 5, 5, 1, 1, 2, 2))
-    mlp.add(nn.ReLU())
+    res = mlp.add(nn.ReLU())
+    print('res', res)
     mlp.add(nn.SpatialMaxPooling(3, 3, 3, 3))
 
     mlp.add(nn.SpatialConvolutionMM(16, 32, 3, 3, 1, 1, 1, 1))
