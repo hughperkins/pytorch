@@ -1,13 +1,7 @@
 #!/bin/bash
 
 # - torch is expected to be already activated, ie run:
-#    source ~/torch/install/bin/torch_activate.sh
-#    ... or similar
-# - torch is expected to be at $HOME/torch
-
-# export PYTHONPATH=.:src
-
-source ~/torch/install/bin/torch-activate
+#    source ~/torch/install/bin/torch-activate
 
 if [[ ! -f data/mnist/train-labels-idx1-ubyte ]]; then {
   echo downloading mnist data...
