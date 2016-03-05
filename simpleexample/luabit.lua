@@ -29,5 +29,6 @@ function Luabit:printTable(sometable, somestring, table2)
   for k, v in pairs(table2) do
     print('Luabit table2 ', k, v)
   end
+  return {bear='happy', result=12.345, foo='bar'}
 end
 

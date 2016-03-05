@@ -43,6 +43,8 @@ cdef extern from "lua_externc.h":
     void lua_gettable(lua_State *L, int index)
     void lua_getfield(lua_State *L, int index, const char *name)
     void lua_pushnil(lua_State *L)
+    int lua_type(lua_State *L, int index)
+    const char *lua_typename(lua_State *L, int tp)
     void lua_pushvalue(lua_State *L, int index)
     int lua_next(lua_State *L, int index)
     int lua_gettop(lua_State *L)

@@ -38,6 +38,13 @@ cdef class LuaState(object):
 #        print('LuaState.__dealloc__')
         pass
 
+    def type(self, index):
+        return lua_type(self.L, index)
+
+    def typeName(self, int tp):
+        cdef bytes py_string = lua_typename(self.L, tp)
+        return py_string.decode('utf-8')
+
     def insert(self, int index):
         lua_insert(self.L, index)
 

@@ -96,12 +96,60 @@ def pushSomething(lua, something):
 
     raise Exception('pushing type ' + str(type(something)) + ' not implemented, value ', something)
 
+def popSomething(lua):
+    lua.pushValue(-1)
+    pushGlobal(lua, 'torch', 'type')
+    lua.insert(-2)
+    lua.call(1, 1)
+    typestring = popString(lua)
+
+    if typestring in cythonClasses:
+        popFunction = cythonClasses[typestring]['popFunction']
+        res = popFunction()
+        return res
+
+    if typestring == 'number':
+        res = lua.toNumber(-1)
+        lua.remove(-1)
+        return res
+
+    if typestring == 'string':
+        res = popString(lua)
+        return res
+
+    if typestring == 'table':
+        return popTable(lua)
+
+    if typestring in luaClasses:
+        returnobject = luaClasses[typestring](_fromLua=True)
+        registerObject(lua, returnobject)
+        return returnobject
+
+    if typestring == 'nil':
+        lua.remove(-1)
+        return None
+
+    # raise Exception('pop type ' + str(typestring) + ' not implemented')
+    print('pop type ' + str(typestring) + ' not implemented')
+
 def pushTable(lua, table):
     lua.newTable()
     for k, v in table.items():
         pushSomething(lua, k)
         pushSomething(lua, v)
         lua.setTable(-3)
+
+def popTable(lua):
+    res = {}
+    lua.pushNil()
+    while lua.next(-2) != 0:
+        value = popSomething(lua)
+        lua.pushValue(-1)
+        key = popSomething(lua)
+        res[key] = value
+    lua.remove(-1)
+    return res
+
 
 class LuaClass(object):
     def __init__(self, *args, nameList):
@@ -115,22 +163,14 @@ class LuaClass(object):
         lua.call(len(args), 1)
         registerObject(lua, self)
 
-#        nameList = nameList[:]
-#        nameList.append('float')
-#        pushGlobalFromList(lua, nameList)
-#        pushObject(lua, self)
-#        lua.call(1, 0)
-
         topEnd = lua.getTop()
         assert topStart == topEnd
 
     def __del__(self):
         name = self.__class__.__name__
-#        print(name + '.__del__')
 
     def __repr__(self):
         topStart = lua.getTop()
-#        name = self.__class__.__name__
         luaClass = self.luaclass
         if luaClass == 'table':
             return 'table'
@@ -141,7 +181,6 @@ class LuaClass(object):
             pushGlobal(lua, splitLuaClass[0], splitLuaClass[1], '__tostring')
         else:
             raise Exception('not implemented: luaclass with more than 2 parts ' + luaClass)
-#        pushGlobal(lua, 'nn', name, '__tostring')
         pushObject(lua, self)
         lua.call(1, 1)
         res = popString(lua)
@@ -192,43 +231,12 @@ class LuaClass(object):
                 for arg in args:
                     pushSomething(lua, arg)
                 lua.call(len(args) + 1, 1)   # +1 for self
-                lua.pushValue(-1)
-                pushGlobal(lua, 'torch', 'type')
-                lua.insert(-2)
-                lua.call(1, 1)
-                returntype = popString(lua)
                 # this is getting a bit recursive :-P
 #                print('cythonClasses', cythonClasses)
-                if returntype in cythonClasses:
-                    popFunction = cythonClasses[returntype]['popFunction']
-                    res = popFunction()
-                    topEnd = lua.getTop()
-                    assert topStart == topEnd
-                    return res
-                elif returntype == 'number':
-                    res = lua.toNumber(-1)
-                    lua.remove(-1)
-                    topEnd = lua.getTop()
-                    assert topStart == topEnd
-                    return res
-                elif returntype == 'string':
-                    res = popString(lua)
-                    topEnd = lua.getTop()
-                    assert topStart == topEnd
-                    return res
-                elif returntype in luaClasses:
-                    returnobject = luaClasses[returntype](_fromLua=True)
-                    registerObject(lua, returnobject)
-                    topEnd = lua.getTop()
-                    assert topStart == topEnd
-                    return returnobject
-                elif returntype == 'nil':
-                    lua.remove(-1)
-                    topEnd = lua.getTop()
-                    assert topStart == topEnd
-                    return None
-                else:
-                    raise Exception('return type ' + str(returntype) + ' not implemented')
+                res = popSomething(lua)
+                topEnd = lua.getTop()
+                assert topStart == topEnd
+                return res
             lua.remove(-1)
             topEnd = lua.getTop()
             assert topStart == topEnd
@@ -240,16 +248,6 @@ class LuaClass(object):
             return None
         else:
             raise Exception('handling type ' + typename + ' not implemented')
-
-class Table(LuaClass):
-    def __init__(self, _fromLua=False):
-        # print('Table.__init__')
-        if not _fromLua:
-            name = self.__class__.__name__
-            super(self.__class__, self).__init__(nameList=['nn', name])
-        else:
-            self.__dict__['__objectId'] = getNextObjectId()
-            self.luaclass = 'table'
 
 class Linear(LuaClass):
     def __init__(self, numIn=1, numOut=1, _fromLua=False):
@@ -360,7 +358,7 @@ luaClasses['nn.SpatialConvolutionMM'] = SpatialConvolutionMM
 luaClasses['nn.SpatialMaxPooling'] = SpatialMaxPooling
 luaClasses['nn.ReLU'] = ReLU
 luaClasses['nn.Tanh'] = Tanh
-luaClasses['table'] = Table
+# luaClasses['table'] = Table
 
 luaClassesReverse = {}
 def populateLuaClassesReverse():
