@@ -129,6 +129,7 @@ from __future__ import print_function, division
 * added `PyTorchHelpers.load_lua_class(lua_filename, lua_classname)` to easily import a lua class from a lua file
 * can pass parameters to lua class constructors, from python
 * can pass tables to lua functions, from python (pass in as python dictionaries, become lua tables)
+* can return tables from lua functions, to python (returned as python dictionaries)
 
 2 March:
 * removed requirements on Cython, Jinja2 for installation

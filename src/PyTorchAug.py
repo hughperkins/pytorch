@@ -96,12 +96,13 @@ def pushSomething(lua, something):
 
     raise Exception('pushing type ' + str(type(something)) + ' not implemented, value ', something)
 
-def popSomething(lua):
+def popSomething(lua, self=None, name=None):
     lua.pushValue(-1)
     pushGlobal(lua, 'torch', 'type')
     lua.insert(-2)
     lua.call(1, 1)
     typestring = popString(lua)
+#    print('typestring', typestring)
 
     if typestring in cythonClasses:
         popFunction = cythonClasses[typestring]['popFunction']
@@ -124,6 +125,22 @@ def popSomething(lua):
         returnobject = luaClasses[typestring](_fromLua=True)
         registerObject(lua, returnobject)
         return returnobject
+
+    if typestring == 'function':
+        def mymethod(*args):
+            topStart = lua.getTop()
+            pushObject(lua, self)
+            lua.getField(-1, name)
+            lua.insert(-2)
+            for arg in args:
+                pushSomething(lua, arg)
+            lua.call(len(args) + 1, 1)   # +1 for self
+            res = popSomething(lua)
+            topEnd = lua.getTop()
+            assert topStart == topEnd
+            return res
+        lua.remove(-1)
+        return mymethod
 
     if typestring == 'nil':
         lua.remove(-1)
@@ -209,45 +226,10 @@ class LuaClass(object):
         pushObject(lua, self)
         lua.getField(-1, name)
         lua.remove(-2)
-        pushGlobal(lua, 'torch', 'type')
-        lua.insert(-2)
-        lua.call(1, 1)
-        typename = popString(lua)
-        pushObject(lua, self)
-        lua.getField(-1, name)
-        lua.remove(-2)
-        if typename in cythonClasses:
-            popFunction = cythonClasses[typename]['popFunction']
-            res = popFunction()
-            topEnd = lua.getTop()
-            assert topStart == topEnd
-            return res
-        elif typename == 'function':
-            def mymethod(*args):
-                topStart = lua.getTop()
-                pushObject(lua, self)
-                lua.getField(-1, name)
-                lua.insert(-2)
-                for arg in args:
-                    pushSomething(lua, arg)
-                lua.call(len(args) + 1, 1)   # +1 for self
-                # this is getting a bit recursive :-P
-#                print('cythonClasses', cythonClasses)
-                res = popSomething(lua)
-                topEnd = lua.getTop()
-                assert topStart == topEnd
-                return res
-            lua.remove(-1)
-            topEnd = lua.getTop()
-            assert topStart == topEnd
-            return mymethod
-        elif typename == 'nil':
-            lua.remove(-1)
-            topEnd = lua.getTop()
-            assert topStart == topEnd
-            return None
-        else:
-            raise Exception('handling type ' + typename + ' not implemented')
+        res = popSomething(lua, self, name)
+        topEnd = lua.getTop()
+        assert topStart == topEnd
+        return res
 
 class Linear(LuaClass):
     def __init__(self, numIn=1, numOut=1, _fromLua=False):
