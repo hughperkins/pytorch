@@ -1,11 +1,11 @@
 from __future__ import print_function, division
 import PyTorch
 
-from PyTorchAug import *
+from PyTorchAug import nn
 
 def test_pynn():
     PyTorch.manualSeed(123)
-    linear = Linear(3, 5)
+    linear = nn.Linear(3, 5)
     linear
     print('linear', linear)
     print('linear.weight', linear.weight)
@@ -20,12 +20,12 @@ def test_pynn():
     gradInput = linear.updateGradInput(input, output)
     print('gradInput', gradInput)
 
-    criterion = ClassNLLCriterion()
+    criterion = nn.ClassNLLCriterion()
     print('criterion', criterion)
 
     print('dir(linear)', dir(linear))
 
-    mlp = Sequential()
+    mlp = nn.Sequential()
     mlp.add(linear)
 
     output = mlp.forward(input)
@@ -39,23 +39,23 @@ def test_pynn():
 
     numpy.random.seed(123)
 
-    mlp = Sequential()
+    mlp = nn.Sequential()
 
-    mlp.add(SpatialConvolutionMM(1, 16, 5, 5, 1, 1, 2, 2))
-    mlp.add(ReLU())
-    mlp.add(SpatialMaxPooling(3, 3, 3, 3))
+    mlp.add(nn.SpatialConvolutionMM(1, 16, 5, 5, 1, 1, 2, 2))
+    mlp.add(nn.ReLU())
+    mlp.add(nn.SpatialMaxPooling(3, 3, 3, 3))
 
-    mlp.add(SpatialConvolutionMM(16, 32, 3, 3, 1, 1, 1, 1))
-    mlp.add(ReLU())
-    mlp.add(SpatialMaxPooling(2, 2, 2, 2))
+    mlp.add(nn.SpatialConvolutionMM(16, 32, 3, 3, 1, 1, 1, 1))
+    mlp.add(nn.ReLU())
+    mlp.add(nn.SpatialMaxPooling(2, 2, 2, 2))
 
-    mlp.add(Reshape(32 * 4 * 4))
-    mlp.add(Linear(32 * 4 * 4, 150))
-    mlp.add(Tanh())
-    mlp.add(Linear(150, 10))
-    mlp.add(LogSoftMax())
+    mlp.add(nn.Reshape(32 * 4 * 4))
+    mlp.add(nn.Linear(32 * 4 * 4, 150))
+    mlp.add(nn.Tanh())
+    mlp.add(nn.Linear(150, 10))
+    mlp.add(nn.LogSoftMax())
 
-    criterion = ClassNLLCriterion()
+    criterion = nn.ClassNLLCriterion()
     print('got criterion')
 
     learningRate = 0.02

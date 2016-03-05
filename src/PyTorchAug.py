@@ -12,13 +12,6 @@ def getNextObjectId():
     nextObjectId += 1
     return res
 
-class Linear(object):
-    def __init__(self):
-        print('Linear.__init__')
-
-    def __attr__(self):
-        print('Linear.__attr__')
-
 def pushGlobal(lua, name1, name2=None, name3=None):
     lua.getGlobal(name1)
     if name2 is None:
@@ -87,6 +80,11 @@ def pushSomething(lua, something):
     if type(something) in luaClassesReverse:
         pushObject(lua, something)
         return
+
+#    print('type(something)', type(something))
+#    print('str(type(something))', str(type(something)))
+#    if 'nn.' in str(type(something)):
+#        setupNnClass(
 
     raise Exception('pushing type ' + str(type(something)) + ' not implemented, value ', something)
 
@@ -235,15 +233,42 @@ def loadNnClass(nnClassName):
     renamedClass = type(AnNnClass)(nnClassName, (AnNnClass,), {})
     return renamedClass
 
-
-luaClasses = {}
-nnClasses = [
-    'Linear', 'ClassNLLCriterion', 'MSECriterion', 'Sequential', 'LogSoftMax',
-    'Reshape', 'SpatialConvolutionMM', 'SpatialMaxPooling', 'ReLU', 'Tanh']
-for nnClassName in nnClasses:
+def setupNnClass(nnClassName):
     nnClass = loadNnClass(nnClassName)
     globals()[nnClassName] = nnClass
     luaClasses['nn.' + nnClassName] = nnClass
+    luaClassesReverse[nnClass] = 'nn.' + nnClassName
+    return nnClass
+
+#def mygetattr():
+#    print('mygetattr()')
+
+#def __getattr__():
+#    print('__getattr__')
+
+class Nn(object):
+    def __init__(self):
+        self.classes = {}
+
+    def __getattr__(self, name):
+#        print('Nn.__getattr__', name)
+        if name not in self.classes:
+            self.classes[name] = setupNnClass(name)
+        thisClass = self.classes[name]
+#        print('thisClass', thisClass)
+        return thisClass
+
+nn = Nn()
+
+luaClasses = {}
+#nnClasses = [
+#    'Linear', 'ClassNLLCriterion', 'MSECriterion', 'Sequential', 'LogSoftMax',
+#    'Reshape', 'SpatialConvolutionMM', 'SpatialMaxPooling', 'ReLU', 'Tanh']
+#for nnClassName in nnClasses:
+#    setupNnClass(nnClassName)
+#    nnClass = loadNnClass(nnClassName)
+#    globals()[nnClassName] = nnClass
+#    luaClasses['nn.' + nnClassName] = nnClass
 
 
 luaClassesReverse = {}
@@ -252,7 +277,7 @@ def populateLuaClassesReverse():
     for name in luaClasses:
         classtype = luaClasses[name]
         luaClassesReverse[classtype] = name
-populateLuaClassesReverse()
+#populateLuaClassesReverse()
 
 cythonClasses = {}
 cythonClasses['torch.FloatTensor'] = {'popFunction': PyTorch._popFloatTensor}
