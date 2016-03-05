@@ -56,12 +56,11 @@ if running_cython:
             header2='Source: ' + templateName,
             types=types)
         outFilename = templateName.replace('.jinja2', '').replace('jinja2.', '')
-        print('outfilename', outFilename)
         isUpdate = True
         if os.path.isfile(outFilename):
             # read existing file, see if anything changed
             f = open(outFilename, 'rb')  # binary, so get linux line endings, even on Windows
-            pyx_current = f.read()
+            pyx_current = f.read().decode('utf-8')
             f.close()
             if pyx_current == pyx:
                 isUpdate = False
