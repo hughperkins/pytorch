@@ -4,8 +4,6 @@
 
 
 
-
-
 cdef extern from "nnWrapper.h":
     int THLongStorage_getRefCount(THLongStorage *self)
 

@@ -3,14 +3,6 @@
 
 #pragma once
 
-{% set types = [
-    {'Real': 'Long','real': 'long'},
-    {'Real': 'Float', 'real': 'float'},
-    {'Real': 'Double', 'real': 'double'},
-    {'Real': 'Byte', 'real': 'unsigned char'}
-]
-%}
-
 #include <iostream>
 #include <string>
 

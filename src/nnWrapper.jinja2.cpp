@@ -22,14 +22,6 @@ extern "C" {
 
 using namespace std;
 
-{% set types = [
-    {'Real': 'Long','real': 'long'},
-    {'Real': 'Float', 'real': 'float'},
-    {'Real': 'Double', 'real': 'double'},
-    {'Real': 'Byte', 'real': 'unsigned char'}
-]
-%}
-
 lua_State *luaInit() {
     #ifndef _WIN32
 //    cout << "luaInit" << endl;

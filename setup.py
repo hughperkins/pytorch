@@ -32,6 +32,12 @@ for arg in sys.argv:
         break
 
 if running_cython:
+    types = [
+        {'Real': 'Long','real': 'long'},
+        {'Real': 'Float', 'real': 'float'},
+        {'Real': 'Double', 'real': 'double'},
+        {'Real': 'Byte', 'real': 'unsigned char'}
+    ]
     print('Cythonizing...')
     from Cython.Build import cythonize
     import jinja2
@@ -47,7 +53,8 @@ if running_cython:
             header='GENERATED FILE, do not edit by hand, ' +
             'Source: ' + templateName,
             header1='GENERATED FILE, do not edit by hand',
-            header2='Source: ' + templateName)
+            header2='Source: ' + templateName,
+            types=types)
         outFilename = templateName.replace('.jinja2', '').replace('jinja2.', '')
         print('outfilename', outFilename)
         isUpdate = True

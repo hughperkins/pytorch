@@ -3,14 +3,6 @@ from lua cimport *
 # {{header1}}
 # {{header2}}
 
-{% set types = [
-    {'Real': 'Long','real': 'long'},
-    {'Real': 'Float', 'real': 'float'},
-    {'Real': 'Double', 'real': 'double'},
-    {'Real': 'Byte', 'real': 'unsigned char'}
-]
-%}
-
 #import PyTorch
 #cimport PyTorch
 from nnWrapper cimport *

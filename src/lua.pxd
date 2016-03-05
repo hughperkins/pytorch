@@ -1,8 +1,6 @@
 # GENERATED FILE, do not edit by hand
 # Source: src/lua.jinja2.pxd
 
-
-
 from PyTorch cimport *
 
 cdef extern from "LuaHelper.h":

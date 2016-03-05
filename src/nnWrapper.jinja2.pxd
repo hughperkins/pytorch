@@ -1,14 +1,6 @@
 # {{header1}}
 # {{header2}}
 
-{% set types = [
-    {'Real': 'Long','real': 'long'},
-    {'Real': 'Float', 'real': 'float'},
-    {'Real': 'Double', 'real': 'double'},
-    {'Real': 'Byte', 'real': 'unsigned char'}
-]
-%}
-
 from lua cimport *
 
 cdef extern from "nnWrapper.h":

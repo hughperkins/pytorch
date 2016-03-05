@@ -3,8 +3,6 @@ from lua cimport *
 # GENERATED FILE, do not edit by hand
 # Source: src/lua.jinja2.pyx
 
-
-
 #import PyTorch
 #cimport PyTorch
 from nnWrapper cimport *

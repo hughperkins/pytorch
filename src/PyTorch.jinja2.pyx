@@ -26,19 +26,6 @@ logging.basicConfig()
 logger = logging.getLogger(__name__)
 # logger.setLevel(logging.DEBUG)
 
-{% set types = [
-    {'Real': 'Float', 'real': 'float'},
-    {'Real': 'Double', 'real': 'double'},
-    {'Real': 'Long','real': 'long'},
-    {'Real': 'Byte', 'real': 'unsigned char'}
-]
-%}
-
-#define real unsigned char
-#define accreal long
-#define Real Byte
-#define TH_REAL_IS_BYTE
-
 # from http://stackoverflow.com/questions/3410976/how-to-round-a-number-to-significant-figures-in-python
 def round_sig(x, sig=2):
     return round(x, sig-int(floor(log10(abs(x))))-1)

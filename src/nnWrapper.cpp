@@ -22,8 +22,6 @@ extern "C" {
 
 using namespace std;
 
-
-
 lua_State *luaInit() {
     #ifndef _WIN32
 //    cout << "luaInit" << endl;

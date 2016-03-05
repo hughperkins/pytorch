@@ -20,9 +20,6 @@ import logging
 logger = logging.getLogger(__name__)
 #logger.setLevel(logging.DEBUG)
 
-
-
-
 cdef floatToString(float floatValue):
     return '%.6g'% floatValue
 

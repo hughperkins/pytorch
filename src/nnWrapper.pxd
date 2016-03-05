@@ -1,8 +1,6 @@
 # GENERATED FILE, do not edit by hand
 # Source: src/nnWrapper.jinja2.pxd
 
-
-
 from lua cimport *
 
 cdef extern from "nnWrapper.h":
