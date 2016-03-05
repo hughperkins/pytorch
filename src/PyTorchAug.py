@@ -81,11 +81,6 @@ def pushSomething(lua, something):
         pushObject(lua, something)
         return
 
-#    print('type(something)', type(something))
-#    print('str(type(something))', str(type(something)))
-#    if 'nn.' in str(type(something)):
-#        setupNnClass(
-
     raise Exception('pushing type ' + str(type(something)) + ' not implemented, value ', something)
 
 def popSomething(lua, self=None, name=None):
@@ -162,7 +157,6 @@ def popTable(lua):
 class LuaClass(object):
     def __init__(self, *args, nameList):
         lua = PyTorch.getGlobalState().getLua()
-#        self.luaclass = luaclass
         self.__dict__['__objectId'] = getNextObjectId()
         topStart = lua.getTop()
         pushGlobalFromList(lua, nameList)
@@ -240,36 +234,19 @@ def setupNnClass(nnClassName):
     luaClassesReverse[nnClass] = 'nn.' + nnClassName
     return nnClass
 
-#def mygetattr():
-#    print('mygetattr()')
-
-#def __getattr__():
-#    print('__getattr__')
-
 class Nn(object):
     def __init__(self):
         self.classes = {}
 
     def __getattr__(self, name):
-#        print('Nn.__getattr__', name)
         if name not in self.classes:
             self.classes[name] = setupNnClass(name)
         thisClass = self.classes[name]
-#        print('thisClass', thisClass)
         return thisClass
 
 nn = Nn()
 
 luaClasses = {}
-#nnClasses = [
-#    'Linear', 'ClassNLLCriterion', 'MSECriterion', 'Sequential', 'LogSoftMax',
-#    'Reshape', 'SpatialConvolutionMM', 'SpatialMaxPooling', 'ReLU', 'Tanh']
-#for nnClassName in nnClasses:
-#    setupNnClass(nnClassName)
-#    nnClass = loadNnClass(nnClassName)
-#    globals()[nnClassName] = nnClass
-#    luaClasses['nn.' + nnClassName] = nnClass
-
 
 luaClassesReverse = {}
 def populateLuaClassesReverse():
@@ -277,7 +254,6 @@ def populateLuaClassesReverse():
     for name in luaClasses:
         classtype = luaClasses[name]
         luaClassesReverse[classtype] = name
-#populateLuaClassesReverse()
 
 cythonClasses = {}
 cythonClasses['torch.FloatTensor'] = {'popFunction': PyTorch._popFloatTensor}
