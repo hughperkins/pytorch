@@ -81,7 +81,8 @@ for arg in sys.argv:
 compile_options = []
 if osfamily == 'Windows':
     compile_options.append('/EHsc')
-else:
+
+if osfamily in ['Linux', 'Darwin']:
     compile_options.append('-std=c++0x')
     # compile_options.append('-g')
     compile_options.append('-Wno-unused-function')
@@ -90,6 +91,8 @@ else:
     if 'DEBUG' in os.environ:
         compile_options.append('-O0')
         compile_options.append('-g')
+
+# if osfamily == 'Darwin':
 
 runtime_library_dirs = []
 libraries = []
