@@ -108,7 +108,7 @@ def popSomething(lua, self=None, name=None):
         return popTable(lua)
 
     if typestring in luaClasses:
-        returnobject = luaClasses[typestring](_fromLua=True)
+        returnobject = luaClasses[typestring](True)
         registerObject(lua, returnobject)
         return returnobject
 
@@ -155,7 +155,7 @@ def popTable(lua):
 
 
 class LuaClass(object):
-    def __init__(self, *args, nameList):
+    def __init__(self, nameList, *args):
         lua = PyTorch.getGlobalState().getLua()
         self.__dict__['__objectId'] = getNextObjectId()
         topStart = lua.getTop()
@@ -218,10 +218,15 @@ class LuaClass(object):
 
 def loadNnClass(nnClassName):
     class AnNnClass(LuaClass):
-        def __init__(self, *args, _fromLua=False, **kwargs):
+        def __init__(self, *args, **kwargs):
+            _fromLua = False
+            if len(args) >= 1:
+                if args[0] == '__FROMLUA__':
+                   _fromLua = True
+            print('annnclass.__init__', nnClassName, 'fromLua', _fromLua, 'args', args)
             self.luaclass = 'nn.' + nnClassName
             if not _fromLua:
-                LuaClass.__init__(self, *args, nameList=['nn', nnClassName], **kwargs)
+                LuaClass.__init__(self, ['nn', nnClassName], *args, **kwargs)
             else:
                 self.__dict__['__objectId'] = getNextObjectId()
     renamedClass = type(AnNnClass)(nnClassName, (AnNnClass,), {})

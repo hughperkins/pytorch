@@ -81,16 +81,15 @@ for arg in sys.argv:
 compile_options = []
 if osfamily == 'Windows':
     compile_options.append('/EHsc')
-elif osfamily != 'Linux':
+else:
     compile_options.append('-std=c++0x')
-    compile_options.append('-g')
+    # compile_options.append('-g')
     compile_options.append('-Wno-unused-function')
     compile_options.append('-Wno-unreachable-code')
+    compile_options.append('-Wno-strict-prototypes')
     if 'DEBUG' in os.environ:
         compile_options.append('-O0')
-else:
-    pass
-    # put other options etc here if necessary
+        compile_options.append('-g')
 
 runtime_library_dirs = []
 libraries = []
