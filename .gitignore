@@ -1,5 +1,6 @@
 cbuild/
 data/mnist/
+envs/
 share
 gedit.sh
 *.o

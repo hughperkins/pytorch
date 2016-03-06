@@ -373,8 +373,8 @@ static const char *findfile (lua_State *L, const char *name,
 
 
 static void loaderror (lua_State *L, const char *filename) {
-  int a = 0;
-  int b = 5 / a;
+/*  int a = 0;*/
+/*  int b = 5 / a;*/
   luaL_error(L, "error loading module " LUA_QS " from file " LUA_QS ":\n\t%s",
                 lua_tostring(L, 1), filename, lua_tostring(L, -1));
 }

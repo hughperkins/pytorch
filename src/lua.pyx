@@ -71,6 +71,9 @@ cdef class LuaState(object):
     def call(self, int numIn, int numOut):
         lua_call(self.L, numIn, numOut)
 
+    def pcall(self, int numIn, int numOut, errFunc=0):
+        return lua_pcall(self.L, numIn, numOut, errFunc)
+
     def newTable(self):
         lua_newtable(self.L)
 

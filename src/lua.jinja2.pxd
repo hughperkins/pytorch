@@ -26,6 +26,7 @@ cdef extern from "lua_externc.h":
     void lua_pushstring(lua_State *L, const char *value)
     const char *lua_tostring(lua_State *L, int index)
     void lua_call(lua_State *L, int argsIn, int argsOut)
+    int lua_pcall(lua_State *L, int nargs, int nresults, int errfunc)
     void lua_remove(lua_State *L, int index)
     void lua_insert(lua_State *L, int index)
     void lua_getglobal(lua_State *L, const char *name)
