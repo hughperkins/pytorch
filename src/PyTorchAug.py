@@ -121,10 +121,8 @@ def popSomething(lua, self=None, name=None):
             for arg in args:
                 pushSomething(lua, arg)
             res = lua.pcall(len(args) + 1, 1)   # +1 for self
-#            print('res', res)
             if res != 0:
               errorMessage = popString(lua)
-#              print('errorMessage', errorMessage)
               raise Exception(errorMessage)
             res = popSomething(lua)
             topEnd = lua.getTop()
@@ -167,7 +165,11 @@ class LuaClass(object):
         pushGlobalFromList(lua, nameList)
         for arg in args:
             pushSomething(lua, arg)
-        lua.call(len(args), 1)
+        res = lua.pcall(len(args), 1)
+        if res != 0:
+          errorMessage = popString(lua)
+          raise Exception(errorMessage)
+#        lua.call(len(args), 1)
         registerObject(lua, self)
 
         topEnd = lua.getTop()
