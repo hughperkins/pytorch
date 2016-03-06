@@ -165,6 +165,8 @@ class LuaClass(object):
         pushGlobalFromList(lua, nameList)
         for arg in args:
             pushSomething(lua, arg)
+#        print('nameList', nameList)
+#        print('args', args)
         res = lua.pcall(len(args), 1)
         if res != 0:
           errorMessage = popString(lua)

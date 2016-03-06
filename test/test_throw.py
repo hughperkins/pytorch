@@ -29,3 +29,7 @@ def test_initThrow():
   #  e.printstacktrace()
   assert(not noException)
 
+if __name__ == '__main__':
+  test_FunctionThrow()
+  test_initThrow()
+

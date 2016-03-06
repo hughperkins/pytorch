@@ -192,7 +192,7 @@ cdef class _{{Real}}Tensor(object):
 #        cdef int size
 #        cdef int i
 #        cdef THFloatStorage *storage
-        logger.debug('__dealloc__ native %s', <long>(self.native) != 0)
+#        logger.debug('__dealloc__ native %s', <long>(self.native) != 0)
         if <long>(self.native) != 0:
             refCount = TH{{Real}}Tensor_getRefCount(self.native)
             # print('{{Real}}Tensor.dealloc old refcount', refCount)

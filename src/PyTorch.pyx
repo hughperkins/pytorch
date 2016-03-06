@@ -401,7 +401,7 @@ cdef class _LongTensor(object):
 #        cdef int size
 #        cdef int i
 #        cdef THFloatStorage *storage
-        logger.debug('__dealloc__ native %s', <long>(self.native) != 0)
+#        logger.debug('__dealloc__ native %s', <long>(self.native) != 0)
         if <long>(self.native) != 0:
             refCount = THLongTensor_getRefCount(self.native)
             # print('LongTensor.dealloc old refcount', refCount)
@@ -845,7 +845,7 @@ cdef class _FloatTensor(object):
 #        cdef int size
 #        cdef int i
 #        cdef THFloatStorage *storage
-        logger.debug('__dealloc__ native %s', <long>(self.native) != 0)
+#        logger.debug('__dealloc__ native %s', <long>(self.native) != 0)
         if <long>(self.native) != 0:
             refCount = THFloatTensor_getRefCount(self.native)
             # print('FloatTensor.dealloc old refcount', refCount)
@@ -1389,7 +1389,7 @@ cdef class _DoubleTensor(object):
 #        cdef int size
 #        cdef int i
 #        cdef THFloatStorage *storage
-        logger.debug('__dealloc__ native %s', <long>(self.native) != 0)
+#        logger.debug('__dealloc__ native %s', <long>(self.native) != 0)
         if <long>(self.native) != 0:
             refCount = THDoubleTensor_getRefCount(self.native)
             # print('DoubleTensor.dealloc old refcount', refCount)
@@ -1933,7 +1933,7 @@ cdef class _ByteTensor(object):
 #        cdef int size
 #        cdef int i
 #        cdef THFloatStorage *storage
-        logger.debug('__dealloc__ native %s', <long>(self.native) != 0)
+#        logger.debug('__dealloc__ native %s', <long>(self.native) != 0)
         if <long>(self.native) != 0:
             refCount = THByteTensor_getRefCount(self.native)
             # print('ByteTensor.dealloc old refcount', refCount)
