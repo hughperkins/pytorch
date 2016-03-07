@@ -59,6 +59,10 @@ _ByteStorage = Storage._ByteStorage
 
 
 
+_ClStorage = Storage._ClStorage
+
+
+
 
 
 cdef extern from "THTensor.h":
@@ -324,6 +328,69 @@ cdef extern from "THTensor.h":
 
     void THByteTensor_geometric(THByteTensor *self, THGenerator *_generator, double p)
     void THByteTensor_bernoulli(THByteTensor *self, THGenerator *_generator, double p)
+
+    
+
+
+
+cdef extern from "THTensor.h":
+    cdef struct THClTensor
+    THClTensor *THClTensor_new()
+    THClTensor *THClTensor_newClone(THClTensor *self)
+    float *THClTensor_data(THClTensor *self)
+    THClTensor *THClTensor_newContiguous(THClTensor *self)
+    THClTensor *THClTensor_newWithSize1d(long size0)
+    THClTensor *THClTensor_newWithSize2d(long size0, long size1)
+    THClTensor *THClTensor_newWithSize3d(long size0, long size1, long size2)
+    THClTensor *THClTensor_newWithSize4d(long size0, long size1, long size2, long size3)
+    THClTensor *THClTensor_newWithStorage(Storage.THClStorage *storage_, long storageOffset_, Storage.THLongStorage *size_, Storage.THLongStorage *stride_)
+    THClTensor* THClTensor_newWithStorage1d(Storage.THClStorage *storage, long storageOffset, long size0, long stride0)
+    THClTensor* THClTensor_newWithStorage2d(Storage.THClStorage *storage, long storageOffset, long size0, long stride0, long size1, long stride1)
+    THClTensor* THClTensor_newWithStorage3d(Storage.THClStorage *storage, long storageOffset, long size0, long stride0, long size1, long stride1,
+        long size2, long stride2)
+    THClTensor* THClTensor_newWithStorage4d(Storage.THClStorage *storage, long storageOffset, long size0, long stride0, long size1, long stride1,
+        long size2, long stride2, long size3, long stride3)
+    void THClTensor_retain(THClTensor *self)
+    void THClTensor_free(THClTensor *self)
+
+    int THClTensor_nDimension(THClTensor *tensor)
+    void THClTensor_resizeAs(THClTensor *self, THClTensor *model)
+    void THClTensor_resize1d(THClTensor *self, long size0)
+    void THClTensor_resize2d(THClTensor *self, long size0, long size1)
+    void THClTensor_resize3d(THClTensor *self, long size0, long size1, long size2)
+    void THClTensor_resize4d(THClTensor *self, long size0, long size1, long size2, long size3)
+    long THClTensor_size(const THClTensor *self, int dim)
+    long THClTensor_nElement(THClTensor *self)
+    long THClTensor_stride(const THClTensor *self, int dim)
+
+    void THClTensor_set1d(const THClTensor *tensor, long x0, float value)
+    void THClTensor_set2d(const THClTensor *tensor, long x0, long x1, float value)
+    float THClTensor_get1d(const THClTensor *tensor, long x0)
+    float THClTensor_get2d(const THClTensor *tensor, long x0, long x1)
+
+    void THClTensor_fill(THClTensor *self, float value)
+    THClTensor *THClTensor_newSelect(THClTensor *self, int dimension, int sliceIndex)
+    THClTensor *THClTensor_newNarrow(THClTensor *self, int dimension, long firstIndex, long size)
+    Storage.THClStorage *THClTensor_storage(THClTensor *self)
+
+    void THClTensor_tanh(THClTensor *r_, THClTensor *t)
+    void THClTensor_sigmoid(THClTensor *r_, THClTensor *t)
+    void THClTensor_cinv(THClTensor *r_, THClTensor *t)
+    void THClTensor_neg(THClTensor *r_, THClTensor *t)
+    void THClTensor_abs(THClTensor *r_, THClTensor *t)
+
+    void THClTensor_add(THClTensor *r_, THClTensor *t, float value)
+    void THClTensor_div(THClTensor *r_, THClTensor *t, float value)
+    void THClTensor_mul(THClTensor *r_, THClTensor *t, float value)
+
+    void THClTensor_add(THClTensor *tensorSelf, THClTensor *tensorOne, float value)
+
+    void THClTensor_cadd(THClTensor *r_, THClTensor *t, float value, THClTensor *second)
+    void THClTensor_cmul(THClTensor *r_, THClTensor *t, THClTensor *src)
+    void THClTensor_cdiv(THClTensor *r_, THClTensor *t, THClTensor *src)
+
+    void THClTensor_geometric(THClTensor *self, THGenerator *_generator, double p)
+    void THClTensor_bernoulli(THClTensor *self, THGenerator *_generator, double p)
 
     
 
@@ -2296,6 +2363,450 @@ cdef _ByteTensor_fromNative(THByteTensor *tensorC, retain=True):
 
 
 
+
+cdef class _ClTensor(object):
+    # properties are in the PyTorch.pxd file
+
+#    def __cinit__(Tensor self, THFloatTensor *tensorC = NULL):
+#        self.thFloatTensor = tensorC
+
+    def __cinit__(self, *args, _allocate=True):
+#        cdef _ClTensor childobject
+        cdef THClTensor *newTensorC
+        cdef _ClTensor templateObject
+        logger.debug('ClTensor.__cinit__')
+#        cdef THClStorage *storageC
+#        cdef long addr
+#        if len(kwargs) > 0:
+#            raise Exception('cannot provide arguments to initializer')
+        if _allocate:
+            if len(args) == 1 and isinstance(args[0], _LongStorage):  # it's a size tensor
+               self.native = THClTensor_new()
+               self.resize(args[0])
+               return
+            if len(args) == 1 and isinstance(args[0], _ClTensor):
+               templateObject = args[0]
+               newTensorC = THClTensor_newClone(templateObject.native)
+               self.native = newTensorC
+               return
+            for arg in args:
+                if not isinstance(arg, int):
+                    raise Exception('cannot provide arguments to initializer')
+            if len(args) == 0:
+                # print('no args, calling THClTensor_new()')
+                self.native = THClTensor_new()
+            elif len(args) == 1:
+                # print('new tensor 1d length', args[0])
+                self.native = THClTensor_newWithSize1d(args[0])
+            elif len(args) == 2:
+                # print('args=2')
+                self.native = THClTensor_newWithSize2d(args[0], args[1])
+            elif len(args) == 3:
+                # print('new tensor 1d length', args[0])
+                self.native = THClTensor_newWithSize3d(args[0], args[1], args[2])
+            elif len(args) == 4:
+                # print('new tensor 1d length', args[0])
+                self.native = THClTensor_newWithSize4d(args[0], args[1], args[2], args[3])
+            else:
+                logger.error('Raising exception...')
+                raise Exception('Not implemented, len(args)=' + str(len(args)))
+#        else:
+#            if len(args) > 0:
+#                if len(args) > 1:
+#                    raise Exception('args for allocate=false must be lenght 1 or 0')
+#                if isinstance(args[0], _ClTensor):
+#                    childobject = args[0]
+#                    self.native = childobject.native
+#                else:
+#                    raise Exception('arg for allocate=0 must be tensor, but was ' + type(args[0]))
+
+#    def __cinit__(self, THFloatTensor *tensorC, Storage storage):
+#        self.thFloatTensor = tensorC
+#        self.storage = storage
+
+#    def __cinit__(self, Storage storage, offset, size0, stride0, size1, stride1):
+#        self.thFloatTensor = THFloatTensor_newWithStorage2d(storage.thFloatStorage, offset, size0, stride0, size1, stride1)
+#        self.storage = storage
+
+    def __dealloc__(self):
+        cdef int refCount
+#        cdef int dims
+#        cdef int size
+#        cdef int i
+#        cdef THFloatStorage *storage
+#        logger.debug('__dealloc__ native %s', <long>(self.native) != 0)
+        if <long>(self.native) != 0:
+            refCount = THClTensor_getRefCount(self.native)
+            # print('ClTensor.dealloc old refcount', refCount)
+   #        storage = THFloatTensor_storage(self.thFloatTensor)
+   #        if storage == NULL:
+   #            # print('   dealloc, storage NULL')
+   #        else:
+   #            # print('   dealloc, storage ', hex(<long>(storage)))
+   #        dims = THFloatTensor_nDimension(self.thFloatTensor)
+   #        # print('   dims of dealloc', dims)
+   #        for i in range(dims):
+   #            # print('   size[', i, ']', THFloatTensor_size(self.thFloatTensor, i))
+            if refCount < 1:
+                raise Exception('Unallocated an already deallocated tensor... :-O')  # Hmmm, seems this exceptoin wont go anywhere useful... :-P
+            THClTensor_free(self.native)
+        else:
+            logger.debug('__dealloc__ tensor never allocated')
+
+    def nElement(_ClTensor self):
+        return THClTensor_nElement(self.native)
+
+    def asNumpyTensor(_ClTensor self):
+        cdef Storage._ClStorage storage
+        cdef float *data
+        cdef _ClTensor contig
+        size = self.size()
+        dims = len(size)
+        if dims >= 1:
+            totalSize = 1
+            for d in range(dims - 1, -1, -1):
+                totalSize *= size[d]
+            myarray = np.zeros(totalSize, dtype=np.float32)
+            contig = self.contiguous()
+            data = contig.data()
+            for i in range(totalSize):
+                myarray[i] = data[i]
+            shape = []
+            for d in range(dims):
+                shape.append(size[d])
+            return myarray.reshape(shape)
+        else:
+            raise Exception('Not implemented for dims = {dims}'.format(dims=dims))
+
+    @property
+    def refCount(_ClTensor self):
+        return THClTensor_getRefCount(self.native)
+
+    cdef float *data(_ClTensor self):
+        return THClTensor_data(self.native)
+
+    cpdef int dims(self):
+        return THClTensor_nDimension(self.native)
+
+    cpdef set1d(self, int x0, float value):
+        THClTensor_set1d(self.native, x0, value)
+
+    cpdef set2d(self, int x0, int x1, float value):
+        THClTensor_set2d(self.native, x0, x1, value)
+
+    cpdef float get1d(self, int x0):
+        return THClTensor_get1d(self.native, x0)
+
+    cpdef float get2d(self, int x0, int x1):
+        return THClTensor_get2d(self.native, x0, x1)
+
+    def __repr__(_ClTensor self):
+        return self.as_string(self)
+
+    def as_string(_ClTensor self, show_size=True):
+        # assume 2d matrix for now
+        cdef int size0
+        cdef int size1
+        dims = self.dims()
+        if dims == 0:
+            return '[torch.ClTensor with no dimension]\n'
+        elif dims == 2:
+            size0 = THClTensor_size(self.native, 0)
+            size1 = THClTensor_size(self.native, 1)
+            res = ''
+            for r in range(size0):
+                thisline = ''
+                for c in range(size1):
+                    if c > 0:
+                        thisline += ' '
+                    
+                    thisline += str(self.get2d(r,c),)
+                    
+                res += thisline + '\n'
+            if show_size:
+                res += '[torch.ClTensor of size ' + ('%.0f' % size0) + 'x' + str(size1) + ']\n'
+            return res
+        elif dims == 1:
+            size0 = THClTensor_size(self.native, 0)
+            res = ''
+            thisline = ''
+            for c in range(size0):
+                if c > 0:
+                    thisline += ' '
+                
+                thisline += str(self.get1d(c))
+                
+            res += thisline + '\n'
+            if show_size:
+                res += '[torch.ClTensor of size ' + str(size0) + ']\n'
+            return res
+        elif dims == 3:
+            res = ''
+            for d in range(self.size()[0]):
+                res += '(' + str(d) + ',.,.) =\n'
+                res += self[d].as_string(show_size=False)
+            res += '\ntorch.ClTensor of size '
+            first = True
+            for d in self.size():
+               if not first:
+                  res += 'x'
+               res += str(d)
+               first = False
+            res += ']'
+            return res
+        else:
+            raise Exception("Not implemented: dims > 2")
+
+    def __getitem__(_ClTensor self, int index):
+        if self.dims() == 1:
+            return self.get1d(index)
+        cdef THClTensor *res = THClTensor_newSelect(self.native, 0, index)
+        return _ClTensor_fromNative(res, False)
+
+    def __setitem__(_ClTensor self, int index, float value):
+        if self.dims() == 1:
+            self.set1d(index, value)
+        else:
+            raise Exception("not implemented")
+
+    def fill(_ClTensor self, float value):
+        THClTensor_fill(self.native, value)
+        return self
+
+    
+
+    
+    def abs(_ClTensor self):
+        cdef _ClTensor res = _ClTensor.new()
+        THClTensor_abs(res.native, self.native)
+        return res
+
+    def iabs(_ClTensor self):
+        THClTensor_abs(self.native, self.native)
+        return self
+
+    
+
+    def size(_ClTensor self):
+        cdef int dims = self.dims()
+#        cdef LongStorage size
+        if dims > 0:
+            size = _LongStorage(dims)
+            for d in range(dims):
+                size[d] = THClTensor_size(self.native, d)
+            return size
+        else:
+            return None  # not sure how to handle this yet
+
+    @staticmethod
+    def new():
+#        # print('allocate tensor')
+        return _ClTensor()
+#        return _FloatTensor_fromNative(newTensorC, False)
+
+    def narrow(_ClTensor self, int dimension, long firstIndex, long size):
+        cdef THClTensor *narrowedC = THClTensor_newNarrow(self.native, dimension, firstIndex, size)
+        return _ClTensor_fromNative(narrowedC, retain=False)
+
+
+    def contiguous(_ClTensor self):
+        cdef THClTensor *newTensorC = THClTensor_newContiguous(self.native)
+        return _ClTensor_fromNative(newTensorC)
+
+    def resize1d(_ClTensor self, int size0):
+        THClTensor_resize1d(self.native, size0)
+        return self
+
+    def resize2d(_ClTensor self, int size0, int size1):
+        THClTensor_resize2d(self.native, size0, size1)
+        return self
+
+    def resize3d(_ClTensor self, int size0, int size1, int size2):
+        THClTensor_resize3d(self.native, size0, size1, size2)
+        return self
+
+    def resize4d(_ClTensor self, int size0, int size1, int size2, int size3):
+        THClTensor_resize4d(self.native, size0, size1, size2, size3)
+        return self
+
+    def resizeAs(_ClTensor self, _ClTensor model):
+        THClTensor_resizeAs(self.native, model.native)
+        return self
+    
+    def resize(_ClTensor self, Storage._LongStorage size):
+#        # print('_FloatTensor.resize size:', size)
+        if len(size) == 0:
+            return self
+        cdef int dims = len(size)
+#        # print('_FloatTensor.resize dims:', dims)
+        if dims == 1:
+            THClTensor_resize1d(self.native, size[0])
+        elif dims == 2:
+            THClTensor_resize2d(self.native, size[0], size[1])
+        elif dims == 3:
+            THClTensor_resize3d(self.native, size[0], size[1], size[2])
+        elif dims == 4:
+            THClTensor_resize4d(self.native, size[0], size[1], size[2], size[3])
+        else:
+            raise Exception('Not implemented for dims=' + str(dims))
+        return self
+
+    @staticmethod
+    def newWithStorage(Storage._ClStorage storage, offset, Storage._LongStorage size, Storage._LongStorage stride):
+#        # print('allocate tensor')
+        cdef THClTensor *newTensorC = THClTensor_newWithStorage(storage.native, offset, size.native, stride.native)
+        return _ClTensor_fromNative(newTensorC, False)
+
+    @staticmethod
+    def newWithStorage1d(Storage._ClStorage storage, offset, size0, stride0):
+#        # print('allocate tensor')
+        cdef THClTensor *newTensorC = THClTensor_newWithStorage1d(storage.native, offset, size0, stride0)
+        return _ClTensor_fromNative(newTensorC, False)
+
+    @staticmethod
+    def newWithStorage2d(Storage._ClStorage storage, offset, size0, stride0, size1, stride1):
+#        # print('allocate tensor')
+        cdef THClTensor *newTensorC = THClTensor_newWithStorage2d(storage.native, offset, size0, stride0, size1, stride1)
+        return _ClTensor_fromNative(newTensorC, False)
+
+    @staticmethod
+    def newWithStorage3d(Storage._ClStorage storage, offset, size0, stride0, size1, stride1, size2, stride2):
+#        # print('allocate tensor')
+        cdef THClTensor *newTensorC = THClTensor_newWithStorage3d(storage.native, offset, size0, stride0, size1, stride1,
+            size2, stride2)
+        return _ClTensor_fromNative(newTensorC, False)
+
+    @staticmethod
+    def newWithStorage4d(Storage._ClStorage storage, offset, size0, stride0, size1, stride1, size2, stride2,
+            size3, stride3):
+#        # print('allocate tensor')
+        cdef THClTensor *newTensorC = THClTensor_newWithStorage4d(storage.native, offset, size0, stride0, size1, stride1,
+            size2, stride2, size3, stride3)
+        return _ClTensor_fromNative(newTensorC, False)
+
+    def clone(_ClTensor self):
+        cdef THClTensor *newTensorC = THClTensor_newClone(self.native)
+        return _ClTensor_fromNative(newTensorC, False)
+
+    def storage(_ClTensor self):
+        cdef Storage.THClStorage *storageC = THClTensor_storage(self.native)
+        if storageC == NULL:
+            return None
+        return Storage._ClStorage_fromNative(storageC)
+
+    def __add__(_ClTensor self, second):
+        # assume 2d matrix for now?
+        cdef _ClTensor res = _ClTensor.new()
+        cdef _ClTensor secondTensor
+        if isinstance(second, numbers.Number):
+            THClTensor_add(res.native, self.native, second)
+        else:
+            secondTensor = second
+            THClTensor_cadd(res.native, self.native, 1, secondTensor.native)
+        return res
+
+    def cmul(_ClTensor self, second):
+#        cdef _ClTensor res = _ClTensor.new()
+        cdef _ClTensor secondTensor
+        secondTensor = second
+        THClTensor_cmul(self.native, self.native, secondTensor.native)
+        return self
+
+    def __sub__(_ClTensor self, second):
+        # assume 2d matrix for now?
+        cdef _ClTensor res = _ClTensor.new()
+        cdef _ClTensor secondTensor
+        if isinstance(second, numbers.Number):
+            THClTensor_add(res.native, self.native, -second)
+        else:
+            secondTensor = second
+            THClTensor_cadd(res.native, self.native, -1, secondTensor.native)
+        return res
+
+    
+    def __floordiv__(_ClTensor self, second):
+        cdef _ClTensor res = _ClTensor.new()
+        cdef _ClTensor secondTensor
+        if isinstance(second, numbers.Number):
+            THClTensor_div(res.native, self.native, second)
+        else:
+            secondTensor = second
+            THClTensor_cdiv(res.native, self.native, secondTensor.native)
+        return res
+
+    def __ifloordiv__(_ClTensor self, second):
+        cdef _ClTensor secondTensor
+        if isinstance(second, numbers.Number):
+            THClTensor_div(self.native, self.native, second)
+        else:
+            secondTensor = second
+            THClTensor_cdiv(self.native, self.native, secondTensor.native)
+        return self
+    
+
+    def __iadd__(_ClTensor self, second):
+        cdef _ClTensor secondTensor
+        if isinstance(second, numbers.Number):
+            THClTensor_add(self.native, self.native, second)
+        else:
+            secondTensor = second
+            THClTensor_cadd(self.native, self.native, 1, secondTensor.native)
+        return self
+
+    def __isub__(_ClTensor self, second):
+        cdef _ClTensor secondTensor
+        if isinstance(second, numbers.Number):
+            THClTensor_add(self.native, self.native, -second)
+        else:
+            secondTensor = second
+            THClTensor_cadd(self.native, self.native, -1, secondTensor.native)
+        return self
+
+    def __imul__(_ClTensor self, float value):
+        THClTensor_mul(self.native, self.native, value)
+        return self
+
+#    def __mul__(_ClTensor self, _ClTensor M2):
+    def __mul__(_ClTensor self, second):
+        cdef _ClTensor M2
+        cdef _ClTensor T
+        cdef _ClTensor res
+        cdef int resRows
+        cdef int resCols
+
+        res = _ClTensor.new()
+        if isinstance(second, numbers.Number):
+            THClTensor_mul(res.native, self.native, second)
+            return res
+        else:
+        
+            raise Exception('Invalid arg type for second: ' + str(type(second)))
+        
+
+    # ========== random ===============================
+
+    def bernoulli(_ClTensor self, float p=0.5):
+        THClTensor_bernoulli(self.native, globalState.generator, p)
+        return self
+
+    def geometric(_ClTensor self, float p=0.5):
+        THClTensor_geometric(self.native, globalState.generator, p)
+        return self
+
+
+
+#    @staticmethod
+cdef _ClTensor_fromNative(THClTensor *tensorC, retain=True):
+    if retain:
+        THClTensor_retain(tensorC)
+    tensor = _ClTensor(_allocate=False)
+    tensor.native = tensorC
+    return tensor
+
+
+
+
+
 cdef class GlobalState(object):
     def __cinit__(GlobalState self):
         pass
@@ -2342,6 +2853,10 @@ def _pushDoubleTensor(_DoubleTensor tensor):
 
 
 
+
+
+
+
 # there's probably an official Torch way of doing this
 
 
@@ -2378,6 +2893,10 @@ cpdef int getDoublePrediction(_DoubleTensor output):
             maxSoFar = thisValue
             prediction = i
     return prediction + 1
+
+
+
+
 
 
 

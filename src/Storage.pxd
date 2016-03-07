@@ -24,9 +24,16 @@ cdef extern from "nnWrapper.h":
 
 
 
+cdef extern from "nnWrapper.h":
+    int THClStorage_getRefCount(THClStorage *self)
+
+
+
+
 
 
 cdef extern from "THStorage.h":
+
     cdef struct THLongStorage
     THLongStorage* THLongStorage_newWithData(long *data, long size)
     THLongStorage* THLongStorage_new()
@@ -41,7 +48,9 @@ cdef extern from "THStorage.h":
 
 
 
+
 cdef extern from "THStorage.h":
+
     cdef struct THFloatStorage
     THFloatStorage* THFloatStorage_newWithData(float *data, long size)
     THFloatStorage* THFloatStorage_new()
@@ -56,7 +65,9 @@ cdef extern from "THStorage.h":
 
 
 
+
 cdef extern from "THStorage.h":
+
     cdef struct THDoubleStorage
     THDoubleStorage* THDoubleStorage_newWithData(double *data, long size)
     THDoubleStorage* THDoubleStorage_new()
@@ -71,7 +82,9 @@ cdef extern from "THStorage.h":
 
 
 
+
 cdef extern from "THStorage.h":
+
     cdef struct THByteStorage
     THByteStorage* THByteStorage_newWithData(unsigned char *data, long size)
     THByteStorage* THByteStorage_new()
@@ -82,6 +95,23 @@ cdef extern from "THStorage.h":
     void THByteStorage_retain(THByteStorage *self)
     void THByteStorage_set(THByteStorage*, long, unsigned char)
     unsigned char THByteStorage_get(const THByteStorage*, long)
+
+
+
+
+
+cdef extern from "THCl/THClStorage.h":
+
+    cdef struct THClStorage
+    THClStorage* THClStorage_newWithData(float *data, long size)
+    THClStorage* THClStorage_new()
+    THClStorage* THClStorage_newWithSize(long size)
+    float *THClStorage_data(THClStorage *self)
+    long THClStorage_size(THClStorage *self)
+    void THClStorage_free(THClStorage *self)
+    void THClStorage_retain(THClStorage *self)
+    void THClStorage_set(THClStorage*, long, float)
+    float THClStorage_get(const THClStorage*, long)
 
 
 
@@ -117,4 +147,12 @@ cdef class _ByteStorage(object):
     cpdef long size(self)
 
 cdef _ByteStorage_fromNative(THByteStorage *storageC, retain=*)
+
+
+
+cdef class _ClStorage(object):
+    cdef THClStorage *native
+    cpdef long size(self)
+
+cdef _ClStorage_fromNative(THClStorage *storageC, retain=*)
 

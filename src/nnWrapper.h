@@ -40,6 +40,14 @@ int THByteStorage_getRefCount(THByteStorage *self);
 int THByteTensor_getRefCount(THByteTensor *self);
 
 
+
+struct THClTensor;
+struct THClStorage;
+
+int THClStorage_getRefCount(THClStorage *self);
+int THClTensor_getRefCount(THClTensor *self);
+
+
 struct lua_State;
 lua_State *luaInit(void);
 void luaClose(lua_State *L);

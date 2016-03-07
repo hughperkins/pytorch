@@ -84,6 +84,24 @@ cdef class _ByteTensor(object):
 #    cdef fromNative(THByteTensor *tensorC, retain=*)
 
 
+
+
+cdef extern from "THTensor.h":
+    cdef struct THClTensor
+
+cdef class _ClTensor(object):
+    cdef THClTensor *native
+    cdef float *data(self)
+    # cpdef _ClTensor contiguous(self)
+    cpdef int dims(self)
+    cpdef set1d(self, int x0, float value)
+    cpdef set2d(self, int x0, int x1, float value)
+    cpdef float get1d(self, int x0)
+    cpdef float get2d(self, int x0, int x1)
+#    @cython.staticmethod
+#    cdef fromNative(THClTensor *tensorC, retain=*)
+
+
 cdef class GlobalState:
 #    cdef PyTorchState *state
     cdef lua_State *L

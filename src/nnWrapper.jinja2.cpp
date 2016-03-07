@@ -14,6 +14,7 @@ extern "C" {
 #include <iostream>
 #include <stdexcept>
 
+{{extra_includes_string}}
 #include "luaT.h"
 #include "THTensor.h"
 #include "THStorage.h"
@@ -38,7 +39,9 @@ lua_State *luaInit() {
 ////        cout << "loaded lua library" << endl;
     }
     void *err = dlopen("/home/ubuntu/torch/install/lib/lua/5.1/libpaths.so", RTLD_NOW | RTLD_GLOBAL);
-//    cout << "err " << (long)err << endl;
+    if(err == 0) {
+        throw runtime_error(string("Failed to load libpath.sos") + dlerror());
+    }
 
     #endif
 

@@ -14,6 +14,8 @@ extern "C" {
 #include <iostream>
 #include <stdexcept>
 
+
+#include "THCl/THCl.h"
 #include "luaT.h"
 #include "THTensor.h"
 #include "THStorage.h"
@@ -38,7 +40,9 @@ lua_State *luaInit() {
 ////        cout << "loaded lua library" << endl;
     }
     void *err = dlopen("/home/ubuntu/torch/install/lib/lua/5.1/libpaths.so", RTLD_NOW | RTLD_GLOBAL);
-//    cout << "err " << (long)err << endl;
+    if(err == 0) {
+        throw runtime_error(string("Failed to load libpath.sos") + dlerror());
+    }
 
     #endif
 
@@ -105,6 +109,15 @@ int THByteStorage_getRefCount(THByteStorage *self) {
     return self->refcount;
 }
 int THByteTensor_getRefCount(THByteTensor *self) {
+    return self->refcount;
+}
+
+
+
+int THClStorage_getRefCount(THClStorage *self) {
+    return self->refcount;
+}
+int THClTensor_getRefCount(THClTensor *self) {
     return self->refcount;
 }
 

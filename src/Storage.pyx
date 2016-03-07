@@ -400,3 +400,97 @@ cdef _ByteStorage_fromNative(THByteStorage *storageC, retain=True):
     storage.native = storageC
     return storage
 
+
+
+cdef class _ClStorage(object):
+    # properties in .pxd file of same name
+
+    def __init__(self, *args, **kwargs):
+        # print('ClStorage.__cinit__')
+        logger.debug('ClStorage.__cinit__')
+        if len(args) > 0:
+            for arg in args:
+                if not isinstance(arg, int):
+                    raise Exception('cannot provide arguments to initializer')
+            if len(args) == 1:
+                self.native = THClStorage_newWithSize(args[0])
+            else:
+                raise Exception('cannot provide arguments to initializer')
+        if len(kwargs) > 0:
+            raise Exception('cannot provide arguments to initializer')
+
+    def __repr__(_ClStorage self):
+        cdef int size0
+        size0 = THClStorage_size(self.native)
+        res = ''
+#        thisline = ''
+        for c in range(size0):
+            res += ' '
+#            if c > 0:
+#                thisline += ' '
+            
+            res += str(self[c])
+            
+            res += '\n'
+#        res += thisline + '\n'
+        res += '[torch.ClStorage of size ' + str(size0) + ']\n'
+        return res
+
+    @staticmethod
+    def new():
+        # print('allocate storage')
+        return _ClStorage_fromNative(THClStorage_new(), retain=False)
+
+    @staticmethod
+    def newWithData(float [:] data):
+        cdef THClStorage *storageC = THClStorage_newWithData(&data[0], len(data))
+        # print('allocate storage')
+        return _ClStorage_fromNative(storageC, retain=False)
+
+    @property
+    def refCount(_ClStorage self):
+        return THClStorage_getRefCount(self.native)
+
+    def dataAddr(_ClStorage self):
+        cdef float *data = THClStorage_data(self.native)
+        cdef long dataAddr = pointerAsInt(data)
+        return dataAddr
+
+    @staticmethod
+    def newWithSize(long size):
+        cdef THClStorage *storageC = THClStorage_newWithSize(size)
+        # print('allocate storage')
+        return _ClStorage_fromNative(storageC, retain=False)
+
+    cpdef long size(self):
+        return THClStorage_size(self.native)
+
+    def __len__(self):
+        return self.size()
+
+    def __dealloc__(self):
+        # print('THClStorage.dealloc, old refcount ', THClStorage_getRefCount(self.thClStorage))
+        # print('   dealloc storage: ', hex(<long>(self.thClStorage)))
+        THClStorage_free(self.native)
+
+    def __iter__(self):
+        cdef int size0
+        size0 = THClStorage_size(self.native)
+        for c in range(size0):
+            yield self[c]
+
+    def __getitem__(_ClStorage self, int index):
+        cdef float res = THClStorage_get(self.native, index)
+        return res
+
+    def __setitem__(_ClStorage self, int index, float value):
+        THClStorage_set(self.native, index, value)
+
+
+cdef _ClStorage_fromNative(THClStorage *storageC, retain=True):
+    if retain:
+        THClStorage_retain(storageC)
+    storage = _ClStorage()
+    storage.native = storageC
+    return storage
+

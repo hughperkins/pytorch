@@ -29,6 +29,11 @@ cdef extern from "nnWrapper.h":
     int THByteTensor_getRefCount(THByteTensor *self)
 
 
+
+cdef extern from "nnWrapper.h":
+    int THClTensor_getRefCount(THClTensor *self)
+
+
 cdef extern from "nnWrapper.h":
     cdef struct lua_State
     lua_State *luaInit()

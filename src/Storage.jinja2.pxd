@@ -11,7 +11,11 @@ cdef extern from "nnWrapper.h":
 {% for typedict in types %}
 {% set Real = typedict['Real'] %}
 {% set real = typedict['real'] %}
+{% if Real == 'Cl' %}
+cdef extern from "THCl/THClStorage.h":
+{% else %}
 cdef extern from "THStorage.h":
+{% endif %}
     cdef struct TH{{Real}}Storage
     TH{{Real}}Storage* TH{{Real}}Storage_newWithData({{real}} *data, long size)
     TH{{Real}}Storage* TH{{Real}}Storage_new()

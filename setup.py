@@ -36,8 +36,17 @@ if running_cython:
         {'Real': 'Long','real': 'long'},
         {'Real': 'Float', 'real': 'float'},
         {'Real': 'Double', 'real': 'double'},
-        {'Real': 'Byte', 'real': 'unsigned char'}
+        {'Real': 'Byte', 'real': 'unsigned char'},
     ]
+    extra_includes_string = ""
+    if 'CUDA' in os.environ:
+        print('enabling CUDA')
+        types.append({'Real': 'C', 'real': 'float'})
+        extra_includes_string += '\n#include "THC.h"'
+    if 'CL' in os.environ:
+        print('enabling OpenCL')
+        types.append({'Real': 'Cl', 'real': 'float'})
+        extra_includes_string += '\n#include "THCl/THCl.h"'
     print('Cythonizing...')
     from Cython.Build import cythonize
     import jinja2
@@ -54,7 +63,8 @@ if running_cython:
             'Source: ' + templateName,
             header1='GENERATED FILE, do not edit by hand',
             header2='Source: ' + templateName,
-            types=types)
+            types=types,
+            extra_includes_string=extra_includes_string)
         outFilename = templateName.replace('.jinja2', '').replace('jinja2.', '')
         isUpdate = True
         if os.path.isfile(outFilename):
@@ -123,6 +133,16 @@ def get_file_datetime(filepath):
     t = os.path.getmtime(filepath)
     return datetime.datetime.fromtimestamp(t)
 
+include_dirs = []
+include_dirs.append(torch_install_dir + '/include/TH')
+include_dirs.append('thirdparty/lua-5.1.5/src')
+include_dirs.append(torch_install_dir + '/include')
+if 'CUDA' in os.environ:
+    include_dirs.append(torch_install_dir + '/include/THC')
+if 'CL' in os.environ:
+    include_dirs.append(torch_install_dir + '/include/THCl')
+print('include_dirs', include_dirs)
+
 cython_sources = ['src/lua.pyx', 'src/Storage.pyx', "src/PyTorch.pyx"]
 ext_modules = []
 for cython_source in cython_sources:
@@ -134,7 +154,7 @@ for cython_source in cython_sources:
     ext_modules.append(
         Extension(basename,
                   sources=[source_name],
-                  include_dirs=[torch_install_dir + '/include/TH', 'thirdparty/lua-5.1.5/src', torch_install_dir + '/include'],
+                  include_dirs=include_dirs,
                   library_dirs=library_dirs,
                   libraries=libraries,
                   extra_compile_args=compile_options,
@@ -147,7 +167,7 @@ for cython_source in cython_sources:
 
 setup(
     name='PyTorch',
-    version='3.1.0',
+    version='3.1.1-SNAPSHOT',
     author='Hugh Perkins',
     author_email='hughperkins@gmail.com',
     description=(
