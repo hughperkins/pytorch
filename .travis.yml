@@ -29,6 +29,7 @@ before_install:
   - echo $HOME
   - bash travis/install-torch.sh
   - source ~/torch/install/bin/torch-activate
+  - luarocks install nnx
   - cd ~/build/hughperkins/pytorch
 
 script:
