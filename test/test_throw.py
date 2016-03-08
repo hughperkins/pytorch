@@ -3,7 +3,7 @@ import sys
 import os
 import traceback
 
-def xtest_FunctionThrow():
+def test_FunctionThrow():
   ThrowsError = PyTorchHelpers.load_lua_class('test/test_throw.lua', 'ThrowsError')
   throwsError = ThrowsError()
 
@@ -17,7 +17,7 @@ def xtest_FunctionThrow():
   #  e.printstacktrace()
   assert(not noException)
 
-def xtest_initThrow():
+def test_initThrow():
   ThrowsErrorOnInit = PyTorchHelpers.load_lua_class('test/test_throw.lua', 'ThrowsErrorOnInit')
   noException = True
   try:

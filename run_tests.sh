@@ -22,6 +22,6 @@ if [[ x$RUNGDB != x ]]; then {
 } elif [[ x$STDBUF != x ]]; then {
   stdbuf --output=L py.test -sv test/test* $* | grep --line-buffered -v 'seconds =============' | tee test_outputs/tests_output.txt
 } else {
-   py.test -sv test/test*
+   py.test -sv test/test*.py
 } fi
 
