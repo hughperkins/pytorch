@@ -1,7 +1,7 @@
 # pytorch
 Wrappers to use torch and lua from python
 
-# What is python?
+# What is pytorch?
 
 - create torch tensors, call operations on those, add them together, multiply them, and so on
 - create `nn` network modules, pass tensors into those, get the output, and so on
