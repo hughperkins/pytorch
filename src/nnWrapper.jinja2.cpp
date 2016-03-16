@@ -25,19 +25,20 @@ using namespace std;
 lua_State *luaInit() {
     #ifndef _WIN32
 //    cout << "luaInit" << endl;
-    void *hdl = dlopen("libPyTorchLua.so", RTLD_NOW | RTLD_GLOBAL);
+    void *hdl = dlopen("libluajit.so", RTLD_NOW | RTLD_GLOBAL);
     if(hdl == 0) {
-        //cout << "Failed to load libPyTorchLua.so, trying dylib..." << endl;
-        hdl = dlopen("libPyTorchLua.dylib", RTLD_NOW | RTLD_GLOBAL);
+//        //cout << "Failed to load libPyTorchLua.so, trying dylib..." << endl;
+        hdl = dlopen("libluajit.dylib", RTLD_NOW | RTLD_GLOBAL);
     }
     if(hdl == 0) {
-        cout << "Failed to load both libPyTorchLua.so and libPyTorchLua.dylib, fatal" << endl;
+        cout << "Failed to load both libluajit.so and libluajit.dylib, fatal" << endl;
         cout << dlerror() << endl;
-        throw runtime_error(string("Couldnt load liblua5.1.so or liblua.dylib") + dlerror());
+        throw runtime_error(string("Couldnt load libluajit.so or libluajit.dylib") + dlerror());
     } else {
-////        cout << "loaded lua library" << endl;
+//////        cout << "loaded lua library" << endl;
     }
-    void *err = dlopen("/home/ubuntu/torch/install/lib/lua/5.1/libpaths.so", RTLD_NOW | RTLD_GLOBAL);
+//    void *err = dlopen("libpaths.so", RTLD_NOW | RTLD_GLOBAL);
+//    void *err = dlopen("libluajit.so", RTLD_NOW | RTLD_GLOBAL);
 //    cout << "err " << (long)err << endl;
 
     #endif
