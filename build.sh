@@ -9,15 +9,15 @@
 #    ... or similar
 # - torch is expected to be at $HOME/torch
 
+export TORCH_INSTALL=$(dirname $(dirname $(which luajit) 2>/dev/null) 2>/dev/null)
+
 if [[ x${INCREMENTAL} == x ]]; then {
-  rm -Rf build PyBuild.so dist *.egg-info cbuild
+  rm -Rf build PyBuild.so dist *.egg-info cbuild ${TORCH_INSTALL}/lib/libPyTorch*
   pip uninstall -y PyTorch
 } fi
 # python setup.py build_ext -i || exit 1
 
 mkdir -p cbuild
-export TORCH_INSTALL=$(dirname $(dirname $(which luajit) 2>/dev/null) 2>/dev/null)
-
 if [[ x${TORCH_INSTALL} == x ]]; then {
     echo
     echo Please run:
@@ -29,7 +29,8 @@ if [[ x${TORCH_INSTALL} == x ]]; then {
     exit 1
 } fi
 
+if [[ x${{USE_LUAJIT}} == x ]]; then { USE_LUAJIT=ON; } fi
 if [[ x${CYTHON} != x ]]; then { python setup.py cython_only || exit 1; } fi
-(cd cbuild; cmake .. -DCMAKE_BUILD_TYPE=Debug -DCMAKE_INSTALL_PREFIX=${TORCH_INSTALL} && make -j 4 install) || exit 1
+(cd cbuild; cmake .. -DCMAKE_BUILD_TYPE=Debug -DUSE_LUAJIT=${USE_LUAJIT} -DCMAKE_INSTALL_PREFIX=${TORCH_INSTALL} && make -j 4 install) || exit 1
 python setup.py install || exit 1
 
