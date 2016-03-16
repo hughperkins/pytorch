@@ -7,7 +7,6 @@ if("${CMAKE_SYSTEM_NAME}" STREQUAL "Darwin")
   # why?  see http://stackoverflow.com/questions/20858911/lua-open-returns-null-using-luajit/20875342#20875342
   OPTION(USE_LUAJIT "Link with luajit.so.  Wont work on Mac.  Faster on linux" OFF)
 endif()
-message("USE_LUAJIT ${USE_LUAJIT}")
 
 FIND_PACKAGE(Torch REQUIRED)  # you need to run source ~/torch/install/bin/torch-activate if this line
                               # gives an error

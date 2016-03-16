@@ -24,16 +24,13 @@ using namespace std;
 
 lua_State *luaInit() {
     #ifndef _WIN32
-//    cout << "luaInit" << endl;
     #ifdef USE_LUAJIT
         #define LUALIBNAME "libluajit"
     #else
         #define LUALIBNAME "libPyTorchLua"
     #endif
-    cout << "lua libname " << LUALIBNAME << endl;
     void *hdl = dlopen(LUALIBNAME ".so", RTLD_NOW | RTLD_GLOBAL);
     if(hdl == 0) {
-//        //cout << "Failed to load libPyTorchLua.so, trying dylib..." << endl;
         hdl = dlopen(LUALIBNAME ".dylib", RTLD_NOW | RTLD_GLOBAL);
     }
     if(hdl == 0) {
@@ -41,11 +38,7 @@ lua_State *luaInit() {
         cout << dlerror() << endl;
         throw runtime_error(string("Couldnt load " LUALIBNAME ".so or " LUALIBNAME ".dylib") + dlerror());
     } else {
-//////        cout << "loaded lua library" << endl;
     }
-//    void *err = dlopen("libpaths.so", RTLD_NOW | RTLD_GLOBAL);
-//    void *err = dlopen("libluajit.so", RTLD_NOW | RTLD_GLOBAL);
-//    cout << "err " << (long)err << endl;
 
     #endif
 
