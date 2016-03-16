@@ -147,7 +147,7 @@ for cython_source in cython_sources:
 
 setup(
     name='PyTorch',
-    version='4.0.0-SNAPSHOT',
+    version='4.0.0',
     author='Hugh Perkins',
     author_email='hughperkins@gmail.com',
     description=(
