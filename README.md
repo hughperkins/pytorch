@@ -125,6 +125,9 @@ from __future__ import print_function, division
 
 # Recent news
 
+16 March:
+* uses luajit on linux now (mac os x continues to use lua)
+
 6 March:
 * all classes should be usable from `nn` now, without needing to explicitly register inside `pytorch`
   * you need to upgrade to `v3.0.0` to enable this, which is a breaking change, since the `nn` classes are now in `PyTorchAug.nn`, instead of directly
