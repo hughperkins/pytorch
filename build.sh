@@ -29,6 +29,7 @@ if [[ x${TORCH_INSTALL} == x ]]; then {
     exit 1
 } fi
 
+if [[ $(uname -s) == 'Darwin' ]]; then { USE_LUAJIT=OFF; } fi
 if [[ x${USE_LUAJIT} == x ]]; then { USE_LUAJIT=ON; } fi
 if [[ x${CYTHON} != x ]]; then { python setup.py cython_only || exit 1; } fi
 (cd cbuild; cmake .. -DCMAKE_BUILD_TYPE=Debug -DUSE_LUAJIT=${USE_LUAJIT} -DCMAKE_INSTALL_PREFIX=${TORCH_INSTALL} && make -j 4 install) || exit 1
