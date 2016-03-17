@@ -81,11 +81,11 @@ cdef class LuaState(object):
         with nogil:
            lua_call(self.L, numIn, numOut)
 
-    def _pcall(self, ret, int numIn, int numOut, errFunc=0):
+    def _pcall(self, ret, int numIn, int numOut, int errFunc=0):
         cdef int res = 0
-        assert(errFunc == 0, 'errFunc should be zero, for now')
+#        assert(errFunc == 0, 'errFunc should be zero, for now')
         with nogil:
-            res = lua_pcall(self.L, numIn, numOut, 0)
+            res = lua_pcall(self.L, numIn, numOut, errFunc)
         ret.append(res)
 
     def pcall(self, int numIn, int numOut, errFunc=0):

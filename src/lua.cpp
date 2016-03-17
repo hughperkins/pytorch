@@ -770,13 +770,6 @@ static CYTHON_INLINE PyObject* __Pyx_decode_bytes(
 }
 
 #if CYTHON_COMPILING_IN_CPYTHON
-static PyObject* __Pyx_PyInt_EqObjC(PyObject *op1, PyObject *op2, long intval, int inplace);
-#else
-#define __Pyx_PyInt_EqObjC(op1, op2, intval, inplace)\
-    PyObject_RichCompare(op1, op2, Py_EQ)
-    #endif
-
-#if CYTHON_COMPILING_IN_CPYTHON
 static CYTHON_INLINE int __Pyx_PyList_Append(PyObject* list, PyObject* x) {
     PyListObject* L = (PyListObject*) list;
     Py_ssize_t len = Py_SIZE(list);
@@ -912,7 +905,6 @@ static char __pyx_k_threading[] = "threading";
 static char __pyx_k_pyx_vtable[] = "__pyx_vtable__";
 static char __pyx_k_LUA_REGISTRYINDEX[] = "LUA_REGISTRYINDEX";
 static char __pyx_k_interruptableCall[] = "interruptableCall";
-static char __pyx_k_errFunc_should_be_zero_for_now[] = "errFunc should be zero, for now";
 static char __pyx_k_media_ubuntu_data_norep_git_pyt[] = "/media/ubuntu/data/norep/git/pytorch/src/lua.pyx";
 static PyObject *__pyx_n_s_LUA_REGISTRYINDEX;
 static PyObject *__pyx_n_s_Thread;
@@ -922,7 +914,6 @@ static PyObject *__pyx_n_s_args;
 static PyObject *__pyx_n_s_daemon;
 static PyObject *__pyx_n_s_encode;
 static PyObject *__pyx_n_s_errFunc;
-static PyObject *__pyx_kp_s_errFunc_should_be_zero_for_now;
 static PyObject *__pyx_n_s_function;
 static PyObject *__pyx_n_s_import;
 static PyObject *__pyx_n_s_index;
@@ -960,7 +951,7 @@ static PyObject *__pyx_pf_3lua_8LuaState_22setGlobal(struct __pyx_obj_3lua_LuaSt
 static PyObject *__pyx_pf_3lua_8LuaState_24pushNil(struct __pyx_obj_3lua_LuaState *__pyx_v_self); /* proto */
 static PyObject *__pyx_pf_3lua_8LuaState_26pushValue(struct __pyx_obj_3lua_LuaState *__pyx_v_self, int __pyx_v_index); /* proto */
 static PyObject *__pyx_pf_3lua_8LuaState_28call(struct __pyx_obj_3lua_LuaState *__pyx_v_self, int __pyx_v_numIn, int __pyx_v_numOut); /* proto */
-static PyObject *__pyx_pf_3lua_8LuaState_30_pcall(struct __pyx_obj_3lua_LuaState *__pyx_v_self, PyObject *__pyx_v_ret, int __pyx_v_numIn, int __pyx_v_numOut, PyObject *__pyx_v_errFunc); /* proto */
+static PyObject *__pyx_pf_3lua_8LuaState_30_pcall(struct __pyx_obj_3lua_LuaState *__pyx_v_self, PyObject *__pyx_v_ret, int __pyx_v_numIn, int __pyx_v_numOut, int __pyx_v_errFunc); /* proto */
 static PyObject *__pyx_pf_3lua_8LuaState_32pcall(struct __pyx_obj_3lua_LuaState *__pyx_v_self, int __pyx_v_numIn, int __pyx_v_numOut, PyObject *__pyx_v_errFunc); /* proto */
 static PyObject *__pyx_pf_3lua_8LuaState_34newTable(struct __pyx_obj_3lua_LuaState *__pyx_v_self); /* proto */
 static PyObject *__pyx_pf_3lua_8LuaState_36setTable(struct __pyx_obj_3lua_LuaState *__pyx_v_self, PyObject *__pyx_v_index); /* proto */
@@ -2268,7 +2259,7 @@ static PyObject *__pyx_pf_3lua_8LuaState_28call(struct __pyx_obj_3lua_LuaState *
  *         with nogil:
  *            lua_call(self.L, numIn, numOut)             # <<<<<<<<<<<<<<
  * 
- *     def _pcall(self, ret, int numIn, int numOut, errFunc=0):
+ *     def _pcall(self, ret, int numIn, int numOut, int errFunc=0):
  */
         lua_call(__pyx_v_self->L, __pyx_v_numIn, __pyx_v_numOut);
       }
@@ -2309,9 +2300,9 @@ static PyObject *__pyx_pf_3lua_8LuaState_28call(struct __pyx_obj_3lua_LuaState *
 /* "lua.pyx":84
  *            lua_call(self.L, numIn, numOut)
  * 
- *     def _pcall(self, ret, int numIn, int numOut, errFunc=0):             # <<<<<<<<<<<<<<
+ *     def _pcall(self, ret, int numIn, int numOut, int errFunc=0):             # <<<<<<<<<<<<<<
  *         cdef int res = 0
- *         assert(errFunc == 0, 'errFunc should be zero, for now')
+ * #        assert(errFunc == 0, 'errFunc should be zero, for now')
  */
 
 /* Python wrapper */
@@ -2320,7 +2311,7 @@ static PyObject *__pyx_pw_3lua_8LuaState_31_pcall(PyObject *__pyx_v_self, PyObje
   PyObject *__pyx_v_ret = 0;
   int __pyx_v_numIn;
   int __pyx_v_numOut;
-  PyObject *__pyx_v_errFunc = 0;
+  int __pyx_v_errFunc;
   int __pyx_lineno = 0;
   const char *__pyx_filename = NULL;
   int __pyx_clineno = 0;
@@ -2330,7 +2321,6 @@ static PyObject *__pyx_pw_3lua_8LuaState_31_pcall(PyObject *__pyx_v_self, PyObje
   {
     static PyObject **__pyx_pyargnames[] = {&__pyx_n_s_ret,&__pyx_n_s_numIn,&__pyx_n_s_numOut,&__pyx_n_s_errFunc,0};
     PyObject* values[4] = {0,0,0,0};
-    values[3] = ((PyObject *)__pyx_int_0);
     if (unlikely(__pyx_kwds)) {
       Py_ssize_t kw_args;
       const Py_ssize_t pos_args = PyTuple_GET_SIZE(__pyx_args);
@@ -2379,7 +2369,11 @@ static PyObject *__pyx_pw_3lua_8LuaState_31_pcall(PyObject *__pyx_v_self, PyObje
     __pyx_v_ret = values[0];
     __pyx_v_numIn = __Pyx_PyInt_As_int(values[1]); if (unlikely((__pyx_v_numIn == (int)-1) && PyErr_Occurred())) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 84; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
     __pyx_v_numOut = __Pyx_PyInt_As_int(values[2]); if (unlikely((__pyx_v_numOut == (int)-1) && PyErr_Occurred())) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 84; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
-    __pyx_v_errFunc = values[3];
+    if (values[3]) {
+      __pyx_v_errFunc = __Pyx_PyInt_As_int(values[3]); if (unlikely((__pyx_v_errFunc == (int)-1) && PyErr_Occurred())) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 84; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
+    } else {
+      __pyx_v_errFunc = ((int)0);
+    }
   }
   goto __pyx_L4_argument_unpacking_done;
   __pyx_L5_argtuple_error:;
@@ -2396,14 +2390,12 @@ static PyObject *__pyx_pw_3lua_8LuaState_31_pcall(PyObject *__pyx_v_self, PyObje
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_3lua_8LuaState_30_pcall(struct __pyx_obj_3lua_LuaState *__pyx_v_self, PyObject *__pyx_v_ret, int __pyx_v_numIn, int __pyx_v_numOut, PyObject *__pyx_v_errFunc) {
+static PyObject *__pyx_pf_3lua_8LuaState_30_pcall(struct __pyx_obj_3lua_LuaState *__pyx_v_self, PyObject *__pyx_v_ret, int __pyx_v_numIn, int __pyx_v_numOut, int __pyx_v_errFunc) {
   int __pyx_v_res;
   PyObject *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
   PyObject *__pyx_t_1 = NULL;
-  PyObject *__pyx_t_2 = NULL;
-  int __pyx_t_3;
-  int __pyx_t_4;
+  int __pyx_t_2;
   int __pyx_lineno = 0;
   const char *__pyx_filename = NULL;
   int __pyx_clineno = 0;
@@ -2411,46 +2403,18 @@ static PyObject *__pyx_pf_3lua_8LuaState_30_pcall(struct __pyx_obj_3lua_LuaState
 
   /* "lua.pyx":85
  * 
- *     def _pcall(self, ret, int numIn, int numOut, errFunc=0):
+ *     def _pcall(self, ret, int numIn, int numOut, int errFunc=0):
  *         cdef int res = 0             # <<<<<<<<<<<<<<
- *         assert(errFunc == 0, 'errFunc should be zero, for now')
+ * #        assert(errFunc == 0, 'errFunc should be zero, for now')
  *         with nogil:
  */
   __pyx_v_res = 0;
 
-  /* "lua.pyx":86
- *     def _pcall(self, ret, int numIn, int numOut, errFunc=0):
- *         cdef int res = 0
- *         assert(errFunc == 0, 'errFunc should be zero, for now')             # <<<<<<<<<<<<<<
- *         with nogil:
- *             res = lua_pcall(self.L, numIn, numOut, 0)
- */
-  #ifndef CYTHON_WITHOUT_ASSERTIONS
-  if (unlikely(!Py_OptimizeFlag)) {
-    __pyx_t_1 = __Pyx_PyInt_EqObjC(__pyx_v_errFunc, __pyx_int_0, 0, 0); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 86; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-    __Pyx_GOTREF(__pyx_t_1);
-    __pyx_t_2 = PyTuple_New(2); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 86; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-    __Pyx_GOTREF(__pyx_t_2);
-    __Pyx_GIVEREF(__pyx_t_1);
-    PyTuple_SET_ITEM(__pyx_t_2, 0, __pyx_t_1);
-    __Pyx_INCREF(__pyx_kp_s_errFunc_should_be_zero_for_now);
-    __Pyx_GIVEREF(__pyx_kp_s_errFunc_should_be_zero_for_now);
-    PyTuple_SET_ITEM(__pyx_t_2, 1, __pyx_kp_s_errFunc_should_be_zero_for_now);
-    __pyx_t_1 = 0;
-    __pyx_t_3 = (__pyx_t_2 != Py_None) && (PyTuple_GET_SIZE(__pyx_t_2) != 0);
-    __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-    if (unlikely(!__pyx_t_3)) {
-      PyErr_SetNone(PyExc_AssertionError);
-      {__pyx_filename = __pyx_f[0]; __pyx_lineno = 86; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-    }
-  }
-  #endif
-
   /* "lua.pyx":87
  *         cdef int res = 0
- *         assert(errFunc == 0, 'errFunc should be zero, for now')
+ * #        assert(errFunc == 0, 'errFunc should be zero, for now')
  *         with nogil:             # <<<<<<<<<<<<<<
- *             res = lua_pcall(self.L, numIn, numOut, 0)
+ *             res = lua_pcall(self.L, numIn, numOut, errFunc)
  *         ret.append(res)
  */
   {
@@ -2461,20 +2425,20 @@ static PyObject *__pyx_pf_3lua_8LuaState_30_pcall(struct __pyx_obj_3lua_LuaState
       /*try:*/ {
 
         /* "lua.pyx":88
- *         assert(errFunc == 0, 'errFunc should be zero, for now')
+ * #        assert(errFunc == 0, 'errFunc should be zero, for now')
  *         with nogil:
- *             res = lua_pcall(self.L, numIn, numOut, 0)             # <<<<<<<<<<<<<<
+ *             res = lua_pcall(self.L, numIn, numOut, errFunc)             # <<<<<<<<<<<<<<
  *         ret.append(res)
  * 
  */
-        __pyx_v_res = lua_pcall(__pyx_v_self->L, __pyx_v_numIn, __pyx_v_numOut, 0);
+        __pyx_v_res = lua_pcall(__pyx_v_self->L, __pyx_v_numIn, __pyx_v_numOut, __pyx_v_errFunc);
       }
 
       /* "lua.pyx":87
  *         cdef int res = 0
- *         assert(errFunc == 0, 'errFunc should be zero, for now')
+ * #        assert(errFunc == 0, 'errFunc should be zero, for now')
  *         with nogil:             # <<<<<<<<<<<<<<
- *             res = lua_pcall(self.L, numIn, numOut, 0)
+ *             res = lua_pcall(self.L, numIn, numOut, errFunc)
  *         ret.append(res)
  */
       /*finally:*/ {
@@ -2490,22 +2454,22 @@ static PyObject *__pyx_pf_3lua_8LuaState_30_pcall(struct __pyx_obj_3lua_LuaState
 
   /* "lua.pyx":89
  *         with nogil:
- *             res = lua_pcall(self.L, numIn, numOut, 0)
+ *             res = lua_pcall(self.L, numIn, numOut, errFunc)
  *         ret.append(res)             # <<<<<<<<<<<<<<
  * 
  *     def pcall(self, int numIn, int numOut, errFunc=0):
  */
-  __pyx_t_2 = __Pyx_PyInt_From_int(__pyx_v_res); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 89; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-  __Pyx_GOTREF(__pyx_t_2);
-  __pyx_t_4 = __Pyx_PyObject_Append(__pyx_v_ret, __pyx_t_2); if (unlikely(__pyx_t_4 == -1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 89; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-  __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
+  __pyx_t_1 = __Pyx_PyInt_From_int(__pyx_v_res); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 89; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __Pyx_GOTREF(__pyx_t_1);
+  __pyx_t_2 = __Pyx_PyObject_Append(__pyx_v_ret, __pyx_t_1); if (unlikely(__pyx_t_2 == -1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 89; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
   /* "lua.pyx":84
  *            lua_call(self.L, numIn, numOut)
  * 
- *     def _pcall(self, ret, int numIn, int numOut, errFunc=0):             # <<<<<<<<<<<<<<
+ *     def _pcall(self, ret, int numIn, int numOut, int errFunc=0):             # <<<<<<<<<<<<<<
  *         cdef int res = 0
- *         assert(errFunc == 0, 'errFunc should be zero, for now')
+ * #        assert(errFunc == 0, 'errFunc should be zero, for now')
  */
 
   /* function exit code */
@@ -2513,7 +2477,6 @@ static PyObject *__pyx_pf_3lua_8LuaState_30_pcall(struct __pyx_obj_3lua_LuaState
   goto __pyx_L0;
   __pyx_L1_error:;
   __Pyx_XDECREF(__pyx_t_1);
-  __Pyx_XDECREF(__pyx_t_2);
   __Pyx_AddTraceback("lua.LuaState._pcall", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = NULL;
   __pyx_L0:;
@@ -3522,7 +3485,6 @@ static __Pyx_StringTabEntry __pyx_string_tab[] = {
   {&__pyx_n_s_daemon, __pyx_k_daemon, sizeof(__pyx_k_daemon), 0, 0, 1, 1},
   {&__pyx_n_s_encode, __pyx_k_encode, sizeof(__pyx_k_encode), 0, 0, 1, 1},
   {&__pyx_n_s_errFunc, __pyx_k_errFunc, sizeof(__pyx_k_errFunc), 0, 0, 1, 1},
-  {&__pyx_kp_s_errFunc_should_be_zero_for_now, __pyx_k_errFunc_should_be_zero_for_now, sizeof(__pyx_k_errFunc_should_be_zero_for_now), 0, 0, 1, 0},
   {&__pyx_n_s_function, __pyx_k_function, sizeof(__pyx_k_function), 0, 0, 1, 1},
   {&__pyx_n_s_import, __pyx_k_import, sizeof(__pyx_k_import), 0, 0, 1, 1},
   {&__pyx_n_s_index, __pyx_k_index, sizeof(__pyx_k_index), 0, 0, 1, 1},
@@ -4110,94 +4072,6 @@ static CYTHON_INLINE PyObject* __Pyx_decode_c_bytes(
     }
 }
 
-#if CYTHON_USE_PYLONG_INTERNALS
-  #include "longintrepr.h"
-#endif
-
-#if CYTHON_COMPILING_IN_CPYTHON
-static PyObject* __Pyx_PyInt_EqObjC(PyObject *op1, PyObject *op2, CYTHON_UNUSED long intval, CYTHON_UNUSED int inplace) {
-    if (op1 == op2) {
-        Py_RETURN_TRUE;
-    }
-    #if PY_MAJOR_VERSION < 3
-    if (likely(PyInt_CheckExact(op1))) {
-        const long b = intval;
-        long a = PyInt_AS_LONG(op1);
-        if (a == b) {
-            Py_RETURN_TRUE;
-        } else {
-            Py_RETURN_FALSE;
-        }
-    }
-    #endif
-    #if CYTHON_USE_PYLONG_INTERNALS && PY_MAJOR_VERSION >= 3
-    if (likely(PyLong_CheckExact(op1))) {
-        const long b = intval;
-        long a;
-        const digit* digits = ((PyLongObject*)op1)->ob_digit;
-        const Py_ssize_t size = Py_SIZE(op1);
-        if (likely(__Pyx_sst_abs(size) <= 1)) {
-            a = likely(size) ? digits[0] : 0;
-            if (size == -1) a = -a;
-        } else {
-            switch (size) {
-                case -2:
-                    if (8 * sizeof(long) - 1 > 2 * PyLong_SHIFT) {
-                        a = -(long) (((((unsigned long)digits[1]) << PyLong_SHIFT) | (unsigned long)digits[0]));
-                        break;
-                    }
-                case 2:
-                    if (8 * sizeof(long) - 1 > 2 * PyLong_SHIFT) {
-                        a = (long) (((((unsigned long)digits[1]) << PyLong_SHIFT) | (unsigned long)digits[0]));
-                        break;
-                    }
-                case -3:
-                    if (8 * sizeof(long) - 1 > 3 * PyLong_SHIFT) {
-                        a = -(long) (((((((unsigned long)digits[2]) << PyLong_SHIFT) | (unsigned long)digits[1]) << PyLong_SHIFT) | (unsigned long)digits[0]));
-                        break;
-                    }
-                case 3:
-                    if (8 * sizeof(long) - 1 > 3 * PyLong_SHIFT) {
-                        a = (long) (((((((unsigned long)digits[2]) << PyLong_SHIFT) | (unsigned long)digits[1]) << PyLong_SHIFT) | (unsigned long)digits[0]));
-                        break;
-                    }
-                case -4:
-                    if (8 * sizeof(long) - 1 > 4 * PyLong_SHIFT) {
-                        a = -(long) (((((((((unsigned long)digits[3]) << PyLong_SHIFT) | (unsigned long)digits[2]) << PyLong_SHIFT) | (unsigned long)digits[1]) << PyLong_SHIFT) | (unsigned long)digits[0]));
-                        break;
-                    }
-                case 4:
-                    if (8 * sizeof(long) - 1 > 4 * PyLong_SHIFT) {
-                        a = (long) (((((((((unsigned long)digits[3]) << PyLong_SHIFT) | (unsigned long)digits[2]) << PyLong_SHIFT) | (unsigned long)digits[1]) << PyLong_SHIFT) | (unsigned long)digits[0]));
-                        break;
-                    }
-                #if PyLong_SHIFT < 30 && PyLong_SHIFT != 15
-                default: return PyLong_Type.tp_richcompare(op1, op2, Py_EQ);
-                #else
-                default: Py_RETURN_FALSE;
-                #endif
-            }
-        }
-            if (a == b) {
-                Py_RETURN_TRUE;
-            } else {
-                Py_RETURN_FALSE;
-            }
-    }
-    #endif
-    if (PyFloat_CheckExact(op1)) {
-        const long b = intval;
-        double a = PyFloat_AS_DOUBLE(op1);
-            if ((double)a == (double)b) {
-                Py_RETURN_TRUE;
-            } else {
-                Py_RETURN_FALSE;
-            }
-    }
-    return PyObject_RichCompare(op1, op2, Py_EQ);
-}
-#endif
-
 static PyObject* __Pyx_PyObject_CallMethod1(PyObject* obj, PyObject* method_name, PyObject* arg) {
     PyObject *method, *result = NULL;
     method = __Pyx_PyObject_GetAttrStr(obj, method_name);
@@ -4619,6 +4493,10 @@ static CYTHON_INLINE PyObject* __Pyx_PyInt_From_int(int value) {
         }\
         return (target_type) value;\
     }
+
+#if CYTHON_USE_PYLONG_INTERNALS
+  #include "longintrepr.h"
+#endif
 
 static CYTHON_INLINE int __Pyx_PyInt_As_int(PyObject *x) {
     const int neg_one = (int) -1, const_zero = (int) 0;
