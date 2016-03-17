@@ -125,6 +125,9 @@ from __future__ import print_function, division
 
 # Recent news
 
+17 March:
+* ctrl-c works now (tested on linux)
+
 16 March:
 * uses luajit on linux now (mac os x continues to use lua)
 
