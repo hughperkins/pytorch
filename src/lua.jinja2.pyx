@@ -91,7 +91,7 @@ cdef class LuaState(object):
     def pcall(self, int numIn, int numOut, errFunc=0):
         res = []
         interruptableCall(self._pcall, [res, numIn, numOut, errFunc]) 
-        print('res[0]', res[0])
+#        print('res[0]', res[0])
         return res[0]
 
     def newTable(self):
