@@ -1,9 +1,21 @@
 from __future__ import print_function
+import threading
 import PyTorch
 import PyTorchLua
 import PyTorchHelpers
 
 lua = PyTorch.getGlobalState().getLua()
+
+# this is so we can ctrl-c lua functions.  we have to run them in a separate thread
+# for this, so that the python event log can continue ('event loop' might not be quite
+# the right technical term, but the concept is approximately right.  I think)
+def interruptableCall(function, args):
+    mythread = threading.Thread(target=function, args = args)
+    mythread.daemon = True
+    mythread.start()
+    while mythread.isAlive():
+        mythread.join(0.1)
+        #print('join timed out')
 
 nextObjectId = 1
 def getNextObjectId():

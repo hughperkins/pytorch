@@ -1,4 +1,5 @@
 from lua cimport *
+import threading
 
 # GENERATED FILE, do not edit by hand
 # Source: src/lua.jinja2.pyx
@@ -17,6 +18,14 @@ LUA_REGISTRYINDEX = getLuaRegistryIndex()
 #    @staticmethod
 #    def require(name):
 #        require(globalState.L, name)
+
+def interruptableCall(function, args):
+    mythread = threading.Thread(target=function, args = args)
+    mythread.daemon = True
+    mythread.start()
+    while mythread.isAlive():
+        mythread.join(0.1)
+        #print('join timed out')
 
 cdef class LuaState(object):
     # property in .pxd file
@@ -69,10 +78,21 @@ cdef class LuaState(object):
         lua_pushvalue(self.L, index)
 
     def call(self, int numIn, int numOut):
-        lua_call(self.L, numIn, numOut)
+        with nogil:
+           lua_call(self.L, numIn, numOut)
+
+    def _pcall(self, ret, int numIn, int numOut, errFunc=0):
+        cdef int res = 0
+        assert(errFunc == 0, 'errFunc should be zero, for now')
+        with nogil:
+            res = lua_pcall(self.L, numIn, numOut, 0)
+        ret.append(res)
 
     def pcall(self, int numIn, int numOut, errFunc=0):
-        return lua_pcall(self.L, numIn, numOut, errFunc)
+        res = []
+        interruptableCall(self._pcall, [res, numIn, numOut, errFunc]) 
+        print('res[0]', res[0])
+        return res[0]
 
     def newTable(self):
         lua_newtable(self.L)

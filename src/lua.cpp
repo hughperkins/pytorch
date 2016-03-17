@@ -692,28 +692,14 @@ static struct __pyx_vtabstruct_7PyTorch__ByteTensor *__pyx_vtabptr_7PyTorch__Byt
 #define __Pyx_CLEAR(r)    do { PyObject* tmp = ((PyObject*)(r)); r = NULL; __Pyx_DECREF(tmp);} while(0)
 #define __Pyx_XCLEAR(r)   do { if((r) != NULL) {PyObject* tmp = ((PyObject*)(r)); r = NULL; __Pyx_DECREF(tmp);}} while(0)
 
+static void __Pyx_RaiseArgtupleInvalid(const char* func_name, int exact,
+    Py_ssize_t num_min, Py_ssize_t num_max, Py_ssize_t num_found);
+
 static void __Pyx_RaiseDoubleKeywordsError(const char* func_name, PyObject* kw_name);
 
 static int __Pyx_ParseOptionalKeywords(PyObject *kwds, PyObject **argnames[],\
     PyObject *kwds2, PyObject *values[], Py_ssize_t num_pos_args,\
     const char* function_name);
-
-static void __Pyx_RaiseArgtupleInvalid(const char* func_name, int exact,
-    Py_ssize_t num_min, Py_ssize_t num_max, Py_ssize_t num_found);
-
-static CYTHON_INLINE PyObject* __Pyx_decode_c_bytes(
-         const char* cstring, Py_ssize_t length, Py_ssize_t start, Py_ssize_t stop,
-         const char* encoding, const char* errors,
-         PyObject* (*decode_func)(const char *s, Py_ssize_t size, const char *errors));
-
-static CYTHON_INLINE PyObject* __Pyx_decode_bytes(
-         PyObject* string, Py_ssize_t start, Py_ssize_t stop,
-         const char* encoding, const char* errors,
-         PyObject* (*decode_func)(const char *s, Py_ssize_t size, const char *errors)) {
-    return __Pyx_decode_c_bytes(
-        PyBytes_AS_STRING(string), PyBytes_GET_SIZE(string),
-        start, stop, encoding, errors, decode_func);
-}
 
 #if CYTHON_COMPILING_IN_CPYTHON
 static CYTHON_INLINE PyObject* __Pyx_PyObject_GetAttrStr(PyObject* obj, PyObject* attr_name) {
@@ -730,17 +716,110 @@ static CYTHON_INLINE PyObject* __Pyx_PyObject_GetAttrStr(PyObject* obj, PyObject
 #define __Pyx_PyObject_GetAttrStr(o,n) PyObject_GetAttr(o,n)
 #endif
 
+static PyObject *__Pyx_GetBuiltinName(PyObject *name);
+
+static CYTHON_INLINE PyObject *__Pyx_GetModuleGlobalName(PyObject *name);
+
 #if CYTHON_COMPILING_IN_CPYTHON
 static CYTHON_INLINE PyObject* __Pyx_PyObject_Call(PyObject *func, PyObject *arg, PyObject *kw);
 #else
 #define __Pyx_PyObject_Call(func, arg, kw) PyObject_Call(func, arg, kw)
 #endif
 
-static PyObject *__Pyx_GetBuiltinName(PyObject *name);
+#if CYTHON_COMPILING_IN_CPYTHON
+#define __Pyx_PyObject_DelAttrStr(o,n) __Pyx_PyObject_SetAttrStr(o,n,NULL)
+static CYTHON_INLINE int __Pyx_PyObject_SetAttrStr(PyObject* obj, PyObject* attr_name, PyObject* value) {
+    PyTypeObject* tp = Py_TYPE(obj);
+    if (likely(tp->tp_setattro))
+        return tp->tp_setattro(obj, attr_name, value);
+#if PY_MAJOR_VERSION < 3
+    if (likely(tp->tp_setattr))
+        return tp->tp_setattr(obj, PyString_AS_STRING(attr_name), value);
+#endif
+    return PyObject_SetAttr(obj, attr_name, value);
+}
+#else
+#define __Pyx_PyObject_DelAttrStr(o,n)   PyObject_DelAttr(o,n)
+#define __Pyx_PyObject_SetAttrStr(o,n,v) PyObject_SetAttr(o,n,v)
+#endif
 
-static CYTHON_INLINE PyObject *__Pyx_GetModuleGlobalName(PyObject *name);
+#if CYTHON_COMPILING_IN_CPYTHON
+static CYTHON_INLINE PyObject* __Pyx_PyObject_CallMethO(PyObject *func, PyObject *arg);
+#endif
+
+static CYTHON_INLINE PyObject* __Pyx_PyObject_CallOneArg(PyObject *func, PyObject *arg);
+
+#if CYTHON_COMPILING_IN_CPYTHON
+static CYTHON_INLINE PyObject* __Pyx_PyObject_CallNoArg(PyObject *func);
+#else
+#define __Pyx_PyObject_CallNoArg(func) __Pyx_PyObject_Call(func, __pyx_empty_tuple, NULL)
+#endif
+
+static CYTHON_INLINE PyObject* __Pyx_decode_c_bytes(
+         const char* cstring, Py_ssize_t length, Py_ssize_t start, Py_ssize_t stop,
+         const char* encoding, const char* errors,
+         PyObject* (*decode_func)(const char *s, Py_ssize_t size, const char *errors));
+
+static CYTHON_INLINE PyObject* __Pyx_decode_bytes(
+         PyObject* string, Py_ssize_t start, Py_ssize_t stop,
+         const char* encoding, const char* errors,
+         PyObject* (*decode_func)(const char *s, Py_ssize_t size, const char *errors)) {
+    return __Pyx_decode_c_bytes(
+        PyBytes_AS_STRING(string), PyBytes_GET_SIZE(string),
+        start, stop, encoding, errors, decode_func);
+}
+
+#if CYTHON_COMPILING_IN_CPYTHON
+static PyObject* __Pyx_PyInt_EqObjC(PyObject *op1, PyObject *op2, long intval, int inplace);
+#else
+#define __Pyx_PyInt_EqObjC(op1, op2, intval, inplace)\
+    PyObject_RichCompare(op1, op2, Py_EQ)
+    #endif
+
+#if CYTHON_COMPILING_IN_CPYTHON
+static CYTHON_INLINE int __Pyx_PyList_Append(PyObject* list, PyObject* x) {
+    PyListObject* L = (PyListObject*) list;
+    Py_ssize_t len = Py_SIZE(list);
+    if (likely(L->allocated > len) & likely(len > (L->allocated >> 1))) {
+        Py_INCREF(x);
+        PyList_SET_ITEM(list, len, x);
+        Py_SIZE(list) = len+1;
+        return 0;
+    }
+    return PyList_Append(list, x);
+}
+#else
+#define __Pyx_PyList_Append(L,x) PyList_Append(L,x)
+#endif
+
+static PyObject* __Pyx_PyObject_CallMethod1(PyObject* obj, PyObject* method_name, PyObject* arg);
+
+static CYTHON_INLINE int __Pyx_PyObject_Append(PyObject* L, PyObject* x);
+
+#define __Pyx_GetItemInt(o, i, type, is_signed, to_py_func, is_list, wraparound, boundscheck)\
+    (__Pyx_fits_Py_ssize_t(i, type, is_signed) ?\
+    __Pyx_GetItemInt_Fast(o, (Py_ssize_t)i, is_list, wraparound, boundscheck) :\
+    (is_list ? (PyErr_SetString(PyExc_IndexError, "list index out of range"), (PyObject*)NULL) :\
+               __Pyx_GetItemInt_Generic(o, to_py_func(i))))
+#define __Pyx_GetItemInt_List(o, i, type, is_signed, to_py_func, is_list, wraparound, boundscheck)\
+    (__Pyx_fits_Py_ssize_t(i, type, is_signed) ?\
+    __Pyx_GetItemInt_List_Fast(o, (Py_ssize_t)i, wraparound, boundscheck) :\
+    (PyErr_SetString(PyExc_IndexError, "list index out of range"), (PyObject*)NULL))
+static CYTHON_INLINE PyObject *__Pyx_GetItemInt_List_Fast(PyObject *o, Py_ssize_t i,
+                                                              int wraparound, int boundscheck);
+#define __Pyx_GetItemInt_Tuple(o, i, type, is_signed, to_py_func, is_list, wraparound, boundscheck)\
+    (__Pyx_fits_Py_ssize_t(i, type, is_signed) ?\
+    __Pyx_GetItemInt_Tuple_Fast(o, (Py_ssize_t)i, wraparound, boundscheck) :\
+    (PyErr_SetString(PyExc_IndexError, "tuple index out of range"), (PyObject*)NULL))
+static CYTHON_INLINE PyObject *__Pyx_GetItemInt_Tuple_Fast(PyObject *o, Py_ssize_t i,
+                                                              int wraparound, int boundscheck);
+static CYTHON_INLINE PyObject *__Pyx_GetItemInt_Generic(PyObject *o, PyObject* j);
+static CYTHON_INLINE PyObject *__Pyx_GetItemInt_Fast(PyObject *o, Py_ssize_t i,
+                                                     int is_list, int wraparound, int boundscheck);
 
 static void* __Pyx_GetVtable(PyObject *dict);
+
+static PyObject *__Pyx_Import(PyObject *name, PyObject *from_list, int level);
 
 typedef struct {
     int code_line;
@@ -763,7 +842,19 @@ static CYTHON_INLINE PyObject* __Pyx_PyInt_From_int(int value);
 
 static CYTHON_INLINE int __Pyx_PyInt_As_int(PyObject *);
 
+#ifndef __PYX_FORCE_INIT_THREADS
+  #define __PYX_FORCE_INIT_THREADS 0
+#endif
+
 static CYTHON_INLINE PyObject* __Pyx_PyInt_From_long(long value);
+
+static int __Pyx_Print(PyObject*, PyObject *, int);
+#if CYTHON_COMPILING_IN_PYPY || PY_MAJOR_VERSION >= 3
+static PyObject* __pyx_print = 0;
+static PyObject* __pyx_print_kwargs = 0;
+#endif
+
+static int __Pyx_PrintOne(PyObject* stream, PyObject *o);
 
 static CYTHON_INLINE long __Pyx_PyInt_As_long(PyObject *);
 
@@ -801,30 +892,75 @@ static PyTypeObject *__pyx_ptype_3lua_LuaState = 0;
 int __pyx_module_is_main_lua = 0;
 
 /* Implementation of 'lua' */
+static char __pyx_k_end[] = "end";
+static char __pyx_k_lua[] = "lua";
+static char __pyx_k_ret[] = "ret";
+static char __pyx_k_args[] = "args";
+static char __pyx_k_file[] = "file";
+static char __pyx_k_join[] = "join";
 static char __pyx_k_main[] = "__main__";
 static char __pyx_k_name[] = "name";
 static char __pyx_k_test[] = "__test__";
 static char __pyx_k_index[] = "index";
 static char __pyx_k_numIn[] = "numIn";
+static char __pyx_k_pcall[] = "_pcall";
+static char __pyx_k_print[] = "print";
+static char __pyx_k_res_0[] = "res[0]";
+static char __pyx_k_start[] = "start";
 static char __pyx_k_utf_8[] = "utf-8";
+static char __pyx_k_Thread[] = "Thread";
+static char __pyx_k_append[] = "append";
+static char __pyx_k_daemon[] = "daemon";
 static char __pyx_k_encode[] = "encode";
+static char __pyx_k_import[] = "__import__";
 static char __pyx_k_numOut[] = "numOut";
+static char __pyx_k_target[] = "target";
 static char __pyx_k_errFunc[] = "errFunc";
+static char __pyx_k_isAlive[] = "isAlive";
 static char __pyx_k_allocate[] = "_allocate";
+static char __pyx_k_function[] = "function";
+static char __pyx_k_mythread[] = "mythread";
+static char __pyx_k_threading[] = "threading";
 static char __pyx_k_pyx_vtable[] = "__pyx_vtable__";
 static char __pyx_k_LUA_REGISTRYINDEX[] = "LUA_REGISTRYINDEX";
+static char __pyx_k_interruptableCall[] = "interruptableCall";
+static char __pyx_k_errFunc_should_be_zero_for_now[] = "errFunc should be zero, for now";
+static char __pyx_k_media_ubuntu_data_norep_git_pyt[] = "/media/ubuntu/data/norep/git/pytorch/src/lua.pyx";
 static PyObject *__pyx_n_s_LUA_REGISTRYINDEX;
+static PyObject *__pyx_n_s_Thread;
 static PyObject *__pyx_n_s_allocate;
+static PyObject *__pyx_n_s_append;
+static PyObject *__pyx_n_s_args;
+static PyObject *__pyx_n_s_daemon;
 static PyObject *__pyx_n_s_encode;
+static PyObject *__pyx_n_s_end;
 static PyObject *__pyx_n_s_errFunc;
+static PyObject *__pyx_kp_s_errFunc_should_be_zero_for_now;
+static PyObject *__pyx_n_s_file;
+static PyObject *__pyx_n_s_function;
+static PyObject *__pyx_n_s_import;
 static PyObject *__pyx_n_s_index;
+static PyObject *__pyx_n_s_interruptableCall;
+static PyObject *__pyx_n_s_isAlive;
+static PyObject *__pyx_n_s_join;
+static PyObject *__pyx_n_s_lua;
 static PyObject *__pyx_n_s_main;
+static PyObject *__pyx_kp_s_media_ubuntu_data_norep_git_pyt;
+static PyObject *__pyx_n_s_mythread;
 static PyObject *__pyx_n_s_name;
 static PyObject *__pyx_n_s_numIn;
 static PyObject *__pyx_n_s_numOut;
+static PyObject *__pyx_n_s_pcall;
+static PyObject *__pyx_n_s_print;
 static PyObject *__pyx_n_s_pyx_vtable;
+static PyObject *__pyx_kp_s_res_0;
+static PyObject *__pyx_n_s_ret;
+static PyObject *__pyx_n_s_start;
+static PyObject *__pyx_n_s_target;
 static PyObject *__pyx_n_s_test;
+static PyObject *__pyx_n_s_threading;
 static PyObject *__pyx_kp_s_utf_8;
+static PyObject *__pyx_pf_3lua_interruptableCall(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_function, PyObject *__pyx_v_args); /* proto */
 static int __pyx_pf_3lua_8LuaState___cinit__(struct __pyx_obj_3lua_LuaState *__pyx_v_self, PyObject *__pyx_v__allocate); /* proto */
 static void __pyx_pf_3lua_8LuaState_2__dealloc__(CYTHON_UNUSED struct __pyx_obj_3lua_LuaState *__pyx_v_self); /* proto */
 static PyObject *__pyx_pf_3lua_8LuaState_4type(struct __pyx_obj_3lua_LuaState *__pyx_v_self, PyObject *__pyx_v_index); /* proto */
@@ -840,23 +976,243 @@ static PyObject *__pyx_pf_3lua_8LuaState_22setGlobal(struct __pyx_obj_3lua_LuaSt
 static PyObject *__pyx_pf_3lua_8LuaState_24pushNil(struct __pyx_obj_3lua_LuaState *__pyx_v_self); /* proto */
 static PyObject *__pyx_pf_3lua_8LuaState_26pushValue(struct __pyx_obj_3lua_LuaState *__pyx_v_self, int __pyx_v_index); /* proto */
 static PyObject *__pyx_pf_3lua_8LuaState_28call(struct __pyx_obj_3lua_LuaState *__pyx_v_self, int __pyx_v_numIn, int __pyx_v_numOut); /* proto */
-static PyObject *__pyx_pf_3lua_8LuaState_30pcall(struct __pyx_obj_3lua_LuaState *__pyx_v_self, int __pyx_v_numIn, int __pyx_v_numOut, PyObject *__pyx_v_errFunc); /* proto */
-static PyObject *__pyx_pf_3lua_8LuaState_32newTable(struct __pyx_obj_3lua_LuaState *__pyx_v_self); /* proto */
-static PyObject *__pyx_pf_3lua_8LuaState_34setTable(struct __pyx_obj_3lua_LuaState *__pyx_v_self, PyObject *__pyx_v_index); /* proto */
-static PyObject *__pyx_pf_3lua_8LuaState_36getField(struct __pyx_obj_3lua_LuaState *__pyx_v_self, int __pyx_v_index, PyObject *__pyx_v_name); /* proto */
-static PyObject *__pyx_pf_3lua_8LuaState_38setRegistry(struct __pyx_obj_3lua_LuaState *__pyx_v_self); /* proto */
-static PyObject *__pyx_pf_3lua_8LuaState_40getRegistry(struct __pyx_obj_3lua_LuaState *__pyx_v_self); /* proto */
-static PyObject *__pyx_pf_3lua_8LuaState_42next(struct __pyx_obj_3lua_LuaState *__pyx_v_self, int __pyx_v_index); /* proto */
-static PyObject *__pyx_pf_3lua_8LuaState_44getTop(struct __pyx_obj_3lua_LuaState *__pyx_v_self); /* proto */
-static PyObject *__pyx_pf_3lua_8LuaState_46isUserData(struct __pyx_obj_3lua_LuaState *__pyx_v_self, int __pyx_v_index); /* proto */
+static PyObject *__pyx_pf_3lua_8LuaState_30_pcall(struct __pyx_obj_3lua_LuaState *__pyx_v_self, PyObject *__pyx_v_ret, int __pyx_v_numIn, int __pyx_v_numOut, PyObject *__pyx_v_errFunc); /* proto */
+static PyObject *__pyx_pf_3lua_8LuaState_32pcall(struct __pyx_obj_3lua_LuaState *__pyx_v_self, int __pyx_v_numIn, int __pyx_v_numOut, PyObject *__pyx_v_errFunc); /* proto */
+static PyObject *__pyx_pf_3lua_8LuaState_34newTable(struct __pyx_obj_3lua_LuaState *__pyx_v_self); /* proto */
+static PyObject *__pyx_pf_3lua_8LuaState_36setTable(struct __pyx_obj_3lua_LuaState *__pyx_v_self, PyObject *__pyx_v_index); /* proto */
+static PyObject *__pyx_pf_3lua_8LuaState_38getField(struct __pyx_obj_3lua_LuaState *__pyx_v_self, int __pyx_v_index, PyObject *__pyx_v_name); /* proto */
+static PyObject *__pyx_pf_3lua_8LuaState_40setRegistry(struct __pyx_obj_3lua_LuaState *__pyx_v_self); /* proto */
+static PyObject *__pyx_pf_3lua_8LuaState_42getRegistry(struct __pyx_obj_3lua_LuaState *__pyx_v_self); /* proto */
+static PyObject *__pyx_pf_3lua_8LuaState_44next(struct __pyx_obj_3lua_LuaState *__pyx_v_self, int __pyx_v_index); /* proto */
+static PyObject *__pyx_pf_3lua_8LuaState_46getTop(struct __pyx_obj_3lua_LuaState *__pyx_v_self); /* proto */
+static PyObject *__pyx_pf_3lua_8LuaState_48isUserData(struct __pyx_obj_3lua_LuaState *__pyx_v_self, int __pyx_v_index); /* proto */
 static PyObject *__pyx_tp_new_3lua_LuaState(PyTypeObject *t, PyObject *a, PyObject *k); /*proto*/
+static PyObject *__pyx_float_0_1;
 static PyObject *__pyx_int_0;
 static PyObject *__pyx_tuple_;
 static PyObject *__pyx_tuple__2;
 static PyObject *__pyx_tuple__3;
 static PyObject *__pyx_tuple__4;
+static PyObject *__pyx_tuple__5;
+static PyObject *__pyx_tuple__6;
+static PyObject *__pyx_codeobj__7;
 
-/* "lua.pyx":24
+/* "lua.pyx":22
+ * #        require(globalState.L, name)
+ * 
+ * def interruptableCall(function, args):             # <<<<<<<<<<<<<<
+ *     mythread = threading.Thread(target=function, args = args)
+ *     mythread.daemon = True
+ */
+
+/* Python wrapper */
+static PyObject *__pyx_pw_3lua_1interruptableCall(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
+static PyMethodDef __pyx_mdef_3lua_1interruptableCall = {"interruptableCall", (PyCFunction)__pyx_pw_3lua_1interruptableCall, METH_VARARGS|METH_KEYWORDS, 0};
+static PyObject *__pyx_pw_3lua_1interruptableCall(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds) {
+  PyObject *__pyx_v_function = 0;
+  PyObject *__pyx_v_args = 0;
+  int __pyx_lineno = 0;
+  const char *__pyx_filename = NULL;
+  int __pyx_clineno = 0;
+  PyObject *__pyx_r = 0;
+  __Pyx_RefNannyDeclarations
+  __Pyx_RefNannySetupContext("interruptableCall (wrapper)", 0);
+  {
+    static PyObject **__pyx_pyargnames[] = {&__pyx_n_s_function,&__pyx_n_s_args,0};
+    PyObject* values[2] = {0,0};
+    if (unlikely(__pyx_kwds)) {
+      Py_ssize_t kw_args;
+      const Py_ssize_t pos_args = PyTuple_GET_SIZE(__pyx_args);
+      switch (pos_args) {
+        case  2: values[1] = PyTuple_GET_ITEM(__pyx_args, 1);
+        case  1: values[0] = PyTuple_GET_ITEM(__pyx_args, 0);
+        case  0: break;
+        default: goto __pyx_L5_argtuple_error;
+      }
+      kw_args = PyDict_Size(__pyx_kwds);
+      switch (pos_args) {
+        case  0:
+        if (likely((values[0] = PyDict_GetItem(__pyx_kwds, __pyx_n_s_function)) != 0)) kw_args--;
+        else goto __pyx_L5_argtuple_error;
+        case  1:
+        if (likely((values[1] = PyDict_GetItem(__pyx_kwds, __pyx_n_s_args)) != 0)) kw_args--;
+        else {
+          __Pyx_RaiseArgtupleInvalid("interruptableCall", 1, 2, 2, 1); {__pyx_filename = __pyx_f[0]; __pyx_lineno = 22; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
+        }
+      }
+      if (unlikely(kw_args > 0)) {
+        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "interruptableCall") < 0)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 22; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
+      }
+    } else if (PyTuple_GET_SIZE(__pyx_args) != 2) {
+      goto __pyx_L5_argtuple_error;
+    } else {
+      values[0] = PyTuple_GET_ITEM(__pyx_args, 0);
+      values[1] = PyTuple_GET_ITEM(__pyx_args, 1);
+    }
+    __pyx_v_function = values[0];
+    __pyx_v_args = values[1];
+  }
+  goto __pyx_L4_argument_unpacking_done;
+  __pyx_L5_argtuple_error:;
+  __Pyx_RaiseArgtupleInvalid("interruptableCall", 1, 2, 2, PyTuple_GET_SIZE(__pyx_args)); {__pyx_filename = __pyx_f[0]; __pyx_lineno = 22; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
+  __pyx_L3_error:;
+  __Pyx_AddTraceback("lua.interruptableCall", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_RefNannyFinishContext();
+  return NULL;
+  __pyx_L4_argument_unpacking_done:;
+  __pyx_r = __pyx_pf_3lua_interruptableCall(__pyx_self, __pyx_v_function, __pyx_v_args);
+
+  /* function exit code */
+  __Pyx_RefNannyFinishContext();
+  return __pyx_r;
+}
+
+static PyObject *__pyx_pf_3lua_interruptableCall(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_function, PyObject *__pyx_v_args) {
+  PyObject *__pyx_v_mythread = NULL;
+  PyObject *__pyx_r = NULL;
+  __Pyx_RefNannyDeclarations
+  PyObject *__pyx_t_1 = NULL;
+  PyObject *__pyx_t_2 = NULL;
+  PyObject *__pyx_t_3 = NULL;
+  int __pyx_t_4;
+  int __pyx_lineno = 0;
+  const char *__pyx_filename = NULL;
+  int __pyx_clineno = 0;
+  __Pyx_RefNannySetupContext("interruptableCall", 0);
+
+  /* "lua.pyx":23
+ * 
+ * def interruptableCall(function, args):
+ *     mythread = threading.Thread(target=function, args = args)             # <<<<<<<<<<<<<<
+ *     mythread.daemon = True
+ *     mythread.start()
+ */
+  __pyx_t_1 = __Pyx_GetModuleGlobalName(__pyx_n_s_threading); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 23; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __Pyx_GOTREF(__pyx_t_1);
+  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_t_1, __pyx_n_s_Thread); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 23; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __Pyx_GOTREF(__pyx_t_2);
+  __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+  __pyx_t_1 = PyDict_New(); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 23; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __Pyx_GOTREF(__pyx_t_1);
+  if (PyDict_SetItem(__pyx_t_1, __pyx_n_s_target, __pyx_v_function) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 23; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  if (PyDict_SetItem(__pyx_t_1, __pyx_n_s_args, __pyx_v_args) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 23; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_3 = __Pyx_PyObject_Call(__pyx_t_2, __pyx_empty_tuple, __pyx_t_1); if (unlikely(!__pyx_t_3)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 23; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __Pyx_GOTREF(__pyx_t_3);
+  __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
+  __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+  __pyx_v_mythread = __pyx_t_3;
+  __pyx_t_3 = 0;
+
+  /* "lua.pyx":24
+ * def interruptableCall(function, args):
+ *     mythread = threading.Thread(target=function, args = args)
+ *     mythread.daemon = True             # <<<<<<<<<<<<<<
+ *     mythread.start()
+ *     while mythread.isAlive():
+ */
+  if (__Pyx_PyObject_SetAttrStr(__pyx_v_mythread, __pyx_n_s_daemon, Py_True) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 24; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+
+  /* "lua.pyx":25
+ *     mythread = threading.Thread(target=function, args = args)
+ *     mythread.daemon = True
+ *     mythread.start()             # <<<<<<<<<<<<<<
+ *     while mythread.isAlive():
+ *         mythread.join(0.1)
+ */
+  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_mythread, __pyx_n_s_start); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 25; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __Pyx_GOTREF(__pyx_t_1);
+  __pyx_t_2 = NULL;
+  if (CYTHON_COMPILING_IN_CPYTHON && likely(PyMethod_Check(__pyx_t_1))) {
+    __pyx_t_2 = PyMethod_GET_SELF(__pyx_t_1);
+    if (likely(__pyx_t_2)) {
+      PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_1);
+      __Pyx_INCREF(__pyx_t_2);
+      __Pyx_INCREF(function);
+      __Pyx_DECREF_SET(__pyx_t_1, function);
+    }
+  }
+  if (__pyx_t_2) {
+    __pyx_t_3 = __Pyx_PyObject_CallOneArg(__pyx_t_1, __pyx_t_2); if (unlikely(!__pyx_t_3)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 25; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+    __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
+  } else {
+    __pyx_t_3 = __Pyx_PyObject_CallNoArg(__pyx_t_1); if (unlikely(!__pyx_t_3)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 25; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  }
+  __Pyx_GOTREF(__pyx_t_3);
+  __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+  __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
+
+  /* "lua.pyx":26
+ *     mythread.daemon = True
+ *     mythread.start()
+ *     while mythread.isAlive():             # <<<<<<<<<<<<<<
+ *         mythread.join(0.1)
+ *         #print('join timed out')
+ */
+  while (1) {
+    __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_mythread, __pyx_n_s_isAlive); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 26; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+    __Pyx_GOTREF(__pyx_t_1);
+    __pyx_t_2 = NULL;
+    if (CYTHON_COMPILING_IN_CPYTHON && likely(PyMethod_Check(__pyx_t_1))) {
+      __pyx_t_2 = PyMethod_GET_SELF(__pyx_t_1);
+      if (likely(__pyx_t_2)) {
+        PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_1);
+        __Pyx_INCREF(__pyx_t_2);
+        __Pyx_INCREF(function);
+        __Pyx_DECREF_SET(__pyx_t_1, function);
+      }
+    }
+    if (__pyx_t_2) {
+      __pyx_t_3 = __Pyx_PyObject_CallOneArg(__pyx_t_1, __pyx_t_2); if (unlikely(!__pyx_t_3)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 26; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+      __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
+    } else {
+      __pyx_t_3 = __Pyx_PyObject_CallNoArg(__pyx_t_1); if (unlikely(!__pyx_t_3)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 26; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+    }
+    __Pyx_GOTREF(__pyx_t_3);
+    __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+    __pyx_t_4 = __Pyx_PyObject_IsTrue(__pyx_t_3); if (unlikely(__pyx_t_4 < 0)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 26; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+    __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
+    if (!__pyx_t_4) break;
+
+    /* "lua.pyx":27
+ *     mythread.start()
+ *     while mythread.isAlive():
+ *         mythread.join(0.1)             # <<<<<<<<<<<<<<
+ *         #print('join timed out')
+ * 
+ */
+    __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_v_mythread, __pyx_n_s_join); if (unlikely(!__pyx_t_3)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 27; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+    __Pyx_GOTREF(__pyx_t_3);
+    __pyx_t_1 = __Pyx_PyObject_Call(__pyx_t_3, __pyx_tuple_, NULL); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 27; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+    __Pyx_GOTREF(__pyx_t_1);
+    __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
+    __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+  }
+
+  /* "lua.pyx":22
+ * #        require(globalState.L, name)
+ * 
+ * def interruptableCall(function, args):             # <<<<<<<<<<<<<<
+ *     mythread = threading.Thread(target=function, args = args)
+ *     mythread.daemon = True
+ */
+
+  /* function exit code */
+  __pyx_r = Py_None; __Pyx_INCREF(Py_None);
+  goto __pyx_L0;
+  __pyx_L1_error:;
+  __Pyx_XDECREF(__pyx_t_1);
+  __Pyx_XDECREF(__pyx_t_2);
+  __Pyx_XDECREF(__pyx_t_3);
+  __Pyx_AddTraceback("lua.interruptableCall", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __pyx_r = NULL;
+  __pyx_L0:;
+  __Pyx_XDECREF(__pyx_v_mythread);
+  __Pyx_XGIVEREF(__pyx_r);
+  __Pyx_RefNannyFinishContext();
+  return __pyx_r;
+}
+
+/* "lua.pyx":33
  *     # property in .pxd file
  * 
  *     def __cinit__(self, _allocate=True):             # <<<<<<<<<<<<<<
@@ -895,7 +1251,7 @@ static int __pyx_pw_3lua_8LuaState_1__cinit__(PyObject *__pyx_v_self, PyObject *
         }
       }
       if (unlikely(kw_args > 0)) {
-        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "__cinit__") < 0)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 24; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
+        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "__cinit__") < 0)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 33; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
       }
     } else {
       switch (PyTuple_GET_SIZE(__pyx_args)) {
@@ -908,7 +1264,7 @@ static int __pyx_pw_3lua_8LuaState_1__cinit__(PyObject *__pyx_v_self, PyObject *
   }
   goto __pyx_L4_argument_unpacking_done;
   __pyx_L5_argtuple_error:;
-  __Pyx_RaiseArgtupleInvalid("__cinit__", 0, 0, 1, PyTuple_GET_SIZE(__pyx_args)); {__pyx_filename = __pyx_f[0]; __pyx_lineno = 24; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
+  __Pyx_RaiseArgtupleInvalid("__cinit__", 0, 0, 1, PyTuple_GET_SIZE(__pyx_args)); {__pyx_filename = __pyx_f[0]; __pyx_lineno = 33; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
   __pyx_L3_error:;
   __Pyx_AddTraceback("lua.LuaState.__cinit__", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __Pyx_RefNannyFinishContext();
@@ -930,17 +1286,17 @@ static int __pyx_pf_3lua_8LuaState___cinit__(struct __pyx_obj_3lua_LuaState *__p
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("__cinit__", 0);
 
-  /* "lua.pyx":26
+  /* "lua.pyx":35
  *     def __cinit__(self, _allocate=True):
  * #        print('LuaState.__cinit__')
  *         if _allocate:             # <<<<<<<<<<<<<<
  *             self.L = luaInit()
  * 
  */
-  __pyx_t_1 = __Pyx_PyObject_IsTrue(__pyx_v__allocate); if (unlikely(__pyx_t_1 < 0)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 26; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_1 = __Pyx_PyObject_IsTrue(__pyx_v__allocate); if (unlikely(__pyx_t_1 < 0)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 35; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   if (__pyx_t_1) {
 
-    /* "lua.pyx":27
+    /* "lua.pyx":36
  * #        print('LuaState.__cinit__')
  *         if _allocate:
  *             self.L = luaInit()             # <<<<<<<<<<<<<<
@@ -949,7 +1305,7 @@ static int __pyx_pf_3lua_8LuaState___cinit__(struct __pyx_obj_3lua_LuaState *__p
  */
     __pyx_v_self->L = luaInit();
 
-    /* "lua.pyx":26
+    /* "lua.pyx":35
  *     def __cinit__(self, _allocate=True):
  * #        print('LuaState.__cinit__')
  *         if _allocate:             # <<<<<<<<<<<<<<
@@ -958,7 +1314,7 @@ static int __pyx_pf_3lua_8LuaState___cinit__(struct __pyx_obj_3lua_LuaState *__p
  */
   }
 
-  /* "lua.pyx":24
+  /* "lua.pyx":33
  *     # property in .pxd file
  * 
  *     def __cinit__(self, _allocate=True):             # <<<<<<<<<<<<<<
@@ -977,7 +1333,7 @@ static int __pyx_pf_3lua_8LuaState___cinit__(struct __pyx_obj_3lua_LuaState *__p
   return __pyx_r;
 }
 
-/* "lua.pyx":29
+/* "lua.pyx":38
  *             self.L = luaInit()
  * 
  *     def __dealloc__(self):             # <<<<<<<<<<<<<<
@@ -1004,7 +1360,7 @@ static void __pyx_pf_3lua_8LuaState_2__dealloc__(CYTHON_UNUSED struct __pyx_obj_
   __Pyx_RefNannyFinishContext();
 }
 
-/* "lua.pyx":33
+/* "lua.pyx":42
  *         pass
  * 
  *     def type(self, index):             # <<<<<<<<<<<<<<
@@ -1035,7 +1391,7 @@ static PyObject *__pyx_pf_3lua_8LuaState_4type(struct __pyx_obj_3lua_LuaState *_
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("type", 0);
 
-  /* "lua.pyx":34
+  /* "lua.pyx":43
  * 
  *     def type(self, index):
  *         return lua_type(self.L, index)             # <<<<<<<<<<<<<<
@@ -1043,14 +1399,14 @@ static PyObject *__pyx_pf_3lua_8LuaState_4type(struct __pyx_obj_3lua_LuaState *_
  *     def typeName(self, int tp):
  */
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_1 = __Pyx_PyInt_As_int(__pyx_v_index); if (unlikely((__pyx_t_1 == (int)-1) && PyErr_Occurred())) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 34; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-  __pyx_t_2 = __Pyx_PyInt_From_int(lua_type(__pyx_v_self->L, __pyx_t_1)); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 34; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_1 = __Pyx_PyInt_As_int(__pyx_v_index); if (unlikely((__pyx_t_1 == (int)-1) && PyErr_Occurred())) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 43; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_2 = __Pyx_PyInt_From_int(lua_type(__pyx_v_self->L, __pyx_t_1)); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 43; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_2);
   __pyx_r = __pyx_t_2;
   __pyx_t_2 = 0;
   goto __pyx_L0;
 
-  /* "lua.pyx":33
+  /* "lua.pyx":42
  *         pass
  * 
  *     def type(self, index):             # <<<<<<<<<<<<<<
@@ -1069,7 +1425,7 @@ static PyObject *__pyx_pf_3lua_8LuaState_4type(struct __pyx_obj_3lua_LuaState *_
   return __pyx_r;
 }
 
-/* "lua.pyx":36
+/* "lua.pyx":45
  *         return lua_type(self.L, index)
  * 
  *     def typeName(self, int tp):             # <<<<<<<<<<<<<<
@@ -1088,7 +1444,7 @@ static PyObject *__pyx_pw_3lua_8LuaState_7typeName(PyObject *__pyx_v_self, PyObj
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("typeName (wrapper)", 0);
   assert(__pyx_arg_tp); {
-    __pyx_v_tp = __Pyx_PyInt_As_int(__pyx_arg_tp); if (unlikely((__pyx_v_tp == (int)-1) && PyErr_Occurred())) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 36; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
+    __pyx_v_tp = __Pyx_PyInt_As_int(__pyx_arg_tp); if (unlikely((__pyx_v_tp == (int)-1) && PyErr_Occurred())) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 45; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
   }
   goto __pyx_L4_argument_unpacking_done;
   __pyx_L3_error:;
@@ -1113,19 +1469,19 @@ static PyObject *__pyx_pf_3lua_8LuaState_6typeName(struct __pyx_obj_3lua_LuaStat
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("typeName", 0);
 
-  /* "lua.pyx":37
+  /* "lua.pyx":46
  * 
  *     def typeName(self, int tp):
  *         cdef bytes py_string = lua_typename(self.L, tp)             # <<<<<<<<<<<<<<
  *         return py_string.decode('utf-8')
  * 
  */
-  __pyx_t_1 = __Pyx_PyBytes_FromString(lua_typename(__pyx_v_self->L, __pyx_v_tp)); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 37; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_1 = __Pyx_PyBytes_FromString(lua_typename(__pyx_v_self->L, __pyx_v_tp)); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 46; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_v_py_string = ((PyObject*)__pyx_t_1);
   __pyx_t_1 = 0;
 
-  /* "lua.pyx":38
+  /* "lua.pyx":47
  *     def typeName(self, int tp):
  *         cdef bytes py_string = lua_typename(self.L, tp)
  *         return py_string.decode('utf-8')             # <<<<<<<<<<<<<<
@@ -1133,13 +1489,13 @@ static PyObject *__pyx_pf_3lua_8LuaState_6typeName(struct __pyx_obj_3lua_LuaStat
  *     def insert(self, int index):
  */
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_1 = __Pyx_decode_bytes(__pyx_v_py_string, 0, PY_SSIZE_T_MAX, NULL, NULL, PyUnicode_DecodeUTF8); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 38; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_1 = __Pyx_decode_bytes(__pyx_v_py_string, 0, PY_SSIZE_T_MAX, NULL, NULL, PyUnicode_DecodeUTF8); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 47; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_r = __pyx_t_1;
   __pyx_t_1 = 0;
   goto __pyx_L0;
 
-  /* "lua.pyx":36
+  /* "lua.pyx":45
  *         return lua_type(self.L, index)
  * 
  *     def typeName(self, int tp):             # <<<<<<<<<<<<<<
@@ -1159,7 +1515,7 @@ static PyObject *__pyx_pf_3lua_8LuaState_6typeName(struct __pyx_obj_3lua_LuaStat
   return __pyx_r;
 }
 
-/* "lua.pyx":40
+/* "lua.pyx":49
  *         return py_string.decode('utf-8')
  * 
  *     def insert(self, int index):             # <<<<<<<<<<<<<<
@@ -1178,7 +1534,7 @@ static PyObject *__pyx_pw_3lua_8LuaState_9insert(PyObject *__pyx_v_self, PyObjec
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("insert (wrapper)", 0);
   assert(__pyx_arg_index); {
-    __pyx_v_index = __Pyx_PyInt_As_int(__pyx_arg_index); if (unlikely((__pyx_v_index == (int)-1) && PyErr_Occurred())) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 40; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
+    __pyx_v_index = __Pyx_PyInt_As_int(__pyx_arg_index); if (unlikely((__pyx_v_index == (int)-1) && PyErr_Occurred())) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 49; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
   }
   goto __pyx_L4_argument_unpacking_done;
   __pyx_L3_error:;
@@ -1198,7 +1554,7 @@ static PyObject *__pyx_pf_3lua_8LuaState_8insert(struct __pyx_obj_3lua_LuaState 
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("insert", 0);
 
-  /* "lua.pyx":41
+  /* "lua.pyx":50
  * 
  *     def insert(self, int index):
  *         lua_insert(self.L, index)             # <<<<<<<<<<<<<<
@@ -1207,7 +1563,7 @@ static PyObject *__pyx_pf_3lua_8LuaState_8insert(struct __pyx_obj_3lua_LuaState 
  */
   lua_insert(__pyx_v_self->L, __pyx_v_index);
 
-  /* "lua.pyx":40
+  /* "lua.pyx":49
  *         return py_string.decode('utf-8')
  * 
  *     def insert(self, int index):             # <<<<<<<<<<<<<<
@@ -1222,7 +1578,7 @@ static PyObject *__pyx_pf_3lua_8LuaState_8insert(struct __pyx_obj_3lua_LuaState 
   return __pyx_r;
 }
 
-/* "lua.pyx":43
+/* "lua.pyx":52
  *         lua_insert(self.L, index)
  * 
  *     def remove(self, int index):             # <<<<<<<<<<<<<<
@@ -1241,7 +1597,7 @@ static PyObject *__pyx_pw_3lua_8LuaState_11remove(PyObject *__pyx_v_self, PyObje
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("remove (wrapper)", 0);
   assert(__pyx_arg_index); {
-    __pyx_v_index = __Pyx_PyInt_As_int(__pyx_arg_index); if (unlikely((__pyx_v_index == (int)-1) && PyErr_Occurred())) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 43; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
+    __pyx_v_index = __Pyx_PyInt_As_int(__pyx_arg_index); if (unlikely((__pyx_v_index == (int)-1) && PyErr_Occurred())) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 52; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
   }
   goto __pyx_L4_argument_unpacking_done;
   __pyx_L3_error:;
@@ -1261,7 +1617,7 @@ static PyObject *__pyx_pf_3lua_8LuaState_10remove(struct __pyx_obj_3lua_LuaState
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("remove", 0);
 
-  /* "lua.pyx":44
+  /* "lua.pyx":53
  * 
  *     def remove(self, int index):
  *         lua_remove(self.L, index)             # <<<<<<<<<<<<<<
@@ -1270,7 +1626,7 @@ static PyObject *__pyx_pf_3lua_8LuaState_10remove(struct __pyx_obj_3lua_LuaState
  */
   lua_remove(__pyx_v_self->L, __pyx_v_index);
 
-  /* "lua.pyx":43
+  /* "lua.pyx":52
  *         lua_insert(self.L, index)
  * 
  *     def remove(self, int index):             # <<<<<<<<<<<<<<
@@ -1285,7 +1641,7 @@ static PyObject *__pyx_pf_3lua_8LuaState_10remove(struct __pyx_obj_3lua_LuaState
   return __pyx_r;
 }
 
-/* "lua.pyx":46
+/* "lua.pyx":55
  *         lua_remove(self.L, index)
  * 
  *     def pushNumber(self, float number):             # <<<<<<<<<<<<<<
@@ -1304,7 +1660,7 @@ static PyObject *__pyx_pw_3lua_8LuaState_13pushNumber(PyObject *__pyx_v_self, Py
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("pushNumber (wrapper)", 0);
   assert(__pyx_arg_number); {
-    __pyx_v_number = __pyx_PyFloat_AsFloat(__pyx_arg_number); if (unlikely((__pyx_v_number == (float)-1) && PyErr_Occurred())) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 46; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
+    __pyx_v_number = __pyx_PyFloat_AsFloat(__pyx_arg_number); if (unlikely((__pyx_v_number == (float)-1) && PyErr_Occurred())) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 55; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
   }
   goto __pyx_L4_argument_unpacking_done;
   __pyx_L3_error:;
@@ -1324,7 +1680,7 @@ static PyObject *__pyx_pf_3lua_8LuaState_12pushNumber(struct __pyx_obj_3lua_LuaS
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("pushNumber", 0);
 
-  /* "lua.pyx":47
+  /* "lua.pyx":56
  * 
  *     def pushNumber(self, float number):
  *         lua_pushnumber(self.L, number)             # <<<<<<<<<<<<<<
@@ -1333,7 +1689,7 @@ static PyObject *__pyx_pf_3lua_8LuaState_12pushNumber(struct __pyx_obj_3lua_LuaS
  */
   lua_pushnumber(__pyx_v_self->L, __pyx_v_number);
 
-  /* "lua.pyx":46
+  /* "lua.pyx":55
  *         lua_remove(self.L, index)
  * 
  *     def pushNumber(self, float number):             # <<<<<<<<<<<<<<
@@ -1348,7 +1704,7 @@ static PyObject *__pyx_pf_3lua_8LuaState_12pushNumber(struct __pyx_obj_3lua_LuaS
   return __pyx_r;
 }
 
-/* "lua.pyx":49
+/* "lua.pyx":58
  *         lua_pushnumber(self.L, number)
  * 
  *     def pushString(self, mystring):             # <<<<<<<<<<<<<<
@@ -1380,23 +1736,23 @@ static PyObject *__pyx_pf_3lua_8LuaState_14pushString(struct __pyx_obj_3lua_LuaS
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("pushString", 0);
 
-  /* "lua.pyx":50
+  /* "lua.pyx":59
  * 
  *     def pushString(self, mystring):
  *         lua_pushstring(self.L, mystring.encode('utf-8'))             # <<<<<<<<<<<<<<
  * 
  *     def toString(self, int index):
  */
-  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_mystring, __pyx_n_s_encode); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 50; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_mystring, __pyx_n_s_encode); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 59; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_1);
-  __pyx_t_2 = __Pyx_PyObject_Call(__pyx_t_1, __pyx_tuple_, NULL); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 50; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_2 = __Pyx_PyObject_Call(__pyx_t_1, __pyx_tuple__2, NULL); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 59; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_2);
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-  __pyx_t_3 = __Pyx_PyObject_AsString(__pyx_t_2); if (unlikely((!__pyx_t_3) && PyErr_Occurred())) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 50; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_3 = __Pyx_PyObject_AsString(__pyx_t_2); if (unlikely((!__pyx_t_3) && PyErr_Occurred())) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 59; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   lua_pushstring(__pyx_v_self->L, __pyx_t_3);
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
-  /* "lua.pyx":49
+  /* "lua.pyx":58
  *         lua_pushnumber(self.L, number)
  * 
  *     def pushString(self, mystring):             # <<<<<<<<<<<<<<
@@ -1418,7 +1774,7 @@ static PyObject *__pyx_pf_3lua_8LuaState_14pushString(struct __pyx_obj_3lua_LuaS
   return __pyx_r;
 }
 
-/* "lua.pyx":52
+/* "lua.pyx":61
  *         lua_pushstring(self.L, mystring.encode('utf-8'))
  * 
  *     def toString(self, int index):             # <<<<<<<<<<<<<<
@@ -1437,7 +1793,7 @@ static PyObject *__pyx_pw_3lua_8LuaState_17toString(PyObject *__pyx_v_self, PyOb
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("toString (wrapper)", 0);
   assert(__pyx_arg_index); {
-    __pyx_v_index = __Pyx_PyInt_As_int(__pyx_arg_index); if (unlikely((__pyx_v_index == (int)-1) && PyErr_Occurred())) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 52; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
+    __pyx_v_index = __Pyx_PyInt_As_int(__pyx_arg_index); if (unlikely((__pyx_v_index == (int)-1) && PyErr_Occurred())) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 61; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
   }
   goto __pyx_L4_argument_unpacking_done;
   __pyx_L3_error:;
@@ -1462,19 +1818,19 @@ static PyObject *__pyx_pf_3lua_8LuaState_16toString(struct __pyx_obj_3lua_LuaSta
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("toString", 0);
 
-  /* "lua.pyx":53
+  /* "lua.pyx":62
  * 
  *     def toString(self, int index):
  *         cdef bytes py_string = lua_tostring(self.L, index)             # <<<<<<<<<<<<<<
  *         return py_string
  * 
  */
-  __pyx_t_1 = __Pyx_PyBytes_FromString(lua_tostring(__pyx_v_self->L, __pyx_v_index)); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 53; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_1 = __Pyx_PyBytes_FromString(lua_tostring(__pyx_v_self->L, __pyx_v_index)); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 62; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_v_py_string = ((PyObject*)__pyx_t_1);
   __pyx_t_1 = 0;
 
-  /* "lua.pyx":54
+  /* "lua.pyx":63
  *     def toString(self, int index):
  *         cdef bytes py_string = lua_tostring(self.L, index)
  *         return py_string             # <<<<<<<<<<<<<<
@@ -1486,7 +1842,7 @@ static PyObject *__pyx_pf_3lua_8LuaState_16toString(struct __pyx_obj_3lua_LuaSta
   __pyx_r = __pyx_v_py_string;
   goto __pyx_L0;
 
-  /* "lua.pyx":52
+  /* "lua.pyx":61
  *         lua_pushstring(self.L, mystring.encode('utf-8'))
  * 
  *     def toString(self, int index):             # <<<<<<<<<<<<<<
@@ -1506,7 +1862,7 @@ static PyObject *__pyx_pf_3lua_8LuaState_16toString(struct __pyx_obj_3lua_LuaSta
   return __pyx_r;
 }
 
-/* "lua.pyx":56
+/* "lua.pyx":65
  *         return py_string
  * 
  *     def toNumber(self, int index):             # <<<<<<<<<<<<<<
@@ -1525,7 +1881,7 @@ static PyObject *__pyx_pw_3lua_8LuaState_19toNumber(PyObject *__pyx_v_self, PyOb
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("toNumber (wrapper)", 0);
   assert(__pyx_arg_index); {
-    __pyx_v_index = __Pyx_PyInt_As_int(__pyx_arg_index); if (unlikely((__pyx_v_index == (int)-1) && PyErr_Occurred())) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 56; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
+    __pyx_v_index = __Pyx_PyInt_As_int(__pyx_arg_index); if (unlikely((__pyx_v_index == (int)-1) && PyErr_Occurred())) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 65; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
   }
   goto __pyx_L4_argument_unpacking_done;
   __pyx_L3_error:;
@@ -1549,7 +1905,7 @@ static PyObject *__pyx_pf_3lua_8LuaState_18toNumber(struct __pyx_obj_3lua_LuaSta
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("toNumber", 0);
 
-  /* "lua.pyx":57
+  /* "lua.pyx":66
  * 
  *     def toNumber(self, int index):
  *         return lua_tonumber(self.L, index)             # <<<<<<<<<<<<<<
@@ -1557,13 +1913,13 @@ static PyObject *__pyx_pf_3lua_8LuaState_18toNumber(struct __pyx_obj_3lua_LuaSta
  *     def getGlobal(self, name):
  */
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_1 = PyFloat_FromDouble(lua_tonumber(__pyx_v_self->L, __pyx_v_index)); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 57; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_1 = PyFloat_FromDouble(lua_tonumber(__pyx_v_self->L, __pyx_v_index)); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 66; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_r = __pyx_t_1;
   __pyx_t_1 = 0;
   goto __pyx_L0;
 
-  /* "lua.pyx":56
+  /* "lua.pyx":65
  *         return py_string
  * 
  *     def toNumber(self, int index):             # <<<<<<<<<<<<<<
@@ -1582,7 +1938,7 @@ static PyObject *__pyx_pf_3lua_8LuaState_18toNumber(struct __pyx_obj_3lua_LuaSta
   return __pyx_r;
 }
 
-/* "lua.pyx":59
+/* "lua.pyx":68
  *         return lua_tonumber(self.L, index)
  * 
  *     def getGlobal(self, name):             # <<<<<<<<<<<<<<
@@ -1614,23 +1970,23 @@ static PyObject *__pyx_pf_3lua_8LuaState_20getGlobal(struct __pyx_obj_3lua_LuaSt
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("getGlobal", 0);
 
-  /* "lua.pyx":60
+  /* "lua.pyx":69
  * 
  *     def getGlobal(self, name):
  *         lua_getglobal(self.L, name.encode('utf-8'))             # <<<<<<<<<<<<<<
  * 
  *     def setGlobal(self, name):
  */
-  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_name, __pyx_n_s_encode); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 60; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_name, __pyx_n_s_encode); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 69; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_1);
-  __pyx_t_2 = __Pyx_PyObject_Call(__pyx_t_1, __pyx_tuple__2, NULL); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 60; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_2 = __Pyx_PyObject_Call(__pyx_t_1, __pyx_tuple__3, NULL); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 69; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_2);
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-  __pyx_t_3 = __Pyx_PyObject_AsString(__pyx_t_2); if (unlikely((!__pyx_t_3) && PyErr_Occurred())) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 60; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_3 = __Pyx_PyObject_AsString(__pyx_t_2); if (unlikely((!__pyx_t_3) && PyErr_Occurred())) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 69; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   lua_getglobal(__pyx_v_self->L, __pyx_t_3);
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
-  /* "lua.pyx":59
+  /* "lua.pyx":68
  *         return lua_tonumber(self.L, index)
  * 
  *     def getGlobal(self, name):             # <<<<<<<<<<<<<<
@@ -1652,7 +2008,7 @@ static PyObject *__pyx_pf_3lua_8LuaState_20getGlobal(struct __pyx_obj_3lua_LuaSt
   return __pyx_r;
 }
 
-/* "lua.pyx":62
+/* "lua.pyx":71
  *         lua_getglobal(self.L, name.encode('utf-8'))
  * 
  *     def setGlobal(self, name):             # <<<<<<<<<<<<<<
@@ -1684,23 +2040,23 @@ static PyObject *__pyx_pf_3lua_8LuaState_22setGlobal(struct __pyx_obj_3lua_LuaSt
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("setGlobal", 0);
 
-  /* "lua.pyx":63
+  /* "lua.pyx":72
  * 
  *     def setGlobal(self, name):
  *         lua_setglobal(self.L, name.encode('utf-8'))             # <<<<<<<<<<<<<<
  * 
  *     def pushNil(self):
  */
-  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_name, __pyx_n_s_encode); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 63; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_name, __pyx_n_s_encode); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 72; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_1);
-  __pyx_t_2 = __Pyx_PyObject_Call(__pyx_t_1, __pyx_tuple__3, NULL); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 63; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_2 = __Pyx_PyObject_Call(__pyx_t_1, __pyx_tuple__4, NULL); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 72; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_2);
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-  __pyx_t_3 = __Pyx_PyObject_AsString(__pyx_t_2); if (unlikely((!__pyx_t_3) && PyErr_Occurred())) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 63; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_3 = __Pyx_PyObject_AsString(__pyx_t_2); if (unlikely((!__pyx_t_3) && PyErr_Occurred())) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 72; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   lua_setglobal(__pyx_v_self->L, __pyx_t_3);
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
-  /* "lua.pyx":62
+  /* "lua.pyx":71
  *         lua_getglobal(self.L, name.encode('utf-8'))
  * 
  *     def setGlobal(self, name):             # <<<<<<<<<<<<<<
@@ -1722,7 +2078,7 @@ static PyObject *__pyx_pf_3lua_8LuaState_22setGlobal(struct __pyx_obj_3lua_LuaSt
   return __pyx_r;
 }
 
-/* "lua.pyx":65
+/* "lua.pyx":74
  *         lua_setglobal(self.L, name.encode('utf-8'))
  * 
  *     def pushNil(self):             # <<<<<<<<<<<<<<
@@ -1748,7 +2104,7 @@ static PyObject *__pyx_pf_3lua_8LuaState_24pushNil(struct __pyx_obj_3lua_LuaStat
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("pushNil", 0);
 
-  /* "lua.pyx":66
+  /* "lua.pyx":75
  * 
  *     def pushNil(self):
  *         lua_pushnil(self.L)             # <<<<<<<<<<<<<<
@@ -1757,7 +2113,7 @@ static PyObject *__pyx_pf_3lua_8LuaState_24pushNil(struct __pyx_obj_3lua_LuaStat
  */
   lua_pushnil(__pyx_v_self->L);
 
-  /* "lua.pyx":65
+  /* "lua.pyx":74
  *         lua_setglobal(self.L, name.encode('utf-8'))
  * 
  *     def pushNil(self):             # <<<<<<<<<<<<<<
@@ -1772,7 +2128,7 @@ static PyObject *__pyx_pf_3lua_8LuaState_24pushNil(struct __pyx_obj_3lua_LuaStat
   return __pyx_r;
 }
 
-/* "lua.pyx":68
+/* "lua.pyx":77
  *         lua_pushnil(self.L)
  * 
  *     def pushValue(self, int index):             # <<<<<<<<<<<<<<
@@ -1791,7 +2147,7 @@ static PyObject *__pyx_pw_3lua_8LuaState_27pushValue(PyObject *__pyx_v_self, PyO
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("pushValue (wrapper)", 0);
   assert(__pyx_arg_index); {
-    __pyx_v_index = __Pyx_PyInt_As_int(__pyx_arg_index); if (unlikely((__pyx_v_index == (int)-1) && PyErr_Occurred())) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 68; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
+    __pyx_v_index = __Pyx_PyInt_As_int(__pyx_arg_index); if (unlikely((__pyx_v_index == (int)-1) && PyErr_Occurred())) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 77; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
   }
   goto __pyx_L4_argument_unpacking_done;
   __pyx_L3_error:;
@@ -1811,7 +2167,7 @@ static PyObject *__pyx_pf_3lua_8LuaState_26pushValue(struct __pyx_obj_3lua_LuaSt
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("pushValue", 0);
 
-  /* "lua.pyx":69
+  /* "lua.pyx":78
  * 
  *     def pushValue(self, int index):
  *         lua_pushvalue(self.L, index)             # <<<<<<<<<<<<<<
@@ -1820,7 +2176,7 @@ static PyObject *__pyx_pf_3lua_8LuaState_26pushValue(struct __pyx_obj_3lua_LuaSt
  */
   lua_pushvalue(__pyx_v_self->L, __pyx_v_index);
 
-  /* "lua.pyx":68
+  /* "lua.pyx":77
  *         lua_pushnil(self.L)
  * 
  *     def pushValue(self, int index):             # <<<<<<<<<<<<<<
@@ -1835,12 +2191,12 @@ static PyObject *__pyx_pf_3lua_8LuaState_26pushValue(struct __pyx_obj_3lua_LuaSt
   return __pyx_r;
 }
 
-/* "lua.pyx":71
+/* "lua.pyx":80
  *         lua_pushvalue(self.L, index)
  * 
  *     def call(self, int numIn, int numOut):             # <<<<<<<<<<<<<<
- *         lua_call(self.L, numIn, numOut)
- * 
+ *         with nogil:
+ *            lua_call(self.L, numIn, numOut)
  */
 
 /* Python wrapper */
@@ -1874,11 +2230,11 @@ static PyObject *__pyx_pw_3lua_8LuaState_29call(PyObject *__pyx_v_self, PyObject
         case  1:
         if (likely((values[1] = PyDict_GetItem(__pyx_kwds, __pyx_n_s_numOut)) != 0)) kw_args--;
         else {
-          __Pyx_RaiseArgtupleInvalid("call", 1, 2, 2, 1); {__pyx_filename = __pyx_f[0]; __pyx_lineno = 71; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
+          __Pyx_RaiseArgtupleInvalid("call", 1, 2, 2, 1); {__pyx_filename = __pyx_f[0]; __pyx_lineno = 80; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
         }
       }
       if (unlikely(kw_args > 0)) {
-        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "call") < 0)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 71; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
+        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "call") < 0)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 80; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
       }
     } else if (PyTuple_GET_SIZE(__pyx_args) != 2) {
       goto __pyx_L5_argtuple_error;
@@ -1886,12 +2242,12 @@ static PyObject *__pyx_pw_3lua_8LuaState_29call(PyObject *__pyx_v_self, PyObject
       values[0] = PyTuple_GET_ITEM(__pyx_args, 0);
       values[1] = PyTuple_GET_ITEM(__pyx_args, 1);
     }
-    __pyx_v_numIn = __Pyx_PyInt_As_int(values[0]); if (unlikely((__pyx_v_numIn == (int)-1) && PyErr_Occurred())) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 71; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
-    __pyx_v_numOut = __Pyx_PyInt_As_int(values[1]); if (unlikely((__pyx_v_numOut == (int)-1) && PyErr_Occurred())) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 71; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
+    __pyx_v_numIn = __Pyx_PyInt_As_int(values[0]); if (unlikely((__pyx_v_numIn == (int)-1) && PyErr_Occurred())) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 80; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
+    __pyx_v_numOut = __Pyx_PyInt_As_int(values[1]); if (unlikely((__pyx_v_numOut == (int)-1) && PyErr_Occurred())) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 80; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
   }
   goto __pyx_L4_argument_unpacking_done;
   __pyx_L5_argtuple_error:;
-  __Pyx_RaiseArgtupleInvalid("call", 1, 2, 2, PyTuple_GET_SIZE(__pyx_args)); {__pyx_filename = __pyx_f[0]; __pyx_lineno = 71; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
+  __Pyx_RaiseArgtupleInvalid("call", 1, 2, 2, PyTuple_GET_SIZE(__pyx_args)); {__pyx_filename = __pyx_f[0]; __pyx_lineno = 80; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
   __pyx_L3_error:;
   __Pyx_AddTraceback("lua.LuaState.call", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __Pyx_RefNannyFinishContext();
@@ -1909,21 +2265,54 @@ static PyObject *__pyx_pf_3lua_8LuaState_28call(struct __pyx_obj_3lua_LuaState *
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("call", 0);
 
-  /* "lua.pyx":72
+  /* "lua.pyx":81
  * 
  *     def call(self, int numIn, int numOut):
- *         lua_call(self.L, numIn, numOut)             # <<<<<<<<<<<<<<
+ *         with nogil:             # <<<<<<<<<<<<<<
+ *            lua_call(self.L, numIn, numOut)
  * 
- *     def pcall(self, int numIn, int numOut, errFunc=0):
  */
-  lua_call(__pyx_v_self->L, __pyx_v_numIn, __pyx_v_numOut);
+  {
+      #ifdef WITH_THREAD
+      PyThreadState *_save;
+      Py_UNBLOCK_THREADS
+      #endif
+      /*try:*/ {
 
-  /* "lua.pyx":71
+        /* "lua.pyx":82
+ *     def call(self, int numIn, int numOut):
+ *         with nogil:
+ *            lua_call(self.L, numIn, numOut)             # <<<<<<<<<<<<<<
+ * 
+ *     def _pcall(self, ret, int numIn, int numOut, errFunc=0):
+ */
+        lua_call(__pyx_v_self->L, __pyx_v_numIn, __pyx_v_numOut);
+      }
+
+      /* "lua.pyx":81
+ * 
+ *     def call(self, int numIn, int numOut):
+ *         with nogil:             # <<<<<<<<<<<<<<
+ *            lua_call(self.L, numIn, numOut)
+ * 
+ */
+      /*finally:*/ {
+        /*normal exit:*/{
+          #ifdef WITH_THREAD
+          Py_BLOCK_THREADS
+          #endif
+          goto __pyx_L5;
+        }
+        __pyx_L5:;
+      }
+  }
+
+  /* "lua.pyx":80
  *         lua_pushvalue(self.L, index)
  * 
  *     def call(self, int numIn, int numOut):             # <<<<<<<<<<<<<<
- *         lua_call(self.L, numIn, numOut)
- * 
+ *         with nogil:
+ *            lua_call(self.L, numIn, numOut)
  */
 
   /* function exit code */
@@ -1933,17 +2322,233 @@ static PyObject *__pyx_pf_3lua_8LuaState_28call(struct __pyx_obj_3lua_LuaState *
   return __pyx_r;
 }
 
-/* "lua.pyx":74
- *         lua_call(self.L, numIn, numOut)
+/* "lua.pyx":84
+ *            lua_call(self.L, numIn, numOut)
  * 
- *     def pcall(self, int numIn, int numOut, errFunc=0):             # <<<<<<<<<<<<<<
- *         return lua_pcall(self.L, numIn, numOut, errFunc)
- * 
+ *     def _pcall(self, ret, int numIn, int numOut, errFunc=0):             # <<<<<<<<<<<<<<
+ *         cdef int res = 0
+ *         assert(errFunc == 0, 'errFunc should be zero, for now')
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_3lua_8LuaState_31pcall(PyObject *__pyx_v_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
-static PyObject *__pyx_pw_3lua_8LuaState_31pcall(PyObject *__pyx_v_self, PyObject *__pyx_args, PyObject *__pyx_kwds) {
+static PyObject *__pyx_pw_3lua_8LuaState_31_pcall(PyObject *__pyx_v_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
+static PyObject *__pyx_pw_3lua_8LuaState_31_pcall(PyObject *__pyx_v_self, PyObject *__pyx_args, PyObject *__pyx_kwds) {
+  PyObject *__pyx_v_ret = 0;
+  int __pyx_v_numIn;
+  int __pyx_v_numOut;
+  PyObject *__pyx_v_errFunc = 0;
+  int __pyx_lineno = 0;
+  const char *__pyx_filename = NULL;
+  int __pyx_clineno = 0;
+  PyObject *__pyx_r = 0;
+  __Pyx_RefNannyDeclarations
+  __Pyx_RefNannySetupContext("_pcall (wrapper)", 0);
+  {
+    static PyObject **__pyx_pyargnames[] = {&__pyx_n_s_ret,&__pyx_n_s_numIn,&__pyx_n_s_numOut,&__pyx_n_s_errFunc,0};
+    PyObject* values[4] = {0,0,0,0};
+    values[3] = ((PyObject *)__pyx_int_0);
+    if (unlikely(__pyx_kwds)) {
+      Py_ssize_t kw_args;
+      const Py_ssize_t pos_args = PyTuple_GET_SIZE(__pyx_args);
+      switch (pos_args) {
+        case  4: values[3] = PyTuple_GET_ITEM(__pyx_args, 3);
+        case  3: values[2] = PyTuple_GET_ITEM(__pyx_args, 2);
+        case  2: values[1] = PyTuple_GET_ITEM(__pyx_args, 1);
+        case  1: values[0] = PyTuple_GET_ITEM(__pyx_args, 0);
+        case  0: break;
+        default: goto __pyx_L5_argtuple_error;
+      }
+      kw_args = PyDict_Size(__pyx_kwds);
+      switch (pos_args) {
+        case  0:
+        if (likely((values[0] = PyDict_GetItem(__pyx_kwds, __pyx_n_s_ret)) != 0)) kw_args--;
+        else goto __pyx_L5_argtuple_error;
+        case  1:
+        if (likely((values[1] = PyDict_GetItem(__pyx_kwds, __pyx_n_s_numIn)) != 0)) kw_args--;
+        else {
+          __Pyx_RaiseArgtupleInvalid("_pcall", 0, 3, 4, 1); {__pyx_filename = __pyx_f[0]; __pyx_lineno = 84; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
+        }
+        case  2:
+        if (likely((values[2] = PyDict_GetItem(__pyx_kwds, __pyx_n_s_numOut)) != 0)) kw_args--;
+        else {
+          __Pyx_RaiseArgtupleInvalid("_pcall", 0, 3, 4, 2); {__pyx_filename = __pyx_f[0]; __pyx_lineno = 84; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
+        }
+        case  3:
+        if (kw_args > 0) {
+          PyObject* value = PyDict_GetItem(__pyx_kwds, __pyx_n_s_errFunc);
+          if (value) { values[3] = value; kw_args--; }
+        }
+      }
+      if (unlikely(kw_args > 0)) {
+        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "_pcall") < 0)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 84; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
+      }
+    } else {
+      switch (PyTuple_GET_SIZE(__pyx_args)) {
+        case  4: values[3] = PyTuple_GET_ITEM(__pyx_args, 3);
+        case  3: values[2] = PyTuple_GET_ITEM(__pyx_args, 2);
+        values[1] = PyTuple_GET_ITEM(__pyx_args, 1);
+        values[0] = PyTuple_GET_ITEM(__pyx_args, 0);
+        break;
+        default: goto __pyx_L5_argtuple_error;
+      }
+    }
+    __pyx_v_ret = values[0];
+    __pyx_v_numIn = __Pyx_PyInt_As_int(values[1]); if (unlikely((__pyx_v_numIn == (int)-1) && PyErr_Occurred())) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 84; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
+    __pyx_v_numOut = __Pyx_PyInt_As_int(values[2]); if (unlikely((__pyx_v_numOut == (int)-1) && PyErr_Occurred())) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 84; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
+    __pyx_v_errFunc = values[3];
+  }
+  goto __pyx_L4_argument_unpacking_done;
+  __pyx_L5_argtuple_error:;
+  __Pyx_RaiseArgtupleInvalid("_pcall", 0, 3, 4, PyTuple_GET_SIZE(__pyx_args)); {__pyx_filename = __pyx_f[0]; __pyx_lineno = 84; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
+  __pyx_L3_error:;
+  __Pyx_AddTraceback("lua.LuaState._pcall", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_RefNannyFinishContext();
+  return NULL;
+  __pyx_L4_argument_unpacking_done:;
+  __pyx_r = __pyx_pf_3lua_8LuaState_30_pcall(((struct __pyx_obj_3lua_LuaState *)__pyx_v_self), __pyx_v_ret, __pyx_v_numIn, __pyx_v_numOut, __pyx_v_errFunc);
+
+  /* function exit code */
+  __Pyx_RefNannyFinishContext();
+  return __pyx_r;
+}
+
+static PyObject *__pyx_pf_3lua_8LuaState_30_pcall(struct __pyx_obj_3lua_LuaState *__pyx_v_self, PyObject *__pyx_v_ret, int __pyx_v_numIn, int __pyx_v_numOut, PyObject *__pyx_v_errFunc) {
+  int __pyx_v_res;
+  PyObject *__pyx_r = NULL;
+  __Pyx_RefNannyDeclarations
+  PyObject *__pyx_t_1 = NULL;
+  PyObject *__pyx_t_2 = NULL;
+  int __pyx_t_3;
+  int __pyx_t_4;
+  int __pyx_lineno = 0;
+  const char *__pyx_filename = NULL;
+  int __pyx_clineno = 0;
+  __Pyx_RefNannySetupContext("_pcall", 0);
+
+  /* "lua.pyx":85
+ * 
+ *     def _pcall(self, ret, int numIn, int numOut, errFunc=0):
+ *         cdef int res = 0             # <<<<<<<<<<<<<<
+ *         assert(errFunc == 0, 'errFunc should be zero, for now')
+ *         with nogil:
+ */
+  __pyx_v_res = 0;
+
+  /* "lua.pyx":86
+ *     def _pcall(self, ret, int numIn, int numOut, errFunc=0):
+ *         cdef int res = 0
+ *         assert(errFunc == 0, 'errFunc should be zero, for now')             # <<<<<<<<<<<<<<
+ *         with nogil:
+ *             res = lua_pcall(self.L, numIn, numOut, 0)
+ */
+  #ifndef CYTHON_WITHOUT_ASSERTIONS
+  if (unlikely(!Py_OptimizeFlag)) {
+    __pyx_t_1 = __Pyx_PyInt_EqObjC(__pyx_v_errFunc, __pyx_int_0, 0, 0); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 86; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+    __Pyx_GOTREF(__pyx_t_1);
+    __pyx_t_2 = PyTuple_New(2); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 86; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+    __Pyx_GOTREF(__pyx_t_2);
+    __Pyx_GIVEREF(__pyx_t_1);
+    PyTuple_SET_ITEM(__pyx_t_2, 0, __pyx_t_1);
+    __Pyx_INCREF(__pyx_kp_s_errFunc_should_be_zero_for_now);
+    __Pyx_GIVEREF(__pyx_kp_s_errFunc_should_be_zero_for_now);
+    PyTuple_SET_ITEM(__pyx_t_2, 1, __pyx_kp_s_errFunc_should_be_zero_for_now);
+    __pyx_t_1 = 0;
+    __pyx_t_3 = (__pyx_t_2 != Py_None) && (PyTuple_GET_SIZE(__pyx_t_2) != 0);
+    __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
+    if (unlikely(!__pyx_t_3)) {
+      PyErr_SetNone(PyExc_AssertionError);
+      {__pyx_filename = __pyx_f[0]; __pyx_lineno = 86; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+    }
+  }
+  #endif
+
+  /* "lua.pyx":87
+ *         cdef int res = 0
+ *         assert(errFunc == 0, 'errFunc should be zero, for now')
+ *         with nogil:             # <<<<<<<<<<<<<<
+ *             res = lua_pcall(self.L, numIn, numOut, 0)
+ *         ret.append(res)
+ */
+  {
+      #ifdef WITH_THREAD
+      PyThreadState *_save;
+      Py_UNBLOCK_THREADS
+      #endif
+      /*try:*/ {
+
+        /* "lua.pyx":88
+ *         assert(errFunc == 0, 'errFunc should be zero, for now')
+ *         with nogil:
+ *             res = lua_pcall(self.L, numIn, numOut, 0)             # <<<<<<<<<<<<<<
+ *         ret.append(res)
+ * 
+ */
+        __pyx_v_res = lua_pcall(__pyx_v_self->L, __pyx_v_numIn, __pyx_v_numOut, 0);
+      }
+
+      /* "lua.pyx":87
+ *         cdef int res = 0
+ *         assert(errFunc == 0, 'errFunc should be zero, for now')
+ *         with nogil:             # <<<<<<<<<<<<<<
+ *             res = lua_pcall(self.L, numIn, numOut, 0)
+ *         ret.append(res)
+ */
+      /*finally:*/ {
+        /*normal exit:*/{
+          #ifdef WITH_THREAD
+          Py_BLOCK_THREADS
+          #endif
+          goto __pyx_L5;
+        }
+        __pyx_L5:;
+      }
+  }
+
+  /* "lua.pyx":89
+ *         with nogil:
+ *             res = lua_pcall(self.L, numIn, numOut, 0)
+ *         ret.append(res)             # <<<<<<<<<<<<<<
+ * 
+ *     def pcall(self, int numIn, int numOut, errFunc=0):
+ */
+  __pyx_t_2 = __Pyx_PyInt_From_int(__pyx_v_res); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 89; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __Pyx_GOTREF(__pyx_t_2);
+  __pyx_t_4 = __Pyx_PyObject_Append(__pyx_v_ret, __pyx_t_2); if (unlikely(__pyx_t_4 == -1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 89; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
+
+  /* "lua.pyx":84
+ *            lua_call(self.L, numIn, numOut)
+ * 
+ *     def _pcall(self, ret, int numIn, int numOut, errFunc=0):             # <<<<<<<<<<<<<<
+ *         cdef int res = 0
+ *         assert(errFunc == 0, 'errFunc should be zero, for now')
+ */
+
+  /* function exit code */
+  __pyx_r = Py_None; __Pyx_INCREF(Py_None);
+  goto __pyx_L0;
+  __pyx_L1_error:;
+  __Pyx_XDECREF(__pyx_t_1);
+  __Pyx_XDECREF(__pyx_t_2);
+  __Pyx_AddTraceback("lua.LuaState._pcall", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __pyx_r = NULL;
+  __pyx_L0:;
+  __Pyx_XGIVEREF(__pyx_r);
+  __Pyx_RefNannyFinishContext();
+  return __pyx_r;
+}
+
+/* "lua.pyx":91
+ *         ret.append(res)
+ * 
+ *     def pcall(self, int numIn, int numOut, errFunc=0):             # <<<<<<<<<<<<<<
+ *         res = []
+ *         interruptableCall(self._pcall, [res, numIn, numOut, errFunc])
+ */
+
+/* Python wrapper */
+static PyObject *__pyx_pw_3lua_8LuaState_33pcall(PyObject *__pyx_v_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
+static PyObject *__pyx_pw_3lua_8LuaState_33pcall(PyObject *__pyx_v_self, PyObject *__pyx_args, PyObject *__pyx_kwds) {
   int __pyx_v_numIn;
   int __pyx_v_numOut;
   PyObject *__pyx_v_errFunc = 0;
@@ -1975,7 +2580,7 @@ static PyObject *__pyx_pw_3lua_8LuaState_31pcall(PyObject *__pyx_v_self, PyObjec
         case  1:
         if (likely((values[1] = PyDict_GetItem(__pyx_kwds, __pyx_n_s_numOut)) != 0)) kw_args--;
         else {
-          __Pyx_RaiseArgtupleInvalid("pcall", 0, 2, 3, 1); {__pyx_filename = __pyx_f[0]; __pyx_lineno = 74; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
+          __Pyx_RaiseArgtupleInvalid("pcall", 0, 2, 3, 1); {__pyx_filename = __pyx_f[0]; __pyx_lineno = 91; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
         }
         case  2:
         if (kw_args > 0) {
@@ -1984,7 +2589,7 @@ static PyObject *__pyx_pw_3lua_8LuaState_31pcall(PyObject *__pyx_v_self, PyObjec
         }
       }
       if (unlikely(kw_args > 0)) {
-        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "pcall") < 0)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 74; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
+        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "pcall") < 0)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 91; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
       }
     } else {
       switch (PyTuple_GET_SIZE(__pyx_args)) {
@@ -1995,71 +2600,172 @@ static PyObject *__pyx_pw_3lua_8LuaState_31pcall(PyObject *__pyx_v_self, PyObjec
         default: goto __pyx_L5_argtuple_error;
       }
     }
-    __pyx_v_numIn = __Pyx_PyInt_As_int(values[0]); if (unlikely((__pyx_v_numIn == (int)-1) && PyErr_Occurred())) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 74; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
-    __pyx_v_numOut = __Pyx_PyInt_As_int(values[1]); if (unlikely((__pyx_v_numOut == (int)-1) && PyErr_Occurred())) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 74; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
+    __pyx_v_numIn = __Pyx_PyInt_As_int(values[0]); if (unlikely((__pyx_v_numIn == (int)-1) && PyErr_Occurred())) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 91; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
+    __pyx_v_numOut = __Pyx_PyInt_As_int(values[1]); if (unlikely((__pyx_v_numOut == (int)-1) && PyErr_Occurred())) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 91; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
     __pyx_v_errFunc = values[2];
   }
   goto __pyx_L4_argument_unpacking_done;
   __pyx_L5_argtuple_error:;
-  __Pyx_RaiseArgtupleInvalid("pcall", 0, 2, 3, PyTuple_GET_SIZE(__pyx_args)); {__pyx_filename = __pyx_f[0]; __pyx_lineno = 74; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
+  __Pyx_RaiseArgtupleInvalid("pcall", 0, 2, 3, PyTuple_GET_SIZE(__pyx_args)); {__pyx_filename = __pyx_f[0]; __pyx_lineno = 91; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
   __pyx_L3_error:;
   __Pyx_AddTraceback("lua.LuaState.pcall", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __Pyx_RefNannyFinishContext();
   return NULL;
   __pyx_L4_argument_unpacking_done:;
-  __pyx_r = __pyx_pf_3lua_8LuaState_30pcall(((struct __pyx_obj_3lua_LuaState *)__pyx_v_self), __pyx_v_numIn, __pyx_v_numOut, __pyx_v_errFunc);
+  __pyx_r = __pyx_pf_3lua_8LuaState_32pcall(((struct __pyx_obj_3lua_LuaState *)__pyx_v_self), __pyx_v_numIn, __pyx_v_numOut, __pyx_v_errFunc);
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_3lua_8LuaState_30pcall(struct __pyx_obj_3lua_LuaState *__pyx_v_self, int __pyx_v_numIn, int __pyx_v_numOut, PyObject *__pyx_v_errFunc) {
+static PyObject *__pyx_pf_3lua_8LuaState_32pcall(struct __pyx_obj_3lua_LuaState *__pyx_v_self, int __pyx_v_numIn, int __pyx_v_numOut, PyObject *__pyx_v_errFunc) {
+  PyObject *__pyx_v_res = NULL;
   PyObject *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
-  int __pyx_t_1;
+  PyObject *__pyx_t_1 = NULL;
   PyObject *__pyx_t_2 = NULL;
+  PyObject *__pyx_t_3 = NULL;
+  PyObject *__pyx_t_4 = NULL;
+  PyObject *__pyx_t_5 = NULL;
+  PyObject *__pyx_t_6 = NULL;
+  Py_ssize_t __pyx_t_7;
   int __pyx_lineno = 0;
   const char *__pyx_filename = NULL;
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("pcall", 0);
 
-  /* "lua.pyx":75
+  /* "lua.pyx":92
  * 
  *     def pcall(self, int numIn, int numOut, errFunc=0):
- *         return lua_pcall(self.L, numIn, numOut, errFunc)             # <<<<<<<<<<<<<<
+ *         res = []             # <<<<<<<<<<<<<<
+ *         interruptableCall(self._pcall, [res, numIn, numOut, errFunc])
+ *         print('res[0]', res[0])
+ */
+  __pyx_t_1 = PyList_New(0); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 92; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __Pyx_GOTREF(__pyx_t_1);
+  __pyx_v_res = ((PyObject*)__pyx_t_1);
+  __pyx_t_1 = 0;
+
+  /* "lua.pyx":93
+ *     def pcall(self, int numIn, int numOut, errFunc=0):
+ *         res = []
+ *         interruptableCall(self._pcall, [res, numIn, numOut, errFunc])             # <<<<<<<<<<<<<<
+ *         print('res[0]', res[0])
+ *         return res[0]
+ */
+  __pyx_t_2 = __Pyx_GetModuleGlobalName(__pyx_n_s_interruptableCall); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 93; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __Pyx_GOTREF(__pyx_t_2);
+  __pyx_t_3 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_self), __pyx_n_s_pcall); if (unlikely(!__pyx_t_3)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 93; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __Pyx_GOTREF(__pyx_t_3);
+  __pyx_t_4 = __Pyx_PyInt_From_int(__pyx_v_numIn); if (unlikely(!__pyx_t_4)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 93; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __Pyx_GOTREF(__pyx_t_4);
+  __pyx_t_5 = __Pyx_PyInt_From_int(__pyx_v_numOut); if (unlikely(!__pyx_t_5)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 93; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __Pyx_GOTREF(__pyx_t_5);
+  __pyx_t_6 = PyList_New(4); if (unlikely(!__pyx_t_6)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 93; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __Pyx_GOTREF(__pyx_t_6);
+  __Pyx_INCREF(__pyx_v_res);
+  __Pyx_GIVEREF(__pyx_v_res);
+  PyList_SET_ITEM(__pyx_t_6, 0, __pyx_v_res);
+  __Pyx_GIVEREF(__pyx_t_4);
+  PyList_SET_ITEM(__pyx_t_6, 1, __pyx_t_4);
+  __Pyx_GIVEREF(__pyx_t_5);
+  PyList_SET_ITEM(__pyx_t_6, 2, __pyx_t_5);
+  __Pyx_INCREF(__pyx_v_errFunc);
+  __Pyx_GIVEREF(__pyx_v_errFunc);
+  PyList_SET_ITEM(__pyx_t_6, 3, __pyx_v_errFunc);
+  __pyx_t_4 = 0;
+  __pyx_t_5 = 0;
+  __pyx_t_5 = NULL;
+  __pyx_t_7 = 0;
+  if (CYTHON_COMPILING_IN_CPYTHON && unlikely(PyMethod_Check(__pyx_t_2))) {
+    __pyx_t_5 = PyMethod_GET_SELF(__pyx_t_2);
+    if (likely(__pyx_t_5)) {
+      PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_2);
+      __Pyx_INCREF(__pyx_t_5);
+      __Pyx_INCREF(function);
+      __Pyx_DECREF_SET(__pyx_t_2, function);
+      __pyx_t_7 = 1;
+    }
+  }
+  __pyx_t_4 = PyTuple_New(2+__pyx_t_7); if (unlikely(!__pyx_t_4)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 93; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __Pyx_GOTREF(__pyx_t_4);
+  if (__pyx_t_5) {
+    __Pyx_GIVEREF(__pyx_t_5); PyTuple_SET_ITEM(__pyx_t_4, 0, __pyx_t_5); __pyx_t_5 = NULL;
+  }
+  __Pyx_GIVEREF(__pyx_t_3);
+  PyTuple_SET_ITEM(__pyx_t_4, 0+__pyx_t_7, __pyx_t_3);
+  __Pyx_GIVEREF(__pyx_t_6);
+  PyTuple_SET_ITEM(__pyx_t_4, 1+__pyx_t_7, __pyx_t_6);
+  __pyx_t_3 = 0;
+  __pyx_t_6 = 0;
+  __pyx_t_1 = __Pyx_PyObject_Call(__pyx_t_2, __pyx_t_4, NULL); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 93; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __Pyx_GOTREF(__pyx_t_1);
+  __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
+  __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
+  __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+
+  /* "lua.pyx":94
+ *         res = []
+ *         interruptableCall(self._pcall, [res, numIn, numOut, errFunc])
+ *         print('res[0]', res[0])             # <<<<<<<<<<<<<<
+ *         return res[0]
+ * 
+ */
+  __pyx_t_1 = __Pyx_GetItemInt_List(__pyx_v_res, 0, long, 1, __Pyx_PyInt_From_long, 1, 0, 1); if (unlikely(__pyx_t_1 == NULL)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 94; __pyx_clineno = __LINE__; goto __pyx_L1_error;};
+  __Pyx_GOTREF(__pyx_t_1);
+  __pyx_t_2 = PyTuple_New(2); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 94; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __Pyx_GOTREF(__pyx_t_2);
+  __Pyx_INCREF(__pyx_kp_s_res_0);
+  __Pyx_GIVEREF(__pyx_kp_s_res_0);
+  PyTuple_SET_ITEM(__pyx_t_2, 0, __pyx_kp_s_res_0);
+  __Pyx_GIVEREF(__pyx_t_1);
+  PyTuple_SET_ITEM(__pyx_t_2, 1, __pyx_t_1);
+  __pyx_t_1 = 0;
+  if (__Pyx_PrintOne(0, __pyx_t_2) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 94; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
+
+  /* "lua.pyx":95
+ *         interruptableCall(self._pcall, [res, numIn, numOut, errFunc])
+ *         print('res[0]', res[0])
+ *         return res[0]             # <<<<<<<<<<<<<<
  * 
  *     def newTable(self):
  */
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_1 = __Pyx_PyInt_As_int(__pyx_v_errFunc); if (unlikely((__pyx_t_1 == (int)-1) && PyErr_Occurred())) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 75; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-  __pyx_t_2 = __Pyx_PyInt_From_int(lua_pcall(__pyx_v_self->L, __pyx_v_numIn, __pyx_v_numOut, __pyx_t_1)); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 75; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_2 = __Pyx_GetItemInt_List(__pyx_v_res, 0, long, 1, __Pyx_PyInt_From_long, 1, 0, 1); if (unlikely(__pyx_t_2 == NULL)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 95; __pyx_clineno = __LINE__; goto __pyx_L1_error;};
   __Pyx_GOTREF(__pyx_t_2);
   __pyx_r = __pyx_t_2;
   __pyx_t_2 = 0;
   goto __pyx_L0;
 
-  /* "lua.pyx":74
- *         lua_call(self.L, numIn, numOut)
+  /* "lua.pyx":91
+ *         ret.append(res)
  * 
  *     def pcall(self, int numIn, int numOut, errFunc=0):             # <<<<<<<<<<<<<<
- *         return lua_pcall(self.L, numIn, numOut, errFunc)
- * 
+ *         res = []
+ *         interruptableCall(self._pcall, [res, numIn, numOut, errFunc])
  */
 
   /* function exit code */
   __pyx_L1_error:;
+  __Pyx_XDECREF(__pyx_t_1);
   __Pyx_XDECREF(__pyx_t_2);
+  __Pyx_XDECREF(__pyx_t_3);
+  __Pyx_XDECREF(__pyx_t_4);
+  __Pyx_XDECREF(__pyx_t_5);
+  __Pyx_XDECREF(__pyx_t_6);
   __Pyx_AddTraceback("lua.LuaState.pcall", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = NULL;
   __pyx_L0:;
+  __Pyx_XDECREF(__pyx_v_res);
   __Pyx_XGIVEREF(__pyx_r);
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-/* "lua.pyx":77
- *         return lua_pcall(self.L, numIn, numOut, errFunc)
+/* "lua.pyx":97
+ *         return res[0]
  * 
  *     def newTable(self):             # <<<<<<<<<<<<<<
  *         lua_newtable(self.L)
@@ -2067,24 +2773,24 @@ static PyObject *__pyx_pf_3lua_8LuaState_30pcall(struct __pyx_obj_3lua_LuaState 
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_3lua_8LuaState_33newTable(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused); /*proto*/
-static PyObject *__pyx_pw_3lua_8LuaState_33newTable(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused) {
+static PyObject *__pyx_pw_3lua_8LuaState_35newTable(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused); /*proto*/
+static PyObject *__pyx_pw_3lua_8LuaState_35newTable(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused) {
   PyObject *__pyx_r = 0;
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("newTable (wrapper)", 0);
-  __pyx_r = __pyx_pf_3lua_8LuaState_32newTable(((struct __pyx_obj_3lua_LuaState *)__pyx_v_self));
+  __pyx_r = __pyx_pf_3lua_8LuaState_34newTable(((struct __pyx_obj_3lua_LuaState *)__pyx_v_self));
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_3lua_8LuaState_32newTable(struct __pyx_obj_3lua_LuaState *__pyx_v_self) {
+static PyObject *__pyx_pf_3lua_8LuaState_34newTable(struct __pyx_obj_3lua_LuaState *__pyx_v_self) {
   PyObject *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("newTable", 0);
 
-  /* "lua.pyx":78
+  /* "lua.pyx":98
  * 
  *     def newTable(self):
  *         lua_newtable(self.L)             # <<<<<<<<<<<<<<
@@ -2093,8 +2799,8 @@ static PyObject *__pyx_pf_3lua_8LuaState_32newTable(struct __pyx_obj_3lua_LuaSta
  */
   lua_newtable(__pyx_v_self->L);
 
-  /* "lua.pyx":77
- *         return lua_pcall(self.L, numIn, numOut, errFunc)
+  /* "lua.pyx":97
+ *         return res[0]
  * 
  *     def newTable(self):             # <<<<<<<<<<<<<<
  *         lua_newtable(self.L)
@@ -2108,7 +2814,7 @@ static PyObject *__pyx_pf_3lua_8LuaState_32newTable(struct __pyx_obj_3lua_LuaSta
   return __pyx_r;
 }
 
-/* "lua.pyx":80
+/* "lua.pyx":100
  *         lua_newtable(self.L)
  * 
  *     def setTable(self, index):             # <<<<<<<<<<<<<<
@@ -2117,19 +2823,19 @@ static PyObject *__pyx_pf_3lua_8LuaState_32newTable(struct __pyx_obj_3lua_LuaSta
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_3lua_8LuaState_35setTable(PyObject *__pyx_v_self, PyObject *__pyx_v_index); /*proto*/
-static PyObject *__pyx_pw_3lua_8LuaState_35setTable(PyObject *__pyx_v_self, PyObject *__pyx_v_index) {
+static PyObject *__pyx_pw_3lua_8LuaState_37setTable(PyObject *__pyx_v_self, PyObject *__pyx_v_index); /*proto*/
+static PyObject *__pyx_pw_3lua_8LuaState_37setTable(PyObject *__pyx_v_self, PyObject *__pyx_v_index) {
   PyObject *__pyx_r = 0;
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("setTable (wrapper)", 0);
-  __pyx_r = __pyx_pf_3lua_8LuaState_34setTable(((struct __pyx_obj_3lua_LuaState *)__pyx_v_self), ((PyObject *)__pyx_v_index));
+  __pyx_r = __pyx_pf_3lua_8LuaState_36setTable(((struct __pyx_obj_3lua_LuaState *)__pyx_v_self), ((PyObject *)__pyx_v_index));
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_3lua_8LuaState_34setTable(struct __pyx_obj_3lua_LuaState *__pyx_v_self, PyObject *__pyx_v_index) {
+static PyObject *__pyx_pf_3lua_8LuaState_36setTable(struct __pyx_obj_3lua_LuaState *__pyx_v_self, PyObject *__pyx_v_index) {
   PyObject *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
   int __pyx_t_1;
@@ -2138,17 +2844,17 @@ static PyObject *__pyx_pf_3lua_8LuaState_34setTable(struct __pyx_obj_3lua_LuaSta
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("setTable", 0);
 
-  /* "lua.pyx":81
+  /* "lua.pyx":101
  * 
  *     def setTable(self, index):
  *         lua_settable(self.L, index)             # <<<<<<<<<<<<<<
  * 
  *     def getField(self, int index, name):
  */
-  __pyx_t_1 = __Pyx_PyInt_As_int(__pyx_v_index); if (unlikely((__pyx_t_1 == (int)-1) && PyErr_Occurred())) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 81; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_1 = __Pyx_PyInt_As_int(__pyx_v_index); if (unlikely((__pyx_t_1 == (int)-1) && PyErr_Occurred())) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 101; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   lua_settable(__pyx_v_self->L, __pyx_t_1);
 
-  /* "lua.pyx":80
+  /* "lua.pyx":100
  *         lua_newtable(self.L)
  * 
  *     def setTable(self, index):             # <<<<<<<<<<<<<<
@@ -2168,7 +2874,7 @@ static PyObject *__pyx_pf_3lua_8LuaState_34setTable(struct __pyx_obj_3lua_LuaSta
   return __pyx_r;
 }
 
-/* "lua.pyx":83
+/* "lua.pyx":103
  *         lua_settable(self.L, index)
  * 
  *     def getField(self, int index, name):             # <<<<<<<<<<<<<<
@@ -2177,8 +2883,8 @@ static PyObject *__pyx_pf_3lua_8LuaState_34setTable(struct __pyx_obj_3lua_LuaSta
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_3lua_8LuaState_37getField(PyObject *__pyx_v_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
-static PyObject *__pyx_pw_3lua_8LuaState_37getField(PyObject *__pyx_v_self, PyObject *__pyx_args, PyObject *__pyx_kwds) {
+static PyObject *__pyx_pw_3lua_8LuaState_39getField(PyObject *__pyx_v_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
+static PyObject *__pyx_pw_3lua_8LuaState_39getField(PyObject *__pyx_v_self, PyObject *__pyx_args, PyObject *__pyx_kwds) {
   int __pyx_v_index;
   PyObject *__pyx_v_name = 0;
   int __pyx_lineno = 0;
@@ -2207,11 +2913,11 @@ static PyObject *__pyx_pw_3lua_8LuaState_37getField(PyObject *__pyx_v_self, PyOb
         case  1:
         if (likely((values[1] = PyDict_GetItem(__pyx_kwds, __pyx_n_s_name)) != 0)) kw_args--;
         else {
-          __Pyx_RaiseArgtupleInvalid("getField", 1, 2, 2, 1); {__pyx_filename = __pyx_f[0]; __pyx_lineno = 83; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
+          __Pyx_RaiseArgtupleInvalid("getField", 1, 2, 2, 1); {__pyx_filename = __pyx_f[0]; __pyx_lineno = 103; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
         }
       }
       if (unlikely(kw_args > 0)) {
-        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "getField") < 0)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 83; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
+        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "getField") < 0)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 103; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
       }
     } else if (PyTuple_GET_SIZE(__pyx_args) != 2) {
       goto __pyx_L5_argtuple_error;
@@ -2219,25 +2925,25 @@ static PyObject *__pyx_pw_3lua_8LuaState_37getField(PyObject *__pyx_v_self, PyOb
       values[0] = PyTuple_GET_ITEM(__pyx_args, 0);
       values[1] = PyTuple_GET_ITEM(__pyx_args, 1);
     }
-    __pyx_v_index = __Pyx_PyInt_As_int(values[0]); if (unlikely((__pyx_v_index == (int)-1) && PyErr_Occurred())) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 83; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
+    __pyx_v_index = __Pyx_PyInt_As_int(values[0]); if (unlikely((__pyx_v_index == (int)-1) && PyErr_Occurred())) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 103; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
     __pyx_v_name = values[1];
   }
   goto __pyx_L4_argument_unpacking_done;
   __pyx_L5_argtuple_error:;
-  __Pyx_RaiseArgtupleInvalid("getField", 1, 2, 2, PyTuple_GET_SIZE(__pyx_args)); {__pyx_filename = __pyx_f[0]; __pyx_lineno = 83; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
+  __Pyx_RaiseArgtupleInvalid("getField", 1, 2, 2, PyTuple_GET_SIZE(__pyx_args)); {__pyx_filename = __pyx_f[0]; __pyx_lineno = 103; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
   __pyx_L3_error:;
   __Pyx_AddTraceback("lua.LuaState.getField", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __Pyx_RefNannyFinishContext();
   return NULL;
   __pyx_L4_argument_unpacking_done:;
-  __pyx_r = __pyx_pf_3lua_8LuaState_36getField(((struct __pyx_obj_3lua_LuaState *)__pyx_v_self), __pyx_v_index, __pyx_v_name);
+  __pyx_r = __pyx_pf_3lua_8LuaState_38getField(((struct __pyx_obj_3lua_LuaState *)__pyx_v_self), __pyx_v_index, __pyx_v_name);
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_3lua_8LuaState_36getField(struct __pyx_obj_3lua_LuaState *__pyx_v_self, int __pyx_v_index, PyObject *__pyx_v_name) {
+static PyObject *__pyx_pf_3lua_8LuaState_38getField(struct __pyx_obj_3lua_LuaState *__pyx_v_self, int __pyx_v_index, PyObject *__pyx_v_name) {
   PyObject *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
   PyObject *__pyx_t_1 = NULL;
@@ -2248,23 +2954,23 @@ static PyObject *__pyx_pf_3lua_8LuaState_36getField(struct __pyx_obj_3lua_LuaSta
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("getField", 0);
 
-  /* "lua.pyx":84
+  /* "lua.pyx":104
  * 
  *     def getField(self, int index, name):
  *         lua_getfield(self.L, index, name.encode('utf-8'))             # <<<<<<<<<<<<<<
  * 
  *     def setRegistry(self):
  */
-  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_name, __pyx_n_s_encode); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 84; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_name, __pyx_n_s_encode); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 104; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_1);
-  __pyx_t_2 = __Pyx_PyObject_Call(__pyx_t_1, __pyx_tuple__4, NULL); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 84; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_2 = __Pyx_PyObject_Call(__pyx_t_1, __pyx_tuple__5, NULL); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 104; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_2);
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-  __pyx_t_3 = __Pyx_PyObject_AsString(__pyx_t_2); if (unlikely((!__pyx_t_3) && PyErr_Occurred())) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 84; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_3 = __Pyx_PyObject_AsString(__pyx_t_2); if (unlikely((!__pyx_t_3) && PyErr_Occurred())) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 104; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   lua_getfield(__pyx_v_self->L, __pyx_v_index, __pyx_t_3);
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
-  /* "lua.pyx":83
+  /* "lua.pyx":103
  *         lua_settable(self.L, index)
  * 
  *     def getField(self, int index, name):             # <<<<<<<<<<<<<<
@@ -2286,7 +2992,7 @@ static PyObject *__pyx_pf_3lua_8LuaState_36getField(struct __pyx_obj_3lua_LuaSta
   return __pyx_r;
 }
 
-/* "lua.pyx":86
+/* "lua.pyx":106
  *         lua_getfield(self.L, index, name.encode('utf-8'))
  * 
  *     def setRegistry(self):             # <<<<<<<<<<<<<<
@@ -2295,19 +3001,19 @@ static PyObject *__pyx_pf_3lua_8LuaState_36getField(struct __pyx_obj_3lua_LuaSta
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_3lua_8LuaState_39setRegistry(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused); /*proto*/
-static PyObject *__pyx_pw_3lua_8LuaState_39setRegistry(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused) {
+static PyObject *__pyx_pw_3lua_8LuaState_41setRegistry(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused); /*proto*/
+static PyObject *__pyx_pw_3lua_8LuaState_41setRegistry(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused) {
   PyObject *__pyx_r = 0;
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("setRegistry (wrapper)", 0);
-  __pyx_r = __pyx_pf_3lua_8LuaState_38setRegistry(((struct __pyx_obj_3lua_LuaState *)__pyx_v_self));
+  __pyx_r = __pyx_pf_3lua_8LuaState_40setRegistry(((struct __pyx_obj_3lua_LuaState *)__pyx_v_self));
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_3lua_8LuaState_38setRegistry(struct __pyx_obj_3lua_LuaState *__pyx_v_self) {
+static PyObject *__pyx_pf_3lua_8LuaState_40setRegistry(struct __pyx_obj_3lua_LuaState *__pyx_v_self) {
   PyObject *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
   PyObject *__pyx_t_1 = NULL;
@@ -2317,20 +3023,20 @@ static PyObject *__pyx_pf_3lua_8LuaState_38setRegistry(struct __pyx_obj_3lua_Lua
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("setRegistry", 0);
 
-  /* "lua.pyx":87
+  /* "lua.pyx":107
  * 
  *     def setRegistry(self):
  *         lua_settable(self.L, LUA_REGISTRYINDEX)             # <<<<<<<<<<<<<<
  * 
  *     def getRegistry(self):
  */
-  __pyx_t_1 = __Pyx_GetModuleGlobalName(__pyx_n_s_LUA_REGISTRYINDEX); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 87; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_1 = __Pyx_GetModuleGlobalName(__pyx_n_s_LUA_REGISTRYINDEX); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 107; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_1);
-  __pyx_t_2 = __Pyx_PyInt_As_int(__pyx_t_1); if (unlikely((__pyx_t_2 == (int)-1) && PyErr_Occurred())) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 87; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_2 = __Pyx_PyInt_As_int(__pyx_t_1); if (unlikely((__pyx_t_2 == (int)-1) && PyErr_Occurred())) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 107; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   lua_settable(__pyx_v_self->L, __pyx_t_2);
 
-  /* "lua.pyx":86
+  /* "lua.pyx":106
  *         lua_getfield(self.L, index, name.encode('utf-8'))
  * 
  *     def setRegistry(self):             # <<<<<<<<<<<<<<
@@ -2351,7 +3057,7 @@ static PyObject *__pyx_pf_3lua_8LuaState_38setRegistry(struct __pyx_obj_3lua_Lua
   return __pyx_r;
 }
 
-/* "lua.pyx":89
+/* "lua.pyx":109
  *         lua_settable(self.L, LUA_REGISTRYINDEX)
  * 
  *     def getRegistry(self):             # <<<<<<<<<<<<<<
@@ -2360,19 +3066,19 @@ static PyObject *__pyx_pf_3lua_8LuaState_38setRegistry(struct __pyx_obj_3lua_Lua
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_3lua_8LuaState_41getRegistry(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused); /*proto*/
-static PyObject *__pyx_pw_3lua_8LuaState_41getRegistry(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused) {
+static PyObject *__pyx_pw_3lua_8LuaState_43getRegistry(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused); /*proto*/
+static PyObject *__pyx_pw_3lua_8LuaState_43getRegistry(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused) {
   PyObject *__pyx_r = 0;
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("getRegistry (wrapper)", 0);
-  __pyx_r = __pyx_pf_3lua_8LuaState_40getRegistry(((struct __pyx_obj_3lua_LuaState *)__pyx_v_self));
+  __pyx_r = __pyx_pf_3lua_8LuaState_42getRegistry(((struct __pyx_obj_3lua_LuaState *)__pyx_v_self));
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_3lua_8LuaState_40getRegistry(struct __pyx_obj_3lua_LuaState *__pyx_v_self) {
+static PyObject *__pyx_pf_3lua_8LuaState_42getRegistry(struct __pyx_obj_3lua_LuaState *__pyx_v_self) {
   PyObject *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
   PyObject *__pyx_t_1 = NULL;
@@ -2382,20 +3088,20 @@ static PyObject *__pyx_pf_3lua_8LuaState_40getRegistry(struct __pyx_obj_3lua_Lua
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("getRegistry", 0);
 
-  /* "lua.pyx":90
+  /* "lua.pyx":110
  * 
  *     def getRegistry(self):
  *         lua_gettable(self.L, LUA_REGISTRYINDEX)             # <<<<<<<<<<<<<<
  * 
  *     def next(self, int index):
  */
-  __pyx_t_1 = __Pyx_GetModuleGlobalName(__pyx_n_s_LUA_REGISTRYINDEX); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 90; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_1 = __Pyx_GetModuleGlobalName(__pyx_n_s_LUA_REGISTRYINDEX); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 110; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_1);
-  __pyx_t_2 = __Pyx_PyInt_As_int(__pyx_t_1); if (unlikely((__pyx_t_2 == (int)-1) && PyErr_Occurred())) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 90; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_2 = __Pyx_PyInt_As_int(__pyx_t_1); if (unlikely((__pyx_t_2 == (int)-1) && PyErr_Occurred())) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 110; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   lua_gettable(__pyx_v_self->L, __pyx_t_2);
 
-  /* "lua.pyx":89
+  /* "lua.pyx":109
  *         lua_settable(self.L, LUA_REGISTRYINDEX)
  * 
  *     def getRegistry(self):             # <<<<<<<<<<<<<<
@@ -2416,7 +3122,7 @@ static PyObject *__pyx_pf_3lua_8LuaState_40getRegistry(struct __pyx_obj_3lua_Lua
   return __pyx_r;
 }
 
-/* "lua.pyx":92
+/* "lua.pyx":112
  *         lua_gettable(self.L, LUA_REGISTRYINDEX)
  * 
  *     def next(self, int index):             # <<<<<<<<<<<<<<
@@ -2425,8 +3131,8 @@ static PyObject *__pyx_pf_3lua_8LuaState_40getRegistry(struct __pyx_obj_3lua_Lua
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_3lua_8LuaState_43next(PyObject *__pyx_v_self, PyObject *__pyx_arg_index); /*proto*/
-static PyObject *__pyx_pw_3lua_8LuaState_43next(PyObject *__pyx_v_self, PyObject *__pyx_arg_index) {
+static PyObject *__pyx_pw_3lua_8LuaState_45next(PyObject *__pyx_v_self, PyObject *__pyx_arg_index); /*proto*/
+static PyObject *__pyx_pw_3lua_8LuaState_45next(PyObject *__pyx_v_self, PyObject *__pyx_arg_index) {
   int __pyx_v_index;
   int __pyx_lineno = 0;
   const char *__pyx_filename = NULL;
@@ -2435,7 +3141,7 @@ static PyObject *__pyx_pw_3lua_8LuaState_43next(PyObject *__pyx_v_self, PyObject
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("next (wrapper)", 0);
   assert(__pyx_arg_index); {
-    __pyx_v_index = __Pyx_PyInt_As_int(__pyx_arg_index); if (unlikely((__pyx_v_index == (int)-1) && PyErr_Occurred())) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 92; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
+    __pyx_v_index = __Pyx_PyInt_As_int(__pyx_arg_index); if (unlikely((__pyx_v_index == (int)-1) && PyErr_Occurred())) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 112; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
   }
   goto __pyx_L4_argument_unpacking_done;
   __pyx_L3_error:;
@@ -2443,14 +3149,14 @@ static PyObject *__pyx_pw_3lua_8LuaState_43next(PyObject *__pyx_v_self, PyObject
   __Pyx_RefNannyFinishContext();
   return NULL;
   __pyx_L4_argument_unpacking_done:;
-  __pyx_r = __pyx_pf_3lua_8LuaState_42next(((struct __pyx_obj_3lua_LuaState *)__pyx_v_self), ((int)__pyx_v_index));
+  __pyx_r = __pyx_pf_3lua_8LuaState_44next(((struct __pyx_obj_3lua_LuaState *)__pyx_v_self), ((int)__pyx_v_index));
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_3lua_8LuaState_42next(struct __pyx_obj_3lua_LuaState *__pyx_v_self, int __pyx_v_index) {
+static PyObject *__pyx_pf_3lua_8LuaState_44next(struct __pyx_obj_3lua_LuaState *__pyx_v_self, int __pyx_v_index) {
   PyObject *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
   PyObject *__pyx_t_1 = NULL;
@@ -2459,7 +3165,7 @@ static PyObject *__pyx_pf_3lua_8LuaState_42next(struct __pyx_obj_3lua_LuaState *
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("next", 0);
 
-  /* "lua.pyx":93
+  /* "lua.pyx":113
  * 
  *     def next(self, int index):
  *         return lua_next(self.L, index)             # <<<<<<<<<<<<<<
@@ -2467,13 +3173,13 @@ static PyObject *__pyx_pf_3lua_8LuaState_42next(struct __pyx_obj_3lua_LuaState *
  *     def getTop(self):
  */
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_1 = __Pyx_PyInt_From_int(lua_next(__pyx_v_self->L, __pyx_v_index)); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 93; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_1 = __Pyx_PyInt_From_int(lua_next(__pyx_v_self->L, __pyx_v_index)); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 113; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_r = __pyx_t_1;
   __pyx_t_1 = 0;
   goto __pyx_L0;
 
-  /* "lua.pyx":92
+  /* "lua.pyx":112
  *         lua_gettable(self.L, LUA_REGISTRYINDEX)
  * 
  *     def next(self, int index):             # <<<<<<<<<<<<<<
@@ -2492,7 +3198,7 @@ static PyObject *__pyx_pf_3lua_8LuaState_42next(struct __pyx_obj_3lua_LuaState *
   return __pyx_r;
 }
 
-/* "lua.pyx":95
+/* "lua.pyx":115
  *         return lua_next(self.L, index)
  * 
  *     def getTop(self):             # <<<<<<<<<<<<<<
@@ -2501,19 +3207,19 @@ static PyObject *__pyx_pf_3lua_8LuaState_42next(struct __pyx_obj_3lua_LuaState *
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_3lua_8LuaState_45getTop(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused); /*proto*/
-static PyObject *__pyx_pw_3lua_8LuaState_45getTop(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused) {
+static PyObject *__pyx_pw_3lua_8LuaState_47getTop(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused); /*proto*/
+static PyObject *__pyx_pw_3lua_8LuaState_47getTop(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused) {
   PyObject *__pyx_r = 0;
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("getTop (wrapper)", 0);
-  __pyx_r = __pyx_pf_3lua_8LuaState_44getTop(((struct __pyx_obj_3lua_LuaState *)__pyx_v_self));
+  __pyx_r = __pyx_pf_3lua_8LuaState_46getTop(((struct __pyx_obj_3lua_LuaState *)__pyx_v_self));
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_3lua_8LuaState_44getTop(struct __pyx_obj_3lua_LuaState *__pyx_v_self) {
+static PyObject *__pyx_pf_3lua_8LuaState_46getTop(struct __pyx_obj_3lua_LuaState *__pyx_v_self) {
   PyObject *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
   PyObject *__pyx_t_1 = NULL;
@@ -2522,7 +3228,7 @@ static PyObject *__pyx_pf_3lua_8LuaState_44getTop(struct __pyx_obj_3lua_LuaState
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("getTop", 0);
 
-  /* "lua.pyx":96
+  /* "lua.pyx":116
  * 
  *     def getTop(self):
  *         return lua_gettop(self.L)             # <<<<<<<<<<<<<<
@@ -2530,13 +3236,13 @@ static PyObject *__pyx_pf_3lua_8LuaState_44getTop(struct __pyx_obj_3lua_LuaState
  *     def isUserData(self, int index):
  */
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_1 = __Pyx_PyInt_From_int(lua_gettop(__pyx_v_self->L)); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 96; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_1 = __Pyx_PyInt_From_int(lua_gettop(__pyx_v_self->L)); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 116; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_r = __pyx_t_1;
   __pyx_t_1 = 0;
   goto __pyx_L0;
 
-  /* "lua.pyx":95
+  /* "lua.pyx":115
  *         return lua_next(self.L, index)
  * 
  *     def getTop(self):             # <<<<<<<<<<<<<<
@@ -2555,7 +3261,7 @@ static PyObject *__pyx_pf_3lua_8LuaState_44getTop(struct __pyx_obj_3lua_LuaState
   return __pyx_r;
 }
 
-/* "lua.pyx":98
+/* "lua.pyx":118
  *         return lua_gettop(self.L)
  * 
  *     def isUserData(self, int index):             # <<<<<<<<<<<<<<
@@ -2564,8 +3270,8 @@ static PyObject *__pyx_pf_3lua_8LuaState_44getTop(struct __pyx_obj_3lua_LuaState
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_3lua_8LuaState_47isUserData(PyObject *__pyx_v_self, PyObject *__pyx_arg_index); /*proto*/
-static PyObject *__pyx_pw_3lua_8LuaState_47isUserData(PyObject *__pyx_v_self, PyObject *__pyx_arg_index) {
+static PyObject *__pyx_pw_3lua_8LuaState_49isUserData(PyObject *__pyx_v_self, PyObject *__pyx_arg_index); /*proto*/
+static PyObject *__pyx_pw_3lua_8LuaState_49isUserData(PyObject *__pyx_v_self, PyObject *__pyx_arg_index) {
   int __pyx_v_index;
   int __pyx_lineno = 0;
   const char *__pyx_filename = NULL;
@@ -2574,7 +3280,7 @@ static PyObject *__pyx_pw_3lua_8LuaState_47isUserData(PyObject *__pyx_v_self, Py
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("isUserData (wrapper)", 0);
   assert(__pyx_arg_index); {
-    __pyx_v_index = __Pyx_PyInt_As_int(__pyx_arg_index); if (unlikely((__pyx_v_index == (int)-1) && PyErr_Occurred())) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 98; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
+    __pyx_v_index = __Pyx_PyInt_As_int(__pyx_arg_index); if (unlikely((__pyx_v_index == (int)-1) && PyErr_Occurred())) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 118; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
   }
   goto __pyx_L4_argument_unpacking_done;
   __pyx_L3_error:;
@@ -2582,14 +3288,14 @@ static PyObject *__pyx_pw_3lua_8LuaState_47isUserData(PyObject *__pyx_v_self, Py
   __Pyx_RefNannyFinishContext();
   return NULL;
   __pyx_L4_argument_unpacking_done:;
-  __pyx_r = __pyx_pf_3lua_8LuaState_46isUserData(((struct __pyx_obj_3lua_LuaState *)__pyx_v_self), ((int)__pyx_v_index));
+  __pyx_r = __pyx_pf_3lua_8LuaState_48isUserData(((struct __pyx_obj_3lua_LuaState *)__pyx_v_self), ((int)__pyx_v_index));
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_3lua_8LuaState_46isUserData(struct __pyx_obj_3lua_LuaState *__pyx_v_self, int __pyx_v_index) {
+static PyObject *__pyx_pf_3lua_8LuaState_48isUserData(struct __pyx_obj_3lua_LuaState *__pyx_v_self, int __pyx_v_index) {
   PyObject *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
   PyObject *__pyx_t_1 = NULL;
@@ -2598,7 +3304,7 @@ static PyObject *__pyx_pf_3lua_8LuaState_46isUserData(struct __pyx_obj_3lua_LuaS
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("isUserData", 0);
 
-  /* "lua.pyx":99
+  /* "lua.pyx":119
  * 
  *     def isUserData(self, int index):
  *         return lua_isuserdata(self.L, index)             # <<<<<<<<<<<<<<
@@ -2606,13 +3312,13 @@ static PyObject *__pyx_pf_3lua_8LuaState_46isUserData(struct __pyx_obj_3lua_LuaS
  * cdef LuaState_fromNative(lua_State *L):
  */
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_1 = __Pyx_PyInt_From_int(lua_isuserdata(__pyx_v_self->L, __pyx_v_index)); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 99; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_1 = __Pyx_PyInt_From_int(lua_isuserdata(__pyx_v_self->L, __pyx_v_index)); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 119; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_r = __pyx_t_1;
   __pyx_t_1 = 0;
   goto __pyx_L0;
 
-  /* "lua.pyx":98
+  /* "lua.pyx":118
  *         return lua_gettop(self.L)
  * 
  *     def isUserData(self, int index):             # <<<<<<<<<<<<<<
@@ -2631,7 +3337,7 @@ static PyObject *__pyx_pf_3lua_8LuaState_46isUserData(struct __pyx_obj_3lua_LuaS
   return __pyx_r;
 }
 
-/* "lua.pyx":101
+/* "lua.pyx":121
  *         return lua_isuserdata(self.L, index)
  * 
  * cdef LuaState_fromNative(lua_State *L):             # <<<<<<<<<<<<<<
@@ -2650,23 +3356,23 @@ static PyObject *__pyx_f_3lua_LuaState_fromNative(struct lua_State *__pyx_v_L) {
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("LuaState_fromNative", 0);
 
-  /* "lua.pyx":102
+  /* "lua.pyx":122
  * 
  * cdef LuaState_fromNative(lua_State *L):
  *     cdef LuaState luaState = LuaState(_allocate=False)             # <<<<<<<<<<<<<<
  *     luaState.L = L
  *     return luaState
  */
-  __pyx_t_1 = PyDict_New(); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 102; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_1 = PyDict_New(); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 122; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_1);
-  if (PyDict_SetItem(__pyx_t_1, __pyx_n_s_allocate, Py_False) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 102; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-  __pyx_t_2 = __Pyx_PyObject_Call(((PyObject *)__pyx_ptype_3lua_LuaState), __pyx_empty_tuple, __pyx_t_1); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 102; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  if (PyDict_SetItem(__pyx_t_1, __pyx_n_s_allocate, Py_False) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 122; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_2 = __Pyx_PyObject_Call(((PyObject *)__pyx_ptype_3lua_LuaState), __pyx_empty_tuple, __pyx_t_1); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 122; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_2);
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   __pyx_v_luaState = ((struct __pyx_obj_3lua_LuaState *)__pyx_t_2);
   __pyx_t_2 = 0;
 
-  /* "lua.pyx":103
+  /* "lua.pyx":123
  * cdef LuaState_fromNative(lua_State *L):
  *     cdef LuaState luaState = LuaState(_allocate=False)
  *     luaState.L = L             # <<<<<<<<<<<<<<
@@ -2674,7 +3380,7 @@ static PyObject *__pyx_f_3lua_LuaState_fromNative(struct lua_State *__pyx_v_L) {
  */
   __pyx_v_luaState->L = __pyx_v_L;
 
-  /* "lua.pyx":104
+  /* "lua.pyx":124
  *     cdef LuaState luaState = LuaState(_allocate=False)
  *     luaState.L = L
  *     return luaState             # <<<<<<<<<<<<<<
@@ -2684,7 +3390,7 @@ static PyObject *__pyx_f_3lua_LuaState_fromNative(struct lua_State *__pyx_v_L) {
   __pyx_r = ((PyObject *)__pyx_v_luaState);
   goto __pyx_L0;
 
-  /* "lua.pyx":101
+  /* "lua.pyx":121
  *         return lua_isuserdata(self.L, index)
  * 
  * cdef LuaState_fromNative(lua_State *L):             # <<<<<<<<<<<<<<
@@ -2750,15 +3456,16 @@ static PyMethodDef __pyx_methods_3lua_LuaState[] = {
   {"pushNil", (PyCFunction)__pyx_pw_3lua_8LuaState_25pushNil, METH_NOARGS, 0},
   {"pushValue", (PyCFunction)__pyx_pw_3lua_8LuaState_27pushValue, METH_O, 0},
   {"call", (PyCFunction)__pyx_pw_3lua_8LuaState_29call, METH_VARARGS|METH_KEYWORDS, 0},
-  {"pcall", (PyCFunction)__pyx_pw_3lua_8LuaState_31pcall, METH_VARARGS|METH_KEYWORDS, 0},
-  {"newTable", (PyCFunction)__pyx_pw_3lua_8LuaState_33newTable, METH_NOARGS, 0},
-  {"setTable", (PyCFunction)__pyx_pw_3lua_8LuaState_35setTable, METH_O, 0},
-  {"getField", (PyCFunction)__pyx_pw_3lua_8LuaState_37getField, METH_VARARGS|METH_KEYWORDS, 0},
-  {"setRegistry", (PyCFunction)__pyx_pw_3lua_8LuaState_39setRegistry, METH_NOARGS, 0},
-  {"getRegistry", (PyCFunction)__pyx_pw_3lua_8LuaState_41getRegistry, METH_NOARGS, 0},
-  {"next", (PyCFunction)__pyx_pw_3lua_8LuaState_43next, METH_O, 0},
-  {"getTop", (PyCFunction)__pyx_pw_3lua_8LuaState_45getTop, METH_NOARGS, 0},
-  {"isUserData", (PyCFunction)__pyx_pw_3lua_8LuaState_47isUserData, METH_O, 0},
+  {"_pcall", (PyCFunction)__pyx_pw_3lua_8LuaState_31_pcall, METH_VARARGS|METH_KEYWORDS, 0},
+  {"pcall", (PyCFunction)__pyx_pw_3lua_8LuaState_33pcall, METH_VARARGS|METH_KEYWORDS, 0},
+  {"newTable", (PyCFunction)__pyx_pw_3lua_8LuaState_35newTable, METH_NOARGS, 0},
+  {"setTable", (PyCFunction)__pyx_pw_3lua_8LuaState_37setTable, METH_O, 0},
+  {"getField", (PyCFunction)__pyx_pw_3lua_8LuaState_39getField, METH_VARARGS|METH_KEYWORDS, 0},
+  {"setRegistry", (PyCFunction)__pyx_pw_3lua_8LuaState_41setRegistry, METH_NOARGS, 0},
+  {"getRegistry", (PyCFunction)__pyx_pw_3lua_8LuaState_43getRegistry, METH_NOARGS, 0},
+  {"next", (PyCFunction)__pyx_pw_3lua_8LuaState_45next, METH_O, 0},
+  {"getTop", (PyCFunction)__pyx_pw_3lua_8LuaState_47getTop, METH_NOARGS, 0},
+  {"isUserData", (PyCFunction)__pyx_pw_3lua_8LuaState_49isUserData, METH_O, 0},
   {0, 0, 0, 0}
 };
 
@@ -2844,16 +3551,38 @@ static struct PyModuleDef __pyx_moduledef = {
 
 static __Pyx_StringTabEntry __pyx_string_tab[] = {
   {&__pyx_n_s_LUA_REGISTRYINDEX, __pyx_k_LUA_REGISTRYINDEX, sizeof(__pyx_k_LUA_REGISTRYINDEX), 0, 0, 1, 1},
+  {&__pyx_n_s_Thread, __pyx_k_Thread, sizeof(__pyx_k_Thread), 0, 0, 1, 1},
   {&__pyx_n_s_allocate, __pyx_k_allocate, sizeof(__pyx_k_allocate), 0, 0, 1, 1},
+  {&__pyx_n_s_append, __pyx_k_append, sizeof(__pyx_k_append), 0, 0, 1, 1},
+  {&__pyx_n_s_args, __pyx_k_args, sizeof(__pyx_k_args), 0, 0, 1, 1},
+  {&__pyx_n_s_daemon, __pyx_k_daemon, sizeof(__pyx_k_daemon), 0, 0, 1, 1},
   {&__pyx_n_s_encode, __pyx_k_encode, sizeof(__pyx_k_encode), 0, 0, 1, 1},
+  {&__pyx_n_s_end, __pyx_k_end, sizeof(__pyx_k_end), 0, 0, 1, 1},
   {&__pyx_n_s_errFunc, __pyx_k_errFunc, sizeof(__pyx_k_errFunc), 0, 0, 1, 1},
+  {&__pyx_kp_s_errFunc_should_be_zero_for_now, __pyx_k_errFunc_should_be_zero_for_now, sizeof(__pyx_k_errFunc_should_be_zero_for_now), 0, 0, 1, 0},
+  {&__pyx_n_s_file, __pyx_k_file, sizeof(__pyx_k_file), 0, 0, 1, 1},
+  {&__pyx_n_s_function, __pyx_k_function, sizeof(__pyx_k_function), 0, 0, 1, 1},
+  {&__pyx_n_s_import, __pyx_k_import, sizeof(__pyx_k_import), 0, 0, 1, 1},
   {&__pyx_n_s_index, __pyx_k_index, sizeof(__pyx_k_index), 0, 0, 1, 1},
+  {&__pyx_n_s_interruptableCall, __pyx_k_interruptableCall, sizeof(__pyx_k_interruptableCall), 0, 0, 1, 1},
+  {&__pyx_n_s_isAlive, __pyx_k_isAlive, sizeof(__pyx_k_isAlive), 0, 0, 1, 1},
+  {&__pyx_n_s_join, __pyx_k_join, sizeof(__pyx_k_join), 0, 0, 1, 1},
+  {&__pyx_n_s_lua, __pyx_k_lua, sizeof(__pyx_k_lua), 0, 0, 1, 1},
   {&__pyx_n_s_main, __pyx_k_main, sizeof(__pyx_k_main), 0, 0, 1, 1},
+  {&__pyx_kp_s_media_ubuntu_data_norep_git_pyt, __pyx_k_media_ubuntu_data_norep_git_pyt, sizeof(__pyx_k_media_ubuntu_data_norep_git_pyt), 0, 0, 1, 0},
+  {&__pyx_n_s_mythread, __pyx_k_mythread, sizeof(__pyx_k_mythread), 0, 0, 1, 1},
   {&__pyx_n_s_name, __pyx_k_name, sizeof(__pyx_k_name), 0, 0, 1, 1},
   {&__pyx_n_s_numIn, __pyx_k_numIn, sizeof(__pyx_k_numIn), 0, 0, 1, 1},
   {&__pyx_n_s_numOut, __pyx_k_numOut, sizeof(__pyx_k_numOut), 0, 0, 1, 1},
+  {&__pyx_n_s_pcall, __pyx_k_pcall, sizeof(__pyx_k_pcall), 0, 0, 1, 1},
+  {&__pyx_n_s_print, __pyx_k_print, sizeof(__pyx_k_print), 0, 0, 1, 1},
   {&__pyx_n_s_pyx_vtable, __pyx_k_pyx_vtable, sizeof(__pyx_k_pyx_vtable), 0, 0, 1, 1},
+  {&__pyx_kp_s_res_0, __pyx_k_res_0, sizeof(__pyx_k_res_0), 0, 0, 1, 0},
+  {&__pyx_n_s_ret, __pyx_k_ret, sizeof(__pyx_k_ret), 0, 0, 1, 1},
+  {&__pyx_n_s_start, __pyx_k_start, sizeof(__pyx_k_start), 0, 0, 1, 1},
+  {&__pyx_n_s_target, __pyx_k_target, sizeof(__pyx_k_target), 0, 0, 1, 1},
   {&__pyx_n_s_test, __pyx_k_test, sizeof(__pyx_k_test), 0, 0, 1, 1},
+  {&__pyx_n_s_threading, __pyx_k_threading, sizeof(__pyx_k_threading), 0, 0, 1, 1},
   {&__pyx_kp_s_utf_8, __pyx_k_utf_8, sizeof(__pyx_k_utf_8), 0, 0, 1, 0},
   {0, 0, 0, 0, 0, 0, 0}
 };
@@ -2865,49 +3594,72 @@ static int __Pyx_InitCachedConstants(void) {
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("__Pyx_InitCachedConstants", 0);
 
-  /* "lua.pyx":50
+  /* "lua.pyx":27
+ *     mythread.start()
+ *     while mythread.isAlive():
+ *         mythread.join(0.1)             # <<<<<<<<<<<<<<
+ *         #print('join timed out')
+ * 
+ */
+  __pyx_tuple_ = PyTuple_Pack(1, __pyx_float_0_1); if (unlikely(!__pyx_tuple_)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 27; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __Pyx_GOTREF(__pyx_tuple_);
+  __Pyx_GIVEREF(__pyx_tuple_);
+
+  /* "lua.pyx":59
  * 
  *     def pushString(self, mystring):
  *         lua_pushstring(self.L, mystring.encode('utf-8'))             # <<<<<<<<<<<<<<
  * 
  *     def toString(self, int index):
  */
-  __pyx_tuple_ = PyTuple_Pack(1, __pyx_kp_s_utf_8); if (unlikely(!__pyx_tuple_)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 50; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-  __Pyx_GOTREF(__pyx_tuple_);
-  __Pyx_GIVEREF(__pyx_tuple_);
+  __pyx_tuple__2 = PyTuple_Pack(1, __pyx_kp_s_utf_8); if (unlikely(!__pyx_tuple__2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 59; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __Pyx_GOTREF(__pyx_tuple__2);
+  __Pyx_GIVEREF(__pyx_tuple__2);
 
-  /* "lua.pyx":60
+  /* "lua.pyx":69
  * 
  *     def getGlobal(self, name):
  *         lua_getglobal(self.L, name.encode('utf-8'))             # <<<<<<<<<<<<<<
  * 
  *     def setGlobal(self, name):
  */
-  __pyx_tuple__2 = PyTuple_Pack(1, __pyx_kp_s_utf_8); if (unlikely(!__pyx_tuple__2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 60; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-  __Pyx_GOTREF(__pyx_tuple__2);
-  __Pyx_GIVEREF(__pyx_tuple__2);
+  __pyx_tuple__3 = PyTuple_Pack(1, __pyx_kp_s_utf_8); if (unlikely(!__pyx_tuple__3)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 69; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __Pyx_GOTREF(__pyx_tuple__3);
+  __Pyx_GIVEREF(__pyx_tuple__3);
 
-  /* "lua.pyx":63
+  /* "lua.pyx":72
  * 
  *     def setGlobal(self, name):
  *         lua_setglobal(self.L, name.encode('utf-8'))             # <<<<<<<<<<<<<<
  * 
  *     def pushNil(self):
  */
-  __pyx_tuple__3 = PyTuple_Pack(1, __pyx_kp_s_utf_8); if (unlikely(!__pyx_tuple__3)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 63; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-  __Pyx_GOTREF(__pyx_tuple__3);
-  __Pyx_GIVEREF(__pyx_tuple__3);
+  __pyx_tuple__4 = PyTuple_Pack(1, __pyx_kp_s_utf_8); if (unlikely(!__pyx_tuple__4)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 72; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __Pyx_GOTREF(__pyx_tuple__4);
+  __Pyx_GIVEREF(__pyx_tuple__4);
 
-  /* "lua.pyx":84
+  /* "lua.pyx":104
  * 
  *     def getField(self, int index, name):
  *         lua_getfield(self.L, index, name.encode('utf-8'))             # <<<<<<<<<<<<<<
  * 
  *     def setRegistry(self):
  */
-  __pyx_tuple__4 = PyTuple_Pack(1, __pyx_kp_s_utf_8); if (unlikely(!__pyx_tuple__4)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 84; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-  __Pyx_GOTREF(__pyx_tuple__4);
-  __Pyx_GIVEREF(__pyx_tuple__4);
+  __pyx_tuple__5 = PyTuple_Pack(1, __pyx_kp_s_utf_8); if (unlikely(!__pyx_tuple__5)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 104; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __Pyx_GOTREF(__pyx_tuple__5);
+  __Pyx_GIVEREF(__pyx_tuple__5);
+
+  /* "lua.pyx":22
+ * #        require(globalState.L, name)
+ * 
+ * def interruptableCall(function, args):             # <<<<<<<<<<<<<<
+ *     mythread = threading.Thread(target=function, args = args)
+ *     mythread.daemon = True
+ */
+  __pyx_tuple__6 = PyTuple_Pack(3, __pyx_n_s_function, __pyx_n_s_args, __pyx_n_s_mythread); if (unlikely(!__pyx_tuple__6)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 22; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __Pyx_GOTREF(__pyx_tuple__6);
+  __Pyx_GIVEREF(__pyx_tuple__6);
+  __pyx_codeobj__7 = (PyObject*)__Pyx_PyCode_New(2, 0, 3, 0, 0, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__6, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_media_ubuntu_data_norep_git_pyt, __pyx_n_s_interruptableCall, 22, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__7)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 22; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_RefNannyFinishContext();
   return 0;
   __pyx_L1_error:;
@@ -2917,6 +3669,7 @@ static int __Pyx_InitCachedConstants(void) {
 
 static int __Pyx_InitGlobals(void) {
   if (__Pyx_InitStrings(__pyx_string_tab) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1; __pyx_clineno = __LINE__; goto __pyx_L1_error;};
+  __pyx_float_0_1 = PyFloat_FromDouble(0.1); if (unlikely(!__pyx_float_0_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __pyx_int_0 = PyInt_FromLong(0); if (unlikely(!__pyx_int_0)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   return 0;
   __pyx_L1_error:;
@@ -3010,9 +3763,9 @@ PyMODINIT_FUNC PyInit_lua(void)
   /*--- Function export code ---*/
   if (__Pyx_ExportFunction("LuaState_fromNative", (void (*)(void))__pyx_f_3lua_LuaState_fromNative, "PyObject *(struct lua_State *)") < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   /*--- Type init code ---*/
-  if (PyType_Ready(&__pyx_type_3lua_LuaState) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 21; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  if (PyType_Ready(&__pyx_type_3lua_LuaState) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 30; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __pyx_type_3lua_LuaState.tp_print = 0;
-  if (PyObject_SetAttrString(__pyx_m, "LuaState", (PyObject *)&__pyx_type_3lua_LuaState) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 21; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  if (PyObject_SetAttrString(__pyx_m, "LuaState", (PyObject *)&__pyx_type_3lua_LuaState) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 30; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __pyx_ptype_3lua_LuaState = &__pyx_type_3lua_LuaState;
   /*--- Type import code ---*/
   __pyx_ptype_7PyTorch__LongTensor = __Pyx_ImportType("PyTorch", "_LongTensor", sizeof(struct __pyx_obj_7PyTorch__LongTensor), 1); if (unlikely(!__pyx_ptype_7PyTorch__LongTensor)) {__pyx_filename = __pyx_f[1]; __pyx_lineno = 20; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
@@ -3031,22 +3784,45 @@ PyMODINIT_FUNC PyInit_lua(void)
   if (__Pyx_patch_abc() < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   #endif
 
-  /* "lua.pyx":12
+  /* "lua.pyx":2
+ * from lua cimport *
+ * import threading             # <<<<<<<<<<<<<<
+ * 
+ * # GENERATED FILE, do not edit by hand
+ */
+  __pyx_t_1 = __Pyx_Import(__pyx_n_s_threading, 0, -1); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 2; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __Pyx_GOTREF(__pyx_t_1);
+  if (PyDict_SetItem(__pyx_d, __pyx_n_s_threading, __pyx_t_1) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 2; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+
+  /* "lua.pyx":13
  * # from PyTorch cimport *
  * 
  * LUA_REGISTRYINDEX = getLuaRegistryIndex()             # <<<<<<<<<<<<<<
  * 
  * #cdef PyTorch.GlobalState globalState = PyTorch.getGlobalState()
  */
-  __pyx_t_1 = __Pyx_PyInt_From_int(getLuaRegistryIndex()); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 12; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_1 = __Pyx_PyInt_From_int(getLuaRegistryIndex()); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 13; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_1);
-  if (PyDict_SetItem(__pyx_d, __pyx_n_s_LUA_REGISTRYINDEX, __pyx_t_1) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 12; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  if (PyDict_SetItem(__pyx_d, __pyx_n_s_LUA_REGISTRYINDEX, __pyx_t_1) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 13; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+
+  /* "lua.pyx":22
+ * #        require(globalState.L, name)
+ * 
+ * def interruptableCall(function, args):             # <<<<<<<<<<<<<<
+ *     mythread = threading.Thread(target=function, args = args)
+ *     mythread.daemon = True
+ */
+  __pyx_t_1 = PyCFunction_NewEx(&__pyx_mdef_3lua_1interruptableCall, NULL, __pyx_n_s_lua); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 22; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __Pyx_GOTREF(__pyx_t_1);
+  if (PyDict_SetItem(__pyx_d, __pyx_n_s_interruptableCall, __pyx_t_1) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 22; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
   /* "lua.pyx":1
  * from lua cimport *             # <<<<<<<<<<<<<<
+ * import threading
  * 
- * # GENERATED FILE, do not edit by hand
  */
   __pyx_t_1 = PyDict_New(); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_1);
@@ -3091,6 +3867,31 @@ end:
     return (__Pyx_RefNannyAPIStruct *)r;
 }
 #endif
+
+static void __Pyx_RaiseArgtupleInvalid(
+    const char* func_name,
+    int exact,
+    Py_ssize_t num_min,
+    Py_ssize_t num_max,
+    Py_ssize_t num_found)
+{
+    Py_ssize_t num_expected;
+    const char *more_or_less;
+    if (num_found < num_min) {
+        num_expected = num_min;
+        more_or_less = "at least";
+    } else {
+        num_expected = num_max;
+        more_or_less = "at most";
+    }
+    if (exact) {
+        more_or_less = "exactly";
+    }
+    PyErr_Format(PyExc_TypeError,
+                 "%.200s() takes %.8s %" CYTHON_FORMAT_SSIZE_T "d positional argument%.1s (%" CYTHON_FORMAT_SSIZE_T "d given)",
+                 func_name, more_or_less, num_expected,
+                 (num_expected == 1) ? "" : "s", num_found);
+}
 
 static void __Pyx_RaiseDoubleKeywordsError(
     const char* func_name,
@@ -3206,76 +4007,6 @@ bad:
     return -1;
 }
 
-static void __Pyx_RaiseArgtupleInvalid(
-    const char* func_name,
-    int exact,
-    Py_ssize_t num_min,
-    Py_ssize_t num_max,
-    Py_ssize_t num_found)
-{
-    Py_ssize_t num_expected;
-    const char *more_or_less;
-    if (num_found < num_min) {
-        num_expected = num_min;
-        more_or_less = "at least";
-    } else {
-        num_expected = num_max;
-        more_or_less = "at most";
-    }
-    if (exact) {
-        more_or_less = "exactly";
-    }
-    PyErr_Format(PyExc_TypeError,
-                 "%.200s() takes %.8s %" CYTHON_FORMAT_SSIZE_T "d positional argument%.1s (%" CYTHON_FORMAT_SSIZE_T "d given)",
-                 func_name, more_or_less, num_expected,
-                 (num_expected == 1) ? "" : "s", num_found);
-}
-
-static CYTHON_INLINE PyObject* __Pyx_decode_c_bytes(
-         const char* cstring, Py_ssize_t length, Py_ssize_t start, Py_ssize_t stop,
-         const char* encoding, const char* errors,
-         PyObject* (*decode_func)(const char *s, Py_ssize_t size, const char *errors)) {
-    if (unlikely((start < 0) | (stop < 0))) {
-        if (start < 0) {
-            start += length;
-            if (start < 0)
-                start = 0;
-        }
-        if (stop < 0)
-            stop += length;
-    }
-    if (stop > length)
-        stop = length;
-    length = stop - start;
-    if (unlikely(length <= 0))
-        return PyUnicode_FromUnicode(NULL, 0);
-    cstring += start;
-    if (decode_func) {
-        return decode_func(cstring, length, errors);
-    } else {
-        return PyUnicode_Decode(cstring, length, encoding, errors);
-    }
-}
-
-#if CYTHON_COMPILING_IN_CPYTHON
-static CYTHON_INLINE PyObject* __Pyx_PyObject_Call(PyObject *func, PyObject *arg, PyObject *kw) {
-    PyObject *result;
-    ternaryfunc call = func->ob_type->tp_call;
-    if (unlikely(!call))
-        return PyObject_Call(func, arg, kw);
-    if (unlikely(Py_EnterRecursiveCall((char*)" while calling a Python object")))
-        return NULL;
-    result = (*call)(func, arg, kw);
-    Py_LeaveRecursiveCall();
-    if (unlikely(!result) && unlikely(!PyErr_Occurred())) {
-        PyErr_SetString(
-            PyExc_SystemError,
-            "NULL result without error in PyObject_Call");
-    }
-    return result;
-}
-#endif
-
 static PyObject *__Pyx_GetBuiltinName(PyObject *name) {
     PyObject* result = __Pyx_PyObject_GetAttrStr(__pyx_b, name);
     if (unlikely(!result)) {
@@ -3306,6 +4037,331 @@ static CYTHON_INLINE PyObject *__Pyx_GetModuleGlobalName(PyObject *name) {
     return result;
 }
 
+#if CYTHON_COMPILING_IN_CPYTHON
+static CYTHON_INLINE PyObject* __Pyx_PyObject_Call(PyObject *func, PyObject *arg, PyObject *kw) {
+    PyObject *result;
+    ternaryfunc call = func->ob_type->tp_call;
+    if (unlikely(!call))
+        return PyObject_Call(func, arg, kw);
+    if (unlikely(Py_EnterRecursiveCall((char*)" while calling a Python object")))
+        return NULL;
+    result = (*call)(func, arg, kw);
+    Py_LeaveRecursiveCall();
+    if (unlikely(!result) && unlikely(!PyErr_Occurred())) {
+        PyErr_SetString(
+            PyExc_SystemError,
+            "NULL result without error in PyObject_Call");
+    }
+    return result;
+}
+#endif
+
+#if CYTHON_COMPILING_IN_CPYTHON
+static CYTHON_INLINE PyObject* __Pyx_PyObject_CallMethO(PyObject *func, PyObject *arg) {
+    PyObject *self, *result;
+    PyCFunction cfunc;
+    cfunc = PyCFunction_GET_FUNCTION(func);
+    self = PyCFunction_GET_SELF(func);
+    if (unlikely(Py_EnterRecursiveCall((char*)" while calling a Python object")))
+        return NULL;
+    result = cfunc(self, arg);
+    Py_LeaveRecursiveCall();
+    if (unlikely(!result) && unlikely(!PyErr_Occurred())) {
+        PyErr_SetString(
+            PyExc_SystemError,
+            "NULL result without error in PyObject_Call");
+    }
+    return result;
+}
+#endif
+
+#if CYTHON_COMPILING_IN_CPYTHON
+static PyObject* __Pyx__PyObject_CallOneArg(PyObject *func, PyObject *arg) {
+    PyObject *result;
+    PyObject *args = PyTuple_New(1);
+    if (unlikely(!args)) return NULL;
+    Py_INCREF(arg);
+    PyTuple_SET_ITEM(args, 0, arg);
+    result = __Pyx_PyObject_Call(func, args, NULL);
+    Py_DECREF(args);
+    return result;
+}
+static CYTHON_INLINE PyObject* __Pyx_PyObject_CallOneArg(PyObject *func, PyObject *arg) {
+#ifdef __Pyx_CyFunction_USED
+    if (likely(PyCFunction_Check(func) || PyObject_TypeCheck(func, __pyx_CyFunctionType))) {
+#else
+    if (likely(PyCFunction_Check(func))) {
+#endif
+        if (likely(PyCFunction_GET_FLAGS(func) & METH_O)) {
+            return __Pyx_PyObject_CallMethO(func, arg);
+        }
+    }
+    return __Pyx__PyObject_CallOneArg(func, arg);
+}
+#else
+static CYTHON_INLINE PyObject* __Pyx_PyObject_CallOneArg(PyObject *func, PyObject *arg) {
+    PyObject *result;
+    PyObject *args = PyTuple_Pack(1, arg);
+    if (unlikely(!args)) return NULL;
+    result = __Pyx_PyObject_Call(func, args, NULL);
+    Py_DECREF(args);
+    return result;
+}
+#endif
+
+#if CYTHON_COMPILING_IN_CPYTHON
+static CYTHON_INLINE PyObject* __Pyx_PyObject_CallNoArg(PyObject *func) {
+#ifdef __Pyx_CyFunction_USED
+    if (likely(PyCFunction_Check(func) || PyObject_TypeCheck(func, __pyx_CyFunctionType))) {
+#else
+    if (likely(PyCFunction_Check(func))) {
+#endif
+        if (likely(PyCFunction_GET_FLAGS(func) & METH_NOARGS)) {
+            return __Pyx_PyObject_CallMethO(func, NULL);
+        }
+    }
+    return __Pyx_PyObject_Call(func, __pyx_empty_tuple, NULL);
+}
+#endif
+
+static CYTHON_INLINE PyObject* __Pyx_decode_c_bytes(
+         const char* cstring, Py_ssize_t length, Py_ssize_t start, Py_ssize_t stop,
+         const char* encoding, const char* errors,
+         PyObject* (*decode_func)(const char *s, Py_ssize_t size, const char *errors)) {
+    if (unlikely((start < 0) | (stop < 0))) {
+        if (start < 0) {
+            start += length;
+            if (start < 0)
+                start = 0;
+        }
+        if (stop < 0)
+            stop += length;
+    }
+    if (stop > length)
+        stop = length;
+    length = stop - start;
+    if (unlikely(length <= 0))
+        return PyUnicode_FromUnicode(NULL, 0);
+    cstring += start;
+    if (decode_func) {
+        return decode_func(cstring, length, errors);
+    } else {
+        return PyUnicode_Decode(cstring, length, encoding, errors);
+    }
+}
+
+#if CYTHON_USE_PYLONG_INTERNALS
+  #include "longintrepr.h"
+#endif
+
+#if CYTHON_COMPILING_IN_CPYTHON
+static PyObject* __Pyx_PyInt_EqObjC(PyObject *op1, PyObject *op2, CYTHON_UNUSED long intval, CYTHON_UNUSED int inplace) {
+    if (op1 == op2) {
+        Py_RETURN_TRUE;
+    }
+    #if PY_MAJOR_VERSION < 3
+    if (likely(PyInt_CheckExact(op1))) {
+        const long b = intval;
+        long a = PyInt_AS_LONG(op1);
+        if (a == b) {
+            Py_RETURN_TRUE;
+        } else {
+            Py_RETURN_FALSE;
+        }
+    }
+    #endif
+    #if CYTHON_USE_PYLONG_INTERNALS && PY_MAJOR_VERSION >= 3
+    if (likely(PyLong_CheckExact(op1))) {
+        const long b = intval;
+        long a;
+        const digit* digits = ((PyLongObject*)op1)->ob_digit;
+        const Py_ssize_t size = Py_SIZE(op1);
+        if (likely(__Pyx_sst_abs(size) <= 1)) {
+            a = likely(size) ? digits[0] : 0;
+            if (size == -1) a = -a;
+        } else {
+            switch (size) {
+                case -2:
+                    if (8 * sizeof(long) - 1 > 2 * PyLong_SHIFT) {
+                        a = -(long) (((((unsigned long)digits[1]) << PyLong_SHIFT) | (unsigned long)digits[0]));
+                        break;
+                    }
+                case 2:
+                    if (8 * sizeof(long) - 1 > 2 * PyLong_SHIFT) {
+                        a = (long) (((((unsigned long)digits[1]) << PyLong_SHIFT) | (unsigned long)digits[0]));
+                        break;
+                    }
+                case -3:
+                    if (8 * sizeof(long) - 1 > 3 * PyLong_SHIFT) {
+                        a = -(long) (((((((unsigned long)digits[2]) << PyLong_SHIFT) | (unsigned long)digits[1]) << PyLong_SHIFT) | (unsigned long)digits[0]));
+                        break;
+                    }
+                case 3:
+                    if (8 * sizeof(long) - 1 > 3 * PyLong_SHIFT) {
+                        a = (long) (((((((unsigned long)digits[2]) << PyLong_SHIFT) | (unsigned long)digits[1]) << PyLong_SHIFT) | (unsigned long)digits[0]));
+                        break;
+                    }
+                case -4:
+                    if (8 * sizeof(long) - 1 > 4 * PyLong_SHIFT) {
+                        a = -(long) (((((((((unsigned long)digits[3]) << PyLong_SHIFT) | (unsigned long)digits[2]) << PyLong_SHIFT) | (unsigned long)digits[1]) << PyLong_SHIFT) | (unsigned long)digits[0]));
+                        break;
+                    }
+                case 4:
+                    if (8 * sizeof(long) - 1 > 4 * PyLong_SHIFT) {
+                        a = (long) (((((((((unsigned long)digits[3]) << PyLong_SHIFT) | (unsigned long)digits[2]) << PyLong_SHIFT) | (unsigned long)digits[1]) << PyLong_SHIFT) | (unsigned long)digits[0]));
+                        break;
+                    }
+                #if PyLong_SHIFT < 30 && PyLong_SHIFT != 15
+                default: return PyLong_Type.tp_richcompare(op1, op2, Py_EQ);
+                #else
+                default: Py_RETURN_FALSE;
+                #endif
+            }
+        }
+            if (a == b) {
+                Py_RETURN_TRUE;
+            } else {
+                Py_RETURN_FALSE;
+            }
+    }
+    #endif
+    if (PyFloat_CheckExact(op1)) {
+        const long b = intval;
+        double a = PyFloat_AS_DOUBLE(op1);
+            if ((double)a == (double)b) {
+                Py_RETURN_TRUE;
+            } else {
+                Py_RETURN_FALSE;
+            }
+    }
+    return PyObject_RichCompare(op1, op2, Py_EQ);
+}
+#endif
+
+static PyObject* __Pyx_PyObject_CallMethod1(PyObject* obj, PyObject* method_name, PyObject* arg) {
+    PyObject *method, *result = NULL;
+    method = __Pyx_PyObject_GetAttrStr(obj, method_name);
+    if (unlikely(!method)) goto bad;
+#if CYTHON_COMPILING_IN_CPYTHON
+    if (likely(PyMethod_Check(method))) {
+        PyObject *self = PyMethod_GET_SELF(method);
+        if (likely(self)) {
+            PyObject *args;
+            PyObject *function = PyMethod_GET_FUNCTION(method);
+            args = PyTuple_New(2);
+            if (unlikely(!args)) goto bad;
+            Py_INCREF(self);
+            PyTuple_SET_ITEM(args, 0, self);
+            Py_INCREF(arg);
+            PyTuple_SET_ITEM(args, 1, arg);
+            Py_INCREF(function);
+            Py_DECREF(method); method = NULL;
+            result = __Pyx_PyObject_Call(function, args, NULL);
+            Py_DECREF(args);
+            Py_DECREF(function);
+            return result;
+        }
+    }
+#endif
+    result = __Pyx_PyObject_CallOneArg(method, arg);
+bad:
+    Py_XDECREF(method);
+    return result;
+}
+
+static CYTHON_INLINE int __Pyx_PyObject_Append(PyObject* L, PyObject* x) {
+    if (likely(PyList_CheckExact(L))) {
+        if (unlikely(__Pyx_PyList_Append(L, x) < 0)) return -1;
+    } else {
+        PyObject* retval = __Pyx_PyObject_CallMethod1(L, __pyx_n_s_append, x);
+        if (unlikely(!retval))
+            return -1;
+        Py_DECREF(retval);
+    }
+    return 0;
+}
+
+static CYTHON_INLINE PyObject *__Pyx_GetItemInt_Generic(PyObject *o, PyObject* j) {
+    PyObject *r;
+    if (!j) return NULL;
+    r = PyObject_GetItem(o, j);
+    Py_DECREF(j);
+    return r;
+}
+static CYTHON_INLINE PyObject *__Pyx_GetItemInt_List_Fast(PyObject *o, Py_ssize_t i,
+                                                              CYTHON_NCP_UNUSED int wraparound,
+                                                              CYTHON_NCP_UNUSED int boundscheck) {
+#if CYTHON_COMPILING_IN_CPYTHON
+    if (wraparound & unlikely(i < 0)) i += PyList_GET_SIZE(o);
+    if ((!boundscheck) || likely((0 <= i) & (i < PyList_GET_SIZE(o)))) {
+        PyObject *r = PyList_GET_ITEM(o, i);
+        Py_INCREF(r);
+        return r;
+    }
+    return __Pyx_GetItemInt_Generic(o, PyInt_FromSsize_t(i));
+#else
+    return PySequence_GetItem(o, i);
+#endif
+}
+static CYTHON_INLINE PyObject *__Pyx_GetItemInt_Tuple_Fast(PyObject *o, Py_ssize_t i,
+                                                              CYTHON_NCP_UNUSED int wraparound,
+                                                              CYTHON_NCP_UNUSED int boundscheck) {
+#if CYTHON_COMPILING_IN_CPYTHON
+    if (wraparound & unlikely(i < 0)) i += PyTuple_GET_SIZE(o);
+    if ((!boundscheck) || likely((0 <= i) & (i < PyTuple_GET_SIZE(o)))) {
+        PyObject *r = PyTuple_GET_ITEM(o, i);
+        Py_INCREF(r);
+        return r;
+    }
+    return __Pyx_GetItemInt_Generic(o, PyInt_FromSsize_t(i));
+#else
+    return PySequence_GetItem(o, i);
+#endif
+}
+static CYTHON_INLINE PyObject *__Pyx_GetItemInt_Fast(PyObject *o, Py_ssize_t i, int is_list,
+                                                     CYTHON_NCP_UNUSED int wraparound,
+                                                     CYTHON_NCP_UNUSED int boundscheck) {
+#if CYTHON_COMPILING_IN_CPYTHON
+    if (is_list || PyList_CheckExact(o)) {
+        Py_ssize_t n = ((!wraparound) | likely(i >= 0)) ? i : i + PyList_GET_SIZE(o);
+        if ((!boundscheck) || (likely((n >= 0) & (n < PyList_GET_SIZE(o))))) {
+            PyObject *r = PyList_GET_ITEM(o, n);
+            Py_INCREF(r);
+            return r;
+        }
+    }
+    else if (PyTuple_CheckExact(o)) {
+        Py_ssize_t n = ((!wraparound) | likely(i >= 0)) ? i : i + PyTuple_GET_SIZE(o);
+        if ((!boundscheck) || likely((n >= 0) & (n < PyTuple_GET_SIZE(o)))) {
+            PyObject *r = PyTuple_GET_ITEM(o, n);
+            Py_INCREF(r);
+            return r;
+        }
+    } else {
+        PySequenceMethods *m = Py_TYPE(o)->tp_as_sequence;
+        if (likely(m && m->sq_item)) {
+            if (wraparound && unlikely(i < 0) && likely(m->sq_length)) {
+                Py_ssize_t l = m->sq_length(o);
+                if (likely(l >= 0)) {
+                    i += l;
+                } else {
+                    if (PyErr_ExceptionMatches(PyExc_OverflowError))
+                        PyErr_Clear();
+                    else
+                        return NULL;
+                }
+            }
+            return m->sq_item(o, i);
+        }
+    }
+#else
+    if (is_list || PySequence_Check(o)) {
+        return PySequence_GetItem(o, i);
+    }
+#endif
+    return __Pyx_GetItemInt_Generic(o, PyInt_FromSsize_t(i));
+}
+
 static void* __Pyx_GetVtable(PyObject *dict) {
     void* ptr;
     PyObject *ob = PyObject_GetItem(dict, __pyx_n_s_pyx_vtable);
@@ -3323,6 +4379,79 @@ static void* __Pyx_GetVtable(PyObject *dict) {
 bad:
     Py_XDECREF(ob);
     return NULL;
+}
+
+static PyObject *__Pyx_Import(PyObject *name, PyObject *from_list, int level) {
+    PyObject *empty_list = 0;
+    PyObject *module = 0;
+    PyObject *global_dict = 0;
+    PyObject *empty_dict = 0;
+    PyObject *list;
+    #if PY_VERSION_HEX < 0x03030000
+    PyObject *py_import;
+    py_import = __Pyx_PyObject_GetAttrStr(__pyx_b, __pyx_n_s_import);
+    if (!py_import)
+        goto bad;
+    #endif
+    if (from_list)
+        list = from_list;
+    else {
+        empty_list = PyList_New(0);
+        if (!empty_list)
+            goto bad;
+        list = empty_list;
+    }
+    global_dict = PyModule_GetDict(__pyx_m);
+    if (!global_dict)
+        goto bad;
+    empty_dict = PyDict_New();
+    if (!empty_dict)
+        goto bad;
+    {
+        #if PY_MAJOR_VERSION >= 3
+        if (level == -1) {
+            if (strchr(__Pyx_MODULE_NAME, '.')) {
+                #if PY_VERSION_HEX < 0x03030000
+                PyObject *py_level = PyInt_FromLong(1);
+                if (!py_level)
+                    goto bad;
+                module = PyObject_CallFunctionObjArgs(py_import,
+                    name, global_dict, empty_dict, list, py_level, NULL);
+                Py_DECREF(py_level);
+                #else
+                module = PyImport_ImportModuleLevelObject(
+                    name, global_dict, empty_dict, list, 1);
+                #endif
+                if (!module) {
+                    if (!PyErr_ExceptionMatches(PyExc_ImportError))
+                        goto bad;
+                    PyErr_Clear();
+                }
+            }
+            level = 0;
+        }
+        #endif
+        if (!module) {
+            #if PY_VERSION_HEX < 0x03030000
+            PyObject *py_level = PyInt_FromLong(level);
+            if (!py_level)
+                goto bad;
+            module = PyObject_CallFunctionObjArgs(py_import,
+                name, global_dict, empty_dict, list, py_level, NULL);
+            Py_DECREF(py_level);
+            #else
+            module = PyImport_ImportModuleLevelObject(
+                name, global_dict, empty_dict, list, level);
+            #endif
+        }
+    }
+bad:
+    #if PY_VERSION_HEX < 0x03030000
+    Py_XDECREF(py_import);
+    #endif
+    Py_XDECREF(empty_list);
+    Py_XDECREF(empty_dict);
+    return module;
 }
 
 static int __pyx_bisect_code_objects(__Pyx_CodeObjectCacheEntry* entries, int count, int code_line) {
@@ -3530,10 +4659,6 @@ static CYTHON_INLINE PyObject* __Pyx_PyInt_From_int(int value) {
         }\
         return (target_type) value;\
     }
-
-#if CYTHON_USE_PYLONG_INTERNALS
-  #include "longintrepr.h"
-#endif
 
 static CYTHON_INLINE int __Pyx_PyInt_As_int(PyObject *x) {
     const int neg_one = (int) -1, const_zero = (int) 0;
@@ -3744,6 +4869,147 @@ static CYTHON_INLINE PyObject* __Pyx_PyInt_From_long(long value) {
                                      little, !is_unsigned);
     }
 }
+
+#if !CYTHON_COMPILING_IN_PYPY && PY_MAJOR_VERSION < 3
+static PyObject *__Pyx_GetStdout(void) {
+    PyObject *f = PySys_GetObject((char *)"stdout");
+    if (!f) {
+        PyErr_SetString(PyExc_RuntimeError, "lost sys.stdout");
+    }
+    return f;
+}
+static int __Pyx_Print(PyObject* f, PyObject *arg_tuple, int newline) {
+    int i;
+    if (!f) {
+        if (!(f = __Pyx_GetStdout()))
+            return -1;
+    }
+    Py_INCREF(f);
+    for (i=0; i < PyTuple_GET_SIZE(arg_tuple); i++) {
+        PyObject* v;
+        if (PyFile_SoftSpace(f, 1)) {
+            if (PyFile_WriteString(" ", f) < 0)
+                goto error;
+        }
+        v = PyTuple_GET_ITEM(arg_tuple, i);
+        if (PyFile_WriteObject(v, f, Py_PRINT_RAW) < 0)
+            goto error;
+        if (PyString_Check(v)) {
+            char *s = PyString_AsString(v);
+            Py_ssize_t len = PyString_Size(v);
+            if (len > 0) {
+                switch (s[len-1]) {
+                    case ' ': break;
+                    case '\f': case '\r': case '\n': case '\t': case '\v':
+                        PyFile_SoftSpace(f, 0);
+                        break;
+                    default:  break;
+                }
+            }
+        }
+    }
+    if (newline) {
+        if (PyFile_WriteString("\n", f) < 0)
+            goto error;
+        PyFile_SoftSpace(f, 0);
+    }
+    Py_DECREF(f);
+    return 0;
+error:
+    Py_DECREF(f);
+    return -1;
+}
+#else
+static int __Pyx_Print(PyObject* stream, PyObject *arg_tuple, int newline) {
+    PyObject* kwargs = 0;
+    PyObject* result = 0;
+    PyObject* end_string;
+    if (unlikely(!__pyx_print)) {
+        __pyx_print = PyObject_GetAttr(__pyx_b, __pyx_n_s_print);
+        if (!__pyx_print)
+            return -1;
+    }
+    if (stream) {
+        kwargs = PyDict_New();
+        if (unlikely(!kwargs))
+            return -1;
+        if (unlikely(PyDict_SetItem(kwargs, __pyx_n_s_file, stream) < 0))
+            goto bad;
+        if (!newline) {
+            end_string = PyUnicode_FromStringAndSize(" ", 1);
+            if (unlikely(!end_string))
+                goto bad;
+            if (PyDict_SetItem(kwargs, __pyx_n_s_end, end_string) < 0) {
+                Py_DECREF(end_string);
+                goto bad;
+            }
+            Py_DECREF(end_string);
+        }
+    } else if (!newline) {
+        if (unlikely(!__pyx_print_kwargs)) {
+            __pyx_print_kwargs = PyDict_New();
+            if (unlikely(!__pyx_print_kwargs))
+                return -1;
+            end_string = PyUnicode_FromStringAndSize(" ", 1);
+            if (unlikely(!end_string))
+                return -1;
+            if (PyDict_SetItem(__pyx_print_kwargs, __pyx_n_s_end, end_string) < 0) {
+                Py_DECREF(end_string);
+                return -1;
+            }
+            Py_DECREF(end_string);
+        }
+        kwargs = __pyx_print_kwargs;
+    }
+    result = PyObject_Call(__pyx_print, arg_tuple, kwargs);
+    if (unlikely(kwargs) && (kwargs != __pyx_print_kwargs))
+        Py_DECREF(kwargs);
+    if (!result)
+        return -1;
+    Py_DECREF(result);
+    return 0;
+bad:
+    if (kwargs != __pyx_print_kwargs)
+        Py_XDECREF(kwargs);
+    return -1;
+}
+#endif
+
+#if !CYTHON_COMPILING_IN_PYPY && PY_MAJOR_VERSION < 3
+static int __Pyx_PrintOne(PyObject* f, PyObject *o) {
+    if (!f) {
+        if (!(f = __Pyx_GetStdout()))
+            return -1;
+    }
+    Py_INCREF(f);
+    if (PyFile_SoftSpace(f, 0)) {
+        if (PyFile_WriteString(" ", f) < 0)
+            goto error;
+    }
+    if (PyFile_WriteObject(o, f, Py_PRINT_RAW) < 0)
+        goto error;
+    if (PyFile_WriteString("\n", f) < 0)
+        goto error;
+    Py_DECREF(f);
+    return 0;
+error:
+    Py_DECREF(f);
+    return -1;
+    /* the line below is just to avoid C compiler
+     * warnings about unused functions */
+    return __Pyx_Print(f, NULL, 0);
+}
+#else
+static int __Pyx_PrintOne(PyObject* stream, PyObject *o) {
+    int res;
+    PyObject* arg_tuple = PyTuple_Pack(1, o);
+    if (unlikely(!arg_tuple))
+        return -1;
+    res = __Pyx_Print(stream, arg_tuple, 1);
+    Py_DECREF(arg_tuple);
+    return res;
+}
+#endif
 
 static CYTHON_INLINE long __Pyx_PyInt_As_long(PyObject *x) {
     const long neg_one = (long) -1, const_zero = (long) 0;
