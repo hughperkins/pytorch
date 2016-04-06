@@ -65,6 +65,16 @@ void pushDoubleTensor(lua_State *L, THDoubleTensor *tensor) {
     THDoubleTensor_retain(tensor);
     luaT_pushudata(L, tensor, "torch.DoubleTensor");
 }
+THByteTensor *popByteTensor(lua_State *L) {
+    void **pTensor = (void **)lua_touserdata(L, -1);
+    THByteTensor *tensor = (THByteTensor *)(*pTensor);
+    lua_remove(L, -1);
+    return tensor;
+}
+void pushByteTensor(lua_State *L, THByteTensor *tensor) {
+    THByteTensor_retain(tensor);
+    luaT_pushudata(L, tensor, "torch.ByteTensor");
+}
 void pushGlobal(lua_State *L, const char *name1) {
     lua_getglobal(L, name1);
 }

@@ -285,8 +285,10 @@ def populateLuaClassesReverse():
 cythonClasses = {}
 cythonClasses['torch.FloatTensor'] = {'popFunction': PyTorch._popFloatTensor}
 cythonClasses['torch.DoubleTensor'] = {'popFunction': PyTorch._popDoubleTensor}
+cythonClasses['torch.ByteTensor'] = {'popFunction': PyTorch._popByteTensor}
 
 pushFunctionByPythonClass = {}
 pushFunctionByPythonClass[PyTorch._FloatTensor] = PyTorch._pushFloatTensor
 pushFunctionByPythonClass[PyTorch._DoubleTensor] = PyTorch._pushDoubleTensor
+pushFunctionByPythonClass[PyTorch._ByteTensor] = PyTorch._pushByteTensor
 

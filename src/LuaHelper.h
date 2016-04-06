@@ -3,6 +3,7 @@
 struct lua_State;
 struct THFloatTensor;
 struct THDoubleTensor;
+struct THByteTensor;
 
 void dumpStack(lua_State *L);
 
@@ -25,6 +26,9 @@ THFloatTensor *popFloatTensor(lua_State *L);
 
 void pushDoubleTensor(lua_State *L, THDoubleTensor *tensor);
 THDoubleTensor *popDoubleTensor(lua_State *L);
+
+void pushByteTensor(lua_State *L, THByteTensor *tensor);
+THByteTensor *popByteTensor(lua_State *L);
 
 void luaRequire(lua_State *L, const char *name);
 

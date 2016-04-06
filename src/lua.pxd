@@ -33,6 +33,10 @@ cdef extern from "LuaHelper.h":
 
 
 
+cdef extern from "LuaHelper.h":
+    THByteTensor *popByteTensor(lua_State *L)
+    void pushByteTensor(lua_State *L, THByteTensor *tensor)
+
 
 
 cdef extern from "lua_externc.h":

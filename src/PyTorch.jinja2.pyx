@@ -653,7 +653,7 @@ cdef _{{Real}}Tensor_fromNative(TH{{Real}}Tensor *tensorC, retain=True):
     tensor.native = tensorC
     return tensor
 
-{% if Real in ['Float', 'Double'] %}
+{% if Real in ['Float', 'Double', 'Byte'] %}
 def _as{{Real}}Tensor(myarray):
     cdef {{real}}[:] myarraymv
     cdef Storage._{{Real}}Storage storage
@@ -703,7 +703,7 @@ cdef class GlobalState(object):
 {% for typedict in types %}
 {% set Real = typedict['Real'] %}
 {% set real = typedict['real'] %}
-{% if Real in ['Double', 'Float'] %}
+{% if Real in ['Double', 'Float', 'Byte'] %}
 def _pop{{Real}}Tensor():
     global globalState
     cdef TH{{Real}}Tensor *tensorC = pop{{Real}}Tensor(globalState.L)

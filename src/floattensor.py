@@ -51,3 +51,8 @@ def asFloatTensor(myarray):
 #    print('type(f1)', type(f1))
     return FloatTensor(f1)
 
+def asByteTensor(myarray):
+    f1 = PyTorch._asByteTensor(myarray)
+#    print('type(f1)', type(f1))
+    return ByteTensor(f1)
+

@@ -2293,6 +2293,39 @@ cdef _ByteTensor_fromNative(THByteTensor *tensorC, retain=True):
     return tensor
 
 
+def _asByteTensor(myarray):
+    cdef unsigned char[:] myarraymv
+    cdef Storage._ByteStorage storage
+    if str(type(myarray)) in ["<type 'numpy.ndarray'>", "<class 'numpy.ndarray'>"]:
+        dims = len(myarray.shape)
+        if dims >= 1:
+            totalSize = 1
+            size = Storage._LongStorage.newWithSize(dims)
+            stride = Storage._LongStorage.newWithSize(dims)
+            strideSoFar = 1
+            for d in range(dims - 1, -1, -1):
+                totalSize *= myarray.shape[d]
+                size[d] = myarray.shape[d]
+                stride[d] = strideSoFar
+                strideSoFar *= size[d]
+            myarraymv = myarray.reshape(totalSize)
+            storage = Storage._ByteStorage.newWithData(myarraymv)
+            Storage.THByteStorage_retain(storage.native) # since newWithData takes ownership
+
+            tensor = _ByteTensor.newWithStorage(storage, 0, size, stride)
+            return tensor
+        else:
+            raise Exception('dims == {dims} not implemented; please raise an issue'.format(
+                dims=dims))
+    elif isinstance(myarray, array.array):
+        myarraymv = myarray
+        storage = Storage._ByteStorage.newWithData(myarraymv)
+        Storage.THByteStorage_retain(storage.native) # since newWithData takes ownership
+        tensor = _ByteTensor.newWithStorage1d(storage, 0, len(myarray), 1)
+        return tensor        
+    else:
+        raise Exception("not implemented")
+
 
 
 
@@ -2339,6 +2372,15 @@ def _pushDoubleTensor(_DoubleTensor tensor):
 
 
 
+
+def _popByteTensor():
+    global globalState
+    cdef THByteTensor *tensorC = popByteTensor(globalState.L)
+    return _ByteTensor_fromNative(tensorC)
+
+def _pushByteTensor(_ByteTensor tensor):
+    global globalState
+    pushByteTensor(globalState.L, tensor.native)
 
 
 

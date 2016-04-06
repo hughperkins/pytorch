@@ -12,7 +12,7 @@ cdef extern from "LuaHelper.h":
 {% for typedict in types %}
 {% set Real = typedict['Real'] %}
 {% set real = typedict['real'] %}
-{% if Real in ['Double', 'Float'] %}
+{% if Real in ['Double', 'Float', 'Byte'] %}
 cdef extern from "LuaHelper.h":
     TH{{Real}}Tensor *pop{{Real}}Tensor(lua_State *L)
     void push{{Real}}Tensor(lua_State *L, TH{{Real}}Tensor *tensor)
