@@ -46,8 +46,8 @@ def run():
     for b in range(numBatches):
       res = torchModel.trainBatch(
         learningRate,
-        PyTorch.asFloatTensor(images[b * batchSize:(b+1) * batchSize]),
-        PyTorch.asByteTensor(labels[b * batchSize:(b+1) * batchSize]))
+        images[b * batchSize:(b+1) * batchSize],
+        labels[b * batchSize:(b+1) * batchSize])
 #      print('res', res)
       numRight = res['numRight']
       loss = res['loss']

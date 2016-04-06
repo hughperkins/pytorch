@@ -93,6 +93,19 @@ def pushSomething(lua, something):
         pushObject(lua, something)
         return
 
+    typestring = str(type(something))
+    if typestring == "<class 'numpy.ndarray'>":
+      dtypestr = str(something.dtype)
+      if dtypestr == 'float32':
+        pushSomething(lua, PyTorch._asFloatTensor(something))
+        return
+      if dtypestr == 'float64':
+        pushSomething(lua, PyTorch._asDoubleTensor(something))
+        return
+      if dtypestr == 'uint8':
+        pushSomething(lua, PyTorch._asByteTensor(something))
+        return
+
     raise Exception('pushing type ' + str(type(something)) + ' not implemented, value ', something)
 
 def popSomething(lua, self=None, name=None):
