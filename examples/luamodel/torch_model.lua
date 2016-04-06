@@ -73,6 +73,54 @@ function TorchModel:buildModel(backend, imageSize, numClasses)
   print('network created')
 end
 
+function TorchModel:processData(input, labels)
+  -- copies into self.batchInput, converting into cl or cuda as necessary
+  -- labels is optional
+
+  local batchSize = input:size(1)
+  local backend = self.backend
+  if backend == 'cpu' then
+    self.batchInput = input  -- on cpu, just copy the reference
+  else
+    self.batchInput = self.batchInput or input:clone()
+    if backend == 'cuda' then
+      if torch.type(self.batchInput) ~= 'torch.CudaTensor' then
+        self.batchInput = self.batchInput:cuda()
+      end
+    elseif backend == 'cl' then
+      if torch.type(self.batchInput) ~= 'torch.ClTensor' then
+        self.batchInput = self.batchInput:cl()
+      end
+    end
+    -- copy from cpu memory to gpu memory
+    self.batchInput:resize(batchSize, 1, self.imageSize, self.imageSize)
+    self.batchInput:copy(input)
+  end
+  self.batchInput:resize(batchSize, 1, self.imageSize, self.imageSize)
+  if labels == nil then
+    return
+  end
+
+  if backend == 'cpu' then
+    self.batchLabels = labels
+  else
+    self.batchLabels = self.batchLabels or labels:clone()
+    if backend == 'cuda' then
+      if torch.type(self.batchLabels) ~= 'torch.CudaTensor' then
+        self.batchLabels = self.batchLabels:cuda()
+      end
+    elseif backend == 'cl' then
+      if torch.type(self.batchLabels) ~= 'torch.ClTensor' then
+        self.batchLabels = self.batchLabels:cl()
+      end
+    end
+    -- copy from cpu memory to gpu memory
+    self.batchLabels:resize(batchSize)
+    self.batchLabels:copy(labels)
+  end
+  self.batchLabels:resize(batchSize)
+end
+
 function TorchModel:trainBatch(learningRate, input, labels)
   -- assume data arrive as torch.FloatTensors
 
@@ -80,32 +128,7 @@ function TorchModel:trainBatch(learningRate, input, labels)
 --  print('batchSize', batchSize)
 
   -- copy to cuda or cl tensors, if we need to
-  local backend = self.backend
-  if backend == 'cpu' then
-    self.batchInput = input  -- on cpu, just copy the reference
-    self.batchLabels = labels
-  else
-    self.batchInput = self.batchInput or input:clone()
-    self.batchLabels = self.batchLabels or labels:clone()
-    if backend == 'cuda' then
-      if torch.type(self.batchInput) ~= 'torch.CudaTensor' then
-        self.batchInput = self.batchInput:cuda()
-        self.batchLabels = self.batchLabels:cuda()
-      end
-    elseif backend == 'cl' then
-      if torch.type(self.batchInput) ~= 'torch.ClTensor' then
-        self.batchInput = self.batchInput:cl()
-        self.batchLabels = self.batchLabels:cl()
-      end
-    end
-    -- copy from cpu memory to gpu memory
-    self.batchInput:resize(batchSize, 1, self.imageSize, self.imageSize)
-    self.batchLabels:resize(batchSize)
-    self.batchInput:copy(input)
-    self.batchLabels:copy(labels)
-  end
-  self.batchInput:resize(batchSize, 1, self.imageSize, self.imageSize)
-  self.batchLabels:resize(batchSize)
+  self:processData(input, labels)
 
   self.net:zeroGradParameters()
   local output = self.net:forward(self.batchInput)
@@ -120,6 +143,13 @@ function TorchModel:trainBatch(learningRate, input, labels)
   return {loss=loss, numRight=numRight}  -- you can return a table, it will become a python dictionary
 end
 
-function TorchModel:predict(example)
+function TorchModel:predict(input)
+  -- assume batched
+  self:processData(input)
+  local batchSize = input:size(1)
+  local output = self.net:forward(self.batchInput)
+  local _, prediction = output:max(2)
+  local predictionAsBytes = prediction:byte()
+  return predictionAsBytes
 end
 

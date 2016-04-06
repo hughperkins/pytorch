@@ -95,6 +95,8 @@ cdef extern from "THTensor.h":
     void TH{{Real}}Tensor_neg(TH{{Real}}Tensor *r_, TH{{Real}}Tensor *t)
     void TH{{Real}}Tensor_abs(TH{{Real}}Tensor *r_, TH{{Real}}Tensor *t)
 
+    void TH{{Real}}Tensor_eqTensor(THByteTensor *r_, TH{{Real}}Tensor *ta, TH{{Real}}Tensor *tb)
+
     void TH{{Real}}Tensor_add(TH{{Real}}Tensor *r_, TH{{Real}}Tensor *t, {{real}} value)
     void TH{{Real}}Tensor_div(TH{{Real}}Tensor *r_, TH{{Real}}Tensor *t, {{real}} value)
     void TH{{Real}}Tensor_mul(TH{{Real}}Tensor *r_, TH{{Real}}Tensor *t, {{real}} value)
@@ -104,6 +106,8 @@ cdef extern from "THTensor.h":
     void TH{{Real}}Tensor_cadd(TH{{Real}}Tensor *r_, TH{{Real}}Tensor *t, {{real}} value, TH{{Real}}Tensor *second)
     void TH{{Real}}Tensor_cmul(TH{{Real}}Tensor *r_, TH{{Real}}Tensor *t, TH{{Real}}Tensor *src)
     void TH{{Real}}Tensor_cdiv(TH{{Real}}Tensor *r_, TH{{Real}}Tensor *t, TH{{Real}}Tensor *src)
+
+    {{real}} TH{{Real}}Tensor_sumall(TH{{Real}}Tensor *t)
 
     void TH{{Real}}Tensor_geometric(TH{{Real}}Tensor *self, THGenerator *_generator, double p)
     void TH{{Real}}Tensor_bernoulli(TH{{Real}}Tensor *self, THGenerator *_generator, double p)
@@ -335,6 +339,10 @@ cdef class _{{Real}}Tensor(object):
         TH{{Real}}Tensor_fill(self.native, value)
         return self
 
+    def sum(_{{Real}}Tensor self):
+        cdef {{real}} result = TH{{Real}}Tensor_sumall(self.native)
+        return result
+
     {% if Real in ['Float', 'Double'] %}
 
     def itanh(_{{Real}}Tensor self):
@@ -522,6 +530,11 @@ cdef class _{{Real}}Tensor(object):
         else:
             secondTensor = second
             TH{{Real}}Tensor_cadd(res.native, self.native, -1, secondTensor.native)
+        return res
+
+    def eq(_{{Real}}Tensor self, _{{Real}}Tensor second):
+        cdef _ByteTensor res = _ByteTensor.new()
+        TH{{Real}}Tensor_eqTensor(res.native, self.native, second.native);
         return res
 
     {% if Real in ['Float', 'Double'] %}

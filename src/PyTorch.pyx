@@ -107,6 +107,8 @@ cdef extern from "THTensor.h":
     void THLongTensor_neg(THLongTensor *r_, THLongTensor *t)
     void THLongTensor_abs(THLongTensor *r_, THLongTensor *t)
 
+    void THLongTensor_eqTensor(THByteTensor *r_, THLongTensor *ta, THLongTensor *tb)
+
     void THLongTensor_add(THLongTensor *r_, THLongTensor *t, long value)
     void THLongTensor_div(THLongTensor *r_, THLongTensor *t, long value)
     void THLongTensor_mul(THLongTensor *r_, THLongTensor *t, long value)
@@ -116,6 +118,8 @@ cdef extern from "THTensor.h":
     void THLongTensor_cadd(THLongTensor *r_, THLongTensor *t, long value, THLongTensor *second)
     void THLongTensor_cmul(THLongTensor *r_, THLongTensor *t, THLongTensor *src)
     void THLongTensor_cdiv(THLongTensor *r_, THLongTensor *t, THLongTensor *src)
+
+    long THLongTensor_sumall(THLongTensor *t)
 
     void THLongTensor_geometric(THLongTensor *self, THGenerator *_generator, double p)
     void THLongTensor_bernoulli(THLongTensor *self, THGenerator *_generator, double p)
@@ -170,6 +174,8 @@ cdef extern from "THTensor.h":
     void THFloatTensor_neg(THFloatTensor *r_, THFloatTensor *t)
     void THFloatTensor_abs(THFloatTensor *r_, THFloatTensor *t)
 
+    void THFloatTensor_eqTensor(THByteTensor *r_, THFloatTensor *ta, THFloatTensor *tb)
+
     void THFloatTensor_add(THFloatTensor *r_, THFloatTensor *t, float value)
     void THFloatTensor_div(THFloatTensor *r_, THFloatTensor *t, float value)
     void THFloatTensor_mul(THFloatTensor *r_, THFloatTensor *t, float value)
@@ -179,6 +185,8 @@ cdef extern from "THTensor.h":
     void THFloatTensor_cadd(THFloatTensor *r_, THFloatTensor *t, float value, THFloatTensor *second)
     void THFloatTensor_cmul(THFloatTensor *r_, THFloatTensor *t, THFloatTensor *src)
     void THFloatTensor_cdiv(THFloatTensor *r_, THFloatTensor *t, THFloatTensor *src)
+
+    float THFloatTensor_sumall(THFloatTensor *t)
 
     void THFloatTensor_geometric(THFloatTensor *self, THGenerator *_generator, double p)
     void THFloatTensor_bernoulli(THFloatTensor *self, THGenerator *_generator, double p)
@@ -241,6 +249,8 @@ cdef extern from "THTensor.h":
     void THDoubleTensor_neg(THDoubleTensor *r_, THDoubleTensor *t)
     void THDoubleTensor_abs(THDoubleTensor *r_, THDoubleTensor *t)
 
+    void THDoubleTensor_eqTensor(THByteTensor *r_, THDoubleTensor *ta, THDoubleTensor *tb)
+
     void THDoubleTensor_add(THDoubleTensor *r_, THDoubleTensor *t, double value)
     void THDoubleTensor_div(THDoubleTensor *r_, THDoubleTensor *t, double value)
     void THDoubleTensor_mul(THDoubleTensor *r_, THDoubleTensor *t, double value)
@@ -250,6 +260,8 @@ cdef extern from "THTensor.h":
     void THDoubleTensor_cadd(THDoubleTensor *r_, THDoubleTensor *t, double value, THDoubleTensor *second)
     void THDoubleTensor_cmul(THDoubleTensor *r_, THDoubleTensor *t, THDoubleTensor *src)
     void THDoubleTensor_cdiv(THDoubleTensor *r_, THDoubleTensor *t, THDoubleTensor *src)
+
+    double THDoubleTensor_sumall(THDoubleTensor *t)
 
     void THDoubleTensor_geometric(THDoubleTensor *self, THGenerator *_generator, double p)
     void THDoubleTensor_bernoulli(THDoubleTensor *self, THGenerator *_generator, double p)
@@ -312,6 +324,8 @@ cdef extern from "THTensor.h":
     void THByteTensor_neg(THByteTensor *r_, THByteTensor *t)
     void THByteTensor_abs(THByteTensor *r_, THByteTensor *t)
 
+    void THByteTensor_eqTensor(THByteTensor *r_, THByteTensor *ta, THByteTensor *tb)
+
     void THByteTensor_add(THByteTensor *r_, THByteTensor *t, unsigned char value)
     void THByteTensor_div(THByteTensor *r_, THByteTensor *t, unsigned char value)
     void THByteTensor_mul(THByteTensor *r_, THByteTensor *t, unsigned char value)
@@ -321,6 +335,8 @@ cdef extern from "THTensor.h":
     void THByteTensor_cadd(THByteTensor *r_, THByteTensor *t, unsigned char value, THByteTensor *second)
     void THByteTensor_cmul(THByteTensor *r_, THByteTensor *t, THByteTensor *src)
     void THByteTensor_cdiv(THByteTensor *r_, THByteTensor *t, THByteTensor *src)
+
+    unsigned char THByteTensor_sumall(THByteTensor *t)
 
     void THByteTensor_geometric(THByteTensor *self, THGenerator *_generator, double p)
     void THByteTensor_bernoulli(THByteTensor *self, THGenerator *_generator, double p)
@@ -540,6 +556,10 @@ cdef class _LongTensor(object):
         THLongTensor_fill(self.native, value)
         return self
 
+    def sum(_LongTensor self):
+        cdef long result = THLongTensor_sumall(self.native)
+        return result
+
     
 
     
@@ -688,6 +708,11 @@ cdef class _LongTensor(object):
         else:
             secondTensor = second
             THLongTensor_cadd(res.native, self.native, -1, secondTensor.native)
+        return res
+
+    def eq(_LongTensor self, _LongTensor second):
+        cdef _ByteTensor res = _ByteTensor.new()
+        THLongTensor_eqTensor(res.native, self.native, second.native);
         return res
 
     
@@ -984,6 +1009,10 @@ cdef class _FloatTensor(object):
         THFloatTensor_fill(self.native, value)
         return self
 
+    def sum(_FloatTensor self):
+        cdef float result = THFloatTensor_sumall(self.native)
+        return result
+
     
 
     def itanh(_FloatTensor self):
@@ -1171,6 +1200,11 @@ cdef class _FloatTensor(object):
         else:
             secondTensor = second
             THFloatTensor_cadd(res.native, self.native, -1, secondTensor.native)
+        return res
+
+    def eq(_FloatTensor self, _FloatTensor second):
+        cdef _ByteTensor res = _ByteTensor.new()
+        THFloatTensor_eqTensor(res.native, self.native, second.native);
         return res
 
     
@@ -1528,6 +1562,10 @@ cdef class _DoubleTensor(object):
         THDoubleTensor_fill(self.native, value)
         return self
 
+    def sum(_DoubleTensor self):
+        cdef double result = THDoubleTensor_sumall(self.native)
+        return result
+
     
 
     def itanh(_DoubleTensor self):
@@ -1715,6 +1753,11 @@ cdef class _DoubleTensor(object):
         else:
             secondTensor = second
             THDoubleTensor_cadd(res.native, self.native, -1, secondTensor.native)
+        return res
+
+    def eq(_DoubleTensor self, _DoubleTensor second):
+        cdef _ByteTensor res = _ByteTensor.new()
+        THDoubleTensor_eqTensor(res.native, self.native, second.native);
         return res
 
     
@@ -2072,6 +2115,10 @@ cdef class _ByteTensor(object):
         THByteTensor_fill(self.native, value)
         return self
 
+    def sum(_ByteTensor self):
+        cdef unsigned char result = THByteTensor_sumall(self.native)
+        return result
+
     
 
     
@@ -2210,6 +2257,11 @@ cdef class _ByteTensor(object):
         else:
             secondTensor = second
             THByteTensor_cadd(res.native, self.native, -1, secondTensor.native)
+        return res
+
+    def eq(_ByteTensor self, _ByteTensor second):
+        cdef _ByteTensor res = _ByteTensor.new()
+        THByteTensor_eqTensor(res.native, self.native, second.native);
         return res
 
     
