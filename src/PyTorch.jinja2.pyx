@@ -224,11 +224,18 @@ cdef class _{{Real}}Tensor(object):
         cdef _{{Real}}Tensor contig
         size = self.size()
         dims = len(size)
+        dtype = None
+        {% if Real == 'Double' %}dtype=np.float64{% endif %}
+        {% if Real == 'Float' %}dtype=np.float32{% endif %}
+        {% if Real == 'Byte' %}dtype=np.uint8{% endif %}
+        if dtype is None:
+          raise Exception("not implemented for {{Real}}")
+#        print('dtype', dtype)
         if dims >= 1:
             totalSize = 1
             for d in range(dims - 1, -1, -1):
                 totalSize *= size[d]
-            myarray = np.zeros(totalSize, dtype=np.float32)
+            myarray = np.zeros(totalSize, dtype=dtype)
             contig = self.contiguous()
             data = contig.data()
             for i in range(totalSize):

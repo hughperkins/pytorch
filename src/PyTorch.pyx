@@ -445,11 +445,18 @@ cdef class _LongTensor(object):
         cdef _LongTensor contig
         size = self.size()
         dims = len(size)
+        dtype = None
+        
+        
+        
+        if dtype is None:
+          raise Exception("not implemented for Long")
+#        print('dtype', dtype)
         if dims >= 1:
             totalSize = 1
             for d in range(dims - 1, -1, -1):
                 totalSize *= size[d]
-            myarray = np.zeros(totalSize, dtype=np.float32)
+            myarray = np.zeros(totalSize, dtype=dtype)
             contig = self.contiguous()
             data = contig.data()
             for i in range(totalSize):
@@ -898,11 +905,18 @@ cdef class _FloatTensor(object):
         cdef _FloatTensor contig
         size = self.size()
         dims = len(size)
+        dtype = None
+        
+        dtype=np.float32
+        
+        if dtype is None:
+          raise Exception("not implemented for Float")
+#        print('dtype', dtype)
         if dims >= 1:
             totalSize = 1
             for d in range(dims - 1, -1, -1):
                 totalSize *= size[d]
-            myarray = np.zeros(totalSize, dtype=np.float32)
+            myarray = np.zeros(totalSize, dtype=dtype)
             contig = self.contiguous()
             data = contig.data()
             for i in range(totalSize):
@@ -1451,11 +1465,18 @@ cdef class _DoubleTensor(object):
         cdef _DoubleTensor contig
         size = self.size()
         dims = len(size)
+        dtype = None
+        dtype=np.float64
+        
+        
+        if dtype is None:
+          raise Exception("not implemented for Double")
+#        print('dtype', dtype)
         if dims >= 1:
             totalSize = 1
             for d in range(dims - 1, -1, -1):
                 totalSize *= size[d]
-            myarray = np.zeros(totalSize, dtype=np.float32)
+            myarray = np.zeros(totalSize, dtype=dtype)
             contig = self.contiguous()
             data = contig.data()
             for i in range(totalSize):
@@ -2004,11 +2025,18 @@ cdef class _ByteTensor(object):
         cdef _ByteTensor contig
         size = self.size()
         dims = len(size)
+        dtype = None
+        
+        
+        dtype=np.uint8
+        if dtype is None:
+          raise Exception("not implemented for Byte")
+#        print('dtype', dtype)
         if dims >= 1:
             totalSize = 1
             for d in range(dims - 1, -1, -1):
                 totalSize *= size[d]
-            myarray = np.zeros(totalSize, dtype=np.float32)
+            myarray = np.zeros(totalSize, dtype=dtype)
             contig = self.contiguous()
             data = contig.data()
             for i in range(totalSize):

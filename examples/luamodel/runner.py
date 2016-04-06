@@ -87,15 +87,10 @@ def run():
   epochLoss = 0
   epochNumRight = 0
   for b in range(numBatches):
-    predictions = torchModel.predict(images[b * batchSize:(b+1) * batchSize])
-    # predictions here is a torch ByteTensor
-    # to calculate numRight, easiest way is just to use the torch tensor methods on it:
-    labelsTensor = PyTorch.asByteTensor(labels[b * batchSize:(b+1) * batchSize])
-    numRight = predictions.eq(labelsTensor).sum()
-    print('numRight', numRight)
+    predictions = torchModel.predict(images[b * batchSize:(b+1) * batchSize]).asNumpyTensor().reshape(batchSize)
+    labelsBatch = labels[b * batchSize:(b+1) * batchSize]
+    numRight = (predictions == labelsBatch).sum()
     epochNumRight += numRight
-#    epochLoss += loss
-#    print('epoch ' + str(epoch) + ' batch ' + str(b) + ' accuracy: ' + str(numRight * 100.0 / batchSize) + '%')
   print('test results: accuracy: ' + str(epochNumRight * 100.0 / N) + '%')
 
 if __name__ == '__main__':
