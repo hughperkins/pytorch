@@ -94,7 +94,7 @@ def pushSomething(lua, something):
         return
 
     typestring = str(type(something))
-    if typestring == "<class 'numpy.ndarray'>":
+    if typestring in ["<class 'numpy.ndarray'>", "<type 'numpy.ndarray'>"]:
       dtypestr = str(something.dtype)
       if dtypestr == 'float32':
         pushSomething(lua, PyTorch._asFloatTensor(something))
