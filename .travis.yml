@@ -49,7 +49,7 @@ script:
   - cat ~/torch/install/bin/torch-activate
   - source ~/torch/install/bin/torch-activate
   - ./build.sh
-  - PYTORCHSOPATH=$(find ~/env/lib -name "PyTorch*.so")
+  - PYTORCHSOPATH=$(find ~/env34/lib -name "PyTorch*.so")
   - echo PYTORCHSOPATH=${PYTORCHSOPATH}
   - otool -L ${PYTORCHSOPATH}
   - ./run_tests.sh
