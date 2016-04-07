@@ -3,125 +3,190 @@ Wrappers to use torch and lua from python
 
 # What is pytorch?
 
-- create torch tensors, call operations on those, add them together, multiply them, and so on
-- create `nn` network modules, pass tensors into those, get the output, and so on
-- create your own lua class, call methods on that, pass in tensors
-- wrap numpy tensors in torch tensors
-  
-More info: [Implemented.md](doc/Implemented.md)
+- create torch tensors, call operations on them
+- instantiate `nn` network modules, train them, make predictions
+- create your own lua class, call methods on that
 
-# Examples
+## Create torch tensors
 
-## pytorch, using FloatTensor
-
-Run example script by doing:
 ```
-source ~/torch/install/bin/torch-activate
-cd pytorch
-./run.sh
+import PyTorch
+a = PyTorch.FloatTensor(2,3).uniform()
+a += 3
+print('a', a)
+print('a.sum()', a.sum())
 ```
 
-* Script is here: [test_pytorch.py](test/test_pytorch.py)
-* Output: [test_pytorch_output.txt](test_outputs/test_pytorch_output.txt)
+## Instantiate nn network modules
 
-## pynn
-
-Run example script by doing:
 ```
-source ~/torch/install/bin/torch-activate
-cd pytorch
-./nn_run.sh
-```
+import PyTorch
+from PyTorchAug import nn
 
-* Script is here: [test_pynn.py](test/test_pynn.py)
-* Script output: [test_pynn_output.txt](test_outputs/test_pynn_output.txt)
+net = nn.Sequential()
+net.add(nn.SpatialConvolutionMM(1, 16, 5, 5, 1, 1, 2, 2))
+net.add(nn.ReLU())
+net.add(nn.SpatialMaxPooling(3, 3, 3, 3))
 
-## import your own lua class, call methods on it
+net.add(nn.SpatialConvolutionMM(16, 32, 3, 3, 1, 1, 1, 1))
+net.add(nn.ReLU())
+net.add(nn.SpatialMaxPooling(2, 2, 2, 2))
 
-- Create a lua class, like say [luabit.lua](simpleexample/luabit.lua)
-  - it contains some methods, that we will call from Python
-- Create a python script, like say [pybit.py](simpleexample/pybit.py)
-  - it `require`s foo, then
-  - creates a `Foo` object, then
-  - calls methods on that object
+net.add(nn.Reshape(32 * 4 * 4))
+net.add(nn.Linear(32 * 4 * 4, 150))
+net.add(nn.Tanh())
+net.add(nn.Linear(150, 10))
+net.add(nn.LogSoftMax())
+net.float()
 
-Run like:
-```
-source ~/torch/install/bin/torch-activate
-cd simpleexample
-python pybit.py
-```
+crit = nn.ClassNLLCriterion()
+crit.float()
 
-When we run it we get:
-```
-foo.lua
-Foo:__init()
-Foo:teststuff()
-Foo:teststuff2(	hello	)
-setColor:	green
-color:	green
+net.zeroGradParameters()
+input = PyTorch.FloatTensor(5, 1, 28, 28).uniform()
+labels = PyTorch.ByteTensor(5).geometric(0.9).icmin(10)
+output = net.forward(input)
+loss = crit.forward(output, labels)
+gradOutput = crit.backward(output, labels)
+gradInput = net.backward(input, gradOutput)
+net.updateParameters(0.02)
 ```
 
-# Installation
+# Write your own lua class, call methods on it, from Python
 
-## Pre-requisites
-
-* Have installed torch, following instructions at [https://github.com/torch/distro](https://github.com/torch/distro)
-* Have installed 'nn' torch module:
+Example lua class:
 ```
-luarocks install nn
+require 'torch'
+require 'nn'
+
+local TorchModel = torch.class('TorchModel')
+
+function TorchModel:__init(backend, imageSize, numClasses)
+  self:buildModel(backend, imageSize, numClasses)
+  self.imageSize = imageSize
+  self.numClasses = numClasses
+  self.backend = backend
+end
+
+function TorchModel:buildModel(backend, imageSize, numClasses)
+  self.net = nn.Sequential()
+  local net = self.net
+
+  -- simple mnist network
+  -- ====================
+
+  -- params of convolutionmm are:
+  --   (inFeatures, outFeatures, kernelWidth, kernelHeight, horizStride, vertStride,
+  --    horizPadding, vertPadding)
+  -- ( https://github.com/torch/nn/blob/master/SpatialConvolutionMM.lua#L3 )
+  -- so, this maps from 1 feature plan to 16 feature planes.
+  -- it's a 5x5 convolution, stride 1, with padding
+  net:add(nn.SpatialConvolutionMM(1, 16, 5, 5, 1, 1, 2, 2))
+  net:add(nn.ReLU())
+
+  -- params are: (pooling width, pooling height, horizontal stride, vertical stride)
+  -- https://github.com/torch/nn/blob/master/SpatialMaxPooling.lua
+  net:add(nn.SpatialMaxPooling(3, 3, 3, 3))
+
+  -- change from 16 to 32 feature planes.  This is a 3x3 convolution, with padding, stride 1
+  net:add(nn.SpatialConvolutionMM(16, 32, 3, 3, 1, 1, 1, 1))
+  net:add(nn.ReLU())
+  net:add(nn.SpatialMaxPooling(2, 2, 2, 2))
+
+  -- reshape from being 4-dimensional tensor (example number, feature plane, width, height), to
+  -- being 2 dimensional: (example number, feature plane * width * height)
+  net:add(nn.Reshape(32 * 4 * 4))
+
+  -- fully connected layer, with 150 output neurons
+  net:add(nn.Linear(32 * 4 * 4, 150))
+  net:add(nn.Tanh())
+
+  -- fully connected layer, with numClasses output neurons
+  net:add(nn.Linear(150, numClasses))
+
+  -- softmax.  Actually, this gives the log of the softmax output
+  -- our loss criterion will correspondingly expect the log of the softmax output as input, see below
+  net:add(nn.LogSoftMax())
+
+  self.crit = nn.ClassNLLCriterion()  -- this is the loss function for labelled examples, given the network
+                                      -- outputs the log soft max
+
+  if backend == 'cuda' then
+    require 'cutorch'
+    require 'cunn'
+    self.net:cuda()
+    self.crit:cuda()
+  elseif backend == 'cl' then
+    require 'cltorch'
+    require 'clnn'
+    self.net:cl()
+    self.crit:cl()
+  else
+    self.net:float()  -- default is double
+    self.crit:float()
+  end
+
+  print('self.net', self.net)
+  print('self.crit', self.crit)
+  print('network created')
+end
+
+function TorchModel:trainBatch(learningRate, input, labels)
+  local batchSize = labels:size(1)
+  self.net:zeroGradParameters()
+  local output = self.net:forward(input)
+  local _, prediction = output:max(2)
+  local numRight = labels:int():eq(prediction:int()):sum()
+  local loss = self.crit:forward(output, labels)
+  local gradOutput = self.crit:backward(output, labels)
+  self.net:backward(input, gradOutput)
+  self.net:updateParameters(learningRate)
+  return {loss=loss, numRight=numRight}  -- you can return a table, it will become a python dictionary
+end
+
+function TorchModel:predict(input)
+  local output = self.net:forward(input)
+  local _, prediction = output:max(2)
+  return prediction:byte()
+end
 ```
-* Have installed python (tested with 2.7 and 3.4)
-* Have installed the following python libraries:
-```
-pip install numpy
-pip install pytest
-pip install python-mnist  # used for unit tests
-```
-- lua51 headers should be installed, ie something like `sudo apt-get install lua5.1 liblua5.1-dev`
 
-## Procedure
-
-Run:
+Example of python script that calls this.  Assume the lua class is stored in file "torch_model.lua"
 ```
-git clone https://github.com/hughperkins/pytorch.git
-cd pytorch
-source ~/torch/install/bin/torch-activate
-./build.sh
-```
+import PyTorch
+import PyTorchHelpers
+import numpy as np
+from mnist import MNIST
 
-# Unit-tests
+batchSize = 32
+numEpochs = 2
+learningRate = 0.02
 
-Run:
-```
-source ~/torch/install/bin/torch-activate
-cd pytorch
-./run_tests.sh
-```
+TorchModel = PyTorchHelpers.load_lua_class('torch_model.lua', 'TorchModel')
+torchModel = TorchModel(backend, 28, 10)
 
-* The test scripts: [test](test)
-* The test output: [tests_output.txt](test_outputs/tests_output.txt)
+mndata = MNIST('../../data/mnist')
+imagesList, labelsList = mndata.load_training()
+labels = np.array(labelsList, dtype=np.uint8)
+images = np.array(imagesList, dtype=np.float32)
+labels += 1  # since torch/lua labels are 1-based
+N = labels.shape[0]
 
-# Python 2 vs Python 3?
-
-- pytorch is developed and maintained on python 3
-- you should be able to use it with python 2, as long as you include the following at the top of your scripts:
-```
-from __future__ import print_function, division
+numBatches = N // batchSize
+for epoch in range(numEpochs):
+  epochLoss = 0
+  epochNumRight = 0
+  for b in range(numBatches):
+    res = torchModel.trainBatch(
+      learningRate,
+      images[b * batchSize:(b+1) * batchSize],
+      labels[b * batchSize:(b+1) * batchSize])
+    numRight = res['numRight']
+    epochNumRight += numRight
+  print('epoch ' + str(epoch) + ' accuracy: ' + str(epochNumRight * 100.0 / N) + '%')
 ```
 
-# Maintainer guidelines
-
-[Maintainer guidelines](doc/Maintainer_guidelines.md)
-
-# Versioning
-
-[semantic versioning](http://semver.org/)
-
-# Related projects
-
-* [pycltorch](https://github.com/hughperkins/pycltorch) python wrappers for [cltorch](https://github.com/hughperkins/cltorch) and [clnn](https://github.com/hughperkins/clnn)
-* [pycudatorch](https://github.com/hughperkins/pycudatorch) python wrappers for [cutorch](https://github.com/torch/cutorch) and [cunn](https://github.com/torch/cunn)
+It's easy to modify the lua script to use CUDA, or OpenCL.
 
 # Recent news
 
@@ -161,35 +226,5 @@ byte, long, int
 * created prototype for importing your own classes, and calling methods on those
 * works with Python 3 now :-)
 
-12th December:
-* created [Implemented.md](doc/Implemented.md) doc
-* Added several network layers:
-  * Reshape
-  * SpatialConvolutionMM
-  * SpatialMaxPooling
-  * Tanh
-  * ReLU
-
-5th September:
-* added DoubleTensor
-* added ByteTensor
-* moved test scripts and output out of readme, provide links instead
-* test output linked from readme updated automatically
-* added + - * / for tensor/scalar pairs, and + - for tensor pairs
-
-4th September:
-* added LongTensor
-* `size()` now returns a LongTensor, rather than a FloatTensor
-* under the covers:
-  * started to use Jinja2 as a templating language, means easy to support other types
-
-3rd September:
-* modified Lua wrapper approach, so directly uses dynamic Python to wrap the Lua classes
-
-2nd September:
-* monkey-patchable, so can start work on [PyClTorch](https://github.com/hughperkins/pycltorch)
-
-29th August:
-* first created :-)
-
+[Older changes](doc/oldchanges.md)
 
