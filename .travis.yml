@@ -11,34 +11,54 @@ before_install:
   - whoami
   - BASEDIR=$(pwd)
   - echo BASEDIR $BASEDIR
+  - echo ========== virtualenv ============
+  - wget https://pypi.python.org/packages/source/v/virtualenv/virtualenv-14.0.6.tar.gz
+  - tar -xf virtualenv-14.0.6.tar.gz
+  - echo =========== python 3.4 =================
   - wget https://www.python.org/ftp/python/3.4.4/python-3.4.4-macosx10.6.pkg
   - sudo installer -pkg python-3.4.4-macosx10.6.pkg -target /
   - python3 -V
-  - wget https://pypi.python.org/packages/source/v/virtualenv/virtualenv-14.0.6.tar.gz
-  - tar -xf virtualenv-14.0.6.tar.gz
-  - virtualenv-14.0.6/virtualenv.py -p python3 ~/env
-  - source ~/env/bin/activate
+  - virtualenv-14.0.6/virtualenv.py -p python3 ~/env34
+  - source ~/env34/bin/activate
   - pip install -U pip
   - pip install -U setuptools
   - pip install wheel
-  - # pip install Jinja2
-  - # pip install Cython
   - pip install numpy
   - pip install python-mnist
   - pip install pytest
-  - echo $HOME
+  - echo ============= python 2.7 ==================
+  - cd ${BASEDIR}
+  - wget https://www.python.org/ftp/python/2.7.11/python-2.7.11rc1-macosx10.6.pkg
+  - sudo installer -pkg python-2.7.11rc1-macosx10.6.pkg -target /
+  - python2.7 -V
+  - ${BASEDIR}/virtualenv-14.0.6/virtualenv.py -p python2.7 ~/env27
+  - source ~/env27/bin/activate
+  - pip install -U pip
+  - pip install -U setuptools
+  - pip install wheel
+  - pip install numpy
+  - pip install python-mnist
+  - pip install pytest
   - bash travis/install-torch.sh
   - source ~/torch/install/bin/torch-activate
   - luarocks install nnx
-  - cd ~/build/hughperkins/pytorch
 
 script:
+  - cd ~/build/hughperkins/pytorch
+  - source ~/env34/bin/activate
   - cat ~/torch/install/bin/torch-activate
   - source ~/torch/install/bin/torch-activate
   - ./build.sh
   - PYTORCHSOPATH=$(find ~/env/lib -name "PyTorch*.so")
   - echo PYTORCHSOPATH=${PYTORCHSOPATH}
   - otool -L ${PYTORCHSOPATH}
+  - ./run_tests.sh
+  - cd simpleexample
+  - python pybit.py
+  - cd ~/build/hughperkins/pytorch
+  - source ~/env27/bin/activate
+  - source ~/torch/install/bin/torch-activate
+  - ./build.sh
   - ./run_tests.sh
   - cd simpleexample
   - python pybit.py
