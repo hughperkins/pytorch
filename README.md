@@ -148,6 +148,65 @@ for epoch in range(numEpochs):
 
 It's easy to modify the lua script to use CUDA, or OpenCL.
 
+# Installation
+
+## Pre-requisites
+
+* Have installed torch, following instructions at [https://github.com/torch/distro](https://github.com/torch/distro)
+* Have installed 'nn' torch module:
+```
+luarocks install nn
+```
+* Have installed python (tested with 2.7 and 3.4)
+* Have installed the following python libraries:
+```
+pip install numpy
+pip install pytest
+pip install python-mnist  # used for unit tests
+pip install docopt        # used by examples
+```
+- lua51 headers should be installed, ie something like `sudo apt-get install lua5.1 liblua5.1-dev`
+
+## Procedure
+
+Run:
+```
+git clone https://github.com/hughperkins/pytorch.git
+cd pytorch
+source ~/torch/install/bin/torch-activate
+./build.sh
+```
+
+# Unit-tests
+
+Run:
+```
+source ~/torch/install/bin/torch-activate
+cd pytorch
+./run_tests.sh
+```
+
+# Python 2 vs Python 3?
+
+- pytorch is developed and maintained on python 3
+- you should be able to use it with python 2, as long as you include the following at the top of your scripts:
+```
+from __future__ import print_function, division
+```
+
+# Maintainer guidelines
+
+[Maintainer guidelines](doc/Maintainer_guidelines.md)
+
+# Versioning
+
+[semantic versioning](http://semver.org/)
+
+# Related projects
+
+* [pycltorch](https://github.com/hughperkins/pycltorch) python wrappers for [cltorch](https://github.com/hughperkins/cltorch) and [clnn](https://github.com/hughperkins/clnn)
+* [pycudatorch](https://github.com/hughperkins/pycudatorch) python wrappers for [cutorch](https://github.com/torch/cutorch) and [cunn](https://github.com/torch/cunn)
+
 # Recent news
 
 17 March:
