@@ -52,7 +52,7 @@ gradInput = net.backward(input, gradOutput)
 net.updateParameters(0.02)
 ```
 
-# Write your own lua class, call methods on it, from Python
+# Write your own lua class, call methods on it
 
 Example lua class:
 ```
@@ -72,67 +72,25 @@ function TorchModel:buildModel(backend, imageSize, numClasses)
   self.net = nn.Sequential()
   local net = self.net
 
-  -- simple mnist network
-  -- ====================
-
-  -- params of convolutionmm are:
-  --   (inFeatures, outFeatures, kernelWidth, kernelHeight, horizStride, vertStride,
-  --    horizPadding, vertPadding)
-  -- ( https://github.com/torch/nn/blob/master/SpatialConvolutionMM.lua#L3 )
-  -- so, this maps from 1 feature plan to 16 feature planes.
-  -- it's a 5x5 convolution, stride 1, with padding
   net:add(nn.SpatialConvolutionMM(1, 16, 5, 5, 1, 1, 2, 2))
   net:add(nn.ReLU())
-
-  -- params are: (pooling width, pooling height, horizontal stride, vertical stride)
-  -- https://github.com/torch/nn/blob/master/SpatialMaxPooling.lua
   net:add(nn.SpatialMaxPooling(3, 3, 3, 3))
-
-  -- change from 16 to 32 feature planes.  This is a 3x3 convolution, with padding, stride 1
   net:add(nn.SpatialConvolutionMM(16, 32, 3, 3, 1, 1, 1, 1))
   net:add(nn.ReLU())
   net:add(nn.SpatialMaxPooling(2, 2, 2, 2))
-
-  -- reshape from being 4-dimensional tensor (example number, feature plane, width, height), to
-  -- being 2 dimensional: (example number, feature plane * width * height)
   net:add(nn.Reshape(32 * 4 * 4))
-
-  -- fully connected layer, with 150 output neurons
   net:add(nn.Linear(32 * 4 * 4, 150))
   net:add(nn.Tanh())
-
-  -- fully connected layer, with numClasses output neurons
   net:add(nn.Linear(150, numClasses))
-
-  -- softmax.  Actually, this gives the log of the softmax output
-  -- our loss criterion will correspondingly expect the log of the softmax output as input, see below
   net:add(nn.LogSoftMax())
 
-  self.crit = nn.ClassNLLCriterion()  -- this is the loss function for labelled examples, given the network
-                                      -- outputs the log soft max
+  self.crit = nn.ClassNLLCriterion()
 
-  if backend == 'cuda' then
-    require 'cutorch'
-    require 'cunn'
-    self.net:cuda()
-    self.crit:cuda()
-  elseif backend == 'cl' then
-    require 'cltorch'
-    require 'clnn'
-    self.net:cl()
-    self.crit:cl()
-  else
-    self.net:float()  -- default is double
-    self.crit:float()
-  end
-
-  print('self.net', self.net)
-  print('self.crit', self.crit)
-  print('network created')
+  self.net:float()
+  self.crit:float()
 end
 
 function TorchModel:trainBatch(learningRate, input, labels)
-  local batchSize = labels:size(1)
   self.net:zeroGradParameters()
   local output = self.net:forward(input)
   local _, prediction = output:max(2)
