@@ -111,7 +111,7 @@ function TorchModel:predict(input)
 end
 ```
 
-Example of python script that calls this.  Assume the lua class is stored in file "torch_model.lua"
+Python script that calls this.  Assume the lua class is stored in file "torch_model.lua"
 ```
 import PyTorch
 import PyTorchHelpers
