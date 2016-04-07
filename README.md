@@ -92,13 +92,15 @@ end
 
 function TorchModel:trainBatch(learningRate, input, labels)
   self.net:zeroGradParameters()
+
   local output = self.net:forward(input)
-  local _, prediction = output:max(2)
-  local numRight = labels:int():eq(prediction:int()):sum()
   local loss = self.crit:forward(output, labels)
   local gradOutput = self.crit:backward(output, labels)
   self.net:backward(input, gradOutput)
   self.net:updateParameters(learningRate)
+
+  local _, prediction = output:max(2)
+  local numRight = labels:int():eq(prediction:int()):sum()
   return {loss=loss, numRight=numRight}  -- you can return a table, it will become a python dictionary
 end
 
