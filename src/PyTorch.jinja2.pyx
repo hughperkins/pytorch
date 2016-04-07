@@ -107,6 +107,9 @@ cdef extern from "THTensor.h":
     void TH{{Real}}Tensor_cmul(TH{{Real}}Tensor *r_, TH{{Real}}Tensor *t, TH{{Real}}Tensor *src)
     void TH{{Real}}Tensor_cdiv(TH{{Real}}Tensor *r_, TH{{Real}}Tensor *t, TH{{Real}}Tensor *src)
 
+    void TH{{Real}}Tensor_cmaxValue(TH{{Real}}Tensor *r, TH{{Real}}Tensor *t, {{real}} value)
+    void TH{{Real}}Tensor_cminValue(TH{{Real}}Tensor *r, TH{{Real}}Tensor *t, {{real}} value)
+
     {{real}} TH{{Real}}Tensor_sumall(TH{{Real}}Tensor *t)
 
     void TH{{Real}}Tensor_geometric(TH{{Real}}Tensor *self, THGenerator *_generator, double p)
@@ -543,6 +546,14 @@ cdef class _{{Real}}Tensor(object):
         cdef _ByteTensor res = _ByteTensor.new()
         TH{{Real}}Tensor_eqTensor(res.native, self.native, second.native);
         return res
+
+    def icmin(_{{Real}}Tensor self, second):
+      TH{{Real}}Tensor_cminValue(self.native, self.native, second)
+      return self
+
+    def icmax(_{{Real}}Tensor self, second):
+      TH{{Real}}Tensor_cmaxValue(self.native, self.native, second)
+      return self
 
     {% if Real in ['Float', 'Double'] %}
     def __truediv__(_{{Real}}Tensor self, second):

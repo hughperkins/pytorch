@@ -119,6 +119,9 @@ cdef extern from "THTensor.h":
     void THLongTensor_cmul(THLongTensor *r_, THLongTensor *t, THLongTensor *src)
     void THLongTensor_cdiv(THLongTensor *r_, THLongTensor *t, THLongTensor *src)
 
+    void THLongTensor_cmaxValue(THLongTensor *r, THLongTensor *t, long value)
+    void THLongTensor_cminValue(THLongTensor *r, THLongTensor *t, long value)
+
     long THLongTensor_sumall(THLongTensor *t)
 
     void THLongTensor_geometric(THLongTensor *self, THGenerator *_generator, double p)
@@ -185,6 +188,9 @@ cdef extern from "THTensor.h":
     void THFloatTensor_cadd(THFloatTensor *r_, THFloatTensor *t, float value, THFloatTensor *second)
     void THFloatTensor_cmul(THFloatTensor *r_, THFloatTensor *t, THFloatTensor *src)
     void THFloatTensor_cdiv(THFloatTensor *r_, THFloatTensor *t, THFloatTensor *src)
+
+    void THFloatTensor_cmaxValue(THFloatTensor *r, THFloatTensor *t, float value)
+    void THFloatTensor_cminValue(THFloatTensor *r, THFloatTensor *t, float value)
 
     float THFloatTensor_sumall(THFloatTensor *t)
 
@@ -261,6 +267,9 @@ cdef extern from "THTensor.h":
     void THDoubleTensor_cmul(THDoubleTensor *r_, THDoubleTensor *t, THDoubleTensor *src)
     void THDoubleTensor_cdiv(THDoubleTensor *r_, THDoubleTensor *t, THDoubleTensor *src)
 
+    void THDoubleTensor_cmaxValue(THDoubleTensor *r, THDoubleTensor *t, double value)
+    void THDoubleTensor_cminValue(THDoubleTensor *r, THDoubleTensor *t, double value)
+
     double THDoubleTensor_sumall(THDoubleTensor *t)
 
     void THDoubleTensor_geometric(THDoubleTensor *self, THGenerator *_generator, double p)
@@ -335,6 +344,9 @@ cdef extern from "THTensor.h":
     void THByteTensor_cadd(THByteTensor *r_, THByteTensor *t, unsigned char value, THByteTensor *second)
     void THByteTensor_cmul(THByteTensor *r_, THByteTensor *t, THByteTensor *src)
     void THByteTensor_cdiv(THByteTensor *r_, THByteTensor *t, THByteTensor *src)
+
+    void THByteTensor_cmaxValue(THByteTensor *r, THByteTensor *t, unsigned char value)
+    void THByteTensor_cminValue(THByteTensor *r, THByteTensor *t, unsigned char value)
 
     unsigned char THByteTensor_sumall(THByteTensor *t)
 
@@ -721,6 +733,14 @@ cdef class _LongTensor(object):
         cdef _ByteTensor res = _ByteTensor.new()
         THLongTensor_eqTensor(res.native, self.native, second.native);
         return res
+
+    def icmin(_LongTensor self, second):
+      THLongTensor_cminValue(self.native, self.native, second)
+      return self
+
+    def icmax(_LongTensor self, second):
+      THLongTensor_cmaxValue(self.native, self.native, second)
+      return self
 
     
     def __floordiv__(_LongTensor self, second):
@@ -1220,6 +1240,14 @@ cdef class _FloatTensor(object):
         cdef _ByteTensor res = _ByteTensor.new()
         THFloatTensor_eqTensor(res.native, self.native, second.native);
         return res
+
+    def icmin(_FloatTensor self, second):
+      THFloatTensor_cminValue(self.native, self.native, second)
+      return self
+
+    def icmax(_FloatTensor self, second):
+      THFloatTensor_cmaxValue(self.native, self.native, second)
+      return self
 
     
     def __truediv__(_FloatTensor self, second):
@@ -1781,6 +1809,14 @@ cdef class _DoubleTensor(object):
         THDoubleTensor_eqTensor(res.native, self.native, second.native);
         return res
 
+    def icmin(_DoubleTensor self, second):
+      THDoubleTensor_cminValue(self.native, self.native, second)
+      return self
+
+    def icmax(_DoubleTensor self, second):
+      THDoubleTensor_cmaxValue(self.native, self.native, second)
+      return self
+
     
     def __truediv__(_DoubleTensor self, second):
         # print('__div__')
@@ -2291,6 +2327,14 @@ cdef class _ByteTensor(object):
         cdef _ByteTensor res = _ByteTensor.new()
         THByteTensor_eqTensor(res.native, self.native, second.native);
         return res
+
+    def icmin(_ByteTensor self, second):
+      THByteTensor_cminValue(self.native, self.native, second)
+      return self
+
+    def icmax(_ByteTensor self, second):
+      THByteTensor_cmaxValue(self.native, self.native, second)
+      return self
 
     
     def __floordiv__(_ByteTensor self, second):
