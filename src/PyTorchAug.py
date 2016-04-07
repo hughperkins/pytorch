@@ -105,6 +105,7 @@ def pushSomething(lua, something):
       if dtypestr == 'uint8':
         pushSomething(lua, PyTorch._asByteTensor(something))
         return
+      raise Exception('pushing numpy array with elements of type ' + dtypestr + ' it not currently implemented')
 
     raise Exception('pushing type ' + str(type(something)) + ' not implemented, value ', something)
 
