@@ -22,6 +22,27 @@ extern "C" {
 
 using namespace std;
 
+// from http://stackoverflow.com/questions/12256455/print-stacktrace-from-c-code-with-embedded-lua
+static int traceback (lua_State *L) {
+  if (!lua_isstring(L, 1))  /* 'message' not a string? */
+    return 1;  /* keep it intact */
+  lua_getfield(L, LUA_GLOBALSINDEX, "debug");
+  if (!lua_istable(L, -1)) {
+    lua_pop(L, 1);
+    return 1;
+  }
+  lua_getfield(L, -1, "traceback");
+  if (!lua_isfunction(L, -1)) {
+    lua_pop(L, 2);
+    return 1;
+  }
+  lua_pushvalue(L, 1);  /* pass error message */
+  lua_pushinteger(L, 2);  /* skip this function and traceback */
+  lua_call(L, 2, 1);  /* call debug.traceback */
+  fprintf(stderr, "%s\n", lua_tostring(L, -1));
+  return 1;
+}
+
 lua_State *luaInit() {
     #ifndef _WIN32
     #ifdef USE_LUAJIT
@@ -44,6 +65,9 @@ lua_State *luaInit() {
 
     lua_State *L = luaL_newstate();
     luaL_openlibs(L);
+
+    // see http://stackoverflow.com/questions/12256455/print-stacktrace-from-c-code-with-embedded-lua/16323388#16323388
+    lua_pushcfunction(L, traceback);
 
     lua_getglobal(L, "require");
     lua_pushstring(L, "torch");
