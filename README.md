@@ -204,6 +204,7 @@ from __future__ import print_function, division
 
 # Related projects
 
+* [pytorch-residual-networks](https://github.com/hughperkins/pytorch-residual-networks) port of Michael Wilber's [torch-residual-networks](https://github.com/gcr/torch-residual-networks), to handle data loading and preprocessing from Python, via pytorch
 * [pycltorch](https://github.com/hughperkins/pycltorch) python wrappers for [cltorch](https://github.com/hughperkins/cltorch) and [clnn](https://github.com/hughperkins/clnn)
 * [pycudatorch](https://github.com/hughperkins/pycudatorch) python wrappers for [cutorch](https://github.com/torch/cutorch) and [cunn](https://github.com/torch/cunn)
 
