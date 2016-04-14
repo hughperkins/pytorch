@@ -11,7 +11,7 @@ function ThrowsError:go()
 end
 
 function mysub()
-  error('error in mysub')
+  error('testing error stacktraces.  This error stacktrace is normal, and a good thing :-)')
 end
 
 function ThrowsError:insub_anteater()

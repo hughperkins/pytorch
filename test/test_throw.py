@@ -41,7 +41,7 @@ def test_subthrow():
     throwsError.insub_anteater()  
   except Exception as e:
     print('error', e)
-    assert 'anteater' in str(e)
+    assert 'test_throw.lua:18' in str(e)
 
 if __name__ == '__main__':
   test_FunctionThrow()
