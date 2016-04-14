@@ -204,7 +204,12 @@ from __future__ import print_function, division
 
 # Related projects
 
+Examples of training models/networks using pytorch:
 * [pytorch-residual-networks](https://github.com/hughperkins/pytorch-residual-networks) port of Michael Wilber's [torch-residual-networks](https://github.com/gcr/torch-residual-networks), to handle data loading and preprocessing from Python, via pytorch
+* [cifar.pytorch](https://github.com/hughperkins/cifar.pytorch) pytorch implementation of Sergey's [cifar.torch](https://github.com/szagoruyko/cifar.torch)
+
+Addons, for using cuda tensors and opencl tensors directly from python (no need for this to train networks.  could be useful if you want to manipulate cuda tensor
+directly from python)
 * [pycltorch](https://github.com/hughperkins/pycltorch) python wrappers for [cltorch](https://github.com/hughperkins/cltorch) and [clnn](https://github.com/hughperkins/clnn)
 * [pycudatorch](https://github.com/hughperkins/pycudatorch) python wrappers for [cutorch](https://github.com/torch/cutorch) and [cunn](https://github.com/torch/cunn)
 
