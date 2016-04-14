@@ -12,7 +12,7 @@ def test_FunctionThrow():
     throwsError.go()
   except Exception as e:
     noException = False
-    print('caught exception', e)
+    print('caught successfully raised exception', e)
     traceback.print_exc()
   #  e.printstacktrace()
   assert(not noException)
@@ -25,13 +25,26 @@ def test_initThrow():
     throwsErrorOnInit = ThrowsErrorOnInit()
   except Exception as e:
     noException = False
-    print('caught exception', e)
+    print('caught successfully raised exception', e)
     traceback.print_exc()
   #  e.printstacktrace()
   assert(not noException)
   print('Note that it\'s normal this throws an exception.  Its a test of exception throwing :-)')
 
+def test_subthrow():
+  """
+  check that we get the full stack trace, not just the point of failure
+  """
+  ThrowsError = PyTorchHelpers.load_lua_class('test/test_throw.lua', 'ThrowsError')
+  throwsError = ThrowsError()
+  try:
+    throwsError.insub_anteater()  
+  except Exception as e:
+    print('error', e)
+    assert 'anteater' in str(e)
+
 if __name__ == '__main__':
   test_FunctionThrow()
   test_initThrow()
+  test_subthrow()
 

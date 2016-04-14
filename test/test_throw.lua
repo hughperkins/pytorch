@@ -10,6 +10,14 @@ function ThrowsError:go()
   a.foo()
 end
 
+function mysub()
+  error('error in mysub')
+end
+
+function ThrowsError:insub_anteater()
+  mysub()
+end
+
 local ThrowsErrorOnInit = torch.class('ThrowsErrorOnInit')
 
 function ThrowsErrorOnInit:__init()
