@@ -146,7 +146,7 @@ def popSomething(lua, self=None, name=None):
             lua.insert(-2)
             for arg in args:
                 pushSomething(lua, arg)
-            res = lua.pcall(len(args) + 1, 1)   # +1 for self
+            res = lua.pcall(len(args) + 1, 1, 1)   # +1 for self
             if res != 0:
               errorMessage = popString(lua)
               raise Exception(errorMessage)

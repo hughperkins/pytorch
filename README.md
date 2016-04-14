@@ -210,6 +210,9 @@ from __future__ import print_function, division
 
 # Recent news
 
+14 April:
+* stack trace should be a bit more useful now :-)
+
 17 March:
 * ctrl-c works now (tested on linux)
 
