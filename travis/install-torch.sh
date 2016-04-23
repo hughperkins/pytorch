@@ -12,7 +12,7 @@ if false; then {
 } else {
   mkdir -p ~/torch
   cd ~/torch
-  wget https://s3.amazonaws.com/hughperkinstravis/hughperkins/distro/10/10.1/torch-install.tar.bz2
+  wget https://s3.amazonaws.com/hughperkinstravis/hughperkins/distro/12/12.1/torch-install.tar.bz2
   tar -xf torch-install.tar.bz2
 } fi
 
