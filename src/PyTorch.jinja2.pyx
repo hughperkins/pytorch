@@ -705,6 +705,7 @@ def _as{{Real}}Tensor(myarray):
             Storage.TH{{Real}}Storage_retain(storage.native) # since newWithData takes ownership
 
             tensor = _{{Real}}Tensor.newWithStorage(storage, 0, size, stride)
+            tensor.nparray = myarray
             return tensor
         else:
             raise Exception('dims == {dims} not implemented; please raise an issue'.format(
@@ -714,6 +715,7 @@ def _as{{Real}}Tensor(myarray):
         storage = Storage._{{Real}}Storage.newWithData(myarraymv)
         Storage.TH{{Real}}Storage_retain(storage.native) # since newWithData takes ownership
         tensor = _{{Real}}Tensor.newWithStorage1d(storage, 0, len(myarray), 1)
+#        tensor.arrayarray = myarray
         return tensor        
     else:
         raise Exception("not implemented")

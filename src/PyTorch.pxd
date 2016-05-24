@@ -19,6 +19,8 @@ cdef extern from "THTensor.h":
 
 cdef class _LongTensor(object):
     cdef THLongTensor *native
+    # cdef THLongTensor *nativetest
+    cdef object nparray
     cdef long *data(self)
     # cpdef _LongTensor contiguous(self)
     cpdef int dims(self)
@@ -37,6 +39,8 @@ cdef extern from "THTensor.h":
 
 cdef class _FloatTensor(object):
     cdef THFloatTensor *native
+    # cdef THFloatTensor *nativetest
+    cdef object nparray
     cdef float *data(self)
     # cpdef _FloatTensor contiguous(self)
     cpdef int dims(self)
@@ -55,6 +59,8 @@ cdef extern from "THTensor.h":
 
 cdef class _DoubleTensor(object):
     cdef THDoubleTensor *native
+    # cdef THDoubleTensor *nativetest
+    cdef object nparray
     cdef double *data(self)
     # cpdef _DoubleTensor contiguous(self)
     cpdef int dims(self)
@@ -73,6 +79,8 @@ cdef extern from "THTensor.h":
 
 cdef class _ByteTensor(object):
     cdef THByteTensor *native
+    # cdef THByteTensor *nativetest
+    cdef object nparray
     cdef unsigned char *data(self)
     # cpdef _ByteTensor contiguous(self)
     cpdef int dims(self)

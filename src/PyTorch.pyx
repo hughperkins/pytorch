@@ -1378,6 +1378,7 @@ def _asFloatTensor(myarray):
             Storage.THFloatStorage_retain(storage.native) # since newWithData takes ownership
 
             tensor = _FloatTensor.newWithStorage(storage, 0, size, stride)
+            tensor.nparray = myarray
             return tensor
         else:
             raise Exception('dims == {dims} not implemented; please raise an issue'.format(
@@ -1387,6 +1388,7 @@ def _asFloatTensor(myarray):
         storage = Storage._FloatStorage.newWithData(myarraymv)
         Storage.THFloatStorage_retain(storage.native) # since newWithData takes ownership
         tensor = _FloatTensor.newWithStorage1d(storage, 0, len(myarray), 1)
+#        tensor.arrayarray = myarray
         return tensor        
     else:
         raise Exception("not implemented")
@@ -1946,6 +1948,7 @@ def _asDoubleTensor(myarray):
             Storage.THDoubleStorage_retain(storage.native) # since newWithData takes ownership
 
             tensor = _DoubleTensor.newWithStorage(storage, 0, size, stride)
+            tensor.nparray = myarray
             return tensor
         else:
             raise Exception('dims == {dims} not implemented; please raise an issue'.format(
@@ -1955,6 +1958,7 @@ def _asDoubleTensor(myarray):
         storage = Storage._DoubleStorage.newWithData(myarraymv)
         Storage.THDoubleStorage_retain(storage.native) # since newWithData takes ownership
         tensor = _DoubleTensor.newWithStorage1d(storage, 0, len(myarray), 1)
+#        tensor.arrayarray = myarray
         return tensor        
     else:
         raise Exception("not implemented")
@@ -2437,6 +2441,7 @@ def _asByteTensor(myarray):
             Storage.THByteStorage_retain(storage.native) # since newWithData takes ownership
 
             tensor = _ByteTensor.newWithStorage(storage, 0, size, stride)
+            tensor.nparray = myarray
             return tensor
         else:
             raise Exception('dims == {dims} not implemented; please raise an issue'.format(
@@ -2446,6 +2451,7 @@ def _asByteTensor(myarray):
         storage = Storage._ByteStorage.newWithData(myarraymv)
         Storage.THByteStorage_retain(storage.native) # since newWithData takes ownership
         tensor = _ByteTensor.newWithStorage1d(storage, 0, len(myarray), 1)
+#        tensor.arrayarray = myarray
         return tensor        
     else:
         raise Exception("not implemented")

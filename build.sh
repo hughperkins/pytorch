@@ -12,7 +12,7 @@
 export TORCH_INSTALL=$(dirname $(dirname $(which luajit) 2>/dev/null) 2>/dev/null)
 
 if [[ x${INCREMENTAL} == x ]]; then {
-  rm -Rf build PyBuild.so dist *.egg-info cbuild ${TORCH_INSTALL}/lib/libPyTorch*
+  rm -Rf build PyBuild.so dist *.egg-info cbuild src/*.so src/PyTorch.egg-info ${TORCH_INSTALL}/lib/libPyTorch*
   pip uninstall -y PyTorch
 } fi
 # python setup.py build_ext -i || exit 1
