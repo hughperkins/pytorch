@@ -189,10 +189,8 @@ cd pytorch
 # Python 2 vs Python 3?
 
 - pytorch is developed and maintained on python 3
-- you should be able to use it with python 2, as long as you include the following at the top of your scripts:
-```
-from __future__ import print_function, division
-```
+- you should be able to use it with python 2, but there might be the occasional oversight.  Please log an issue
+for any python 2 incompatibilities you notice
 
 # Maintainer guidelines
 
