@@ -1361,6 +1361,7 @@ cdef _FloatTensor_fromNative(THFloatTensor *tensorC, retain=True):
 def _asFloatTensor(myarray):
     cdef float[:] myarraymv
     cdef Storage._FloatStorage storage
+    cdef _FloatTensor tensor
     if str(type(myarray)) in ["<type 'numpy.ndarray'>", "<class 'numpy.ndarray'>"]:
         dims = len(myarray.shape)
         if dims >= 1:
@@ -1379,6 +1380,7 @@ def _asFloatTensor(myarray):
 
             tensor = _FloatTensor.newWithStorage(storage, 0, size, stride)
             tensor.nparray = myarray
+            __Pyx_INCREF(myarray)
             return tensor
         else:
             raise Exception('dims == {dims} not implemented; please raise an issue'.format(
@@ -1931,6 +1933,7 @@ cdef _DoubleTensor_fromNative(THDoubleTensor *tensorC, retain=True):
 def _asDoubleTensor(myarray):
     cdef double[:] myarraymv
     cdef Storage._DoubleStorage storage
+    cdef _DoubleTensor tensor
     if str(type(myarray)) in ["<type 'numpy.ndarray'>", "<class 'numpy.ndarray'>"]:
         dims = len(myarray.shape)
         if dims >= 1:
@@ -1949,6 +1952,7 @@ def _asDoubleTensor(myarray):
 
             tensor = _DoubleTensor.newWithStorage(storage, 0, size, stride)
             tensor.nparray = myarray
+            __Pyx_INCREF(myarray)
             return tensor
         else:
             raise Exception('dims == {dims} not implemented; please raise an issue'.format(
@@ -2424,6 +2428,7 @@ cdef _ByteTensor_fromNative(THByteTensor *tensorC, retain=True):
 def _asByteTensor(myarray):
     cdef unsigned char[:] myarraymv
     cdef Storage._ByteStorage storage
+    cdef _ByteTensor tensor
     if str(type(myarray)) in ["<type 'numpy.ndarray'>", "<class 'numpy.ndarray'>"]:
         dims = len(myarray.shape)
         if dims >= 1:
@@ -2442,6 +2447,7 @@ def _asByteTensor(myarray):
 
             tensor = _ByteTensor.newWithStorage(storage, 0, size, stride)
             tensor.nparray = myarray
+            __Pyx_INCREF(myarray)
             return tensor
         else:
             raise Exception('dims == {dims} not implemented; please raise an issue'.format(
