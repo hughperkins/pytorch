@@ -78,6 +78,7 @@ cdef extern from "THTensor.h":
     long TH{{Real}}Tensor_size(const TH{{Real}}Tensor *self, int dim)
     long TH{{Real}}Tensor_nElement(TH{{Real}}Tensor *self)
     long TH{{Real}}Tensor_stride(const TH{{Real}}Tensor *self, int dim)
+    int TH{{Real}}Tensor_isContiguous(const TH{{Real}}Tensor *self)
 
     void TH{{Real}}Tensor_set1d(const TH{{Real}}Tensor *tensor, long x0, float value)
     void TH{{Real}}Tensor_set2d(const TH{{Real}}Tensor *tensor, long x0, long x1, float value)
@@ -202,7 +203,7 @@ cdef class _{{Real}}Tensor(object):
 #        logger.debug('__dealloc__ native %s', <long>(self.native) != 0)
         if <long>(self.native) != 0:
             refCount = TH{{Real}}Tensor_getRefCount(self.native)
-            # print('{{Real}}Tensor.dealloc old refcount', refCount)
+   #         print('{{Real}}Tensor.dealloc old refcount', refCount)
    #        storage = THFloatTensor_storage(self.thFloatTensor)
    #        if storage == NULL:
    #            # print('   dealloc, storage NULL')
@@ -271,6 +272,9 @@ cdef class _{{Real}}Tensor(object):
 
     cpdef {{real}} get2d(self, int x0, int x1):
         return TH{{Real}}Tensor_get2d(self.native, x0, x1)
+
+    cpdef int isContiguous(_{{Real}}Tensor self):
+        return TH{{Real}}Tensor_isContiguous(self.native)
 
     def __repr__(_{{Real}}Tensor self):
         return self.as_string(self)
@@ -430,7 +434,7 @@ cdef class _{{Real}}Tensor(object):
 
     def contiguous(_{{Real}}Tensor self):
         cdef TH{{Real}}Tensor *newTensorC = TH{{Real}}Tensor_newContiguous(self.native)
-        return _{{Real}}Tensor_fromNative(newTensorC)
+        return _{{Real}}Tensor_fromNative(newTensorC, retain=False)
 
     def resize1d(_{{Real}}Tensor self, int size0):
         TH{{Real}}Tensor_resize1d(self.native, size0)

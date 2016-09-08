@@ -26,6 +26,7 @@ cdef class _{{Real}}Tensor(object):
     cpdef set2d(self, int x0, int x1, {{real}} value)
     cpdef {{real}} get1d(self, int x0)
     cpdef {{real}} get2d(self, int x0, int x1)
+    cpdef int isContiguous(self)
 #    @cython.staticmethod
 #    cdef fromNative(TH{{Real}}Tensor *tensorC, retain=*)
 {% endfor %}
