@@ -183,6 +183,15 @@ def popTable(lua):
     return res
 
 
+def save(filepath, target):
+    print('save', filepath)
+    lua = PyTorch.getGlobalState().getLua()
+    pushGlobal(lua, 'torch', 'save')
+    pushSomething(lua, filepath)
+    pushSomething(lua, target)
+    lua.call(2, 0)
+
+
 class LuaClass(object):
     def __init__(self, nameList, *args):
         lua = PyTorch.getGlobalState().getLua()
@@ -305,4 +314,3 @@ pushFunctionByPythonClass = {}
 pushFunctionByPythonClass[PyTorch._FloatTensor] = PyTorch._pushFloatTensor
 pushFunctionByPythonClass[PyTorch._DoubleTensor] = PyTorch._pushDoubleTensor
 pushFunctionByPythonClass[PyTorch._ByteTensor] = PyTorch._pushByteTensor
-
