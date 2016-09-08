@@ -21,7 +21,7 @@ function TestCallLua:getOut(inTensor, outSize, kernelSize)
   return out
 end
 
-function TestCallLua:addOne(inTensor)
+function TestCallLua:addThree(inTensor)
   local outTensor = inTensor + 3
   return outTensor
 end

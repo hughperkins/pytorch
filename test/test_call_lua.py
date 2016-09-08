@@ -29,7 +29,7 @@ def test_call_lua():
     # I guess we just assume if we got to this point, with no exceptions, then thats a good thing...
     # lets add some new test...
 
-    outTensor = luabit.addOne(luain).asNumpyTensor()
+    outTensor = luabit.addThree(luain).asNumpyTensor()
     assert isinstance(outTensor, np.ndarray)
     assert inTensor.shape == outTensor.shape
     assert np.abs((inTensor + 3) - outTensor).max() < 1e-4
