@@ -198,12 +198,40 @@ def popTable(lua):
 
 
 def save(filepath, target):
-    print('save', filepath)
     lua = PyTorch.getGlobalState().getLua()
-    pushGlobal(lua, 'torch', 'save')
+
+    topStart = lua.getTop()
+
+    pushGlobal(lua, 'torch', 'saveobj')
     pushSomething(lua, filepath)
     pushSomething(lua, target)
-    lua.call(2, 0)
+    res = lua.pcall(2, 0, 1)
+    if res != 0:
+        errorMessage = popString(lua)
+        raise Exception(errorMessage)
+
+    topEnd = lua.getTop()
+    assert topStart == topEnd
+
+
+def load(filepath):
+    lua = PyTorch.getGlobalState().getLua()
+    topStart = lua.getTop()
+
+    pushGlobal(lua, 'torch', 'loadobj')
+    pushSomething(lua, filepath)
+
+    res = lua.pcall(1, 1, 1)
+    if res != 0:
+        errorMessage = popString(lua)
+        raise Exception(errorMessage)
+
+    res = popSomething(lua)
+
+    topEnd = lua.getTop()
+    assert topStart == topEnd
+
+    return res
 
 
 class LuaClass(object):

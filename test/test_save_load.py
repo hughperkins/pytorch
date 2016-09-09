@@ -13,3 +13,9 @@ def test_save_load():
 
     filename = '/tmp/foo.t7'  # TODO: should use tempfile to get this
     PyTorchAug.save(filename, a)
+
+    b = PyTorchAug.load(filename)
+    print('type(b)', type(b))
+    print('b', b)
+
+    assert np.abs(a_np - b.asNumpyTensor()).max() < 1e-4
