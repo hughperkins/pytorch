@@ -38,3 +38,7 @@ def test_call_lua():
         'row1': 'col1', 'meta': 'data'})
     print('res', res)
     assert res == {'foo': 'bar', 'result': 12.345, 'bear': 'happy'}
+
+    reslist = luabit.getList(['blue', 42, r'\omega'])
+    restuple = luabit.getList((3.1415, r'~Python~', 'Torch', 1.2e-4))
+    assert reslist == restuple == {1: 'lorem', 2: 'ipsum', 3: 42, 4: 2.1}

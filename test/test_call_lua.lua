@@ -36,3 +36,13 @@ function TestCallLua:printTable(sometable, somestring, table2)
   end
   return {bear='happy', result=12.345, foo='bar'}
 end
+
+function TestCallLua:getList(somelist)
+  assert(type(somelist) == 'table')
+  print('list in lua:')
+  for i = 1, #somelist do
+    print(i, somelist[i])
+  end
+
+  return {'lorem', 'ipsum', 42, 2.1}
+end
