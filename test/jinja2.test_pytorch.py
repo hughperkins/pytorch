@@ -5,6 +5,8 @@ from __future__ import print_function, division
 import PyTorch
 import numpy
 import inspect
+from test.test_helpers import myeval, myexec
+
 
 {%- set types = [
     {'Real': 'Long','real': 'long'},
@@ -13,17 +15,6 @@ import inspect
     {'Real': 'Byte', 'real': 'unsigned char'}
 ]
 %}
-
-
-def myeval(expr):
-    parent_vars = inspect.stack()[1][0].f_locals
-    print(expr, ':', eval(expr, parent_vars))
-
-
-def myexec(expr):
-    parent_vars = inspect.stack()[1][0].f_locals
-    print(expr)
-    exec(expr, parent_vars)
 
 
 {% for typedict in types -%}

@@ -1,17 +1,7 @@
 from __future__ import print_function, division
 import PyTorch
-import array
-import numpy
-import inspect
 import gc
-
-
-def myeval(expr):
-    l = locals()
-    context = inspect.getouterframes( inspect.currentframe() )[1].frame.f_locals
-    for k, v in context.items():
-        l[k] = v
-    print(expr, eval(expr))
+from test.test_helpers import myeval
 
 
 def test_refcount():

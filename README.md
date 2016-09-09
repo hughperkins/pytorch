@@ -158,14 +158,15 @@ It's easy to modify the lua script to use CUDA, or OpenCL.
 luarocks install nn
 ```
 * Have installed python (tested with 2.7 and 3.4)
-* Have installed the following python libraries:
+* lua51 headers should be installed, ie something like `sudo apt-get install lua5.1 liblua5.1-dev`
+Run:
 ```
-pip install numpy
-pip install pytest
-pip install python-mnist  # used for unit tests
-pip install docopt        # used by examples
+pip install -r requirements.txt
 ```
-- lua51 headers should be installed, ie something like `sudo apt-get install lua5.1 liblua5.1-dev`
+* To be able to run tests, also do:
+```
+pip install -r test/requirements.txt
+```
 
 ## Procedure
 

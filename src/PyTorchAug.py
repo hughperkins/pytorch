@@ -4,9 +4,7 @@ import PyTorch
 import PyTorchLua
 import PyTorchHelpers
 
-lua = PyTorch.getGlobalState().getLua()
 nextObjectId = 1
-nn = Nn()
 luaClasses = {}
 luaClassesReverse = {}
 
@@ -228,8 +226,8 @@ class LuaClass(object):
         topEnd = lua.getTop()
         assert topStart == topEnd
 
-    def __del__(self):
-        name = self.__class__.__name__
+    # def __del__(self):
+        # name = self.__class__.__name__
 
     def __repr__(self):
         topStart = lua.getTop()
@@ -319,6 +317,9 @@ def populateLuaClassesReverse():
     for name in luaClasses:
         classtype = luaClasses[name]
         luaClassesReverse[classtype] = name
+
+lua = PyTorch.getGlobalState().getLua()
+nn = Nn()
 
 cythonClasses = {}
 cythonClasses['torch.FloatTensor'] = {'popFunction': PyTorch._popFloatTensor}
