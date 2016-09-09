@@ -65,3 +65,5 @@ docs/_build/
 
 # PyBuilder
 target/
+
+test/junit-pytest-report.xml

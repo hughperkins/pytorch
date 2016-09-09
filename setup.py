@@ -1,4 +1,4 @@
-# Copyright Hugh Perkins 2015 hughperkins at gmail
+# Copyright Hugh Perkins 2015, 2016 hughperkins at gmail
 #
 # This Source Code Form is subject to the terms of the Mozilla Public License,
 # v. 2.0. If a copy of the MPL was not distributed with this file, You can
@@ -19,21 +19,21 @@ print('torch_install:', torch_install_dir)
 print('os family', osfamily)
 
 cython_present = False
-#from Cython.Build import cythonize
-#cython_present = True
+# from Cython.Build import cythonize
+# cython_present = True
 
 jinja_present = False
-#jinja_present = True
+# jinja_present = True
 
 running_cython = False
 for arg in sys.argv:
     if arg in ('cython_only'):
-        running_cython=True
+        running_cython = True
         break
 
 if running_cython:
     types = [
-        {'Real': 'Long','real': 'long'},
+        {'Real': 'Long', 'real': 'long'},
         {'Real': 'Float', 'real': 'float'},
         {'Real': 'Double', 'real': 'double'},
         {'Real': 'Byte', 'real': 'unsigned char'}
@@ -42,7 +42,7 @@ if running_cython:
     from Cython.Build import cythonize
     import jinja2
     # first generate cython pyx from jinja template...
-    from jinja2 import Environment, PackageLoader, Template
+    from jinja2 import Environment
     env = Environment(loader=jinja2.FileSystemLoader('.'))
     templateNames = [
         'src/PyTorch.jinja2.pyx', 'src/Storage.jinja2.pyx', 'src/PyTorch.jinja2.pxd', 'src/nnWrapper.jinja2.cpp', 'src/nnWrapper.jinja2.h',
@@ -97,11 +97,11 @@ if osfamily in ['Linux', 'Darwin']:
 runtime_library_dirs = []
 libraries = []
 extra_link_args = []
-#libraries.append('lua5.1')
-#libraries.append('luaT')
-#libraries.append('mylib')
+# libraries.append('lua5.1')
+# libraries.append('luaT')
+# libraries.append('mylib')
 libraries.append('PyTorchNative')
-#libraries.append('TH')
+# libraries.append('TH')
 library_dirs = []
 # library_dirs.append('cbuild')
 library_dirs.append(torch_install_dir + '/lib')
@@ -115,9 +115,10 @@ if osfamily == 'Windows':
 if osfamily == 'Darwin':  # Mac OS X
     extra_link_args.append('-Wl,-rpath,' + torch_install_dir + '/lib')
 
-#sources = ["PyTorch.cxx"]
-#if cython_present:
-#sources = ['src/lua.pyx', 'src/Storage.pyx', "src/PyTorch.pyx"]
+# sources = ["PyTorch.cxx"]
+# if cython_present:
+# sources = ['src/lua.pyx', 'src/Storage.pyx', "src/PyTorch.pyx"]
+
 
 def get_file_datetime(filepath):
     t = os.path.getmtime(filepath)
@@ -143,7 +144,7 @@ for cython_source in cython_sources:
                   language="c++")
     )
 
-#ext_modules = cythonize(ext_modules)
+# ext_modules = cythonize(ext_modules)
 
 setup(
     name='PyTorch',
@@ -163,4 +164,3 @@ setup(
     py_modules=['floattensor', 'PyTorchAug', 'PyTorchHelpers', 'PyTorchLua'],
     package_dir={'': 'src'}
 )
-

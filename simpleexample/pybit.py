@@ -1,5 +1,3 @@
-import sys
-import os
 import PyTorch
 import PyTorchHelpers
 import numpy as np
@@ -25,6 +23,5 @@ outTensor = luaout.asNumpyTensor()
 print('outTensor', outTensor)
 
 res = luabit.printTable({'color': 'red', 'weather': 'sunny', 'anumber': 10, 'afloat': 1.234}, 'mistletoe', {
-  'row1': 'col1', 'meta': 'data'})
+    'row1': 'col1', 'meta': 'data'})
 print('res', res)
-

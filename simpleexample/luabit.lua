@@ -31,4 +31,3 @@ function Luabit:printTable(sometable, somestring, table2)
   end
   return {bear='happy', result=12.345, foo='bar'}
 end
-

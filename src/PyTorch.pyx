@@ -90,6 +90,7 @@ cdef extern from "THTensor.h":
     long THLongTensor_size(const THLongTensor *self, int dim)
     long THLongTensor_nElement(THLongTensor *self)
     long THLongTensor_stride(const THLongTensor *self, int dim)
+    int THLongTensor_isContiguous(const THLongTensor *self)
 
     void THLongTensor_set1d(const THLongTensor *tensor, long x0, float value)
     void THLongTensor_set2d(const THLongTensor *tensor, long x0, long x1, float value)
@@ -160,6 +161,7 @@ cdef extern from "THTensor.h":
     long THFloatTensor_size(const THFloatTensor *self, int dim)
     long THFloatTensor_nElement(THFloatTensor *self)
     long THFloatTensor_stride(const THFloatTensor *self, int dim)
+    int THFloatTensor_isContiguous(const THFloatTensor *self)
 
     void THFloatTensor_set1d(const THFloatTensor *tensor, long x0, float value)
     void THFloatTensor_set2d(const THFloatTensor *tensor, long x0, long x1, float value)
@@ -238,6 +240,7 @@ cdef extern from "THTensor.h":
     long THDoubleTensor_size(const THDoubleTensor *self, int dim)
     long THDoubleTensor_nElement(THDoubleTensor *self)
     long THDoubleTensor_stride(const THDoubleTensor *self, int dim)
+    int THDoubleTensor_isContiguous(const THDoubleTensor *self)
 
     void THDoubleTensor_set1d(const THDoubleTensor *tensor, long x0, float value)
     void THDoubleTensor_set2d(const THDoubleTensor *tensor, long x0, long x1, float value)
@@ -316,6 +319,7 @@ cdef extern from "THTensor.h":
     long THByteTensor_size(const THByteTensor *self, int dim)
     long THByteTensor_nElement(THByteTensor *self)
     long THByteTensor_stride(const THByteTensor *self, int dim)
+    int THByteTensor_isContiguous(const THByteTensor *self)
 
     void THByteTensor_set1d(const THByteTensor *tensor, long x0, float value)
     void THByteTensor_set2d(const THByteTensor *tensor, long x0, long x1, float value)
@@ -432,7 +436,7 @@ cdef class _LongTensor(object):
 #        logger.debug('__dealloc__ native %s', <long>(self.native) != 0)
         if <long>(self.native) != 0:
             refCount = THLongTensor_getRefCount(self.native)
-            # print('LongTensor.dealloc old refcount', refCount)
+   #         print('LongTensor.dealloc old refcount', refCount)
    #        storage = THFloatTensor_storage(self.thFloatTensor)
    #        if storage == NULL:
    #            # print('   dealloc, storage NULL')
@@ -501,6 +505,9 @@ cdef class _LongTensor(object):
 
     cpdef long get2d(self, int x0, int x1):
         return THLongTensor_get2d(self.native, x0, x1)
+
+    cpdef int isContiguous(_LongTensor self):
+        return THLongTensor_isContiguous(self.native)
 
     def __repr__(_LongTensor self):
         return self.as_string(self)
@@ -617,7 +624,7 @@ cdef class _LongTensor(object):
 
     def contiguous(_LongTensor self):
         cdef THLongTensor *newTensorC = THLongTensor_newContiguous(self.native)
-        return _LongTensor_fromNative(newTensorC)
+        return _LongTensor_fromNative(newTensorC, retain=False)
 
     def resize1d(_LongTensor self, int size0):
         THLongTensor_resize1d(self.native, size0)
@@ -900,7 +907,7 @@ cdef class _FloatTensor(object):
 #        logger.debug('__dealloc__ native %s', <long>(self.native) != 0)
         if <long>(self.native) != 0:
             refCount = THFloatTensor_getRefCount(self.native)
-            # print('FloatTensor.dealloc old refcount', refCount)
+   #         print('FloatTensor.dealloc old refcount', refCount)
    #        storage = THFloatTensor_storage(self.thFloatTensor)
    #        if storage == NULL:
    #            # print('   dealloc, storage NULL')
@@ -969,6 +976,9 @@ cdef class _FloatTensor(object):
 
     cpdef float get2d(self, int x0, int x1):
         return THFloatTensor_get2d(self.native, x0, x1)
+
+    cpdef int isContiguous(_FloatTensor self):
+        return THFloatTensor_isContiguous(self.native)
 
     def __repr__(_FloatTensor self):
         return self.as_string(self)
@@ -1124,7 +1134,7 @@ cdef class _FloatTensor(object):
 
     def contiguous(_FloatTensor self):
         cdef THFloatTensor *newTensorC = THFloatTensor_newContiguous(self.native)
-        return _FloatTensor_fromNative(newTensorC)
+        return _FloatTensor_fromNative(newTensorC, retain=False)
 
     def resize1d(_FloatTensor self, int size0):
         THFloatTensor_resize1d(self.native, size0)
@@ -1468,7 +1478,7 @@ cdef class _DoubleTensor(object):
 #        logger.debug('__dealloc__ native %s', <long>(self.native) != 0)
         if <long>(self.native) != 0:
             refCount = THDoubleTensor_getRefCount(self.native)
-            # print('DoubleTensor.dealloc old refcount', refCount)
+   #         print('DoubleTensor.dealloc old refcount', refCount)
    #        storage = THFloatTensor_storage(self.thFloatTensor)
    #        if storage == NULL:
    #            # print('   dealloc, storage NULL')
@@ -1537,6 +1547,9 @@ cdef class _DoubleTensor(object):
 
     cpdef double get2d(self, int x0, int x1):
         return THDoubleTensor_get2d(self.native, x0, x1)
+
+    cpdef int isContiguous(_DoubleTensor self):
+        return THDoubleTensor_isContiguous(self.native)
 
     def __repr__(_DoubleTensor self):
         return self.as_string(self)
@@ -1692,7 +1705,7 @@ cdef class _DoubleTensor(object):
 
     def contiguous(_DoubleTensor self):
         cdef THDoubleTensor *newTensorC = THDoubleTensor_newContiguous(self.native)
-        return _DoubleTensor_fromNative(newTensorC)
+        return _DoubleTensor_fromNative(newTensorC, retain=False)
 
     def resize1d(_DoubleTensor self, int size0):
         THDoubleTensor_resize1d(self.native, size0)
@@ -2036,7 +2049,7 @@ cdef class _ByteTensor(object):
 #        logger.debug('__dealloc__ native %s', <long>(self.native) != 0)
         if <long>(self.native) != 0:
             refCount = THByteTensor_getRefCount(self.native)
-            # print('ByteTensor.dealloc old refcount', refCount)
+   #         print('ByteTensor.dealloc old refcount', refCount)
    #        storage = THFloatTensor_storage(self.thFloatTensor)
    #        if storage == NULL:
    #            # print('   dealloc, storage NULL')
@@ -2105,6 +2118,9 @@ cdef class _ByteTensor(object):
 
     cpdef unsigned char get2d(self, int x0, int x1):
         return THByteTensor_get2d(self.native, x0, x1)
+
+    cpdef int isContiguous(_ByteTensor self):
+        return THByteTensor_isContiguous(self.native)
 
     def __repr__(_ByteTensor self):
         return self.as_string(self)
@@ -2211,7 +2227,7 @@ cdef class _ByteTensor(object):
 
     def contiguous(_ByteTensor self):
         cdef THByteTensor *newTensorC = THByteTensor_newContiguous(self.native)
-        return _ByteTensor_fromNative(newTensorC)
+        return _ByteTensor_fromNative(newTensorC, retain=False)
 
     def resize1d(_ByteTensor self, int size0):
         THByteTensor_resize1d(self.native, size0)
