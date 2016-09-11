@@ -5,6 +5,7 @@ local TestCallLua = torch.class('TestCallLua')
 
 function TestCallLua:__init(someName)
   print('TestCallLua:__init(', someName, ')')
+  assert(someName == 'green')
   self.someName = someName
 end
 
@@ -29,10 +30,25 @@ end
 function TestCallLua:printTable(sometable, somestring, table2)
   for k, v in pairs(sometable) do
     print('TestCallLua:printTable ', k, v)
+    if k == 'color' then
+        assert(v == 'red')
+    elseif k == 'weather' then
+        assert(v == 'sunny')
+    elseif k == 'anumber' then
+        assert(v == 10)
+    elseif k == 'afloat' then
+        assert((v - 1.234) < 1e-7)
+    end
   end
+  assert(somestring == 'mistletoe')
   print('somestring', somestring)
   for k, v in pairs(table2) do
     print('TestCallLua table2 ', k, v)
+    if k == 'row1' then
+        assert(v == 'col1')
+    elseif k == 'meta' then
+        assert(v == 'data')
+    end
   end
   return {bear='happy', result=12.345, foo='bar'}
 end
