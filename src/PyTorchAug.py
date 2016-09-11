@@ -5,25 +5,29 @@ import PyTorch
 import PyTorchLua
 import PyTorchHelpers
 
-lua = PyTorch.getGlobalState().getLua()
+nextObjectId = 1
+luaClasses = {}
+luaClassesReverse = {}
+
 
 # this is so we can ctrl-c lua functions.  we have to run them in a separate thread
 # for this, so that the python event log can continue ('event loop' might not be quite
 # the right technical term, but the concept is approximately right.  I think)
 def interruptableCall(function, args):
-    mythread = threading.Thread(target=function, args = args)
+    mythread = threading.Thread(target=function, args=args)
     mythread.daemon = True
     mythread.start()
     while mythread.isAlive():
         mythread.join(0.1)
-        #print('join timed out')
+        # print('join timed out')
 
-nextObjectId = 1
+
 def getNextObjectId():
     global nextObjectId
     res = nextObjectId
     nextObjectId += 1
     return res
+
 
 def pushGlobal(lua, name1, name2=None, name3=None):
     lua.getGlobal(name1)
@@ -36,30 +40,36 @@ def pushGlobal(lua, name1, name2=None, name3=None):
     lua.getField(-1, name3)
     lua.remove(-2)
 
+
 def pushGlobalFromList(lua, nameList):
     lua.getGlobal(nameList[0])
     for name in nameList[1:]:
         lua.getField(-1, name)
         lua.remove(-2)
 
+
 def popString(lua):
     res = lua.toString(-1)
     lua.remove(-1)
     return res.decode('utf-8')
+
 
 def registerObject(lua, myobject):
     lua.pushNumber(myobject.__objectId)
     lua.insert(-2)
     lua.setRegistry()
 
+
 def unregisterObject(lua, myobject):
     lua.pushNumber(myobject.__objectId)
     lua.pushNil()
     lua.setRegistry()
 
+
 def pushObject(lua, myobject):
     lua.pushNumber(myobject.__objectId)
     lua.getRegistry()
+
 
 def torchType(lua, pos):
     lua.pushValue(-1)
@@ -67,6 +77,7 @@ def torchType(lua, pos):
     lua.insert(-2)
     lua.call(1, 1)
     return popString(lua)
+
 
 def pushSomething(lua, something):
     if isinstance(something, int):
@@ -100,19 +111,20 @@ def pushSomething(lua, something):
 
     typestring = str(type(something))
     if typestring in ["<class 'numpy.ndarray'>", "<type 'numpy.ndarray'>"]:
-      dtypestr = str(something.dtype)
-      if dtypestr == 'float32':
-        pushSomething(lua, PyTorch._asFloatTensor(something))
-        return
-      if dtypestr == 'float64':
-        pushSomething(lua, PyTorch._asDoubleTensor(something))
-        return
-      if dtypestr == 'uint8':
-        pushSomething(lua, PyTorch._asByteTensor(something))
-        return
-      raise Exception('pushing numpy array with elements of type ' + dtypestr + ' it not currently implemented')
+        dtypestr = str(something.dtype)
+        if dtypestr == 'float32':
+            pushSomething(lua, PyTorch._asFloatTensor(something))
+            return
+        if dtypestr == 'float64':
+            pushSomething(lua, PyTorch._asDoubleTensor(something))
+            return
+        if dtypestr == 'uint8':
+            pushSomething(lua, PyTorch._asByteTensor(something))
+            return
+        raise Exception('pushing numpy array with elements of type ' + dtypestr + ' it not currently implemented')
 
     raise Exception('pushing type ' + str(type(something)) + ' not implemented, value ', something)
+
 
 def popSomething(lua, self=None, name=None):
     lua.pushValue(-1)
@@ -153,8 +165,8 @@ def popSomething(lua, self=None, name=None):
                 pushSomething(lua, arg)
             res = lua.pcall(len(args) + 1, 1, 1)   # +1 for self
             if res != 0:
-              errorMessage = popString(lua)
-              raise Exception(errorMessage)
+                errorMessage = popString(lua)
+                raise Exception(errorMessage)
             res = popSomething(lua)
             topEnd = lua.getTop()
             assert topStart == topEnd
@@ -169,12 +181,14 @@ def popSomething(lua, self=None, name=None):
     raise Exception('pop type ' + str(typestring) + ' not implemented')
     # print('pop type ' + str(typestring) + ' not implemented')
 
+
 def pushTable(lua, table):
     lua.newTable()
     for k, v in table.items():
         pushSomething(lua, k)
         pushSomething(lua, v)
         lua.setTable(-3)
+
 
 def popTable(lua):
     res = {}
@@ -185,6 +199,43 @@ def popTable(lua):
         key = popSomething(lua)
         res[key] = value
     lua.remove(-1)
+    return res
+
+
+def save(filepath, target):
+    lua = PyTorch.getGlobalState().getLua()
+
+    topStart = lua.getTop()
+
+    pushGlobal(lua, 'torch', 'saveobj')
+    pushSomething(lua, filepath)
+    pushSomething(lua, target)
+    res = lua.pcall(2, 0, 1)
+    if res != 0:
+        errorMessage = popString(lua)
+        raise Exception(errorMessage)
+
+    topEnd = lua.getTop()
+    assert topStart == topEnd
+
+
+def load(filepath):
+    lua = PyTorch.getGlobalState().getLua()
+    topStart = lua.getTop()
+
+    pushGlobal(lua, 'torch', 'loadobj')
+    pushSomething(lua, filepath)
+
+    res = lua.pcall(1, 1, 1)
+    if res != 0:
+        errorMessage = popString(lua)
+        raise Exception(errorMessage)
+
+    res = popSomething(lua)
+
+    topEnd = lua.getTop()
+    assert topStart == topEnd
+
     return res
 
 
@@ -200,16 +251,16 @@ class LuaClass(object):
 #        print('args', args)
         res = lua.pcall(len(args), 1)
         if res != 0:
-          errorMessage = popString(lua)
-          raise Exception(errorMessage)
+            errorMessage = popString(lua)
+            raise Exception(errorMessage)
 #        lua.call(len(args), 1)
         registerObject(lua, self)
 
         topEnd = lua.getTop()
         assert topStart == topEnd
 
-    def __del__(self):
-        name = self.__class__.__name__
+    # def __del__(self):
+        # name = self.__class__.__name__
 
     def __repr__(self):
         topStart = lua.getTop()
@@ -256,14 +307,15 @@ class LuaClass(object):
         assert topStart == topEnd
         return res
 
+
 def loadNnClass(nnClassName):
     class AnNnClass(LuaClass):
         def __init__(self, *args, **kwargs):
             _fromLua = False
             if len(args) >= 1:
                 if args[0] == '__FROMLUA__':
-                   _fromLua = True
-                   args = args[1:]
+                    _fromLua = True
+                    args = args[1:]
 #            print('annnclass.__init__', nnClassName, 'fromLua', _fromLua, 'args', args)
             self.luaclass = 'nn.' + nnClassName
             if not _fromLua:
@@ -273,12 +325,14 @@ def loadNnClass(nnClassName):
     renamedClass = type(AnNnClass)(nnClassName, (AnNnClass,), {})
     return renamedClass
 
+
 def setupNnClass(nnClassName):
     nnClass = loadNnClass(nnClassName)
     globals()[nnClassName] = nnClass
     luaClasses['nn.' + nnClassName] = nnClass
     luaClassesReverse[nnClass] = 'nn.' + nnClassName
     return nnClass
+
 
 class Nn(object):
     def __init__(self):
@@ -290,16 +344,15 @@ class Nn(object):
         thisClass = self.classes[name]
         return thisClass
 
-nn = Nn()
 
-luaClasses = {}
-
-luaClassesReverse = {}
 def populateLuaClassesReverse():
     luaClassesReverse.clear()
     for name in luaClasses:
         classtype = luaClasses[name]
         luaClassesReverse[classtype] = name
+
+lua = PyTorch.getGlobalState().getLua()
+nn = Nn()
 
 cythonClasses = {}
 cythonClasses['torch.FloatTensor'] = {'popFunction': PyTorch._popFloatTensor}
@@ -310,4 +363,3 @@ pushFunctionByPythonClass = {}
 pushFunctionByPythonClass[PyTorch._FloatTensor] = PyTorch._pushFloatTensor
 pushFunctionByPythonClass[PyTorch._DoubleTensor] = PyTorch._pushDoubleTensor
 pushFunctionByPythonClass[PyTorch._ByteTensor] = PyTorch._pushByteTensor
-

@@ -20,12 +20,8 @@ before_install:
   - python3 -V
   - virtualenv-14.0.6/virtualenv.py -p python3 ~/env34
   - source ~/env34/bin/activate
-  - pip install -U pip
-  - pip install -U setuptools
-  - pip install wheel
-  - pip install numpy
-  - pip install python-mnist
-  - pip install pytest
+  - pip install -r requirements.txt
+  - pip install -r test/requirements.txt
   - echo ============= python 2.7 ==================
   - cd ${BASEDIR}
   - wget https://www.python.org/ftp/python/2.7.11/python-2.7.11rc1-macosx10.6.pkg
@@ -33,12 +29,8 @@ before_install:
   - python2.7 -V
   - ${BASEDIR}/virtualenv-14.0.6/virtualenv.py -p python2.7 ~/env27
   - source ~/env27/bin/activate
-  - pip install -U pip
-  - pip install -U setuptools
-  - pip install wheel
-  - pip install numpy
-  - pip install python-mnist
-  - pip install pytest
+  - pip install -r requirements.txt
+  - pip install -r test/requirements.txt
   - bash travis/install-torch.sh
   - source ~/torch/install/bin/torch-activate
   - luarocks install nnx

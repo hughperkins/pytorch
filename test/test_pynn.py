@@ -3,6 +3,7 @@ import PyTorch
 
 from PyTorchAug import nn
 
+
 def test_pynn():
     PyTorch.manualSeed(123)
     linear = nn.Linear(3, 5)
@@ -64,18 +65,18 @@ def test_pynn():
     mndata = MNIST('data/mnist')
     imagesList, labelsB = mndata.load_training()
     images = numpy.array(imagesList).astype(numpy.float64)
-    #print('imagesArray', images.shape)
+    # print('imagesArray', images.shape)
 
-    #print(images[0].shape)
+    # print(images[0].shape)
 
     labelsf = array.array('d', labelsB.tolist())
     imagesTensor = PyTorch.asDoubleTensor(images)
 
-    #imagesTensor = PyTorch.FloatTensor(100,784)
-    #labels = numpy.array(20,).astype(numpy.int32)
-    #labelsTensor = PyTorch.FloatTensor(100).fill(1)
-    #print('labels', labels)
-    #print(imagesTensor.size())
+    # imagesTensor = PyTorch.FloatTensor(100,784)
+    # labels = numpy.array(20,).astype(numpy.int32)
+    # labelsTensor = PyTorch.FloatTensor(100).fill(1)
+    # print('labels', labels)
+    # print(imagesTensor.size())
 
     def printStorageAddr(name, tensor):
         print('printStorageAddr START')
@@ -88,8 +89,8 @@ def test_pynn():
 
     labelsTensor = PyTorch.asDoubleTensor(labelsf)
     labelsTensor += 1
-    #print('calling size on imagestensor...')
-    #print('   (called size)')
+    # print('calling size on imagestensor...')
+    # print('   (called size)')
 
     desiredN = 128
     maxN = int(imagesTensor.size()[0])
@@ -114,7 +115,7 @@ def test_pynn():
     for epoch in range(4):
         numRight = 0
         for n in range(N):
-    #        print('n', n)
+            # print('n', n)
             input = imagesTensor[n]
             label = labelsTensor[n]
             labelTensor = PyTorch.DoubleTensor(1)
@@ -137,4 +138,3 @@ def test_pynn():
 
 if __name__ == '__main__':
     test_pynn()
-
