@@ -30,16 +30,11 @@ end
 function TestCallLua:printTable(sometable, somestring, table2)
   for k, v in pairs(sometable) do
     print('TestCallLua:printTable ', k, v)
-    if k == 'color' then
-        assert(v == 'red')
-    elseif k == 'weather' then
-        assert(v == 'sunny')
-    elseif k == 'anumber' then
-        assert(v == 10)
-    elseif k == 'afloat' then
-        assert((v - 1.234) < 1e-7)
-    end
   end
+  assert(sometable['color'] == 'red')
+  assert(sometable['weather'] == 'sunny')
+  assert(sometable['anumber'] == 10)
+  assert(sometable['afloat'] - 1.234 < 1e-7)
   assert(somestring == 'mistletoe')
   print('somestring', somestring)
   for k, v in pairs(table2) do
