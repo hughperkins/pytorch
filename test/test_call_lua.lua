@@ -43,6 +43,10 @@ function TestCallLua:getList(somelist)
   for i = 1, #somelist do
     print(i, somelist[i])
   end
+  assert((somelist[1] - 3.1415) < 1e-7)
+  assert(somelist[2] == '~Python\\omega')
+  assert(somelist[3] == 42)
 
-  return {'lorem', 'ipsum', 42, 2.1}
+  table.insert(somelist, 'Lorem Ipsum')
+  return somelist
 end

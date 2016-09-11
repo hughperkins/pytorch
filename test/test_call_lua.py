@@ -39,6 +39,13 @@ def test_call_lua():
     print('res', res)
     assert res == {'foo': 'bar', 'result': 12.345, 'bear': 'happy'}
 
-    reslist = luabit.getList(['blue', 42, r'\omega'])
-    restuple = luabit.getList((3.1415, r'~Python~', 'Torch', 1.2e-4))
-    assert reslist == restuple == {1: 'lorem', 2: 'ipsum', 3: 42, 4: 2.1}
+    # List and tuple support by conversion to dictionary
+    reslist = luabit.getList([3.1415, r'~Python\omega', 42])
+    restuple = luabit.getList((3.1415, r'~Python\omega', 42))
+    assert len(reslist) == len(restuple) == 4
+    assert list(reslist.keys()) == list(restuple.keys()) == [1, 2, 3, 4]
+    assert reslist[1] == restuple[1]
+    assert (reslist[1] - 3.1415) < 1e-7
+    reslist = {k: v for k, v in reslist.items() if k != 1}
+    restuple = {k: v for k, v in restuple.items() if k != 1}
+    assert reslist == restuple == {2: r'~Python\omega', 3: 42, 4: 'Lorem Ipsum'}
