@@ -46,6 +46,6 @@ def test_call_lua():
     assert list(reslist.keys()) == list(restuple.keys()) == [1, 2, 3, 4]
     assert reslist[1] == restuple[1]
     assert (reslist[1] - 3.1415) < 1e-7
-    reslist = {k: v for k, v in reslist.items() if k != 1}
-    restuple = {k: v for k, v in restuple.items() if k != 1}
+    reslist.pop(1)
+    restuple.pop(1)
     assert reslist == restuple == {2: r'~Python\omega', 3: 42, 4: 'Lorem Ipsum'}
