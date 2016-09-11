@@ -40,8 +40,8 @@ def test_call_lua():
     assert res == {'foo': 'bar', 'result': 12.345, 'bear': 'happy'}
 
     # List and tuple support by conversion to dictionary
-    reslist = luabit.getList([3.1415, r'~Python\omega', 42])
-    restuple = luabit.getList((3.1415, r'~Python\omega', 42))
+    reslist = luabit.modifyList([3.1415, r'~Python\omega', 42])
+    restuple = luabit.modifyList((3.1415, r'~Python\omega', 42))
     assert len(reslist) == len(restuple) == 4
     assert list(reslist.keys()) == list(restuple.keys()) == [1, 2, 3, 4]
     assert reslist[1] == restuple[1]
@@ -49,3 +49,9 @@ def test_call_lua():
     reslist.pop(1)
     restuple.pop(1)
     assert reslist == restuple == {2: r'~Python\omega', 3: 42, 4: 'Lorem Ipsum'}
+
+    # Get an object created from scratch by Lua
+    res = luabit.getList()
+    assert res[1] == 3.1415
+    res.pop(1)
+    assert res == {2: 'Lua', 3: 123}

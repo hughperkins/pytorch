@@ -49,6 +49,10 @@ function TestCallLua:printTable(sometable, somestring, table2)
 end
 
 function TestCallLua:getList(somelist)
+    return {3.1415, 'Lua', 123}
+end
+
+function TestCallLua:modifyList(somelist)
   assert(type(somelist) == 'table')
   print('list in lua:')
   for i = 1, #somelist do
