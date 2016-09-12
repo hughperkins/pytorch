@@ -1,4 +1,5 @@
 from __future__ import print_function
+from collections import OrderedDict
 import threading
 import PyTorch
 import PyTorchLua
@@ -93,6 +94,10 @@ def pushSomething(lua, something):
 
     if isinstance(something, dict):
         pushTable(lua, something)
+        return
+
+    if isinstance(something, (list, tuple)):
+        pushTable(lua, OrderedDict(zip(range(1, len(something) + 1), something)))
         return
 
     for pythonClass in pushFunctionByPythonClass:
