@@ -40,7 +40,7 @@ script:
   - source ~/env34/bin/activate
   - cat ~/torch/install/bin/torch-activate
   - source ~/torch/install/bin/torch-activate
-  - ./build.sh
+  - INCREMENTAL=1 ./build.sh
   - PYTORCHSOPATH=$(find ~/env34/lib -name "PyTorch*.so")
   - echo PYTORCHSOPATH=${PYTORCHSOPATH}
   - otool -L ${PYTORCHSOPATH}
@@ -50,7 +50,7 @@ script:
   - cd ~/build/hughperkins/pytorch
   - source ~/env27/bin/activate
   - source ~/torch/install/bin/torch-activate
-  - ./build.sh
+  - INCREMENTAL=1 ./build.sh
   - ./run_tests.sh
   - cd simpleexample
   - python pybit.py
