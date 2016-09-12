@@ -67,3 +67,6 @@ docs/_build/
 target/
 
 test/junit-pytest-report.xml
+
+# jupyter
+.ipynb*
