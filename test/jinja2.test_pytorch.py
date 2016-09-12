@@ -126,9 +126,11 @@ def test_pytorch{{Real}}():
     {% endif -%}
     myeval('A')
     {% if Real in ['Float', 'Double'] -%}
-    myexec('A /= 3')
+    print('A /= 3')
+    A /= 3
     {% else -%}
-    myexec('A //= 3')
+    print('A //= 3')
+    A //= 3
     {% endif -%}
     myeval('A')
 
@@ -138,9 +140,11 @@ def test_pytorch{{Real}}():
     {% endif -%}
     myeval('A * 5')
     {% if Real in ['Float', 'Double'] -%}
-    myeval('A / 2')
+    print('A / 2')
+    A / 2
     {% else -%}
-    myeval('A // 2')
+    print('A // 2')
+    A // 2
     {% endif -%}
 
     B = {{Real}}Tensor().resizeAs(A).geometric(0.9)

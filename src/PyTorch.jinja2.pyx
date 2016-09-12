@@ -561,7 +561,6 @@ cdef class _{{Real}}Tensor(object):
 
     {% if Real in ['Float', 'Double'] %}
     def __truediv__(_{{Real}}Tensor self, second):
-        # print('__div__')
         cdef _{{Real}}Tensor res = _{{Real}}Tensor.new()
         cdef _{{Real}}Tensor secondTensor
         if isinstance(second, numbers.Number):

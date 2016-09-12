@@ -1261,7 +1261,6 @@ cdef class _FloatTensor(object):
 
     
     def __truediv__(_FloatTensor self, second):
-        # print('__div__')
         cdef _FloatTensor res = _FloatTensor.new()
         cdef _FloatTensor secondTensor
         if isinstance(second, numbers.Number):
@@ -1832,7 +1831,6 @@ cdef class _DoubleTensor(object):
 
     
     def __truediv__(_DoubleTensor self, second):
-        # print('__div__')
         cdef _DoubleTensor res = _DoubleTensor.new()
         cdef _DoubleTensor secondTensor
         if isinstance(second, numbers.Number):

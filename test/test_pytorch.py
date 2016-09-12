@@ -67,13 +67,15 @@ def test_pytorchLong():
     myeval('A')
     myexec('A -= 3')
     myeval('A')
-    myexec('A //= 3')
+    print('A //= 3')
+    A //= 3
     myeval('A')
 
     myeval('A + 5')
     myeval('A - 5')
     myeval('A * 5')
-    myeval('A // 2')
+    print('A // 2')
+    A // 2
     B = LongTensor().resizeAs(A).geometric(0.9)
     myeval('B')
     myeval('A + B')
@@ -276,13 +278,15 @@ def test_pytorchFloat():
     myeval('A')
     myexec('A -= 3')
     myeval('A')
-    myexec('A /= 3')
+    print('A /= 3')
+    A /= 3
     myeval('A')
 
     myeval('A + 5')
     myeval('A - 5')
     myeval('A * 5')
-    myeval('A / 2')
+    print('A / 2')
+    A / 2
     B = FloatTensor().resizeAs(A).geometric(0.9)
     myeval('B')
     myeval('A + B')
@@ -490,13 +494,15 @@ def test_pytorchDouble():
     myeval('A')
     myexec('A -= 3')
     myeval('A')
-    myexec('A /= 3')
+    print('A /= 3')
+    A /= 3
     myeval('A')
 
     myeval('A + 5')
     myeval('A - 5')
     myeval('A * 5')
-    myeval('A / 2')
+    print('A / 2')
+    A / 2
     B = DoubleTensor().resizeAs(A).geometric(0.9)
     myeval('B')
     myeval('A + B')
@@ -698,12 +704,14 @@ def test_pytorchByte():
     myexec('A *= 3')
     myeval('A')
     myeval('A')
-    myexec('A //= 3')
+    print('A //= 3')
+    A //= 3
     myeval('A')
 
     myeval('A + 5')
     myeval('A * 5')
-    myeval('A // 2')
+    print('A // 2')
+    A // 2
     B = ByteTensor().resizeAs(A).geometric(0.9)
     myeval('B')
     myeval('A + B')
