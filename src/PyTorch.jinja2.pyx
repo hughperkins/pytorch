@@ -111,6 +111,8 @@ cdef extern from "THTensor.h":
     void TH{{Real}}Tensor_cmaxValue(TH{{Real}}Tensor *r, TH{{Real}}Tensor *t, {{real}} value)
     void TH{{Real}}Tensor_cminValue(TH{{Real}}Tensor *r, TH{{Real}}Tensor *t, {{real}} value)
 
+    {{real}} TH{{Real}}Tensor_minall(TH{{Real}}Tensor *t)
+    {{real}} TH{{Real}}Tensor_maxall(TH{{Real}}Tensor *t)
     {{real}} TH{{Real}}Tensor_sumall(TH{{Real}}Tensor *t)
 
     void TH{{Real}}Tensor_geometric(TH{{Real}}Tensor *self, THGenerator *_generator, double p)
@@ -275,6 +277,12 @@ cdef class _{{Real}}Tensor(object):
 
     cpdef int isContiguous(_{{Real}}Tensor self):
         return TH{{Real}}Tensor_isContiguous(self.native)
+
+    cpdef {{real}} max(self):
+        return TH{{Real}}Tensor_maxall(self.native)
+
+    cpdef {{real}} min(self):
+        return TH{{Real}}Tensor_minall(self.native)
 
     def __repr__(_{{Real}}Tensor self):
         return self.as_string(self)

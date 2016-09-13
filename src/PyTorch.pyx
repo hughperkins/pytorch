@@ -123,6 +123,8 @@ cdef extern from "THTensor.h":
     void THLongTensor_cmaxValue(THLongTensor *r, THLongTensor *t, long value)
     void THLongTensor_cminValue(THLongTensor *r, THLongTensor *t, long value)
 
+    long THLongTensor_minall(THLongTensor *t)
+    long THLongTensor_maxall(THLongTensor *t)
     long THLongTensor_sumall(THLongTensor *t)
 
     void THLongTensor_geometric(THLongTensor *self, THGenerator *_generator, double p)
@@ -194,6 +196,8 @@ cdef extern from "THTensor.h":
     void THFloatTensor_cmaxValue(THFloatTensor *r, THFloatTensor *t, float value)
     void THFloatTensor_cminValue(THFloatTensor *r, THFloatTensor *t, float value)
 
+    float THFloatTensor_minall(THFloatTensor *t)
+    float THFloatTensor_maxall(THFloatTensor *t)
     float THFloatTensor_sumall(THFloatTensor *t)
 
     void THFloatTensor_geometric(THFloatTensor *self, THGenerator *_generator, double p)
@@ -273,6 +277,8 @@ cdef extern from "THTensor.h":
     void THDoubleTensor_cmaxValue(THDoubleTensor *r, THDoubleTensor *t, double value)
     void THDoubleTensor_cminValue(THDoubleTensor *r, THDoubleTensor *t, double value)
 
+    double THDoubleTensor_minall(THDoubleTensor *t)
+    double THDoubleTensor_maxall(THDoubleTensor *t)
     double THDoubleTensor_sumall(THDoubleTensor *t)
 
     void THDoubleTensor_geometric(THDoubleTensor *self, THGenerator *_generator, double p)
@@ -352,6 +358,8 @@ cdef extern from "THTensor.h":
     void THByteTensor_cmaxValue(THByteTensor *r, THByteTensor *t, unsigned char value)
     void THByteTensor_cminValue(THByteTensor *r, THByteTensor *t, unsigned char value)
 
+    unsigned char THByteTensor_minall(THByteTensor *t)
+    unsigned char THByteTensor_maxall(THByteTensor *t)
     unsigned char THByteTensor_sumall(THByteTensor *t)
 
     void THByteTensor_geometric(THByteTensor *self, THGenerator *_generator, double p)
@@ -508,6 +516,12 @@ cdef class _LongTensor(object):
 
     cpdef int isContiguous(_LongTensor self):
         return THLongTensor_isContiguous(self.native)
+
+    cpdef long max(self):
+        return THLongTensor_maxall(self.native)
+
+    cpdef long min(self):
+        return THLongTensor_minall(self.native)
 
     def __repr__(_LongTensor self):
         return self.as_string(self)
@@ -979,6 +993,12 @@ cdef class _FloatTensor(object):
 
     cpdef int isContiguous(_FloatTensor self):
         return THFloatTensor_isContiguous(self.native)
+
+    cpdef float max(self):
+        return THFloatTensor_maxall(self.native)
+
+    cpdef float min(self):
+        return THFloatTensor_minall(self.native)
 
     def __repr__(_FloatTensor self):
         return self.as_string(self)
@@ -1550,6 +1570,12 @@ cdef class _DoubleTensor(object):
     cpdef int isContiguous(_DoubleTensor self):
         return THDoubleTensor_isContiguous(self.native)
 
+    cpdef double max(self):
+        return THDoubleTensor_maxall(self.native)
+
+    cpdef double min(self):
+        return THDoubleTensor_minall(self.native)
+
     def __repr__(_DoubleTensor self):
         return self.as_string(self)
 
@@ -2119,6 +2145,12 @@ cdef class _ByteTensor(object):
 
     cpdef int isContiguous(_ByteTensor self):
         return THByteTensor_isContiguous(self.native)
+
+    cpdef unsigned char max(self):
+        return THByteTensor_maxall(self.native)
+
+    cpdef unsigned char min(self):
+        return THByteTensor_minall(self.native)
 
     def __repr__(_ByteTensor self):
         return self.as_string(self)

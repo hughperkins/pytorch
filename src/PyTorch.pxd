@@ -27,6 +27,9 @@ cdef class _LongTensor(object):
     cpdef long get1d(self, int x0)
     cpdef long get2d(self, int x0, int x1)
     cpdef int isContiguous(self)
+    cpdef long max(self)
+    cpdef long min(self)
+
 #    @cython.staticmethod
 #    cdef fromNative(THLongTensor *tensorC, retain=*)
 
@@ -46,6 +49,9 @@ cdef class _FloatTensor(object):
     cpdef float get1d(self, int x0)
     cpdef float get2d(self, int x0, int x1)
     cpdef int isContiguous(self)
+    cpdef float max(self)
+    cpdef float min(self)
+
 #    @cython.staticmethod
 #    cdef fromNative(THFloatTensor *tensorC, retain=*)
 
@@ -65,6 +71,9 @@ cdef class _DoubleTensor(object):
     cpdef double get1d(self, int x0)
     cpdef double get2d(self, int x0, int x1)
     cpdef int isContiguous(self)
+    cpdef double max(self)
+    cpdef double min(self)
+
 #    @cython.staticmethod
 #    cdef fromNative(THDoubleTensor *tensorC, retain=*)
 
@@ -84,6 +93,9 @@ cdef class _ByteTensor(object):
     cpdef unsigned char get1d(self, int x0)
     cpdef unsigned char get2d(self, int x0, int x1)
     cpdef int isContiguous(self)
+    cpdef unsigned char max(self)
+    cpdef unsigned char min(self)
+
 #    @cython.staticmethod
 #    cdef fromNative(THByteTensor *tensorC, retain=*)
 
