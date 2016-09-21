@@ -3,6 +3,7 @@
 
 from __future__ import print_function, division
 import numbers
+import ctypes
 import cython
 cimport cython
 
@@ -25,6 +26,15 @@ import logging
 logging.basicConfig()
 logger = logging.getLogger(__name__)
 # logger.setLevel(logging.DEBUG)
+
+# from https://stackoverflow.com/questions/17732816/is-there-any-way-to-manually-decrease-the-reference-count-of-an-object-in-python/17733026#17733026
+_decref = ctypes.pythonapi.Py_DecRef
+_decref.argtypes = [ctypes.py_object]
+_decref.restype = None
+
+_incref = ctypes.pythonapi.Py_IncRef
+_incref.argtypes = [ctypes.py_object]
+_incref.restype = None
 
 # from http://stackoverflow.com/questions/3410976/how-to-round-a-number-to-significant-figures-in-python
 def round_sig(x, sig=2):
@@ -378,6 +388,8 @@ cdef class _LongTensor(object):
 #        self.thFloatTensor = tensorC
 
     def __cinit__(self, *args, _allocate=True):
+        self.nparray = None
+        print('_LongTensor.__cinit__ _allocate', _allocate)
 #        cdef _LongTensor childobject
         cdef THLongTensor *newTensorC
         cdef _LongTensor templateObject
@@ -436,12 +448,16 @@ cdef class _LongTensor(object):
 #        self.storage = storage
 
     def __dealloc__(self):
+        print('_LongTensor.__dealloc, nparray', self.nparray)
         cdef int refCount
 #        cdef int dims
 #        cdef int size
 #        cdef int i
 #        cdef THFloatStorage *storage
 #        logger.debug('__dealloc__ native %s', <long>(self.native) != 0)
+        if self.nparray is not None:
+            print('decrefing nparray')
+            _decref(self.nparray)
         if <long>(self.native) != 0:
             refCount = THLongTensor_getRefCount(self.native)
    #         print('LongTensor.dealloc old refcount', refCount)
@@ -456,8 +472,10 @@ cdef class _LongTensor(object):
    #            # print('   size[', i, ']', THFloatTensor_size(self.thFloatTensor, i))
             if refCount < 1:
                 raise Exception('Unallocated an already deallocated tensor... :-O')  # Hmmm, seems this exceptoin wont go anywhere useful... :-P
+            print('_LongTensor.__dealloc  calling free')
             THLongTensor_free(self.native)
         else:
+            print('_LongTensor.__dealloc  native never allocated')
             logger.debug('__dealloc__ tensor never allocated')
 
     def nElement(_LongTensor self):
@@ -855,6 +873,8 @@ cdef class _FloatTensor(object):
 #        self.thFloatTensor = tensorC
 
     def __cinit__(self, *args, _allocate=True):
+        self.nparray = None
+        print('_FloatTensor.__cinit__ _allocate', _allocate)
 #        cdef _FloatTensor childobject
         cdef THFloatTensor *newTensorC
         cdef _FloatTensor templateObject
@@ -913,12 +933,16 @@ cdef class _FloatTensor(object):
 #        self.storage = storage
 
     def __dealloc__(self):
+        print('_FloatTensor.__dealloc, nparray', self.nparray)
         cdef int refCount
 #        cdef int dims
 #        cdef int size
 #        cdef int i
 #        cdef THFloatStorage *storage
 #        logger.debug('__dealloc__ native %s', <long>(self.native) != 0)
+        if self.nparray is not None:
+            print('decrefing nparray')
+            _decref(self.nparray)
         if <long>(self.native) != 0:
             refCount = THFloatTensor_getRefCount(self.native)
    #         print('FloatTensor.dealloc old refcount', refCount)
@@ -933,8 +957,10 @@ cdef class _FloatTensor(object):
    #            # print('   size[', i, ']', THFloatTensor_size(self.thFloatTensor, i))
             if refCount < 1:
                 raise Exception('Unallocated an already deallocated tensor... :-O')  # Hmmm, seems this exceptoin wont go anywhere useful... :-P
+            print('_FloatTensor.__dealloc  calling free')
             THFloatTensor_free(self.native)
         else:
+            print('_FloatTensor.__dealloc  native never allocated')
             logger.debug('__dealloc__ tensor never allocated')
 
     def nElement(_FloatTensor self):
@@ -1410,6 +1436,8 @@ def _asFloatTensor(myarray):
             tensor = _FloatTensor.newWithStorage(storage, 0, size, stride)
             print('assigning to tensor.nparray')
             tensor.nparray = myarray
+            print('increfing self.nparray')
+            _incref(tensor.nparray)
             return tensor
         else:
             raise Exception('dims == {dims} not implemented; please raise an issue'.format(
@@ -1434,6 +1462,8 @@ cdef class _DoubleTensor(object):
 #        self.thFloatTensor = tensorC
 
     def __cinit__(self, *args, _allocate=True):
+        self.nparray = None
+        print('_DoubleTensor.__cinit__ _allocate', _allocate)
 #        cdef _DoubleTensor childobject
         cdef THDoubleTensor *newTensorC
         cdef _DoubleTensor templateObject
@@ -1492,12 +1522,16 @@ cdef class _DoubleTensor(object):
 #        self.storage = storage
 
     def __dealloc__(self):
+        print('_DoubleTensor.__dealloc, nparray', self.nparray)
         cdef int refCount
 #        cdef int dims
 #        cdef int size
 #        cdef int i
 #        cdef THFloatStorage *storage
 #        logger.debug('__dealloc__ native %s', <long>(self.native) != 0)
+        if self.nparray is not None:
+            print('decrefing nparray')
+            _decref(self.nparray)
         if <long>(self.native) != 0:
             refCount = THDoubleTensor_getRefCount(self.native)
    #         print('DoubleTensor.dealloc old refcount', refCount)
@@ -1512,8 +1546,10 @@ cdef class _DoubleTensor(object):
    #            # print('   size[', i, ']', THFloatTensor_size(self.thFloatTensor, i))
             if refCount < 1:
                 raise Exception('Unallocated an already deallocated tensor... :-O')  # Hmmm, seems this exceptoin wont go anywhere useful... :-P
+            print('_DoubleTensor.__dealloc  calling free')
             THDoubleTensor_free(self.native)
         else:
+            print('_DoubleTensor.__dealloc  native never allocated')
             logger.debug('__dealloc__ tensor never allocated')
 
     def nElement(_DoubleTensor self):
@@ -1989,6 +2025,8 @@ def _asDoubleTensor(myarray):
             tensor = _DoubleTensor.newWithStorage(storage, 0, size, stride)
             print('assigning to tensor.nparray')
             tensor.nparray = myarray
+            print('increfing self.nparray')
+            _incref(tensor.nparray)
             return tensor
         else:
             raise Exception('dims == {dims} not implemented; please raise an issue'.format(
@@ -2013,6 +2051,8 @@ cdef class _ByteTensor(object):
 #        self.thFloatTensor = tensorC
 
     def __cinit__(self, *args, _allocate=True):
+        self.nparray = None
+        print('_ByteTensor.__cinit__ _allocate', _allocate)
 #        cdef _ByteTensor childobject
         cdef THByteTensor *newTensorC
         cdef _ByteTensor templateObject
@@ -2071,12 +2111,16 @@ cdef class _ByteTensor(object):
 #        self.storage = storage
 
     def __dealloc__(self):
+        print('_ByteTensor.__dealloc, nparray', self.nparray)
         cdef int refCount
 #        cdef int dims
 #        cdef int size
 #        cdef int i
 #        cdef THFloatStorage *storage
 #        logger.debug('__dealloc__ native %s', <long>(self.native) != 0)
+        if self.nparray is not None:
+            print('decrefing nparray')
+            _decref(self.nparray)
         if <long>(self.native) != 0:
             refCount = THByteTensor_getRefCount(self.native)
    #         print('ByteTensor.dealloc old refcount', refCount)
@@ -2091,8 +2135,10 @@ cdef class _ByteTensor(object):
    #            # print('   size[', i, ']', THFloatTensor_size(self.thFloatTensor, i))
             if refCount < 1:
                 raise Exception('Unallocated an already deallocated tensor... :-O')  # Hmmm, seems this exceptoin wont go anywhere useful... :-P
+            print('_ByteTensor.__dealloc  calling free')
             THByteTensor_free(self.native)
         else:
+            print('_ByteTensor.__dealloc  native never allocated')
             logger.debug('__dealloc__ tensor never allocated')
 
     def nElement(_ByteTensor self):
@@ -2492,6 +2538,8 @@ def _asByteTensor(myarray):
             tensor = _ByteTensor.newWithStorage(storage, 0, size, stride)
             print('assigning to tensor.nparray')
             tensor.nparray = myarray
+            print('increfing self.nparray')
+            _incref(tensor.nparray)
             return tensor
         else:
             raise Exception('dims == {dims} not implemented; please raise an issue'.format(

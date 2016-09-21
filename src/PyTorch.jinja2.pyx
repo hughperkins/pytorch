@@ -3,6 +3,7 @@
 
 from __future__ import print_function, division
 import numbers
+import ctypes
 import cython
 cimport cython
 
@@ -25,6 +26,15 @@ import logging
 logging.basicConfig()
 logger = logging.getLogger(__name__)
 # logger.setLevel(logging.DEBUG)
+
+# from https://stackoverflow.com/questions/17732816/is-there-any-way-to-manually-decrease-the-reference-count-of-an-object-in-python/17733026#17733026
+_decref = ctypes.pythonapi.Py_DecRef
+_decref.argtypes = [ctypes.py_object]
+_decref.restype = None
+
+_incref = ctypes.pythonapi.Py_IncRef
+_incref.argtypes = [ctypes.py_object]
+_incref.restype = None
 
 # from http://stackoverflow.com/questions/3410976/how-to-round-a-number-to-significant-figures-in-python
 def round_sig(x, sig=2):
@@ -139,6 +149,8 @@ cdef class _{{Real}}Tensor(object):
 #        self.thFloatTensor = tensorC
 
     def __cinit__(self, *args, _allocate=True):
+        self.nparray = None
+        print('_{{Real}}Tensor.__cinit__ _allocate', _allocate)
 #        cdef _{{Real}}Tensor childobject
         cdef TH{{Real}}Tensor *newTensorC
         cdef _{{Real}}Tensor templateObject
@@ -197,12 +209,16 @@ cdef class _{{Real}}Tensor(object):
 #        self.storage = storage
 
     def __dealloc__(self):
+        print('_{{Real}}Tensor.__dealloc, nparray', self.nparray)
         cdef int refCount
 #        cdef int dims
 #        cdef int size
 #        cdef int i
 #        cdef THFloatStorage *storage
 #        logger.debug('__dealloc__ native %s', <long>(self.native) != 0)
+        if self.nparray is not None:
+            print('decrefing nparray')
+            _decref(self.nparray)
         if <long>(self.native) != 0:
             refCount = TH{{Real}}Tensor_getRefCount(self.native)
    #         print('{{Real}}Tensor.dealloc old refcount', refCount)
@@ -217,8 +233,10 @@ cdef class _{{Real}}Tensor(object):
    #            # print('   size[', i, ']', THFloatTensor_size(self.thFloatTensor, i))
             if refCount < 1:
                 raise Exception('Unallocated an already deallocated tensor... :-O')  # Hmmm, seems this exceptoin wont go anywhere useful... :-P
+            print('_{{Real}}Tensor.__dealloc  calling free')
             TH{{Real}}Tensor_free(self.native)
         else:
+            print('_{{Real}}Tensor.__dealloc  native never allocated')
             logger.debug('__dealloc__ tensor never allocated')
 
     def nElement(_{{Real}}Tensor self):
@@ -719,6 +737,8 @@ def _as{{Real}}Tensor(myarray):
             tensor = _{{Real}}Tensor.newWithStorage(storage, 0, size, stride)
             print('assigning to tensor.nparray')
             tensor.nparray = myarray
+            print('increfing self.nparray')
+            _incref(tensor.nparray)
             return tensor
         else:
             raise Exception('dims == {dims} not implemented; please raise an issue'.format(
