@@ -3,7 +3,6 @@ matrix:
   include:
     - env: OSX=10.11 TOXENV=py33
       os: osx
-      osx_image: xcode7.3
       rvm: system
 
 before_install:
