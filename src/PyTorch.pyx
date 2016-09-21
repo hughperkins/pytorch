@@ -1390,6 +1390,7 @@ cdef _FloatTensor_fromNative(THFloatTensor *tensorC, retain=True):
 def _asFloatTensor(myarray):
     cdef float[:] myarraymv
     cdef Storage._FloatStorage storage
+    cdef _FloatTensor tensor
     if str(type(myarray)) in ["<type 'numpy.ndarray'>", "<class 'numpy.ndarray'>"]:
         dims = len(myarray.shape)
         if dims >= 1:
@@ -1407,6 +1408,8 @@ def _asFloatTensor(myarray):
             Storage.THFloatStorage_retain(storage.native) # since newWithData takes ownership
 
             tensor = _FloatTensor.newWithStorage(storage, 0, size, stride)
+            print('assigning to tensor.nparray')
+            tensor.nparray = myarray
             return tensor
         else:
             raise Exception('dims == {dims} not implemented; please raise an issue'.format(
@@ -1966,6 +1969,7 @@ cdef _DoubleTensor_fromNative(THDoubleTensor *tensorC, retain=True):
 def _asDoubleTensor(myarray):
     cdef double[:] myarraymv
     cdef Storage._DoubleStorage storage
+    cdef _DoubleTensor tensor
     if str(type(myarray)) in ["<type 'numpy.ndarray'>", "<class 'numpy.ndarray'>"]:
         dims = len(myarray.shape)
         if dims >= 1:
@@ -1983,6 +1987,8 @@ def _asDoubleTensor(myarray):
             Storage.THDoubleStorage_retain(storage.native) # since newWithData takes ownership
 
             tensor = _DoubleTensor.newWithStorage(storage, 0, size, stride)
+            print('assigning to tensor.nparray')
+            tensor.nparray = myarray
             return tensor
         else:
             raise Exception('dims == {dims} not implemented; please raise an issue'.format(
@@ -2466,6 +2472,7 @@ cdef _ByteTensor_fromNative(THByteTensor *tensorC, retain=True):
 def _asByteTensor(myarray):
     cdef unsigned char[:] myarraymv
     cdef Storage._ByteStorage storage
+    cdef _ByteTensor tensor
     if str(type(myarray)) in ["<type 'numpy.ndarray'>", "<class 'numpy.ndarray'>"]:
         dims = len(myarray.shape)
         if dims >= 1:
@@ -2483,6 +2490,8 @@ def _asByteTensor(myarray):
             Storage.THByteStorage_retain(storage.native) # since newWithData takes ownership
 
             tensor = _ByteTensor.newWithStorage(storage, 0, size, stride)
+            print('assigning to tensor.nparray')
+            tensor.nparray = myarray
             return tensor
         else:
             raise Exception('dims == {dims} not implemented; please raise an issue'.format(

@@ -18,6 +18,7 @@ cdef extern from "THTensor.h":
     cdef struct THLongTensor
 
 cdef class _LongTensor(object):
+    cdef object nparray
     cdef THLongTensor *native
     cdef long *data(self)
     # cpdef _LongTensor contiguous(self)
@@ -40,6 +41,7 @@ cdef extern from "THTensor.h":
     cdef struct THFloatTensor
 
 cdef class _FloatTensor(object):
+    cdef object nparray
     cdef THFloatTensor *native
     cdef float *data(self)
     # cpdef _FloatTensor contiguous(self)
@@ -62,6 +64,7 @@ cdef extern from "THTensor.h":
     cdef struct THDoubleTensor
 
 cdef class _DoubleTensor(object):
+    cdef object nparray
     cdef THDoubleTensor *native
     cdef double *data(self)
     # cpdef _DoubleTensor contiguous(self)
@@ -84,6 +87,7 @@ cdef extern from "THTensor.h":
     cdef struct THByteTensor
 
 cdef class _ByteTensor(object):
+    cdef object nparray
     cdef THByteTensor *native
     cdef unsigned char *data(self)
     # cpdef _ByteTensor contiguous(self)

@@ -699,6 +699,7 @@ cdef _{{Real}}Tensor_fromNative(TH{{Real}}Tensor *tensorC, retain=True):
 def _as{{Real}}Tensor(myarray):
     cdef {{real}}[:] myarraymv
     cdef Storage._{{Real}}Storage storage
+    cdef _{{Real}}Tensor tensor
     if str(type(myarray)) in ["<type 'numpy.ndarray'>", "<class 'numpy.ndarray'>"]:
         dims = len(myarray.shape)
         if dims >= 1:
@@ -716,6 +717,8 @@ def _as{{Real}}Tensor(myarray):
             Storage.TH{{Real}}Storage_retain(storage.native) # since newWithData takes ownership
 
             tensor = _{{Real}}Tensor.newWithStorage(storage, 0, size, stride)
+            print('assigning to tensor.nparray')
+            tensor.nparray = myarray
             return tensor
         else:
             raise Exception('dims == {dims} not implemented; please raise an issue'.format(
