@@ -70,5 +70,6 @@ test/junit-pytest-report.xml
 
 # jupyter
 .ipynb*
+*.ipynb
 
 data
