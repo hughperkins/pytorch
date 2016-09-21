@@ -30,30 +30,34 @@ before_install:
   - ${BASEDIR}/virtualenv-14.0.6/virtualenv.py -p python2.7 ~/env27
   - source ~/env27/bin/activate
   - pip install -r requirements.txt
-  - pip install -r test/requirements.txt
   - bash travis/install-torch.sh
   - source ~/torch/install/bin/torch-activate
-  - luarocks install nnx
 
 script:
   - cd ~/build/hughperkins/pytorch
   - source ~/env34/bin/activate
   - cat ~/torch/install/bin/torch-activate
   - source ~/torch/install/bin/torch-activate
-  - INCREMENTAL=1 ./build.sh
+  - ./build.sh
   - PYTORCHSOPATH=$(find ~/env34/lib -name "PyTorch*.so")
   - echo PYTORCHSOPATH=${PYTORCHSOPATH}
   - otool -L ${PYTORCHSOPATH}
-  - ./run_tests.sh
   - cd simpleexample
   - python pybit.py
+  - cd ..
+  - pip install -r test/requirements.txt
+  - luarocks install nnx
+  - ./run_tests.sh
   - cd ~/build/hughperkins/pytorch
   - source ~/env27/bin/activate
   - source ~/torch/install/bin/torch-activate
-  - INCREMENTAL=1 ./build.sh
-  - ./run_tests.sh
+  - ./build.sh
   - cd simpleexample
   - python pybit.py
+  - cd ..
+  - pip install -r test/requirements.txt
+  - luarocks install nnx
+  - ./run_tests.sh
 
 notifications:
   email:
