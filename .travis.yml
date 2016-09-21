@@ -1,9 +1,7 @@
-language: objective-c
 matrix:
   include:
-    - env: OSX=10.11 TOXENV=py33
       os: osx
-      rvm: system
+      osx_image: xcode7.3
 
 before_install:
   - if [ -f ".git/shallow" ]; then travis_retry git fetch --unshallow; fi
