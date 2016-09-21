@@ -47,7 +47,12 @@ def test_inline_refcount_test2():
     # print('v ref', sys.getrefcount(v))
     print('npv ref', sys.getrefcount(npv))
     print('npv_data ref', sys.getrefcount(npv_data))
-    print('npv_data', npv_data)
+    print('type(npv_data)', type(npv_data))
+    # npv_data_str = 'npv_data '
+    # for value in npv_data:
+    #     npv_data_str += ' ' + int(value)
+    # print(npv_data_str)
+    # print('npv_data', npv_data)
 
     npv2 = npv * 2
     print('\nafter assign npv2')
