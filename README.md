@@ -214,6 +214,15 @@ directly from python)
 
 # Recent news
 
+12 September:
+* Yannick Hold-Geoffroy added conversion of lists and tuples to Lua tables
+
+8 September:
+* added `PyTorchAug.save(filename, object)` and `PyTorchAug.load(filename)`, to save/load Torch `.t7` files
+
+26 August:
+* if not deploying to a virtual environment, will install with `--user`, into home directory
+
 14 April:
 * stack trace should be a bit more useful now :-)
 
