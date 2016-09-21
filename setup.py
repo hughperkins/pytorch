@@ -14,34 +14,30 @@ from setuptools import setup
 from setuptools import Extension
 
 torch_install_dir = os.getenv('TORCH_INSTALL')
+if torch_install_dir is None:
+    print('Please set environment variable TORCH_INSTALL to the directory of your torch/install directory')
+    sys.exit(1)
+
 osfamily = platform.uname()[0]
 print('torch_install:', torch_install_dir)
 print('os family', osfamily)
 
-cython_present = False
-# from Cython.Build import cythonize
-# cython_present = True
+jinja2_only = 'JINJA2_ONLY' in os.environ
+cythonize = 'CYTHON' in os.environ
 
-jinja_present = False
-# jinja_present = True
+if cythonize:
+    from Cython.Build import cythonize
 
-running_cython = False
-for arg in sys.argv:
-    if arg in ('cython_only'):
-        running_cython = True
-        break
-
-if running_cython:
+if jinja2_only:
     types = [
         {'Real': 'Long', 'real': 'long'},
         {'Real': 'Float', 'real': 'float'},
         {'Real': 'Double', 'real': 'double'},
         {'Real': 'Byte', 'real': 'unsigned char'}
     ]
-    print('Cythonizing...')
-    from Cython.Build import cythonize
+    print('Running jinja2...')
     import jinja2
-    # first generate cython pyx from jinja template...
+    # generate cython pyx from jinja template...
     from jinja2 import Environment
     env = Environment(loader=jinja2.FileSystemLoader('.'))
     templateNames = [
@@ -69,14 +65,8 @@ if running_cython:
             f = open(outFilename, 'wb')
             f.write(pyx.encode('utf-8'))
             f.close()
-    print('cython finished, exiting')
+    print('jinja2 finished, exiting')
     sys.exit(0)
-
-building_dist = False
-for arg in sys.argv:
-    if arg in ('sdist', 'bdist', 'bdist_egg', 'build_ext'):
-        building_dist = True
-        break
 
 compile_options = []
 if osfamily == 'Windows':
@@ -84,15 +74,12 @@ if osfamily == 'Windows':
 
 if osfamily in ['Linux', 'Darwin']:
     compile_options.append('-std=c++0x')
-    # compile_options.append('-g')
     compile_options.append('-Wno-unused-function')
     compile_options.append('-Wno-unreachable-code')
     compile_options.append('-Wno-strict-prototypes')
     if 'DEBUG' in os.environ:
         compile_options.append('-O0')
         compile_options.append('-g')
-
-# if osfamily == 'Darwin':
 
 runtime_library_dirs = []
 libraries = []
@@ -115,10 +102,6 @@ if osfamily == 'Windows':
 if osfamily == 'Darwin':  # Mac OS X
     extra_link_args.append('-Wl,-rpath,' + torch_install_dir + '/lib')
 
-# sources = ["PyTorch.cxx"]
-# if cython_present:
-# sources = ['src/lua.pyx', 'src/Storage.pyx', "src/PyTorch.pyx"]
-
 
 def get_file_datetime(filepath):
     t = os.path.getmtime(filepath)
@@ -130,7 +113,7 @@ for cython_source in cython_sources:
     cythoned_filepath = cython_source.replace('.pyx', '.cpp')
     basename = os.path.basename(cython_source).replace('.pyx', '')
     source_name = cythoned_filepath
-    if not os.path.isfile(cythoned_filepath) or get_file_datetime(cythoned_filepath) < get_file_datetime(cython_source):
+    if cythonize and (not os.path.isfile(cythoned_filepath) or get_file_datetime(cythoned_filepath) < get_file_datetime(cython_source)):
         source_name = cython_source
     ext_modules.append(
         Extension(basename,
@@ -144,7 +127,8 @@ for cython_source in cython_sources:
                   language="c++")
     )
 
-# ext_modules = cythonize(ext_modules)
+if cythonize:
+    ext_modules = cythonize(ext_modules)
 
 setup(
     name='PyTorch',

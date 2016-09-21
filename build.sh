@@ -15,7 +15,6 @@ if [[ x${INCREMENTAL} == x ]]; then {
   rm -Rf build PyBuild.so dist *.egg-info cbuild ${TORCH_INSTALL}/lib/libPyTorch*
   pip uninstall -y PyTorch
 } fi
-# python setup.py build_ext -i || exit 1
 
 mkdir -p cbuild
 if [[ x${TORCH_INSTALL} == x ]]; then {
@@ -31,7 +30,7 @@ if [[ x${TORCH_INSTALL} == x ]]; then {
 
 if [[ $(uname -s) == 'Darwin' ]]; then { USE_LUAJIT=OFF; } fi
 if [[ x${USE_LUAJIT} == x ]]; then { USE_LUAJIT=ON; } fi
-if [[ x${CYTHON} != x ]]; then { python setup.py cython_only || exit 1; } fi
+if [[ x${CYTHON} != x ]]; then { JINJA2_ONLY=1 python setup.py || exit 1; } fi
 (cd cbuild; cmake .. -DCMAKE_BUILD_TYPE=Debug -DUSE_LUAJIT=${USE_LUAJIT} -DCMAKE_INSTALL_PREFIX=${TORCH_INSTALL} && make -j 4 install) || exit 1
 
 if [[ x${VIRTUAL_ENV} != x ]]; then {
