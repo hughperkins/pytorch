@@ -212,6 +212,10 @@ directly from python)
 * [pycltorch](https://github.com/hughperkins/pycltorch) python wrappers for [cltorch](https://github.com/hughperkins/cltorch) and [clnn](https://github.com/hughperkins/clnn)
 * [pycudatorch](https://github.com/hughperkins/pycudatorch) python wrappers for [cutorch](https://github.com/torch/cutorch) and [cunn](https://github.com/torch/cunn)
 
+# Support?
+
+Please note that currently, right now, I'm focused 100.000% on [cuda-on-cl](https://github.com/hughperkins/cuda-on-cl), so please be patient during this period
+
 # Recent news
 
 12 September:
@@ -263,4 +267,3 @@ byte, long, int
 * works with Python 3 now :-)
 
 [Older changes](doc/oldchanges.md)
-
